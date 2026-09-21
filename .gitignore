@@ -1,0 +1,26 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets
+.env
+
+# Data and model weights (large or separately licensed)
+data/raw/
+data/processed/
+artifacts/
+*.pt
+*.bin
+*.safetensors
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Frontend (Phase 12)
+node_modules/
+frontend/dist/
+
+# macOS
+.DS_Store
