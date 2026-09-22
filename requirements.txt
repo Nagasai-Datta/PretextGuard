@@ -1,6 +1,6 @@
 # PretextGuard dependencies. Exact versions (==) so every machine installs the same thing.
 # Grows phase by phase; each library is added in the phase that first uses it.
 
-# Phase 0: testing and dependency security audit
+# Phase 0: setup check and dependency security audit
 pip_audit==2.10.1
 pytest==9.1.1
