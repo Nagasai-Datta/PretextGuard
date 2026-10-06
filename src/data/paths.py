@@ -34,6 +34,7 @@ SPLIT_COUNTS_CSV = RESULTS_DIR / "split_counts.csv"
 # Files written by Phase 2 (src/preprocess)
 CLEANED_PARQUET = PROCESSED_DIR / "cleaned.parquet"
 PREPROCESS_SUMMARY_CSV = RESULTS_DIR / "preprocess_summary.csv"
+PREPROCESS_CHECKS_CSV = RESULTS_DIR / "preprocess_checks.csv"
 
 
 def relative(path):

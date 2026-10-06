@@ -5,16 +5,17 @@ Run from the project root (after the Phase 1 scripts):
 
 Reads  data/processed/staged.parquet (never modified)
 Writes data/processed/cleaned.parquet  = every staged column plus
-           has_url        the original email contained a link (text or hidden in HTML)
+           has_url        the original email contained a link (text, hidden in HTML, or spaced out)
            body_clean     readable text, quotes and list footers removed, links kept
            body_redacted  body_clean with [URL] [EMAIL] [FILE] [DOMAIN] placeholders
            signature      the signature block found in body_clean ('' if none)
        results/preprocess_summary.csv  per-source counts (committed)
+       results/preprocess_checks.csv   the checks below, as numbers (committed)
 
 What it prints is the check that Phase 2 worked: per-source counts, a search
 for anything link-like left in body_redacted, how often Kaggle's own urls
-column disagrees with the text, how many attacks are naturally link-free,
-and a few before/after examples.
+column disagrees with the text, how many emails are naturally link-free per
+split, and a few before/after examples.
 """
 
 import pandas as pd
@@ -23,6 +24,7 @@ from tqdm import tqdm
 from src.data.paths import (
     CLEANED_PARQUET,
     KAGGLE_DIR,
+    PREPROCESS_CHECKS_CSV,
     PREPROCESS_SUMMARY_CSV,
     RAW_DIR,
     RESULTS_DIR,
@@ -30,11 +32,12 @@ from src.data.paths import (
     relative,
 )
 from src.preprocess.clean import clean_body
-from src.preprocess.redact import EMAIL, URL, contains_url, redact
+from src.preprocess.redact import EMAIL, SPACED_EMAIL, SPACED_URL, URL, contains_url, redact
 
 # Kaggle files that have a "urls" column (Enron.csv and Ling.csv do not).
 KAGGLE_URL_FILES = ["CEAS_08.csv", "Nigerian_Fraud.csv"]
 PLACEHOLDERS = ["url", "email", "file", "domain"]
+SPLITS = ["train", "validation", "test"]
 EXAMPLE_SEED = 42
 
 
@@ -85,37 +88,44 @@ def summary_table(table, new):
     return summary.round(1)
 
 
-def leftover_check(redacted):
-    """Count redacted bodies that still contain anything link-like."""
-    checks = {
-        "a URL pattern": redacted.map(lambda t: URL.search(t) is not None),
-        "an email pattern": redacted.map(lambda t: EMAIL.search(t) is not None),
-        "'http'": redacted.str.contains("http", case=False, regex=False),
-        "'www.'": redacted.str.contains("www.", case=False, regex=False),
-        "'@'": redacted.str.contains("@", regex=False),
-    }
-    for label, hits in checks.items():
-        print(f"  rows with {label:<16} {int(hits.sum()):>7,}")
-    sample = redacted[checks["'http'"]].head(3)
+def leftover_check(redacted, sources, checks):
+    """Count redacted bodies that still match a link or address pattern, per source."""
+    patterns = {"URL": URL, "spaced URL": SPACED_URL, "email": EMAIL, "spaced email": SPACED_EMAIL}
+    hits = {label: redacted.map(lambda text, p=pattern: p.search(text) is not None)
+            for label, pattern in patterns.items()}
+    hits["'www.'"] = redacted.str.contains("www.", case=False, regex=False)
+    for label, found in hits.items():
+        total = int(found.sum())
+        checks.append(("leftover", label, total))
+        by_source = sources[found].value_counts()
+        detail = ", ".join(f"{source} {count}" for source, count in by_source.items()) or "none"
+        print(f"  rows with {label:<14} {total:>6,}   ({detail})")
+    sample = redacted[hits["'www.'"]].head(3)
     for text in sample:
-        at = text.lower().find("http")
+        at = text.lower().find("www.")
         print(f"    e.g. ...{text[max(0, at - 40):at + 60]!r}...")
 
 
 def print_examples(table, new):
-    """Show a few before/after examples: HTML attack emails from the training split."""
-    pool = table[(table["split"] == "train") & table["is_attack"] & new["was_html"]]
-    for index in pool.sample(n=min(3, len(pool)), random_state=EXAMPLE_SEED).index:
-        print(f"\n  [{table.at[index, 'source']}] {table.at[index, 'raw_ref']}")
-        print(f"    raw      : {table.at[index, 'body_raw'][:250]!r}")
-        print(f"    clean    : {new.at[index, 'body_clean'][:250]!r}")
-        print(f"    redacted : {new.at[index, 'body_redacted'][:250]!r}")
-        print(f"    signature: {new.at[index, 'signature'][:120]!r}")
+    """Show before/after examples: two HTML attack emails and one pre-tokenised Kaggle Enron email."""
+    train = table["split"] == "train"
+    pools = [
+        (table[train & table["is_attack"] & new["was_html"]], 2),
+        (table[train & (table["source"] == "kaggle_enron") & table["body_raw"].str.contains(" @ ", regex=False)], 1),
+    ]
+    for pool, n in pools:
+        for index in pool.sample(n=min(n, len(pool)), random_state=EXAMPLE_SEED).index:
+            print(f"\n  [{table.at[index, 'source']}] {table.at[index, 'raw_ref']}")
+            print(f"    raw      : {table.at[index, 'body_raw'][:250]!r}")
+            print(f"    clean    : {new.at[index, 'body_clean'][:250]!r}")
+            print(f"    redacted : {new.at[index, 'body_redacted'][:250]!r}")
+            print(f"    signature: {new.at[index, 'signature'][:120]!r}")
 
 
 def main():
     pd.set_option("display.width", 200)
     pd.set_option("display.max_columns", None)
+    checks = []  # (check, item, value) rows, saved to results/preprocess_checks.csv
 
     table = pd.read_parquet(STAGED_PARQUET)
     print(f"Read {relative(STAGED_PARQUET)}: {len(table):,} emails")
@@ -134,34 +144,42 @@ def main():
     temp.replace(CLEANED_PARQUET)  # the finished file appears in one step
 
     summary = summary_table(table, new)
-    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    summary.to_csv(PREPROCESS_SUMMARY_CSV)
-
     print("\nPer source (percentages of that source's emails)")
     print(summary.to_string())
 
     print("\nLeftover check on body_redacted (should be close to 0)")
-    leftover_check(new["body_redacted"])
+    leftover_check(new["body_redacted"], table["source"], checks)
 
     print("\nKaggle urls column vs links found in the text (CEAS-08 and Nigerian Fraud)")
     has_flag = kaggle_flag.notna()
-    print(pd.crosstab(
+    flag_table = pd.crosstab(
         new.loc[has_flag, "kaggle_url_flag"].astype(bool).rename("kaggle says link"),
         new.loc[has_flag, "text_has_url"].rename("link in text"),
-    ).to_string())
+    )
+    print(flag_table.to_string())
+    for kaggle_says in flag_table.index:
+        for text_says in flag_table.columns:
+            checks.append(("kaggle_urls_column", f"kaggle={kaggle_says} text={text_says}", int(flag_table.at[kaggle_says, text_says])))
 
     print("\nNaturally link-free emails (has_url is False), by split")
     link_free = ~new["has_url"]
-    print(pd.crosstab(
-        [table["is_attack"].rename("is_attack"), link_free.rename("link_free")],
-        table["split"],
-    )[["train", "validation", "test"]].to_string())
+    free_table = pd.crosstab(
+        [table["is_attack"].rename("is_attack"), link_free.rename("link_free")], table["split"]
+    ).reindex(columns=SPLITS, fill_value=0)
+    print(free_table.to_string())
+    for (is_attack, free), row in free_table.iterrows():
+        for split in SPLITS:
+            checks.append(("link_free", f"is_attack={is_attack} link_free={free} split={split}", int(row[split])))
 
-    print("\nExamples (HTML attack emails, training split)")
+    print("\nExamples (training split)")
     print_examples(table, new)
 
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    summary.to_csv(PREPROCESS_SUMMARY_CSV)
+    pd.DataFrame(checks, columns=["check", "item", "value"]).to_csv(PREPROCESS_CHECKS_CSV, index=False)
     print(f"\nSaved {relative(CLEANED_PARQUET)}")
     print(f"Saved {relative(PREPROCESS_SUMMARY_CSV)}")
+    print(f"Saved {relative(PREPROCESS_CHECKS_CSV)}")
 
 
 if __name__ == "__main__":

@@ -10,8 +10,13 @@ URLs go first so a URL's domain is not caught on its own; file names go before
 domains because some file endings are real top-level domains (invoice.zip).
 Words such as "see attached" stay: they are language, not payload.
 
+Each kind also has a "spaced" pattern for text stored pre-tokenised, with every
+punctuation mark set apart by spaces: "john @ enron . com", "http : / / site . com".
+The Kaggle Enron and Ling files are stored like that, and some phishing spaces
+out links on purpose to slip past filters.
+
 contains_url(text) answers "did this email have a link?" on the raw body,
-including link targets hidden inside HTML.
+including link targets hidden inside HTML and spaced-out links.
 
 Security: every pattern is written so attacker-written text cannot make it
 backtrack for minutes (ReDoS): repeats are bounded (for example at most 64
@@ -38,6 +43,23 @@ DOMAIN_CANDIDATE = re.compile(
 )
 TRAILING_PUNCTUATION = ".,;:!?"
 
+# Spaced forms ("tokenised" text). Each needs strong evidence, because in such text an
+# ordinary sentence end also looks like " . ": "the end . it was" must not become a domain.
+# A URL needs its scheme (http : / /) or www plus two more labels; an email needs " @ " and a
+# dotted domain; a domain needs one of a few unambiguous endings; a file needs a common
+# attachment ending.
+SPACED_URL = re.compile(
+    r"\b(?:https?|hxxps?|ftp) ?: ?/ ?/ ?[a-z0-9-]{1,63}(?: ?\. ?[a-z0-9-]{1,63}){0,10}(?: ?/ ?[\w~%+=&?-]{1,100}){0,20}"
+    r"|\bwww ?\. ?[a-z0-9-]{1,63}(?: ?\. ?[a-z0-9-]{1,63}){1,10}(?: ?/ ?[\w~%+=&?-]{1,100}){0,20}",
+    re.IGNORECASE,
+)
+SPACED_EMAIL = re.compile(
+    r"\b[a-z0-9_%+-]{1,64}(?: ?\. ?[a-z0-9_%+-]{1,64}){0,5} @ [a-z0-9-]{1,63}(?: ?\. ?[a-z0-9-]{1,63}){1,8}\b",
+    re.IGNORECASE,
+)
+SPACED_FILE = re.compile(r"\b[\w-]{1,100} \. (?:pdf|docx?|xlsx?|pptx?|rtf|csv|txt|zip|rar|exe|html?|png|jpe?g|gif)\b", re.IGNORECASE)
+SPACED_DOMAIN = re.compile(r"\b[a-z0-9-]{1,63}(?: \. [a-z0-9-]{1,63}){0,8} \. (?:com|net|org|edu|gov|mil|info|biz)\b", re.IGNORECASE)
+
 # suffix_list_urls=() means: never download the list, use the copy shipped inside tldextract.
 _extract = tldextract.TLDExtract(suffix_list_urls=())
 
@@ -59,9 +81,15 @@ def _replace_url(match):
 def redact(text):
     """Return (redacted text, counts) where counts says how many of each placeholder were used."""
     counts = {}
-    text, counts["url"] = URL.subn(_replace_url, text)
-    text, counts["email"] = EMAIL.subn("[EMAIL]", text)
-    text, counts["file"] = FILE.subn("[FILE]", text)
+    text, normal = URL.subn(_replace_url, text)
+    text, spaced = SPACED_URL.subn("[URL]", text)
+    counts["url"] = normal + spaced
+    text, normal = EMAIL.subn("[EMAIL]", text)
+    text, spaced = SPACED_EMAIL.subn("[EMAIL]", text)
+    counts["email"] = normal + spaced
+    text, normal = FILE.subn("[FILE]", text)
+    text, spaced = SPACED_FILE.subn("[FILE]", text)
+    counts["file"] = normal + spaced
 
     domain_count = 0
 
@@ -73,10 +101,11 @@ def redact(text):
         return match.group(0)  # "Mr.Smith", "e.g", "version1.2" stay as they are
 
     text = DOMAIN_CANDIDATE.sub(replace_domain, text)
-    counts["domain"] = domain_count
+    text, spaced = SPACED_DOMAIN.subn("[DOMAIN]", text)
+    counts["domain"] = domain_count + spaced
     return text, counts
 
 
 def contains_url(text):
-    """True if the text contains a URL anywhere, including inside HTML attributes such as href."""
-    return URL.search(text) is not None
+    """True if the text contains a URL anywhere: normal, spaced-out, or inside HTML attributes such as href."""
+    return URL.search(text) is not None or SPACED_URL.search(text) is not None

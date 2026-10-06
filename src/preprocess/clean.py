@@ -15,8 +15,8 @@ Security: the same functions run on attacker-written email in the API
 (Phase 11). HTML is parsed as data only (never rendered, no scripts run,
 nothing fetched), every regular expression is written so crafted input cannot
 make it backtrack for minutes (ReDoS: bounded repeats, no look-ahead over long
-text), and bodies are capped. Each defence was tested on crafted 200,000-character
-inputs; the slowest takes under a second.
+text), and bodies are capped. Each defence was tested on 31 crafted inputs of
+up to 200,000 characters; the slowest takes under two seconds.
 """
 
 import html
@@ -36,13 +36,16 @@ MAX_LINE_BREAKS = 3000  # more block tags than this: skip the line breaks (see h
 MAX_LINKS = 500         # annotate at most this many links per email
 
 # Markers that start quoted or forwarded history. Text from the earliest marker on is removed.
+# "(?:- ?)" also matches the spaced dashes of pre-tokenised text ("- - - - - original message").
 QUOTE_MARKERS = [
-    re.compile(r"-{2,40}\s{0,5}Original Message\s{0,5}-{2}", re.IGNORECASE),  # Outlook
-    re.compile(r"-{2,40}\s{0,5}Forwarded message\s{0,5}-{2}", re.IGNORECASE),  # Gmail
-    re.compile(r"-{2,40}\s{0,5}Forwarded by\b", re.IGNORECASE),               # Lotus Notes (Enron)
-    re.compile(r"\bBegin forwarded message:", re.IGNORECASE),         # Apple Mail
-    re.compile(r"\bOn [^\n]{1,300}? wrote:"),                         # "On Mon, 5 Aug, Bob wrote:"
-    re.compile(r"\bFrom: [^\n]{1,200}?\bSent: "),                     # Outlook reply header
+    re.compile(r"(?:- ?){2,40}\s{0,5}Original Message", re.IGNORECASE),             # Outlook
+    re.compile(r"(?:- ?){2,40}\s{0,5}Forwarded message", re.IGNORECASE),            # Gmail
+    re.compile(r"(?:- ?){2,40}\s{0,5}Forwarded by\b", re.IGNORECASE),               # Lotus Notes (Enron)
+    re.compile(r"(?:- ?){10,40}\s{0,5}(?:To|From) ?: ", re.IGNORECASE),             # forwarded header after a dash line
+    re.compile(r"\bBegin forwarded message ?:", re.IGNORECASE),                     # Apple Mail
+    re.compile(r"\bOn [^\n]{1,300}? wrote ?:"),                                     # "On Mon, 5 Aug, Bob wrote:"
+    re.compile(r"\bFrom ?: [^\n]{1,200}?\bSent ?: ", re.IGNORECASE),                # Outlook reply header
+    re.compile(r"\bcc ?: [^\n]{0,200}?\bSubject ?: ", re.IGNORECASE),               # header block of a forward
 ]
 QUOTED_LINE = re.compile(r"^[ \t]*>")  # a line that starts with ">" quotes an earlier message
 

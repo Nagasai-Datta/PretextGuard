@@ -1,0 +1,22 @@
+check,item,value
+leftover,URL,0
+leftover,spaced URL,0
+leftover,email,0
+leftover,spaced email,0
+leftover,'www.',45
+kaggle_urls_column,kaggle=False text=False,14046
+kaggle_urls_column,kaggle=False text=True,594
+kaggle_urls_column,kaggle=True text=False,322
+kaggle_urls_column,kaggle=True text=True,26342
+link_free,is_attack=False link_free=False split=train,28036
+link_free,is_attack=False link_free=False split=validation,5858
+link_free,is_attack=False link_free=False split=test,5978
+link_free,is_attack=False link_free=True split=train,27269
+link_free,is_attack=False link_free=True split=validation,5990
+link_free,is_attack=False link_free=True split=test,5880
+link_free,is_attack=True link_free=False split=train,11013
+link_free,is_attack=True link_free=False split=validation,2371
+link_free,is_attack=True link_free=False split=test,2349
+link_free,is_attack=True link_free=True split=train,3224
+link_free,is_attack=True link_free=True split=validation,660
+link_free,is_attack=True link_free=True split=test,696
