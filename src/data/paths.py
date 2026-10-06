@@ -26,6 +26,8 @@ APACHE_DIR = RAW_DIR / "apache"
 
 # Files written by later Phase 1 scripts
 STAGED_PARQUET = PROCESSED_DIR / "staged.parquet"
+STAGED_COUNTS_CSV = RESULTS_DIR / "staged_counts.csv"
+DEDUP_PAIRS_CSV = RESULTS_DIR / "dedup_pairs.csv"
 HEADER_COVERAGE_CSV = RESULTS_DIR / "header_coverage.csv"
 
 

@@ -1,0 +1,13 @@
+source,fraud,ham,phishing,spam,total
+apache_kafka_users,0,1055,0,0,1055
+apache_tomcat_users,0,2135,0,0,2135
+kaggle_ceas08,0,17253,0,20824,38077
+kaggle_enron,0,15420,0,13699,29119
+kaggle_ling,0,2392,0,458,2850
+kaggle_nazario,0,0,1443,0,1443
+kaggle_nigerian_fraud,3227,0,0,0,3227
+kaggle_spamassassin,0,1466,0,938,2404
+nazario,0,0,9595,0,9595
+phishing_pot,0,0,7491,0,7491
+spamassassin,0,4099,0,1676,5775
+total,3227,43820,18529,37595,103171
