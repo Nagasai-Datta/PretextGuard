@@ -14,9 +14,9 @@ Project Master Document
 
 **Faculty:** Dr. Arun Prasath G
 
-**Version:** 3.3, 6 October 2026
+**Version:** 3.4, 6 October 2026
 
-> **This is the single source of truth for the project.** Version 3.3 supersedes version 3.2 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
+> **This is the single source of truth for the project.** Version 3.4 supersedes version 3.3 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
 
 **Contents**
 
@@ -147,7 +147,7 @@ This document is written so that a person or an AI assistant can pick up Pretext
 </tr>
 <tr class="even">
 <td>Current status</td>
-<td>Phases 0 and 1 complete. Phase 1 (6 Oct 2026) built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table, a fixed 70/15/15 split and the READMEs. Phase 2 (cleaning and N1 redaction) is next.</td>
+<td>Phases 0 to 2 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 (parser and header evidence extractor) is next.</td>
 </tr>
 <tr class="odd">
 <td>Repository</td>
@@ -268,11 +268,11 @@ An email is a plain text file: headers (the envelope: who sent it, to whom, how 
 
 ## 4.2 N1: payload-free evaluation protocol
 
-**What:** before training or inference, the body is redacted. URLs become \[URL\], bare domains become \[DOMAIN\], attachment file names become \[FILE\]. Words such as "see attached" stay, because they are language, not payload.
+**What:** before training or inference, the body is redacted. URLs become \[URL\], email addresses become \[EMAIL\], attachment file names become \[FILE\], bare domains become \[DOMAIN\] (Section 8.10). Words such as "see attached" stay, because they are language, not payload.
 
 **Why:** machine learning models take the cheapest shortcut to a correct answer. In phishing datasets, a suspicious link predicts the label, so a model can reach 97 to 99% by reading links instead of manipulation. Real pretexting has no link, so the shortcut does not exist in the real attack.
 
-**Experiment:** the task is binary attack-vs-benign detection, because the shortcut claim is about phishing detectors. Train model A on raw bodies (prior-work style) and model B on redacted bodies, both DistilBERT; a TF-IDF plus logistic regression pair is a cheap second check. Test both on three views of the same held-out set: raw, redacted, and the naturally link-free subset (emails that had no URL before redaction). The hypothesis is that A drops sharply from raw to redacted and B holds. Report the measured numbers whatever they are.
+**Experiment:** the task is binary attack-vs-benign detection, because the shortcut claim is about phishing detectors. Train model A on raw bodies (prior-work style) and model B on redacted bodies, both DistilBERT; a TF-IDF plus logistic regression pair is a cheap second check. Test both on three views of the same held-out set: raw, redacted, and the naturally link-free subset (emails that had no URL before redaction). Phase 2 measured the test split: 696 attacks and 5,880 benign emails are naturally link-free (results/preprocess_checks.csv). The hypothesis is that A drops sharply from raw to redacted and B holds. Report the measured numbers whatever they are.
 
 ## 4.3 N2: thread consistency verification
 
@@ -390,7 +390,7 @@ It is presented on the architecture slide as the system design the three claims 
 |---|---|---|---|---|
 | Parser | Raw .eml bytes, pasted text, or a thread | Headers, body, thread links | Python email stdlib (email.parser with policy.default); mailbox for .mbox files | src/headers |
 | Header evidence extractor | Headers + organisation domain(s) | Evidence dict: auth results (or unknown), From name/address/domain, Reply-To, Return-Path, Received chain, send hour, freemail flag, lookalike score vs organisation and claimed domains | email.utils, tldextract, rapidfuzz, freemail domain list | src/headers |
-| Body preprocessor | Body | Clean text and redacted text (N1) | Regex, HTML stripping, quote and signature splitting | src/preprocess |
+| Body preprocessor | Body | Clean text (links kept), redacted text (N1), signature | BeautifulSoup HTML to text; list footer and quoted history removed; ReDoS-safe regular expressions; tldextract with its offline public suffix list (Section 8.10) | src/preprocess |
 | Thread builder | Several messages | Ordered thread, per-message evidence, quoted history | Message-ID, In-Reply-To, References; fallback for Enron: normalised subject, participants and quote matching | src/thread |
 | Claim extractor | Redacted body and signature block | Typed claims (affiliation_internal, affiliation_external, authority, relationship, request types) with text span, claimed organisation and confidence | DistilBERT 7-head tactic classifier + spaCy NER + regex patterns | src/claims |
 | Claim router | Claims | Claim-to-verifier assignments | Rule table (Section 6.4) | src/router |
@@ -631,7 +631,7 @@ The schema is filled in stages, so no phase depends on a later one. The phase th
 ```
 id, source, category, is_attack, has_full_headers,
 raw_ref, raw_headers, body_raw, split                      (Phase 1)
-body_clean, body_redacted, has_url                         (Phase 2)
+body_clean, body_redacted, has_url, signature              (Phase 2)
 from_name, from_addr, from_domain, reply_to,
 return_path, date, subject, org_domain,
 auth_results (spf, dkim, dmarc or unknown),
@@ -678,7 +678,8 @@ thread_id, thread_position                                 (Phase 9)
 | Downloads, never modified | data/raw/\<source\>/ | No (large, separately licensed) | 1 |
 | One table of every unique email, with the split column | data/processed/staged.parquet | No | 1 |
 | Phase 1 count tables (staged counts, duplicates, header coverage, split) | results/ | Yes | 1 |
-| Plus clean and redacted bodies | data/processed/ | No | 2 |
+| Plus clean and redacted bodies (staged.parquet is never modified) | data/processed/cleaned.parquet | No | 2 |
+| Phase 2 checks (per-source summary, leftover check, link-free counts) | results/preprocess_summary.csv, results/preprocess_checks.csv | Yes | 2 |
 | Plus header evidence columns | data/processed/ | No | 3 |
 | Annotation batches, raw chatbot replies, final labels | data/labelled/ | Yes (small; proof of method) | 5 |
 | Synthetic emails | data/synthetic/ | Yes | 5 and 9 |
@@ -689,6 +690,24 @@ thread_id, thread_position                                 (Phase 9)
 | Report and slides | docs/ | Yes | 14 |
 
 At run time nothing is stored: the email lives in memory for one request, and logs hold only metadata (time, request ID, score), never content.
+
+## 8.10 Phase 2 cleaning and redaction
+
+- **Output:** data/processed/cleaned.parquet holds every staged column plus has_url, body_clean, body_redacted and signature. staged.parquet is never modified: each phase writes its own file, so a mistake in one phase cannot damage the output of an earlier one.
+
+- **body_clean:** HTML converted to text with BeautifulSoup and Python's built-in parser (scripts, styles and \<blockquote\> replies dropped; each link's hidden target written after its text, so model A sees links that HTML hides); a mailing-list footer removed (it would mark a message as list mail, so ham); quoted history removed from the earliest reply marker and every line starting with "\>" (the whole text is kept if nothing readable remains); whitespace collapsed for every source. Links stay in: body_clean is N1 model A's raw view.
+
+- **signature:** a "-- " line, or a closing such as "Best regards," near the end. It stays inside body_clean (affiliation claims live there) and is copied to its own column for Phase 7.
+
+- **body_redacted:** \[URL\], \[EMAIL\], \[FILE\] and \[DOMAIN\], applied in that order. URLs go first so a link's domain is not caught on its own; file names go before domains because some file endings are real top-level domains (invoice.zip). A domain must end in a real public suffix (tldextract, with its built-in list and no downloads), so Mr.Smith and e.g stay. \[EMAIL\] is a fourth placeholder added in Phase 2: an address hides a domain.
+
+- **has_url:** a link in the raw body (text, HTML attributes or spaced out), or Kaggle's own urls column for CEAS-08 and Nigerian Fraud. That column flags 322 emails whose links Kaggle's cleanup had removed from the text; the text shows links in 594 emails the column does not flag (results/preprocess_checks.csv).
+
+- **Pre-tokenised Kaggle text:** the Kaggle Enron and Ling files are stored lowercase with every punctuation mark set apart ("john @ enron . com", "http : / / site . com"). The first version left spaced links or addresses in 13,107 Enron and 2,192 Ling redacted bodies, and missed Enron's spaced quote markers. Each placeholder now has a spaced pattern that needs strong evidence (a scheme, www plus two labels, " @ " with a dotted domain, or one of .com .net .org .edu .gov .mil .info .biz), because in such text an ordinary sentence end also looks like " . ". Some phishing spaces out links on purpose, so the same patterns help there.
+
+- **Results:** after redaction no body matches the URL, spaced URL, email or spaced email patterns; 45 bodies keep a stray "www.". 4,580 attacks are naturally link-free (3,224 train, 660 validation, 696 test) against 39,139 link-free benign emails (5,880 in test), so N1's third view is large enough to measure. 335 bodies are empty after cleaning (mostly image-only HTML phishing) and 233 were cut at 200,000 characters; both stay in the table. Per-source figures: results/preprocess_summary.csv.
+
+- **Security:** see Section 10 (ReDoS-safe processing, offline suffix list, redaction before data leaves the machine).
 
 # 9. Technology stack
 
@@ -701,6 +720,7 @@ At run time nothing is stored: the email lives in memory for one request, and lo
 | Header parsing | email stdlib, mailbox, tldextract, rapidfuzz | Parsing, .mbox reading, domain splitting, lookalike and organisation-name matching |
 | Data and baseline | pandas, pyarrow, scikit-learn | Tables in memory, Parquet files, keyword baseline, metrics |
 | Downloads and progress (Phase 1) | requests, tqdm | Fetching the Apache list archives; progress bars for long runs |
+| Cleaning (Phase 2) | beautifulsoup4 4.15.0, tldextract 5.4.0 | HTML to text; public suffix list for domain redaction (built-in copy, no downloads) |
 | Testing | pytest | One environment check only (tests/test_environment.py); no unit tests per phase |
 | Explainability | LIME (SHAP only if time) | Word-level highlights; attention-as-explanation is academically contested |
 | Backend | FastAPI + Pydantic + slowapi | The model lives in Python; schema validation; rate limiting |
@@ -722,6 +742,8 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | Input validation | Size cap (for example 100 KB per email), content-type checks, .eml structure checks, Pydantic schemas | A03 Injection |
 | Safe parsing | Attachments are never opened or executed; limit on nested MIME depth and message count per thread | A04 Insecure Design |
 | Safe data handling (build time) | Downloaded archives unpacked with path-traversal checks (tarfile data filter, zip names checked) and a 5 GB limit; file types checked by their first bytes; raw data made read-only; attachments never decoded; Kaggle values squashed onto one line before they become header lines (header injection) | A08 Software and Data Integrity Failures |
+| ReDoS-safe text processing | The cleaning and redaction functions will run on attacker-written email in the API, so every pattern has bounded repeats and no look-ahead over long text, and bodies are capped at 200,000 characters. Testing on 31 crafted inputs found two real bugs (a footer pattern that ran for hours on 200,000 dashes; 10 seconds on 20,000 nested HTML tags); after the fixes the slowest input takes under two seconds | A04 Insecure Design (denial of service) |
+| Redaction before data leaves the machine | Annotation batches sent to outside web chats (Phase 5) use body_redacted only: no real addresses, no live links. tldextract never downloads its suffix list | A02 / privacy by design |
 | Output encoding (XSS) | Email bodies are attacker-controlled. Render as text; highlights are built from escaped text; no dangerouslySetInnerHTML; DOMPurify if HTML is ever shown. Test with real XSS payloads from the corpus. | A03 Injection (XSS) |
 | PII redaction | Email addresses, phone numbers and account numbers redacted before any logging | A09 Logging Failures |
 | Rate limiting | slowapi per-IP limits on the analysis endpoint | A04 Insecure Design |
@@ -764,8 +786,8 @@ For each phase, the assistant explains the background, then provides every file 
 |---|---|---|---|
 | 0 | Environment: Python 3.12, venv, VS Code, Git, GitHub CLI, folder structure, requirements, .gitignore, .env.example, pytest smoke test, pip-audit | repo root | Done (Sep 2026) |
 | 1 | Data acquisition (paths, unpack, Apache fetch, loaders, stage, coverage and split scripts): Kaggle merge, raw SpamAssassin, raw Nazario, phishing_pot, raw Enron, Apache list archives; staged.parquet; header coverage table; Enron thread-header check; 70/15/15 split; root README and one README per major folder | src/data | Done (6 Oct 2026) |
-| 2 | Preprocessing and payload-free redaction (N1) | src/preprocess | Not started (next) |
-| 3 | Parser and header evidence extractor; fills the header columns; organisation domain handling | src/headers | Not started |
+| 2 | Preprocessing and payload-free redaction (N1) | src/preprocess | Done (6 Oct 2026) |
+| 3 | Parser and header evidence extractor; fills the header columns; organisation domain handling | src/headers | Not started (next) |
 | 4 | Keyword baseline | src/baseline | Not started |
 | 5 | Tactic and claim labels: batch prompt builder, web-chat annotation (Gemini, DeepSeek, z.ai tie-break), schema validation, Cohen's kappa, SemEval 23-to-7 mapping; synthetic emails via web chats into data/synthetic/ | src/data | Not started |
 | 6 | DistilBERT tactic classifier on Colab (optional SemEval pretraining) | src/models | Not started |
@@ -842,7 +864,7 @@ Planned file names; each phase may adjust them. The root and major-folder README
 |---|---|---|---|
 | src/data | paths.py, unpack.py, fetch_apache.py, loaders.py, stage.py, coverage.py, split.py | Folder paths; check and safely unpack the downloads; fetch the Apache list archives; one reader per source format; dedupe and write staged.parquet; header coverage table; grouped train/validation/test split | 1 (done) |
 | src/data | batches.py, validate_labels.py, agreement.py, semeval_map.py, synthetic.py | Annotation batch prompts; reply validation; Cohen's kappa; SemEval 23-to-7 mapping; synthetic email prompts and loading | 5 |
-| src/preprocess | clean.py, redact.py | HTML stripping, quote and signature splitting; N1 redaction | 2 |
+| src/preprocess | clean.py, redact.py, build.py | HTML to text, list footer and quote removal, signature; N1 redaction (\[URL\] \[EMAIL\] \[FILE\] \[DOMAIN\], including spaced forms); build writes cleaned.parquet and the checks | 2 (done) |
 | src/headers | parser.py, evidence.py, domains.py | Raw email to headers, body and thread links; evidence dict; freemail and brand lists, organisation domain | 3 |
 | src/baseline | keywords.py | Word lists per tactic and a scorer | 4 |
 | src/models | dataset.py, train.py, predict.py | Training data preparation; fine-tuning on Colab; loading weights and predicting 7 tactic probabilities | 6 |
@@ -896,6 +918,8 @@ Planned file names; each phase may adjust them. The root and major-folder README
 
 - .eml, mbox and maildir; MIME parts, transfer encodings and character sets; generators; pandas DataFrames and Parquet; hashing for deduplication and train-test leakage; stratified, grouped and hash-based splits; the header coverage table; magic bytes, path traversal, decompression bombs and header injection (Phase 1).
 
+- Shortcut learning and why redaction matters; HTML parsing with BeautifulSoup; regular expressions, replacement order and ReDoS; the public suffix list; email quoting and signature conventions; pre-tokenised text (Phase 2).
+
 To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid outputs vs softmax, why a 0.5 threshold is usually wrong, Cohen's kappa, LIME, FastAPI basics, the thread-hijack benchmark, the claim router, affiliation claims in code.
 
 # 14. Decisions log
@@ -947,16 +971,24 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 | 6 Oct 2026 | Files that contain code fences (READMEs) are delivered as downloadable files with mv commands, never as paste blocks; Claude Code on the web can attach files | A README paste block broke at its first inner fence |
 | 6 Oct 2026 | Version 3.3: Phase 1 results folded into Sections 2, 4.3, 6.5, 8, 9, 10, 12, 13.1, 15, 16 and 17 | End of Phase 1 |
 | 6 Oct 2026 | Every file arrives as a download with one mv block (no paste blocks when files can be attached); each phase is folded into two or three steps | Nagasai's request after Phase 1 |
+| 6 Oct 2026 | body_clean keeps links (hidden HTML link targets written after the link text); quoted history and list footers removed; signature kept and copied to its own column; whitespace collapsed for every source | N1 model A needs the links; footers and spacing are source cues; claims live in signatures |
+| 6 Oct 2026 | \[EMAIL\] added as a fourth placeholder; order \[URL\], \[EMAIL\], \[FILE\], \[DOMAIN\]; domains checked against tldextract's built-in public suffix list | An address hides a domain; .zip is a top-level domain; no network calls |
+| 6 Oct 2026 | has_url from the raw body (text, HTML attributes, spaced forms) plus Kaggle's urls column for CEAS-08 and Nigerian Fraud | The link-free view must exclude emails whose links were lost in Kaggle's cleanup |
+| 6 Oct 2026 | Each phase writes its own Parquet file (cleaned.parquet); earlier files are never modified | A mistake in one phase cannot damage an earlier one |
+| 6 Oct 2026 | Kaggle Enron and Ling found pre-tokenised; spaced patterns added for all four placeholders and for quote markers | 13,107 Enron and 2,192 Ling redacted bodies still held spaced links or addresses |
+| 6 Oct 2026 | ReDoS hardening of src/preprocess: bounded patterns, footer search rewritten, line breaks skipped for tag-heavy HTML | Two real backtracking bugs found in testing; the same code will clean attacker email in the API |
+| 6 Oct 2026 | Phase 2 complete: no link or address pattern left after redaction (45 stray "www."), 4,580 naturally link-free attacks (696 in test) | Phase 3 can start |
+| 6 Oct 2026 | Version 3.4: Phase 2 folded into Sections 2, 4.2, 6.2, 8.7, 8.9, 8.10 (new), 9, 10, 12, 13.1, 15 and 16 | End of Phase 2 |
 
 # 15. Open items and next actions
 
-1.  **Start Phase 2** (cleaning and N1 redaction) in a new chat with docs/PretextGuard_Context.md and this document.
+1.  **Start Phase 3** (parser and header evidence extractor) in a new chat with docs/PretextGuard_Context.md and this document.
 
-2.  **Replace the project-file copy** with v3.3 (remove older copies) and keep docs/ in the repo current.
+2.  **Replace the project-file copy** with v3.4 (remove older copies) and keep docs/ in the repo current.
 
 3.  **Update the Review deck** when needed: novelty slide (N1, N2, N3 and the architecture contribution), the architecture diagram (Figure 2), the corrected running example (authentication passes for gmail.com), and the literature table (add Mithun et al. 2024, Ho et al. 2019, Valecha et al. 2022, ConvoSentinel, Aggarwal et al. 2014).
 
-4.  **Phase 2 notes from Phase 1:** the Kaggle bodies still in use were reprocessed by the merge (line breaks collapsed, \<...\> stripped), so normalise whitespace for every source to remove that source cue; for the naturally link-free view, use Kaggle's own urls column (readable through raw_ref), because stripping \<...\> may have removed links from the text; raw bodies from SpamAssassin, Nazario and phishing_pot often hold raw HTML.
+4.  **Phase 3 notes from Phases 1 and 2:** every Apache message has a Reply-To set by the list and a List-Id, which is list mail, not Reply-To divergence; Kaggle rows carry only a rebuilt header block (From, To, Date, Subject; Enron and Ling Subject only), so their header evidence is mostly unknown; Authentication-Results exists only where the coverage table says (Section 8.1); the To domain is meaningless as an organisation domain where To is the collector (Nazario mail goes to monkey.org) or anonymised (phishing_pot), so internal-affiliation checks there must be recorded as not checkable.
 
 5.  **Before Phase 5:** review the annotation prompt, the JSON schema and the batch size together.
 
@@ -965,6 +997,8 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 7.  **Calibrate** risk score weights and bands on the validation split (Phase 10).
 
 8.  **Decide late** whether SemEval pretraining runs (only if time allows).
+
+9.  **Later phases:** Kaggle Enron and Ling bodies are lowercase and tokenised; DistilBERT-uncased and TF-IDF see the same tokens either way, but a cased model would not (Phase 6). The naturally link-free attacks come mostly from Nigerian Fraud, Nazario and phishing_pot; report per-source shares with the N1 results (Phase 13). Models skip the 335 bodies that are empty after cleaning.
 
 # 16. Glossary
 
@@ -1010,6 +1044,9 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 | Magic bytes | The fixed first bytes of a file format (zip files start with PK); a reliable type check, unlike the file name |
 | Path traversal | An archive member named like ../../file that would be written outside its folder; refused when unpacking |
 | Grouped split | A split that keeps related emails (a thread, a campaign) together on one side of the train/test line |
+| Placeholder | A fixed token such as \[URL\] that replaces a link, address, file name or domain in body_redacted |
+| Pre-tokenised text | Text stored with every punctuation mark set apart by spaces ("john @ enron . com"), as in the Kaggle Enron and Ling files |
+| ReDoS | Regular-expression denial of service: crafted text that makes a pattern try millions of ways to match |
 
 # 17. References
 

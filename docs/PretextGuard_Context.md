@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: 6 October 2026, written at the end of Phase 1, to go with master document v3.3.
+Version: 6 October 2026, written at the end of Phase 2, to go with master document v3.4.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -167,70 +167,61 @@ propose them again as novelty. Stack choices are never novelty (faculty rule).
 | Repository | github.com/Nagasai-Datta/PretextGuard, public by Nagasai's choice, branch `main` |
 | Colab | Python 3.12; pin torch and transformers to the same versions locally and on Colab |
 | Phase 1 libraries | pandas 3.0.6, pyarrow 25.0.1, requests 2.34.2, tqdm 4.70.1 (pinned in `requirements.txt`) |
-| Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB |
+| Phase 2 libraries | beautifulsoup4 4.15.0, tldextract 5.4.0 (pinned) |
+| Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2) |
 | Rule | Always work from the project root, never from `src/` |
 
 ---
 
-## 4. Current state of the repository (end of Phase 1)
+## 4. Current state of the repository (end of Phase 2)
 
 ```
 pretextguard/
-  README.md                  end-to-end overview (Phase 1 version)
+  README.md                  end-to-end overview
   CLAUDE.md                  points Claude Code at this file
   .vscode/settings.json      VS Code uses venv/bin/python; pytest enabled
   .gitignore  .env (local)  .env.example  pytest.ini  requirements.txt
   venv/                      Python 3.12.14 (ignored)
   data/README.md             every source, licence, stage and how to rebuild
   data/raw/                  downloads and unpacked archives, read-only (ignored)
-  data/processed/            staged.parquet (ignored)
+  data/processed/            staged.parquet (Phase 1), cleaned.parquet (Phase 2) (ignored)
   data/labelled/.gitkeep  data/threads/.gitkeep
   artifacts/README.md        everything else in artifacts/ is ignored
   results/README.md  staged_counts.csv  dedup_pairs.csv  header_coverage.csv  split_counts.csv
+                     preprocess_summary.csv  preprocess_checks.csv
   notebooks/README.md  frontend/.gitkeep
-  docs/README.md  master_document.md (v3.3)  PretextGuard_Master_Document_v3.2.docx (snapshot)
+  docs/README.md  master_document.md (v3.4)  PretextGuard_Master_Document_v3.2.docx (snapshot)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
                              coverage.py  split.py
-  src/{preprocess,headers,thread,models,claims,verifiers,router,explain,baseline,eval,api}/__init__.py
-                             (all empty)
-  tests/test_environment.py  16 checks (unchanged): Python 3.12, inside ./venv, every src package
-                             imports, ".env" is a line in .gitignore, .env.example exists
+  src/preprocess/            README.md  clean.py  redact.py  build.py
+  src/{headers,thread,models,claims,verifiers,router,explain,baseline,eval,api}/__init__.py  (all empty)
+  tests/test_environment.py  16 checks (unchanged)
 ```
 
-`data/raw/` on Nagasai's Mac:
+`data/raw/` is unchanged since Phase 1 (layout: master document Section 8.8 and `data/README.md`).
 
-```
-kaggle/phish_no_more.zip      + phish_no_more/ (7 CSVs; CEAS_08, Enron, Ling, Nigerian_Fraud are read)
-spamassassin/<5 .tar.bz2>     + one unpacked folder per archive (easy_ham, easy_ham_2, hard_ham, spam, spam_2)
-nazario/                      17 mbox files: phishing0-3.mbox, 20051114.mbox, private-phishing4.mbox,
-                              phishing-2015.txt ... phishing-2025.txt
-phishing_pot/phishing_pot-main.zip + phishing_pot-main/phishing_pot-main/email/*.eml (8,614 files)
-enron/enron_mail_20150507.tar.gz   + enron_mail_20150507/maildir/ (517,401 files)
-apache/tomcat_users/YYYY-MM.mbox, apache/kafka_users/YYYY-MM.mbox (Oct 2024 to Sep 2026)
-```
-
-The staged table, `data/processed/staged.parquet`: 99,324 unique emails, columns
+**The tables.** `data/processed/staged.parquet` (Phase 1, never modified): 99,324 unique emails with
 `id, source, category, is_attack, has_full_headers, raw_ref, raw_headers, body_raw, split`.
+`data/processed/cleaned.parquet` (Phase 2): the same rows and columns plus `has_url, body_clean,
+body_redacted, signature`. Sources: kaggle_ceas08 38,077, kaggle_enron 29,119, kaggle_ling 2,850,
+kaggle_nigerian_fraud 3,227, nazario 9,595, phishing_pot 7,491, spamassassin 5,775,
+apache_tomcat_users 2,135, apache_kafka_users 1,055. Totals: 42,354 ham, 36,657 spam, 17,086
+phishing, 3,227 fraud (20,313 attacks). Split: 69,542 train, 14,879 validation, 14,903 test.
 
-| Source | Rows | Notes |
-|---|---|---|
-| kaggle_ceas08 | 38,077 | 17,253 ham, 20,824 spam; header block rebuilt from CSV columns |
-| kaggle_enron | 29,119 | 15,420 ham, 13,699 spam; Subject only |
-| kaggle_ling | 2,850 | 2,392 ham, 458 spam; Subject only |
-| kaggle_nigerian_fraud | 3,227 | fraud |
-| nazario | 9,595 | phishing, full headers |
-| phishing_pot | 7,491 | phishing, full headers |
-| spamassassin | 5,775 | 4,099 ham, 1,676 spam, full headers |
-| apache_tomcat_users | 2,135 | ham, full headers |
-| apache_kafka_users | 1,055 | ham, full headers |
+**Phase 2 in brief** (master document Section 8.10):
+- `clean_body(raw)` and `redact(text)` in `src/preprocess` work on one string at a time; the API
+  (Phase 11) will reuse them unchanged.
+- `body_clean` keeps links (N1 model A's raw view); `body_redacted` has `[URL] [EMAIL] [FILE] [DOMAIN]`.
+- Kaggle Enron and Ling are stored pre-tokenised ("john @ enron . com"); spaced patterns handle them.
+- After redaction no body matches a link or address pattern (45 keep a stray "www."); 4,580 attacks
+  are naturally link-free (696 in test).
+- Every pattern is ReDoS-safe; two real backtracking bugs were found and fixed in testing.
 
-Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). Split: 69,542
-train, 14,879 validation, 14,903 test. Header coverage highlights: Authentication-Results on 99.5% of
-phishing_pot, about 100% of Apache, 20.4% of Nazario, 0% of SpamAssassin and raw Enron; raw Enron has
-no In-Reply-To, References, Received or X-Mailer. Every Apache message has a list-set Reply-To and a
-List-Id. Full detail: master document Sections 8.1, 8.6 and 8.8.
+Header coverage highlights (Phase 1): Authentication-Results on 99.5% of phishing_pot, about 100% of
+Apache, 20.4% of Nazario, 0% of SpamAssassin and raw Enron; raw Enron has no In-Reply-To,
+References, Received or X-Mailer; every Apache message has a list-set Reply-To and a List-Id.
 
 Current `.gitignore`:
 ```
@@ -277,49 +268,53 @@ pandas==3.0.6
 pyarrow==25.0.1
 requests==2.34.2
 tqdm==4.70.1
+
+# Phase 2: cleaning and N1 redaction (HTML to text, public suffix list)
+beautifulsoup4==4.15.0
+tldextract==5.4.0
 ```
 
 `.env.example` and `pytest.ini` are unchanged from Phase 0.
 
 ---
 
-## 5. Next task: Phase 2, cleaning and N1 redaction (plan not yet approved)
+## 5. Next task: Phase 3, parser and header evidence extractor (plan not yet approved)
 
-Full detail: master document Sections 4.2, 6.2 (body preprocessor), 8.7, 11 (N1 ablation), 12.6 and
-15 (item 4). Start by proposing the plan and the background concepts, then wait for "go".
+Full detail: master document Sections 3.6, 4.4 (N3 and the organisation domain), 6.2 (parser and
+header evidence extractor), 6.5 (header signals), 8.1 (header coverage), 8.7 (Phase 3 columns), 12.6
+(planned files `parser.py`, `evidence.py`, `domains.py` in `src/headers`) and 15 (item 4). Start by
+proposing the plan and the background concepts, then wait for "go". Deliver in two or three steps,
+every file as a download.
 
-**Goal.** Add `body_clean`, `body_redacted` and `has_url` for every row of the staged table, in
-`src/preprocess/` (planned files `clean.py` and `redact.py`), plus `src/preprocess/README.md`.
+**Goal.** Parse each email's headers into an evidence record and add the Phase 3 columns:
+`from_name, from_addr, from_domain, reply_to, return_path, date, subject, org_domain, auth_results
+(spf, dkim, dmarc or unknown), message_id, in_reply_to, references`, plus the evidence the verifiers
+need: Received chain, send hour, freemail flag, lookalike score against the organisation domain,
+mailing-list membership. The same functions must work on one submitted email at run time.
 
-**What is fixed already**
-- Redaction (N1): URLs become `[URL]`, bare domains `[DOMAIN]`, attachment file names `[FILE]`.
-  Words such as "see attached" stay, because they are language, not payload.
-- Cleaning: HTML stripping, quote splitting and signature splitting (the claim extractor in Phase 7
-  needs the signature block for signature-contact claims).
-- N1 evaluates three views of the same held-out set: raw, redacted, and naturally link-free (emails
-  that had no URL before redaction), so `has_url` must be computed before redaction.
+**Notes the plan must handle**
+- Read `raw_headers` from `cleaned.parquet`; write a new file (each phase writes its own file).
+- Missing Authentication-Results is **unknown**, never pass (master document 6.5).
+- Mailing-list mail: a Reply-To set by the list (List-Id present) is not Reply-To divergence.
+- Kaggle rows have only a rebuilt header block (Enron and Ling: Subject only).
+- Organisation domain defaults to the To domain, but To is the collector for Nazario (monkey.org)
+  and anonymised for phishing_pot, so internal-affiliation evidence there is not checkable.
+- Headers are attacker-controlled: encoded words, folded lines, malformed addresses and huge
+  Received chains must not crash or stall the parser (same ReDoS care as Phase 2).
 
-**Notes from Phase 1 the plan must handle**
-- The Kaggle bodies still in use (CEAS-08, Enron, Ling, Nigerian Fraud) were reprocessed by the merge:
-  line breaks collapsed and `<...>` stripped. Normalise whitespace for every source, so a model cannot
-  tell a Kaggle email by its spacing.
-- `<...>` stripping may have removed links from Kaggle text, so `has_url` from the text undercounts.
-  Kaggle's own `urls` column can be read back through `raw_ref` (`kaggle/...csv#row=n`).
-- Raw bodies from SpamAssassin, Nazario and phishing_pot are often raw HTML (no plain-text part).
-- Apache and SpamAssassin ham contain quoted replies (`> ...`) and list footers.
+**Decisions for the plan to recommend:** where the freemail domain list comes from (a well-known
+public list as data, or a small hand-written one), how lookalike distance is measured (rapidfuzz,
+new library), how the Received chain and send hour are read, and which printed counts prove the
+step worked.
 
-**Decisions for the plan to recommend:** HTML-to-text library (for example BeautifulSoup or the standard
-library), where the new columns are saved (same Parquet file or a new one), what exactly counts as a
-domain, and which printed counts and examples prove the redaction worked (no unit tests).
-
-**Background to teach in Phase 2:** regular expressions for URLs and domains; HTML vs text; shortcut
-learning and why redaction matters; quoting and signature conventions in email.
+**Background to teach in Phase 3:** header syntax (folding, encoded words), address parsing with
+`email.utils`, the Received chain and its order, the Authentication-Results format, registered
+domains with tldextract, string similarity for lookalike domains, time zones and send hour.
 
 ## 6. The rest of the build (details in the master document, Section 12)
 
 | Phase | Deliverable |
 |---|---|
-| 2 | Cleaning and N1 redaction (`src/preprocess`) |
 | 3 | Email parser and header evidence extractor; organisation domain (`src/headers`) |
 | 4 | Keyword baseline (`src/baseline`) |
 | 5 | Tactic and claim labels via free web chats (Gemini and DeepSeek, z.ai breaks ties; Cohen's kappa); SemEval mapping; synthetic emails into `data/synthetic/` |
