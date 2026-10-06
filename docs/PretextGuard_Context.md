@@ -30,7 +30,12 @@ any conflict you notice.
 1. **Plan first.** Before each phase, give a short plan plus the background concepts he needs, then
    **stop and wait for his go-ahead**. Never jump straight into producing files.
 2. **After "go":** every file in full, then a function-by-function plain-language explanation, then
-   the exact commands to run with what the output should look like.
+   the exact commands to run with what the output should look like. **Deliver every file as a
+   downloadable file plus one `mv` block** (Mode A in 1.3), never as a paste block, whenever the
+   interface can attach files; that includes Python files and the document-update script (Nagasai's
+   preference, 6 Oct 2026). Short commands stay in the chat as normal command blocks.
+   **Fold each phase into two or three steps:** each step delivers several files at once, then one
+   run, one check and one commit. Phase 1's five steps were too long.
 3. **You write all code.** Well-known libraries are fine; write the project logic fresh. Never copy
    code from GitHub repositories, and never open or adapt other students' PretextGuard-like projects.
 4. **You never run Git.** No commit, push, branch or remote commands, even if you have tools that
@@ -38,7 +43,7 @@ any conflict you notice.
 5. **No unit tests per phase.** Each phase is verified by running its scripts and checking their
    printed output. `tests/test_environment.py` is the one setup check; keep it passing.
 6. **End of every phase:** list exactly what changed in the master document (section number, old
-   text, new text) and give a paste block that applies the edits to `docs/master_document.md`
+   text, new text) and deliver a script file that applies the edits to `docs/master_document.md`
    (see 1.4). Bump its version (3.3, 3.4, ...) and add a row to the decisions log (Section 14).
 7. **When a design choice also improves security, say so explicitly** (security is 15 marks).
 8. **Style:** direct and honest; recommendations rather than open questions; no em dashes; no filler
@@ -50,7 +55,8 @@ any conflict you notice.
 
 ### 1.3 How files reach his Mac
 
-The project lives at `~/Desktop/pretextguard`. Pick the mode your interface supports:
+The project lives at `~/Desktop/pretextguard`. Use Mode A whenever your interface can attach files
+(Nagasai's preference); Mode B only when it cannot:
 
 **Mode A (you can attach downloadable files, for example claude.ai chat or Claude Code on the web).** Files download to
 `~/Downloads`. End every delivery with **one block of `mv` commands** that moves each file to its exact
@@ -60,9 +66,10 @@ place, for example:
 mv ~/Downloads/download.py ~/Desktop/pretextguard/src/data/download.py
 ```
 
-Never deliver two downloadable files with the same name in one batch (for example two `README.md`
-or `__init__.py`); give same-named or tiny files as paste blocks instead. Dotfiles and small config
-files are always paste blocks.
+Never deliver two downloadable files with the same name in one batch: give them distinct download
+names (for example `README_src.md`, `README_data.md`) and let the `mv` block rename them. Dotfiles get
+a visible download name (for example `gitignore.txt`) and are renamed by `mv`, because macOS hides
+files whose names start with a dot.
 
 **Mode B (you cannot attach files).** Deliver every file as a
 **paste block** that creates it in place:
@@ -103,7 +110,7 @@ Markdown files. Large data downloads are done by Nagasai in the browser and move
 
 `docs/master_document.md` is the living master from v3.2 on (the styled
 `PretextGuard_Master_Document_v3.2.docx` is a snapshot). Give edits as exact replacements applied by a
-paste block that runs a small Python script, and make the script fail loudly if any old text is not
+small Python script delivered as a downloadable file (run it once from `~/Downloads`, then delete it), and make the script fail loudly if any old text is not
 found exactly once. A fresh .docx can be exported when Nagasai wants one:
 `pandoc docs/master_document.md --resource-path=docs -o docs/PretextGuard_Master_Document.docx` (needs `brew install pandoc`; `--resource-path=docs` lets pandoc find the figures).
 

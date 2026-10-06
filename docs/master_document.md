@@ -88,7 +88,9 @@ This document is written so that a person or an AI assistant can pick up Pretext
 
 - **Commit after each working step, not once per phase.** Small, frequent commits to the GitHub repo are the evidence of original, incremental work; one large commit per phase looks like a paste.
 
-- **File workflow on macOS.** The project lives at ~/Desktop/pretextguard (iCloud Desktop sync is off). Files arrive either as downloads in ~/Downloads, with one block of mv commands per phase that puts each file in its exact place, or as paste blocks that create each file in place (cat \> path \<\< 'PG_EOF' ... PG_EOF, preceded by setopt NO_BANG_HIST) when the interface cannot hand over files. Dotfiles and small config files are created in the terminal, and files that share a name (such as \_\_init\_\_.py) are created with touch, so no two downloads collide.
+- **Two or three steps per phase.** Each phase is folded into a few larger steps; each step delivers several files at once, followed by one run, one check and one commit (Nagasai found Phase 1's five steps too long).
+
+- **File workflow on macOS.** The project lives at ~/Desktop/pretextguard (iCloud Desktop sync is off). Files arrive as downloads in ~/Downloads whenever the interface can attach files (Nagasai's preference), with one block of mv commands per step that puts each file in its exact place; only when the interface cannot hand over files do they arrive as paste blocks that create each file in place (cat \> path \<\< 'PG_EOF' ... PG_EOF, preceded by setopt NO_BANG_HIST) when the interface cannot hand over files. Dotfiles and small config files are created in the terminal, and files that share a name (such as \_\_init\_\_.py) are created with touch, so no two downloads collide.
 
 - **Change list at the end of every phase.** Claude lists what changed so this document can be kept current.
 
@@ -944,6 +946,7 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 | 6 Oct 2026 | Phase 1 complete: 99,324 unique emails (20,313 attacks), header coverage table, split, READMEs; raw Enron confirmed to have no reply or routing headers | Phase 2 can start |
 | 6 Oct 2026 | Files that contain code fences (READMEs) are delivered as downloadable files with mv commands, never as paste blocks; Claude Code on the web can attach files | A README paste block broke at its first inner fence |
 | 6 Oct 2026 | Version 3.3: Phase 1 results folded into Sections 2, 4.3, 6.5, 8, 9, 10, 12, 13.1, 15, 16 and 17 | End of Phase 1 |
+| 6 Oct 2026 | Every file arrives as a download with one mv block (no paste blocks when files can be attached); each phase is folded into two or three steps | Nagasai's request after Phase 1 |
 
 # 15. Open items and next actions
 
