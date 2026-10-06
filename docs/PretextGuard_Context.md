@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: 2 October 2026, written at the end of Phase 0, to go with master document v3.2.
+Version: 6 October 2026, written at the end of Phase 1, to go with master document v3.3.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -52,7 +52,7 @@ any conflict you notice.
 
 The project lives at `~/Desktop/pretextguard`. Pick the mode your interface supports:
 
-**Mode A (you can attach downloadable files, for example claude.ai chat).** Files download to
+**Mode A (you can attach downloadable files, for example claude.ai chat or Claude Code on the web).** Files download to
 `~/Downloads`. End every delivery with **one block of `mv` commands** that moves each file to its exact
 place, for example:
 
@@ -64,7 +64,7 @@ Never deliver two downloadable files with the same name in one batch (for exampl
 or `__init__.py`); give same-named or tiny files as paste blocks instead. Dotfiles and small config
 files are always paste blocks.
 
-**Mode B (you cannot attach files, for example Claude Code on the web).** Deliver every file as a
+**Mode B (you cannot attach files).** Deliver every file as a
 **paste block** that creates it in place:
 
 ```bash
@@ -80,6 +80,11 @@ PG_EOF
 `'PG_EOF'` marker stops the shell expanding `$` or backticks inside the file. One file per block,
 so a long paste that breaks only affects one file.
 
+**Never put a file that contains ``` fences (most READMEs and other Markdown files) inside a ```
+paste block:** the chat display ends the block at the first inner fence and the paste breaks (this
+happened on 6 Oct 2026). Deliver such files as downloadable files with `mv` commands. Python files
+without fences are fine as paste blocks.
+
 In both modes, every command assumes:
 
 ```bash
@@ -87,13 +92,20 @@ cd ~/Desktop/pretextguard
 source venv/bin/activate
 ```
 
+**Claude Code on the web.** Its sandbox usually cannot reach the data hosts (Kaggle, monkey.org,
+CMU, lists.apache.org), so test new scripts there on small hand-made samples before handing them
+over; real numbers always come from Nagasai's runs. It can read the public GitHub repository, so
+files Nagasai has pushed (for example `results/*.csv`) can be read there instead of asking him to
+paste them. It can attach downloadable files (Mode A), which is the safe way to deliver long or
+Markdown files. Large data downloads are done by Nagasai in the browser and moved into place with `mv`.
+
 ### 1.4 Updating the master document
 
 `docs/master_document.md` is the living master from v3.2 on (the styled
 `PretextGuard_Master_Document_v3.2.docx` is a snapshot). Give edits as exact replacements applied by a
 paste block that runs a small Python script, and make the script fail loudly if any old text is not
 found exactly once. A fresh .docx can be exported when Nagasai wants one:
-`pandoc docs/master_document.md -o docs/PretextGuard_Master_Document.docx` (needs `brew install pandoc`).
+`pandoc docs/master_document.md --resource-path=docs -o docs/PretextGuard_Master_Document.docx` (needs `brew install pandoc`; `--resource-path=docs` lets pandoc find the figures).
 
 ### 1.5 Your first reply in a new chat
 
@@ -147,29 +159,73 @@ propose them again as novelty. Stack choices are never novelty (faculty rule).
 | Tools installed | Homebrew, Git, GitHub CLI (`gh`), VS Code with the Python extension |
 | Repository | github.com/Nagasai-Datta/PretextGuard, public by Nagasai's choice, branch `main` |
 | Colab | Python 3.12; pin torch and transformers to the same versions locally and on Colab |
+| Phase 1 libraries | pandas 3.0.6, pyarrow 25.0.1, requests 2.34.2, tqdm 4.70.1 (pinned in `requirements.txt`) |
+| Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB |
 | Rule | Always work from the project root, never from `src/` |
 
 ---
 
-## 4. Current state of the repository (end of Phase 0)
+## 4. Current state of the repository (end of Phase 1)
 
 ```
 pretextguard/
+  README.md                  end-to-end overview (Phase 1 version)
+  CLAUDE.md                  points Claude Code at this file
   .vscode/settings.json      VS Code uses venv/bin/python; pytest enabled
-  .gitignore  .env (local)  .env.example  pytest.ini  requirements.txt  README.md (Phase 0 version)
+  .gitignore  .env (local)  .env.example  pytest.ini  requirements.txt
   venv/                      Python 3.12.14 (ignored)
-  data/raw/  data/processed/ (ignored)  data/labelled/.gitkeep  data/threads/.gitkeep
-  artifacts/ (ignored)  results/.gitkeep  notebooks/.gitkeep  frontend/.gitkeep
-  docs/                      master document v3.2 (.docx and .md), figures/, this file
-  src/__init__.py and src/{data,preprocess,headers,thread,models,claims,verifiers,router,
-       explain,baseline,eval,api}/__init__.py   (all empty)
-  tests/test_environment.py  16 checks: Python 3.12, inside ./venv, every src package imports,
-                             ".env" is a line in .gitignore, .env.example exists
+  data/README.md             every source, licence, stage and how to rebuild
+  data/raw/                  downloads and unpacked archives, read-only (ignored)
+  data/processed/            staged.parquet (ignored)
+  data/labelled/.gitkeep  data/threads/.gitkeep
+  artifacts/README.md        everything else in artifacts/ is ignored
+  results/README.md  staged_counts.csv  dedup_pairs.csv  header_coverage.csv  split_counts.csv
+  notebooks/README.md  frontend/.gitkeep
+  docs/README.md  master_document.md (v3.3)  PretextGuard_Master_Document_v3.2.docx (snapshot)
+  docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)
+  src/README.md
+  src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
+                             coverage.py  split.py
+  src/{preprocess,headers,thread,models,claims,verifiers,router,explain,baseline,eval,api}/__init__.py
+                             (all empty)
+  tests/test_environment.py  16 checks (unchanged): Python 3.12, inside ./venv, every src package
+                             imports, ".env" is a line in .gitignore, .env.example exists
 ```
 
-Exact contents of the small config files:
+`data/raw/` on Nagasai's Mac:
 
-`.gitignore`
+```
+kaggle/phish_no_more.zip      + phish_no_more/ (7 CSVs; CEAS_08, Enron, Ling, Nigerian_Fraud are read)
+spamassassin/<5 .tar.bz2>     + one unpacked folder per archive (easy_ham, easy_ham_2, hard_ham, spam, spam_2)
+nazario/                      17 mbox files: phishing0-3.mbox, 20051114.mbox, private-phishing4.mbox,
+                              phishing-2015.txt ... phishing-2025.txt
+phishing_pot/phishing_pot-main.zip + phishing_pot-main/phishing_pot-main/email/*.eml (8,614 files)
+enron/enron_mail_20150507.tar.gz   + enron_mail_20150507/maildir/ (517,401 files)
+apache/tomcat_users/YYYY-MM.mbox, apache/kafka_users/YYYY-MM.mbox (Oct 2024 to Sep 2026)
+```
+
+The staged table, `data/processed/staged.parquet`: 99,324 unique emails, columns
+`id, source, category, is_attack, has_full_headers, raw_ref, raw_headers, body_raw, split`.
+
+| Source | Rows | Notes |
+|---|---|---|
+| kaggle_ceas08 | 38,077 | 17,253 ham, 20,824 spam; header block rebuilt from CSV columns |
+| kaggle_enron | 29,119 | 15,420 ham, 13,699 spam; Subject only |
+| kaggle_ling | 2,850 | 2,392 ham, 458 spam; Subject only |
+| kaggle_nigerian_fraud | 3,227 | fraud |
+| nazario | 9,595 | phishing, full headers |
+| phishing_pot | 7,491 | phishing, full headers |
+| spamassassin | 5,775 | 4,099 ham, 1,676 spam, full headers |
+| apache_tomcat_users | 2,135 | ham, full headers |
+| apache_kafka_users | 1,055 | ham, full headers |
+
+Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). Split: 69,542
+train, 14,879 validation, 14,903 test. Header coverage highlights: Authentication-Results on 99.5% of
+phishing_pot, about 100% of Apache, 20.4% of Nazario, 0% of SpamAssassin and raw Enron; raw Enron has
+no In-Reply-To, References, Received or X-Mailer. Every Apache message has a list-set Reply-To and a
+List-Id. Full detail: master document Sections 8.1, 8.6 and 8.8.
+
+Current `.gitignore`:
 ```
 # Python
 venv/
@@ -183,7 +239,8 @@ __pycache__/
 # Data and model weights (large or separately licensed)
 data/raw/
 data/processed/
-artifacts/
+artifacts/*
+!artifacts/README.md
 *.pt
 *.bin
 *.safetensors
@@ -199,22 +256,7 @@ frontend/dist/
 .DS_Store
 ```
 
-`.env.example`
-```
-# Copy this file to .env and put real values there. Never commit .env.
-# Key the analysis endpoint will require from Phase 11 onwards.
-PRETEXTGUARD_API_KEY=change-me
-```
-
-`pytest.ini`
-```
-[pytest]
-testpaths = tests
-pythonpath = .
-addopts = -q
-```
-
-`requirements.txt`
+Current `requirements.txt`:
 ```
 # PretextGuard dependencies. Exact versions (==) so every machine installs the same thing.
 # Grows phase by phase; each library is added in the phase that first uses it.
@@ -222,97 +264,49 @@ addopts = -q
 # Phase 0: setup check and dependency security audit
 pip_audit==2.10.1
 pytest==9.1.1
+
+# Phase 1: data acquisition (tables, Parquet files, HTTP downloads, progress bars)
+pandas==3.0.6
+pyarrow==25.0.1
+requests==2.34.2
+tqdm==4.70.1
 ```
 
-Phase 0 checks passed: `pytest` gives 16 passed; `pip-audit` reports no known vulnerabilities.
+`.env.example` and `pytest.ini` are unchanged from Phase 0.
 
 ---
 
-## 5. Next task: Phase 1, data acquisition (plan already approved)
+## 5. Next task: Phase 2, cleaning and N1 redaction (plan not yet approved)
 
-Full detail: master document Sections 8.1, 8.6 to 8.9 and 12.2. Summary:
+Full detail: master document Sections 4.2, 6.2 (body preprocessor), 8.7, 11 (N1 ablation), 12.6 and
+15 (item 4). Start by proposing the plan and the background concepts, then wait for "go".
 
-**Goal.** Download every source, load them all into one staging table with the same columns,
-produce the header coverage table and the train/validation/test split, and write the READMEs.
-No cleaning or modelling yet.
+**Goal.** Add `body_clean`, `body_redacted` and `has_url` for every row of the staged table, in
+`src/preprocess/` (planned files `clean.py` and `redact.py`), plus `src/preprocess/README.md`.
 
-**Sources**
+**What is fixed already**
+- Redaction (N1): URLs become `[URL]`, bare domains `[DOMAIN]`, attachment file names `[FILE]`.
+  Words such as "see attached" stay, because they are language, not payload.
+- Cleaning: HTML stripping, quote splitting and signature splitting (the claim extractor in Phase 7
+  needs the signature block for signature-contact claims).
+- N1 evaluates three views of the same held-out set: raw, redacted, and naturally link-free (emails
+  that had no URL before redaction), so `has_url` must be computed before redaction.
 
-| Source | How it is obtained | What it gives |
-|---|---|---|
-| Kaggle "Phish No More" (7 CSVs, about 82,500 emails) | Nagasai downloads the zip in the browser (free Kaggle account) | Body-level ham, spam, phishing and fraud |
-| SpamAssassin public corpus | Script downloads the archives | Full raw headers, ham and spam (2002 to 2005) |
-| Nazario phishing corpus | Script downloads the yearly mbox files | Real phishing with full headers |
-| phishing_pot (GitHub, data only) | Shallow `git clone` of the data into `data/raw/phishing_pot/` | Modern phishing with real authentication headers; recipients anonymised |
-| Enron raw (CMU) | Script downloads about 0.4 GB, about 1.5 GB unpacked | Header check now; threads in Phase 9 |
-| Apache mailing lists | Script downloads 12 months of 2 user-support lists as mbox | Modern benign mail and real threads with full headers |
+**Notes from Phase 1 the plan must handle**
+- The Kaggle bodies still in use (CEAS-08, Enron, Ling, Nigerian Fraud) were reprocessed by the merge:
+  line breaks collapsed and `<...>` stripped. Normalise whitespace for every source, so a model cannot
+  tell a Kaggle email by its spacing.
+- `<...>` stripping may have removed links from Kaggle text, so `has_url` from the text undercounts.
+  Kaggle's own `urls` column can be read back through `raw_ref` (`kaggle/...csv#row=n`).
+- Raw bodies from SpamAssassin, Nazario and phishing_pot are often raw HTML (no plain-text part).
+- Apache and SpamAssassin ham contain quoted replies (`> ...`) and list footers.
 
-**Scripts** (all in `src/data/`, run as `python -m src.data.<name>` from the project root)
+**Decisions for the plan to recommend:** HTML-to-text library (for example BeautifulSoup or the standard
+library), where the new columns are saved (same Parquet file or a new one), what exactly counts as a
+domain, and which printed counts and examples prove the redaction worked (no unit tests).
 
-| File | Job |
-|---|---|
-| `paths.py` | Every folder path in one place |
-| `download.py` | Fetch each source; skip files already present; resume broken downloads; print sizes |
-| `loaders.py` | One function per source format (CSV, mbox, .eml, Enron maildir) returning the same record: source, category, raw header text, body text, pointer back to the original file |
-| `stage.py` | Run all loaders, remove duplicates, write `data/processed/staged.parquet`, print counts per source and category |
-| `coverage.py` | Count which headers each source carries; write `results/header_coverage.csv` (answers the Enron thread-header question) |
-| `split.py` | 70/15/15 train/validation/test split, stratified by source and category, fixed seed |
-
-**Decisions already made**
-- `category` is ham, spam, phishing or fraud; `is_attack` is true only for phishing and fraud.
-- Deduplicate across sources by hashing normalised body text before splitting; keep the copy with
-  full headers when duplicates exist.
-- Kaggle rows get a minimal header block built from sender, receiver, date and subject;
-  `has_full_headers` is false for them.
-- Raw Enron is not added to the single-email table (the Kaggle merge already has Enron bodies).
-- Apache: pick two user-support lists, after checking they are mostly human threads (developer lists
-  are flooded with bot notifications).
-- Phase 1 columns: `id, source, category, is_attack, has_full_headers, raw_ref, raw_headers, body_raw, split`.
-- Storage is Parquet; `data/raw/` is read-only forever; nothing in `data/raw` or `data/processed` is committed.
-- New libraries: pandas, pyarrow, requests, tqdm (install, then pin exact versions).
-- About 1 GB downloaded, about 3 GB used after unpacking.
-
-**Verify before writing download code:** current URLs and file names for Nazario, SpamAssassin, Enron
-(CMU), the Apache archive (lists.apache.org mbox export) and the chosen lists; the phishing_pot licence
-and folder layout; the exact Kaggle file names.
-
-**READMEs (part of Phase 1)**
-- **Root `README.md`** (replaces the Phase 0 one): the complete end-to-end idea for a beginner:
-  - the problem
-  - email and authentication basics
-  - the idea and the four contributions
-  - architecture and the run-time pipeline
-  - build time vs run time
-  - the data and where it lives
-  - ablations
-  - tech stack, security design and project structure
-  - phases and status
-  - setup and how to run
-- **One README each for** `src/`, `data/`, `results/`, `notebooks/`, `docs/` and `artifacts/`:
-  - `src/`: the package map, the `python -m` rule, and which phase builds what.
-  - `data/`: every source with its origin and licence note, every storage stage, what is committed, and how to rebuild.
-  - `results/`: what goes there, and the rule that every number comes from a script.
-  - `notebooks/`: the Colab workflow and version pinning.
-  - `docs/`: what each document is, and how to export the .docx.
-  - `artifacts/`: what is stored, why it is not committed, and how to rebuild it.
-- **`.gitignore` change:** `artifacts/` becomes `artifacts/*` plus `!artifacts/README.md`, so that README
-  is committed. Keep the exact `.env` line (the environment check reads it).
-- **Package READMEs:** each `src/` package gets its own README in the phase that builds it. The
-  `frontend/` README comes in Phase 12.
-
-**Order of work:** background concepts and plan → (go) → `paths.py` and `download.py` → Nagasai runs
-downloads → `loaders.py` and `stage.py` → `coverage.py` and `split.py` → READMEs → change list for the
-master document. Commit after each working step.
-
-**Background to teach in Phase 1:**
-- .eml, mbox and maildir formats.
-- Python's `email` package and MIME multipart.
-- pandas DataFrames and Parquet.
-- Hashing for deduplication, and why train-test leakage fakes good results.
-- Stratified splits and fixed seeds.
-- What the header coverage table tells us.
-
----
+**Background to teach in Phase 2:** regular expressions for URLs and domains; HTML vs text; shortcut
+learning and why redaction matters; quoting and signature conventions in email.
 
 ## 6. The rest of the build (details in the master document, Section 12)
 

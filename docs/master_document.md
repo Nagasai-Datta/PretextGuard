@@ -1,4 +1,4 @@
-<!-- Markdown copy of PretextGuard_Master_Document_v3.2.docx, generated with pandoc. The .docx and this file carry the same content; keep them in step. -->
+<!-- Living master document (Markdown). docs/PretextGuard_Master_Document_v3.2.docx is a snapshot of version 3.2; export a fresh .docx with pandoc when needed (docs/README.md). -->
 
 **PretextGuard**
 
@@ -14,9 +14,9 @@ Project Master Document
 
 **Faculty:** Dr. Arun Prasath G
 
-**Version:** 3.2, 2 October 2026
+**Version:** 3.3, 6 October 2026
 
-> **This is the single source of truth for the project.** Version 3.2 supersedes version 3.1 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
+> **This is the single source of truth for the project.** Version 3.3 supersedes version 3.2 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
 
 **Contents**
 
@@ -145,7 +145,7 @@ This document is written so that a person or an AI assistant can pick up Pretext
 </tr>
 <tr class="even">
 <td>Current status</td>
-<td>Phase 0 complete: Python 3.12 venv, repository, environment check and pip-audit all clean. Version 3.2 (2 Oct 2026) fixed stale sections and folded in the beginner walkthrough. Phase 1 (data acquisition) is next.</td>
+<td>Phases 0 and 1 complete. Phase 1 (6 Oct 2026) built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table, a fixed 70/15/15 split and the READMEs. Phase 2 (cleaning and N1 redaction) is next.</td>
 </tr>
 <tr class="odd">
 <td>Repository</td>
@@ -288,7 +288,7 @@ An email is a plain text file: headers (the envelope: who sent it, to whom, how 
 
 **Input modes:** thread mode needs the earlier messages (several .eml files or one .mbox). In single-email mode N2's history checks are skipped, but In-Reply-To and quoted-text integrity checks still run when that data is present.
 
-**Evaluation data:** raw Enron is expected to lack In-Reply-To, References, Received and X-Mailer (Phase 1 confirms), so its threads can only test the content signals (tactic onset, request drift). The header signals (sending-path drift, thread integrity) are tested on public Apache project mailing-list archives, which keep those headers. Both are real threads, and the report states the split.
+**Evaluation data:** raw Enron has no In-Reply-To, References, Received or X-Mailer headers (0% of 517,401 messages, Phase 1 header coverage table), so its threads can only test the content signals (tactic onset, request drift). The header signals (sending-path drift, thread integrity) are tested on public Apache project mailing-list archives, which keep those headers. Both are real threads, and the report states the split.
 
 **Why it is novel:** academic detectors classify single emails. The closest work on compromised accounts (Ho et al., USENIX Security 2019) is URL-based and needs organisation-wide mailbox data. Conversation-level social-engineering detection exists for chat (ConvoSentinel) but uses no email headers. Commercial tools (Abnormal AI, IRONSCALES) do behavioural thread analysis but are closed and depend on login telemetry. An open, explainable, payload-free detector that works at email-thread level with thread headers was not found.
 
@@ -456,7 +456,7 @@ Report returned by the API (shape): score, verdict, action, org_domain (as used,
 | Send-hour anomaly | Date | Business hours | 02:47 | Weak alone; meaningful when stacked |
 | Signature vs From | Body signature block | Same address | Different address | Insight from Mithun et al. (2024) |
 
-> PretextGuard reads the SPF, DKIM and DMARC verdicts written by the receiving mail server into the Authentication-Results header. It does not recompute them. When that header is missing (common in old corpora), the signal is recorded as **unknown**, never as pass, and the verifiers rely on the other evidence. Which sources carry which headers is measured in Phase 1 (the header coverage table, Section 8.1), and authentication signals are scored only where the header exists.
+> PretextGuard reads the SPF, DKIM and DMARC verdicts written by the receiving mail server into the Authentication-Results header. It does not recompute them. When that header is missing (common in old corpora), the signal is recorded as **unknown**, never as pass, and the verifiers rely on the other evidence. Which sources carry which headers is measured in Phase 1 (the header coverage table, Section 8.1), and authentication signals are scored only where the header exists. Phase 1 found Authentication-Results on 99.5% of phishing_pot, about 100% of Apache list mail, 20.4% of raw Nazario and 0% of SpamAssassin, raw Enron and Kaggle rows. Mailing lists need care: every Apache message carries a Reply-To set by the list and a List-Id, so Phase 3 records list membership as evidence and does not count a list-set Reply-To as Reply-To divergence.
 
 ## 6.6 Pretext Risk Score (plain component)
 
@@ -565,18 +565,18 @@ Seven labels, multi-label (one email can carry several). Five come from Cialdini
 
 | **Dataset** | **Email?** | **Size (approx.)** | **Fields** | **Role** |
 |---|---|---|---|---|
-| Phish No More (Kaggle): Enron, Ling, CEAS-08, Nazario, Nigerian Fraud, SpamAssassin | Yes | 82,500 (42,891 phishing/spam, 39,595 legitimate) | CEAS, Nazario, Nigerian, SpamAssassin: sender, receiver, date, subject, body, urls. Enron, Ling: subject, body | Main single-email corpus for body-level work |
-| Enron raw (CMU maildir) | Yes | About 500k | Message-ID (internal JavaMail IDs), Date, From, To, Subject, X-From, X-To, X-Folder; expected to lack In-Reply-To, References, Received and X-Mailer (Phase 1 confirms) | Benign baseline; real threads for N2 content signals |
-| Nazario + Nigerian Fraud (inside the merge) | Yes | About 15k | As above | Primary real attack positives (body level); Nigerian Fraud also gives real external affiliation claims for N3 |
-| CEAS-08 + SpamAssassin (inside the merge) | Yes | About 45k | sender, receiver, date, subject, body, urls only; no Reply-To, Received or Authentication-Results | Body-level work only; header evidence comes from the raw sources below |
-| SpamAssassin public corpus (raw) | Yes | About 6,000 | Full raw headers (2002 to 2005, mostly before DMARC) | Header evidence extractor development; benign and spam headers |
-| Nazario phishing corpus (raw yearly mbox files) | Yes | A few thousand, counted in Phase 1 | Full raw headers; newer years may carry Authentication-Results | Real attack positives with headers; external affiliation claims for N3 |
-| phishing_pot (GitHub dataset of honeypot .eml files; data only, no code) | Yes | Counted in Phase 1 | Full raw headers, recent (still updated in 2026); recipient addresses anonymised | Modern attack positives with real authentication headers; licence checked in Phase 1 |
-| Apache project mailing-list archives (monthly mbox export) | Yes | A few lists over a few years, chosen in Phase 1 | Full headers including Message-ID, In-Reply-To, References and Received | Real threads for N2 header signals (sending-path drift, thread integrity) |
+| Phish No More (Kaggle): Enron, Ling, CEAS-08, Nazario, Nigerian Fraud, SpamAssassin | Yes | 82,486 rows in six per-source files (42,891 phishing/spam, 39,595 legitimate), plus phishing_email.csv, a pre-merged copy that is not read | CEAS, Nazario, Nigerian, SpamAssassin: sender, receiver, date, subject, body, urls. Enron, Ling: subject, body | Main single-email corpus for body-level work. Four files are used (CEAS-08, Enron, Ling, Nigerian Fraud: 73,273 emails after deduplication); the Nazario and SpamAssassin files are replaced by the raw corpora (Section 8.8) |
+| Enron raw (CMU maildir) | Yes | 517,401 messages | Message-ID (internal JavaMail IDs), Date, From, To, Subject, X-From, X-To, X-Folder; no In-Reply-To, References, Received or X-Mailer (0% each, Phase 1) | Not in the single-email table (the Kaggle merge holds Enron bodies); header check; real threads for N2 content signals (Phase 9) |
+| Nigerian Fraud (inside the merge) | Yes | 3,332 rows (3,227 after deduplication) | As above | Real fraud positives (body level) and real external affiliation claims for N3. The merge's Nazario file (1,565 rows, not about 15k as earlier versions said) is not used: the raw Nazario corpus replaces it |
+| CEAS-08 (inside the merge) | Yes | 39,154 rows (38,077 after deduplication) | sender, receiver, date, subject, body, urls only; no Reply-To, Received or Authentication-Results | Body-level ham and spam only. The merge's SpamAssassin file (5,809 rows) is not used: the raw SpamAssassin corpus replaces it |
+| SpamAssassin public corpus (raw) | Yes | 6,046 messages from five archives (5,775 after deduplication) | Full raw headers (2002 to 2005, before DMARC; 0% Authentication-Results) | Header evidence extractor development; benign and spam headers |
+| Nazario phishing corpus (raw mbox files) | Yes | 12,010 messages in 17 files up to 2025 (9,595 after deduplication) | Full raw headers; 20.4% carry Authentication-Results (the newer years) | Real attack positives with headers; external affiliation claims for N3 |
+| phishing_pot (GitHub dataset of honeypot .eml files; data only, no code) | Yes | 8,614 files (7,491 after deduplication) | Full raw headers; 99.5% carry Authentication-Results; recipient addresses anonymised. Last public commit 21 May 2026; newer samples go only to individual researchers | Modern attack positives with real authentication headers. Licence CC BY-NC 4.0 (non-commercial use with attribution); never redistributed |
+| Apache project mailing-list archives (monthly mbox export) | Yes | users@tomcat.apache.org and users@kafka.apache.org, Oct 2024 to Sep 2026: 3,234 messages (3,190 after deduplication) | Full headers: Message-ID, In-Reply-To (63 to 78%), References, Received, Authentication-Results (about 100%), List-Id; a Reply-To set by the list on every message | Modern legitimate mail with authentication headers (in the single-email table as ham); real threads for N2 header signals (sending-path drift, thread integrity) |
 | SemEval-2023 Task 3, Subtask 3 | No (news) | 26,663 paragraphs, 23 techniques | Human span labels, multi-label | Optional pretraining (plain component) |
 | Synthetic | Yes | About 500 emails + injected thread replies | Full | Modern BEC gap-fill; thread-hijack injections; matched benign continuations. Generated through free web chats from fixed prompt templates and stored in data/synthetic/ (committed) |
 
-**Header coverage table (Phase 1):** for every source, Phase 1 counts how many messages carry Reply-To, Return-Path, Received, Authentication-Results, In-Reply-To and References. The table goes into the report. Authentication signals are scored only where the header exists; synthetic headers fill only the gaps this table shows, and that is disclosed.
+**Header coverage table (Phase 1, results/header_coverage.csv):** for every source, the share of messages carrying Message-ID, Date, Reply-To, Return-Path, Received, Authentication-Results, Received-SPF, DKIM-Signature, In-Reply-To, References, X-Mailer, User-Agent, List-Id and X-Original-From. Key results: Authentication-Results on 99.5% of phishing_pot, about 100% of Apache, 20.4% of Nazario and 0% of SpamAssassin and raw Enron; In-Reply-To on 63 to 78% of Apache, 30.2% of SpamAssassin and 0% of raw Enron; Kaggle rows carry no original headers. The table goes into the report. Authentication signals are scored only where the header exists; synthetic headers fill only the gaps this table shows, and that is disclosed. Modern authentication headers appear mostly on attacks (phishing_pot) and on one benign source (Apache), an imbalance the N3 evaluation must report.
 
 ## 8.2 Why several datasets
 
@@ -584,7 +584,7 @@ The project needs five things and no single dataset has them all: examples of no
 
 ## 8.3 Thread-hijack benchmark (for N2)
 
-1.  Rebuild real threads from raw Enron using normalised "RE:" subjects, participants and quoted text, because Enron is expected to lack In-Reply-To and References (the first Phase 1 script confirms which thread headers exist). Rebuild Apache mailing-list threads from Message-ID, In-Reply-To and References.
+1.  Rebuild real threads from raw Enron using normalised "RE:" subjects, participants and quoted text, because raw Enron has no In-Reply-To or References (0%, Phase 1 header coverage table). Rebuild Apache mailing-list threads from Message-ID, In-Reply-To and References.
 
 2.  Keep threads with at least three messages.
 
@@ -620,7 +620,7 @@ If attacks are written by an LLM and legitimate emails are human-written from 20
 
 ## 8.6 Splits
 
-The single-email table is split 70% train, 15% validation and 15% test in Phase 1, stratified by source and category with a fixed random seed, after duplicates are removed. The test split stays untouched until final evaluation in Phase 13; weights and thresholds are tuned on validation only. The thread benchmark is split by thread in Phase 9, so no thread appears in both training and test.
+The single-email table is split 70% train, 15% validation and 15% test in Phase 1 (src/data/split.py), after duplicates are removed. The cut is stratified by source and category. Inside a stratum, emails whose subjects match after removing "Re:"/"Fwd:" prefixes (a thread, or one spam campaign) go to the same split, so near-copies never sit on both sides; a subject shared by more than 2% of its stratum (and more than 25 emails) is too common to be one thread and is split email by email. Group order comes from SHA-256 of seed 42 and the group key, so the split is identical on every machine and library version. Result: 69,542 train, 14,879 validation and 14,903 test (results/split_counts.csv). The test split stays untouched until final evaluation in Phase 13; weights and thresholds are tuned on validation only. The thread benchmark is split by thread in Phase 9, so no thread appears in both training and test.
 
 ## 8.7 Unified schema
 
@@ -645,28 +645,37 @@ thread_id, thread_position                                 (Phase 9)
 
 - **Category and is_attack:** every email gets a category (ham, spam, phishing or fraud); is_attack is true only for phishing and fraud, so the attack-vs-benign task is not padded with ordinary spam.
 
-- **Deduplication:** the Kaggle merge repeats Enron, Nazario and SpamAssassin emails that the raw downloads also contain. Duplicates are found by hashing normalised body text and removed before splitting; when two copies exist, the one with full headers is kept. The same email in train and test would inflate every score.
+- **Deduplication:** the Kaggle merge repeats Enron, Nazario and SpamAssassin emails that the raw downloads also contain. Each body gets a fingerprint, the SHA-256 of its lowercase letters and digits, so copies that differ only in spacing or punctuation match; one copy per fingerprint is kept, preferring full headers, before splitting. 5,484 copies were removed (results/dedup_pairs.csv); 15 groups of copies disagreed on category, and the kept copy's label is used. The same email in train and test would inflate every score.
 
 - **Kaggle header block:** Kaggle rows get a minimal header block built from their sender, receiver, date and subject columns, so Phase 3 parses every source the same way. has_full_headers is false for them, and the coverage table shows it.
 
 - **Raw Enron stays out of the single-email table.** The Kaggle merge already holds Enron bodies; raw Enron is used for the header check now and for threads in Phase 9.
 
-- **Apache lists:** two user-support lists over twelve months, chosen after checking that they are mostly human threads (developer lists are flooded with bot notifications).
+- **Apache lists:** users@tomcat.apache.org and users@kafka.apache.org over 24 months (October 2024 to September 2026), chosen from a one-month sample of four user lists (spark and httpd had 3 messages that month; developer lists are flooded with bot notifications). Twelve months would have given only about 900 messages. Apache mail is in the single-email table as ham: it is the only modern benign source with authentication headers.
 
 - **Storage:** Parquet files (a compressed, typed table format) in data/processed/; raw downloads stay untouched in data/raw/\<source\>/. raw_ref points every row back to its original file.
 
-- **Scripts and libraries:** src/data/paths.py, download.py, loaders.py, stage.py, coverage.py and split.py; new libraries pandas, pyarrow, requests and tqdm, pinned when installed.
+- **Scripts and libraries:** src/data/paths.py, unpack.py, fetch_apache.py, loaders.py, stage.py, coverage.py and split.py; libraries pandas 3.0.6, pyarrow 25.0.1, requests 2.34.2 and tqdm 4.70.1 (pinned). The downloads were made by hand in the browser (Nazario's yearly files with curl, because browsers block them) and moved into data/raw/; unpack.py checks each file's type by its first bytes and unpacks safely; fetch_apache.py fetches the 48 Apache months.
 
-- **Checks before writing download code:** current URLs and file names for Nazario, SpamAssassin, Enron (CMU), the Apache archive API and the chosen lists; the phishing_pot licence and folder layout; the exact Kaggle file names. About 1 GB is downloaded and about 3 GB used after unpacking.
+- **Checks (done 6 Oct 2026):** file names confirmed from the downloads; the Kaggle zip's seventh file, phishing_email.csv, is a pre-merged copy and is not read; the phishing_pot licence is CC BY-NC 4.0; raw Enron has 517,401 messages and unpacked on macOS without case clashes. About 1 GB was downloaded and about 3 GB used after unpacking.
 
-- **READMEs:** a root README with the complete end-to-end idea, plus one README each for src/, data/, results/, notebooks/, docs/ and artifacts/. .gitignore changes artifacts/ to artifacts/\* with an exception for artifacts/README.md.
+- **Kaggle Nazario.csv and SpamAssasin.csv left out:** the body fingerprint matched only 63 of 1,565 Kaggle Nazario rows to raw Nazario, although the file comes from the same corpus. A check by sender, date and subject matched 98% (Nazario) and 96% (SpamAssassin) of the rows the fingerprint had missed: the merge had reprocessed the bodies (line breaks collapsed, \<...\> stripped, some Nazario rows run into the next message). Keeping them would leak copies of training emails into the test set, so the raw originals are used instead.
+
+- **Kaggle labels:** label 1 is spam for CEAS-08, Enron and Ling, fraud for Nigerian Fraud; label 0 is ham. CEAS-08 spam includes some phishing its labels do not separate, so it stays spam.
+
+- **Bodies:** text/plain parts are used, HTML only when there is no plain text; attachments are never decoded. 208 emails with no readable text were dropped.
+
+- **Result:** data/processed/staged.parquet holds 99,324 unique emails from nine sources: 42,354 ham, 36,657 spam, 17,086 phishing and 3,227 fraud (20,313 attacks). Per-source counts: results/staged_counts.csv.
+
+- **READMEs:** a root README with the complete end-to-end idea, plus one README each for src/, src/data/, data/, results/, notebooks/, docs/ and artifacts/. .gitignore ignores artifacts/\* with an exception for artifacts/README.md.
 
 ## 8.9 Where data lives
 
 | Stage | Location | In Git? | Phase |
 |---|---|---|---|
 | Downloads, never modified | data/raw/\<source\>/ | No (large, separately licensed) | 1 |
-| One table of every email | data/processed/staged.parquet | No | 1 |
+| One table of every unique email, with the split column | data/processed/staged.parquet | No | 1 |
+| Phase 1 count tables (staged counts, duplicates, header coverage, split) | results/ | Yes | 1 |
 | Plus clean and redacted bodies | data/processed/ | No | 2 |
 | Plus header evidence columns | data/processed/ | No | 3 |
 | Annotation batches, raw chatbot replies, final labels | data/labelled/ | Yes (small; proof of method) | 5 |
@@ -689,7 +698,7 @@ At run time nothing is stored: the email lives in memory for one request, and lo
 | NLP extras | spaCy (en_core_web_sm) | Names and organisations for identity claims |
 | Header parsing | email stdlib, mailbox, tldextract, rapidfuzz | Parsing, .mbox reading, domain splitting, lookalike and organisation-name matching |
 | Data and baseline | pandas, pyarrow, scikit-learn | Tables in memory, Parquet files, keyword baseline, metrics |
-| Downloads (Phase 1) | requests, tqdm | Fetching datasets with progress bars |
+| Downloads and progress (Phase 1) | requests, tqdm | Fetching the Apache list archives; progress bars for long runs |
 | Testing | pytest | One environment check only (tests/test_environment.py); no unit tests per phase |
 | Explainability | LIME (SHAP only if time) | Word-level highlights; attention-as-explanation is academically contested |
 | Backend | FastAPI + Pydantic + slowapi | The model lives in Python; schema validation; rate limiting |
@@ -710,6 +719,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | No persistence | Email content lives in memory for the request only; never logged, never written to disk | A02 / privacy by design |
 | Input validation | Size cap (for example 100 KB per email), content-type checks, .eml structure checks, Pydantic schemas | A03 Injection |
 | Safe parsing | Attachments are never opened or executed; limit on nested MIME depth and message count per thread | A04 Insecure Design |
+| Safe data handling (build time) | Downloaded archives unpacked with path-traversal checks (tarfile data filter, zip names checked) and a 5 GB limit; file types checked by their first bytes; raw data made read-only; attachments never decoded; Kaggle values squashed onto one line before they become header lines (header injection) | A08 Software and Data Integrity Failures |
 | Output encoding (XSS) | Email bodies are attacker-controlled. Render as text; highlights are built from escaped text; no dangerouslySetInnerHTML; DOMPurify if HTML is ever shown. Test with real XSS payloads from the corpus. | A03 Injection (XSS) |
 | PII redaction | Email addresses, phone numbers and account numbers redacted before any logging | A09 Logging Failures |
 | Rate limiting | slowapi per-IP limits on the analysis endpoint | A04 Insecure Design |
@@ -744,15 +754,15 @@ Security Features is worth 15 marks and is treated as a first-class module.
 
 ## 12.1 How the build runs
 
-For each phase, the assistant explains the background, then provides every file with a function-by-function explanation and the exact commands to run, delivered as downloadable files plus one block of mv commands, or as paste blocks that create each file in place when the interface cannot hand over files (for example Claude Code on the web). Nagasai runs everything in VS Code (training on Colab), reports the output or error, commits after each working step and pushes. The assistant never runs Git itself. A new chat has no memory of earlier chats, so every session starts from docs/PretextGuard_Context.md and this document. At the end of a phase the assistant lists exactly what changed in this document.
+For each phase, the assistant explains the background, then provides every file with a function-by-function explanation and the exact commands to run, delivered as downloadable files plus one block of mv commands, or as paste blocks that create each file in place when the interface cannot hand over files. Files that themselves contain Markdown code fences (most READMEs) are always delivered as downloadable files, because a paste block breaks at the first inner fence. Nagasai runs everything in VS Code (training on Colab), reports the output or error, commits after each working step and pushes. The assistant never runs Git itself. A new chat has no memory of earlier chats, so every session starts from docs/PretextGuard_Context.md and this document. At the end of a phase the assistant lists exactly what changed in this document.
 
 ## 12.2 Phases and status
 
 | **Phase** | **Deliverable** | **Module** | **Status** |
 |---|---|---|---|
 | 0 | Environment: Python 3.12, venv, VS Code, Git, GitHub CLI, folder structure, requirements, .gitignore, .env.example, pytest smoke test, pip-audit | repo root | Done (Sep 2026) |
-| 1 | Data acquisition (paths, download, loaders, stage, coverage and split scripts): Kaggle merge, raw SpamAssassin, raw Nazario, phishing_pot, raw Enron, Apache list archives; staged.parquet; header coverage table; Enron thread-header check; 70/15/15 split; root README and one README per major folder | src/data | Not started (next) |
-| 2 | Preprocessing and payload-free redaction (N1) | src/preprocess | Not started |
+| 1 | Data acquisition (paths, unpack, Apache fetch, loaders, stage, coverage and split scripts): Kaggle merge, raw SpamAssassin, raw Nazario, phishing_pot, raw Enron, Apache list archives; staged.parquet; header coverage table; Enron thread-header check; 70/15/15 split; root README and one README per major folder | src/data | Done (6 Oct 2026) |
+| 2 | Preprocessing and payload-free redaction (N1) | src/preprocess | Not started (next) |
 | 3 | Parser and header evidence extractor; fills the header columns; organisation domain handling | src/headers | Not started |
 | 4 | Keyword baseline | src/baseline | Not started |
 | 5 | Tactic and claim labels: batch prompt builder, web-chat annotation (Gemini, DeepSeek, z.ai tie-break), schema validation, Cohen's kappa, SemEval 23-to-7 mapping; synthetic emails via web chats into data/synthetic/ | src/data | Not started |
@@ -814,7 +824,7 @@ Drop in this order: (1) SemEval pretraining, (2) the style-drift signal, (3) the
 
 - Train on Colab (Python 3.12), save the model to artifacts/, run inference locally on CPU. Pin torch and transformers to the same versions in Colab and in requirements.txt.
 
-- .gitignore includes: venv/, \_\_pycache\_\_/, \*.pyc, .env, data/raw/, data/processed/, artifacts/, \*.pt, \*.bin, \*.safetensors, node_modules/, frontend/dist/, .ipynb_checkpoints/, .pytest_cache/, .DS_Store. Phase 1 changes artifacts/ to artifacts/\* plus !artifacts/README.md so the folder README is committed.
+- .gitignore includes: venv/, \_\_pycache\_\_/, \*.pyc, .env, data/raw/, data/processed/, artifacts/\* with !artifacts/README.md (so the folder README is committed), \*.pt, \*.bin, \*.safetensors, node_modules/, frontend/dist/, .ipynb_checkpoints/, .pytest_cache/, .DS_Store.
 
 - The project lives at ~/Desktop/pretextguard. iCloud Desktop sync is off, so the venv and data stay on local disk only.
 
@@ -828,7 +838,7 @@ Planned file names; each phase may adjust them. The root and major-folder README
 
 | Folder | Planned files | What they do | Phase |
 |---|---|---|---|
-| src/data | paths.py, download.py, loaders.py, stage.py, coverage.py, split.py | Folder paths; fetch datasets; one reader per source format; dedupe and write staged.parquet; header coverage table; train/validation/test split | 1 |
+| src/data | paths.py, unpack.py, fetch_apache.py, loaders.py, stage.py, coverage.py, split.py | Folder paths; check and safely unpack the downloads; fetch the Apache list archives; one reader per source format; dedupe and write staged.parquet; header coverage table; grouped train/validation/test split | 1 (done) |
 | src/data | batches.py, validate_labels.py, agreement.py, semeval_map.py, synthetic.py | Annotation batch prompts; reply validation; Cohen's kappa; SemEval 23-to-7 mapping; synthetic email prompts and loading | 5 |
 | src/preprocess | clean.py, redact.py | HTML stripping, quote and signature splitting; N1 redaction | 2 |
 | src/headers | parser.py, evidence.py, domains.py | Raw email to headers, body and thread links; evidence dict; freemail and brand lists, organisation domain | 3 |
@@ -882,7 +892,9 @@ Planned file names; each phase may adjust them. The root and major-folder README
 
 - .gitignore, .env and .env.example, pytest basics, pip-audit (Phase 0).
 
-To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid outputs vs softmax, why a 0.5 threshold is usually wrong, Cohen's kappa, LIME, FastAPI basics, the thread-hijack benchmark, the claim router, affiliation claims in code, .mbox and maildir formats, Parquet, deduplication and leakage.
+- .eml, mbox and maildir; MIME parts, transfer encodings and character sets; generators; pandas DataFrames and Parquet; hashing for deduplication and train-test leakage; stratified, grouped and hash-based splits; the header coverage table; magic bytes, path traversal, decompression bombs and header injection (Phase 1).
+
+To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid outputs vs softmax, why a 0.5 threshold is usually wrong, Cohen's kappa, LIME, FastAPI basics, the thread-hijack benchmark, the claim router, affiliation claims in code.
 
 # 14. Decisions log
 
@@ -923,16 +935,25 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 | 2 Oct 2026 | Synthetic emails generated through free web chats into data/synthetic/ | No paid APIs; the method was missing |
 | 2 Oct 2026 | Context file docs/PretextGuard_Context.md added; every new chat starts from it and this document; files arrive as downloads with mv commands or as paste blocks | Work continues in fresh chats with no memory, including Claude Code on the web |
 | 2 Oct 2026 | Version 3.2: stale sections fixed; beginner walkthrough folded in (3.6, 6.10, 6.11, 8.8, 8.9, 12.6); Figure 5 added | Document review before Phase 1 |
+| 6 Oct 2026 | Phase 1 downloads made by hand in the browser and moved into data/raw/; scripts only check, unpack and fetch the Apache archives (download.py replaced by unpack.py and fetch_apache.py) | Nagasai's suggestion; simpler code, and the assistant's sandbox could not reach the data hosts |
+| 6 Oct 2026 | Apache lists: users@tomcat and users@kafka over 24 months (Oct 2024 to Sep 2026); Apache mail enters the single-email table as ham | spark and httpd too quiet; 12 months too few threads; the only modern benign source with authentication headers |
+| 6 Oct 2026 | Kaggle phishing_email.csv not read; Kaggle Nazario.csv and SpamAssasin.csv left out | A merged duplicate; reprocessed copies of the raw corpora that the body fingerprint missed (98% and 96% matched by sender, date and subject) |
+| 6 Oct 2026 | Deduplication by SHA-256 of a body's lowercase letters and digits; emails with no readable text dropped | Copies that differ only in spacing or punctuation match; nothing for a text model to read |
+| 6 Oct 2026 | Split grouped by normalised subject, groups capped at 2% of a stratum (minimum 25), order from SHA-256 of seed 42 and the group key | Threads and spam campaigns never straddle train and test; identical on every machine and library version |
+| 6 Oct 2026 | A Reply-To set by a mailing list is not counted as Reply-To divergence (Phase 3) | Every Apache message carries a list Reply-To and List-Id; avoids false N3 contradictions |
+| 6 Oct 2026 | Phase 1 complete: 99,324 unique emails (20,313 attacks), header coverage table, split, READMEs; raw Enron confirmed to have no reply or routing headers | Phase 2 can start |
+| 6 Oct 2026 | Files that contain code fences (READMEs) are delivered as downloadable files with mv commands, never as paste blocks; Claude Code on the web can attach files | A README paste block broke at its first inner fence |
+| 6 Oct 2026 | Version 3.3: Phase 1 results folded into Sections 2, 4.3, 6.5, 8, 9, 10, 12, 13.1, 15, 16 and 17 | End of Phase 1 |
 
 # 15. Open items and next actions
 
-1.  **Start Phase 1** in a new chat with docs/PretextGuard_Context.md and this document.
+1.  **Start Phase 2** (cleaning and N1 redaction) in a new chat with docs/PretextGuard_Context.md and this document.
 
-2.  **Replace the project-file copy** with v3.2 (remove v3.1) and keep docs/ in the repo current.
+2.  **Replace the project-file copy** with v3.3 (remove older copies) and keep docs/ in the repo current.
 
 3.  **Update the Review deck** when needed: novelty slide (N1, N2, N3 and the architecture contribution), the architecture diagram (Figure 2), the corrected running example (authentication passes for gmail.com), and the literature table (add Mithun et al. 2024, Ho et al. 2019, Valecha et al. 2022, ConvoSentinel, Aggarwal et al. 2014).
 
-4.  **Phase 1 checks:** confirm which thread headers raw Enron has; build the header coverage table; check the phishing_pot licence; choose the Apache lists; verify every download URL before use.
+4.  **Phase 2 notes from Phase 1:** the Kaggle bodies still in use were reprocessed by the merge (line breaks collapsed, \<...\> stripped), so normalise whitespace for every source to remove that source cue; for the naturally link-free view, use Kaggle's own urls column (readable through raw_ref), because stripping \<...\> may have removed links from the text; raw bodies from SpamAssassin, Nazario and phishing_pot often hold raw HTML.
 
 5.  **Before Phase 5:** review the annotation prompt, the JSON schema and the batch size together.
 
@@ -983,6 +1004,9 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 | venv | A project's private Python interpreter and packages, like node_modules for Python |
 | Paste block | A terminal command that creates a file in place: cat \> path \<\< 'PG_EOF' ... PG_EOF |
 | Context file | docs/PretextGuard_Context.md: what a fresh chat needs to continue the build |
+| Magic bytes | The fixed first bytes of a file format (zip files start with PK); a reliable type check, unlike the file name |
+| Path traversal | An archive member named like ../../file that would be written outside its folder; refused when unpacking |
+| Grouped split | A split that keeps related emails (a thread, a campaign) together on one side of the train/test line |
 
 # 17. References
 
@@ -1022,6 +1046,8 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 
 18. Apache SpamAssassin project. SpamAssassin public mail corpus.
 
-19. rf-peixoto. phishing_pot: real phishing samples collected via honeypots. GitHub dataset repository (data used, no code).
+19. rf-peixoto. phishing_pot: real phishing samples collected via honeypots. GitHub dataset repository, licence CC BY-NC 4.0; last public commit May 2026 (data used, no code).
 
-20. Apache Software Foundation. Public mailing-list archives (lists.apache.org).
+20. Apache Software Foundation. Public mailing-list archives (lists.apache.org): users@tomcat.apache.org and users@kafka.apache.org.
+
+21. Alam, N. A. Phishing Email Dataset ("Phish No More"). Kaggle.
