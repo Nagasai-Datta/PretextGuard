@@ -1,0 +1,15 @@
+source,category,train,validation,test,total
+apache_kafka_users,ham,735,162,158,1055
+apache_tomcat_users,ham,1496,315,324,2135
+kaggle_ceas08,ham,12077,2588,2588,17253
+kaggle_ceas08,spam,14577,3121,3126,20824
+kaggle_enron,ham,10794,2313,2313,15420
+kaggle_enron,spam,9589,2055,2055,13699
+kaggle_ling,ham,1674,359,359,2392
+kaggle_ling,spam,321,68,69,458
+kaggle_nigerian_fraud,fraud,2259,482,486,3227
+nazario,phishing,6716,1440,1439,9595
+phishing_pot,phishing,5262,1109,1120,7491
+spamassassin,ham,2869,615,615,4099
+spamassassin,spam,1173,252,251,1676
+total,,69542,14879,14903,99324
