@@ -32,17 +32,24 @@ from src.data.paths import (
     SPAMASSASSIN_DIR,
 )
 
-# The six per-source Kaggle files: (source name, category for label 1).
-# Label 0 always means ham. phishing_email.csv is left out on purpose: it is a
-# pre-merged copy of these six (text and label only), so reading it as well
-# would count every email twice. CEAS-08 spam contains some phishing that its
-# labels do not separate, so it stays "spam" (not an attack).
+# The Kaggle files we read: (source name, category for label 1). Label 0
+# always means ham. CEAS-08 spam contains some phishing that its labels do not
+# separate, so it stays "spam" (not an attack).
+#
+# Left out on purpose:
+# - phishing_email.csv: a pre-merged copy of the per-source files (text and
+#   label only); reading it as well would count every email twice.
+# - Nazario.csv and SpamAssasin.csv: copies of the raw Nazario and SpamAssassin
+#   corpora we download in full with headers. Of the rows the body fingerprint
+#   in stage.py missed, a check on 6 Oct 2026 matched 98% (Nazario) and 96%
+#   (SpamAssassin) to a raw email by sender, date and subject. Their bodies were
+#   reprocessed (line breaks collapsed, <...> stripped, some Nazario rows run
+#   into the next message), so the fingerprint could not catch them, and they
+#   would leak copies of training emails into the test set.
 KAGGLE_FILES = {
     "CEAS_08.csv": ("kaggle_ceas08", "spam"),
     "Enron.csv": ("kaggle_enron", "spam"),
     "Ling.csv": ("kaggle_ling", "spam"),
-    "SpamAssasin.csv": ("kaggle_spamassassin", "spam"),  # the file name really is misspelt
-    "Nazario.csv": ("kaggle_nazario", "phishing"),
     "Nigerian_Fraud.csv": ("kaggle_nigerian_fraud", "fraud"),
 }
 
@@ -74,7 +81,7 @@ def kaggle_header_block(row):
 
 
 def load_kaggle():
-    """Kaggle "Phish No More": six CSV files, one row per email, no original headers."""
+    """Kaggle "Phish No More": the CSV files in KAGGLE_FILES, one row per email, no original headers."""
     folder = KAGGLE_DIR / "phish_no_more"
     for file_name, (source, attack_category) in KAGGLE_FILES.items():
         path = folder / file_name
