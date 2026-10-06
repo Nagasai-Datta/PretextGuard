@@ -10,3 +10,7 @@ pandas==3.0.6
 pyarrow==25.0.1
 requests==2.34.2
 tqdm==4.70.1
+
+# Phase 2: cleaning and N1 redaction (HTML to text, public suffix list)
+beautifulsoup4==4.15.0
+tldextract==5.4.0

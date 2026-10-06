@@ -24,12 +24,16 @@ ENRON_DIR = RAW_DIR / "enron"
 PHISHING_POT_DIR = RAW_DIR / "phishing_pot"
 APACHE_DIR = RAW_DIR / "apache"
 
-# Files written by later Phase 1 scripts
+# Files written by Phase 1 (src/data)
 STAGED_PARQUET = PROCESSED_DIR / "staged.parquet"
 STAGED_COUNTS_CSV = RESULTS_DIR / "staged_counts.csv"
 DEDUP_PAIRS_CSV = RESULTS_DIR / "dedup_pairs.csv"
 HEADER_COVERAGE_CSV = RESULTS_DIR / "header_coverage.csv"
 SPLIT_COUNTS_CSV = RESULTS_DIR / "split_counts.csv"
+
+# Files written by Phase 2 (src/preprocess)
+CLEANED_PARQUET = PROCESSED_DIR / "cleaned.parquet"
+PREPROCESS_SUMMARY_CSV = RESULTS_DIR / "preprocess_summary.csv"
 
 
 def relative(path):
