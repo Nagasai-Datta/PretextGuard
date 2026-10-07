@@ -1,0 +1,4 @@
+annotator,chat_service,model_name,role
+gemini,Gemini web chat,,annotator 1
+deepseek,DeepSeek web chat,,annotator 2
+zai,z.ai (GLM) web chat,,tie-breaker

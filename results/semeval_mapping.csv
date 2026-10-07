@@ -1,0 +1,24 @@
+technique,tactic,match,reason
+Appeal_to_Authority,authority,direct,cites a person or institution to be believed
+Appeal_to_Time,urgency,direct,says the moment to act is now
+Appeal_to_Popularity,social_proof,direct,says everyone supports or does it
+Appeal_to_Fear-Prejudice,scarcity,partial,"threat of a bad outcome; loss framing, but aimed at groups"
+False_Dilemma-No_Choice,scarcity,partial,only one option is left; finality framing
+Appeal_to_Values,liking,partial,appeals to shared values; closest to manufactured affinity
+Flag_Waving,liking,partial,plays on group identity; affinity with the in-group
+Conversation_Killer,secrecy,partial,words meant to stop discussion; closest to cutting off checking
+Appeal_to_Hypocrisy,,none,attack on the other side's consistency
+Causal_Oversimplification,,none,one cause for a complex event
+Consequential_Oversimplification,,none,a chain of consequences without support
+Doubt,,none,casts doubt on a person or claim
+Exaggeration-Minimisation,,none,makes something bigger or smaller than it is
+Guilt_by_Association,,none,links someone to a disliked group
+Loaded_Language,,none,emotionally charged words; too broad to equal any one tactic
+Name_Calling-Labeling,,none,labels a person or group
+Obfuscation-Vagueness-Confusion,,none,deliberately unclear wording
+Questioning_the_Reputation,,none,attacks a person's credibility
+Red_Herring,,none,introduces an irrelevant topic
+Repetition,,none,repeats a message
+Slogans,,none,a short striking phrase
+Straw_Man,,none,misrepresents the other side's position
+Whataboutism,,none,answers a charge with a counter-charge

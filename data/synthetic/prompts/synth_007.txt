@@ -1,0 +1,91 @@
+You are helping build a research dataset of workplace emails to train and test an email-security classifier. Everything you write is fictional: invent company and person names, and never use real companies, products or people.
+
+Write 8 PAIRS of emails. In each pair, the ATTACK email is a pretexting message (an invented identity or story used to get the reader to act). The BENIGN email is a legitimate message about a similar situation from a similar kind of sender that uses no manipulation. The two must read like different emails, not like one with a sentence removed.
+
+Rules for every email
+- Plain text body only (put the subject in its own field), 40 to 200 words as asked. No links, no web addresses, no attachments, no markdown, no emoji.
+- Write naturally and vary the wording between pairs. Do not start every email with "Dear".
+- The ATTACK uses exactly the tactics listed for it and none of the other seven. The BENIGN uses none.
+
+The seven tactics
+- authority: The email asserts rank, role or institutional power to make the reader comply ("This is the CFO", "IT Security requires"). Mentioning a job title in passing is not enough.
+- urgency: Manufactured deadline or time pressure ("before 3 PM today", "immediately").
+- scarcity: Loss or finality framing: a last chance, or something will be lost, closed or deleted ("last chance", "your account will be deleted"). An email can be both urgent and scarce.
+- reciprocity: Debt framing: the sender did something for the reader, or offers a gift or favour, so the reader owes something ("I covered for you last month, now I need ...").
+- social_proof: Everyone else has already done it ("the whole team has already signed off").
+- liking: Manufactured warmth, flattery or false familiarity ("Great seeing you at the offsite, quick favour ...").
+- secrecy: Cuts the reader off from checking or asking anyone else ("keep this between us", "don't loop in your manager").
+
+The claim types
+- affiliation_internal: The sender says they belong to the reader's own organisation or one of its departments ("this is David from Finance", "IT help desk", "HR team").
+- affiliation_external: The sender says they represent an outside organisation (a bank, vendor, agency, "PayPal Security Team", "Central Bank").
+- authority: The sender claims a rank or role that gives them power ("as CFO", "I am the Director of Operations").
+- reply_direction: The sender tells the reader to reply or contact them somewhere other than this email, or only them ("reply to my personal email", "text me on this number").
+- signature_contact: A signature or footer gives contact details (an email address or phone number with a name or title).
+- prior_relationship: The sender claims an earlier meeting, conversation or agreement ("as we discussed", "great seeing you at the offsite").
+- payment_request: The sender asks for money to be sent or an invoice or bill to be paid.
+- payment_change: The sender asks to change bank, payment or payroll details, or the payee.
+- credential_request: The sender asks for a password, login, verification code, or to sign in or verify an account.
+- gift_card: The sender asks the reader to buy, send or photograph gift cards.
+- data_request: The sender asks for personal, financial, employee or company data or documents (tax forms, staff lists, ID copies).
+
+Pairs to write
+Pair p049
+  Situation: An executive's assistant sets up a call and then asks the reader for a favour.
+  Setting: a education organisation; tone rushed; length longer (about 140 to 200 words)
+  ATTACK email uses these tactics and no others: authority, scarcity, secrecy
+  ATTACK email makes these claims: affiliation_internal, prior_relationship, payment_request
+  BENIGN email: an assistant simply confirming a meeting time and room. It uses none of the seven tactics.
+  BENIGN email makes these claims: affiliation_internal, prior_relationship
+Pair p050
+  Situation: An executive writes to someone in finance asking for a wire transfer to a payee they have not paid before.
+  Setting: a software organisation; tone friendly; length longer (about 140 to 200 words)
+  ATTACK email uses these tactics and no others: authority, urgency
+  ATTACK email makes these claims: affiliation_internal, authority, payment_request, reply_direction
+  BENIGN email: a routine payment request that names the purchase order and follows the normal approval process. It uses none of the seven tactics.
+  BENIGN email makes these claims: affiliation_internal, payment_request
+Pair p051
+  Situation: A manager asks a team member to buy gift cards for clients.
+  Setting: a healthcare organisation; tone rushed; length longer (about 140 to 200 words)
+  ATTACK email uses these tactics and no others: authority, urgency
+  ATTACK email makes these claims: authority, gift_card, reply_direction
+  BENIGN email: a manager asking for gift cards for a client event to be ordered through procurement. It uses none of the seven tactics.
+  BENIGN email makes these claims: gift_card
+Pair p052
+  Situation: A vendor chases an unpaid invoice and refers to an earlier conversation.
+  Setting: a manufacturing organisation; tone friendly; length longer (about 140 to 200 words)
+  ATTACK email uses these tactics and no others: urgency, scarcity, secrecy
+  ATTACK email makes these claims: affiliation_external, payment_request, prior_relationship
+  BENIGN email: a polite reminder about a normal invoice, quoting its number and due date. It uses none of the seven tactics.
+  BENIGN email makes these claims: affiliation_external, payment_request, prior_relationship
+Pair p053
+  Situation: The IT help desk says a mailbox will be disabled and asks for a password or a verification code.
+  Setting: a hospitality organisation; tone friendly; length short (about 40 to 70 words)
+  ATTACK email uses these tactics and no others: scarcity, reciprocity
+  ATTACK email makes these claims: affiliation_internal, credential_request
+  BENIGN email: a scheduled maintenance notice that asks the reader for nothing. It uses none of the seven tactics.
+  BENIGN email makes these claims: affiliation_internal
+Pair p054
+  Situation: A lawyer or compliance officer asks for documents about a confidential matter.
+  Setting: a healthcare organisation; tone friendly; length medium (about 80 to 130 words)
+  ATTACK email uses these tactics and no others: authority, social_proof
+  ATTACK email makes these claims: affiliation_external, authority, data_request, prior_relationship
+  BENIGN email: a documented request from outside counsel through the normal legal channel. It uses none of the seven tactics.
+  BENIGN email makes these claims: affiliation_external, data_request
+Pair p055
+  Situation: An employee asks HR or payroll to change their direct-deposit bank details.
+  Setting: a energy organisation; tone warm and chatty; length longer (about 140 to 200 words)
+  ATTACK email uses these tactics and no others: scarcity, social_proof, liking
+  ATTACK email makes these claims: affiliation_internal, payment_change, reply_direction
+  BENIGN email: an employee asking how to update their bank details through the HR portal. It uses none of the seven tactics.
+  BENIGN email makes these claims: affiliation_internal, payment_change
+Pair p056
+  Situation: An executive asks for a payment tied to a confidential acquisition.
+  Setting: a healthcare organisation; tone formal; length short (about 40 to 70 words)
+  ATTACK email uses these tactics and no others: urgency, secrecy
+  ATTACK email makes these claims: authority, payment_request, prior_relationship
+  BENIGN email: a payment for a signed contract that legal has already reviewed. It uses none of the seven tactics.
+  BENIGN email makes these claims: affiliation_internal, payment_request
+
+Output: one JSON array and nothing else (no explanation, no code fence), one object per pair, in this order. For the attack, "tactic_cues" must give, for each tactic it uses, the exact words from the body that carry that tactic. Every "span" and every cue must be copied exactly from the body of that email. Example shape:
+{"pair": "p049", "attack": {"subject": "...", "body": "...", "tactic_cues": {"authority": "exact words from the body", "scarcity": "exact words from the body", "secrecy": "exact words from the body"}, "claims": [{"type": "affiliation_internal", "span": "exact words from the body", "organisation": null}]}, "benign": {"subject": "...", "body": "...", "claims": [{"type": "affiliation_internal", "span": "exact words from the body", "organisation": null}]}}

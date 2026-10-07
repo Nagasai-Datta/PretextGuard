@@ -16,6 +16,9 @@ artifacts/*
 *.bin
 *.safetensors
 
+# Annotation batches hold full email text (phishing_pot forbids redistribution); rebuilt by src/data/batches.py
+data/labelled/batches/
+
 # Notebooks
 .ipynb_checkpoints/
 

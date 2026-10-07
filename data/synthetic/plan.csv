@@ -1,0 +1,241 @@
+pair,scenario,industry,tone,length,attack_tactics,attack_claims,benign_claims,split
+p001,assistant_scheduling,manufacturing,friendly,medium (about 80 to 130 words),authority|reciprocity|liking,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,train
+p002,ceo_wire,logistics,formal,medium (about 80 to 130 words),urgency|scarcity|social_proof,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,validation
+p003,gift_cards,manufacturing,formal,longer (about 140 to 200 words),urgency|scarcity,authority|gift_card|reply_direction,gift_card,train
+p004,invoice_followup,education,polite but firm,medium (about 80 to 130 words),urgency|reciprocity,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p005,it_password,healthcare,polite but firm,medium (about 80 to 130 words),urgency|reciprocity|social_proof,affiliation_internal|credential_request,affiliation_internal,train
+p006,legal_confidential,software,formal,short (about 40 to 70 words),urgency|social_proof|liking,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p007,payroll_change,construction,formal,short (about 40 to 70 words),urgency|liking|secrecy,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,validation
+p008,secret_deal,logistics,polite but firm,longer (about 140 to 200 words),authority|urgency|liking,authority|payment_request|prior_relationship,affiliation_internal|payment_request,validation
+p009,tax_forms,construction,polite but firm,short (about 40 to 70 words),authority|urgency,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p010,thread_account_change,legal services,rushed,medium (about 80 to 130 words),scarcity|reciprocity|liking,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p011,travel_funds,manufacturing,polite but firm,medium (about 80 to 130 words),reciprocity|secrecy,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p012,vendor_bank_change,manufacturing,friendly,longer (about 140 to 200 words),scarcity|social_proof,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p013,assistant_scheduling,retail,terse,longer (about 140 to 200 words),social_proof|liking,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,train
+p014,ceo_wire,manufacturing,formal,longer (about 140 to 200 words),urgency|secrecy,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p015,gift_cards,healthcare,friendly,short (about 40 to 70 words),authority|social_proof,authority|gift_card|reply_direction,gift_card,train
+p016,invoice_followup,software,warm and chatty,short (about 40 to 70 words),urgency|scarcity,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,validation
+p017,it_password,education,formal,short (about 40 to 70 words),scarcity|reciprocity,affiliation_internal|credential_request,affiliation_internal,train
+p018,legal_confidential,education,rushed,longer (about 140 to 200 words),urgency|reciprocity,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p019,payroll_change,logistics,rushed,short (about 40 to 70 words),reciprocity|social_proof,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,test
+p020,secret_deal,hospitality,warm and chatty,short (about 40 to 70 words),urgency|social_proof|liking,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p021,tax_forms,retail,polite but firm,longer (about 140 to 200 words),authority|secrecy,affiliation_internal|authority|data_request,affiliation_internal|data_request,validation
+p022,thread_account_change,manufacturing,warm and chatty,short (about 40 to 70 words),authority|reciprocity|secrecy,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p023,travel_funds,energy,rushed,longer (about 140 to 200 words),urgency|social_proof|secrecy,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p024,vendor_bank_change,software,rushed,short (about 40 to 70 words),scarcity|reciprocity,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p025,assistant_scheduling,education,formal,short (about 40 to 70 words),scarcity|reciprocity,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,test
+p026,ceo_wire,manufacturing,terse,medium (about 80 to 130 words),authority|social_proof|liking,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,validation
+p027,gift_cards,education,friendly,medium (about 80 to 130 words),urgency|liking,authority|gift_card|reply_direction,gift_card,train
+p028,invoice_followup,construction,terse,short (about 40 to 70 words),authority|urgency|secrecy,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p029,it_password,energy,friendly,short (about 40 to 70 words),authority|social_proof,affiliation_internal|credential_request,affiliation_internal,test
+p030,legal_confidential,hospitality,formal,longer (about 140 to 200 words),urgency|secrecy,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p031,payroll_change,construction,formal,longer (about 140 to 200 words),scarcity|reciprocity,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,train
+p032,secret_deal,energy,warm and chatty,medium (about 80 to 130 words),authority|reciprocity|liking,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p033,tax_forms,healthcare,formal,medium (about 80 to 130 words),urgency|social_proof|liking,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p034,thread_account_change,energy,friendly,longer (about 140 to 200 words),scarcity|liking,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p035,travel_funds,legal services,terse,longer (about 140 to 200 words),authority|urgency|secrecy,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p036,vendor_bank_change,education,terse,longer (about 140 to 200 words),authority|liking,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p037,assistant_scheduling,software,polite but firm,medium (about 80 to 130 words),urgency|social_proof,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,train
+p038,ceo_wire,legal services,polite but firm,longer (about 140 to 200 words),urgency|scarcity,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p039,gift_cards,legal services,polite but firm,short (about 40 to 70 words),authority|reciprocity,authority|gift_card|reply_direction,gift_card,test
+p040,invoice_followup,logistics,friendly,medium (about 80 to 130 words),authority|social_proof,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,test
+p041,it_password,hospitality,formal,medium (about 80 to 130 words),social_proof|liking,affiliation_internal|credential_request,affiliation_internal,train
+p042,legal_confidential,software,warm and chatty,medium (about 80 to 130 words),social_proof|secrecy,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p043,payroll_change,retail,formal,longer (about 140 to 200 words),authority|urgency,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,validation
+p044,secret_deal,retail,formal,short (about 40 to 70 words),urgency|reciprocity|social_proof,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p045,tax_forms,healthcare,terse,longer (about 140 to 200 words),scarcity|reciprocity|social_proof,affiliation_internal|authority|data_request,affiliation_internal|data_request,validation
+p046,thread_account_change,retail,formal,longer (about 140 to 200 words),authority|reciprocity|social_proof,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p047,travel_funds,construction,formal,medium (about 80 to 130 words),reciprocity|social_proof,authority|payment_request|reply_direction,affiliation_internal|payment_request,test
+p048,vendor_bank_change,education,terse,short (about 40 to 70 words),urgency|liking,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,test
+p049,assistant_scheduling,education,rushed,longer (about 140 to 200 words),authority|scarcity|secrecy,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,train
+p050,ceo_wire,software,friendly,longer (about 140 to 200 words),authority|urgency,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p051,gift_cards,healthcare,rushed,longer (about 140 to 200 words),authority|urgency,authority|gift_card|reply_direction,gift_card,test
+p052,invoice_followup,manufacturing,friendly,longer (about 140 to 200 words),urgency|scarcity|secrecy,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p053,it_password,hospitality,friendly,short (about 40 to 70 words),scarcity|reciprocity,affiliation_internal|credential_request,affiliation_internal,train
+p054,legal_confidential,healthcare,friendly,medium (about 80 to 130 words),authority|social_proof,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,validation
+p055,payroll_change,energy,warm and chatty,longer (about 140 to 200 words),scarcity|social_proof|liking,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,train
+p056,secret_deal,healthcare,formal,short (about 40 to 70 words),urgency|secrecy,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p057,tax_forms,education,formal,longer (about 140 to 200 words),authority|urgency|reciprocity,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p058,thread_account_change,education,formal,medium (about 80 to 130 words),urgency|scarcity,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,validation
+p059,travel_funds,healthcare,terse,longer (about 140 to 200 words),urgency|scarcity,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p060,vendor_bank_change,legal services,rushed,short (about 40 to 70 words),urgency|reciprocity|social_proof,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,test
+p061,assistant_scheduling,legal services,friendly,medium (about 80 to 130 words),scarcity|reciprocity|social_proof,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,train
+p062,ceo_wire,software,warm and chatty,longer (about 140 to 200 words),urgency|liking,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p063,gift_cards,manufacturing,friendly,longer (about 140 to 200 words),authority|social_proof|secrecy,authority|gift_card|reply_direction,gift_card,validation
+p064,invoice_followup,retail,formal,medium (about 80 to 130 words),authority|scarcity|social_proof,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,validation
+p065,it_password,hospitality,warm and chatty,short (about 40 to 70 words),urgency|reciprocity,affiliation_internal|credential_request,affiliation_internal,train
+p066,legal_confidential,construction,polite but firm,longer (about 140 to 200 words),scarcity|reciprocity,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p067,payroll_change,education,formal,longer (about 140 to 200 words),scarcity|reciprocity|liking,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,validation
+p068,secret_deal,retail,friendly,medium (about 80 to 130 words),reciprocity|social_proof|liking,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p069,tax_forms,education,terse,medium (about 80 to 130 words),scarcity|liking,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p070,thread_account_change,healthcare,warm and chatty,longer (about 140 to 200 words),authority|secrecy,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,validation
+p071,travel_funds,healthcare,warm and chatty,short (about 40 to 70 words),authority|reciprocity|liking,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p072,vendor_bank_change,manufacturing,rushed,short (about 40 to 70 words),authority|urgency|social_proof,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p073,assistant_scheduling,construction,terse,longer (about 140 to 200 words),scarcity|liking,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,validation
+p074,ceo_wire,healthcare,rushed,short (about 40 to 70 words),authority|reciprocity,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p075,gift_cards,retail,polite but firm,short (about 40 to 70 words),reciprocity|social_proof|liking,authority|gift_card|reply_direction,gift_card,train
+p076,invoice_followup,energy,friendly,medium (about 80 to 130 words),urgency|reciprocity|liking,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p077,it_password,retail,friendly,medium (about 80 to 130 words),authority|secrecy,affiliation_internal|credential_request,affiliation_internal,train
+p078,legal_confidential,hospitality,friendly,short (about 40 to 70 words),authority|reciprocity,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p079,payroll_change,education,friendly,longer (about 140 to 200 words),authority|urgency|liking,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,train
+p080,secret_deal,manufacturing,terse,longer (about 140 to 200 words),scarcity|social_proof,authority|payment_request|prior_relationship,affiliation_internal|payment_request,test
+p081,tax_forms,healthcare,formal,longer (about 140 to 200 words),reciprocity|liking,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p082,thread_account_change,logistics,warm and chatty,longer (about 140 to 200 words),social_proof|secrecy,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p083,travel_funds,construction,rushed,short (about 40 to 70 words),liking|secrecy,authority|payment_request|reply_direction,affiliation_internal|payment_request,test
+p084,vendor_bank_change,logistics,formal,short (about 40 to 70 words),scarcity|social_proof|secrecy,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,validation
+p085,assistant_scheduling,logistics,formal,medium (about 80 to 130 words),authority|social_proof|secrecy,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,test
+p086,ceo_wire,education,friendly,medium (about 80 to 130 words),urgency|liking,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p087,gift_cards,energy,warm and chatty,longer (about 140 to 200 words),scarcity|liking,authority|gift_card|reply_direction,gift_card,train
+p088,invoice_followup,legal services,formal,longer (about 140 to 200 words),urgency|scarcity|reciprocity,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,validation
+p089,it_password,retail,formal,longer (about 140 to 200 words),social_proof|liking,affiliation_internal|credential_request,affiliation_internal,train
+p090,legal_confidential,legal services,friendly,longer (about 140 to 200 words),reciprocity|liking|secrecy,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,validation
+p091,payroll_change,software,polite but firm,short (about 40 to 70 words),authority|scarcity|secrecy,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,train
+p092,secret_deal,healthcare,friendly,medium (about 80 to 130 words),authority|urgency|scarcity,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p093,tax_forms,software,friendly,short (about 40 to 70 words),urgency|reciprocity,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p094,thread_account_change,construction,friendly,short (about 40 to 70 words),urgency|scarcity,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p095,travel_funds,energy,terse,short (about 40 to 70 words),reciprocity|social_proof,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p096,vendor_bank_change,healthcare,rushed,longer (about 140 to 200 words),social_proof|liking,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,test
+p097,assistant_scheduling,construction,friendly,short (about 40 to 70 words),reciprocity|liking,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,train
+p098,ceo_wire,software,warm and chatty,longer (about 140 to 200 words),authority|scarcity|secrecy,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,validation
+p099,gift_cards,hospitality,friendly,medium (about 80 to 130 words),authority|scarcity|social_proof,authority|gift_card|reply_direction,gift_card,test
+p100,invoice_followup,legal services,rushed,longer (about 140 to 200 words),urgency|scarcity,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p101,it_password,retail,polite but firm,medium (about 80 to 130 words),scarcity|liking,affiliation_internal|credential_request,affiliation_internal,train
+p102,legal_confidential,legal services,warm and chatty,longer (about 140 to 200 words),urgency|reciprocity,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p103,payroll_change,healthcare,terse,short (about 40 to 70 words),authority|social_proof|secrecy,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,test
+p104,secret_deal,retail,friendly,medium (about 80 to 130 words),scarcity|social_proof|liking,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p105,tax_forms,logistics,rushed,longer (about 140 to 200 words),authority|liking|secrecy,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p106,thread_account_change,logistics,warm and chatty,medium (about 80 to 130 words),authority|scarcity,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,test
+p107,travel_funds,education,warm and chatty,longer (about 140 to 200 words),authority|urgency|reciprocity,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p108,vendor_bank_change,construction,friendly,medium (about 80 to 130 words),urgency|scarcity|secrecy,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p109,assistant_scheduling,energy,warm and chatty,longer (about 140 to 200 words),scarcity|reciprocity|liking,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,train
+p110,ceo_wire,logistics,polite but firm,short (about 40 to 70 words),social_proof|secrecy,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,test
+p111,gift_cards,software,rushed,longer (about 140 to 200 words),scarcity|liking|secrecy,authority|gift_card|reply_direction,gift_card,train
+p112,invoice_followup,software,rushed,longer (about 140 to 200 words),urgency|liking|secrecy,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,validation
+p113,it_password,logistics,formal,medium (about 80 to 130 words),authority|social_proof,affiliation_internal|credential_request,affiliation_internal,test
+p114,legal_confidential,hospitality,warm and chatty,longer (about 140 to 200 words),urgency|scarcity|secrecy,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,test
+p115,payroll_change,legal services,polite but firm,longer (about 140 to 200 words),scarcity|liking|secrecy,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,test
+p116,secret_deal,manufacturing,polite but firm,longer (about 140 to 200 words),scarcity|reciprocity,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p117,tax_forms,construction,formal,medium (about 80 to 130 words),urgency|social_proof,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p118,thread_account_change,logistics,warm and chatty,longer (about 140 to 200 words),urgency|liking,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p119,travel_funds,education,warm and chatty,medium (about 80 to 130 words),liking|secrecy,authority|payment_request|reply_direction,affiliation_internal|payment_request,validation
+p120,vendor_bank_change,logistics,polite but firm,short (about 40 to 70 words),authority|secrecy,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p121,assistant_scheduling,healthcare,friendly,short (about 40 to 70 words),urgency|scarcity|reciprocity,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,validation
+p122,ceo_wire,hospitality,polite but firm,short (about 40 to 70 words),authority|urgency|scarcity,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,test
+p123,gift_cards,software,warm and chatty,medium (about 80 to 130 words),urgency|reciprocity|social_proof,authority|gift_card|reply_direction,gift_card,train
+p124,invoice_followup,healthcare,formal,longer (about 140 to 200 words),urgency|social_proof|liking,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p125,it_password,education,warm and chatty,medium (about 80 to 130 words),liking|secrecy,affiliation_internal|credential_request,affiliation_internal,train
+p126,legal_confidential,retail,terse,short (about 40 to 70 words),reciprocity|social_proof|secrecy,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p127,payroll_change,legal services,rushed,longer (about 140 to 200 words),authority|reciprocity,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,test
+p128,secret_deal,retail,polite but firm,medium (about 80 to 130 words),urgency|reciprocity,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p129,tax_forms,education,polite but firm,medium (about 80 to 130 words),urgency|scarcity,affiliation_internal|authority|data_request,affiliation_internal|data_request,test
+p130,thread_account_change,construction,friendly,short (about 40 to 70 words),authority|reciprocity,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p131,travel_funds,retail,rushed,medium (about 80 to 130 words),reciprocity|social_proof|liking,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p132,vendor_bank_change,retail,formal,short (about 40 to 70 words),social_proof|liking,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p133,assistant_scheduling,hospitality,formal,short (about 40 to 70 words),scarcity|secrecy,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,validation
+p134,ceo_wire,education,warm and chatty,medium (about 80 to 130 words),authority|reciprocity|secrecy,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p135,gift_cards,education,terse,medium (about 80 to 130 words),urgency|liking|secrecy,authority|gift_card|reply_direction,gift_card,train
+p136,invoice_followup,hospitality,warm and chatty,longer (about 140 to 200 words),authority|scarcity|reciprocity,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p137,it_password,education,friendly,medium (about 80 to 130 words),reciprocity|secrecy,affiliation_internal|credential_request,affiliation_internal,test
+p138,legal_confidential,legal services,formal,short (about 40 to 70 words),reciprocity|social_proof,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,validation
+p139,payroll_change,hospitality,formal,medium (about 80 to 130 words),authority|urgency|liking,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,train
+p140,secret_deal,logistics,terse,short (about 40 to 70 words),authority|secrecy,authority|payment_request|prior_relationship,affiliation_internal|payment_request,test
+p141,tax_forms,logistics,formal,longer (about 140 to 200 words),authority|secrecy,affiliation_internal|authority|data_request,affiliation_internal|data_request,test
+p142,thread_account_change,education,terse,medium (about 80 to 130 words),urgency|scarcity,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,test
+p143,travel_funds,education,polite but firm,short (about 40 to 70 words),scarcity|secrecy,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p144,vendor_bank_change,education,friendly,medium (about 80 to 130 words),urgency|reciprocity|secrecy,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p145,assistant_scheduling,logistics,warm and chatty,short (about 40 to 70 words),social_proof|secrecy,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,train
+p146,ceo_wire,construction,terse,longer (about 140 to 200 words),liking|secrecy,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p147,gift_cards,education,terse,short (about 40 to 70 words),liking|secrecy,authority|gift_card|reply_direction,gift_card,train
+p148,invoice_followup,healthcare,friendly,medium (about 80 to 130 words),authority|liking,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p149,it_password,manufacturing,rushed,longer (about 140 to 200 words),urgency|liking,affiliation_internal|credential_request,affiliation_internal,validation
+p150,legal_confidential,software,warm and chatty,short (about 40 to 70 words),urgency|scarcity,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p151,payroll_change,retail,rushed,short (about 40 to 70 words),authority|reciprocity|secrecy,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,train
+p152,secret_deal,education,terse,longer (about 140 to 200 words),authority|social_proof|secrecy,authority|payment_request|prior_relationship,affiliation_internal|payment_request,validation
+p153,tax_forms,healthcare,terse,longer (about 140 to 200 words),urgency|reciprocity|liking,affiliation_internal|authority|data_request,affiliation_internal|data_request,validation
+p154,thread_account_change,energy,friendly,longer (about 140 to 200 words),scarcity|secrecy,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p155,travel_funds,hospitality,formal,medium (about 80 to 130 words),authority|secrecy,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p156,vendor_bank_change,retail,polite but firm,short (about 40 to 70 words),authority|urgency|secrecy,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,validation
+p157,assistant_scheduling,construction,rushed,short (about 40 to 70 words),scarcity|liking|secrecy,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,validation
+p158,ceo_wire,hospitality,friendly,short (about 40 to 70 words),scarcity|reciprocity|secrecy,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,validation
+p159,gift_cards,construction,rushed,longer (about 140 to 200 words),reciprocity|social_proof|secrecy,authority|gift_card|reply_direction,gift_card,train
+p160,invoice_followup,energy,warm and chatty,medium (about 80 to 130 words),authority|liking,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,validation
+p161,it_password,hospitality,rushed,short (about 40 to 70 words),social_proof|liking|secrecy,affiliation_internal|credential_request,affiliation_internal,train
+p162,legal_confidential,energy,rushed,longer (about 140 to 200 words),authority|secrecy,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p163,payroll_change,construction,friendly,short (about 40 to 70 words),urgency|reciprocity|social_proof,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,train
+p164,secret_deal,construction,polite but firm,medium (about 80 to 130 words),scarcity|social_proof,authority|payment_request|prior_relationship,affiliation_internal|payment_request,test
+p165,tax_forms,energy,friendly,medium (about 80 to 130 words),authority|reciprocity|secrecy,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p166,thread_account_change,retail,formal,longer (about 140 to 200 words),authority|scarcity|social_proof,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,validation
+p167,travel_funds,construction,warm and chatty,longer (about 140 to 200 words),authority|liking|secrecy,authority|payment_request|reply_direction,affiliation_internal|payment_request,test
+p168,vendor_bank_change,healthcare,formal,short (about 40 to 70 words),scarcity|liking|secrecy,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,test
+p169,assistant_scheduling,logistics,friendly,short (about 40 to 70 words),authority|reciprocity|secrecy,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,train
+p170,ceo_wire,software,formal,short (about 40 to 70 words),urgency|reciprocity,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p171,gift_cards,construction,formal,longer (about 140 to 200 words),scarcity|reciprocity|secrecy,authority|gift_card|reply_direction,gift_card,train
+p172,invoice_followup,construction,formal,longer (about 140 to 200 words),authority|urgency|reciprocity,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p173,it_password,retail,rushed,medium (about 80 to 130 words),social_proof|liking,affiliation_internal|credential_request,affiliation_internal,train
+p174,legal_confidential,manufacturing,friendly,medium (about 80 to 130 words),authority|liking,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p175,payroll_change,education,formal,medium (about 80 to 130 words),reciprocity|secrecy,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,validation
+p176,secret_deal,hospitality,polite but firm,short (about 40 to 70 words),authority|scarcity,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p177,tax_forms,education,warm and chatty,short (about 40 to 70 words),urgency|social_proof|secrecy,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p178,thread_account_change,education,terse,medium (about 80 to 130 words),authority|scarcity|social_proof,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,test
+p179,travel_funds,legal services,rushed,longer (about 140 to 200 words),scarcity|reciprocity|liking,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p180,vendor_bank_change,energy,warm and chatty,short (about 40 to 70 words),authority|social_proof|secrecy,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p181,assistant_scheduling,manufacturing,polite but firm,medium (about 80 to 130 words),social_proof|liking,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,train
+p182,ceo_wire,logistics,formal,short (about 40 to 70 words),urgency|reciprocity|secrecy,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p183,gift_cards,manufacturing,formal,short (about 40 to 70 words),authority|scarcity,authority|gift_card|reply_direction,gift_card,train
+p184,invoice_followup,healthcare,rushed,medium (about 80 to 130 words),urgency|social_proof,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p185,it_password,construction,friendly,medium (about 80 to 130 words),scarcity|reciprocity,affiliation_internal|credential_request,affiliation_internal,test
+p186,legal_confidential,energy,warm and chatty,short (about 40 to 70 words),authority|reciprocity|liking,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p187,payroll_change,energy,warm and chatty,short (about 40 to 70 words),authority|scarcity|social_proof,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,validation
+p188,secret_deal,software,rushed,longer (about 140 to 200 words),reciprocity|liking|secrecy,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p189,tax_forms,energy,warm and chatty,short (about 40 to 70 words),social_proof|secrecy,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p190,thread_account_change,education,terse,medium (about 80 to 130 words),authority|reciprocity|social_proof,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p191,travel_funds,manufacturing,rushed,longer (about 140 to 200 words),urgency|liking|secrecy,authority|payment_request|reply_direction,affiliation_internal|payment_request,validation
+p192,vendor_bank_change,education,polite but firm,short (about 40 to 70 words),urgency|scarcity|liking,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p193,assistant_scheduling,manufacturing,friendly,longer (about 140 to 200 words),reciprocity|liking,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,test
+p194,ceo_wire,logistics,warm and chatty,longer (about 140 to 200 words),social_proof|secrecy,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,test
+p195,gift_cards,software,rushed,longer (about 140 to 200 words),liking|secrecy,authority|gift_card|reply_direction,gift_card,validation
+p196,invoice_followup,manufacturing,warm and chatty,short (about 40 to 70 words),liking|secrecy,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p197,it_password,energy,polite but firm,medium (about 80 to 130 words),authority|liking,affiliation_internal|credential_request,affiliation_internal,train
+p198,legal_confidential,manufacturing,friendly,short (about 40 to 70 words),urgency|social_proof|secrecy,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p199,payroll_change,energy,polite but firm,longer (about 140 to 200 words),authority|scarcity|secrecy,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,test
+p200,secret_deal,software,friendly,medium (about 80 to 130 words),reciprocity|liking,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p201,tax_forms,healthcare,warm and chatty,longer (about 140 to 200 words),scarcity|social_proof,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p202,thread_account_change,construction,formal,short (about 40 to 70 words),authority|liking,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p203,travel_funds,software,warm and chatty,longer (about 140 to 200 words),urgency|secrecy,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p204,vendor_bank_change,logistics,polite but firm,medium (about 80 to 130 words),authority|urgency|social_proof,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,test
+p205,assistant_scheduling,construction,polite but firm,medium (about 80 to 130 words),urgency|reciprocity|secrecy,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,validation
+p206,ceo_wire,software,warm and chatty,longer (about 140 to 200 words),scarcity|reciprocity|secrecy,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,validation
+p207,gift_cards,energy,friendly,longer (about 140 to 200 words),reciprocity|social_proof,authority|gift_card|reply_direction,gift_card,train
+p208,invoice_followup,energy,terse,longer (about 140 to 200 words),scarcity|social_proof,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p209,it_password,construction,polite but firm,medium (about 80 to 130 words),reciprocity|social_proof|liking,affiliation_internal|credential_request,affiliation_internal,train
+p210,legal_confidential,education,terse,longer (about 140 to 200 words),scarcity|liking|secrecy,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p211,payroll_change,software,warm and chatty,short (about 40 to 70 words),authority|reciprocity|social_proof,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,train
+p212,secret_deal,software,terse,medium (about 80 to 130 words),urgency|scarcity|secrecy,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p213,tax_forms,legal services,friendly,longer (about 140 to 200 words),scarcity|liking,affiliation_internal|authority|data_request,affiliation_internal|data_request,validation
+p214,thread_account_change,manufacturing,friendly,longer (about 140 to 200 words),scarcity|reciprocity,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p215,travel_funds,education,friendly,short (about 40 to 70 words),urgency|social_proof|liking,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p216,vendor_bank_change,software,warm and chatty,longer (about 140 to 200 words),urgency|reciprocity|liking,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p217,assistant_scheduling,logistics,formal,short (about 40 to 70 words),authority|reciprocity|secrecy,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,train
+p218,ceo_wire,software,formal,medium (about 80 to 130 words),authority|social_proof,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p219,gift_cards,logistics,friendly,longer (about 140 to 200 words),authority|urgency|social_proof,authority|gift_card|reply_direction,gift_card,train
+p220,invoice_followup,hospitality,formal,medium (about 80 to 130 words),authority|scarcity|social_proof,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p221,it_password,software,rushed,longer (about 140 to 200 words),reciprocity|social_proof,affiliation_internal|credential_request,affiliation_internal,train
+p222,legal_confidential,legal services,rushed,longer (about 140 to 200 words),authority|scarcity|social_proof,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,train
+p223,payroll_change,retail,polite but firm,longer (about 140 to 200 words),authority|liking,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,train
+p224,secret_deal,hospitality,formal,longer (about 140 to 200 words),authority|secrecy,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p225,tax_forms,hospitality,rushed,short (about 40 to 70 words),authority|secrecy,affiliation_internal|authority|data_request,affiliation_internal|data_request,train
+p226,thread_account_change,logistics,rushed,longer (about 140 to 200 words),urgency|social_proof|secrecy,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,validation
+p227,travel_funds,education,friendly,short (about 40 to 70 words),urgency|scarcity,authority|payment_request|reply_direction,affiliation_internal|payment_request,validation
+p228,vendor_bank_change,healthcare,warm and chatty,short (about 40 to 70 words),reciprocity|social_proof|secrecy,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train
+p229,assistant_scheduling,energy,terse,longer (about 140 to 200 words),urgency|social_proof|liking,affiliation_internal|prior_relationship|payment_request,affiliation_internal|prior_relationship,validation
+p230,ceo_wire,software,terse,medium (about 80 to 130 words),authority|scarcity|liking,affiliation_internal|authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p231,gift_cards,hospitality,rushed,medium (about 80 to 130 words),urgency|scarcity|secrecy,authority|gift_card|reply_direction,gift_card,train
+p232,invoice_followup,hospitality,formal,medium (about 80 to 130 words),authority|scarcity,affiliation_external|payment_request|prior_relationship,affiliation_external|payment_request|prior_relationship,train
+p233,it_password,logistics,warm and chatty,short (about 40 to 70 words),urgency|liking,affiliation_internal|credential_request,affiliation_internal,train
+p234,legal_confidential,education,friendly,short (about 40 to 70 words),scarcity|reciprocity|liking,affiliation_external|authority|data_request|prior_relationship,affiliation_external|data_request,test
+p235,payroll_change,hospitality,warm and chatty,short (about 40 to 70 words),authority|urgency|reciprocity,affiliation_internal|payment_change|reply_direction,affiliation_internal|payment_change,validation
+p236,secret_deal,retail,polite but firm,short (about 40 to 70 words),reciprocity|social_proof,authority|payment_request|prior_relationship,affiliation_internal|payment_request,train
+p237,tax_forms,logistics,rushed,short (about 40 to 70 words),scarcity|social_proof|liking,affiliation_internal|authority|data_request,affiliation_internal|data_request,validation
+p238,thread_account_change,logistics,rushed,short (about 40 to 70 words),reciprocity|secrecy,prior_relationship|payment_change|signature_contact,prior_relationship|signature_contact,train
+p239,travel_funds,education,polite but firm,short (about 40 to 70 words),authority|secrecy,authority|payment_request|reply_direction,affiliation_internal|payment_request,train
+p240,vendor_bank_change,construction,polite but firm,short (about 40 to 70 words),authority|urgency,affiliation_external|payment_change|signature_contact,affiliation_external|signature_contact,train

@@ -47,6 +47,23 @@ KEYWORD_HIT_RATES_CSV = RESULTS_DIR / "keyword_hit_rates.csv"
 KEYWORD_PHRASE_HITS_CSV = RESULTS_DIR / "keyword_phrase_hits.csv"
 KEYWORD_CHECKS_CSV = RESULTS_DIR / "keyword_checks.csv"
 
+# Files written by Phase 5 (src/data): annotation, labels, synthetic emails, SemEval mapping
+LABELLED_DIR = DATA_DIR / "labelled"
+BATCHES_DIR = LABELLED_DIR / "batches"          # full email text, never committed
+SAMPLE_CSV = LABELLED_DIR / "sample.csv"        # which emails were drawn (ids only, no text)
+ANNOTATORS_CSV = LABELLED_DIR / "annotators.csv"
+REPLIES_LOG_CSV = LABELLED_DIR / "replies_log.csv"
+LABELS_CSV = LABELLED_DIR / "labels.csv"
+SYNTHETIC_DIR = DATA_DIR / "synthetic"
+SYNTHETIC_CSV = SYNTHETIC_DIR / "synthetic.csv"
+SEMEVAL_DIR = RAW_DIR / "semeval"
+SAMPLE_COUNTS_CSV = RESULTS_DIR / "sample_counts.csv"
+LABEL_VALIDATION_CSV = RESULTS_DIR / "label_validation.csv"
+LABEL_AGREEMENT_CSV = RESULTS_DIR / "label_agreement.csv"
+LABEL_COUNTS_CSV = RESULTS_DIR / "label_counts.csv"
+SYNTHETIC_COUNTS_CSV = RESULTS_DIR / "synthetic_counts.csv"
+SEMEVAL_MAPPING_CSV = RESULTS_DIR / "semeval_mapping.csv"
+
 
 def relative(path):
     """Return path relative to the project root, for short printouts.

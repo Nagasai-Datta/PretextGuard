@@ -17,3 +17,6 @@ tldextract==5.4.0
 
 # Phase 3: header evidence (lookalike domain similarity)
 RapidFuzz==3.14.6
+
+# Phase 5: label agreement (Cohen's kappa cross-check)
+scikit-learn==1.9.1
