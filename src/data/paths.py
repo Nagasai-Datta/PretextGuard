@@ -36,6 +36,11 @@ CLEANED_PARQUET = PROCESSED_DIR / "cleaned.parquet"
 PREPROCESS_SUMMARY_CSV = RESULTS_DIR / "preprocess_summary.csv"
 PREPROCESS_CHECKS_CSV = RESULTS_DIR / "preprocess_checks.csv"
 
+# Files written by Phase 3 (src/headers)
+HEADERS_PARQUET = PROCESSED_DIR / "headers.parquet"
+HEADER_EVIDENCE_SUMMARY_CSV = RESULTS_DIR / "header_evidence_summary.csv"
+HEADER_TOP_DOMAINS_CSV = RESULTS_DIR / "header_top_domains.csv"
+
 
 def relative(path):
     """Return path relative to the project root, for short printouts.

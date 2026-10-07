@@ -31,6 +31,9 @@ from src.data.paths import (
     RAW_DIR,
     SPAMASSASSIN_DIR,
 )
+# Splitting a raw email into headers and body text lives in src/headers/parser.py
+# (moved there in Phase 3), so the loaders and the API share one copy.
+from src.headers.parser import body_text, split_headers
 
 # The Kaggle files we read: (source name, category for label 1). Label 0
 # always means ham. CEAS-08 spam contains some phishing that its labels do not
@@ -106,44 +109,6 @@ def load_kaggle():
 
 
 # ---------- Raw emails (.eml files, mbox messages) ----------
-
-def split_headers(raw):
-    """Return the header block of a raw email as text: everything before the first blank line."""
-    raw = raw.replace(b"\r\n", b"\n")  # Windows line endings -> Unix
-    end = raw.find(b"\n\n")
-    header_bytes = raw if end == -1 else raw[:end]
-    return header_bytes.decode("utf-8", errors="replace")
-
-
-def decode_part(part):
-    """Return one MIME part as text: undo base64 or quoted-printable, then its character set."""
-    payload = part.get_payload(decode=True)  # bytes, with the transfer encoding already undone
-    if not payload:
-        return ""
-    charset = part.get_content_charset() or "utf-8"
-    try:
-        return payload.decode(charset, errors="replace")
-    except (LookupError, ValueError):  # unknown or broken charset name, such as "x-unknown"
-        return payload.decode("utf-8", errors="replace")
-
-
-def body_text(message):
-    """Return an email's text/plain parts, or its text/html parts if it has no plain text."""
-    plain, html = [], []
-    for part in message.walk():
-        # Containers (multipart/...) hold no text themselves; attachments are never read.
-        if part.is_multipart() or part.get_content_disposition() == "attachment":
-            continue
-        content_type = part.get_content_type()
-        if content_type == "text/plain":
-            plain.append(decode_part(part))
-        elif content_type == "text/html":
-            html.append(decode_part(part))
-    text = "\n\n".join(t for t in plain if t.strip())
-    if not text:
-        text = "\n\n".join(t for t in html if t.strip())
-    return text
-
 
 def email_record(raw, source, category, ref):
     """Build one record from the raw bytes of an email file or an mbox message."""
