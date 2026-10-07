@@ -29,8 +29,8 @@ None of these files is committed or redistributed in this repository.
 | Downloads, never modified (read-only) | `data/raw/<source>/` | No | You (browser) and `fetch_apache.py` | 1 |
 | Unpacked archives, read-only | `data/raw/<source>/<archive name>/` | No | `unpack.py` | 1 |
 | One table of every unique email, with the split | `data/processed/staged.parquet` | No | `stage.py`, `split.py` | 1 |
-| Plus clean and redacted bodies | `data/processed/` | No | Phase 2 scripts | 2 |
-| Plus header evidence columns | `data/processed/` | No | Phase 3 scripts | 3 |
+| The same rows plus clean and redacted bodies | `data/processed/cleaned.parquet` | No | `src/preprocess/build.py` | 2 |
+| Header fields and evidence, one row per email (joins on `id`) | `data/processed/headers.parquet` | No | `src/headers/build.py` | 3 |
 | Annotation batches, raw chatbot replies, final labels | `data/labelled/` | Yes (small; proof of method) | Phase 5 scripts | 5 |
 | Synthetic emails | `data/synthetic/` | Yes | Phase 5 and 9 scripts | 5, 9 |
 | Rebuilt threads and the thread-hijack benchmark | `data/threads/` | Decided in Phase 9 by size | Phase 9 scripts | 9 |
@@ -74,6 +74,8 @@ None of these files is committed or redistributed in this repository.
    python -m src.data.stage
    python -m src.data.coverage
    python -m src.data.split
+   python -m src.preprocess.build
+   python -m src.headers.build
    ```
 
 About 1 GB is downloaded; about 3 GB is used after unpacking (raw Enron alone is 517,401 small files).

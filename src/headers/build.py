@@ -94,6 +94,7 @@ def summary_table(data):
             "from_parsed_pct": percent(group["from_addr"].notna()),
             "auth_header_pct": percent(group["auth_source"] != "none"),
             "auth_known_pct": percent((group[["spf", "dkim", "dmarc"]] != "unknown").any(axis=1)),
+            "auth_internal_pct": percent(group["auth_source"] == "authentication-results-internal"),
             "spf_pass_pct": percent(group["spf"] == "pass"),
             "spf_fail_pct": percent(group["spf"].isin(["fail", "softfail"])),
             "dkim_pass_pct": percent(group["dkim"] == "pass"),

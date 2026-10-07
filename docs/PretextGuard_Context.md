@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: 6 October 2026, written at the end of Phase 2, to go with master document v3.4.
+Version: 7 October 2026, written at the end of Phase 3, to go with master document v3.5.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -173,7 +173,7 @@ propose them again as novelty. Stack choices are never novelty (faculty rule).
 
 ---
 
-## 4. Current state of the repository (end of Phase 2)
+## 4. Current state of the repository (end of Phase 3)
 
 ```
 pretextguard/
@@ -184,19 +184,21 @@ pretextguard/
   venv/                      Python 3.12.14 (ignored)
   data/README.md             every source, licence, stage and how to rebuild
   data/raw/                  downloads and unpacked archives, read-only (ignored)
-  data/processed/            staged.parquet (Phase 1), cleaned.parquet (Phase 2) (ignored)
+  data/processed/            staged.parquet (1), cleaned.parquet (2), headers.parquet (3) (ignored)
   data/labelled/.gitkeep  data/threads/.gitkeep
   artifacts/README.md        everything else in artifacts/ is ignored
   results/README.md  staged_counts.csv  dedup_pairs.csv  header_coverage.csv  split_counts.csv
                      preprocess_summary.csv  preprocess_checks.csv
+                     header_evidence_summary.csv  header_top_domains.csv  header_auth_formats.csv
   notebooks/README.md  frontend/.gitkeep
-  docs/README.md  master_document.md (v3.4)  PretextGuard_Master_Document_v3.2.docx (snapshot)
+  docs/README.md  master_document.md (v3.5)  PretextGuard_Master_Document_v3.2.docx (snapshot)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
                              coverage.py  split.py
   src/preprocess/            README.md  clean.py  redact.py  build.py
-  src/{headers,thread,models,claims,verifiers,router,explain,baseline,eval,api}/__init__.py  (all empty)
+  src/headers/               README.md  parser.py  domains.py  evidence.py  build.py
+  src/{thread,models,claims,verifiers,router,explain,baseline,eval,api}/__init__.py  (all empty)
   tests/test_environment.py  16 checks (unchanged)
 ```
 
@@ -205,23 +207,34 @@ pretextguard/
 **The tables.** `data/processed/staged.parquet` (Phase 1, never modified): 99,324 unique emails with
 `id, source, category, is_attack, has_full_headers, raw_ref, raw_headers, body_raw, split`.
 `data/processed/cleaned.parquet` (Phase 2): the same rows and columns plus `has_url, body_clean,
-body_redacted, signature`. Sources: kaggle_ceas08 38,077, kaggle_enron 29,119, kaggle_ling 2,850,
-kaggle_nigerian_fraud 3,227, nazario 9,595, phishing_pot 7,491, spamassassin 5,775,
-apache_tomcat_users 2,135, apache_kafka_users 1,055. Totals: 42,354 ham, 36,657 spam, 17,086
-phishing, 3,227 fraud (20,313 attacks). Split: 69,542 train, 14,879 validation, 14,903 test.
+body_redacted, signature`. `data/processed/headers.parquet` (Phase 3): one row per email, joined on
+`id`, with the header fields and evidence (column list: master document Section 8.7). Sources:
+kaggle_ceas08 38,077, kaggle_enron 29,119, kaggle_ling 2,850, kaggle_nigerian_fraud 3,227, nazario
+9,595, phishing_pot 7,491, spamassassin 5,775, apache_tomcat_users 2,135, apache_kafka_users 1,055.
+Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). Split: 69,542 train,
+14,879 validation, 14,903 test.
 
 **Phase 2 in brief** (master document Section 8.10):
 - `clean_body(raw)` and `redact(text)` in `src/preprocess` work on one string at a time; the API
   (Phase 11) will reuse them unchanged.
 - `body_clean` keeps links (N1 model A's raw view); `body_redacted` has `[URL] [EMAIL] [FILE] [DOMAIN]`.
 - Kaggle Enron and Ling are stored pre-tokenised ("john @ enron . com"); spaced patterns handle them.
-- After redaction no body matches a link or address pattern (45 keep a stray "www."); 4,580 attacks
-  are naturally link-free (696 in test).
-- Every pattern is ReDoS-safe; two real backtracking bugs were found and fixed in testing.
+- 4,580 attacks are naturally link-free (696 in test).
 
-Header coverage highlights (Phase 1): Authentication-Results on 99.5% of phishing_pot, about 100% of
-Apache, 20.4% of Nazario, 0% of SpamAssassin and raw Enron; raw Enron has no In-Reply-To,
-References, Received or X-Mailer; every Apache message has a list-set Reply-To and a List-Id.
+**Phase 3 in brief** (master document Section 8.11 and `src/headers/README.md`):
+- `parse_header_fields(block)` and `header_evidence(fields, org_domain)` in `src/headers` work on one
+  email at a time; the API will reuse them. `split_headers` and `body_text` moved from
+  `src/data/loaders.py` to `src/headers/parser.py`.
+- SPF, DKIM and DMARC are read, never recomputed, only from trusted Authentication-Results headers:
+  the topmost one plus the headers directly below it from the same organisation. Both formats
+  (standard, and Microsoft's without a server name) are read. Missing means `unknown`, never pass.
+- phishing_pot: 54.7% SPF pass, 38.3% DMARC pass, From parsed 92.1%. Apache:
+  verdicts (DKIM only) for 85.1% of kafka and 71.1% of tomcat. No benign source has SPF or DMARC
+  verdicts, so authentication evidence is never a learned feature (N3 uses it through rules).
+- No organisation domain (internal affiliation not checkable) for collector mailboxes, placeholder
+  domains and free-mailbox recipients. Envelope mismatch is normal for list mail.
+- Headers are attacker-written: size caps, per-field parsing, bounded patterns (master document
+  Section 10). New library: RapidFuzz 3.14.6.
 
 Current `.gitignore`:
 ```
@@ -272,50 +285,55 @@ tqdm==4.70.1
 # Phase 2: cleaning and N1 redaction (HTML to text, public suffix list)
 beautifulsoup4==4.15.0
 tldextract==5.4.0
+
+# Phase 3: header evidence (lookalike domain similarity)
+RapidFuzz==3.14.6
 ```
 
 `.env.example` and `pytest.ini` are unchanged from Phase 0.
 
 ---
 
-## 5. Next task: Phase 3, parser and header evidence extractor (plan not yet approved)
+## 5. Next task: Phase 4, keyword baseline (plan not yet approved)
 
-Full detail: master document Sections 3.6, 4.4 (N3 and the organisation domain), 6.2 (parser and
-header evidence extractor), 6.5 (header signals), 8.1 (header coverage), 8.7 (Phase 3 columns), 12.6
-(planned files `parser.py`, `evidence.py`, `domains.py` in `src/headers`) and 15 (item 4). Start by
-proposing the plan and the background concepts, then wait for "go". Deliver in two or three steps,
-every file as a download.
+Full detail: master document Sections 6.11 (keyword baseline), 7 (the seven tactics), 11 (keyword
+baseline vs DistilBERT), 12.2 and 12.6 (planned file `src/baseline/keywords.py`). Start by proposing
+the plan and the background concepts, then wait for "go". Deliver in two steps at most, every file
+as a download.
 
-**Goal.** Parse each email's headers into an evidence record and add the Phase 3 columns:
-`from_name, from_addr, from_domain, reply_to, return_path, date, subject, org_domain, auth_results
-(spf, dkim, dmarc or unknown), message_id, in_reply_to, references`, plus the evidence the verifiers
-need: Received chain, send hour, freemail flag, lookalike score against the organisation domain,
-mailing-list membership. The same functions must work on one submitted email at run time.
+**Goal.** Fixed word and phrase lists for the seven tactics, and a scorer that turns an email body
+into seven tactic scores (multi-label). It is the simple-rules baseline that DistilBERT must beat
+(master document Section 11).
 
 **Notes the plan must handle**
-- Read `raw_headers` from `cleaned.parquet`; write a new file (each phase writes its own file).
-- Missing Authentication-Results is **unknown**, never pass (master document 6.5).
-- Mailing-list mail: a Reply-To set by the list (List-Id present) is not Reply-To divergence.
-- Kaggle rows have only a rebuilt header block (Enron and Ling: Subject only).
-- Organisation domain defaults to the To domain, but To is the collector for Nazario (monkey.org)
-  and anonymised for phishing_pot, so internal-affiliation evidence there is not checkable.
-- Headers are attacker-controlled: encoded words, folded lines, malformed addresses and huge
-  Received chains must not crash or stall the parser (same ReDoS care as Phase 2).
+- Tactic labels arrive only in Phase 5, so Phase 4 cannot measure precision, recall or F1 yet. What
+  it can check now: hit rates per tactic, per source and category, on the train split (for example,
+  secrecy phrases should fire more on fraud than on ham), saved to `results/`. F1 against the
+  labels comes in Phase 13.
+- Read `body_redacted` from `cleaned.parquet` (the N1 view every PretextGuard model reads).
+- Kaggle Enron and Ling text is lowercase and pre-tokenised ("don ' t tell anyone"); normalise text
+  and phrases the same way before matching.
+- Pick words from the taxonomy (master document Section 7) and the train split only, never from
+  validation or test (leakage).
+- If keyword hits are later used to pick Phase 5 annotation batches (to find rare tactics such as
+  reciprocity), the baseline will look better on that sample than it is; the plan must say how
+  Phase 13 avoids or reports that bias.
+- Patterns must be ReDoS-safe, as in Phases 2 and 3. Write the lists and code fresh (no copied
+  keyword lists).
 
-**Decisions for the plan to recommend:** where the freemail domain list comes from (a well-known
-public list as data, or a small hand-written one), how lookalike distance is measured (rapidfuzz,
-new library), how the Received chain and send hour are read, and which printed counts prove the
-step worked.
+**Decisions for the plan to recommend:** plain phrase matching or regular expressions; how a tactic
+score is computed (any match, count, or weighted count); whether thresholds are fixed now or tuned
+on validation after Phase 5; which printed counts prove the step worked.
 
-**Background to teach in Phase 3:** header syntax (folding, encoded words), address parsing with
-`email.utils`, the Received chain and its order, the Authentication-Results format, registered
-domains with tldextract, string similarity for lookalike domains, time zones and send hour.
+**Background to teach in Phase 4:** rule-based versus learned classifiers; why a baseline matters;
+text normalisation (case, punctuation, contractions); word boundaries in regular expressions;
+multi-label outputs and thresholds; precision versus recall for word lists; leakage when words are
+picked by looking at test data.
 
 ## 6. The rest of the build (details in the master document, Section 12)
 
 | Phase | Deliverable |
 |---|---|
-| 3 | Email parser and header evidence extractor; organisation domain (`src/headers`) |
 | 4 | Keyword baseline (`src/baseline`) |
 | 5 | Tactic and claim labels via free web chats (Gemini and DeepSeek, z.ai breaks ties; Cohen's kappa); SemEval mapping; synthetic emails into `data/synthetic/` |
 | 6 | DistilBERT tactic classifier on Colab; weights to `artifacts/` (`src/models`, `notebooks/`) |

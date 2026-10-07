@@ -117,6 +117,8 @@ Phase 1 gathered nine sources into one table of **99,324 unique emails** (20,313
 
 - `data/raw/`: downloads, never modified (not committed).
 - `data/processed/staged.parquet`: the one table, with a fixed 70/15/15 train/validation/test split (not committed).
+- `data/processed/cleaned.parquet` (Phase 2): the same rows plus clean and payload-free redacted bodies (not committed).
+- `data/processed/headers.parquet` (Phase 3): header fields and evidence, one row per email, joined on `id` (not committed).
 - `results/`: every count and score, written by scripts (committed).
 
 ## 8. Proof: one ablation per claim
@@ -129,7 +131,8 @@ An ablation removes one part and measures again; the drop is what that part cont
 |---|---|
 | Language | Python 3.12 in a venv (matches Google Colab) |
 | Data | pandas, pyarrow (Parquet), requests, tqdm |
-| Email parsing | Python `email` and `mailbox` (standard library); tldextract and rapidfuzz in Phase 3 |
+| Cleaning | BeautifulSoup (HTML to text) |
+| Email parsing | Python `email` and `mailbox` (standard library); tldextract (public suffix list, offline) and rapidfuzz (lookalike domains) |
 | Model | DistilBERT (Hugging Face Transformers, PyTorch), trained on Colab, run on CPU |
 | NLP extras | spaCy for names and organisations |
 | Explanations | LIME |
@@ -154,6 +157,8 @@ No paid APIs and no LLM at run time.
 | Dependency hygiene | Pinned requirements; pip-audit clean |
 | Secrets | `.env` is never committed; `.env.example` lists the variable names only |
 | Safe data handling (build time) | Archives unpacked with path-traversal and size checks; file types checked by their first bytes; raw data read-only; rebuilt headers squashed onto one line (header injection) |
+| ReDoS-safe processing | Cleaning, redaction and header parsing run on attacker-written text, so every pattern has bounded repeats and every input is capped |
+| Trusted authentication results | Only Authentication-Results headers added by the receiving organisation are read; fake ones written by the sender are ignored |
 
 ## 11. Project structure
 
@@ -178,9 +183,9 @@ pretextguard/
 |---|---|---|
 | 0 | Environment, repository, environment check, pip-audit | Done |
 | 1 | Data acquisition: staged table, header coverage table, split, READMEs | Done |
-| 2 | Cleaning and payload-free redaction (N1) | Next |
-| 3 | Email parser and header evidence extractor | Not started |
-| 4 | Keyword baseline | Not started |
+| 2 | Cleaning and payload-free redaction (N1) | Done |
+| 3 | Email parser and header evidence extractor | Done |
+| 4 | Keyword baseline | Next |
 | 5 | Tactic and claim labels (free web-chat annotators, Cohen's kappa), synthetic emails | Not started |
 | 6 | DistilBERT tactic classifier on Colab | Not started |
 | 7 | Claim extractor | Not started |
@@ -223,6 +228,13 @@ python -m src.data.unpack         # check every download and unpack the archives
 python -m src.data.stage          # one table, duplicates removed -> data/processed/staged.parquet
 python -m src.data.coverage       # which sources carry which headers -> results/header_coverage.csv
 python -m src.data.split          # fixed 70/15/15 split -> split column + results/split_counts.csv
+```
+
+Then the Phase 2 and 3 tables:
+
+```bash
+python -m src.preprocess.build    # clean and redacted bodies -> data/processed/cleaned.parquet
+python -m src.headers.build       # header fields and evidence -> data/processed/headers.parquet
 ```
 
 ## Privacy

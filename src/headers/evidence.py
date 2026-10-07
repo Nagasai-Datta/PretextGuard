@@ -2,7 +2,9 @@
 
 header_evidence(fields, org_domain) returns one flat dict:
     spf, dkim, dmarc        the receiving server's verdicts, or "unknown" when there is no verdict
-    auth_source             where they came from: "authentication-results", "received-spf" or "none"
+    auth_source             where they came from: "authentication-results" (the topmost header),
+                            "authentication-results-internal" (partly from a header just below it,
+                            added by the same organisation), "received-spf" or "none"
     authenticated_domain    the domain authentication actually vouched for (gmail.com for the fake David)
     auth_aligned            the authenticated domain is the From domain's registered domain
     received_hops, origin_ip, send_hour
@@ -13,10 +15,13 @@ Missing evidence is recorded as unknown (None or "unknown"), never as pass.
 Both Authentication-Results forms are read: the standard one, which starts with
 the checking server's name, and Microsoft's, which leaves the name out.
 
-Security: only the topmost Authentication-Results header is trusted, because the
-receiving server adds it at the top; an attacker can write a fake
-"dmarc=pass" lower in the header (RFC 8601 says to ignore results a receiver did
-not add itself). All patterns have bounded repeats (no ReDoS).
+Security: an attacker can write a fake "dmarc=pass" Authentication-Results header
+into the email they send, so only the headers the receiving organisation added are
+trusted. Servers add headers at the top, so the topmost one is always the
+receiver's own. Below it, only headers from the same organisation are read, and
+reading stops at the first header from anyone else (see trusted_verdicts). RFC 8601
+also requires a receiver to delete incoming headers that claim to come from inside
+its own organisation. All patterns have bounded repeats (no ReDoS).
 """
 
 import ipaddress
@@ -108,13 +113,40 @@ def auth_format(values, limit=3):
     return " | ".join(described) or None
 
 
+def trusted_verdicts(values):
+    """Verdicts from the Authentication-Results headers the receiving organisation added (top first).
+
+    Returns (verdicts, used_lower). The topmost header is always trusted. Some
+    organisations pass mail between their own servers, and each server adds its
+    own header: at Apache the topmost one only records the internal hand-over
+    ("auth=pass"), and the DKIM check of the author's message sits in the header
+    below it, also from apache.org. So the headers directly below the topmost are
+    read too, while their server belongs to the same organisation (same registered
+    domain). Reading stops at the first header from anyone else, because from there
+    down the headers may have been written by the sender. For each of SPF, DKIM and
+    DMARC, the highest header that reports it wins.
+    """
+    verdicts, used_lower, organisation = {}, False, None
+    for position, value in enumerate(values):
+        server, _ = split_auth_results(value)
+        if position == 0:
+            organisation = registered_domain(server) if server else None
+        elif organisation is None or registered_domain(server) != organisation:
+            break  # no server name, or another organisation: not trusted
+        for method, verdict in parse_auth_results(value).items():
+            if method not in verdicts:  # a higher header already reported this method
+                verdicts[method] = verdict
+                used_lower = used_lower or position > 0
+    return verdicts, used_lower
+
+
 def authentication(fields):
-    """spf, dkim, dmarc, auth_source and authenticated_domain from the topmost verdict header."""
+    """spf, dkim, dmarc, auth_source and authenticated_domain from the trusted verdict headers."""
     out = {"spf": "unknown", "dkim": "unknown", "dmarc": "unknown", "auth_source": "none", "authenticated_domain": None}
     verdicts = {}
     if fields.get("auth_results"):
-        verdicts = parse_auth_results(fields["auth_results"][0])  # topmost only: added by the receiving server
-        out["auth_source"] = "authentication-results"
+        verdicts, used_lower = trusted_verdicts(fields["auth_results"])
+        out["auth_source"] = "authentication-results-internal" if used_lower else "authentication-results"
     elif fields.get("received_spf"):
         words = fields["received_spf"].split()
         if words:

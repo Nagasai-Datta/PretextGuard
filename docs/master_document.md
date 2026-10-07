@@ -14,9 +14,9 @@ Project Master Document
 
 **Faculty:** Dr. Arun Prasath G
 
-**Version:** 3.4, 6 October 2026
+**Version:** 3.5, 7 October 2026
 
-> **This is the single source of truth for the project.** Version 3.4 supersedes version 3.3 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
+> **This is the single source of truth for the project.** Version 3.5 supersedes version 3.4 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
 
 **Contents**
 
@@ -147,7 +147,7 @@ This document is written so that a person or an AI assistant can pick up Pretext
 </tr>
 <tr class="even">
 <td>Current status</td>
-<td>Phases 0 to 2 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 (parser and header evidence extractor) is next.</td>
+<td>Phases 0 to 3 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 (keyword baseline) is next.</td>
 </tr>
 <tr class="odd">
 <td>Repository</td>
@@ -166,7 +166,7 @@ This document is written so that a person or an AI assistant can pick up Pretext
 |---|---|---|
 | Novelty and innovation | 30 | N1, N2, N3 and the claim-routed architecture (Section 4) |
 | Implementation quality | 25 | End-to-end pipeline, model, verifiers, API, UI (Sections 6, 12) |
-| Security features | 15 | Ten controls mapped to OWASP (Section 10) |
+| Security features | 15 | Sixteen controls mapped to OWASP (Section 10) |
 | Literature survey | 10 | Twelve works, closest competitors cited first (Section 5) |
 | System design | 10 | Claim-routed architecture, no-persistence design (Section 6) |
 | Testing and performance | 5 | One ablation per claim, claim-extraction accuracy, robustness tests (Section 11) |
@@ -311,7 +311,7 @@ An email is a plain text file: headers (the envelope: who sent it, to whom, how 
 
 **Conditioning, in two examples:** spf=fail on a newsletter is low risk. spf=fail on a message claiming to be the CFO and ordering a payment is high risk. The reverse also holds: dmarc=pass on a Gmail message is normal, but dmarc=pass on a Gmail message claiming to be Acme's Finance Director is a contradiction, because authentication passed for the wrong domain. Same header values, different meaning, and the only thing that changed is the claim. BEC-Guard runs a header classifier and a body classifier in parallel and combines their scores. Adding two scores cannot express "the body claims X and the headers disprove X", because the scores do not know they are about the same claim.
 
-**Organisation domain:** internal-affiliation checks need the organisation's own domain(s). The UI and API take them as an optional field that defaults to the recipient's domain from the To header; datasets use the To domain. When it is missing or anonymised, internal-affiliation checks are recorded as not checkable instead of guessed. External-affiliation checks do not need it.
+**Organisation domain:** internal-affiliation checks need the organisation's own domain(s). The UI and API take them as an optional field that defaults to the recipient's domain from the To header; datasets use the To domain. When it is missing or anonymised, internal-affiliation checks are recorded as not checkable instead of guessed. Phase 3 also treats collector mailboxes, placeholder domains and free mailboxes in To as giving no organisation domain (Section 8.11). External-affiliation checks do not need it.
 
 ## 4.5 Architecture contribution: claim-routed verification pipeline
 
@@ -388,8 +388,8 @@ It is presented on the architecture slide as the system design the three claims 
 
 | **Component** | **Input** | **Output** | **Implementation** | **Module** |
 |---|---|---|---|---|
-| Parser | Raw .eml bytes, pasted text, or a thread | Headers, body, thread links | Python email stdlib (email.parser with policy.default); mailbox for .mbox files | src/headers |
-| Header evidence extractor | Headers + organisation domain(s) | Evidence dict: auth results (or unknown), From name/address/domain, Reply-To, Return-Path, Received chain, send hour, freemail flag, lookalike score vs organisation and claimed domains | email.utils, tldextract, rapidfuzz, freemail domain list | src/headers |
+| Parser | Raw .eml bytes, pasted text, or a thread | Headers, body, thread links | Python email stdlib with its default legacy parser (the most forgiving with malformed spam headers), each header field parsed on its own; a fallback for From values the strict address parser rejects; mailbox for .mbox files (Section 8.11) | src/headers |
+| Header evidence extractor | Headers + organisation domain(s) | Evidence dict: SPF, DKIM and DMARC verdicts (or unknown) from trusted Authentication-Results headers, the authenticated domain and its alignment with From, From name/address/domain, Reply-To divergence, envelope mismatch, Received hops and origin IP, send hour, freemail and open-platform flag, name-shows-address flag, list mail, lookalike score vs the organisation domain (vs claimed domains in Phase 8, same function) | email.utils, tldextract (offline), rapidfuzz, hand-written freemail list (Section 8.11) | src/headers |
 | Body preprocessor | Body | Clean text (links kept), redacted text (N1), signature | BeautifulSoup HTML to text; list footer and quoted history removed; ReDoS-safe regular expressions; tldextract with its offline public suffix list (Section 8.10) | src/preprocess |
 | Thread builder | Several messages | Ordered thread, per-message evidence, quoted history | Message-ID, In-Reply-To, References; fallback for Enron: normalised subject, participants and quote matching | src/thread |
 | Claim extractor | Redacted body and signature block | Typed claims (affiliation_internal, affiliation_external, authority, relationship, request types) with text span, claimed organisation and confidence | DistilBERT 7-head tactic classifier + spaCy NER + regex patterns | src/claims |
@@ -451,14 +451,14 @@ Report returned by the API (shape): score, verdict, action, org_domain (as used,
 | DKIM | Authentication-Results | pass | none / fail on a spoof; pass for freemail or lookalike senders | Is there a valid signature proving it was not forged? |
 | DMARC | Authentication-Results | pass | fail on an exact-domain spoof; pass for freemail or lookalike senders | Final verdict aligning SPF and DKIM with the visible From domain. It shows which domain sent the message, not whether that domain matches the claim |
 | Name vs address | From | Name and domain agree | "Finance Director" \<x@gmail.com\> | The display name is free text anyone can type |
-| Freemail | From domain | Company domain | gmail, yahoo, proton | Executives do not send from personal accounts |
-| Lookalike distance | From domain vs organisation domains | Exact match | acme-corp.co | Very similar but not equal (rapidfuzz) |
+| Freemail | From domain | Company domain | gmail, yahoo, proton; open platforms such as \<tenant\>.onmicrosoft.com | Executives do not send from personal accounts; anyone can get an address there |
+| Lookalike distance | From domain vs organisation domains | Exact match | acme-corp.co; paypa1.com; acme-payroll.onmicrosoft.com | Very similar but not equal (rapidfuzz, after punycode decoding and look-alike character mapping) |
 | Reply-To divergence | Reply-To vs From | Empty or same | Different domain | Replies are silently routed to the attacker |
-| Envelope mismatch | Return-Path, Received | Consistent with From | Unrelated server | The envelope and the letterhead disagree |
+| Envelope mismatch | Return-Path, Received | Consistent with From (mailing lists are the exception: they send bounces to the list server) | Unrelated server | The envelope and the letterhead disagree |
 | Send-hour anomaly | Date | Business hours | 02:47 | Weak alone; meaningful when stacked |
 | Signature vs From | Body signature block | Same address | Different address | Insight from Mithun et al. (2024) |
 
-> PretextGuard reads the SPF, DKIM and DMARC verdicts written by the receiving mail server into the Authentication-Results header. It does not recompute them. When that header is missing (common in old corpora), the signal is recorded as **unknown**, never as pass, and the verifiers rely on the other evidence. Which sources carry which headers is measured in Phase 1 (the header coverage table, Section 8.1), and authentication signals are scored only where the header exists. Phase 1 found Authentication-Results on 99.5% of phishing_pot, about 100% of Apache list mail, 20.4% of raw Nazario and 0% of SpamAssassin, raw Enron and Kaggle rows. Mailing lists need care: every Apache message carries a Reply-To set by the list and a List-Id, so Phase 3 records list membership as evidence and does not count a list-set Reply-To as Reply-To divergence.
+> PretextGuard reads the SPF, DKIM and DMARC verdicts written by the receiving mail server into the Authentication-Results header. It does not recompute them. When that header is missing (common in old corpora), the signal is recorded as **unknown**, never as pass, and the verifiers rely on the other evidence. Which sources carry which headers is measured in Phase 1 (the header coverage table, Section 8.1), and authentication signals are scored only where the header exists. Phase 1 found Authentication-Results on 99.5% of phishing_pot, about 100% of Apache list mail, 20.4% of raw Nazario and 0% of SpamAssassin, raw Enron and Kaggle rows. **Which Authentication-Results headers are trusted (Phase 3):** an attacker can write a fake one into the email they send, so only headers the receiving organisation added are read: the topmost one (servers add headers at the top), plus the headers directly below it from the same organisation, stopping at the first header from anyone else; a higher header always wins. RFC 8601 (Section 5) requires receivers to delete incoming headers that claim to come from inside their own organisation. Both formats are read: the standard one, which starts with the checking server's name, and Microsoft's, which leaves the name out. **Mailing lists:** every Apache message carries a Reply-To set by the list and a List-Id, so list membership is recorded and a list-set Reply-To is not Reply-To divergence; lists also send bounces to their own server, so envelope mismatch is normal for list mail. Phase 3 results: Section 8.11.
 
 ## 6.6 Pretext Risk Score (plain component)
 
@@ -578,7 +578,7 @@ Seven labels, multi-label (one email can carry several). Five come from Cialdini
 | SemEval-2023 Task 3, Subtask 3 | No (news) | 26,663 paragraphs, 23 techniques | Human span labels, multi-label | Optional pretraining (plain component) |
 | Synthetic | Yes | About 500 emails + injected thread replies | Full | Modern BEC gap-fill; thread-hijack injections; matched benign continuations. Generated through free web chats from fixed prompt templates and stored in data/synthetic/ (committed) |
 
-**Header coverage table (Phase 1, results/header_coverage.csv):** for every source, the share of messages carrying Message-ID, Date, Reply-To, Return-Path, Received, Authentication-Results, Received-SPF, DKIM-Signature, In-Reply-To, References, X-Mailer, User-Agent, List-Id and X-Original-From. Key results: Authentication-Results on 99.5% of phishing_pot, about 100% of Apache, 20.4% of Nazario and 0% of SpamAssassin and raw Enron; In-Reply-To on 63 to 78% of Apache, 30.2% of SpamAssassin and 0% of raw Enron; Kaggle rows carry no original headers. The table goes into the report. Authentication signals are scored only where the header exists; synthetic headers fill only the gaps this table shows, and that is disclosed. Modern authentication headers appear mostly on attacks (phishing_pot) and on one benign source (Apache), an imbalance the N3 evaluation must report.
+**Header coverage table (Phase 1, results/header_coverage.csv):** for every source, the share of messages carrying Message-ID, Date, Reply-To, Return-Path, Received, Authentication-Results, Received-SPF, DKIM-Signature, In-Reply-To, References, X-Mailer, User-Agent, List-Id and X-Original-From. Key results: Authentication-Results on 99.5% of phishing_pot, about 100% of Apache, 20.4% of Nazario and 0% of SpamAssassin and raw Enron; In-Reply-To on 63 to 78% of Apache, 30.2% of SpamAssassin and 0% of raw Enron; Kaggle rows carry no original headers. The table goes into the report. Authentication signals are scored only where the header exists; synthetic headers fill only the gaps this table shows, and that is disclosed. Modern authentication headers appear mostly on attacks (phishing_pot) and on one benign source (Apache), an imbalance the N3 evaluation must report. Phase 3 sharpened it: Apache's trusted headers carry DKIM verdicts only, so no benign source has SPF or DMARC verdicts (Section 8.11).
 
 ## 8.2 Why several datasets
 
@@ -632,10 +632,15 @@ The schema is filled in stages, so no phase depends on a later one. The phase th
 id, source, category, is_attack, has_full_headers,
 raw_ref, raw_headers, body_raw, split                      (Phase 1)
 body_clean, body_redacted, has_url, signature              (Phase 2)
-from_name, from_addr, from_domain, reply_to,
-return_path, date, subject, org_domain,
-auth_results (spf, dkim, dmarc or unknown),
-message_id, in_reply_to, references                        (Phase 3)
+from_name, from_addr, from_domain, from_registered_domain,
+reply_to, return_path, to_domain, subject, date,
+message_id, in_reply_to, references, list_id, mailer,
+spf, dkim, dmarc (or unknown), auth_source,
+authenticated_domain, auth_aligned, received_hops,
+origin_ip, send_hour, freemail, name_has_address,
+list_mail, reply_to_divergence, envelope_mismatch,
+org_domain, org_checkable, from_matches_org,
+org_lookalike_score, parse_problems         (Phase 3, headers.parquet)
 tactic_authority, tactic_urgency, tactic_scarcity,
 tactic_reciprocity, tactic_social_proof, tactic_liking,
 tactic_secrecy, claims (type, span, organisation),
@@ -680,7 +685,8 @@ thread_id, thread_position                                 (Phase 9)
 | Phase 1 count tables (staged counts, duplicates, header coverage, split) | results/ | Yes | 1 |
 | Plus clean and redacted bodies (staged.parquet is never modified) | data/processed/cleaned.parquet | No | 2 |
 | Phase 2 checks (per-source summary, leftover check, link-free counts) | results/preprocess_summary.csv, results/preprocess_checks.csv | Yes | 2 |
-| Plus header evidence columns | data/processed/ | No | 3 |
+| Header fields and evidence, one row per email (joins to cleaned.parquet on id) | data/processed/headers.parquet | No | 3 |
+| Phase 3 checks (per-source evidence, top domains, Authentication-Results formats) | results/header_evidence_summary.csv, results/header_top_domains.csv, results/header_auth_formats.csv | Yes | 3 |
 | Annotation batches, raw chatbot replies, final labels | data/labelled/ | Yes (small; proof of method) | 5 |
 | Synthetic emails | data/synthetic/ | Yes | 5 and 9 |
 | Training notebook | notebooks/ (training data uploaded to Google Drive) | Notebook yes, data no | 6 |
@@ -709,6 +715,44 @@ At run time nothing is stored: the email lives in memory for one request, and lo
 
 - **Security:** see Section 10 (ReDoS-safe processing, offline suffix list, redaction before data leaves the machine).
 
+## 8.11 Phase 3 header evidence
+
+- **Output:** data/processed/headers.parquet holds one row per email with the Phase 3 columns (Section 8.7) and joins to cleaned.parquet on id; earlier files are never modified. Code: src/headers/parser.py, domains.py, evidence.py and build.py. parse_header_fields and header_evidence work on one email at a time, so the API (Phase 11) reuses them unchanged. New library: RapidFuzz 3.14.6.
+
+- **Parsing:** Python's email package with its default (legacy) parser, the most forgiving with malformed spam headers. Every field is parsed on its own, so one broken header costs only its own field. 86 emails have a Date header that could not be parsed; the rest of their evidence is kept.
+
+- **Strict address parser:** Python's address parser gives up on display names with an unquoted "@", "," or ";", such as service@paypal.com \<x@evil.ru\> or Temu, jehd \<service@stayfriends.de\>. Those are common in attacks: the first run (commit 44697a8) parsed only 72.0% of phishing_pot From headers. When the parser gives up, the last \<...\> address is taken as the address (replies go there) and the text before it as the name; phishing_pot From parsing is now 92.1%. An address hidden inside an encoded word (=?utf-8?B?...?=) is never taken as the sender.
+
+- **Authentication verdicts:** read from Authentication-Results, never recomputed, and only from the headers the receiving organisation added (Section 6.5). Two formats exist: the standard one starts with the checking server's name (mx.google.com; spf=pass ...), Microsoft's leaves the name out (spf=pass (sender IP is ...) ...). Every phishing_pot mailbox is on Microsoft; the first run read the first part as a server name and lost the SPF verdict (0.9% SPF pass). Reading both formats gives 54.7% SPF pass, 38.7% DKIM pass and 38.3% DMARC pass. Without Authentication-Results, the topmost Received-SPF header gives SPF only.
+
+- **Apache's internal headers:** the topmost Authentication-Results header on Apache mail only records an internal hand-over between ASF servers (auth=pass). The DKIM check of the author's message sits in the header below it, written by another apache.org server (results/header_auth_formats.csv). Reading the receiving organisation's own headers below the topmost gives verdicts for 85.1% of kafka and 71.1% of tomcat messages, all of them DKIM; SPF and DMARC stay unknown for Apache. Proton Mail splits its verdicts over several headers the same way.
+
+- **Authenticated domain:** DMARC's header.from, else DKIM's header.d, else SPF's smtp.mailfrom, taken only from a check that passed; auth_aligned says whether it is the From domain. For the fake David it is gmail.com.
+
+- **Freemail and open platforms:** a hand-written list of about 100 free and consumer mailbox providers, 36 of them added after reading the most common sender domains (for example virgilio.it, netscape.net, latinmail.com and tiscali.co.uk from Nigerian Fraud). Open platforms where anyone can create a sub-domain count as freemail too: onmicrosoft.com (Microsoft 365 tenants) and firebaseapp.com (Firebase projects), both common phishing_pot senders. On them the tenant name counts as the registered name, so acme-payroll.onmicrosoft.com is compared as acme-payroll and scores as a lookalike of acmepayroll.com.
+
+- **Lookalike score:** rapidfuzz's ratio of the two registered names (0 to 100), after punycode (xn--...) is decoded and look-alike characters are mapped (0 to o, 1 to l, rn to m, Cyrillic letters to their Latin twins), so paypa1.com scores 100 against paypal.com. Scores against claimed organisations come in Phase 8, with the same function.
+
+- **Organisation domain:** the registered domain of the To address, except where it says nothing about the recipient's organisation: corpus collector mailboxes (monkey.org for Nazario, ceas-challenge.cc for CEAS-08, taint.org, the personal domain of SpamAssassin's creator Justin Mason), placeholders written over real recipients (example.com and domain.com in Nazario) and free mailboxes (a gmail.com recipient is a person, not an organisation). Internal-affiliation checks for those emails are recorded as not checkable.
+
+- **Mailing lists:** list_mail comes from List-Id. A list-set Reply-To is not Reply-To divergence. Lists also send bounces to their own server, so envelope mismatch appears on 55.8% of kafka and 50.2% of tomcat messages: for list mail it is normal.
+
+- **Results** (results/header_evidence_summary.csv, % of each source's emails; Kaggle Enron and Ling carry only a Subject line, so they have no header evidence):
+
+| **Source** | **Emails** | **From parsed** | **Any verdict** | **SPF pass** | **DKIM pass** | **DMARC pass** | **Freemail** | **Name shows address** | **Reply-To divergence** | **Envelope mismatch** | **Org checkable** |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| phishing_pot (phishing) | 7,491 | 92.1 | 99.1 | 54.7 | 38.7 | 38.3 | 14.5 | 2.7 | 13.1 | 24.7 | 3.6 |
+| Nazario (phishing) | 9,595 | 99.2 | 20.8 | 11.4 | 10.7 | 7.5 | 3.1 | 6.8 | 7.0 | 17.7 | 9.8 |
+| Kaggle Nigerian Fraud (fraud) | 3,227 | 89.6 | 0.0 | 0.0 | 0.0 | 0.0 | 46.8 | 0.6 | 0.0 | 0.0 | 17.9 |
+| SpamAssassin (ham, spam) | 5,775 | 99.8 | 0.0 | 0.0 | 0.0 | 0.0 | 15.4 | 1.0 | 5.7 | 54.9 | 59.3 |
+| Kaggle CEAS-08 (ham, spam) | 38,077 | 98.6 | 0.0 | 0.0 | 0.0 | 0.0 | 10.1 | 1.0 | 0.0 | 0.0 | 35.2 |
+| Apache tomcat (ham) | 2,135 | 100.0 | 71.1 | 0.0 | 67.6 | 0.0 | 15.9 | 0.1 | 0.1 | 50.2 | 80.7 |
+| Apache kafka (ham) | 1,055 | 100.0 | 85.1 | 0.0 | 85.1 | 0.0 | 45.1 | 0.0 | 0.0 | 55.8 | 75.9 |
+
+- **Authentication imbalance:** among benign sources only Apache has authentication verdicts, and only DKIM; SpamAssassin, CEAS-08 and the Kaggle Enron and Ling files have none. A learned model would read "has verdicts" as "attack". Authentication evidence is therefore never a learned feature: N3 uses it only through claim-conditioned rules, and Phase 13 reports authentication-based findings per source.
+
+- **Security:** see Section 10 (untrusted header parsing, trusted authentication results).
+
 # 9. Technology stack
 
 | **Layer** | **Choice** | **Why** |
@@ -721,6 +765,7 @@ At run time nothing is stored: the email lives in memory for one request, and lo
 | Data and baseline | pandas, pyarrow, scikit-learn | Tables in memory, Parquet files, keyword baseline, metrics |
 | Downloads and progress (Phase 1) | requests, tqdm | Fetching the Apache list archives; progress bars for long runs |
 | Cleaning (Phase 2) | beautifulsoup4 4.15.0, tldextract 5.4.0 | HTML to text; public suffix list for domain redaction (built-in copy, no downloads) |
+| Header evidence (Phase 3) | RapidFuzz 3.14.6 | Lookalike domain similarity (string ratio after look-alike character mapping) |
 | Testing | pytest | One environment check only (tests/test_environment.py); no unit tests per phase |
 | Explainability | LIME (SHAP only if time) | Word-level highlights; attention-as-explanation is academically contested |
 | Backend | FastAPI + Pydantic + slowapi | The model lives in Python; schema validation; rate limiting |
@@ -743,6 +788,8 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | Safe parsing | Attachments are never opened or executed; limit on nested MIME depth and message count per thread | A04 Insecure Design |
 | Safe data handling (build time) | Downloaded archives unpacked with path-traversal checks (tarfile data filter, zip names checked) and a 5 GB limit; file types checked by their first bytes; raw data made read-only; attachments never decoded; Kaggle values squashed onto one line before they become header lines (header injection) | A08 Software and Data Integrity Failures |
 | ReDoS-safe text processing | The cleaning and redaction functions will run on attacker-written email in the API, so every pattern has bounded repeats and no look-ahead over long text, and bodies are capped at 200,000 characters. Testing on 31 crafted inputs found two real bugs (a footer pattern that ran for hours on 200,000 dashes; 10 seconds on 20,000 nested HTML tags); after the fixes the slowest input takes under two seconds | A04 Insecure Design (denial of service) |
+| Untrusted header parsing | Headers are written by the sender: the header block is cut at 64 KB and each field at 2,000 characters; at most 50 Received lines, 10 Authentication-Results headers and 100 reference IDs are kept; every field is parsed on its own, so one broken header cannot lose the rest; bounded patterns. Crafted inputs (60,000-character fields, thousands of Received lines, nested comments) each finish in under 0.2 seconds | A04 Insecure Design (denial of service) |
+| Trusted authentication results | Only Authentication-Results headers added by the receiving organisation are read: the topmost one, plus the headers directly below it from the same organisation, stopping at the first header from anyone else (RFC 8601, Section 5). A fake dmarc=pass written by the sender is ignored; an address hidden in an encoded word is never taken as the sender | A08 Software and Data Integrity Failures |
 | Redaction before data leaves the machine | Annotation batches sent to outside web chats (Phase 5) use body_redacted only: no real addresses, no live links. tldextract never downloads its suffix list | A02 / privacy by design |
 | Output encoding (XSS) | Email bodies are attacker-controlled. Render as text; highlights are built from escaped text; no dangerouslySetInnerHTML; DOMPurify if HTML is ever shown. Test with real XSS payloads from the corpus. | A03 Injection (XSS) |
 | PII redaction | Email addresses, phone numbers and account numbers redacted before any logging | A09 Logging Failures |
@@ -787,8 +834,8 @@ For each phase, the assistant explains the background, then provides every file 
 | 0 | Environment: Python 3.12, venv, VS Code, Git, GitHub CLI, folder structure, requirements, .gitignore, .env.example, pytest smoke test, pip-audit | repo root | Done (Sep 2026) |
 | 1 | Data acquisition (paths, unpack, Apache fetch, loaders, stage, coverage and split scripts): Kaggle merge, raw SpamAssassin, raw Nazario, phishing_pot, raw Enron, Apache list archives; staged.parquet; header coverage table; Enron thread-header check; 70/15/15 split; root README and one README per major folder | src/data | Done (6 Oct 2026) |
 | 2 | Preprocessing and payload-free redaction (N1) | src/preprocess | Done (6 Oct 2026) |
-| 3 | Parser and header evidence extractor; fills the header columns; organisation domain handling | src/headers | Not started (next) |
-| 4 | Keyword baseline | src/baseline | Not started |
+| 3 | Parser and header evidence extractor; fills the header columns; organisation domain handling | src/headers | Done (7 Oct 2026) |
+| 4 | Keyword baseline | src/baseline | Not started (next) |
 | 5 | Tactic and claim labels: batch prompt builder, web-chat annotation (Gemini, DeepSeek, z.ai tie-break), schema validation, Cohen's kappa, SemEval 23-to-7 mapping; synthetic emails via web chats into data/synthetic/ | src/data | Not started |
 | 6 | DistilBERT tactic classifier on Colab (optional SemEval pretraining) | src/models | Not started |
 | 7 | Claim extractor and claim schema (affiliation, authority, relationship, request types) | src/claims | Not started |
@@ -865,7 +912,7 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | src/data | paths.py, unpack.py, fetch_apache.py, loaders.py, stage.py, coverage.py, split.py | Folder paths; check and safely unpack the downloads; fetch the Apache list archives; one reader per source format; dedupe and write staged.parquet; header coverage table; grouped train/validation/test split | 1 (done) |
 | src/data | batches.py, validate_labels.py, agreement.py, semeval_map.py, synthetic.py | Annotation batch prompts; reply validation; Cohen's kappa; SemEval 23-to-7 mapping; synthetic email prompts and loading | 5 |
 | src/preprocess | clean.py, redact.py, build.py | HTML to text, list footer and quote removal, signature; N1 redaction (\[URL\] \[EMAIL\] \[FILE\] \[DOMAIN\], including spaced forms); build writes cleaned.parquet and the checks | 2 (done) |
-| src/headers | parser.py, evidence.py, domains.py | Raw email to headers, body and thread links; evidence dict; freemail and brand lists, organisation domain | 3 |
+| src/headers | parser.py, domains.py, evidence.py, build.py | Raw email to header block, body and header fields; registered domains, freemail and open-platform lists, lookalike score; evidence dict with trusted authentication verdicts; build writes headers.parquet and the checks. The brand-domain list for external affiliation moves to Phase 8 | 3 (done) |
 | src/baseline | keywords.py | Word lists per tactic and a scorer | 4 |
 | src/models | dataset.py, train.py, predict.py | Training data preparation; fine-tuning on Colab; loading weights and predicting 7 tactic probabilities | 6 |
 | src/claims | schema.py, patterns.py, extractor.py | Claim object; regex patterns; classifier + spaCy + patterns to typed claims | 7 |
@@ -899,6 +946,8 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | Why no database? | Privacy by design. The tool handles sensitive corporate email; storing it would create the breach risk the tool exists to reduce. |
 | What is an ablation? | Remove one component, re-measure; the drop shows what that component contributed. We run one per claim. |
 | What if Authentication-Results is missing? | Recorded as unknown, never as pass. The verifiers fall back to name-vs-address, Reply-To, lookalike and thread evidence. |
+| How do you know an Authentication-Results header is real? | Anyone can write one into the email they send. We read only the headers the receiving organisation added: the topmost one, plus those directly below it from the same organisation, stopping at the first header from anyone else. RFC 8601 requires receivers to delete incoming headers that claim to come from inside their organisation. |
+| Why not just use Python's address parser? | We do, first. It is strict and gave up on 28% of phishing_pot From headers, including the display-name spoof service@paypal.com \<x@evil.ru\>. The fallback takes the last \<...\> address, which is where replies go. |
 
 ## 13.1 Concepts already taught
 
@@ -919,6 +968,8 @@ Planned file names; each phase may adjust them. The root and major-folder README
 - .eml, mbox and maildir; MIME parts, transfer encodings and character sets; generators; pandas DataFrames and Parquet; hashing for deduplication and train-test leakage; stratified, grouped and hash-based splits; the header coverage table; magic bytes, path traversal, decompression bombs and header injection (Phase 1).
 
 - Shortcut learning and why redaction matters; HTML parsing with BeautifulSoup; regular expressions, replacement order and ReDoS; the public suffix list; email quoting and signature conventions; pre-tokenised text (Phase 2).
+
+- Header syntax (folding, encoded words) and address parsing with email.utils; the Received chain read bottom-up and public vs private IP addresses; the Authentication-Results format (standard and Microsoft) and which headers to trust; registered domains; freemail providers and open platforms; lookalike scoring with rapidfuzz, punycode and look-alike characters; time zones and send hour (Phase 3).
 
 To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid outputs vs softmax, why a 0.5 threshold is usually wrong, Cohen's kappa, LIME, FastAPI basics, the thread-hijack benchmark, the claim router, affiliation claims in code.
 
@@ -979,16 +1030,26 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 | 6 Oct 2026 | ReDoS hardening of src/preprocess: bounded patterns, footer search rewritten, line breaks skipped for tag-heavy HTML | Two real backtracking bugs found in testing; the same code will clean attacker email in the API |
 | 6 Oct 2026 | Phase 2 complete: no link or address pattern left after redaction (45 stray "www."), 4,580 naturally link-free attacks (696 in test) | Phase 3 can start |
 | 6 Oct 2026 | Version 3.4: Phase 2 folded into Sections 2, 4.2, 6.2, 8.7, 8.9, 8.10 (new), 9, 10, 12, 13.1, 15 and 16 | End of Phase 2 |
+| 7 Oct 2026 | Header evidence lives in its own file, data/processed/headers.parquet, joined on id | Each phase writes its own file |
+| 7 Oct 2026 | Legacy email parser with each header field parsed on its own; a fallback for From values the strict address parser rejects | Malformed spam headers must not lose a whole row; the strict parser lost 28% of phishing_pot senders, display-name spoofs among them |
+| 7 Oct 2026 | Authentication-Results read in both formats (standard, and Microsoft's without a server name) | Every phishing_pot mailbox is on Microsoft; the first run lost all their SPF verdicts |
+| 7 Oct 2026 | Trusted Authentication-Results: the topmost header plus the headers directly below it from the same organisation; a higher header wins | Apache's topmost header records only an internal hand-over; fake headers written by the sender stay ignored (RFC 8601, Section 5) |
+| 7 Oct 2026 | Freemail list hand-written (about 100 providers) plus open platforms (onmicrosoft.com, firebaseapp.com), with the tenant name compared for lookalikes | Additions read from the most common sender domains; lookalike Microsoft 365 tenants are a real attack pattern |
+| 7 Oct 2026 | No organisation domain for collector mailboxes (monkey.org, ceas-challenge.cc, taint.org), placeholders (example.com, domain.com) or free mailboxes | They say nothing about the recipient's organisation; internal-affiliation checks there are recorded as not checkable |
+| 7 Oct 2026 | Authentication evidence is never a learned feature; N3 uses it through claim-conditioned rules and Phase 13 reports it per source | No benign source carries SPF or DMARC verdicts, so a model would learn "has verdicts" means attack |
+| 7 Oct 2026 | Brand-domain list for external affiliation moved to Phase 8 | It belongs with the verifier that uses it |
+| 7 Oct 2026 | Phase 3 complete: header evidence for every email; src/headers README; stale phase status fixed in the root, src, data and results READMEs | Phase 4 can start |
+| 7 Oct 2026 | Version 3.5: Phase 3 folded into Sections 2, 4.4, 6.2, 6.5, 8.1, 8.7, 8.9, 8.11 (new), 9, 10, 12, 13, 14, 15, 16 and 17 | End of Phase 3 |
 
 # 15. Open items and next actions
 
-1.  **Start Phase 3** (parser and header evidence extractor) in a new chat with docs/PretextGuard_Context.md and this document.
+1.  **Start Phase 4** (keyword baseline) in a new chat with docs/PretextGuard_Context.md and this document.
 
-2.  **Replace the project-file copy** with v3.4 (remove older copies) and keep docs/ in the repo current.
+2.  **Replace the project-file copy** with v3.5 (remove older copies) and keep docs/ in the repo current.
 
 3.  **Update the Review deck** when needed: novelty slide (N1, N2, N3 and the architecture contribution), the architecture diagram (Figure 2), the corrected running example (authentication passes for gmail.com), and the literature table (add Mithun et al. 2024, Ho et al. 2019, Valecha et al. 2022, ConvoSentinel, Aggarwal et al. 2014).
 
-4.  **Phase 3 notes from Phases 1 and 2:** every Apache message has a Reply-To set by the list and a List-Id, which is list mail, not Reply-To divergence; Kaggle rows carry only a rebuilt header block (From, To, Date, Subject; Enron and Ling Subject only), so their header evidence is mostly unknown; Authentication-Results exists only where the coverage table says (Section 8.1); the To domain is meaningless as an organisation domain where To is the collector (Nazario mail goes to monkey.org) or anonymised (phishing_pot), so internal-affiliation checks there must be recorded as not checkable.
+4.  **Phase 8 notes from Phase 3:** envelope mismatch is normal for mailing-list mail (lists send bounces to their own server), so count it only when list_mail is false; use authentication evidence only through claim-conditioned rules (no benign source has SPF or DMARC verdicts, and Apache has DKIM only); build the brand-domain list for external-affiliation claims and compare claimed domains with lookalike_score from src/headers/domains.py; send_hour comes from the sender's own Date header, so it is weak evidence alone; Kaggle rows carry only a rebuilt header block, so their header evidence is mostly unknown.
 
 5.  **Before Phase 5:** review the annotation prompt, the JSON schema and the batch size together.
 
@@ -1047,6 +1108,13 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 | Placeholder | A fixed token such as \[URL\] that replaces a link, address, file name or domain in body_redacted |
 | Pre-tokenised text | Text stored with every punctuation mark set apart by spaces ("john @ enron . com"), as in the Kaggle Enron and Ling files |
 | ReDoS | Regular-expression denial of service: crafted text that makes a pattern try millions of ways to match |
+| Registered domain | The part of a domain someone actually registered: mail.paypal.co.uk gives paypal.co.uk; found with the public suffix list |
+| Public suffix list | The list of endings under which people register names (.com, .co.uk and so on); tldextract ships a copy |
+| Authenticated domain | The domain an SPF, DKIM or DMARC pass actually vouched for; gmail.com for the fake David |
+| Open platform | A service where anyone can create a sub-domain for free, such as \<tenant\>.onmicrosoft.com; the tenant name is what the attacker chooses |
+| Collector mailbox | The address a corpus was gathered at (Nazario's monkey.org); it says nothing about a recipient organisation |
+| Punycode | The xn--... form of a domain with non-Latin letters; decoded before lookalike comparison |
+| Trust boundary | The receiving organisation's own mail servers; only Authentication-Results headers added inside it are trusted |
 
 # 17. References
 
@@ -1091,3 +1159,5 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 20. Apache Software Foundation. Public mailing-list archives (lists.apache.org): users@tomcat.apache.org and users@kafka.apache.org.
 
 21. Alam, N. A. Phishing Email Dataset ("Phish No More"). Kaggle.
+
+22. Kucherawy, M. (2019). Message Header Field for Indicating Message Authentication Status. RFC 8601, IETF.

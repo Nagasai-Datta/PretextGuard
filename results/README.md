@@ -8,7 +8,7 @@ Every number here is written by a script in `src/`, never typed by hand. If a nu
 
 The files here hold counts and scores only, never email text, so they are safe to commit.
 
-## Files so far (Phase 1)
+## Files so far
 
 | File | Written by | What it shows |
 |---|---|---|
@@ -16,6 +16,11 @@ The files here hold counts and scores only, never email text, so they are safe t
 | `dedup_pairs.csv` | `python -m src.data.stage` | Duplicates removed, by the source of the removed copy and of the kept copy (5,484 in total) |
 | `header_coverage.csv` | `python -m src.data.coverage` | % of messages in each source that carry each header; decides where header signals can be scored |
 | `split_counts.csv` | `python -m src.data.split` | Emails per source, category and split (train, validation, test) |
+| `preprocess_summary.csv` | `python -m src.preprocess.build` | Per source: % HTML, % with a link, % with quotes, footers or a signature removed, empty and cut bodies, placeholders added |
+| `preprocess_checks.csv` | `python -m src.preprocess.build` | Link and address patterns left after redaction; Kaggle's `urls` column against the text; naturally link-free emails per split |
+| `header_evidence_summary.csv` | `python -m src.headers.build` | Per source: % of emails with each kind of header evidence (From parsed, authentication verdicts, freemail, list mail, organisation checkable and so on) |
+| `header_top_domains.csv` | `python -m src.headers.build` | The most common sender and recipient domains per source |
+| `header_auth_formats.csv` | `python -m src.headers.build` | Which Authentication-Results formats each source uses (server domain and method names only) |
 
 ## Still to come
 
