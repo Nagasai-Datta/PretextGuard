@@ -1,0 +1,27 @@
+check,item,value,expected,status
+attack_vs_ham,secrecy on fraud,27.84% vs ham 0.15%,>= 2x ham and above 0,PASS
+attack_vs_ham,secrecy on phishing,1.50% vs ham 0.15%,>= 2x ham and above 0,PASS
+attack_vs_ham,urgency on phishing,7.51% vs ham 1.67%,>= 2x ham and above 0,PASS
+attack_vs_ham,scarcity on phishing,8.89% vs ham 1.18%,>= 2x ham and above 0,PASS
+attack_vs_ham,authority on phishing,2.57% vs ham 0.31%,>= 2x ham and above 0,PASS
+attack_vs_ham,liking on fraud,31.61% vs ham 0.17%,>= 2x ham and above 0,PASS
+tactic_coverage,authority,fires on 652 emails,>= 20 emails,PASS
+tactic_coverage,urgency,"fires on 2,946 emails",>= 20 emails,PASS
+tactic_coverage,scarcity,"fires on 1,920 emails",>= 20 emails,PASS
+tactic_coverage,reciprocity,fires on 126 emails,>= 20 emails,PASS
+tactic_coverage,social_proof,fires on 306 emails,>= 20 emails,PASS
+tactic_coverage,liking,"fires on 1,420 emails",>= 20 emails,PASS
+tactic_coverage,secrecy,"fires on 1,071 emails",>= 20 emails,PASS
+dominant_phrase,authority: 'on behalf of',20.9% of its hits,<= 50%,PASS
+dominant_phrase,urgency: 'immediately',27.2% of its hits,<= 50%,PASS
+dominant_phrase,scarcity: 'suspended',16.8% of its hits,<= 50%,PASS
+dominant_phrase,reciprocity: 'in return',24.9% of its hits,<= 50%,PASS
+dominant_phrase,social_proof: 'thousands of',31.9% of its hits,<= 50%,PASS
+dominant_phrase,liking: 'dear friend',28.3% of its hits,<= 50%,PASS
+dominant_phrase,secrecy: 'confidential',46.8% of its hits,<= 50%,PASS
+run,lexicon_version,0.1,,info
+run,phrases,546,,info
+run,fire_threshold,1.0,,info
+run,train_rows,69542,,info
+run,empty_bodies,240,,info
+run,scoring_seconds,11.6,,info

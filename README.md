@@ -185,7 +185,7 @@ pretextguard/
 | 1 | Data acquisition: staged table, header coverage table, split, READMEs | Done |
 | 2 | Cleaning and payload-free redaction (N1) | Done |
 | 3 | Email parser and header evidence extractor | Done |
-| 4 | Keyword baseline | Next |
+| 4 | Keyword baseline | Done |
 | 5 | Tactic and claim labels (free web-chat annotators, Cohen's kappa), synthetic emails | Not started |
 | 6 | DistilBERT tactic classifier on Colab | Not started |
 | 7 | Claim extractor | Not started |
@@ -230,11 +230,13 @@ python -m src.data.coverage       # which sources carry which headers -> results
 python -m src.data.split          # fixed 70/15/15 split -> split column + results/split_counts.csv
 ```
 
-Then the Phase 2 and 3 tables:
+Then the Phase 2 and 3 tables, and the Phase 4 baseline (self-test, then train-split hit rates):
 
 ```bash
 python -m src.preprocess.build    # clean and redacted bodies -> data/processed/cleaned.parquet
 python -m src.headers.build       # header fields and evidence -> data/processed/headers.parquet
+python -m src.baseline.keywords   # keyword baseline self-test
+python -m src.baseline.build      # hit rates and sanity checks -> results/keyword_*.csv
 ```
 
 ## Privacy

@@ -1,0 +1,547 @@
+tactic,phrase,strength,emails,ham,spam,phishing,fraud,share_of_tactic_hits_pct
+authority,on behalf of,weak,648,237,56,227,128,20.9
+authority,compliance,weak,608,130,434,38,6,19.6
+authority,authorized,weak,410,115,81,200,14,13.2
+authority,system administrator,weak,275,33,0,242,0,8.9
+authority,ministry of,weak,207,27,57,5,118,6.7
+authority,mandatory,weak,206,55,31,110,10,6.6
+authority,law enforcement,weak,156,30,15,110,1,5.0
+authority,central bank of,strong,121,1,30,5,85,3.9
+authority,board of directors,weak,114,55,23,3,33,3.7
+authority,authorised,weak,87,21,1,58,7,2.8
+authority,i am barrister,weak,77,0,17,0,60,2.5
+authority,security department,strong,74,1,4,69,0,2.4
+authority,head office,weak,66,10,22,7,27,2.1
+authority,account officer,weak,58,0,8,1,49,1.9
+authority,i am the manager,weak,56,0,6,1,49,1.8
+authority,internal revenue service,strong,52,4,5,41,2,1.7
+authority,senior management,weak,49,29,18,1,1,1.6
+authority,security officer,weak,32,4,0,13,15,1.0
+authority,legal action,weak,29,23,2,4,0,0.9
+authority,technical support team,strong,27,0,0,27,0,0.9
+authority,fraud department,strong,23,0,0,23,0,0.7
+authority,personal assistant to,weak,17,1,4,0,12,0.5
+authority,i am the director,weak,16,4,0,0,12,0.5
+authority,this is an official,strong,15,0,1,10,4,0.5
+authority,i am the chairman,strong,14,0,5,0,9,0.5
+authority,i am a senior,weak,13,2,4,0,7,0.4
+authority,head of department,weak,12,6,1,0,5,0.4
+authority,i am a director,weak,11,0,2,0,9,0.4
+authority,federal bureau of,strong,10,3,0,7,0,0.3
+authority,your system administrator,strong,9,4,0,5,0,0.3
+authority,executive management,weak,8,7,1,0,0,0.3
+authority,compliance department,strong,7,7,0,0,0,0.2
+authority,i am the owner,weak,7,1,0,5,1,0.2
+authority,legal proceedings,weak,5,3,0,0,2,0.2
+authority,on behalf of the board,strong,5,2,1,0,2,0.2
+authority,i am a lawyer,weak,3,0,0,0,3,0.1
+authority,i am an attorney,weak,3,0,0,0,3,0.1
+authority,i am the chief accountant,weak,3,0,3,0,0,0.1
+authority,i am the head of,weak,3,0,0,0,3,0.1
+authority,it support team,strong,3,0,0,3,0,0.1
+authority,on behalf of the director,strong,3,0,1,0,2,0.1
+authority,i am a barrister,weak,2,0,0,0,2,0.1
+authority,i am the managing director,strong,2,0,1,0,1,0.1
+authority,account security team,strong,1,0,0,1,0,0.0
+authority,as the ceo,strong,1,1,0,0,0,0.0
+authority,fraud prevention team,strong,1,0,0,1,0,0.0
+authority,human resources department,strong,1,1,0,0,0,0.0
+authority,i am the account officer,weak,1,0,0,0,1,0.0
+authority,i am the auditor,weak,1,0,0,0,1,0.0
+authority,official notice,strong,1,1,0,0,0,0.0
+authority,payroll department,strong,1,0,0,1,0,0.0
+authority,account verification team,strong,0,0,0,0,0,0.0
+authority,as the cfo,strong,0,0,0,0,0,0.0
+authority,as your ceo,strong,0,0,0,0,0,0.0
+authority,as your cfo,strong,0,0,0,0,0,0.0
+authority,as your manager,strong,0,0,0,0,0,0.0
+authority,authorised by the ceo,strong,0,0,0,0,0,0.0
+authority,authorized by management,strong,0,0,0,0,0,0.0
+authority,authorized by the ceo,strong,0,0,0,0,0,0.0
+authority,by order of management,strong,0,0,0,0,0,0.0
+authority,by order of the,strong,0,0,0,0,0,0.0
+authority,company policy requires,strong,0,0,0,0,0,0.0
+authority,from the system administrator,strong,0,0,0,0,0,0.0
+authority,i am the ceo,strong,0,0,0,0,0,0.0
+authority,i am the cfo,strong,0,0,0,0,0,0.0
+authority,i am the general manager,strong,0,0,0,0,0,0.0
+authority,i am the president,weak,0,0,0,0,0,0.0
+authority,i am the vice president,weak,0,0,0,0,0,0.0
+authority,i am your ceo,strong,0,0,0,0,0,0.0
+authority,i am your cfo,strong,0,0,0,0,0,0.0
+authority,instructed by management,strong,0,0,0,0,0,0.0
+authority,instructed by the ceo,strong,0,0,0,0,0,0.0
+authority,instructed by the cfo,strong,0,0,0,0,0,0.0
+authority,it help desk team,strong,0,0,0,0,0,0.0
+authority,it helpdesk team,strong,0,0,0,0,0,0.0
+authority,it security department,strong,0,0,0,0,0,0.0
+authority,it security team,strong,0,0,0,0,0,0.0
+authority,management has instructed,strong,0,0,0,0,0,0.0
+authority,management has requested,strong,0,0,0,0,0,0.0
+authority,management requires,strong,0,0,0,0,0,0.0
+authority,on behalf of the ceo,strong,0,0,0,0,0,0.0
+authority,on behalf of the cfo,strong,0,0,0,0,0,0.0
+authority,on behalf of the management,strong,0,0,0,0,0,0.0
+authority,policy requires you,strong,0,0,0,0,0,0.0
+authority,the ceo has asked,strong,0,0,0,0,0,0.0
+authority,the ceo has requested,strong,0,0,0,0,0,0.0
+authority,the ceo requires,strong,0,0,0,0,0,0.0
+authority,the cfo has asked,strong,0,0,0,0,0,0.0
+authority,the cfo has requested,strong,0,0,0,0,0,0.0
+authority,the cfo requires,strong,0,0,0,0,0,0.0
+authority,this is the ceo,strong,0,0,0,0,0,0.0
+authority,this is the cfo,strong,0,0,0,0,0,0.0
+authority,this is the managing director,strong,0,0,0,0,0,0.0
+authority,this is the president,strong,0,0,0,0,0,0.0
+authority,this is your ceo,strong,0,0,0,0,0,0.0
+authority,this is your cfo,strong,0,0,0,0,0,0.0
+authority,this is your manager,strong,0,0,0,0,0,0.0
+urgency,immediately,weak,2502,648,559,632,663,27.2
+urgency,as soon as possible,weak,1112,240,252,477,143,12.1
+urgency,deadline,weak,1102,997,16,80,9,12.0
+urgency,quickly,weak,1066,483,344,186,53,11.6
+urgency,immediate,weak,995,278,340,86,291,10.8
+urgency,right now,weak,848,332,378,42,96,9.2
+urgency,urgent,weak,721,64,129,174,354,7.8
+urgency,within 24 hours,strong,343,10,68,265,0,3.7
+urgency,asap,weak,324,180,21,113,10,3.5
+urgency,urgently,weak,322,17,67,26,212,3.5
+urgency,urgent response,strong,214,0,46,6,162,2.3
+urgency,hurry,weak,204,58,92,51,3,2.2
+urgency,promptly,weak,201,60,86,37,18,2.2
+urgency,urgent reply,strong,179,0,28,4,147,1.9
+urgency,within 48 hours,strong,179,4,56,117,2,1.9
+urgency,at once,weak,158,71,66,9,12,1.7
+urgency,this afternoon,weak,145,134,10,1,0,1.6
+urgency,reply immediately,strong,125,0,11,1,113,1.4
+urgency,act now,strong,116,13,71,31,1,1.3
+urgency,right away,weak,99,36,50,12,1,1.1
+urgency,important notice,weak,66,9,14,43,0,0.7
+urgency,immediate response,strong,59,1,13,3,42,0.6
+urgency,urgent assistance,strong,58,1,13,0,44,0.6
+urgency,expires today,strong,51,1,0,50,0,0.6
+urgency,without delay,strong,50,5,15,5,25,0.5
+urgency,act fast,strong,49,3,10,30,6,0.5
+urgency,dont delay,strong,49,11,37,1,0,0.5
+urgency,immediate attention,strong,49,2,16,11,20,0.5
+urgency,urgent attention,strong,44,1,2,0,41,0.5
+urgency,very urgent,strong,41,2,6,1,32,0.4
+urgency,within 72 hours,strong,29,2,11,15,1,0.3
+urgency,within the next 24 hours,strong,27,0,2,25,0,0.3
+urgency,close of business,weak,26,26,0,0,0,0.3
+urgency,immediate action,strong,25,1,2,15,7,0.3
+urgency,do it now,strong,24,9,13,1,1,0.3
+urgency,time is of the essence,strong,22,3,2,0,17,0.2
+urgency,high priority,weak,21,16,1,4,0,0.2
+urgency,end of day,weak,19,16,0,3,0,0.2
+urgency,within the next 48 hours,strong,19,1,0,18,0,0.2
+urgency,immediate action required,strong,14,0,0,14,0,0.2
+urgency,act quickly,strong,13,4,4,4,1,0.1
+urgency,respond immediately,strong,12,1,5,1,5,0.1
+urgency,urgent action,strong,12,2,1,2,7,0.1
+urgency,urgent request,strong,11,5,0,0,6,0.1
+urgency,by today,weak,8,7,0,1,0,0.1
+urgency,urgent action required,strong,8,0,0,8,0,0.1
+urgency,eod,weak,7,3,2,2,0,0.1
+urgency,within 12 hours,strong,7,0,4,3,0,0.1
+urgency,do this now,strong,6,5,0,1,0,0.1
+urgency,time sensitive,strong,6,3,1,1,1,0.1
+urgency,respond asap,strong,5,3,0,2,0,0.1
+urgency,urgent matter,strong,5,2,0,0,3,0.1
+urgency,by end of day today,strong,4,4,0,0,0,0.0
+urgency,reply asap,strong,4,1,0,0,3,0.0
+urgency,by close of business today,strong,3,3,0,0,0,0.0
+urgency,by tonight,weak,3,1,0,2,0,0.0
+urgency,it is urgent,strong,3,3,0,0,0,0.0
+urgency,within the hour,strong,3,2,1,0,0,0.0
+urgency,act immediately,strong,2,2,0,0,0,0.0
+urgency,action required immediately,strong,2,0,0,2,0,0.0
+urgency,before it is too late,strong,2,0,1,1,0,0.0
+urgency,by the end of today,strong,2,2,0,0,0,0.0
+urgency,deadline is today,strong,2,2,0,0,0,0.0
+urgency,do not delay,strong,2,0,1,1,0,0.0
+urgency,need this asap,strong,2,2,0,0,0,0.0
+urgency,within 2 hours,strong,2,0,1,1,0,0.0
+urgency,before the end of today,strong,1,1,0,0,0,0.0
+urgency,deadline is tomorrow,strong,1,1,0,0,0,0.0
+urgency,need this immediately,strong,1,0,1,0,0,0.0
+urgency,need this urgently,strong,1,1,0,0,0,0.0
+urgency,within 1 hour,strong,1,0,0,1,0,0.0
+urgency,within one hour,strong,1,1,0,0,0,0.0
+urgency,before close of business today,strong,0,0,0,0,0,0.0
+urgency,extremely urgent,strong,0,0,0,0,0,0.0
+urgency,need it done today,strong,0,0,0,0,0,0.0
+urgency,need this done today,strong,0,0,0,0,0,0.0
+urgency,need this today,strong,0,0,0,0,0,0.0
+urgency,no time to waste,strong,0,0,0,0,0,0.0
+urgency,this is urgent,strong,0,0,0,0,0,0.0
+urgency,within the next hour,strong,0,0,0,0,0,0.0
+scarcity,suspended,weak,602,59,38,498,7,16.8
+scarcity,suspension,weak,472,35,40,397,0,13.1
+scarcity,permanently,weak,260,65,82,107,6,7.2
+scarcity,closure,weak,250,39,19,182,10,7.0
+scarcity,expires,weak,245,80,36,128,1,6.8
+scarcity,will expire,weak,239,18,3,218,0,6.6
+scarcity,failure to update,strong,209,0,15,194,0,5.8
+scarcity,limited time,weak,186,20,87,77,2,5.2
+scarcity,has expired,weak,176,8,9,159,0,4.9
+scarcity,limited offer,strong,129,1,121,7,0,3.6
+scarcity,deactivated,weak,107,10,0,97,0,3.0
+scarcity,dont miss out,strong,97,12,31,54,0,2.7
+scarcity,limited time offer,strong,96,7,67,22,0,2.7
+scarcity,offer expires,strong,87,37,10,40,0,2.4
+scarcity,your account will be suspended,strong,81,0,4,77,0,2.3
+scarcity,penalty,weak,78,47,22,9,0,2.2
+scarcity,dont miss this,strong,76,16,41,19,0,2.1
+scarcity,or else,strong,73,37,16,15,5,2.0
+scarcity,final notice,strong,69,5,35,29,0,1.9
+scarcity,last day,strong,69,56,7,4,2,1.9
+scarcity,deactivation,weak,66,0,0,66,0,1.8
+scarcity,limited time only,strong,60,9,45,6,0,1.7
+scarcity,limited number of,strong,57,37,9,11,0,1.6
+scarcity,penalties,weak,53,35,6,10,2,1.5
+scarcity,last chance,strong,50,24,20,6,0,1.4
+scarcity,if you fail to,strong,36,6,1,29,0,1.0
+scarcity,while supplies last,strong,36,19,14,3,0,1.0
+scarcity,failure to verify,strong,32,0,0,32,0,0.9
+scarcity,once in a lifetime,strong,32,5,15,1,11,0.9
+scarcity,avoid being,strong,29,10,4,15,0,0.8
+scarcity,expiring,weak,28,14,2,12,0,0.8
+scarcity,will be permanently,strong,27,1,3,23,0,0.8
+scarcity,offer ends,strong,26,12,7,5,2,0.7
+scarcity,your account will be terminated,strong,26,0,0,26,0,0.7
+scarcity,failure to comply,strong,24,1,0,23,0,0.7
+scarcity,your account has been limited,strong,23,0,0,23,0,0.6
+scarcity,failure to confirm,strong,22,0,1,21,0,0.6
+scarcity,lose access,strong,22,2,0,20,0,0.6
+scarcity,final warning,strong,20,0,0,20,0,0.6
+scarcity,forfeit,weak,19,6,8,1,4,0.5
+scarcity,your account will be limited,strong,19,0,0,19,0,0.5
+scarcity,ends soon,strong,17,3,3,11,0,0.5
+scarcity,final reminder,strong,17,4,0,13,0,0.5
+scarcity,if you do not verify,strong,15,0,0,15,0,0.4
+scarcity,or you will lose,strong,15,0,15,0,0,0.4
+scarcity,avoid suspension,strong,14,0,0,14,0,0.4
+scarcity,your account will be locked,strong,14,0,0,14,0,0.4
+scarcity,your account will be closed,strong,13,0,1,12,0,0.4
+scarcity,avoid losing,strong,10,0,0,10,0,0.3
+scarcity,avoid permanent,strong,9,0,1,8,0,0.3
+scarcity,expires soon,strong,9,3,0,6,0,0.3
+scarcity,your account will be disabled,strong,9,0,0,9,0,0.3
+scarcity,limited availability,strong,8,3,2,3,0,0.2
+scarcity,only a limited number,strong,8,7,1,0,0,0.2
+scarcity,your account will be deleted,strong,8,0,0,8,0,0.2
+scarcity,if you dont verify,strong,7,0,0,7,0,0.2
+scarcity,avoid account suspension,strong,6,0,0,6,0,0.2
+scarcity,access will be suspended,strong,5,0,0,5,0,0.1
+scarcity,do not miss out,strong,5,0,5,0,0,0.1
+scarcity,do not miss this,strong,5,0,5,0,0,0.1
+scarcity,failure to respond,strong,5,1,0,4,0,0.1
+scarcity,one last time,strong,5,4,0,1,0,0.1
+scarcity,your account has been suspended,strong,5,0,0,5,0,0.1
+scarcity,last warning,strong,4,0,0,4,0,0.1
+scarcity,permanently suspended,strong,4,0,1,3,0,0.1
+scarcity,expiring soon,strong,3,0,0,3,0,0.1
+scarcity,final day,strong,3,3,0,0,0,0.1
+scarcity,your account has been locked,strong,3,0,0,3,0,0.1
+scarcity,or your account will,strong,2,0,0,2,0,0.1
+scarcity,unless you update,strong,2,0,0,2,0,0.1
+scarcity,account has been compromised,strong,1,0,0,1,0,0.0
+scarcity,final chance,strong,1,0,0,1,0,0.0
+scarcity,final opportunity,strong,1,1,0,0,0,0.0
+scarcity,permanently deleted,strong,1,0,0,1,0,0.0
+scarcity,permanently disabled,strong,1,1,0,0,0,0.0
+scarcity,unless you verify,strong,1,0,0,1,0,0.0
+scarcity,your account has been disabled,strong,1,1,0,0,0,0.0
+scarcity,access will be removed,strong,0,0,0,0,0,0.0
+scarcity,access will be revoked,strong,0,0,0,0,0,0.0
+scarcity,last opportunity,strong,0,0,0,0,0,0.0
+scarcity,lose your access,strong,0,0,0,0,0,0.0
+scarcity,only a few left,strong,0,0,0,0,0,0.0
+scarcity,permanently closed,strong,0,0,0,0,0,0.0
+scarcity,permanently locked,strong,0,0,0,0,0,0.0
+scarcity,unless you confirm,strong,0,0,0,0,0,0.0
+scarcity,unless you respond,strong,0,0,0,0,0,0.0
+scarcity,will lose access,strong,0,0,0,0,0,0.0
+reciprocity,in return,weak,174,45,50,58,21,24.9
+reciprocity,complimentary,weak,130,59,66,5,0,18.6
+reciprocity,repay,weak,82,54,20,8,0,11.7
+reciprocity,in exchange,weak,75,58,15,1,1,10.7
+reciprocity,free gift,strong,63,8,54,0,1,9.0
+reciprocity,thank you in advance for,weak,53,35,8,1,9,7.6
+reciprocity,free sample,weak,47,41,6,0,0,6.7
+reciprocity,owe you,weak,31,7,5,18,1,4.4
+reciprocity,a favor,weak,24,11,10,3,0,3.4
+reciprocity,as a gift,weak,15,3,12,0,0,2.1
+reciprocity,a token of our appreciation,strong,11,0,0,11,0,1.6
+reciprocity,do me a favor,strong,5,0,1,4,0,0.7
+reciprocity,do me a favour,strong,5,0,1,0,4,0.7
+reciprocity,as a thank you for,strong,4,0,0,4,0,0.6
+reciprocity,as a token of appreciation,strong,3,1,0,2,0,0.4
+reciprocity,a favour,weak,2,1,0,0,1,0.3
+reciprocity,complimentary gift,strong,2,0,2,0,0,0.3
+reciprocity,in return for your,strong,2,0,0,0,2,0.3
+reciprocity,returning the favor,strong,2,0,2,0,0,0.3
+reciprocity,you owe me,strong,2,2,0,0,0,0.3
+reciprocity,gift for you,strong,1,0,1,0,0,0.1
+reciprocity,i helped you,strong,1,0,1,0,0,0.1
+reciprocity,i took care of,strong,1,1,0,0,0,0.1
+reciprocity,return the favour,strong,1,0,1,0,0,0.1
+reciprocity,a favor in return,strong,0,0,0,0,0,0.0
+reciprocity,a favour in return,strong,0,0,0,0,0,0.0
+reciprocity,after all i did for you,strong,0,0,0,0,0,0.0
+reciprocity,after all i have done for you,strong,0,0,0,0,0,0.0
+reciprocity,after all ive done for you,strong,0,0,0,0,0,0.0
+reciprocity,after everything i have done for you,strong,0,0,0,0,0,0.0
+reciprocity,as a gesture of,strong,0,0,0,0,0,0.0
+reciprocity,i covered for you,strong,0,0,0,0,0,0.0
+reciprocity,i did that for you,strong,0,0,0,0,0,0.0
+reciprocity,i did this for you,strong,0,0,0,0,0,0.0
+reciprocity,i did you a favor,strong,0,0,0,0,0,0.0
+reciprocity,i did you a favour,strong,0,0,0,0,0,0.0
+reciprocity,i have always been there for you,strong,0,0,0,0,0,0.0
+reciprocity,i helped you out,strong,0,0,0,0,0,0.0
+reciprocity,i need a favor,strong,0,0,0,0,0,0.0
+reciprocity,i need a favour,strong,0,0,0,0,0,0.0
+reciprocity,in exchange for your help,strong,0,0,0,0,0,0.0
+reciprocity,in return for your help,strong,0,0,0,0,0,0.0
+reciprocity,my gift to you,weak,0,0,0,0,0,0.0
+reciprocity,need a quick favor,strong,0,0,0,0,0,0.0
+reciprocity,need a quick favour,strong,0,0,0,0,0,0.0
+reciprocity,need a small favor,strong,0,0,0,0,0,0.0
+reciprocity,need a small favour,strong,0,0,0,0,0,0.0
+reciprocity,owe me,weak,0,0,0,0,0,0.0
+reciprocity,pay me back,strong,0,0,0,0,0,0.0
+reciprocity,remember the time i,strong,0,0,0,0,0,0.0
+reciprocity,remember when i helped,strong,0,0,0,0,0,0.0
+reciprocity,repay me,strong,0,0,0,0,0,0.0
+reciprocity,return the favor,strong,0,0,0,0,0,0.0
+reciprocity,returning the favour,strong,0,0,0,0,0,0.0
+reciprocity,you owe us,strong,0,0,0,0,0,0.0
+social_proof,thousands of,weak,622,151,418,50,3,31.9
+social_proof,testimonials,weak,379,2,373,4,0,19.5
+social_proof,millions of,weak,337,128,141,22,46,17.3
+social_proof,everybody,weak,225,169,51,2,3,11.6
+social_proof,most people,weak,203,108,82,11,2,10.4
+social_proof,everyone else,weak,66,51,14,1,0,3.4
+social_proof,thousands of people,strong,65,15,42,6,2,3.3
+social_proof,millions of people,strong,59,13,43,3,0,3.0
+social_proof,satisfied customers,weak,57,0,54,3,0,2.9
+social_proof,your colleagues,weak,47,42,5,0,0,2.4
+social_proof,best selling,weak,43,13,28,2,0,2.2
+social_proof,all employees,weak,35,31,0,4,0,1.8
+social_proof,happy customers,weak,30,0,30,0,0,1.5
+social_proof,all staff,weak,26,15,0,11,0,1.3
+social_proof,other employees,weak,17,15,2,0,0,0.9
+social_proof,bestselling,weak,8,5,3,0,0,0.4
+social_proof,millions of users,strong,8,6,2,0,0,0.4
+social_proof,thousands of satisfied,strong,4,0,4,0,0,0.2
+social_proof,trusted by millions,strong,4,4,0,0,0,0.2
+social_proof,your coworkers,weak,3,1,2,0,0,0.2
+social_proof,millions of satisfied,strong,2,0,2,0,0,0.1
+social_proof,most of our customers,strong,2,1,1,0,0,0.1
+social_proof,already been approved by,strong,1,1,0,0,0,0.1
+social_proof,join the thousands,strong,1,0,1,0,0,0.1
+social_proof,join thousands,strong,1,0,0,1,0,0.1
+social_proof,thousands of customers,strong,1,0,1,0,0,0.1
+social_proof,all employees have already,strong,0,0,0,0,0,0.0
+social_proof,all other staff,strong,0,0,0,0,0,0.0
+social_proof,all staff have already,strong,0,0,0,0,0,0.0
+social_proof,already approved by,strong,0,0,0,0,0,0.0
+social_proof,already completed by,strong,0,0,0,0,0,0.0
+social_proof,already done by,strong,0,0,0,0,0,0.0
+social_proof,already signed off,strong,0,0,0,0,0,0.0
+social_proof,everybody has already,strong,0,0,0,0,0,0.0
+social_proof,everybody is doing it,strong,0,0,0,0,0,0.0
+social_proof,everyone else has already,strong,0,0,0,0,0,0.0
+social_proof,everyone has already,strong,0,0,0,0,0,0.0
+social_proof,everyone is doing it,strong,0,0,0,0,0,0.0
+social_proof,has already signed off,strong,0,0,0,0,0,0.0
+social_proof,join millions,strong,0,0,0,0,0,0.0
+social_proof,most of your colleagues,strong,0,0,0,0,0,0.0
+social_proof,other employees have already,strong,0,0,0,0,0,0.0
+social_proof,other employees have completed,strong,0,0,0,0,0,0.0
+social_proof,other members of staff have,strong,0,0,0,0,0,0.0
+social_proof,others have already,strong,0,0,0,0,0,0.0
+social_proof,popular choice,weak,0,0,0,0,0,0.0
+social_proof,the entire team has already,strong,0,0,0,0,0,0.0
+social_proof,the rest of the team has,strong,0,0,0,0,0,0.0
+social_proof,the rest of the team has already,strong,0,0,0,0,0,0.0
+social_proof,the whole team has already,strong,0,0,0,0,0,0.0
+social_proof,trusted by thousands,strong,0,0,0,0,0,0.0
+social_proof,your co workers have already,strong,0,0,0,0,0,0.0
+social_proof,your colleagues have already,strong,0,0,0,0,0,0.0
+social_proof,your coworkers have already,strong,0,0,0,0,0,0.0
+social_proof,your team members have already,strong,0,0,0,0,0,0.0
+liking,dear friend,strong,543,4,133,6,400,28.3
+liking,dear valued,strong,331,2,18,311,0,17.3
+liking,god bless you,strong,147,0,25,8,114,7.7
+liking,god bless,weak,141,9,25,2,105,7.4
+liking,pal,weak,100,18,23,59,0,5.2
+liking,i got your contact from,strong,86,0,9,0,77,4.5
+liking,friendship,strong,83,9,54,4,16,4.3
+liking,my friend,weak,75,20,35,4,16,3.9
+liking,buddy,weak,66,31,30,5,0,3.4
+liking,valued customer,weak,58,2,7,48,1,3.0
+liking,my dear friend,strong,48,0,5,2,41,2.5
+liking,may god bless,strong,42,0,8,0,34,2.2
+liking,valued member,weak,39,1,8,30,0,2.0
+liking,dear beloved,strong,36,0,6,2,28,1.9
+liking,dearest one,strong,36,0,3,0,33,1.9
+liking,your hard work,strong,31,9,1,21,0,1.6
+liking,blessings,weak,29,7,13,2,7,1.5
+liking,dear sir or madam,weak,25,3,20,0,2,1.3
+liking,i came across your,strong,22,1,4,3,14,1.1
+liking,nice meeting you,strong,17,1,16,0,0,0.9
+liking,as a valued member,strong,15,1,0,14,0,0.8
+liking,my good friend,strong,11,0,1,2,8,0.6
+liking,my dearest,strong,9,1,1,1,6,0.5
+liking,hope you are well,weak,8,8,0,0,0,0.4
+liking,we appreciate you,strong,7,2,0,5,0,0.4
+liking,god will bless you,strong,6,0,0,0,6,0.3
+liking,i hope you are doing well,weak,6,5,0,0,1,0.3
+liking,i hope you are well,weak,6,6,0,0,0,0.3
+liking,as a valued customer,strong,4,3,1,0,0,0.2
+liking,hope this email finds you well,weak,4,0,0,4,0,0.2
+liking,hope you are doing well,weak,4,3,1,0,0,0.2
+liking,i admire,weak,4,3,1,0,0,0.2
+liking,i came across your profile,strong,4,0,0,0,4,0.2
+liking,great to see you,strong,3,3,0,0,0,0.2
+liking,hope this finds you well,weak,3,1,1,1,0,0.2
+liking,be your friend,strong,2,2,0,0,0,0.1
+liking,dear beloved friend,strong,2,0,0,1,1,0.1
+liking,i am a big fan,strong,2,1,1,0,0,0.1
+liking,it was a pleasure meeting you,strong,2,2,0,0,0,0.1
+liking,our valued customer,strong,2,0,0,2,0,0.1
+liking,you are the best,strong,2,2,0,0,0,0.1
+liking,friends forever,strong,1,0,0,1,0,0.1
+liking,good seeing you,strong,1,1,0,0,0,0.1
+liking,great seeing you,strong,1,1,0,0,0,0.1
+liking,hope you are doing great,weak,1,0,1,0,0,0.1
+liking,hope you are having a great,weak,1,1,0,0,0,0.1
+liking,i found your profile,strong,1,0,0,0,1,0.1
+liking,i have always admired,strong,1,1,0,0,0,0.1
+liking,we value you,strong,1,1,0,0,0,0.1
+liking,you are a wonderful,strong,1,1,0,0,0,0.1
+liking,you were highly recommended,strong,1,0,0,0,1,0.1
+liking,your excellent work,strong,1,1,0,0,0,0.1
+liking,beloved in the lord,strong,0,0,0,0,0,0.0
+liking,great meeting you,strong,0,0,0,0,0,0.0
+liking,i have heard great things about you,strong,0,0,0,0,0,0.0
+liking,i have heard so much about you,strong,0,0,0,0,0,0.0
+liking,i trust this finds you well,weak,0,0,0,0,0,0.0
+liking,i trust you are well,weak,0,0,0,0,0,0.0
+liking,it was great meeting you,strong,0,0,0,0,0,0.0
+liking,it was great to see you,strong,0,0,0,0,0,0.0
+liking,nice seeing you,strong,0,0,0,0,0,0.0
+liking,our valued member,strong,0,0,0,0,0,0.0
+liking,you are amazing,strong,0,0,0,0,0,0.0
+liking,you are such a,strong,0,0,0,0,0,0.0
+liking,you have been highly recommended,strong,0,0,0,0,0,0.0
+liking,you were recommended to me,strong,0,0,0,0,0,0.0
+liking,your great work,strong,0,0,0,0,0,0.0
+secrecy,confidential,weak,1646,326,373,333,614,46.8
+secrecy,secret,weak,695,143,300,51,201,19.8
+secrecy,discreet,weak,327,5,288,15,19,9.3
+secrecy,utmost confidentiality,strong,206,0,37,2,167,5.9
+secrecy,secretly,weak,203,8,46,16,133,5.8
+secrecy,top secret,strong,167,2,29,1,135,4.7
+secrecy,strictly confidential,weak,162,7,54,3,98,4.6
+secrecy,discretion,weak,104,38,38,2,26,3.0
+secrecy,dont forward this,strong,77,0,0,77,0,2.2
+secrecy,quietly,weak,77,32,15,1,29,2.2
+secrecy,discreetly,weak,74,1,71,1,1,2.1
+secrecy,utmost secrecy,strong,74,0,15,1,58,2.1
+secrecy,privately,weak,69,35,18,4,12,2.0
+secrecy,absolute confidentiality,strong,60,0,19,0,41,1.7
+secrecy,do not share this,strong,60,0,0,60,0,1.7
+secrecy,in strict confidence,strong,48,5,10,0,33,1.4
+secrecy,highly confidential,strong,44,3,11,2,28,1.3
+secrecy,confidentially,weak,43,7,14,0,22,1.2
+secrecy,absolute secrecy,strong,29,0,6,0,23,0.8
+secrecy,do not disclose,weak,29,6,2,18,3,0.8
+secrecy,confidential matter,weak,22,0,2,0,20,0.6
+secrecy,keep it confidential,strong,22,1,4,1,16,0.6
+secrecy,do not forward this,strong,18,3,0,15,0,0.5
+secrecy,strict confidentiality,strong,12,0,9,0,3,0.3
+secrecy,total confidentiality,strong,12,0,9,0,3,0.3
+secrecy,between you and me,strong,10,0,4,1,5,0.3
+secrecy,keep this confidential,strong,10,1,1,0,8,0.3
+secrecy,complete confidentiality,strong,5,0,5,0,0,0.1
+secrecy,dont involve,strong,3,3,0,0,0,0.1
+secrecy,keep it to yourself,strong,3,0,0,0,3,0.1
+secrecy,private matter,weak,3,0,1,0,2,0.1
+secrecy,between the two of us,strong,2,0,0,0,2,0.1
+secrecy,do not contact your,strong,2,0,2,0,0,0.1
+secrecy,do not forward,weak,2,1,0,1,0,0.1
+secrecy,do not involve,strong,2,2,0,0,0,0.1
+secrecy,dont disclose,weak,2,0,0,0,2,0.1
+secrecy,dont mention it,strong,2,2,0,0,0,0.1
+secrecy,keep it secret,strong,2,0,0,0,2,0.1
+secrecy,keep this to yourself,strong,2,0,1,0,1,0.1
+secrecy,not to disclose,weak,2,0,1,0,1,0.1
+secrecy,personal matter,weak,2,1,0,0,1,0.1
+secrecy,strict secrecy,strong,2,1,1,0,0,0.1
+secrecy,without anyone knowing,strong,2,0,2,0,0,0.1
+secrecy,do not discuss this,strong,1,0,0,0,1,0.0
+secrecy,do not tell anybody,strong,1,0,0,0,1,0.0
+secrecy,dont discuss this,strong,1,1,0,0,0,0.0
+secrecy,for your eyes only,strong,1,0,0,1,0,0.0
+secrecy,keep this secret,strong,1,0,0,0,1,0.0
+secrecy,total secrecy,strong,1,1,0,0,0,0.0
+secrecy,without telling anyone,strong,1,1,0,0,0,0.0
+secrecy,complete secrecy,strong,0,0,0,0,0,0.0
+secrecy,do not call your,strong,0,0,0,0,0,0.0
+secrecy,do not cc,strong,0,0,0,0,0,0.0
+secrecy,do not copy anyone,strong,0,0,0,0,0,0.0
+secrecy,do not discuss it,strong,0,0,0,0,0,0.0
+secrecy,do not forward it,strong,0,0,0,0,0,0.0
+secrecy,do not inform anyone,strong,0,0,0,0,0,0.0
+secrecy,do not loop in,strong,0,0,0,0,0,0.0
+secrecy,do not mention it,strong,0,0,0,0,0,0.0
+secrecy,do not mention this,strong,0,0,0,0,0,0.0
+secrecy,do not reveal,weak,0,0,0,0,0,0.0
+secrecy,do not share this with,strong,0,0,0,0,0,0.0
+secrecy,do not speak to anyone,strong,0,0,0,0,0,0.0
+secrecy,do not talk to anyone,strong,0,0,0,0,0,0.0
+secrecy,do not tell anyone,strong,0,0,0,0,0,0.0
+secrecy,do not tell your,strong,0,0,0,0,0,0.0
+secrecy,do not verify with,strong,0,0,0,0,0,0.0
+secrecy,dont call your,strong,0,0,0,0,0,0.0
+secrecy,dont cc,strong,0,0,0,0,0,0.0
+secrecy,dont contact your,strong,0,0,0,0,0,0.0
+secrecy,dont copy anyone,strong,0,0,0,0,0,0.0
+secrecy,dont discuss it,strong,0,0,0,0,0,0.0
+secrecy,dont forward,weak,0,0,0,0,0,0.0
+secrecy,dont forward it,strong,0,0,0,0,0,0.0
+secrecy,dont inform anyone,strong,0,0,0,0,0,0.0
+secrecy,dont loop in,strong,0,0,0,0,0,0.0
+secrecy,dont mention this,strong,0,0,0,0,0,0.0
+secrecy,dont reveal,weak,0,0,0,0,0,0.0
+secrecy,dont share this,strong,0,0,0,0,0,0.0
+secrecy,dont share this with,strong,0,0,0,0,0,0.0
+secrecy,dont speak to anyone,strong,0,0,0,0,0,0.0
+secrecy,dont speak with anyone,strong,0,0,0,0,0,0.0
+secrecy,dont talk to anyone,strong,0,0,0,0,0,0.0
+secrecy,dont tell anybody,strong,0,0,0,0,0,0.0
+secrecy,dont tell anyone,strong,0,0,0,0,0,0.0
+secrecy,dont tell your,strong,0,0,0,0,0,0.0
+secrecy,dont verify with,strong,0,0,0,0,0,0.0
+secrecy,just between us,strong,0,0,0,0,0,0.0
+secrecy,keep it between us,strong,0,0,0,0,0,0.0
+secrecy,keep it private,strong,0,0,0,0,0,0.0
+secrecy,keep it quiet,strong,0,0,0,0,0,0.0
+secrecy,keep this a secret,strong,0,0,0,0,0,0.0
+secrecy,keep this between us,strong,0,0,0,0,0,0.0
+secrecy,keep this private,strong,0,0,0,0,0,0.0
+secrecy,keep this quiet,strong,0,0,0,0,0,0.0
+secrecy,keep this strictly,strong,0,0,0,0,0,0.0
+secrecy,no one else must know,strong,0,0,0,0,0,0.0
+secrecy,no one else needs to know,strong,0,0,0,0,0,0.0
+secrecy,no one else should know,strong,0,0,0,0,0,0.0
+secrecy,no one should know,strong,0,0,0,0,0,0.0
+secrecy,nobody else must know,strong,0,0,0,0,0,0.0
+secrecy,nobody else needs to know,strong,0,0,0,0,0,0.0
+secrecy,nobody should know,strong,0,0,0,0,0,0.0
+secrecy,without anybody knowing,strong,0,0,0,0,0,0.0
+secrecy,without informing anyone,strong,0,0,0,0,0,0.0

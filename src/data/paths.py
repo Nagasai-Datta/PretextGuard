@@ -42,6 +42,11 @@ HEADER_EVIDENCE_SUMMARY_CSV = RESULTS_DIR / "header_evidence_summary.csv"
 HEADER_TOP_DOMAINS_CSV = RESULTS_DIR / "header_top_domains.csv"
 HEADER_AUTH_FORMATS_CSV = RESULTS_DIR / "header_auth_formats.csv"
 
+# Files written by Phase 4 (src/baseline)
+KEYWORD_HIT_RATES_CSV = RESULTS_DIR / "keyword_hit_rates.csv"
+KEYWORD_PHRASE_HITS_CSV = RESULTS_DIR / "keyword_phrase_hits.csv"
+KEYWORD_CHECKS_CSV = RESULTS_DIR / "keyword_checks.csv"
+
 
 def relative(path):
     """Return path relative to the project root, for short printouts.

@@ -19,7 +19,7 @@ Never `cd src` and never `python src/data/stage.py`. With `-m`, Python treats th
 | `data/` | Datasets: unpacking, loading, staging, header coverage, split; later annotation batches and the thread-hijack benchmark | 1, 5, 9 | Phase 1 part done (see `data/README.md`) |
 | `preprocess/` | Cleaning (HTML, quotes, signatures) and N1 redaction | 2 | Done (see `preprocess/README.md`) |
 | `headers/` | Email parser and header evidence extractor; organisation domain | 3 | Done (see `headers/README.md`) |
-| `baseline/` | Keyword baseline (word lists per tactic) | 4 | Next |
+| `baseline/` | Keyword baseline (word lists per tactic, scorer) | 4 | Done (see `baseline/README.md`) |
 | `models/` | DistilBERT tactic classifier: data preparation, training (Colab), prediction | 6 | Not started |
 | `claims/` | Claim extractor: typed claims with text spans | 7 | Not started |
 | `verifiers/` | Header verifier (N3), request verifier, thread verifier (N2) | 8, 9 | Not started |

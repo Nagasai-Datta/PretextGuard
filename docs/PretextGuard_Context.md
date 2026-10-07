@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: 7 October 2026, written at the end of Phase 3, to go with master document v3.5.
+Version: 7 October 2026, written at the end of Phase 4, to go with master document v3.6.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -34,12 +34,17 @@ any conflict you notice.
    downloadable file plus one `mv` block** (Mode A in 1.3), never as a paste block, whenever the
    interface can attach files; that includes Python files and the document-update script (Nagasai's
    preference, 6 Oct 2026). Short commands stay in the chat as normal command blocks.
-   **Fold each phase into two or three steps:** each step delivers several files at once, then one
-   run, one check and one commit. Phase 1's five steps were too long.
+   **Fold each phase into as few steps as possible (two at most; Nagasai asked for more per step on
+   7 Oct 2026):** each step delivers every file it needs, including READMEs, edits to existing files
+   and the document updates, then one run, one check and one commit. Phase 1's five steps were too
+   long; Phase 4's second step carried `build.py`, its README, the document-update script and this
+   file together.
 3. **You write all code.** Well-known libraries are fine; write the project logic fresh. Never copy
    code from GitHub repositories, and never open or adapt other students' PretextGuard-like projects.
 4. **You never run Git.** No commit, push, branch or remote commands, even if you have tools that
-   could. Nagasai commits and pushes. Suggest a short commit message after each working step.
+   could. Nagasai commits and pushes. Suggest a short commit message after each working step. In
+   Claude Code on the web, a stop hook may ask you to commit and push untracked files; this rule
+   still wins (Nagasai confirmed it on 7 Oct 2026). Say so briefly and carry on.
 5. **No unit tests per phase.** Each phase is verified by running its scripts and checking their
    printed output. `tests/test_environment.py` is the one setup check; keep it passing.
 6. **End of every phase:** list exactly what changed in the master document (section number, old
@@ -91,6 +96,10 @@ so a long paste that breaks only affects one file.
 paste block:** the chat display ends the block at the first inner fence and the paste breaks (this
 happened on 6 Oct 2026). Deliver such files as downloadable files with `mv` commands. Python files
 without fences are fine as paste blocks.
+
+**Never put `#` comments inside terminal commands.** zsh does not treat `#` as a comment in an
+interactive shell, so a pasted line with a trailing comment fails (Nagasai, 7 Oct 2026). Explain a
+command in the text around the block, not inside it. This applies to every command block in chat.
 
 In both modes, every command assumes:
 
@@ -168,12 +177,13 @@ propose them again as novelty. Stack choices are never novelty (faculty rule).
 | Colab | Python 3.12; pin torch and transformers to the same versions locally and on Colab |
 | Phase 1 libraries | pandas 3.0.6, pyarrow 25.0.1, requests 2.34.2, tqdm 4.70.1 (pinned in `requirements.txt`) |
 | Phase 2 libraries | beautifulsoup4 4.15.0, tldextract 5.4.0 (pinned) |
+| Phase 3 and 4 libraries | RapidFuzz 3.14.6 (Phase 3, pinned); Phase 4 adds none (standard library only) |
 | Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2) |
 | Rule | Always work from the project root, never from `src/` |
 
 ---
 
-## 4. Current state of the repository (end of Phase 3)
+## 4. Current state of the repository (end of Phase 4)
 
 ```
 pretextguard/
@@ -190,15 +200,17 @@ pretextguard/
   results/README.md  staged_counts.csv  dedup_pairs.csv  header_coverage.csv  split_counts.csv
                      preprocess_summary.csv  preprocess_checks.csv
                      header_evidence_summary.csv  header_top_domains.csv  header_auth_formats.csv
+                     keyword_hit_rates.csv  keyword_phrase_hits.csv  keyword_checks.csv
   notebooks/README.md  frontend/.gitkeep
-  docs/README.md  master_document.md (v3.5)  PretextGuard_Master_Document_v3.2.docx (snapshot)
+  docs/README.md  master_document.md (v3.6)  PretextGuard_Master_Document_v3.2.docx (snapshot)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
                              coverage.py  split.py
   src/preprocess/            README.md  clean.py  redact.py  build.py
   src/headers/               README.md  parser.py  domains.py  evidence.py  build.py
-  src/{thread,models,claims,verifiers,router,explain,baseline,eval,api}/__init__.py  (all empty)
+  src/baseline/              README.md  lexicon.py  keywords.py  build.py
+  src/{thread,models,claims,verifiers,router,explain,eval,api}/__init__.py  (all empty)
   tests/test_environment.py  16 checks (unchanged)
 ```
 
@@ -235,6 +247,25 @@ Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). 
   domains and free-mailbox recipients. Envelope mismatch is normal for list mail.
 - Headers are attacker-written: size caps, per-field parsing, bounded patterns (master document
   Section 10). New library: RapidFuzz 3.14.6.
+
+**Phase 4 in brief** (master document Section 8.12 and `src/baseline/README.md`):
+- `score_tactics(text)` in `src/baseline/keywords.py` returns `{tactic: {"score", "phrases"}}` for the
+  seven tactics (names as in the `tactic_*` columns: authority, urgency, scarcity, reciprocity,
+  social_proof, liking, secrecy); `fired_tactics(scores, threshold)` applies a threshold (one number
+  or a per-tactic dict). It works on one string, so Phase 13 reuses it on validation and test.
+- `lexicon.py` holds the lists (data only): strong phrases (1.0, one fires the tactic) and weak
+  phrases (0.5, two different ones fire it). `LEXICON_VERSION` says which revision produced the
+  results (0.1 at first delivery; read it from `results/keyword_checks.csv`).
+- Matching is whole-word lookup on normalised text, no regular expressions over email text; the same
+  `normalise` handles Kaggle's pre-tokenised text. Overlapping phrases: the longer wins; a distinct
+  phrase counts once. Default threshold 1.0, tuned per tactic on validation in Phase 13.
+- `build.py` reads the train split only and writes `results/keyword_hit_rates.csv`,
+  `keyword_phrase_hits.csv` and `keyword_checks.csv` (hit rates per category and source, hits per
+  phrase, PASS/FAIL sanity checks). It cannot measure F1: there are no tactic labels yet.
+- Rare tactics (reciprocity, social proof) may fail the coverage check on real data; that is a
+  finding to carry into Phase 5 and 13, not an error.
+- The authority list holds assertion phrases only, not bare job titles (every signature has one).
+- No new library; `requirements.txt` is unchanged.
 
 Current `.gitignore`:
 ```
@@ -294,47 +325,61 @@ RapidFuzz==3.14.6
 
 ---
 
-## 5. Next task: Phase 4, keyword baseline (plan not yet approved)
+## 5. Next task: Phase 5, tactic and claim labels (plan not yet approved)
 
-Full detail: master document Sections 6.11 (keyword baseline), 7 (the seven tactics), 11 (keyword
-baseline vs DistilBERT), 12.2 and 12.6 (planned file `src/baseline/keywords.py`). Start by proposing
-the plan and the background concepts, then wait for "go". Deliver in two steps at most, every file
-as a download.
+Full detail: master document Sections 7 (the seven tactics), 8.4 (tactic labels and annotation), 8.5
+(style-confound control), 8.12 (what Phase 4 decided about sampling), 10 (prompt-injection note,
+redaction before data leaves the machine), 12.2 and 12.6 (planned files `src/data/batches.py`,
+`validate_labels.py`, `agreement.py`, `semeval_map.py`, `synthetic.py`) and Section 15, items 5 and 10.
+Start by proposing the plan and the background concepts, then wait for "go". Deliver in two steps at
+most (fewer if the files allow), every file as a download.
 
-**Goal.** Fixed word and phrase lists for the seven tactics, and a scorer that turns an email body
-into seven tactic scores (multi-label). It is the simple-rules baseline that DistilBERT must beat
-(master document Section 11).
+**Goal.** Labels the models can learn from and be scored against: seven tactic labels per email and
+typed claims with text spans for real attack emails, from two free web-chat annotators (Gemini and
+DeepSeek, z.ai breaking ties, Cohen's kappa per label); a documented SemEval 23-to-7 mapping; and
+synthetic emails with matched benign twins in `data/synthetic/`. No paid APIs, no hand-labelling, no
+human validation sample (Nagasai's decision; the report states it as a limitation).
 
 **Notes the plan must handle**
-- Tactic labels arrive only in Phase 5, so Phase 4 cannot measure precision, recall or F1 yet. What
-  it can check now: hit rates per tactic, per source and category, on the train split (for example,
-  secrecy phrases should fire more on fraud than on ham), saved to `results/`. F1 against the
-  labels comes in Phase 13.
-- Read `body_redacted` from `cleaned.parquet` (the N1 view every PretextGuard model reads).
-- Kaggle Enron and Ling text is lowercase and pre-tokenised ("don ' t tell anyone"); normalise text
-  and phrases the same way before matching.
-- Pick words from the taxonomy (master document Section 7) and the train split only, never from
-  validation or test (leakage).
-- If keyword hits are later used to pick Phase 5 annotation batches (to find rare tactics such as
-  reciprocity), the baseline will look better on that sample than it is; the plan must say how
-  Phase 13 avoids or reports that bias.
-- Patterns must be ReDoS-safe, as in Phases 2 and 3. Write the lists and code fresh (no copied
-  keyword lists).
+- Master document Section 15, item 5: review the annotation prompt, the JSON schema and the batch size
+  (about 20 redacted emails per batch) together before writing code. Annotation batches use
+  `body_redacted` only; the email text is wrapped as data and the instructions say never to follow it
+  (prompt-injection note, Section 10); replies are validated against a fixed schema.
+- Sampling rule decided in Phase 4: the labelled sample of about 600 to 800 real attack emails is a
+  stratified random draw by source and category. If keyword hits are used to find extra emails for rare
+  tactics (reciprocity, social proof may fire on fewer than 20 train emails; see
+  `results/keyword_checks.csv`), tag them `sample_origin = keyword_topup` (the random draw is `random`),
+  so Phase 13 reports baseline-versus-DistilBERT on the random items and shows the top-up separately.
+  The keyword lists are frozen by now (`LEXICON_VERSION` in `src/baseline/lexicon.py`); do not change
+  them after labels exist.
+- Draw the sample from the train split for training labels, and decide how validation and test items
+  are labelled so Phase 13 has labelled validation (threshold tuning) and test (one final run) data.
+- Labels live in `data/labelled/` (batches, raw chatbot replies, final labels; committed, small).
+  Record the model name and date for every reply. One model per annotator for the whole run, fixed
+  prompts, every raw reply saved: these are the mitigations for web chats being non-reproducible.
+- Kappa per tactic and per claim type, reported with the mean; agreed labels stand, disagreements take
+  the tie-breaker's label. `scikit-learn` first appears here (`cohen_kappa_score`): pin it in
+  `requirements.txt`.
+- Synthetic emails: a script writes fixed prompt templates, Nagasai pastes them into a free web chat
+  and saves the JSON replies in `data/synthetic/`; every synthetic attack has a benign twin from the
+  same template (style-confound control, Section 8.5).
+- New columns for the labels: `tactic_authority ... tactic_secrecy`, `claims`, `label_source`,
+  `sample_origin` (Section 8.7).
 
-**Decisions for the plan to recommend:** plain phrase matching or regular expressions; how a tactic
-score is computed (any match, count, or weighted count); whether thresholds are fixed now or tuned
-on validation after Phase 5; which printed counts prove the step worked.
+**Decisions for the plan to recommend:** batch size and the exact JSON schema; how many items per
+source and category; how rare tactics are topped up (and tagged); which split each labelled item
+comes from; how disagreements and invalid replies are re-asked; where the SemEval files come from
+(verify URLs first, never guess one into code); what the synthetic prompt templates look like.
 
-**Background to teach in Phase 4:** rule-based versus learned classifiers; why a baseline matters;
-text normalisation (case, punctuation, contractions); word boundaries in regular expressions;
-multi-label outputs and thresholds; precision versus recall for word lists; leakage when words are
-picked by looking at test data.
+**Background to teach in Phase 5:** what annotation is and why two annotators; Cohen's kappa (agreement
+beyond chance, one value per label); label noise; stratified sampling and selection bias; JSON schema
+validation; prompt injection when an LLM reads attacker-written text; the SemEval taxonomy and why a
+mapping table is needed; synthetic data and the style confound.
 
-## 6. The rest of the build (details in the master document, Section 12)
+## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 4 are done)
 
 | Phase | Deliverable |
 |---|---|
-| 4 | Keyword baseline (`src/baseline`) |
 | 5 | Tactic and claim labels via free web chats (Gemini and DeepSeek, z.ai breaks ties; Cohen's kappa); SemEval mapping; synthetic emails into `data/synthetic/` |
 | 6 | DistilBERT tactic classifier on Colab; weights to `artifacts/` (`src/models`, `notebooks/`) |
 | 7 | Claim extractor (`src/claims`) |

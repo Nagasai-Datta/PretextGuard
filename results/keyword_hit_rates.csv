@@ -1,0 +1,145 @@
+group_type,group,emails,tactic,fired_pct,any_hit_pct,mean_score
+all,all,69542,authority,0.94,4.47,0.028
+all,all,69542,urgency,4.24,13.23,0.099
+all,all,69542,scarcity,2.76,5.17,0.045
+all,all,69542,reciprocity,0.18,1.01,0.006
+all,all,69542,social_proof,0.44,2.8,0.017
+all,all,69542,liking,2.04,2.76,0.026
+all,all,69542,secrecy,1.54,5.06,0.038
+all,all,69542,any_tactic,9.28,23.91,0.121
+category,fraud,2259,authority,7.13,25.19,0.175
+category,fraud,2259,urgency,40.68,63.52,0.717
+category,fraud,2259,scarcity,0.93,2.26,0.016
+category,fraud,2259,reciprocity,0.31,1.77,0.01
+category,fraud,2259,social_proof,0.09,2.39,0.013
+category,fraud,2259,liking,31.61,35.5,0.376
+category,fraud,2259,secrecy,27.84,50.2,0.497
+category,fraud,2259,any_tactic,70.12,88.8,1.086
+category,ham,29645,authority,0.31,2.43,0.014
+category,ham,29645,urgency,1.67,10.87,0.066
+category,ham,29645,scarcity,1.18,2.2,0.018
+category,ham,29645,reciprocity,0.11,1.01,0.006
+category,ham,29645,social_proof,0.33,2.27,0.014
+category,ham,29645,liking,0.17,0.55,0.004
+category,ham,29645,secrecy,0.15,2.04,0.011
+category,ham,29645,any_tactic,3.35,16.76,0.039
+category,phishing,11978,authority,2.57,8.86,0.059
+category,phishing,11978,urgency,7.51,18.44,0.136
+category,phishing,11978,scarcity,8.89,17.71,0.158
+category,phishing,11978,reciprocity,0.18,0.96,0.006
+category,phishing,11978,social_proof,0.14,0.94,0.005
+category,phishing,11978,liking,3.19,4.43,0.038
+category,phishing,11978,secrecy,1.5,4.81,0.032
+category,phishing,11978,any_tactic,19.24,38.33,0.24
+category,spam,25660,authority,0.35,2.95,0.017
+category,spam,25660,urgency,2.46,9.1,0.065
+category,spam,25660,scarcity,1.89,3.0,0.026
+category,spam,25660,reciprocity,0.26,0.95,0.006
+category,spam,25660,social_proof,0.73,4.32,0.027
+category,spam,25660,liking,1.07,1.64,0.014
+category,spam,25660,secrecy,0.85,4.68,0.03
+category,spam,25660,any_tactic,6.13,19.72,0.076
+source,apache_kafka_users / ham,735,authority,0.14,3.13,0.016
+source,apache_kafka_users / ham,735,urgency,0.27,6.26,0.034
+source,apache_kafka_users / ham,735,scarcity,0.14,0.68,0.005
+source,apache_kafka_users / ham,735,reciprocity,0.0,0.54,0.003
+source,apache_kafka_users / ham,735,social_proof,0.0,0.27,0.001
+source,apache_kafka_users / ham,735,liking,0.27,0.41,0.003
+source,apache_kafka_users / ham,735,secrecy,0.14,3.4,0.018
+source,apache_kafka_users / ham,735,any_tactic,0.95,10.61,0.01
+source,apache_tomcat_users / ham,1496,authority,0.27,1.94,0.011
+source,apache_tomcat_users / ham,1496,urgency,0.47,11.16,0.059
+source,apache_tomcat_users / ham,1496,scarcity,0.13,1.0,0.006
+source,apache_tomcat_users / ham,1496,reciprocity,0.0,0.13,0.001
+source,apache_tomcat_users / ham,1496,social_proof,0.0,0.8,0.004
+source,apache_tomcat_users / ham,1496,liking,0.0,0.33,0.002
+source,apache_tomcat_users / ham,1496,secrecy,0.13,3.68,0.019
+source,apache_tomcat_users / ham,1496,any_tactic,1.0,14.24,0.01
+source,kaggle_ceas08 / ham,12077,authority,0.19,2.53,0.014
+source,kaggle_ceas08 / ham,12077,urgency,1.4,10.76,0.062
+source,kaggle_ceas08 / ham,12077,scarcity,1.71,2.43,0.023
+source,kaggle_ceas08 / ham,12077,reciprocity,0.07,1.1,0.006
+source,kaggle_ceas08 / ham,12077,social_proof,0.32,2.52,0.015
+source,kaggle_ceas08 / ham,12077,liking,0.15,0.46,0.003
+source,kaggle_ceas08 / ham,12077,secrecy,0.07,1.6,0.008
+source,kaggle_ceas08 / ham,12077,any_tactic,3.5,17.01,0.039
+source,kaggle_ceas08 / spam,14577,authority,0.0,0.19,0.001
+source,kaggle_ceas08 / spam,14577,urgency,0.24,2.97,0.016
+source,kaggle_ceas08 / spam,14577,scarcity,0.86,1.12,0.01
+source,kaggle_ceas08 / spam,14577,reciprocity,0.21,0.31,0.003
+source,kaggle_ceas08 / spam,14577,social_proof,0.06,3.05,0.016
+source,kaggle_ceas08 / spam,14577,liking,0.33,0.41,0.004
+source,kaggle_ceas08 / spam,14577,secrecy,0.12,2.06,0.011
+source,kaggle_ceas08 / spam,14577,any_tactic,1.79,9.06,0.018
+source,kaggle_enron / ham,10794,authority,0.56,2.46,0.016
+source,kaggle_enron / ham,10794,urgency,2.19,10.4,0.07
+source,kaggle_enron / ham,10794,scarcity,0.86,2.38,0.017
+source,kaggle_enron / ham,10794,reciprocity,0.19,1.25,0.007
+source,kaggle_enron / ham,10794,social_proof,0.37,1.83,0.012
+source,kaggle_enron / ham,10794,liking,0.23,0.68,0.005
+source,kaggle_enron / ham,10794,secrecy,0.21,2.31,0.013
+source,kaggle_enron / ham,10794,any_tactic,3.63,16.23,0.046
+source,kaggle_enron / spam,9589,authority,0.76,6.34,0.037
+source,kaggle_enron / spam,9589,urgency,3.94,15.07,0.105
+source,kaggle_enron / spam,9589,scarcity,2.47,4.49,0.038
+source,kaggle_enron / spam,9589,reciprocity,0.16,1.37,0.008
+source,kaggle_enron / spam,9589,social_proof,1.03,4.67,0.03
+source,kaggle_enron / spam,9589,liking,1.99,2.97,0.026
+source,kaggle_enron / spam,9589,secrecy,1.68,7.64,0.052
+source,kaggle_enron / spam,9589,any_tactic,9.65,31.25,0.12
+source,kaggle_ling / ham,1674,authority,0.06,2.75,0.014
+source,kaggle_ling / ham,1674,urgency,3.17,23.48,0.137
+source,kaggle_ling / ham,1674,scarcity,1.67,2.03,0.019
+source,kaggle_ling / ham,1674,reciprocity,0.0,0.66,0.003
+source,kaggle_ling / ham,1674,social_proof,0.3,3.05,0.017
+source,kaggle_ling / ham,1674,liking,0.0,0.36,0.002
+source,kaggle_ling / ham,1674,secrecy,0.06,1.14,0.006
+source,kaggle_ling / ham,1674,any_tactic,4.9,29.27,0.053
+source,kaggle_ling / spam,321,authority,0.93,6.23,0.036
+source,kaggle_ling / spam,321,urgency,18.07,35.83,0.347
+source,kaggle_ling / spam,321,scarcity,14.33,16.82,0.188
+source,kaggle_ling / spam,321,reciprocity,2.18,9.35,0.058
+source,kaggle_ling / spam,321,social_proof,10.59,23.99,0.24
+source,kaggle_ling / spam,321,liking,4.36,7.48,0.065
+source,kaggle_ling / spam,321,secrecy,1.87,9.35,0.064
+source,kaggle_ling / spam,321,any_tactic,34.27,54.52,0.523
+source,kaggle_nigerian_fraud / fraud,2259,authority,7.13,25.19,0.175
+source,kaggle_nigerian_fraud / fraud,2259,urgency,40.68,63.52,0.717
+source,kaggle_nigerian_fraud / fraud,2259,scarcity,0.93,2.26,0.016
+source,kaggle_nigerian_fraud / fraud,2259,reciprocity,0.31,1.77,0.01
+source,kaggle_nigerian_fraud / fraud,2259,social_proof,0.09,2.39,0.013
+source,kaggle_nigerian_fraud / fraud,2259,liking,31.61,35.5,0.376
+source,kaggle_nigerian_fraud / fraud,2259,secrecy,27.84,50.2,0.497
+source,kaggle_nigerian_fraud / fraud,2259,any_tactic,70.12,88.8,1.086
+source,nazario / phishing,6716,authority,4.01,14.1,0.093
+source,nazario / phishing,6716,urgency,7.98,23.11,0.161
+source,nazario / phishing,6716,scarcity,10.54,23.65,0.206
+source,nazario / phishing,6716,reciprocity,0.0,1.13,0.006
+source,nazario / phishing,6716,social_proof,0.04,0.57,0.003
+source,nazario / phishing,6716,liking,4.42,6.12,0.053
+source,nazario / phishing,6716,secrecy,1.22,5.79,0.035
+source,nazario / phishing,6716,any_tactic,23.03,49.99,0.282
+source,phishing_pot / phishing,5262,authority,0.74,2.17,0.016
+source,phishing_pot / phishing,5262,urgency,6.92,12.49,0.104
+source,phishing_pot / phishing,5262,scarcity,6.78,10.13,0.097
+source,phishing_pot / phishing,5262,reciprocity,0.4,0.74,0.006
+source,phishing_pot / phishing,5262,social_proof,0.27,1.41,0.008
+source,phishing_pot / phishing,5262,liking,1.62,2.28,0.02
+source,phishing_pot / phishing,5262,secrecy,1.86,3.55,0.028
+source,phishing_pot / phishing,5262,any_tactic,14.39,23.45,0.186
+source,spamassassin / ham,2869,authority,0.14,1.81,0.01
+source,spamassassin / ham,2869,urgency,1.01,6.69,0.039
+source,spamassassin / ham,2869,scarcity,0.7,1.6,0.013
+source,spamassassin / ham,2869,reciprocity,0.1,0.52,0.003
+source,spamassassin / ham,2869,social_proof,0.52,3.73,0.022
+source,spamassassin / ham,2869,liking,0.14,0.7,0.004
+source,spamassassin / ham,2869,secrecy,0.31,2.27,0.014
+source,spamassassin / ham,2869,any_tactic,2.54,13.28,0.029
+source,spamassassin / spam,1173,authority,1.19,8.61,0.055
+source,spamassassin / spam,1173,urgency,13.64,29.07,0.256
+source,spamassassin / spam,1173,scarcity,6.48,10.49,0.095
+source,spamassassin / spam,1173,reciprocity,1.11,3.32,0.023
+source,spamassassin / spam,1173,social_proof,3.92,11.85,0.09
+source,spamassassin / spam,1173,liking,1.88,4.43,0.035
+source,spamassassin / spam,1173,secrecy,2.81,11.76,0.082
+source,spamassassin / spam,1173,any_tactic,23.61,48.42,0.31
