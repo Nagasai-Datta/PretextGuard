@@ -1,0 +1,371 @@
+[
+  {
+    "id": "b031_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Mr Steve Ibeto",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b031_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "The Microsoft account team",
+        "organisation": "Microsoft"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Report The User (phishing@pot)",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b031_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "chief Financial officer of one of the commercial bank in Johannesburg South Africa",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "From:Mr.Kenneth Mashaba Email:[EMAIL] Tel:+27-73-516-4490 Fax:+27-11-219-7184",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b031_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "NCUA Account Review Department",
+        "organisation": "NCUA"
+      },
+      {
+        "type": "credential_request",
+        "span": "Please log in to your FCU account to restore your access as soon as possible. You must click the link below and fill in the form",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b031_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "AFRICAN DEVELOPMENT BANK",
+        "organisation": "African Development Bank"
+      }
+    ]
+  },
+  {
+    "id": "b031_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "ronnie mosley miller lionex diagnostics & therapeutics gmbh , braunschweig , germany phone : 411 - 667 - 8479 mobile : 734 - 514 - 7168 email : [EMAIL]",
+        "organisation": "lionex diagnostics & therapeutics gmbh"
+      }
+    ]
+  },
+  {
+    "id": "b031_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "James Jonbo E-mail :[EMAIL] Abidjan, Cote d'ivoire Tel: +225 08541845",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b031_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Mr Jeff Yukon. Address: #8 Mitchley Road Tottenham London N17 9HG",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b031_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b031_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Mr.Raymond West Auditor.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b031_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "[EMAIL] or the call centre on 0860 111 123",
+        "organisation": "Absa Bank Ltd"
+      }
+    ]
+  },
+  {
+    "id": "b031_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b031_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Online Banking Accounts Department - Bank Of America",
+        "organisation": "Bank of America"
+      },
+      {
+        "type": "credential_request",
+        "span": "You are required to click on the \" Update Now \" link stated below in order to update your account",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b031_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b031_15",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "MANAGING DIRECTOR KRUNG THAI BANK PLC",
+        "organisation": "Krung Thai Bank Plc"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Mr. Aphisak Tantiworawong , Managing Director Krung Thai Bank Plc, Thailand",
+        "organisation": "Krung Thai Bank Plc"
+      }
+    ]
+  },
+  {
+    "id": "b031_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b031_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "MyDiscountSoftware, Inc.",
+        "organisation": "MyDiscountSoftware, Inc."
+      }
+    ]
+  },
+  {
+    "id": "b031_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b031_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "MISS JEN CHARLES TAYLOR 25YRS",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b031_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  }
+]

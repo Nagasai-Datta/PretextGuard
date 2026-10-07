@@ -1,0 +1,415 @@
+[
+  {
+    "id": "b019_02",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "System Administrator",
+        "organisation": null
+      },
+      {
+        "type": "credential_request",
+        "span": "Activate by completing the Microsoft outlook web access page. Click on the Re-activation link below to begin this process.",
+        "organisation": "Microsoft"
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "Reckitt Benckiser Group plc group of companies",
+        "organisation": "Reckitt Benckiser Group plc"
+      }
+    ]
+  },
+  {
+    "id": "b019_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "data_request",
+        "span": "sending your full names, age, occupation; address, private telephone and fax numbers",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "you may be communicating with my only legal adviser",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b019_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b019_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Please download the document attached to this email to review your account activity.",
+        "organisation": null
+      },
+      {
+        "type": "affiliation_external",
+        "span": "Alliance & Leicester Bank Holdings plc",
+        "organisation": "Alliance & Leicester Bank Holdings plc"
+      }
+    ]
+  },
+  {
+    "id": "b019_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b019_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Barrister Jack Vanrenos, the personal Attorney",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "Await your prompt response in my private email address ‹[EMAIL]›",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Jack Vanrenos [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b019_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "phleyase ljog in npow: wuww.ifntfergacgtiqveabrhokbers.csom‹[URL]› Yzou weill be psrosmpated to rkevoiew aund cjonjfihrm ulpdxatwed tzerxms ruegkarididng tlax cmonssuxltqatwion.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b019_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "contact me in my private",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Mrs.Mable Kabila.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b019_16",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Operations Officer, BILL AND EXCHANGE of THE FOREIGN REMITTANCE DEPARTMENT",
+        "organisation": "CITIZENS INTERNATIONAL BANK LTD"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "CITIZENS INTERNATIONAL BANK LTD",
+        "organisation": "CITIZENS INTERNATIONAL BANK LTD"
+      },
+      {
+        "type": "signature_contact",
+        "span": "[EMAIL]",
+        "organisation": "CITIZENS INTERNATIONAL BANK LTD"
+      }
+    ]
+  },
+  {
+    "id": "b019_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b019_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b019_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Personal Assistant to the Late Congo President, LAURENT KABILA",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b019_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Please sign in to your eBay account and update your billing information",
+        "organisation": "eBay"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "eBay",
+        "organisation": "eBay"
+      },
+      {
+        "type": "authority",
+        "span": "eBay Billing Department",
+        "organisation": "eBay"
+      }
+    ]
+  },
+  {
+    "id": "b020_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b020_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b020_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "To access your tax refund online, please click here",
+        "organisation": "Internal Revenue Service"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "Internal Revenue Service",
+        "organisation": "Internal Revenue Service"
+      }
+    ]
+  },
+  {
+    "id": "b020_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "click on the link below to log into the account and follow the instructions.",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "authority",
+        "span": "PayPal Account Review Department",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b020_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "kindly connect the primary wallet you employed to subscribe to [DOMAIN]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b020_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "we recommend that you open the attachment and update your account immediately.",
+        "organisation": null
+      },
+      {
+        "type": "affiliation_external",
+        "span": "[DOMAIN]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b020_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  }
+]

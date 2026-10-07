@@ -1,0 +1,395 @@
+[
+  {
+    "id": "b008_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "call me during the next few days ( 713 ) 853 3848",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "molly magee ... e - mail address is [EMAIL] , and her phone number is ( 713 ) 853 - 4804",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "data_request",
+        "span": "(1)Your full name and contact address",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "MINISTRIE OF FINANCE ECONOMICS COTONOU-BENIN REPUBLIC",
+        "organisation": "MINISTRIE OF FINANCE ECONOMICS COTONOU-BENIN REPUBLIC"
+      },
+      {
+        "type": "authority",
+        "span": "MR AUDITOR EDWARD.CHIEF AUDITOR",
+        "organisation": null
+      },
+      {
+        "type": "affiliation_external",
+        "span": "Banque Centrale Des Etats De L`Afrique De L`Ouest (Central Bank of the West African States)",
+        "organisation": "Banque Centrale Des Etats De L`Afrique De L`Ouest"
+      }
+    ]
+  },
+  {
+    "id": "b009_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "prior_relationship",
+        "span": "since you are our previous client , you are already apybproved",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "data_request",
+        "span": "reply me with your telephone and fax number together with your full resident address",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "DR. RICHARD AKUEZE DIRECTOR PROJECT IMPLEMENTATION",
+        "organisation": "NIGERIAN NATIONAL PETROLEUM CORPORATION (NNPC)"
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "NIGERIAN NATIONAL PETROLEUM CORPORATION (NNPC)",
+        "organisation": "NIGERIAN NATIONAL PETROLEUM CORPORATION (NNPC)"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "Central Bank of Nigeria",
+        "organisation": "Central Bank of Nigeria"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Please get in touch with me immediately through my alternative email :[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Email: ([EMAIL]‹[EMAIL]›)",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "executive compensation group",
+        "organisation": null
+      },
+      {
+        "type": "data_request",
+        "span": "please provide me with your current personal ene stock holdings as of 8 / 31 / 01 .",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "713 - 853 - 7769",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Vйrifie par Visa (Verified by Visa) et Sйcuritй MasterCard",
+        "organisation": "Visa / MasterCard"
+      },
+      {
+        "type": "credential_request",
+        "span": "mettre a jour les informations et les coordonnes de votre Compte bancaire et votre carte de crйdit",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "data_request",
+        "span": "send me your telephone and fax numbers for easy communication",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "I Barrister Miroslav Vlado, representing Mr. Mikhail Khodorkovsky",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "reach me on \"[EMAIL]\"",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Moneybookers customer service",
+        "organisation": "Moneybookers"
+      }
+    ]
+  },
+  {
+    "id": "b009_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b010_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Bank of China Ltd. Secretariat of the BOCHK Charitable Foundation",
+        "organisation": "Bank of China Ltd."
+      },
+      {
+        "type": "authority",
+        "span": "transfer supervisor operations in investment section",
+        "organisation": "Bank of China Ltd."
+      }
+    ]
+  },
+  {
+    "id": "b010_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  }
+]

@@ -1,0 +1,348 @@
+[
+  {
+    "id": "b026_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "April 2006 Dear users of PayPal services, Due to upcoming year 2006, and recent changes in PayPal's Service Agreement",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "data_request",
+        "span": "you need to submit additional details on your PayPal account.",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b026_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "USAA Restriction Notice View Accounts | Privacy Promise | Contact Us USAA SECURITY ZONE",
+        "organisation": "USAA"
+      }
+    ]
+  },
+  {
+    "id": "b026_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "To: Bank of America client",
+        "organisation": "Bank of America"
+      }
+    ]
+  },
+  {
+    "id": "b026_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "download the page and Sign-on to re-activate.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b026_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "PHILIP & ALICE DESMOND Rue L195, Zone 4, Abidjan Ivory Coast.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b026_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Cable News Network LP, LLLP. \n One CNN Center, Atlanta, Georgia 30303",
+        "organisation": "CNN"
+      }
+    ]
+  },
+  {
+    "id": "b026_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "Pls send your reply to mym private address [EMAIL]",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "MR. James Roberts [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b026_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "CeIsius LLC",
+        "organisation": "Celsius LLC"
+      }
+    ]
+  },
+  {
+    "id": "b026_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal is constantly working to ensure security",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "Please confirm your identity here: Restore My Account",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b026_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "This note holds a secure link to DocuSign.",
+        "organisation": "DocuSign"
+      },
+      {
+        "type": "credential_request",
+        "span": "enter your *email password*",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b026_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "EDEKA Einkaufsgutschein",
+        "organisation": "EDEKA"
+      }
+    ]
+  }
+]

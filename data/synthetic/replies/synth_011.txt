@@ -1,0 +1,362 @@
+[
+  {
+    "pair": "p081",
+    "attack": {
+      "subject": "Staff record audit",
+      "body": "Hello there. It was truly a pleasure working with you on the recent wellness committee project, and I really appreciated how you helped me pull those figures together on short notice. Since I am the Director of HR, I have the authority to pull sensitive documents for our upcoming internal records update. I need you to send me the full staff list including social security numbers and home addresses for the entire department. You have always been so helpful and reliable with these requests, and I know I can count on your support again. Please forward the spreadsheet to me by this afternoon so we can get this filed. I am happy to return the favor on your next big initiative as well.",
+      "tactic_cues": {
+        "reciprocity": "I am happy to return the favor on your next big initiative as well.",
+        "liking": "It was truly a pleasure working with you on the recent wellness committee project"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Director of HR",
+          "organisation": "HR"
+        },
+        {
+          "type": "authority",
+          "span": "I have the authority to pull sensitive documents",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "send me the full staff list including social security numbers and home addresses",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Annual payroll compliance audit",
+      "body": "The annual compliance audit for the hospital staff has officially begun. As part of our standard internal audit requirements, the Finance department requires the current staff list and associated tax forms for the fiscal year to be uploaded into the secure compliance portal. Please ensure these documents are uploaded to the secure server by the end of the week. Access to this portal is restricted to authorized personnel only, and the files should be encrypted according to our standard healthcare data privacy policy. Once the upload is complete, please notify the audit team via the internal ticketing system. Thank you for your cooperation in ensuring our medical facility remains fully compliant with all regional labor regulations and documentation standards.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Finance department",
+          "organisation": "Finance"
+        },
+        {
+          "type": "data_request",
+          "span": "requires the current staff list and associated tax forms",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p082",
+    "attack": {
+      "subject": "Re: Shipping project update",
+      "body": "Hi there, great to hear the cargo has finally arrived at the depot. Since we worked together on the Q3 logistics rollout, I know we have a solid history. Regarding the new distribution contract, we have decided to route all future payments to our new account details provided below. Everyone on the project steering committee has already given their blessing for this shift in billing, so we are good to go. Please keep this between us for now to avoid any confusion in the accounting department until the switch is fully processed. Let me know if you need anything else from my side. Regards, Thomas Miller, Finance Lead, 555-0192, tmiller@fin-logistics.net.",
+      "tactic_cues": {
+        "social_proof": "Everyone on the project steering committee has already given their blessing",
+        "secrecy": "Please keep this between us for now"
+      },
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "Since we worked together on the Q3 logistics rollout",
+          "organisation": null
+        },
+        {
+          "type": "payment_change",
+          "span": "route all future payments to our new account details",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Thomas Miller, Finance Lead, 555-0192, tmiller@fin-logistics.net",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Re: Shipping project update",
+      "body": "Hi there, thanks for the update on the cargo arrival. It is great to see the Q3 rollout finishing strong. Regarding the distribution schedule we discussed last week, I have confirmed that the final delivery dates for the regional hubs are set for the 15th and 20th of next month. Please update the master tracking file to reflect these dates so the warehouse team can prepare the space accordingly. Let me know if you run into any issues with these timelines. Best regards, Sarah Jenkins, Project Coordinator, 555-0821, sjenkins@logistics-corp.com.",
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "the distribution schedule we discussed last week",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Sarah Jenkins, Project Coordinator, 555-0821, sjenkins@logistics-corp.com",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p083",
+    "attack": {
+      "subject": "Urgent request",
+      "body": "I am currently stuck abroad and need your help. As the Director of Operations, I am authorized to request emergency funds for this site visit. Please send the payment to the account I will provide. It is a pleasure working with you, but please keep this request between us and do not mention it to anyone else. Reply to my personal email at ops-director@private-mail.com instead.",
+      "tactic_cues": {
+        "liking": "It is a pleasure working with you",
+        "secrecy": "please keep this request between us and do not mention it to anyone else"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "As the Director of Operations",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "send the payment",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "Reply to my personal email at ops-director@private-mail.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Trip expense approval",
+      "body": "Hi team, I am preparing for the upcoming site visit to the regional construction project next month. Could you please process the payment for my flight and hotel expenses? I have attached the invoices from the travel agency to this message. Let me know if you need any further information to approve the request.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "team",
+          "organisation": "Construction"
+        },
+        {
+          "type": "payment_request",
+          "span": "process the payment for my flight and hotel expenses",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p084",
+    "attack": {
+      "subject": "Update required",
+      "body": "Our bank details are changing immediately. All other logistics partners have already updated their systems to our new account. You must update your records today or your next payment will be rejected. Keep this change confidential. Regards, Global Freight Services, Billing Department, 555-0990, billing@gfs-global.com.",
+      "tactic_cues": {
+        "scarcity": "your next payment will be rejected",
+        "social_proof": "All other logistics partners have already updated their systems",
+        "secrecy": "Keep this change confidential"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Global Freight Services",
+          "organisation": "Global Freight Services"
+        },
+        {
+          "type": "payment_change",
+          "span": "Our bank details are changing",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Global Freight Services, Billing Department, 555-0990, billing@gfs-global.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice Reminder",
+      "body": "This is a reminder that invoice #8842 for last month's shipping services is due on Friday. Please ensure the balance is settled using the payment instructions provided on the original invoice. Thank you for your continued partnership. Best regards, Global Freight Services, Accounts Receivable, 555-0990, ar@gfs-global.com.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Global Freight Services",
+          "organisation": "Global Freight Services"
+        },
+        {
+          "type": "signature_contact",
+          "span": "Global Freight Services, Accounts Receivable, 555-0990, ar@gfs-global.com",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p085",
+    "attack": {
+      "subject": "Meeting follow up",
+      "body": "Following up on our conversation from the logistics meeting yesterday, I am writing on behalf of the VP. As the Executive Assistant, I have the authority to coordinate operational costs. The VP requires an immediate wire transfer to a new vendor to settle a pending dispute. All other department leads have already approved this transfer. Please handle this personally and keep it between us to avoid unnecessary oversight during this transition. I appreciate your quick action on this matter.",
+      "tactic_cues": {
+        "authority": "As the Executive Assistant, I have the authority",
+        "social_proof": "All other department leads have already approved this transfer",
+        "secrecy": "keep it between us to avoid unnecessary oversight"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Executive Assistant",
+          "organisation": "Logistics"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "Following up on our conversation from the logistics meeting yesterday",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "requires an immediate wire transfer to a new vendor",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Meeting Confirmation",
+      "body": "Following up on our conversation from the logistics meeting yesterday, I would like to confirm the time for our follow-up session. The VP is available to meet in Conference Room B on Thursday at 10 AM. Please let me know if this time works for your schedule so I can finalize the calendar invite. I look forward to our continued coordination on this project.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "VP",
+          "organisation": "Logistics"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "Following up on our conversation from the logistics meeting yesterday",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p086",
+    "attack": {
+      "subject": "Urgent transfer needed",
+      "body": "Hi there, I hope you are having a wonderful week. As the Dean of the University, I am overseeing an urgent project that requires an immediate wire transfer to our new external contractor. We are on a very tight schedule, so please process this payment by 2 PM today. I really enjoy working with you on these financial matters. Please reply directly to me at dean-office-private@university-mail.com to confirm once this is completed.",
+      "tactic_cues": {
+        "urgency": "immediate wire transfer... by 2 PM today",
+        "liking": "I really enjoy working with you on these financial matters"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Dean of the University",
+          "organisation": "University"
+        },
+        {
+          "type": "authority",
+          "span": "As the Dean of the University",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "process this payment",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply directly to me at dean-office-private@university-mail.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Payment request for PO 99281",
+      "body": "Hi there, we have received the invoice for the curriculum development services provided under PO 99281. Please review the attached document and process the payment according to our standard University finance policy. The invoice has already been signed off by the department head. Let me know if you need any additional documentation to finalize this request.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "University",
+          "organisation": "University"
+        },
+        {
+          "type": "payment_request",
+          "span": "process the payment",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p087",
+    "attack": {
+      "subject": "Small favor",
+      "body": "Hey, it was great catching up at the energy summit last week. I really appreciate the work you have been doing for the team lately. As the Director, I have the authority to request a few gift cards for our VIP clients. We are running extremely low on these and need them before the end of the day, as these are the last few available for this quarter. Could you please purchase these and email me the codes directly at my personal address? It would be a huge help, and I know how much you care about our client relations. I am happy to return the favor whenever you need a hand with your own projects in the future. Just reply to me at director-private@energy-net.com with the card images.",
+      "tactic_cues": {
+        "scarcity": "We are running extremely low on these... these are the last few available",
+        "liking": "It was great catching up... I know how much you care about our client relations"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "As the Director",
+          "organisation": "Energy"
+        },
+        {
+          "type": "gift_card",
+          "span": "purchase these and email me the codes",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply to me at director-private@energy-net.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Client appreciation gift cards",
+      "body": "Hi team, we are planning to send gift cards to our top clients for the upcoming energy conference. Please submit a request through the procurement system to order 20 gift cards of $50 each. We need these to be delivered to the office by Friday for the event packing session. Please make sure the order aligns with the client appreciation budget guidelines provided in the employee handbook. Thank you for handling this request.",
+      "claims": [
+        {
+          "type": "gift_card",
+          "span": "order 20 gift cards",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p088",
+    "attack": {
+      "subject": "Urgent: Overdue payment",
+      "body": "Dear Partner, as we discussed in our recent meeting, we provided the legal consultation services last month. Since we supported your firm during the merger, we were hoping for a prompt payment on our outstanding invoice. This is your last chance to pay before we move to formal collection proceedings. We need this settled immediately to avoid any disruption in your services. Please send the payment today. I am happy to discount our next fee to reciprocate for your cooperation on this matter. Regards, Legal Solutions Inc., Billing Department, 555-1234, billing@legalsolutions.com.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "This is your last chance to pay before we move to formal collection proceedings",
+        "reciprocity": "I am happy to discount our next fee to reciprocate for your cooperation"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Legal Solutions Inc.",
+          "organisation": "Legal Solutions Inc."
+        },
+        {
+          "type": "payment_request",
+          "span": "send the payment",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "as we discussed in our recent meeting",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice #5521 Status",
+      "body": "Dear Partner, regarding the legal consultation services provided last month as we discussed, we are writing to follow up on invoice #5521. This invoice is currently due for payment. Please review the attached document which details the services provided and the balance due. We appreciate your business and look forward to our continued work together. Please let us know if you have any questions regarding the billing statement. Sincerely, Legal Solutions Inc., Accounts Payable, 555-1234, accounts@legalsolutions.com.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Legal Solutions Inc.",
+          "organisation": "Legal Solutions Inc."
+        },
+        {
+          "type": "payment_request",
+          "span": "invoice #5521",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "regarding the legal consultation services provided last month as we discussed",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

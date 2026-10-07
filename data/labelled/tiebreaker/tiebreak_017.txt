@@ -1,0 +1,443 @@
+[
+  {
+    "id": "b025_12",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "chief accountant with Gulf Bank Nig PLC",
+        "organisation": "Gulf Bank Nig PLC"
+      },
+      {
+        "type": "signature_contact",
+        "span": "DR STEPHEN UMAH GULF BANK NIG PLC HEAD OFFICE Plot 1212, tijian bello Street, Victoria Island, P.M.B 0090, Lagos E-MAIL:[EMAIL]",
+        "organisation": "Gulf Bank Nig PLC"
+      }
+    ]
+  },
+  {
+    "id": "b025_13",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "eBay",
+        "organisation": "eBay"
+      },
+      {
+        "type": "authority",
+        "span": "Kenneth Pavel eBay Safe Harbour Dpt.",
+        "organisation": "eBay"
+      },
+      {
+        "type": "credential_request",
+        "span": "Please update and verify your information by clicking the link below",
+        "organisation": "eBay"
+      }
+    ]
+  },
+  {
+    "id": "b025_14",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "AUDITOR OF THE SHELL PETROLEUM DEVELOPMENT COMPANY (SPDC)",
+        "organisation": "SHELL PETROLEUM DEVELOPMENT COMPANY"
+      },
+      {
+        "type": "authority",
+        "span": "AUDITOR OF THE SHELL PETROLEUM DEVELOPMENT COMPANY",
+        "organisation": "SHELL PETROLEUM DEVELOPMENT COMPANY"
+      }
+    ]
+  },
+  {
+    "id": "b025_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b025_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Illuvium DAO",
+        "organisation": "Illuvium"
+      },
+      {
+        "type": "credential_request",
+        "span": "connect you main wallet",
+        "organisation": "Illuvium"
+      },
+      {
+        "type": "signature_contact",
+        "span": "[EMAIL]",
+        "organisation": "Illuvium"
+      }
+    ]
+  },
+  {
+    "id": "b025_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Derila +1 862 329-7011 [URL]",
+        "organisation": "Derila"
+      }
+    ]
+  },
+  {
+    "id": "b025_19",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "The Microsoft account team",
+        "organisation": "Microsoft"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Report The User ([EMAIL]?&cc=[EMAIL]&subject=unusual signin activity&body=Report The User)",
+        "organisation": "Microsoft"
+      }
+    ]
+  },
+  {
+    "id": "b025_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "data_request",
+        "span": "submit additional details on your PayPal account",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b026_02",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "USAA",
+        "organisation": "USAA"
+      },
+      {
+        "type": "credential_request",
+        "span": "Review Account",
+        "organisation": "USAA"
+      },
+      {
+        "type": "signature_contact",
+        "span": "USAA, 9800 Fredericksburg Road, San Antonio, Texas 78288",
+        "organisation": "USAA"
+      }
+    ]
+  },
+  {
+    "id": "b026_03",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Bank of America",
+        "organisation": "Bank of America"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Bank of America Email, 8th Floor-NC1-002-08-25, 101 South Tryon St., Charlotte, NC 28255-0001",
+        "organisation": "Bank of America"
+      }
+    ]
+  },
+  {
+    "id": "b026_07",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "payment_request",
+        "span": "Order total: 29.99",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b026_08",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "download the page and Sign-on to re-activate",
+        "organisation": "MashreqOnline"
+      }
+    ]
+  },
+  {
+    "id": "b026_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b026_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "CNN",
+        "organisation": "CNN"
+      },
+      {
+        "type": "signature_contact",
+        "span": "One CNN Center, Atlanta, Georgia 30303",
+        "organisation": "CNN"
+      }
+    ]
+  },
+  {
+    "id": "b026_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Am an attorney to Mr Grant Woods",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "reply me so that I will educate you on how I have planned to execute this and also discuss on how we are going to share the funds. Pls send your reply to mym private address [EMAIL]",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "MR. James Roberts",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b026_16",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "CeIsius LLC",
+        "organisation": "CeIsius LLC"
+      },
+      {
+        "type": "credential_request",
+        "span": "use the One-Time Passcode (OTP) provided below",
+        "organisation": "CeIsius LLC"
+      }
+    ]
+  },
+  {
+    "id": "b026_18",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "confirm your identity here: Restore My Account",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b026_19",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "DocuSign",
+        "organisation": "DocuSign"
+      },
+      {
+        "type": "credential_request",
+        "span": "enter your *email password*",
+        "organisation": "DocuSign"
+      }
+    ]
+  }
+]

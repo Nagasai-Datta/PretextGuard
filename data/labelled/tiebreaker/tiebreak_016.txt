@@ -1,0 +1,445 @@
+[
+  {
+    "id": "b023_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "a confirmation sent to me via my e-mail ([EMAIL])",
+        "organisation": null
+      },
+      {
+        "type": "payment_request",
+        "span": "transfer 3,670.00 to our bank account",
+        "organisation": "National Westminster Bank"
+      }
+    ]
+  },
+  {
+    "id": "b023_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b023_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "CNN, The Most Trusted Name in News › Cable News Network LP, LLLP. ‹",
+        "organisation": "CNN"
+      }
+    ]
+  },
+  {
+    "id": "b024_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "i am the personal assistant to Mr Laurence Gbagbo the president of cote d'ivoire",
+        "organisation": "cote d'ivoire"
+      }
+    ]
+  },
+  {
+    "id": "b024_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Per impostare la tua password, visita il seguente indirizzo: [URL]",
+        "organisation": "BINANCE"
+      }
+    ]
+  },
+  {
+    "id": "b024_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Email Security Team",
+        "organisation": null
+      },
+      {
+        "type": "credential_request",
+        "span": "Verify Your Email Spam Filter Account settings immediately",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b024_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Global Logistics",
+        "organisation": "Global Logistics"
+      },
+      {
+        "type": "payment_request",
+        "span": "frais de douane impayés (0,99€)",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b024_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal Inc. Account Departement",
+        "organisation": "PayPal Inc."
+      },
+      {
+        "type": "credential_request",
+        "span": "Please follow this link to confirm your account access information",
+        "organisation": "PayPal Inc."
+      }
+    ]
+  },
+  {
+    "id": "b024_12",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "HR Department",
+        "organisation": null
+      },
+      {
+        "type": "authority",
+        "span": "Director of Human Resources",
+        "organisation": null
+      },
+      {
+        "type": "credential_request",
+        "span": "Please review the Vacation/Annual Leave Plan for 2025 using the link below",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b024_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "prior_relationship",
+        "span": "I got your email address from an Internet site that portrayed you in good light.",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "J.Rodney chesson jr Chesson Family Corporation, Liberia. email: [EMAIL]",
+        "organisation": "Chesson Family Corporation"
+      }
+    ]
+  },
+  {
+    "id": "b024_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Praveen Antal GM - Administration Pyramid IT Consulting Pvt. Ltd. Mobile - 9999 10 6666",
+        "organisation": "Pyramid IT Consulting Pvt. Ltd."
+      }
+    ]
+  },
+  {
+    "id": "b024_16",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "National Credit Union Association",
+        "organisation": "National Credit Union Association"
+      },
+      {
+        "type": "credential_request",
+        "span": "In order to update your account details please access the link below",
+        "organisation": "National Credit Union Association"
+      }
+    ]
+  },
+  {
+    "id": "b024_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "BANK OF AFRICA",
+        "organisation": "BANK OF AFRICA"
+      },
+      {
+        "type": "authority",
+        "span": "Director Auditing and Accounting unit",
+        "organisation": "BANK OF AFRICA"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Reply me here please. Email: [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b025_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Security Center",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "update your billing records",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b025_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Nu",
+        "organisation": "Nu"
+      },
+      {
+        "type": "payment_request",
+        "span": "Transação em analise no valor de R$1.599,99 em RENNER*BR",
+        "organisation": "RENNER"
+      }
+    ]
+  },
+  {
+    "id": "b025_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "enron business online",
+        "organisation": "Enron"
+      }
+    ]
+  },
+  {
+    "id": "b025_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "To set your password, visit the following address: [URL]",
+        "organisation": "BINANCE"
+      }
+    ]
+  },
+  {
+    "id": "b025_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b025_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Microsvft Team",
+        "organisation": "Microsoft"
+      },
+      {
+        "type": "credential_request",
+        "span": "update your account information",
+        "organisation": "Microsoft"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Josh Joshua Reyneveld AIA PE Seattle, WA 98109 E-mail | [EMAIL] ([EMAIL]) Phone | 206.902.6347",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b025_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Citibank",
+        "organisation": "Citibank"
+      },
+      {
+        "type": "credential_request",
+        "span": "enroll in our security upgrade",
+        "organisation": "Citibank"
+      }
+    ]
+  }
+]

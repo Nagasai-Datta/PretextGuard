@@ -1,0 +1,363 @@
+[
+  {
+    "pair": "p001",
+    "attack": {
+      "subject": "Quick favour regarding the project",
+      "body": "Hi Marcus, it was great catching up with you at the factory floor tour last week. As the Executive Assistant to the CEO, I have the authority to manage these special project accounts. Since I handled those scheduling headaches for your team last month, I was hoping you could do me a quick favour. We need an immediate payment to a new vendor for the site launch. Could you process this invoice for five thousand dollars today? I really appreciate your help with this. Best, Sarah Jenkins, Executive Assistant, Office of the CEO, 555-0199.",
+      "tactic_cues": {
+        "authority": "As the Executive Assistant to the CEO, I have the authority",
+        "reciprocity": "Since I handled those scheduling headaches for your team last month, I was hoping you could do me a quick favour",
+        "liking": "it was great catching up with you at the factory floor tour last week"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Executive Assistant to the CEO",
+          "organisation": "Manufacturing Corp"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "it was great catching up with you at the factory floor tour last week",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "process this invoice for five thousand dollars",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Meeting confirmation: Project Alpha",
+      "body": "Hello Marcus, I am writing to confirm your meeting with Mr. Henderson regarding the Project Alpha rollout. The meeting is scheduled for Tuesday at 10 AM. We have reserved the main conference room in the East Wing for this discussion. Please let me know if you need any materials prepared in advance. I look forward to seeing you there. Regards, Sarah Jenkins, Assistant to the CEO.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Assistant to the CEO",
+          "organisation": "Manufacturing Corp"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "confirm your meeting with Mr. Henderson",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p007",
+    "attack": {
+      "subject": "Urgent payroll adjustment",
+      "body": "Hi John, I hope your week is going well, you have been doing such a great job lately. I need to change my direct deposit details immediately. Please handle this for me before 3 PM today. Do not mention this to the rest of the payroll team. Please reply to my personal email address at personalmail@provider.com to confirm. Best, Mark, Lead Foreman.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "liking": "you have been doing such a great job lately",
+        "secrecy": "Do not mention this to the rest of the payroll team"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Lead Foreman",
+          "organisation": "BuildRight Construction"
+        },
+        {
+          "type": "payment_change",
+          "span": "change my direct deposit details",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply to my personal email address at personalmail@provider.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Updating direct deposit details",
+      "body": "Hello, I am an employee at the regional office and I would like to update my direct deposit bank details. Could you please direct me to the correct form or the HR portal link required to make this change? I have my new account information ready to enter. Thank you, Sarah Miller, Site Supervisor.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "employee at the regional office",
+          "organisation": "BuildRight Construction"
+        },
+        {
+          "type": "payment_change",
+          "span": "update my direct deposit bank details",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p013",
+    "attack": {
+      "subject": "Invoice follow-up",
+      "body": "I am following up on our meeting from the regional store conference last month. Everyone else in the retail management department has already signed off on their vendor payments for the quarter, and I would hate for your department to be the only one lagging behind. I have always enjoyed working with you and appreciate the effort you put into the store displays. Could you please process the attached invoice for the seasonal equipment upgrade? It would really help me out if you could get this cleared by tomorrow. I am tied up in meetings all afternoon, so please reach out if you have any questions, but I expect this to be straightforward for you. I know we are all busy, but your cooperation is highly valued by the executive team. Thanks for handling this request promptly, and I look forward to seeing the results of your hard work at the upcoming quarterly review. Best, Susan, Store Operations Support, Retail Dynamics, 555-0122.",
+      "tactic_cues": {
+        "social_proof": "Everyone else in the retail management department has already signed off",
+        "liking": "I have always enjoyed working with you and appreciate the effort you put into the store displays"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Store Operations Support",
+          "organisation": "Retail Dynamics"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "our meeting from the regional store conference last month",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "process the attached invoice",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Scheduling meeting",
+      "body": "Hello, I am writing to confirm the meeting regarding the store inventory audit. We have scheduled this for Wednesday at 2 PM in the main conference room. This follows up on our previous conversation regarding the stock levels at the downtown location. Please bring your updated ledger reports for the team to review during the session. If you have any conflicts with this time, please notify the office as soon as possible so we can adjust the calendar accordingly. We appreciate your assistance in keeping our records accurate. Best, Susan, Store Operations Support, Retail Dynamics.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Store Operations Support",
+          "organisation": "Retail Dynamics"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "follows up on our previous conversation",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p018",
+    "attack": {
+      "subject": "Urgent compliance data required",
+      "body": "As the lead counsel for the state education board, I require your full cooperation regarding the investigation we discussed last week. We are under strict time constraints to finalize this report before 5 PM today. Since I provided the necessary legal clearance for your previous audit last year, I am now calling in that favour. Please provide the complete student registration list and staff payroll records immediately. This is a matter of institutional compliance, and as the Director of Legal Affairs, I am directing you to expedite this request. Your failure to comply could result in severe administrative repercussions for your department. I expect you to have these documents compiled and ready for my secure portal by the end of the business day. This request is essential for our ongoing oversight and must be prioritized over all other administrative tasks you are currently managing. Thank you for your immediate attention to this critical matter. Regards, Arthur Vance, Director of Legal Affairs, State Education Board, 555-0899.",
+      "tactic_cues": {
+        "urgency": "before 5 PM today",
+        "reciprocity": "Since I provided the necessary legal clearance for your previous audit last year, I am now calling in that favour"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "State Education Board",
+          "organisation": "State Education Board"
+        },
+        {
+          "type": "authority",
+          "span": "Director of Legal Affairs",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "student registration list and staff payroll records",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "investigation we discussed last week",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Request for documentation",
+      "body": "To Whom It May Concern, I am writing on behalf of the external auditing firm, Miller and Associates. We are currently conducting our annual review of educational standards as mandated by the district. We kindly request access to the curriculum summary documents for the fall semester. Please transmit these files through the secure document repository established for this audit. We appreciate your assistance in providing these materials by the end of the week. Regards, External Counsel, Miller and Associates.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "external auditing firm, Miller and Associates",
+          "organisation": "Miller and Associates"
+        },
+        {
+          "type": "data_request",
+          "span": "access to the curriculum summary documents",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p021",
+    "attack": {
+      "subject": "Confidential personnel audit",
+      "body": "As the Chief Financial Officer, I am initiating a mandatory review of our regional staff records. I require you to compile a complete list of all employee social security numbers and current tax forms by the end of the day. This is a highly sensitive audit, so you must keep this request strictly between us and do not inform your manager or anyone else in your department about this task. Your role in this company requires you to follow these instructions without question to ensure the integrity of our financial oversight. Any delay or breach of confidentiality will be treated as a serious violation of company policy. Ensure the files are encrypted and sent to my direct secure channel immediately. I have the authority to demand this level of compliance from all department leads to protect our operational privacy. Do not discuss this with anyone, including your direct supervisor, as this remains a private executive matter. Regards, Marcus Thorne, CFO, Retail Global.",
+      "tactic_cues": {
+        "authority": "As the Chief Financial Officer, I am initiating a mandatory review",
+        "secrecy": "keep this request strictly between us and do not inform your manager"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "CFO",
+          "organisation": "Retail Global"
+        },
+        {
+          "type": "authority",
+          "span": "Chief Financial Officer",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "social security numbers and current tax forms",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Annual payroll verification",
+      "body": "Hello, the HR department is currently performing the annual payroll verification process. We need to collect updated W-4 forms for all staff members to ensure our records match current tax requirements. Please log in to the company HR portal and upload the requested documents to the secure audit folder labeled Payroll 2024. Your cooperation in completing this by the end of the month is appreciated as we finalize our year-end reporting. Please contact the HR help desk if you have any trouble accessing the portal. Best, HR Payroll Team.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "HR department",
+          "organisation": "Retail Global"
+        },
+        {
+          "type": "data_request",
+          "span": "collect updated W-4 forms",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p031",
+    "attack": {
+      "subject": "Payroll update required",
+      "body": "Dear Employee, this is a final notification regarding your direct deposit setup. This is your last chance to update your bank routing information before our system finalizes the payroll cycle for the upcoming month. Because the payroll office went out of their way to correct your previous salary disbursement error, we need you to confirm your current account details immediately to prevent your next pay from being held. Please do not call the main payroll line about this, as they are currently overwhelmed; instead, reply directly to this email with your updated bank details, including your new account and routing number. It is critical that you act on this request now to ensure there is no interruption to your compensation. If we do not receive this verification today, your payment will be delayed until the next cycle. We appreciate your prompt action in this matter. Please reply to me directly. Regards, Payroll Administration, BuildRight Construction, 555-0442.",
+      "tactic_cues": {
+        "scarcity": "This is your last chance to update your bank routing information",
+        "reciprocity": "Because the payroll office went out of their way to correct your previous salary disbursement error, we need you to confirm your current account details"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Payroll Administration",
+          "organisation": "BuildRight Construction"
+        },
+        {
+          "type": "payment_change",
+          "span": "update your bank routing information",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply directly to this email",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Direct deposit information",
+      "body": "To all staff, we would like to remind everyone that if you have recently changed your primary bank account, you must update your direct deposit information to ensure timely payment of your wages. Please log into the employee portal and navigate to the My Benefits section to change your banking details. Once you have submitted the change, you will receive an automated confirmation email. Please ensure that all account numbers are entered correctly to avoid any processing errors. If you have any questions regarding how to use the portal, feel free to visit the HR FAQ page or contact your department administrator. Thank you for your cooperation. Payroll Department, BuildRight Construction.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Payroll Department",
+          "organisation": "BuildRight Construction"
+        },
+        {
+          "type": "payment_change",
+          "span": "update your direct deposit information",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p032",
+    "attack": {
+      "subject": "Confidential matter",
+      "body": "Hey there! It was really great grabbing lunch with you at the energy summit last month. I am writing to you as the Director of Operations regarding a highly sensitive acquisition we discussed. Since I put in a good word for your team during the budget review last quarter, I was hoping you could do me a quick favour. We have an urgent payment to a consultant that needs to be settled today for this deal to close. Can you process the wire transfer for the amount we talked about? I would really appreciate the help with this as we finalize the acquisition. Let me know once that is done. Best, Sarah, Director of Operations, 555-0777.",
+      "tactic_cues": {
+        "authority": "I am writing to you as the Director of Operations",
+        "reciprocity": "Since I put in a good word for your team during the budget review last quarter, I was hoping you could do me a quick favour",
+        "liking": "It was really great grabbing lunch with you at the energy summit last month"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "Director of Operations",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "process the wire transfer",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "grabbing lunch with you at the energy summit last month",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Payment for contractor services",
+      "body": "Hi, we have received the invoice for the electrical systems maintenance work completed last week. Our legal team has reviewed the signed contract, and the charges match the agreed-upon rates. Could you please approve this payment in the system so that Finance can process the transfer? We need to have this settled by the end of the week to ensure the contractor remains on schedule for the next phase of the project. Thank you for your assistance. Regards, Operations Team, Energy Grid Inc.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Operations Team",
+          "organisation": "Energy Grid Inc."
+        },
+        {
+          "type": "payment_request",
+          "span": "approve this payment in the system",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p045",
+    "attack": {
+      "subject": "Urgent staff data audit",
+      "body": "This is an urgent notice from the Executive Office. We are conducting a mandatory audit of all clinical staff records, and this is your last chance to submit the required tax forms and employee ID copies before the portal closes for good. Everyone else in the medical administrative department has already submitted their documents, and your delay is now impacting our team performance metrics. Since the central office helped your clinic with the recent budget shortfall last month, I expect you to prioritize this request immediately. As the Director of Operations, I am requiring your full compliance. If you fail to submit these files today, your department will be flagged for non-compliance, which may lead to further administrative review. Do not delay this any further. We need to clear the backlog by the end of the day. Your cooperation is necessary to ensure we maintain our institutional accreditation. Thank you for your immediate attention to this. Sincerely, Dr. Alan Grant, Director of Operations, HealthCare Plus.",
+      "tactic_cues": {
+        "scarcity": "this is your last chance to submit the required tax forms and employee ID copies before the portal closes for good",
+        "reciprocity": "Since the central office helped your clinic with the recent budget shortfall last month, I expect you to prioritize this request",
+        "social_proof": "Everyone else in the medical administrative department has already submitted their documents"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Director of Operations",
+          "organisation": "HealthCare Plus"
+        },
+        {
+          "type": "authority",
+          "span": "Director of Operations",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "tax forms and employee ID copies",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Compliance documentation request",
+      "body": "To all department heads, we are currently undergoing a standard regulatory audit of our clinical staff documentation. Please ensure that all updated tax forms and identification records for your team are uploaded to the secure compliance server by the end of the quarter. This is part of our routine quality assurance process to ensure we meet all healthcare board requirements. You can access the secure server through the internal staff dashboard. If you have any missing documentation, please coordinate with your HR representative to obtain the necessary copies. We appreciate your diligence in keeping our facility records accurate and up to date. Thank you for your continued support of our compliance initiatives. Regards, Compliance Department, HealthCare Plus.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Compliance Department",
+          "organisation": "HealthCare Plus"
+        },
+        {
+          "type": "data_request",
+          "span": "updated tax forms and identification records",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

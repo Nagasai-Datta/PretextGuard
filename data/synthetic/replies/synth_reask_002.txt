@@ -1,0 +1,203 @@
+[
+  {
+    "pair": "p051",
+    "attack": {
+      "subject": "Urgent Request: Patient Outreach Gift Cards",
+      "body": "As the Director of Nursing, I am mandating that you purchase twenty 50 dollar gift cards immediately for our upcoming patient wellness appreciation event. This is a priority task that must be completed before 3 PM today to ensure we meet our internal milestones. Do not go through the standard procurement channels as they are too slow for this initiative. Once you have purchased the cards, please photograph the backs to show the redemption codes and send those photos directly to my personal email at director-private@mailservice.com so I can verify the purchase. Your cooperation is expected as part of your core duties. I am relying on your prompt attention to this matter to keep our department running smoothly.",
+      "tactic_cues": {
+        "authority": "As the Director of Nursing, I am mandating that you purchase",
+        "urgency": "immediately",
+        "scarcity": null,
+        "reciprocity": null,
+        "social_proof": null,
+        "liking": null,
+        "secrecy": null
+      },
+      "claims": [
+        {"type": "authority", "span": "As the Director of Nursing", "organisation": "healthcare organisation"},
+        {"type": "gift_card", "span": "twenty 50 dollar gift cards", "organisation": null},
+        {"type": "reply_direction", "span": "send those photos directly to my personal email at director-private@mailservice.com", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Gift cards for Wellness Event",
+      "body": "Hi Sarah, we are preparing the materials for next month's patient wellness event. We would like to provide gift cards as a small gesture of appreciation for the participants. Could you please submit a request to the procurement department to order forty 25 dollar gift cards? We need to have these items in hand by the end of the month. Please ensure that the procurement form is coded to the Community Engagement budget account. Let me know if you encounter any issues with the ordering system or if you need me to provide further authorization for this specific purchase request. Thank you for your assistance with getting these prepared for our upcoming outreach activities.",
+      "claims": [
+        {"type": "gift_card", "span": "forty 25 dollar gift cards", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p054",
+    "attack": {
+      "subject": "Follow up on previous discussion",
+      "body": "It was great seeing you at the recent industry conference. As the Chief Compliance Officer, I am reaching out regarding our prior conversation about the ongoing clinic audit. My colleagues have already submitted their relevant files and are waiting for your final inputs. Could you please provide the full patient intake data for the last quarter? Since I am handling the legal oversight for this, please ensure this is sent over directly to my firm's external office. We are moving quickly to finalize the internal report and your prompt contribution is necessary to complete the dataset.",
+      "tactic_cues": {
+        "authority": "As the Chief Compliance Officer, I am reaching out",
+        "social_proof": "My colleagues have already submitted their relevant files"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "my firm's external office", "organisation": "external law firm"},
+        {"type": "authority", "span": "Chief Compliance Officer", "organisation": "healthcare organisation"},
+        {"type": "data_request", "span": "full patient intake data for the last quarter", "organisation": null},
+        {"type": "prior_relationship", "span": "our prior conversation", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Request for Records - Case 402-B",
+      "body": "We represent the interests of the Medical Oversight Board regarding the pending clinic audit. As part of the discovery process, we are requesting access to the patient intake records for Q3. Please coordinate with the central records department to have these documents transferred to our legal portal. This request is issued in accordance with the established protocols for regulatory review. Please confirm receipt of this request and provide an estimated timeline for when the data will be available for review by our legal team.",
+      "claims": [
+        {"type": "affiliation_external", "span": "Medical Oversight Board", "organisation": "Medical Oversight Board"},
+        {"type": "data_request", "span": "patient intake records for Q3", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p055",
+    "attack": {
+      "subject": "Quick update for payroll",
+      "body": "Hi there, I hope you are having a wonderful week so far! I was just thinking about how helpful you were with that project last month. Since everyone else in the department has already switched over to the new primary bank account, I wanted to make sure you were aware of the change before the window closes permanently. I am currently updating my records and need to change my direct-deposit bank details to my new account. Could you please reply to my private email address at personal-account@service.net with the necessary forms? I would really appreciate your help getting this sorted out quickly so I don't miss the next cycle. Thanks so much for being such a great teammate and always looking out for me.",
+      "tactic_cues": {
+        "scarcity": "before the window closes permanently",
+        "social_proof": "everyone else in the department has already switched over to the new primary bank account",
+        "liking": "always looking out for me"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "department", "organisation": "energy organisation"},
+        {"type": "payment_change", "span": "change my direct-deposit bank details", "organisation": null},
+        {"type": "reply_direction", "span": "reply to my private email address at personal-account@service.net", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Updating direct deposit information",
+      "body": "I need to update the bank account details for my payroll direct deposit. Could you please provide instructions on how to access the self-service HR portal? I want to ensure that my future paychecks are deposited into the correct account. I have my new routing and account numbers ready, but I am not certain which section of the portal allows for this specific change. Please let me know if there is a specific form I need to download or if this can be handled entirely through the online dashboard. Thank you for your guidance on this process.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "HR portal", "organisation": "HR Department"},
+        {"type": "payment_change", "span": "update the bank account details for my payroll direct deposit", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p057",
+    "attack": {
+      "subject": "Urgent: Compliance Data Request",
+      "body": "As the Director of Finance, I require the full list of employee tax forms for the current fiscal year. This is a critical audit requirement that must be addressed immediately. Given that I have personally approved your recent requests for extra budget time, I trust you will prioritize this task. The integrity of our financial records depends on receiving this information by this afternoon. Please submit the complete data set to my attention. This is a necessary step to maintain our standing with the regulatory board. Your immediate action is mandatory to ensure we remain in full compliance with all institutional policies. I expect this to be completed without further delay.",
+      "tactic_cues": {
+        "authority": "As the Director of Finance, I require",
+        "urgency": "immediately",
+        "reciprocity": "Given that I have personally approved your recent requests for extra budget time"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Director of Finance", "organisation": "education organisation"},
+        {"type": "authority", "span": "Director of Finance", "organisation": "education organisation"},
+        {"type": "data_request", "span": "full list of employee tax forms", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Audit Data Collection - Tax Forms",
+      "body": "The internal audit committee has requested the employee tax forms for the current fiscal year to verify our department's compliance documentation. Please follow the standard procedure by uploading these records to the secure Audit-Vault portal. All files should be encrypted according to our data privacy standards before submission. Ensure that the naming convention follows the institutional guidelines provided in the last compliance update. We appreciate your efforts in gathering these records for the upcoming review process. Please notify the audit team once the upload is complete so they can begin their verification work.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "internal audit committee", "organisation": "education organisation"},
+        {"type": "data_request", "span": "employee tax forms", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p063",
+    "attack": {
+      "subject": "Confidential client gift request",
+      "body": "Hi there, it was great catching up at the shop floor meeting last week. I am the Plant Manager, and I need you to procure five gift cards for our new logistics partners. The rest of the leadership team has already signed off on this initiative as part of our new vendor relations strategy. Please keep this request strictly between us for now, as we do not want to announce it until the contracts are signed. Can you purchase these and reply to my personal number at 555-0199 with the digital codes? I trust your discretion on this and appreciate you handling it so quickly. Let's make sure this stays off the official record for the time being.",
+      "tactic_cues": {
+        "authority": "I am the Plant Manager",
+        "social_proof": "The rest of the leadership team has already signed off on this initiative",
+        "secrecy": "keep this request strictly between us for now"
+      },
+      "claims": [
+        {"type": "authority", "span": "Plant Manager", "organisation": "manufacturing organisation"},
+        {"type": "gift_card", "span": "five gift cards", "organisation": null},
+        {"type": "reply_direction", "span": "reply to my personal number at 555-0199", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Ordering gift cards for logistics partners",
+      "body": "We have an upcoming event with our new logistics partners next week. We would like to provide some small gift cards as a token of appreciation for their visit to the plant. Could you please reach out to the procurement office to initiate the purchase of ten 50 dollar gift cards? Please ensure the expense is allocated to the External Relations budget code. Let me know once the procurement request has been submitted so I can track the status of the delivery. Thank you for your help in preparing these gifts for our visitors.",
+      "claims": [
+        {"type": "gift_card", "span": "ten 50 dollar gift cards", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p067",
+    "attack": {
+      "subject": "Payroll support request",
+      "body": "Hello, I hope your week is going well! You were so helpful last time I had an issue with my benefits package, so I thought I would reach out to you again. I am currently trying to update my direct-deposit bank details, and I know how busy the HR team is, so I wanted to ask if you could help me get this changed before the portal shuts down for the end of the year. Since I helped you with that document filing last month, I was hoping you could do me this favor. Please reply to my private email at personal-mail@provider.com so we can get this finished quickly. I really appreciate you always being so kind and accommodating to me.",
+      "tactic_cues": {
+        "scarcity": "before the portal shuts down for the end of the year",
+        "reciprocity": "Since I helped you with that document filing last month, I was hoping you could do me this favor",
+        "liking": "always being so kind and accommodating to me"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "HR team", "organisation": "education organisation"},
+        {"type": "payment_change", "span": "update my direct-deposit bank details", "organisation": null},
+        {"type": "reply_direction", "span": "reply to my private email at personal-mail@provider.com", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Request for assistance with payroll info",
+      "body": "I am writing to inquire about the procedure for changing my bank information for payroll direct deposit. I have recently changed banks and would like to ensure my salary is deposited into the correct account moving forward. Could you please provide the link to the internal HR portal where these updates are managed? If there are any specific forms that need to be signed and submitted to the payroll department, please let me know. I want to make sure I am following the correct process to avoid any delays with my upcoming paycheck. Thank you for your time and assistance.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "payroll department", "organisation": "education organisation"},
+        {"type": "payment_change", "span": "changing my bank information for payroll direct deposit", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p081",
+    "attack": {
+      "subject": "Data verification request",
+      "body": "Hello, it is always a pleasure to interact with such a professional team. Given that I was so impressed by your recent presentation, I wanted to reach out to you directly. As the Director of Operations, I am overseeing the annual compliance audit and require the full list of employee tax forms. I know how much you contribute to this organization, and I value the support you provide to all of us. Could you please gather those files and send them over to me? Having these records is essential for our reporting requirements. I truly appreciate your dedication and hard work, and I am glad to have such a reliable person in your department handling these sensitive tasks.",
+      "tactic_cues": {
+        "reciprocity": "I truly appreciate your dedication and hard work",
+        "liking": "always a pleasure to interact with such a professional team"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "department", "organisation": "healthcare organisation"},
+        {"type": "authority", "span": "Director of Operations", "organisation": "healthcare organisation"},
+        {"type": "data_request", "span": "full list of employee tax forms", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Audit Data Request - Staff Tax Forms",
+      "body": "The compliance department is currently conducting an audit of our payroll records for the fiscal year. We are requesting the submission of all employee tax forms to the secure document repository. Please ensure that all files are uploaded through the encrypted portal no later than Friday. This information is needed to verify our internal record-keeping practices and to ensure that all documentation is accurate. If you have any questions regarding the specific forms required for this audit, please contact the audit project lead. Thank you for your cooperation in providing the requested documentation.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "compliance department", "organisation": "healthcare organisation"},
+        {"type": "data_request", "span": "employee tax forms", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p086",
+    "attack": {
+      "subject": "Urgent transfer needed",
+      "body": "Hi there, I hope you are having a nice day. I really admire how efficient you have been with our accounts recently. I am the Chief Financial Officer and I have a quick request. We have an urgent payment that needs to be sent to a new vendor for a project we are starting. Could you please process a wire transfer to the account details I will send in a moment? Please reply to my mobile number at 555-0288 so I can provide the instructions privately. I appreciate your help with this as we need to get this settled immediately to keep the project on track. You are the best person for this task.",
+      "tactic_cues": {
+        "urgency": "need to get this settled immediately",
+        "liking": "You are the best person for this task"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Chief Financial Officer", "organisation": "education organisation"},
+        {"type": "authority", "span": "Chief Financial Officer", "organisation": "education organisation"},
+        {"type": "payment_request", "span": "wire transfer", "organisation": null},
+        {"type": "reply_direction", "span": "reply to my mobile number at 555-0288", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Payment request for PO-9921",
+      "body": "Please process the payment for purchase order PO-9921 for the campus maintenance project. The invoice has been approved by the department head and is ready for disbursement. The vendor information and banking details are already on file in the accounting system. Please ensure that the funds are transferred by the end of the week. Let me know if you require any further documentation or if there are any issues with the payment processing for this vendor. Thank you for your assistance in finalizing this transaction.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "accounting system", "organisation": "education organisation"},
+        {"type": "payment_request", "span": "process the payment for purchase order PO-9921", "organisation": null}
+      ]
+    }
+  }
+]

@@ -1,0 +1,360 @@
+[
+  {
+    "pair": "p009",
+    "attack": {
+      "subject": "Urgent: Employee Records Required",
+      "body": "As the Director of HR, I am ordering an immediate audit of all staff tax documentation. You must submit the full employee list and tax forms to my office before 3 PM today. Failure to comply with this direct mandate will result in disciplinary action. This is non-negotiable.",
+      "tactic_cues": {
+        "authority": "As the Director of HR, I am ordering",
+        "urgency": "before 3 PM today"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Director of HR",
+          "organisation": "HR"
+        },
+        {
+          "type": "authority",
+          "span": "Director of HR",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "employee list and tax forms",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Routine Audit: Staff Documentation",
+      "body": "Hi, we are currently performing our annual internal audit for the construction division. Please upload the latest employee list and their corresponding tax forms to the secure HR portal by the end of the week. Let me know if you have any questions regarding the filing process.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "HR",
+          "organisation": "HR"
+        },
+        {
+          "type": "data_request",
+          "span": "employee list and their corresponding tax forms",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p010",
+    "attack": {
+      "subject": "Re: Project Meridian Settlement",
+      "body": "It was truly wonderful catching up at the gala last week. I really appreciate how you helped me navigate that tricky contract issue earlier; you are a lifesaver. Regarding the Meridian matter, we have a unique opportunity to close this out if we move now. Please note we are changing our bank details for this final payment to ensure the funds clear. If we miss this window, the offer is off the table permanently. Please confirm you have received these new wire instructions. Best regards, Julian Vane, Lead Counsel, Vane Legal Group, 555-0199.",
+      "tactic_cues": {
+        "scarcity": "If we miss this window, the offer is off the table permanently",
+        "reciprocity": "I really appreciate how you helped me navigate that tricky contract issue earlier; you are a lifesaver",
+        "liking": "It was truly wonderful catching up at the gala last week"
+      },
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "catching up at the gala last week",
+          "organisation": null
+        },
+        {
+          "type": "payment_change",
+          "span": "changing our bank details for this final payment",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Julian Vane, Lead Counsel, Vane Legal Group, 555-0199",
+          "organisation": "Vane Legal Group"
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Re: Project Meridian Settlement",
+      "body": "Following our recent discussion at the office, I have updated the project schedule to reflect the timeline we agreed upon. We are on track to meet the upcoming deliverables for the Meridian case. Please review the attached draft for the standard payment schedule to ensure it matches our previous agreement. I look forward to finalizing the next phase of our work together. Regards, Julian Vane, Lead Counsel, Vane Legal Group, 555-0199.",
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "our recent discussion at the office",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Julian Vane, Lead Counsel, Vane Legal Group, 555-0199",
+          "organisation": "Vane Legal Group"
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p011",
+    "attack": {
+      "subject": "Emergency Financial Assistance",
+      "body": "As the Chief Operations Officer, I am currently stuck abroad due to an unforeseen issue. I previously helped you with your promotion review, so I am asking for your help now. I need you to facilitate an urgent wire payment for a local service provider. Please do not tell anyone about this, especially not the finance team, as it would cause a public stir. Keep this request strictly between us. Once you have the details ready, reply only to my personal email at operations.support@private-mail.com. Thank you for your discretion.",
+      "tactic_cues": {
+        "reciprocity": "I previously helped you with your promotion review, so I am asking for your help now",
+        "secrecy": "do not tell anyone about this, especially not the finance team, as it would cause a public stir. Keep this request strictly between us"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "Chief Operations Officer",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "facilitate an urgent wire payment",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply only to my personal email at operations.support@private-mail.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Expense Approval for Upcoming Trip",
+      "body": "Hi there, I am finalizing the budget for the manufacturing plant site visit next month. Could you please review the expense request I submitted for the travel arrangements and provide your approval? I need to ensure the booking is confirmed by the end of the week so we can secure the early bird rates for the team. Let me know if you require any additional documentation for the finance records before you sign off on the payment request.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "finance",
+          "organisation": "finance"
+        },
+        {
+          "type": "payment_request",
+          "span": "sign off on the payment request",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p012",
+    "attack": {
+      "subject": "Urgent Update: Payment Information",
+      "body": "Hello, it is great to work with you. We are reaching out to let you know that we are updating our banking details for all incoming payments. Most of our other clients have already transitioned to the new account this week, and we are closing our legacy account on Friday. This is your last chance to update your records before your next payment is processed. If the payment is sent to the old account, it will be rejected, and we cannot guarantee that the service will continue without interruption. Please make sure your accounting department updates the information immediately. We have provided our new details below for your convenience. We look forward to continuing our partnership with you and appreciate your prompt attention to this matter. Best regards, Sarah Jenkins, Account Manager, Industrial Parts Corp, 555-0123.",
+      "tactic_cues": {
+        "scarcity": "closing our legacy account on Friday. This is your last chance to update your records",
+        "social_proof": "Most of our other clients have already transitioned to the new account this week"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Industrial Parts Corp",
+          "organisation": "Industrial Parts Corp"
+        },
+        {
+          "type": "payment_change",
+          "span": "updating our banking details",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Sarah Jenkins, Account Manager, Industrial Parts Corp, 555-0123",
+          "organisation": "Industrial Parts Corp"
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice Reminder: INV-9902",
+      "body": "Hello, I hope you are having a productive week. We are sending a friendly reminder regarding invoice number INV-9902, which is currently outstanding. Our records indicate that the payment is due by the end of this month. We have attached a copy of the original invoice for your reference to assist with the processing. Please ensure the payment is directed to our standard bank account as listed on the invoice document. If you have any questions or if the payment has already been sent, please let us know so we can update our internal tracking. We value your business and look forward to hearing from you soon. Best regards, Sarah Jenkins, Account Manager, Industrial Parts Corp, 555-0123.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Industrial Parts Corp",
+          "organisation": "Industrial Parts Corp"
+        },
+        {
+          "type": "signature_contact",
+          "span": "Sarah Jenkins, Account Manager, Industrial Parts Corp, 555-0123",
+          "organisation": "Industrial Parts Corp"
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p013",
+    "attack": {
+      "subject": "Follow up regarding our meeting",
+      "body": "I am writing to confirm the meeting with the Director next Tuesday as we discussed earlier. Since you have always been so helpful and reliable, I was hoping you could assist with a small favour. The rest of the regional managers have already contributed to this initiative, and I would love to have you on board as well. We are currently short on the budget for the upcoming seasonal campaign, and I need you to arrange a payment to the vendor listed below to cover the shortfall. Your reputation for excellence is well-known across the company, and I am sure you can get this handled quickly. Please let me know once you have confirmed the transaction. It is vital that we keep this project moving forward, and your support is greatly appreciated. Best, Mark, Executive Assistant to the Director.",
+      "tactic_cues": {
+        "social_proof": "The rest of the regional managers have already contributed to this initiative",
+        "liking": "Since you have always been so helpful and reliable... Your reputation for excellence is well-known across the company"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Executive Assistant to the Director",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "as we discussed earlier",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "arrange a payment to the vendor",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Meeting Confirmation",
+      "body": "Following up on our conversation earlier today, I am writing to confirm the meeting with the Director. We have successfully secured the conference room for next Tuesday at 10:00 AM. Please arrive five minutes early so we can start promptly. I have attached the agenda for your review, as we discussed. Please let me know if you need any adjustments to the meeting time or if you have specific topics you would like to add to the discussion. I look forward to seeing you there. Best regards, Mark, Executive Assistant to the Director.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Executive Assistant to the Director",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "our conversation earlier today",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p014",
+    "attack": {
+      "subject": "Urgent Wire Transfer Request",
+      "body": "I am writing to you as the Chief Financial Officer. We need to process an immediate payment for a time-sensitive acquisition deal. This requires your urgent attention before the bank closes today. Please initiate a wire transfer of fifty thousand dollars to the account details I have specified in the attached document. Do not discuss this with any other staff member, as this is a confidential internal matter that requires absolute secrecy. I need you to handle this personally to ensure it is completed on time. If you have any questions or require further confirmation, do not use the standard internal messaging system; please reply directly to this email or call my direct line. I am counting on you to get this done immediately.",
+      "tactic_cues": {
+        "urgency": "before the bank closes today",
+        "secrecy": "Do not discuss this with any other staff member, as this is a confidential internal matter that requires absolute secrecy"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Chief Financial Officer",
+          "organisation": null
+        },
+        {
+          "type": "authority",
+          "span": "Chief Financial Officer",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "initiate a wire transfer",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply directly to this email or call my direct line",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Payment Request: PO-4482",
+      "body": "I am submitting a request for the payment of invoice number INV-2024-05, which is associated with Purchase Order PO-4482. This request follows the standard corporate approval process for our quarterly supplier expenditures. Please review the attached invoice to verify the line items and the total amount. Once you have confirmed that the documentation is in order, please proceed with the payment through our internal financial system. If there are any discrepancies, please let me know so we can correct the records before the end of the fiscal month. Thank you for your assistance with this routine financial task.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "corporate",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "proceed with the payment",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p015",
+    "attack": {
+      "subject": "Gift cards for client event",
+      "body": "As the Department Manager, I need you to purchase several gift cards for our upcoming client event. The rest of the team has already finished their tasks for this event, and you are the last one to complete your assignment. Please send the gift card codes directly to me by replying to my personal email address. I am relying on you to get this done.",
+      "tactic_cues": {
+        "authority": "As the Department Manager, I need you to",
+        "social_proof": "The rest of the team has already finished their tasks"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "Department Manager",
+          "organisation": null
+        },
+        {
+          "type": "gift_card",
+          "span": "purchase several gift cards",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "replying to my personal email address",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Gift card order for patient appreciation",
+      "body": "Could you please submit a request to the procurement department to order gift cards for our upcoming patient appreciation event? We will need twenty cards in total for the event next week. Please use the standard budget code provided in the internal handbook and ensure the order is placed by Wednesday.",
+      "claims": [
+        {
+          "type": "gift_card",
+          "span": "order gift cards",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p016",
+    "attack": {
+      "subject": "Urgent: Overdue payment",
+      "body": "Hi, it was great speaking with you last month about our new software integration. Our records show your invoice is past due. We need payment immediately, as this is your last chance to avoid a service suspension. Please let us know when it is sent.",
+      "tactic_cues": {
+        "urgency": "need payment immediately",
+        "scarcity": "this is your last chance to avoid a service suspension"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "software integration",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "invoice is past due",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "speaking with you last month",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice Reminder: INV-1234",
+      "body": "Hi, it was a pleasure speaking with you last month regarding the software license renewal. I am writing to send a gentle reminder that invoice INV-1234 is coming due on the 30th of this month. Please let us know if you have any questions or need further details to process the payment.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "software license renewal",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "invoice INV-1234 is coming due",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "speaking with you last month",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

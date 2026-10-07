@@ -1,0 +1,350 @@
+[
+  {
+    "id": "b009_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "MINISTRIE OF FINANCE ECONOMICS COTONOU-BENIN REPUBLIC",
+        "organisation": "MINISTRIE OF FINANCE ECONOMICS COTONOU-BENIN REPUBLIC"
+      },
+      {
+        "type": "authority",
+        "span": "CHIEF AUDITOR MINISTRIE OF FINANCE ECONOMICS COTONOU-BENIN REPUBLIC",
+        "organisation": "MINISTRIE OF FINANCE ECONOMICS COTONOU-BENIN REPUBLIC"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "Banque Centrale Des Etats De L`Afrique De L`Ouest (Central Bank of the West African States)",
+        "organisation": "Banque Centrale Des Etats De L`Afrique De L`Ouest (Central Bank of the West African States)"
+      }
+    ]
+  },
+  {
+    "id": "b009_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "reply me with your telephone and fax number together with your full resident address",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "NIGERIAN NATIONAL PETROLEUM CORPORATION (NNPC)",
+        "organisation": "NIGERIAN NATIONAL PETROLEUM CORPORATION (NNPC)"
+      },
+      {
+        "type": "authority",
+        "span": "DIRECTOR PROJECT IMPLEMENTATION",
+        "organisation": "NIGERIAN NATIONAL PETROLEUM CORPORATION (NNPC)"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "Central Bank of Nigeria",
+        "organisation": "Central Bank of Nigeria"
+      },
+      {
+        "type": "reply_direction",
+        "span": "get in touch with me immediately through my alternative email :[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Email: ([EMAIL]‹[EMAIL]›)",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_11",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "executive compensation group",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "contact me if you have any questions at 713 - 853 - 7769",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_12",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "D\u00e9partement De S\u00e9curit\u00e9",
+        "organisation": null
+      },
+      {
+        "type": "credential_request",
+        "span": "mettre a jour les informations et les coordonnes de votre Compte bancaire et votre carte de cr\u00e9dit",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Barrister Miroslav Vlado",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "reach me on \"[EMAIL]\"",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b009_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Moneybookers",
+        "organisation": "Moneybookers"
+      }
+    ]
+  },
+  {
+    "id": "b009_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  }
+]

@@ -1,0 +1,380 @@
+[
+  {
+    "id": "b034_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "data_request",
+        "span": "1. Beneficiary full name and address 2. Direct Telephone and fax numbers 3. Occupation and position 4. Nationality and Date of birth 5. Marital status 6. Gender/sex",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b034_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "please contact our category c financial handlers with information below : mr . mark lansford . financial director universal securities and finance bv 20 - 24 vesusstu dorm , norwenger sl 4 3 bb , amsterdam , netherlands tel : ( + 31 ) 645808259 , fax : ( + 31 ) 645 590445 email : marklansfordl @ mail 2 [DOMAIN]",
+        "organisation": "universal securities and finance bv"
+      },
+      {
+        "type": "signature_contact",
+        "span": "mr . mark lansford . financial director universal securities and finance bv 20 - 24 vesusstu dorm , norwenger sl 4 3 bb , amsterdam , netherlands tel : ( + 31 ) 645808259 , fax : ( + 31 ) 645 590445 email : marklansfordl @ mail 2 [DOMAIN]",
+        "organisation": "universal securities and finance bv"
+      }
+    ]
+  },
+  {
+    "id": "b034_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "eBay is located at 2145 Hamilton Avenue, San Jose, CA 95125",
+        "organisation": "eBay"
+      }
+    ]
+  },
+  {
+    "id": "b034_15",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "data_request",
+        "span": "Please provide your full details, postal address, name, and telephone number, and forward them to the Postal Service (USPS)",
+        "organisation": "USPS"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Please contact the U.S. Post Office of the Postal Service of Uganda branch, Mr. George Smith, with this email ([EMAIL])",
+        "organisation": "U.S. Post Office of the Postal Service of Uganda"
+      },
+      {
+        "type": "authority",
+        "span": "The Honourable Robert P. Storch Inspector General, Anti-Fraud International",
+        "organisation": "Anti-Fraud International"
+      }
+    ]
+  },
+  {
+    "id": "b034_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "I reside in the refugee camp here. Therefore I will want you to assist retrieve my inheritance",
+        "organisation": "UNHCR"
+      }
+    ]
+  },
+  {
+    "id": "b034_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal (Europe) S. r.l. & Cie, S.C.A. Socit en Commandite par Actions Registered Office: 5th Floor 22-24 Boulevard Royal L-2449, Luxembourg RCS Luxembourg B 118 349",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b035_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Please confirm your account with the link below to be added to our new security feature",
+        "organisation": "USAA"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "USAA Federal Savings Bank",
+        "organisation": "USAA Federal Savings Bank"
+      }
+    ]
+  },
+  {
+    "id": "b035_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_03",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "I am Engr: Abubakar Saeed, the director of works FMW&H Nigeria and chairman of contract award and review committee set up by the federal government of Nigeria",
+        "organisation": "Federal Ministry of Works and Housing"
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "Federal Ministry of works and housing",
+        "organisation": "Federal Ministry of Works and Housing"
+      }
+    ]
+  },
+  {
+    "id": "b035_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "you are requested to please update your account info at the following link",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Edward A. Wrick Security Advisor [DOMAIN]",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b035_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "please reply to my private email address: [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b035_07",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "You are required to contact the law firm at the below email address and you are to send your reference number which is also stated below. Email: [EMAIL]",
+        "organisation": null
+      },
+      {
+        "type": "authority",
+        "span": "Aaron Ramsey Director Internet Crime Complain Center (IC3) New York, NY 10216 USA.",
+        "organisation": "Internet Crime Complain Center (IC3)"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Aaron Ramsey Director Internet Crime Complain Center (IC3) New York, NY 10216 USA.",
+        "organisation": "Internet Crime Complain Center (IC3)"
+      }
+    ]
+  },
+  {
+    "id": "b035_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Cable News Network LP, LLLP. \u2039 \u203a One CNN Center, Atlanta, Georgia 30303",
+        "organisation": "CNN"
+      }
+    ]
+  },
+  {
+    "id": "b035_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "Please send all emails to:[EMAIL]",
+        "organisation": null
+      }
+    ]
+  }
+]

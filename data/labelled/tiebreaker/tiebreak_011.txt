@@ -1,0 +1,425 @@
+[
+  {
+    "id": "b016_03",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "System Administrator",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b016_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b016_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "ZENITH INTERNATIONAL BANK PLC",
+        "organisation": "ZENITH INTERNATIONAL BANK PLC"
+      },
+      {
+        "type": "authority",
+        "span": "THE MANAGER, BILLS AND EXCHANGE AT THE FOREIGN REMITTANCE DEPARTMENT",
+        "organisation": "ZENITH INTERNATIONAL BANK PLC"
+      },
+      {
+        "type": "signature_contact",
+        "span": "EMAIL: [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b016_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "800-327-1460",
+        "organisation": "Fairlane Financial Corporation"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "Fairlane Financial Corporation",
+        "organisation": "Fairlane Financial Corporation"
+      }
+    ]
+  },
+  {
+    "id": "b016_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Apple Customer Support",
+        "organisation": "Apple"
+      }
+    ]
+  },
+  {
+    "id": "b016_13",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "U.S. Bank",
+        "organisation": "U.S. Bank"
+      },
+      {
+        "type": "authority",
+        "span": "Maintenance Department",
+        "organisation": "U.S. Bank"
+      }
+    ]
+  },
+  {
+    "id": "b016_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "BANK OF AFRICA (BOA)",
+        "organisation": "BANK OF AFRICA"
+      },
+      {
+        "type": "authority",
+        "span": "ASSISTANT FOREIGN REMITTANCE DIRECTOR",
+        "organisation": "BANK OF AFRICA"
+      },
+      {
+        "type": "signature_contact",
+        "span": "PHONE NUMBER 00226-76-01-58-41",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b016_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal ®",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "update your personal records",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b016_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "bank of Scotland United Kingdom",
+        "organisation": "Bank of Scotland"
+      },
+      {
+        "type": "authority",
+        "span": "senior staff and auditor head of computing department",
+        "organisation": "Bank of Scotland"
+      },
+      {
+        "type": "reply_direction",
+        "span": "alternative email address: ([EMAIL])",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b016_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "AFRICAN DEVELOPMENT BANK(ADB)",
+        "organisation": "African Development Bank"
+      },
+      {
+        "type": "authority",
+        "span": "DIRECTOR IN CHARGE OF AUDIT AND ACCOUNTS UNIT, FOREIGN REMIITANCE DEPT.",
+        "organisation": "African Development Bank"
+      }
+    ]
+  },
+  {
+    "id": "b016_18",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Email Administrator",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b016_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "USAA",
+        "organisation": "USAA"
+      }
+    ]
+  },
+  {
+    "id": "b017_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "ZENEZ 1042 East Fort Union #135, Midvale Utah 84047",
+        "organisation": "ZENEZ"
+      }
+    ]
+  },
+  {
+    "id": "b017_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "prior_relationship",
+        "span": "payback contract deal between my late husband and Russian firm on our country's Multi-billion Dollars Lome Steel Plant",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b017_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b017_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "vanessa c 3 - 5030",
+        "organisation": "enron"
+      }
+    ]
+  },
+  {
+    "id": "b017_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Ripple Labs and the Ripple Foundation",
+        "organisation": "Ripple Labs"
+      }
+    ]
+  },
+  {
+    "id": "b017_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "McAfee",
+        "organisation": "McAfee"
+      }
+    ]
+  },
+  {
+    "id": "b017_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "data_request",
+        "span": "forwarding proofs of identity. Also send a personal telephone and fax numbers",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b017_10",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Regions Bank",
+        "organisation": "Regions Bank"
+      },
+      {
+        "type": "authority",
+        "span": "Regions Customer Service",
+        "organisation": "Regions Bank"
+      }
+    ]
+  }
+]

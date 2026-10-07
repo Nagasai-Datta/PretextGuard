@@ -1,0 +1,352 @@
+[
+  {
+    "pair": "p233",
+    "attack": {
+      "subject": "Urgent verification required",
+      "body": "Hi there, it was great chatting with you at lunch yesterday. I am from the internal IT Help Desk and I need to verify your account credentials immediately or your mailbox will be disabled. Please reply with your current password so I can keep things running smoothly for you.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "liking": "great chatting with you at lunch yesterday"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT Help Desk",
+          "organisation": "logistics organisation"
+        },
+        {
+          "type": "credential_request",
+          "span": "reply with your current password",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled IT Maintenance",
+      "body": "The internal IT Help Desk will be performing routine server maintenance this coming Sunday. All logistics systems will be offline between 2 AM and 5 AM. No action is required on your part during this window. We apologize for any inconvenience this brief outage might cause to your workflow.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT Help Desk",
+          "organisation": "logistics organisation"
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p234",
+    "attack": {
+      "subject": "Confidential matter",
+      "body": "As we discussed previously, I am the lead counsel representing your institution. I truly value our professional friendship. Since I am finalizing the report, I need your files by tonight. This is your last chance to provide them, as I have already helped you with your previous compliance issues.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "reciprocity": "I have already helped you with your previous compliance issues",
+        "liking": "I truly value our professional friendship"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "lead counsel representing your institution",
+          "organisation": "external law firm"
+        },
+        {
+          "type": "authority",
+          "span": "I am the lead counsel",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "I need your files",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "As we discussed previously",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Document Request - Case 402",
+      "body": "Regarding the ongoing confidential matter, Miller and Associates is requesting copies of the student records from the Fall term. Please forward these documents to our legal office at your earliest convenience to assist with our review process.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Miller and Associates",
+          "organisation": "Miller and Associates"
+        },
+        {
+          "type": "data_request",
+          "span": "requesting copies of the student records",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p235",
+    "attack": {
+      "subject": "Payroll update",
+      "body": "As the Director of HR, I am ordering an immediate update to your bank details. Since I helped process your leave request last month, I need you to handle this now. Please email my private account with your new routing and account numbers to finish the change.",
+      "tactic_cues": {
+        "authority": "As the Director of HR, I am ordering",
+        "urgency": "immediate update",
+        "reciprocity": "Since I helped process your leave request last month"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Director of HR",
+          "organisation": "hospitality organisation"
+        },
+        {
+          "type": "payment_change",
+          "span": "update to your bank details",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "email my private account",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Direct Deposit Update",
+      "body": "If you need to update your direct deposit information, please log into the employee HR portal. Once you have logged in, navigate to the payroll section to enter your new bank details securely.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "HR portal",
+          "organisation": "hospitality organisation"
+        },
+        {
+          "type": "payment_change",
+          "span": "update your direct deposit information",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p236",
+    "attack": {
+      "subject": "Acquisition payment",
+      "body": "As the CEO, I need you to process the acquisition payment we spoke about. Everyone else on the executive board has already approved this transfer, so please move forward. Given that I championed your recent promotion, I appreciate you prioritizing this request.",
+      "tactic_cues": {
+        "reciprocity": "I championed your recent promotion",
+        "social_proof": "Everyone else on the executive board has already approved this transfer"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "As the CEO",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "process the acquisition payment",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "we spoke about",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice for Vendor Services",
+      "body": "The Finance Department has received the final invoice for the retail software suite. Legal has reviewed the contract and confirmed the amount. Please initiate the payment process for this vendor at your earliest convenience.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Finance Department",
+          "organisation": "retail organisation"
+        },
+        {
+          "type": "payment_request",
+          "span": "initiate the payment process",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p237",
+    "attack": {
+      "subject": "Urgent staff list",
+      "body": "I am the Head of Operations and I need the employee tax forms sent over now. The whole team has already submitted their data, and I would love to get your part done before the deadline. This is your last chance to participate in the filing.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "social_proof": "The whole team has already submitted their data",
+        "liking": "I would love to get your part done"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Head of Operations",
+          "organisation": "logistics organisation"
+        },
+        {
+          "type": "authority",
+          "span": "I am the Head of Operations",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "employee tax forms",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Annual Audit Data",
+      "body": "The Finance team is currently conducting an audit of employee records. Please upload the requested tax forms to the secure audit portal by Friday afternoon. This is a standard procedure for our yearly review.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Finance team",
+          "organisation": "logistics organisation"
+        },
+        {
+          "type": "data_request",
+          "span": "upload the requested tax forms",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p238",
+    "attack": {
+      "subject": "Follow up on project",
+      "body": "As we discussed in the project meeting, please update the payment details for our vendor. Since I covered for your team last month, I need you to keep this between us and not mention it to anyone else. Please contact me at 555-0199 for details. Regards, John Smith, Project Manager.",
+      "tactic_cues": {
+        "reciprocity": "Since I covered for your team last month",
+        "secrecy": "keep this between us and not mention it to anyone else"
+      },
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "As we discussed",
+          "organisation": null
+        },
+        {
+          "type": "payment_change",
+          "span": "update the payment details",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "John Smith, Project Manager, 555-0199",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Project schedule update",
+      "body": "Following our last project sync, I have attached the updated timeline for the shipping logistics project. Please review these dates and let me know if they align with your current capacity. Thanks, Sarah Jenkins, Lead Coordinator, 555-0122.",
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "Following our last project sync",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Sarah Jenkins, Lead Coordinator, 555-0122",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p239",
+    "attack": {
+      "subject": "Urgent assistance needed",
+      "body": "As the Director of the Board, I require you to authorize an emergency payment immediately. Keep this between us as it is a private matter. Please reply only to my personal email at the address provided in my profile to confirm the transfer of funds.",
+      "tactic_cues": {
+        "authority": "As the Director of the Board, I require",
+        "secrecy": "Keep this between us"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "Director of the Board",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "authorize an emergency payment",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply only to my personal email",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Expense Approval Request",
+      "body": "The Finance Department has received your expense request for the upcoming education conference. Please provide the receipts for your travel and lodging so we can process the reimbursement payment accordingly.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Finance Department",
+          "organisation": "education organisation"
+        },
+        {
+          "type": "payment_request",
+          "span": "process the reimbursement payment",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p240",
+    "attack": {
+      "subject": "Important payment notice",
+      "body": "As the lead account manager, I am requiring all clients to use our updated bank details for the next invoice. This must be completed before the end of the day. Please update your system immediately to avoid delays. Regards, Mark Evans, Apex Supply, 555-0988.",
+      "tactic_cues": {
+        "authority": "As the lead account manager, I am requiring",
+        "urgency": "before the end of the day"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Apex Supply",
+          "organisation": "Apex Supply"
+        },
+        {
+          "type": "payment_change",
+          "span": "use our updated bank details",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Mark Evans, Apex Supply, 555-0988",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice Reminder - 8842",
+      "body": "This is a reminder that invoice 8842 for materials delivered to the construction site is now due. Please ensure payment is made to the account listed on the original invoice. Sincerely, Apex Supply, 555-0988.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Apex Supply",
+          "organisation": "Apex Supply"
+        },
+        {
+          "type": "signature_contact",
+          "span": "Apex Supply, 555-0988",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

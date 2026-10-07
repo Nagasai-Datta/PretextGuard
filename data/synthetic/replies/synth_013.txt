@@ -1,0 +1,198 @@
+[
+  {
+    "pair": "p097",
+    "attack": {
+      "subject": "Quick favour regarding the site visit",
+      "body": "Hi, it was great catching up at the site meeting last week. Since I helped you get that permit approved quickly, could you do me a huge favour? I need to settle a small vendor payment for site supplies. Can you process this invoice for five hundred dollars today? Thanks for being so helpful.",
+      "tactic_cues": {
+        "reciprocity": "Since I helped you get that permit approved quickly, could you do me a huge favour?",
+        "liking": "it was great catching up at the site meeting last week"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "site meeting", "organisation": "construction organisation"},
+        {"type": "prior_relationship", "span": "great catching up at the site meeting last week", "organisation": null},
+        {"type": "payment_request", "span": "settle a small vendor payment", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Meeting with Sarah",
+      "body": "Hi, following up on our discussion regarding the new foundation project. I have confirmed that Sarah is available to meet with you this Thursday at 2 PM in conference room B. Please let me know if this works for your schedule so I can finalize the calendar invite.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "conference room", "organisation": "construction organisation"},
+        {"type": "prior_relationship", "span": "following up on our discussion", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p098",
+    "attack": {
+      "subject": "Urgent wire request",
+      "body": "Hi there, I hope your week is going smoothly. As the CEO, I am overseeing a critical integration that requires an immediate payment to our new technical consultant. This is a one-time vendor fee that must be processed today, or we will lose the window to secure their services. This is a sensitive matter, so please keep this between us and do not mention it to the wider finance team. Since I am the one directing this move, I need you to handle the wire transfer personally. Please do not reply to this email thread; instead, send confirmation of the wire directly to my private cell at 555-0199 once it is sent. I appreciate your discretion as we push to get this finalized before the end of the day. Your quick action here is essential for our success.",
+      "tactic_cues": {
+        "authority": "As the CEO, I am overseeing a critical integration",
+        "scarcity": "must be processed today, or we will lose the window to secure their services",
+        "secrecy": "keep this between us and do not mention it to the wider finance team"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "CEO", "organisation": "software organisation"},
+        {"type": "authority", "span": "As the CEO", "organisation": "software organisation"},
+        {"type": "payment_request", "span": "wire transfer", "organisation": null},
+        {"type": "reply_direction", "span": "send confirmation of the wire directly to my private cell", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Payment approval for PO 9822",
+      "body": "Hello, please find the attached documentation for the Q3 software license renewal for our cloud provider. This payment is covered under PO 9822, which was previously approved by the department head. Please proceed with the standard wire transfer process to the vendor account listed on the invoice. This request follows our regular monthly payment cycle. If you need any further clarification on the line items included, please check the original purchase order in our system or contact the procurement department directly. Thank you for processing this payment according to our standard operating procedures.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "procurement department", "organisation": "software organisation"},
+        {"type": "payment_request", "span": "process the standard wire transfer", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p099",
+    "attack": {
+      "subject": "Urgent client gift request",
+      "body": "Team, as the General Manager, I need to get gift cards for our VIP guests arriving tonight. Everyone else on the management team has already handled their portion of the guest list, and this is the final batch. We are running out of time, so please purchase five hundred dollars in gift cards immediately. Do not send this to the normal accounting queue; please reply only to me with the digital card codes so I can distribute them before the event starts.",
+      "tactic_cues": {
+        "authority": "as the General Manager",
+        "scarcity": "this is the final batch",
+        "social_proof": "Everyone else on the management team has already handled their portion"
+      },
+      "claims": [
+        {"type": "authority", "span": "General Manager", "organisation": "hospitality organisation"},
+        {"type": "gift_card", "span": "purchase five hundred dollars in gift cards", "organisation": null},
+        {"type": "reply_direction", "span": "reply only to me", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Gift cards for annual gala",
+      "body": "Hi everyone, we are preparing for the upcoming annual gala. Please submit your requests for client gift cards to our procurement department by Friday. They will handle the bulk purchase and ensure the cards are ready for the event. Please include the specific client names and budget codes in your request so the team can track the expenses correctly. Thank you for your cooperation in keeping our event planning organized.",
+      "claims": [
+        {"type": "gift_card", "span": "submit your requests for client gift cards", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p100",
+    "attack": {
+      "subject": "Final notice regarding your invoice",
+      "body": "Hello, I am contacting you from the regional accounting office regarding our previous conversation about your firm's outstanding balance. Despite our discussion, we have not received the payment for invoice 4492. This is your final notice, and if payment is not received in full by 5 PM today, your service agreement will be terminated immediately. We have been very patient, but we cannot extend this timeline any further. Please process the payment immediately to avoid the loss of your account status. We require this to be resolved before the end of the day or we will be forced to escalate this file to our collections department. Thank you for your prompt attention to this matter.",
+      "tactic_cues": {
+        "urgency": "5 PM today",
+        "scarcity": "this is your final notice, and if payment is not received in full by 5 PM today, your service agreement will be terminated immediately"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "regional accounting office", "organisation": "legal services organisation"},
+        {"type": "payment_request", "span": "process the payment", "organisation": null},
+        {"type": "prior_relationship", "span": "previous conversation", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Invoice 4492 reminder",
+      "body": "Dear client, this is a friendly reminder that invoice 4492, which we discussed during our last project update, is currently showing as unpaid. The invoice was issued on the first of the month and was due earlier this week. We understand that administrative delays can occur, so please review your accounts payable records at your earliest convenience. If you have already sent the payment, please disregard this email. If not, you can remit the amount through our standard portal. Thank you for your continued partnership.",
+      "claims": [
+        {"type": "affiliation_external", "span": "our firm", "organisation": "legal services organisation"},
+        {"type": "payment_request", "span": "remit the amount", "organisation": null},
+        {"type": "prior_relationship", "span": "discussed during our last project update", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p101",
+    "attack": {
+      "subject": "Urgent account verification",
+      "body": "Hello, this is the IT help desk. We are reaching out because your mailbox is nearing its storage limit and will be disabled within the next two hours if not verified. It was great to see you at the recent office town hall, and we would hate to see you lose access to your important files. To prevent your account from being deleted, please reply to this email with your current login password so we can clear the restriction for you. We need this information now to keep your services active.",
+      "tactic_cues": {
+        "scarcity": "will be disabled within the next two hours",
+        "liking": "It was great to see you at the recent office town hall"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "IT help desk", "organisation": "retail organisation"},
+        {"type": "credential_request", "span": "reply to this email with your current login password", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled IT maintenance",
+      "body": "Dear staff, the IT department will be performing routine server maintenance this Saturday between 2 AM and 4 AM. During this window, you may experience temporary outages with your internal email access. No action is required from your side, and all services should be fully restored by the start of business on Monday morning. We apologize for any inconvenience this may cause and thank you for your patience while we perform these necessary upgrades to our infrastructure.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "IT department", "organisation": "retail organisation"}
+      ]
+    }
+  },
+  {
+    "pair": "p102",
+    "attack": {
+      "subject": "Immediate document request regarding our settlement",
+      "body": "Hi, it was great speaking with you last week about the ongoing audit. As the Director of Compliance, I am handling the final review of our confidential settlement. We are operating under a very tight timeline, and I need you to send over the complete set of employee files we discussed by 4 PM today. Given that I have assisted your department with these filings previously, I am counting on you to prioritize this request. Please compile the full data set and send it back to me immediately. This is critical for our legal standing, and we cannot afford any delays in this process. Your swift cooperation will ensure we meet our obligations to the outside agency. Thank you for getting this done so quickly.",
+      "tactic_cues": {
+        "urgency": "by 4 PM today",
+        "reciprocity": "Given that I have assisted your department with these filings previously, I am counting on you to prioritize this request"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "outside agency", "organisation": "legal services organisation"},
+        {"type": "authority", "span": "Director of Compliance", "organisation": "legal services organisation"},
+        {"type": "data_request", "span": "send over the complete set of employee files", "organisation": null},
+        {"type": "prior_relationship", "span": "speaking with you last week", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Request for documentation",
+      "body": "Dear team, we have been requested by external counsel to provide documentation regarding the ongoing regulatory review. Please review the attached list of required items, which includes relevant contracts and communication logs from the last fiscal quarter. Kindly ensure that all files are prepared in the approved format and uploaded to the secure document repository by the end of the week. This request is part of our standard compliance process and is being managed by the legal department. If you have questions regarding the sensitivity of specific documents, please consult your department head before uploading. Thank you for your assistance with this matter.",
+      "claims": [
+        {"type": "affiliation_external", "span": "external counsel", "organisation": "legal services organisation"},
+        {"type": "data_request", "span": "provide documentation", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p103",
+    "attack": {
+      "subject": "Urgent update to payroll",
+      "body": "As the Payroll Manager, I am requiring an immediate change to my direct-deposit details. Everyone else in the leadership group has already updated their information in the new system. Please keep this request confidential and do not speak to anyone else in the office about this transition. Reply to my personal email address at payroll-update-secure at mail dot com with the new banking routing and account numbers.",
+      "tactic_cues": {
+        "authority": "As the Payroll Manager",
+        "social_proof": "Everyone else in the leadership group has already updated their information",
+        "secrecy": "keep this request confidential and do not speak to anyone else in the office"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Payroll Manager", "organisation": "healthcare organisation"},
+        {"type": "payment_change", "span": "change to my direct-deposit details", "organisation": null},
+        {"type": "reply_direction", "span": "Reply to my personal email address", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Updating direct deposit info",
+      "body": "Hi, I am writing to ask about the process for updating my direct deposit bank details. I recently changed banks and need to ensure my future paychecks are deposited into the correct account. Could you please direct me to the correct HR portal or provide the necessary form I need to fill out to make this change? Thanks for your help.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "HR portal", "organisation": "healthcare organisation"},
+        {"type": "payment_change", "span": "Updating direct deposit info", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p104",
+    "attack": {
+      "subject": "Urgent payment for acquisition",
+      "body": "Hi there, it was lovely seeing you at the gala last weekend. As the Vice President, I am finalizing the confidential acquisition we discussed previously. Everyone else on the board has already signed off on this, and this is our last chance to lock in the current price before the window closes. I need you to authorize the payment to the vendor now. I know you are busy, but I really value our friendship and your support on this deal. Please get this processed immediately as it is a priority for the executive team.",
+      "tactic_cues": {
+        "scarcity": "this is our last chance to lock in the current price before the window closes",
+        "social_proof": "Everyone else on the board has already signed off",
+        "liking": "it was lovely seeing you at the gala last weekend"
+      },
+      "claims": [
+        {"type": "authority", "span": "Vice President", "organisation": "retail organisation"},
+        {"type": "payment_request", "span": "authorize the payment", "organisation": null},
+        {"type": "prior_relationship", "span": "we discussed previously", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Payment for services rendered",
+      "body": "Hi, please find the invoice for the store signage installation completed last month. Our legal department has reviewed the contract and confirmed that the work meets all specifications. Please process the payment through our internal system using the budget code provided in the original purchase order. If you need any additional documentation to verify the project completion, please let me know. We appreciate the work done by the facilities team on this retail expansion.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "legal department", "organisation": "retail organisation"},
+        {"type": "payment_request", "span": "process the payment", "organisation": null}
+      ]
+    }
+  }
+]

@@ -1,0 +1,396 @@
+[
+  {
+    "id": "b024_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b024_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "i am the personal assistant to Mr Laurence Gbagbo the president of cote d'ivoire",
+        "organisation": "cote d'ivoire"
+      }
+    ]
+  },
+  {
+    "id": "b024_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b024_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "The Facebook Team",
+        "organisation": "Facebook"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Facebook, Inc., Attention: Community Support, 1 Facebook Way, Menlo Park, CA 94025",
+        "organisation": "Facebook"
+      }
+    ]
+  },
+  {
+    "id": "b024_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Verify Your Email Spam Filter Account settings immediately",
+        "organisation": null
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "Email Security Team",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b024_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b024_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "payment_request",
+        "span": "frais de douane impayés (0,99€)",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Global Logistics © 2026 Tracking Solutions",
+        "organisation": "Global Logistics"
+      }
+    ]
+  },
+  {
+    "id": "b024_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal Inc. Account Departement",
+        "organisation": "PayPal Inc."
+      },
+      {
+        "type": "credential_request",
+        "span": "confirm your account access information",
+        "organisation": "PayPal Inc."
+      }
+    ]
+  },
+  {
+    "id": "b024_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "The PayPal Team",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "verify their information on file with us",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b024_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b024_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Amazon",
+        "organisation": "Amazon"
+      }
+    ]
+  },
+  {
+    "id": "b024_12",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "HR Department",
+        "organisation": null
+      },
+      {
+        "type": "authority",
+        "span": "Director of Human Resources",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b024_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "J.Rodney chesson jr Chesson Family Corporation, Liberia. email: [EMAIL]",
+        "organisation": "Chesson Family Corporation"
+      }
+    ]
+  },
+  {
+    "id": "b024_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Harendra Kumar Mob - 8383063372 Pyramid IT Consulting Pvt. Ltd.",
+        "organisation": "Pyramid IT Consulting Pvt. Ltd."
+      }
+    ]
+  },
+  {
+    "id": "b024_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "geoffrey s. nathan department of linguistics southern illinois university at carbondale carbondale , il , 62901-4517 phone : ( 618 ) 453-3421",
+        "organisation": "southern illinois university at carbondale"
+      }
+    ]
+  },
+  {
+    "id": "b024_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "National Credit Union Association",
+        "organisation": "National Credit Union Association"
+      },
+      {
+        "type": "credential_request",
+        "span": "update your account details",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b024_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b024_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Director Auditing and Accounting unit of the bank",
+        "organisation": "BANK OF AFRICA"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Reply me here please. Email: [EMAIL]",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "MR IDRIS MAKAFI BANK OF AFRICA. OUAGADOUGOU -BURKINA FASO. Email; [EMAIL]",
+        "organisation": "BANK OF AFRICA"
+      }
+    ]
+  },
+  {
+    "id": "b024_19",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "ICT Service Desk",
+        "organisation": null
+      },
+      {
+        "type": "credential_request",
+        "span": "upgrade to the latest e-mail Outlook Web Apps 2015",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b024_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  }
+]

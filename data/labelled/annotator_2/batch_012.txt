@@ -1,0 +1,443 @@
+[
+  {
+    "id": "b012_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "State Farm – Free Garmin Dash Cam Offer State Farm has partnered with Garmin",
+        "organisation": "State Farm"
+      },
+      {
+        "type": "data_request",
+        "span": "complete a short survey",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b012_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "bestätigen Sie jetzt Ihre Daten",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b012_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "payment_request",
+        "span": "NEW ORDER INVOICE",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Ingrid Office clerk",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b012_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Josep Prat Open Source Engineering Director, Aiven [EMAIL] | +491715557497",
+        "organisation": "Aiven"
+      }
+    ]
+  },
+  {
+    "id": "b012_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Netto",
+        "organisation": "Netto"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Max Steinle - Kundendienst -",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b012_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b012_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Standard Bank",
+        "organisation": "Standard Bank"
+      },
+      {
+        "type": "reply_direction",
+        "span": "contact us immediately on 0861 201 311",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Standard Bank For any queries please call us on 0861201311",
+        "organisation": "Standard Bank"
+      }
+    ]
+  },
+  {
+    "id": "b012_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "African Union Development Bank Plc",
+        "organisation": "African Union Development Bank Plc"
+      },
+      {
+        "type": "authority",
+        "span": "I am Dr,Martins Ali and work with African Union Development Bank Plc",
+        "organisation": "African Union Development Bank Plc"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Dr.Martins Ali",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b012_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "eBay",
+        "organisation": "eBay"
+      },
+      {
+        "type": "credential_request",
+        "span": "confirm your Account Informations",
+        "organisation": "eBay"
+      }
+    ]
+  },
+  {
+    "id": "b012_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Trust Wallet",
+        "organisation": "Trust Wallet"
+      },
+      {
+        "type": "credential_request",
+        "span": "Verify your Trust Wallet",
+        "organisation": "Trust Wallet"
+      }
+    ]
+  },
+  {
+    "id": "b012_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b012_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "I am Peter Kok a top Sudanese Goverment official",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "send an e-mail to the e-mail address below",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Peter Kok E-mail:[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b012_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Pay Pal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "data_request",
+        "span": "please confirm your shipping address",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "notifying us immediately by replying to this email or contacting our customer service team at +1 (833) 412-3646",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b012_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "pass trough a series of authentifications",
+        "organisation": null
+      },
+      {
+        "type": "affiliation_external",
+        "span": "JPMorgan Chase & Co.",
+        "organisation": "JPMorgan Chase & Co."
+      }
+    ]
+  },
+  {
+    "id": "b012_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Facebook",
+        "organisation": "Facebook"
+      },
+      {
+        "type": "signature_contact",
+        "span": "The Facebook Team",
+        "organisation": "Facebook"
+      }
+    ]
+  },
+  {
+    "id": "b012_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "As list administrator, your authorization is requested",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b012_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Being a top executive at ICEP",
+        "organisation": "Independent Committee of Eminent Persons (ICEP)"
+      },
+      {
+        "type": "prior_relationship",
+        "span": "ICEP is charged with the responsibility of finding bank accounts in Switzerland belonging to non-Swiss indigenes",
+        "organisation": "Independent Committee of Eminent Persons (ICEP)"
+      }
+    ]
+  },
+  {
+    "id": "b012_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b012_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Cable News Network",
+        "organisation": "Cable News Network"
+      },
+      {
+        "type": "prior_relationship",
+        "span": "You have agreed to receive this email from [DOMAIN] as a result of your [DOMAIN] preference settings.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b012_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  }
+]

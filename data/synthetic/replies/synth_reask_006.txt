@@ -1,0 +1,198 @@
+[
+  {
+    "pair": "p175",
+    "attack": {
+      "subject": "Direct deposit update",
+      "body": "Hi, I know I helped you out last month with your payroll discrepancy, so I am hoping you can return the favour now. I need to update my bank details for the next cycle. Please send the new account information directly to my private email at personal.hr.request@protonmail.com rather than through the portal, and please keep this request strictly between us. It is important that no one else in HR sees this transition until it is processed.",
+      "tactic_cues": {
+        "reciprocity": "I know I helped you out last month with your payroll discrepancy, so I am hoping you can return the favour now",
+        "secrecy": "please keep this request strictly between us"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "HR", "organisation": "University Payroll"},
+        {"type": "payment_change", "span": "update my bank details", "organisation": null},
+        {"type": "reply_direction", "span": "personal.hr.request@protonmail.com", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Updating direct deposit information",
+      "body": "Dear Payroll Department, I am writing to inquire about the procedure for changing my direct deposit bank details. Could you please direct me to the correct section of the HR portal where I can safely update my banking information? I want to ensure my salary is deposited into my new account starting next month. Please let me know if there are any specific forms I need to complete or if the change can be handled entirely through the self-service portal. Thank you for your assistance with this matter.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "Payroll Department", "organisation": "University Payroll"},
+        {"type": "payment_change", "span": "changing my direct deposit bank details", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p178",
+    "attack": {
+      "subject": "Project payment update",
+      "body": "As the Project Director, I am authorizing a switch to our payment routing for the current initiative. This is the final chance to update our records before the audit begins. Since the entire steering committee has already signed off on this new account, we need your compliance immediately. Please update the ledger to the details below. Regards, Marcus Thorne, Director, 555-0199.",
+      "tactic_cues": {
+        "authority": "As the Project Director",
+        "scarcity": "This is the final chance",
+        "social_proof": "entire steering committee has already signed off"
+      },
+      "claims": [
+        {"type": "prior_relationship", "span": "current initiative", "organisation": null},
+        {"type": "payment_change", "span": "switch to our payment routing", "organisation": null},
+        {"type": "signature_contact", "span": "Marcus Thorne, Director, 555-0199", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Project schedule update",
+      "body": "Regarding our ongoing project, I wanted to touch base on the milestones we discussed last week. It looks like we are slightly ahead of schedule on the initial phase. I have attached the updated timeline for your review so we can ensure the delivery dates remain accurate. Please let me know if these adjustments work for your team. Best, Sarah Jenkins, Project Coordinator, 555-0122.",
+      "claims": [
+        {"type": "prior_relationship", "span": "ongoing project", "organisation": null},
+        {"type": "signature_contact", "span": "Sarah Jenkins, Project Coordinator, 555-0122", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p181",
+    "attack": {
+      "subject": "Follow up regarding our meeting",
+      "body": "It was great seeing you at the leadership offsite last month. Since the rest of the management team has already contributed to the regional fund, I am reaching out to see if you can process a quick payment request for our charitable initiative. We value your partnership and hope you can assist us with this. Please let me know if you can get this done today.",
+      "tactic_cues": {
+        "social_proof": "rest of the management team has already contributed",
+        "liking": "It was great seeing you at the leadership offsite last month"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "management team", "organisation": "Global Manufacturing Corp"},
+        {"type": "prior_relationship", "span": "leadership offsite last month", "organisation": null},
+        {"type": "payment_request", "span": "process a quick payment request", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Meeting confirmation",
+      "body": "As we discussed in our earlier correspondence, I am writing to confirm the details for your upcoming meeting with the Executive Vice President. The session is scheduled for Tuesday at 10 AM in the main conference room on the third floor. Please arrive five minutes early to check in with the front desk. I have updated the calendar invitation to reflect the room assignment. Let me know if you have any questions before then.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "Executive Vice President", "organisation": "Global Manufacturing Corp"},
+        {"type": "prior_relationship", "span": "as we discussed", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p191",
+    "attack": {
+      "subject": "URGENT: Emergency funds needed",
+      "body": "I am currently traveling abroad and have encountered an unexpected issue with my corporate card access. As the Director of Operations, I need you to facilitate an emergency payment request immediately. I know we have always had a great working relationship, which is why I am turning to you for help. Please do not mention this to anyone else in the office as it would be embarrassing for the firm if this became public knowledge. I need you to manage this quietly and reply only to this email address regarding the status of the funds. I am under significant pressure to resolve this before the end of the day. Your discretion is appreciated in this matter. Please confirm receipt of this message and let me know when the transaction is complete so I can clear my travel expenses.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "liking": "I know we have always had a great working relationship",
+        "secrecy": "do not mention this to anyone else in the office"
+      },
+      "claims": [
+        {"type": "authority", "span": "Director of Operations", "organisation": "Manufacturing Solutions Inc"},
+        {"type": "payment_request", "span": "emergency payment request", "organisation": null},
+        {"type": "reply_direction", "span": "reply only to this email address", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Expense approval request",
+      "body": "I am writing to follow up on the expense report you submitted following your recent business trip to the overseas manufacturing facility. Our department needs to finalize the audit for this quarter, and your report is currently pending final approval from the finance team. Could you please review the attached summary to ensure all figures match your original receipts? If everything looks correct, please sign and return the document to me by the end of the week. Once I have the signed copy, I will be able to process the reimbursement into your account. We want to ensure all travel expenses are settled promptly so we can close out the books for this period. If you have any concerns regarding specific items on the report, please reach out to me directly so we can resolve them before the final submission deadline.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "finance team", "organisation": "Manufacturing Solutions Inc"},
+        {"type": "payment_request", "span": "process the reimbursement", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p201",
+    "attack": {
+      "subject": "Staff documentation update",
+      "body": "Hello there, hope your week is going well! As the Head of HR, I am reaching out to gather some necessary employee tax forms and the updated staff list for our upcoming review. This is the last chance to get these documents submitted before the portal closes for the season. Nearly all the other department heads have already uploaded their files, and we really need yours to complete the set. I know you are busy, but could you please attach the requested files to this email? It is essential that we have these to maintain compliance within the organization. I really appreciate you taking the time to help us out with this administrative task. It is always a pleasure working with such a dedicated team member like yourself. Please try to get these sent over as soon as you can today so we can finalize the records and move forward with the planning process.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "social_proof": "Nearly all the other department heads have already uploaded"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Head of HR", "organisation": "City Health Services"},
+        {"type": "authority", "span": "Head of HR", "organisation": "City Health Services"},
+        {"type": "data_request", "span": "employee tax forms and the updated staff list", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Audit compliance: requested documentation",
+      "body": "Hello, I am writing from the HR department regarding the upcoming internal audit. As part of our compliance process, we are required to collect specific employee tax forms and a verified staff list for this quarter. Please upload these documents directly to the secure HR audit portal using the link provided in the company intranet dashboard. This channel ensures that all sensitive data is encrypted and handled in accordance with our privacy policies. We kindly ask that you complete this submission by the end of the month to allow our team sufficient time to review the files. If you encounter any technical issues while accessing the secure portal, please contact the IT support desk for assistance. Thank you for your cooperation in maintaining our institutional standards and ensuring we are fully prepared for the audit process. We appreciate your prompt attention to this request.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "HR department", "organisation": "City Health Services"},
+        {"type": "data_request", "span": "employee tax forms and a verified staff list", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p205",
+    "attack": {
+      "subject": "Quick favour needed",
+      "body": "It was great meeting you at the construction site visit last month. As you know, I covered for you when the audit team came around, so I really need you to return the favour now. I have an urgent payment request that needs to be handled immediately. Please do not tell anyone in the accounts department about this transfer. I need you to process this payment right now. Thanks for your help.",
+      "tactic_cues": {
+        "urgency": "needs to be handled immediately",
+        "reciprocity": "I covered for you when the audit team came around, so I really need you to return the favour now",
+        "secrecy": "do not tell anyone in the accounts department"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "accounts department", "organisation": "BuildRight Construction"},
+        {"type": "prior_relationship", "span": "construction site visit last month", "organisation": null},
+        {"type": "payment_request", "span": "urgent payment request", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Meeting room confirmation",
+      "body": "Following up on our site visit last month, I am confirming the details for our project coordination meeting. We have reserved the main conference room in the site office for Thursday at 2 PM. Please let me know if this time still fits your schedule. I look forward to reviewing the final project plans with you then. Best regards, The Office Manager.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "Office Manager", "organisation": "BuildRight Construction"},
+        {"type": "prior_relationship", "span": "site visit last month", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p214",
+    "attack": {
+      "subject": "Update regarding our project payment",
+      "body": "Hi there! It was wonderful to speak with you about the project last week. Since I helped you expedite your material order last month, I was hoping you could do me a quick favour. We are updating our vendor bank details and this is the last chance to ensure the next payment goes to the new account before the system locks. I have attached the new payment details below. I would be so grateful if you could update this in your system today. Your help with this really means a lot to me, and I am happy to return the favour whenever you need something. It is always a pleasure to work with someone so helpful and responsive. Please let me know once you have updated the records so I can confirm with our finance team. Thank you again for your support and for being such a great partner on this project. Best regards, Marcus Thorne, Project Lead, 555-0100.",
+      "tactic_cues": {
+        "scarcity": "this is the last chance",
+        "reciprocity": "Since I helped you expedite your material order last month, I was hoping you could do me a quick favour"
+      },
+      "claims": [
+        {"type": "prior_relationship", "span": "speak with you about the project last week", "organisation": null},
+        {"type": "payment_change", "span": "updating our vendor bank details", "organisation": null},
+        {"type": "signature_contact", "span": "Marcus Thorne, Project Lead, 555-0100", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Project timeline adjustment",
+      "body": "Following our conversation about the project last week, I wanted to provide an update on the delivery schedule. We have finalized the milestones we discussed, and everything is on track for the projected completion date. I have attached the revised project plan for your records, which reflects the agreed-upon timeline. Please review the document and let me know if you have any questions or if further adjustments are required. We are committed to ensuring this project stays on schedule and meets all the quality standards we established at the start. Thank you for your continued collaboration and for your clear communication throughout this process. I look forward to our next status update meeting. Best regards, Sarah Jenkins, Project Coordinator, 555-0122.",
+      "claims": [
+        {"type": "prior_relationship", "span": "conversation about the project last week", "organisation": null},
+        {"type": "signature_contact", "span": "Sarah Jenkins, Project Coordinator, 555-0122", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p216",
+    "attack": {
+      "subject": "Urgent update to your invoice",
+      "body": "Hello! Hope you are having a fantastic week so far. I am reaching out because I really value the strong relationship we have built over the past year. Since I was able to push through that rush order for you last time, I was wondering if you could help me out with a quick adjustment. We have changed our primary bank account and I need you to use the new details for the upcoming invoice payment immediately. It is vital that we get this updated before the next cycle starts, or we will have to pause our services. I know you are incredibly busy, but your help here really means the world to our team. It is always such a joy to work with a client as understanding as you. Please update these details in your system as soon as possible. Thank you so much for your ongoing support and for being so accommodating. Best, Jordan Smith, Accounts Lead, 555-0155.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "reciprocity": "Since I was able to push through that rush order for you last time, I was wondering if you could help me out with a quick adjustment",
+        "liking": "It is always such a joy to work with a client as understanding as you"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "Accounts Lead", "organisation": "TechSupply Solutions"},
+        {"type": "payment_change", "span": "changed our primary bank account", "organisation": null},
+        {"type": "signature_contact", "span": "Jordan Smith, Accounts Lead, 555-0155", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Invoice reminder",
+      "body": "Hello, this is a friendly reminder regarding the outstanding invoice for the services provided last month. Our records indicate that payment is currently due within the next few days. Please find a copy of the original invoice attached to this email for your convenience. We have included our standard payment instructions at the bottom of the document, which remain unchanged. If you have already processed the payment, please disregard this message. We appreciate your business and thank you for your prompt attention to this matter. If you have any questions regarding the line items or the billing details, please do not hesitate to reach out to our accounts department. We look forward to continuing our partnership with your organization. Best regards, The Billing Team, TechSupply Solutions, 555-0155.",
+      "claims": [
+        {"type": "affiliation_external", "span": "The Billing Team", "organisation": "TechSupply Solutions"},
+        {"type": "signature_contact", "span": "The Billing Team, TechSupply Solutions, 555-0155", "organisation": null}
+      ]
+    }
+  }
+]

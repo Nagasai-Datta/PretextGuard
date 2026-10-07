@@ -16,7 +16,7 @@ Never `cd src` and never `python src/data/stage.py`. With `-m`, Python treats th
 
 | Package | Job | Built in phase | Status |
 |---|---|---|---|
-| `data/` | Datasets: unpacking, loading, staging, header coverage, split; later annotation batches and the thread-hijack benchmark | 1, 5, 9 | Phase 1 part done (see `data/README.md`) |
+| `data/` | Datasets: unpacking, loading, staging, header coverage, split; annotation, labels and synthetic emails; later the thread-hijack benchmark | 1, 5, 9 | Phases 1 and 5 done (see `data/README.md`) |
 | `preprocess/` | Cleaning (HTML, quotes, signatures) and N1 redaction | 2 | Done (see `preprocess/README.md`) |
 | `headers/` | Email parser and header evidence extractor; organisation domain | 3 | Done (see `headers/README.md`) |
 | `baseline/` | Keyword baseline (word lists per tactic, scorer) | 4 | Done (see `baseline/README.md`) |

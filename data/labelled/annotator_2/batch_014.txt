@@ -1,0 +1,361 @@
+[
+  {
+    "id": "b014_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "FORMER CHIEF OF DEFENCE STAFF: NATIONAL REPUBLIC OF LIBERIA",
+        "organisation": "National Republic of Liberia"
+      },
+      {
+        "type": "signature_contact",
+        "span": "JAMES NGOLA. CONFIDENTIAL TEL: 233-27-587908. E-MAIL:([EMAIL])",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b014_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Tabor J. Wells [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b014_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b014_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "The Facebook Team",
+        "organisation": "Facebook"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Report the user ([EMAIL]?subject=Send+Statement phishing@[EMAIL])",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b014_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "South African Ministry of Energy and Mineral Resources",
+        "organisation": "South African Ministry of Energy and Mineral Resources"
+      },
+      {
+        "type": "data_request",
+        "span": "1)Bank details ( Name and address / Account no/Beneficiary name ) 2)Private Telephone and Fax number of Beneficiary",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b014_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Cartão Porto Seguro",
+        "organisation": "Porto Seguro"
+      }
+    ]
+  },
+  {
+    "id": "b014_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "email : [EMAIL] tel : + 33 4 94 60 10 65",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b014_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b014_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "South Africa Department of Mining & Natural Resources",
+        "organisation": "South Africa Department of Mining & Natural Resources"
+      }
+    ]
+  },
+  {
+    "id": "b014_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b014_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Mi󠄹󠄹c󠄹󠄹r󠄹󠄹o󠄹󠄹s󠄹󠄹o󠄹󠄹f󠄹󠄹t 3󠄹󠄹6󠄹󠄹5 Team",
+        "organisation": "Microsoft"
+      }
+    ]
+  },
+  {
+    "id": "b014_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b014_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "ITAUCARD",
+        "organisation": "Itaú"
+      }
+    ]
+  },
+  {
+    "id": "b014_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b014_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "T-Mobile",
+        "organisation": "T-Mobile"
+      }
+    ]
+  },
+  {
+    "id": "b014_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b014_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Juliana Correia de Souza Negocios Imobiliarios CNPJ: 33.346.171/0001-26",
+        "organisation": "Juliana Correia de Souza Negocios Imobiliarios"
+      }
+    ]
+  },
+  {
+    "id": "b014_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Your friends on Netflix",
+        "organisation": "Netflix"
+      }
+    ]
+  },
+  {
+    "id": "b014_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Domain Administrator Affordable Domains",
+        "organisation": "Affordable Domains"
+      }
+    ]
+  },
+  {
+    "id": "b014_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "UNHCR Refugee Camp",
+        "organisation": "UNHCR"
+      }
+    ]
+  }
+]

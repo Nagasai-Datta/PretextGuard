@@ -1,6 +1,6 @@
 # src/data/
 
-Phase 1: turn six differently shaped downloads into one table of unique emails with a fixed train/validation/test split. Later phases add annotation batches (Phase 5) and the thread-hijack benchmark (Phase 9) here.
+Phase 1: turn six differently shaped downloads into one table of unique emails with a fixed train/validation/test split. Phase 5 adds annotation, labels and synthetic emails (last section); Phase 9 will add the thread-hijack benchmark.
 
 ## Scripts, in the order you run them
 
@@ -53,3 +53,27 @@ Later phases add columns (cleaned and redacted bodies, header evidence, labels, 
 - `unpack.py`: tar members go through Python's `filter="data"`, zip members are checked by hand, so nothing can be written outside its folder (path traversal); archives over 5 GB unpacked are refused (decompression bombs); file types are checked by their first bytes; unpacked files are made read-only.
 - `fetch_apache.py`: HTTPS only, timeouts, a 50 MB cap per reply, and a reply must look like an mbox before it is saved.
 - `loaders.py`: emails are data only; nothing is opened or run. Kaggle values are squashed onto one line before they become header lines (header injection).
+
+## Phase 5: labels (annotation, synthetic emails, SemEval mapping)
+
+Phase 5 turns the sampled emails into labels the models can learn from and be scored against. The loop is described step by step in `data/labelled/README.md` and `data/synthetic/README.md`.
+
+| Script | Job |
+|---|---|
+| `label_schema.py` | The seven tactics, the eleven claim types, their definitions, batch size, and how an email is shown to an annotator |
+| `prompts.py` | The annotation prompt: security note, definitions, output format, then the emails as data |
+| `clipboard.py` | Copy to and paste from the macOS clipboard (pbcopy, pbpaste) |
+| `llm_api.py` | One chat request for the annotators and the tie-breaker through a free-tier API: key from `.env`, retries on rate limits, temperature 0 |
+| `batches.py` | Draws the 700-email sample (`sample.csv`) and writes the 35 batch prompts |
+| `annotate.py` | `check` and `auto <annotator>` send the batches to the provider's API and save the replies; `next` and `save` do the same by hand through the clipboard; `status` |
+| `validate_labels.py` | Checks every reply against the schema, writes `reask_*` batches for invalid or missing items |
+| `agreement.py` | Cohen's kappa per tactic and claim type, and `tiebreak_*` batches for the tie-breaker round |
+| `labels.py` | Merges the answers into `data/labelled/labels.csv` and counts the positives |
+| `synthetic.py` | `build`, `next`, `save`, `collect`: 240 attack-and-twin pairs written by a web chat, checked and loaded |
+| `semeval_map.py` | The 23-to-7 SemEval mapping and a check against the registered data |
+
+Run order: `batches`, then `annotate` for annotator_1 and annotator_2, `validate_labels`, `agreement`, `annotate` for tiebreaker, `labels`; `synthetic` runs on its own.
+
+Decisions built into the code: the sample is a fixed allocation per source and category, not proportional, and no keyword hit picks any email; annotators see `body_redacted` only, cut at 2,000 characters; replies are kept raw and every save is logged with the model name; an invalid item is re-asked once, then dropped and counted; kappa is written by hand and cross-checked against scikit-learn.
+
+Security: email text is wrapped as data and its angle brackets are replaced; replies must be an exact JSON shape and quoted spans must appear in the email; a reply that is the same for every email is rejected as a likely hijack; `data/labelled/batches/` is never committed because it holds full email text.

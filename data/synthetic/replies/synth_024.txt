@@ -1,0 +1,355 @@
+[
+  {
+    "pair": "p185",
+    "attack": {
+      "subject": "Urgent: Your account status",
+      "body": "Hi there. Since I managed to get those extra software licenses approved for your department last week, I was hoping you could help me out now. Our IT help desk systems indicate your mailbox is flagged for inactivity. If you do not verify your login credentials by sending me your current password, your account will be deleted permanently from our server by end of day. Please reply with your password so I can keep your access active for you. Thanks for the help.",
+      "tactic_cues": {
+        "scarcity": "your account will be deleted permanently",
+        "reciprocity": "Since I managed to get those extra software licenses approved for your department last week, I was hoping you could help me out now"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT help desk",
+          "organisation": "Construction Corp"
+        },
+        {
+          "type": "credential_request",
+          "span": "verify your login credentials by sending me your current password",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled Maintenance Notice",
+      "body": "The IT help desk would like to inform all staff at Construction Corp that we will be performing routine server maintenance this coming weekend. During this window, you may experience brief interruptions to your email services. No action is required on your part, and all systems should be fully functional by Monday morning. We appreciate your patience as we work to improve our internal infrastructure. Please reach out to the help desk if you have any questions regarding this update.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT help desk",
+          "organisation": "Construction Corp"
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p186",
+    "attack": {
+      "subject": "Following up on our talk",
+      "body": "It was great chatting with you last time. As Director of Legal, I really need those energy grid site reports we discussed. Since I handled your recent contract extension, could you send these over? I need to finalize the compliance filing immediately for the board.",
+      "tactic_cues": {
+        "authority": "As Director of Legal",
+        "reciprocity": "Since I handled your recent contract extension",
+        "liking": "It was great chatting with you last time"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Director of Legal",
+          "organisation": "Energy Compliance Partners"
+        },
+        {
+          "type": "authority",
+          "span": "Director of Legal",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "energy grid site reports",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "chatting with you last time",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Request for documentation",
+      "body": "We are currently reviewing the project files for the upcoming regulatory audit. Could you please provide the energy grid site reports mentioned in the project outline? These documents are necessary for our ongoing compliance assessment. Please let us know if you need any clarification on the requested materials.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "regulatory audit",
+          "organisation": "Energy Compliance Partners"
+        },
+        {
+          "type": "data_request",
+          "span": "energy grid site reports",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p187",
+    "attack": {
+      "subject": "Direct deposit update",
+      "body": "As the Payroll Manager, I am requiring all staff to update their banking records today. Everyone else in the office has already completed this, so please do not be the last one. If you do not update this, your next pay will be delayed. Reply to my personal email at hr.payroll.update@privatemail.com with your new details.",
+      "tactic_cues": {
+        "authority": "As the Payroll Manager",
+        "scarcity": "do not be the last one",
+        "social_proof": "Everyone else in the office has already completed this"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Payroll Manager",
+          "organisation": "Energy Corp"
+        },
+        {
+          "type": "payment_change",
+          "span": "update their banking records",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "Reply to my personal email at hr.payroll.update@privatemail.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Updating bank account information",
+      "body": "If you need to change your direct deposit details, please log in to the employee self-service portal. Once you are signed in, navigate to the payroll section and select update bank information. Follow the prompts on the screen to securely enter your new account number and routing information. Let us know if you encounter any technical issues.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "employee self-service portal",
+          "organisation": "Energy Corp"
+        },
+        {
+          "type": "payment_change",
+          "span": "change your direct deposit details",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p188",
+    "attack": {
+      "subject": "Confidential acquisition payment",
+      "body": "I hope you are having a productive week after our meeting last Tuesday. It was truly a pleasure brainstorming with you on the new project direction. Because I have always supported your growth initiatives in the past, I am reaching out to you personally to handle a sensitive matter. As the CFO, I need you to authorize an urgent payment for our confidential software acquisition. This is a highly sensitive deal, so please keep this between us and do not loop in your manager or the finance team until the transaction is finalized. We must ensure this stays quiet to maintain our competitive advantage in the market. Please confirm once you have processed the transfer so I can report it to the board. Your discretion is highly valued as we close this deal, and I know I can count on your continued support for our strategic goals. Thank you for your cooperation.",
+      "tactic_cues": {
+        "reciprocity": "Because I have always supported your growth initiatives in the past",
+        "liking": "It was truly a pleasure brainstorming with you on the new project direction",
+        "secrecy": "keep this between us and do not loop in your manager or the finance team"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "As the CFO",
+          "organisation": "Software Solutions Inc"
+        },
+        {
+          "type": "payment_request",
+          "span": "authorize an urgent payment for our confidential software acquisition",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "our meeting last Tuesday",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice for software acquisition",
+      "body": "Attached is the invoice for the software acquisition project which has been approved by the legal department. Please initiate the payment process for this vendor as outlined in the signed contract. If you need any additional documentation or have questions regarding the payment terms, please reach out to the accounts payable team for assistance. Thank you for your help in processing this request in a timely manner.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "accounts payable team",
+          "organisation": "Software Solutions Inc"
+        },
+        {
+          "type": "payment_request",
+          "span": "initiate the payment process",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p189",
+    "attack": {
+      "subject": "Urgent staff data",
+      "body": "As the HR Director, I am requesting your full staff list and tax forms for a review. Everyone else has already submitted their department files today. Please keep this request confidential for now and do not discuss it with your peers while we finalize these figures.",
+      "tactic_cues": {
+        "social_proof": "Everyone else has already submitted their department files today",
+        "secrecy": "keep this request confidential for now and do not discuss it with your peers"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "HR Director",
+          "organisation": "Energy Corp"
+        },
+        {
+          "type": "authority",
+          "span": "HR Director",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "full staff list and tax forms",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Annual audit documentation",
+      "body": "Our department is currently undergoing its annual audit to ensure our records are up to date. Please submit your staff lists and relevant tax forms through the secure HR document upload link on the intranet. All submissions must be completed via this portal to remain compliant with our internal privacy policies. Thank you for your cooperation.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "HR",
+          "organisation": "Energy Corp"
+        },
+        {
+          "type": "data_request",
+          "span": "staff lists and relevant tax forms",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p190",
+    "attack": {
+      "subject": "RE: Project Phase 2",
+      "body": "Regarding our discussion yesterday, we need to shift payment methods for the next phase. As the lead on this project, I expect compliance. The rest of the committee has already approved this change, and since I helped you clear your project budget last month, I need you to process this payment to the new account. Reach me at my direct line below for confirmation. Bob Smith, Project Lead, 555-0123.",
+      "tactic_cues": {
+        "authority": "As the lead on this project, I expect compliance",
+        "reciprocity": "since I helped you clear your project budget last month",
+        "social_proof": "The rest of the committee has already approved this change"
+      },
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "Regarding our discussion yesterday",
+          "organisation": null
+        },
+        {
+          "type": "payment_change",
+          "span": "shift payment methods for the next phase",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Bob Smith, Project Lead, 555-0123",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "RE: Project Phase 2",
+      "body": "Following our discussion yesterday, I have updated the schedule for the next phase of the project. Please review the attached timeline to ensure it aligns with your team's availability. We are currently on track to meet our milestones for the month. Let me know if you have any questions or concerns regarding these updates. Regards, Jane Doe, Project Coordinator, 555-9876.",
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "Following our discussion yesterday",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Jane Doe, Project Coordinator, 555-9876",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p191",
+    "attack": {
+      "subject": "Urgent assistance needed",
+      "body": "I am currently traveling abroad and have run into a difficult situation with my banking access. It was such a pleasure working with you on the manufacturing report last year, and I was wondering if you could help me out with a quick favor. As the VP of Operations, I am authorized to request an emergency payment to cover these costs immediately. Please keep this matter between us, as I would prefer to handle this discreetly without alerting the rest of the executive team. Do not call the office line as I am in a different time zone. Please text me on my private number at 555-0987 to coordinate the transfer details. I need this to be resolved before the end of the day so I can continue with the site visits as planned. Your help here would be incredibly appreciated and I will make sure to recognize your assistance when I am back in the office next week. Thank you for acting quickly.",
+      "tactic_cues": {
+        "urgency": "resolved before the end of the day",
+        "liking": "It was such a pleasure working with you on the manufacturing report last year",
+        "secrecy": "keep this matter between us, as I would prefer to handle this discreetly without alerting the rest of the executive team"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "As the VP of Operations",
+          "organisation": "Manufacturing Co"
+        },
+        {
+          "type": "payment_request",
+          "span": "request an emergency payment",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "text me on my private number at 555-0987",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Expense approval for upcoming trip",
+      "body": "I am preparing the budget for my upcoming trip to the regional manufacturing facility. I have attached the estimated travel expenses for your review and approval. Please let me know if you need any further information regarding these costs or if there are any adjustments required before I finalize the booking. I look forward to your feedback on the proposed itinerary and expense breakdown. Thanks for your assistance in ensuring the travel arrangements are set correctly.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "regional manufacturing facility",
+          "organisation": "Manufacturing Co"
+        },
+        {
+          "type": "payment_request",
+          "span": "approval for my upcoming trip",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p192",
+    "attack": {
+      "subject": "Account details update",
+      "body": "We value our partnership with your institution. Please note that our bank account has changed, and you must update your records immediately. This is your last chance to ensure the next invoice is paid to the new account. Best regards, The Accounts Team, 555-4433.",
+      "tactic_cues": {
+        "urgency": "update your records immediately",
+        "scarcity": "This is your last chance",
+        "liking": "We value our partnership with your institution"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "The Accounts Team",
+          "organisation": "Education Suppliers Ltd"
+        },
+        {
+          "type": "payment_change",
+          "span": "our bank account has changed",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "The Accounts Team, 555-4433",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice Reminder",
+      "body": "This is a friendly reminder that invoice number 98765 is due for payment by the end of this month. Please find the attached invoice for your reference. Payment can be made using the existing account details on file. Contact our support desk at 555-2211 if you have any questions. Best regards, Billing Department, Education Suppliers Ltd.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Education Suppliers Ltd",
+          "organisation": "Education Suppliers Ltd"
+        },
+        {
+          "type": "signature_contact",
+          "span": "Billing Department, Education Suppliers Ltd",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,447 @@
+[
+  {
+    "id": "b001_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "Please replyme me through my alternative E-mailaddress:[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_14",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Bank Of America",
+        "organisation": "Bank Of America"
+      },
+      {
+        "type": "credential_request",
+        "span": "Renew now ([URL]) w SERVICE w : w Bank Of America Access Online®.",
+        "organisation": "Bank Of America"
+      }
+    ]
+  },
+  {
+    "id": "b001_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Hon. Mr. Hope Sithole one of the Personal Assistants to the young President Joseph Kabila of Democratic Republic of Congo",
+        "organisation": "Democratic Republic of Congo"
+      }
+    ]
+  },
+  {
+    "id": "b004_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Zilveren Kruis",
+        "organisation": "Zilveren Kruis"
+      },
+      {
+        "type": "signature_contact",
+        "span": "+31 763459313",
+        "organisation": "Zilveren Kruis"
+      }
+    ]
+  },
+  {
+    "id": "b007_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "eBay International AG",
+        "organisation": "eBay"
+      }
+    ]
+  },
+  {
+    "id": "b007_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "El Hadji Abdul Mohamed. Managing Partner, HST&Associates.",
+        "organisation": "HST&Associates"
+      }
+    ]
+  },
+  {
+    "id": "b008_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Please cli​ck t​he button bel​ow t​o safely l​o​g in an​d access y​our docu​m​en​t.",
+        "organisation": "Trust Wallet"
+      }
+    ]
+  },
+  {
+    "id": "b008_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "call me during the next few days ( 713 ) 853 3848",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "( 713 ) 853 3848",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b009_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Dйpartement De Sйcuritй",
+        "organisation": null
+      },
+      {
+        "type": "data_request",
+        "span": "mettre a jour les informations et les coordonnes de votre Compte bancaire et votre carte de crйdit ou carte de dйbit",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b012_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "reply_direction",
+        "span": "notifying us immediately by replying to this email or contacting our customer service team at +1 (833) 412-3646",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "+1 (833) 412-3646",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b013_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Recomendamos que você a ltere s ua senha",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b016_16",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "bank of Scotland United Kingdom",
+        "organisation": "Bank of Scotland"
+      },
+      {
+        "type": "authority",
+        "span": "Dr Larry Douglas, a senior staff and auditor head of computing department",
+        "organisation": "Bank of Scotland"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Kindly reply me stating your interest",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b017_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "data_request",
+        "span": "1. YOUR NAME:................................ 2. YOUR ADDRESS:............................. 3. YOUR TELEPHONE ........................... 5. AGE....................................... 6. SEX:...................................... 7. YOUR OCCUPATION........................... 8. YOUR BANK DETAILS:",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b019_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Opensea",
+        "organisation": "Opensea"
+      }
+    ]
+  },
+  {
+    "id": "b019_07",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Service Free adsl Internet",
+        "organisation": "Free adsl"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Raphael FaURE",
+        "organisation": "Free adsl"
+      }
+    ]
+  },
+  {
+    "id": "b019_08",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Central de Atendimento BB - CABB",
+        "organisation": "Banco do Brasil"
+      },
+      {
+        "type": "credential_request",
+        "span": "fazer uma simples confirmao",
+        "organisation": "Banco do Brasil"
+      }
+    ]
+  },
+  {
+    "id": "b019_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "you e-mail meimmediately for more clearification",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b019_16",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "CITIZENS INTERNATIONAL BANK LTD",
+        "organisation": "Citizens International Bank"
+      },
+      {
+        "type": "authority",
+        "span": "Operations Officer, BILL AND EXCHANGE OF THE FOREIGN REMITTANCE DEPARTMENT",
+        "organisation": "Citizens International Bank"
+      }
+    ]
+  },
+  {
+    "id": "b023_10",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "SOUTH AFRICA MINING & NAT.RESOURCES",
+        "organisation": "South Africa Department of Mining & Natural Resources"
+      },
+      {
+        "type": "authority",
+        "span": "DIRECTOR OF PROJECT IMPLEMENTATION",
+        "organisation": "South Africa Department of Mining & Natural Resources"
+      },
+      {
+        "type": "prior_relationship",
+        "span": "a member of the South Africa Export Promotion Council(SEPC)who was on the Government delegation to your country during a trade exhibition gave your enviable particulars to me",
+        "organisation": "South Africa Export Promotion Council"
+      }
+    ]
+  },
+  {
+    "id": "b023_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "KuCoin Team",
+        "organisation": "KuCoin"
+      }
+    ]
+  }
+]

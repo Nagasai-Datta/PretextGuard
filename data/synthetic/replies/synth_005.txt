@@ -1,0 +1,198 @@
+[
+  {
+    "pair": "p033",
+    "attack": {
+      "subject": "Urgent: Employee Records Required",
+      "body": "Hi Sarah, it was great catching up at the clinic gala last weekend. As the Director of HR, I need the full staff list and tax forms for the audit by 2 PM today. Most of the other managers have already submitted their department files to me. Please get these over as soon as possible so we can wrap this up.",
+      "tactic_cues": {
+        "urgency": "by 2 PM today",
+        "social_proof": "Most of the other managers have already submitted their department files to me",
+        "liking": "it was great catching up at the clinic gala last weekend"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Director of HR", "organisation": "healthcare organisation"},
+        {"type": "authority", "span": "Director of HR", "organisation": null},
+        {"type": "data_request", "span": "full staff list and tax forms", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Annual Audit Data Request",
+      "body": "Dear Sarah, we are currently preparing for the annual regulatory audit of our healthcare facility. Please upload the requested staff payroll and tax documentation to the secure HR portal by the end of the week. This data is necessary to ensure our compliance records are up to date for the external review board. Thank you for your assistance with this internal requirement.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "HR", "organisation": "healthcare organisation"},
+        {"type": "data_request", "span": "staff payroll and tax documentation", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p034",
+    "attack": {
+      "subject": "Re: Project Pipeline Update",
+      "body": "Hi Mark, it was wonderful working with you on the North Grid expansion last month. Since our last discussion, the vendor has requested we move all remaining payments to their new escrow account to avoid potential delays. This is our last chance to secure the current contract rates before they expire at midnight. Please update your records with the details provided below to ensure we do not lose our status. I have attached the new banking instructions for your review. Please let me know once this is updated so I can confirm with the team. Best regards, Jane Miller, Project Lead, 555-0199.",
+      "tactic_cues": {
+        "scarcity": "last chance to secure the current contract rates",
+        "liking": "it was wonderful working with you"
+      },
+      "claims": [
+        {"type": "prior_relationship", "span": "working with you on the North Grid expansion last month", "organisation": null},
+        {"type": "payment_change", "span": "move all remaining payments to their new escrow account", "organisation": null},
+        {"type": "signature_contact", "span": "Jane Miller, Project Lead, 555-0199", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Re: Project Pipeline Update",
+      "body": "Hi Mark, thanks for the update on the North Grid expansion. As we discussed in our meeting on Tuesday, the next phase of the project is scheduled to begin on the first of next month. I have reviewed the current progress reports, and everything seems to be moving according to the agreed timeline. We should continue to monitor the site safety protocols as outlined in the initial project proposal. Please keep me posted if there are any shifts in the supply delivery dates, as that will affect our start time for the secondary line installation. If you need any further clarification on the schedule, feel free to reach out. Best regards, Jane Miller, Project Lead, 555-0199.",
+      "claims": [
+        {"type": "prior_relationship", "span": "As we discussed in our meeting on Tuesday", "organisation": null},
+        {"type": "signature_contact", "span": "Jane Miller, Project Lead, 555-0199", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p035",
+    "attack": {
+      "subject": "Urgent Wire Request",
+      "body": "I am the Director of Operations and I am currently abroad for our firm. An urgent situation has arisen that requires immediate funding to be cleared before the local courts close this evening. As I am in a secure location, do not discuss this wire transfer with anyone else in the office as it is highly sensitive. You must process this payment immediately to the account details I have attached. Do not reply to this message, instead text me at 555-0123 with confirmation once the funds have been sent. This is a priority for the firm and failure to act will result in significant legal repercussions for our branch. I expect this to be handled without delay.",
+      "tactic_cues": {
+        "authority": "I am the Director of Operations",
+        "urgency": "immediate funding",
+        "secrecy": "do not discuss this wire transfer with anyone else in the office"
+      },
+      "claims": [
+        {"type": "authority", "span": "Director of Operations", "organisation": null},
+        {"type": "payment_request", "span": "wire transfer", "organisation": null},
+        {"type": "reply_direction", "span": "text me at 555-0123", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Expense Approval for upcoming trip",
+      "body": "Hi team, I am preparing for the upcoming legal conference in Europe next month. Could you please confirm the current status of the expense approval for my travel and lodging costs? I want to ensure that all financial requirements for the firm are met before I finalize the bookings. If there is any documentation needed from my side regarding the budget allocation, please let me know. I would appreciate it if we could get the payment processed for the registration fees by the end of the week so I can secure the early-bird pricing for the firm. Let me know what the next steps are for the accounting department.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "firm", "organisation": "legal services organisation"},
+        {"type": "payment_request", "span": "payment processed for the registration fees", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p036",
+    "attack": {
+      "subject": "Updated Payment Details",
+      "body": "I am the Lead Administrator here at the university. I have reviewed your account and determined that you are one of our most valued partners, so I am reaching out personally to ensure you are aware of our new banking structure. Due to recent administrative audits, all future payments for your services must be directed to our new account. As the person in charge of these financial shifts, I am authorizing this change effective immediately. Please update your system with the information provided in the attached file. I appreciate your commitment to our school and your continued cooperation in this matter. If you have any questions, please reach out to me directly at 555-9876. Regards, Dr. Aris, Lead Administrator, 555-9876.",
+      "tactic_cues": {
+        "authority": "I am the Lead Administrator",
+        "liking": "you are one of our most valued partners"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "Lead Administrator here at the university", "organisation": "education organisation"},
+        {"type": "payment_change", "span": "all future payments for your services must be directed to our new account", "organisation": null},
+        {"type": "signature_contact", "span": "Dr. Aris, Lead Administrator, 555-9876", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Invoice Reminder - 88291",
+      "body": "Greetings from the accounts department at the State University. We are sending this note as a routine reminder regarding invoice number 88291 for the laboratory equipment supplied last month. Our records indicate that this payment is currently pending and is due by the end of the week. Please ensure that the remittance is sent to the standard university bank account that we have used for all previous transactions. If you have already sent the payment, please disregard this notice. We appreciate the continued partnership and the quality of the goods provided. If you need a copy of the original invoice for your records, please let us know. Best regards, Accounts Payable, State University, 555-9876.",
+      "claims": [
+        {"type": "affiliation_external", "span": "accounts department at the State University", "organisation": "education organisation"},
+        {"type": "signature_contact", "span": "Accounts Payable, State University, 555-9876", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p037",
+    "attack": {
+      "subject": "Follow up regarding our call",
+      "body": "Following our chat earlier, the CTO and the rest of the leadership team have already approved the vendor budget. However, we have a sudden, urgent shortfall for the upcoming client event. Could you please send over a payment for the catering deposit by 4 PM today? Everyone else in the department has already contributed, and I would love to get this sorted before the end of the day. It would be a huge help to the team if you could handle this now.",
+      "tactic_cues": {
+        "urgency": "by 4 PM today",
+        "social_proof": "Everyone else in the department has already contributed"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "CTO and the rest of the leadership team", "organisation": "software organisation"},
+        {"type": "prior_relationship", "span": "Following our chat earlier", "organisation": null},
+        {"type": "payment_request", "span": "payment for the catering deposit", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Meeting confirmation",
+      "body": "Hi there, following our chat earlier, I am writing to confirm the details for your upcoming meeting with the engineering team. We have reserved the main conference room on the third floor for Thursday at 10 AM. Please ensure you bring your project notes so we can review the software development roadmap as we discussed. If you have any issues finding the room, please check in with the front desk. Looking forward to the discussion.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "engineering team", "organisation": "software organisation"},
+        {"type": "prior_relationship", "span": "following our chat earlier", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p038",
+    "attack": {
+      "subject": "Urgent Wire Transfer Request",
+      "body": "I am the Managing Partner of this firm and I require you to execute a wire transfer for a new vendor immediately. This is a high-priority matter that must be completed before the banks close, as we are at risk of losing the contract entirely if the funds are not received today. There is no other option available to us at this time. Please process this payment to the details attached to this email. Do not contact the accounting lead or any other staff members regarding this request; instead, reply directly to me once the wire has been cleared so I can confirm it with the board. I am relying on your ability to get this done for us without any questions.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "at risk of losing the contract entirely"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Managing Partner of this firm", "organisation": "legal services organisation"},
+        {"type": "authority", "span": "Managing Partner", "organisation": null},
+        {"type": "payment_request", "span": "wire transfer", "organisation": null},
+        {"type": "reply_direction", "span": "reply directly to me", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Payment request for PO 4492",
+      "body": "Hi team, I am writing to request a payment for purchase order number 4492 for the office supply vendor we have on file. This request has been reviewed and approved by the department head in accordance with our standard financial procedures. Please ensure that the funds are transferred to the verified account that we have used for this vendor in the past. If you need any further information or documentation regarding this order, please let me know. I would like to get this processed within the next few days to ensure our supply chain remains uninterrupted. Thank you for your assistance with this standard payment request.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "department head", "organisation": "legal services organisation"},
+        {"type": "payment_request", "span": "payment for purchase order number 4492", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p039",
+    "attack": {
+      "subject": "Gift card request",
+      "body": "As the Director of Legal, I need you to purchase several gift cards for our clients today. I have always supported your career progression here, so I am asking for this small favour in return. Please reply to my private email address once you have purchased them. I expect this to be completed by this afternoon.",
+      "tactic_cues": {
+        "authority": "As the Director of Legal",
+        "reciprocity": "I have always supported your career progression here, so I am asking for this small favour in return"
+      },
+      "claims": [
+        {"type": "authority", "span": "Director of Legal", "organisation": null},
+        {"type": "gift_card", "span": "purchase several gift cards", "organisation": null},
+        {"type": "reply_direction", "span": "reply to my private email address", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Client event items",
+      "body": "For the upcoming client event, please go through the standard procurement process to order the necessary gift cards. We need to ensure that all items are tracked correctly in our expense system. Please submit the request to the administrative assistant so they can handle the purchase through the approved vendor portal.",
+      "claims": [
+        {"type": "gift_card", "span": "order the necessary gift cards", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p040",
+    "subject": "Follow up on outstanding invoice",
+    "attack": {
+      "subject": "Urgent: Unpaid Invoice",
+      "body": "Hello, as the regional head of Logistics Plus, I am personally overseeing the payment collection for all outstanding accounts. Everyone else in your sector has already cleared their invoices from last month. As we discussed when we met at the industry conference, I am expecting this to be handled immediately. Please process the payment to the attached account information. I trust you understand the importance of maintaining your account standing with us.",
+      "tactic_cues": {
+        "authority": "as the regional head of Logistics Plus, I am personally overseeing the payment collection",
+        "social_proof": "Everyone else in your sector has already cleared their invoices from last month"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "regional head of Logistics Plus", "organisation": "logistics organisation"},
+        {"type": "payment_request", "span": "process the payment", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed when we met at the industry conference", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Reminder regarding invoice 9920",
+      "body": "Hello, we are following up on our earlier conversation regarding invoice 9920 for the shipping services provided last month. Our records show that this invoice is now past the due date. As we discussed during our meeting last week, we would appreciate it if you could look into the status of this payment. Please let us know if you need any additional documentation to get this processed. We value our partnership and look forward to resolving this matter soon.",
+      "claims": [
+        {"type": "affiliation_external", "span": "shipping services", "organisation": "logistics organisation"},
+        {"type": "payment_request", "span": "invoice 9920", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed during our meeting last week", "organisation": null}
+      ]
+    }
+  }
+]

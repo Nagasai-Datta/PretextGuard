@@ -1,0 +1,443 @@
+[
+  {
+    "id": "b030_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b030_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "kate symes real time trading support 503-464-3939",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "General Director Novokuibyshersk Oil",
+        "organisation": "Novokuibyshersk Oil"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "Novokuibyshersk Oil an international affiliate of Yukos Oil and Gas Company based in Russia",
+        "organisation": "Novokuibyshersk Oil"
+      }
+    ]
+  },
+  {
+    "id": "b030_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Deutsche Bahn",
+        "organisation": "Deutsche Bahn"
+      },
+      {
+        "type": "data_request",
+        "span": "Bitte bestätigen Sie kurz Ihre Daten, um Ihre Teilnahme abzuschließen: Ihre Angaben: Email: phishing@pot",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "zeljko boskovic [EMAIL] department of linguistics , u-145 university of connecticut storrs , ct 06269",
+        "organisation": "university of connecticut"
+      },
+      {
+        "type": "reply_direction",
+        "span": "please respond directly to me",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Address: No 135 Bishopsgate, London,E2CM Email: [EMAIL] Phone: +447040107137",
+        "organisation": null
+      },
+      {
+        "type": "data_request",
+        "span": "1-Your full Name,phone Number and Contact Address 2-Occupation / Position 3- Account Details",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "get in touch with me on my mobile number +447040107137 for more clarification and details or through Email: [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "son of the late Nigerian Head of State",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b030_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Google",
+        "organisation": "Google"
+      }
+    ]
+  },
+  {
+    "id": "b030_10",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Barclays Bank PLC.",
+        "organisation": "Barclays Bank PLC."
+      },
+      {
+        "type": "authority",
+        "span": "J. S. Smith Security Advisor Barclays Bank PLC.",
+        "organisation": "Barclays Bank PLC."
+      },
+      {
+        "type": "credential_request",
+        "span": "update your account info at the following link",
+        "organisation": "Barclays Bank PLC."
+      },
+      {
+        "type": "reply_direction",
+        "span": "Please do not reply to this e-mail.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "THE MEGA MILLIONS LOTTERY S.A",
+        "organisation": "THE MEGA MILLIONS LOTTERY S.A"
+      },
+      {
+        "type": "data_request",
+        "span": "send them your full name and your nationality with your address and a copy of your international passport or any form of ID",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "Contact Person: Mr. Miguel Sanchez Lopez Email:[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b030_13",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "CENTRAL BANK OF NIGERIA",
+        "organisation": "CENTRAL BANK OF NIGERIA"
+      },
+      {
+        "type": "authority",
+        "span": "PROFESSOR CHARLES C. SOLUDO GOVERNOR, CENTRAL BANK OF NIGERIA (CBN)",
+        "organisation": "CENTRAL BANK OF NIGERIA"
+      },
+      {
+        "type": "data_request",
+        "span": "1)Your Full Name.........2)Your Cell Telepohne/Fax........3)Your Address........4)Your Age.........5)sex.................6)Occupation",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "YOU CAN REACH ME THROUGH MY PRIVATE EMAIL: [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "login to your PayPal account!",
+        "organisation": "PayPal"
+      },
+      "signature_contact"
+    ]
+  },
+  {
+    "id": "b030_15",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "UNION BANK PLC",
+        "organisation": "UNION BANK PLC"
+      },
+      {
+        "type": "authority",
+        "span": "manager, credit and foreign bills of Union Bank Nigeria Plc",
+        "organisation": "UNION BANK PLC"
+      },
+      {
+        "type": "data_request",
+        "span": "send me your private Tel/Fax Numbers",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "through my private email box at [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "sign-in to verify your mailbox",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b030_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b030_19",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Email Administrator",
+        "organisation": null
+      },
+      {
+        "type": "credential_request",
+        "span": "Your Full Names: Email address: User Name: Password: Confirm Your Password: Alternative Email",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "verify ownership of account on [DOMAIN] portal",
+        "organisation": null
+      }
+    ]
+  }
+]

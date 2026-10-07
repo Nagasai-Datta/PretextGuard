@@ -1,9 +1,9 @@
 """Phase 5: how much do the two annotators agree, and which emails go to the tie-breaker?
 
-Run from the project root once gemini and deepseek have answered (re-asks included):
+Run from the project root once the two annotators have answered (re-asks included):
     python -m src.data.agreement
 
-Reads  the replies of gemini and deepseek (through validate_labels.load_answers)
+Reads  the replies of the two annotators (through validate_labels.load_answers)
 Writes results/label_agreement.csv    Cohen's kappa for each tactic and each claim type (committed)
        data/labelled/batches/tiebreak_NNN.txt  the emails the two annotators disagree on, for z.ai (not committed)
 
@@ -31,7 +31,7 @@ import warnings
 import pandas as pd
 
 from src.data.batches import read_batch_file, write_batch_file
-from src.data.label_schema import ANNOTATORS, BATCH_SIZE, CLAIM_TYPES, TACTICS
+from src.data.label_schema import ANNOTATORS, BATCH_SIZE, CLAIM_TYPES, TACTICS, TIEBREAKER
 from src.data.paths import BATCHES_DIR, LABEL_AGREEMENT_CSV, RESULTS_DIR, SAMPLE_CSV, relative
 from src.data.validate_labels import all_texts, batch_stems, load_answers, squash
 
@@ -121,7 +121,7 @@ def disagreements(first, second, ids):
 def write_tiebreaks(todo):
     """Write tiebreak_NNN.txt batches for the ids in todo. Returns the file names."""
     texts = all_texts()
-    number = sum(1 for stem in batch_stems("zai") if stem.startswith("tiebreak_"))
+    number = sum(1 for stem in batch_stems(TIEBREAKER) if stem.startswith("tiebreak_"))
     names = []
     for start in range(0, len(todo), BATCH_SIZE):
         number += 1
@@ -160,8 +160,8 @@ def main():
         print("  skip  scikit-learn cross-check (not installed, or no defined kappa)")
 
     differing = disagreements(first_answers.valid, second_answers.valid, ids)
-    done = load_answers("zai")
-    asked = {i for stem in batch_stems("zai") if stem.startswith("tiebreak_") for i, _ in read_batch_file(BATCHES_DIR / f"{stem}.txt")}
+    done = load_answers(TIEBREAKER)
+    asked = {i for stem in batch_stems(TIEBREAKER) if stem.startswith("tiebreak_") for i, _ in read_batch_file(BATCHES_DIR / f"{stem}.txt")}
     todo = [i for i in differing if i not in asked and i not in done.valid]
     written = write_tiebreaks(todo)
     print(f"  info  {len(differing)} of {len(ids)} emails ({100 * len(differing) / len(ids):.1f}%) differ on at least one label; "
@@ -171,7 +171,7 @@ def main():
     shown.to_csv(LABEL_AGREEMENT_CSV, index=False)
     print(f"\nSaved {relative(LABEL_AGREEMENT_CSV)}")
     if written:
-        print("Tie-break files were written into data/labelled/batches/: run annotate.py next zai to answer them.")
+        print("Tie-break files were written into data/labelled/batches/: run annotate.py auto tiebreaker (or next and save) to answer them.")
 
 
 if __name__ == "__main__":

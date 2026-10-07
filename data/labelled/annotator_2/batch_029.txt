@@ -1,0 +1,403 @@
+[
+  {
+    "id": "b029_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "I am Mr. Wang Qin credit officer of the Hang Seng Bank Ltd.",
+        "organisation": "Hang Seng Bank Ltd."
+      },
+      {
+        "type": "data_request",
+        "span": "all that is required from you at this stage is for you to provide me with your Full Names and Address",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b029_02",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "We are top government official with a statutory corporation and members of an ad hoc committee set up by the Federal Government of Nigeria",
+        "organisation": "Federal Government of Nigeria"
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "DEPARTMENT OF PETROLEUM RESOURCES",
+        "organisation": "DEPARTMENT OF PETROLEUM RESOURCES"
+      }
+    ]
+  },
+  {
+    "id": "b029_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Cable News Network LP, LLLP. \u2039 \u2039 One CNN Center, Atlanta, Georgia 30303",
+        "organisation": "CNN"
+      }
+    ]
+  },
+  {
+    "id": "b029_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "VERIFY YOUR WALLET",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b029_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b029_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Sophie Martin Expertise Finance - Comparerfacile",
+        "organisation": "Expertise Finance"
+      }
+    ]
+  },
+  {
+    "id": "b029_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b029_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "OpenSea",
+        "organisation": "OpenSea"
+      },
+      {
+        "type": "signature_contact",
+        "span": "228 Park Ave South #22014, New York, NY 10003",
+        "organisation": "OpenSea"
+      }
+    ]
+  },
+  {
+    "id": "b029_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "prior_relationship",
+        "span": "I know this mail will come to you as a surprise",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b029_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b029_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Your HULU TV Membership",
+        "organisation": "HULU TV"
+      }
+    ]
+  },
+  {
+    "id": "b029_12",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "MR PETER ADAMS AUDITING AND ACCOUNTING UNIT FOREIGN REMITTANCE DEPT CREDIT BANK BENIN COTONOU-BENIN REPUBLIC",
+        "organisation": "Credit Bank Benin"
+      },
+      {
+        "type": "signature_contact",
+        "span": "DIRECT CONTACT: +229 97 87 30 79 ALTERNATIVE EMAIL:[EMAIL]",
+        "organisation": "Credit Bank Benin"
+      }
+    ]
+  },
+  {
+    "id": "b029_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "The Intelligent Systems Laboratory in the Department of Electrical, Computer, and Systems Engineering at RPI",
+        "organisation": "RPI"
+      },
+      {
+        "type": "reply_direction",
+        "span": "please contact Dr. Qiang Ji at [EMAIL] for details.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b029_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "payment_request",
+        "span": "Save 70% Today Antivirus Premium Version",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b029_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "The Microsoft_account_team Microsoft Corporation, One Microsoft Way, Redmond, WA 98052",
+        "organisation": "Microsoft Corporation"
+      },
+      {
+        "type": "credential_request",
+        "span": "Please restore your account status below. Restore Account Here",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b029_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b029_17",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Help Desk",
+        "organisation": null
+      },
+      {
+        "type": "credential_request",
+        "span": "Domain\\user name: * Password:",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b029_18",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Foreign Payment Liaison Office, Second Avenue, Seattle Washington WA, 98104, U.S.A",
+        "organisation": "Foreign Payment Liaison Office"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Security Tel/Fax No: 1-610-980-8687",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b029_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Verify your wallet",
+        "organisation": "MetaMask"
+      }
+    ]
+  },
+  {
+    "id": "b029_20",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "DR.WAHID MALLAM CITI TRUST BANK PLC",
+        "organisation": "CITI TRUST BANK PLC"
+      },
+      {
+        "type": "signature_contact",
+        "span": "FAX: 234-1-7592758 E-MAIL: [EMAIL]",
+        "organisation": "CITI TRUST BANK PLC"
+      }
+    ]
+  }
+]

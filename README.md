@@ -186,7 +186,7 @@ pretextguard/
 | 2 | Cleaning and payload-free redaction (N1) | Done |
 | 3 | Email parser and header evidence extractor | Done |
 | 4 | Keyword baseline | Done |
-| 5 | Tactic and claim labels (free web-chat annotators, Cohen's kappa), synthetic emails | Not started |
+| 5 | Tactic and claim labels (free web-chat annotators, Cohen's kappa), synthetic emails | Done |
 | 6 | DistilBERT tactic classifier on Colab | Not started |
 | 7 | Claim extractor | Not started |
 | 8 | Header verifier (N3) and request verifier | Not started |
@@ -238,6 +238,8 @@ python -m src.headers.build       # header fields and evidence -> data/processed
 python -m src.baseline.keywords   # keyword baseline self-test
 python -m src.baseline.build      # hit rates and sanity checks -> results/keyword_*.csv
 ```
+
+Phase 5 (labels) starts with `python -m src.data.batches` and continues as a copy-and-paste loop with two chat services; see `data/labelled/README.md` and `data/synthetic/README.md`.
 
 ## Privacy
 

@@ -31,8 +31,9 @@ None of these files is committed or redistributed in this repository.
 | One table of every unique email, with the split | `data/processed/staged.parquet` | No | `stage.py`, `split.py` | 1 |
 | The same rows plus clean and redacted bodies | `data/processed/cleaned.parquet` | No | `src/preprocess/build.py` | 2 |
 | Header fields and evidence, one row per email (joins on `id`) | `data/processed/headers.parquet` | No | `src/headers/build.py` | 3 |
-| Annotation batches, raw chatbot replies, final labels | `data/labelled/` | Yes (small; proof of method) | Phase 5 scripts | 5 |
-| Synthetic emails | `data/synthetic/` | Yes | Phase 5 and 9 scripts | 5, 9 |
+| Annotation batch prompts (full email text) | `data/labelled/batches/` | No (phishing_pot's licence forbids redistribution) | `src/data/batches.py` | 5 |
+| Sample list (ids only), raw chatbot replies, reply log, final labels | `data/labelled/` | Yes (small; proof of method) | `src/data/annotate.py`, `labels.py` | 5 |
+| Synthetic emails (attack and benign twin pairs) and their prompts and replies | `data/synthetic/` | Yes | `src/data/synthetic.py` (Phase 9 adds thread injections) | 5, 9 |
 | Rebuilt threads and the thread-hijack benchmark | `data/threads/` | Decided in Phase 9 by size | Phase 9 scripts | 9 |
 
 `data/raw/` and `data/processed/` are listed in `.gitignore`: they are large, separately licensed and full of real email text. Anything in `data/processed/` can be rebuilt from `data/raw/` by rerunning the scripts.

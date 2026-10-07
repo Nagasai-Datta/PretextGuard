@@ -1,0 +1,419 @@
+[
+  {
+    "id": "b020_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b020_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Best, Andy Li",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b020_17",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "NATWEST BANK PLC",
+        "organisation": "NATWEST BANK PLC"
+      },
+      {
+        "type": "authority",
+        "span": "senior credit officer of NATWEST BANK PLC",
+        "organisation": "NATWEST BANK PLC"
+      }
+    ]
+  },
+  {
+    "id": "b020_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Amaz᠎o᠎n᠎ Pri᠎m᠎e᠎",
+        "organisation": "Amazon"
+      },
+      {
+        "type": "credential_request",
+        "span": "review and update your billin​g​ details",
+        "organisation": "Amazon"
+      }
+    ]
+  },
+  {
+    "id": "b021_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "My alternative email address is ( [EMAIL])",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Regards, Samson.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b021_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b021_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "update your account",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b021_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Omaha Steaks",
+        "organisation": "Omaha Steaks"
+      },
+      {
+        "type": "signature_contact",
+        "span": "America's Original Butcher 11030 O Street, Omaha, Nebraska 68137",
+        "organisation": "Omaha Steaks"
+      }
+    ]
+  },
+  {
+    "id": "b021_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "LIDL",
+        "organisation": "LIDL"
+      }
+    ]
+  },
+  {
+    "id": "b021_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b021_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "simply click Reply, type \"Send Info\" in the Subject box and hit Send",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Mark R Sherman",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b021_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Banking officer",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b021_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Paypal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "click on the link below and submit, as we try to verify your account",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b021_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "payment_request",
+        "span": "get your registration and payment in pronto",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b021_17",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "AFRICAN DEVELOPMENT BANK ( A.D.B )",
+        "organisation": "African Development Bank"
+      },
+      {
+        "type": "authority",
+        "span": "Director in charge of Auditing and Accounting section",
+        "organisation": "African Development Bank"
+      },
+      {
+        "type": "reply_direction",
+        "span": "PLEASE REPLY ME WITH MY ALTERNATIVE EMAIL OF ( [EMAIL] )",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b022_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "Contact my lawyer with this specified email: [EMAIL] , with this subject (Mrs.A.W.Will)",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Mrs.ANNA WILLIAM",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b022_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "please visit PayPal as soon as possible to update your account",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b022_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "[DOMAIN] Support Team",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b022_06",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Col, Kobia Abuom",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b022_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "The Apache Tomcat team",
+        "organisation": "Apache Tomcat"
+      },
+      {
+        "type": "signature_contact",
+        "span": "The Apache Tomcat team",
+        "organisation": "Apache Tomcat"
+      }
+    ]
+  }
+]

@@ -1,0 +1,200 @@
+[
+  {
+    "pair": "p001",
+    "attack": {
+      "subject": "Meeting follow up",
+      "body": "Hi Sarah, it was great seeing you at the offsite last week. As the Executive Assistant to the CFO, I am authorized to handle urgent administrative matters. Since I covered your shift during the manufacturing audit last month, I was hoping you could do me a quick favour. Could you please process a payment of five thousand dollars to our new logistics vendor? I really appreciate your help with this. Let me know when it is sent.",
+      "tactic_cues": {
+        "authority": "I am authorized to handle urgent administrative matters",
+        "reciprocity": "Since I covered your shift during the manufacturing audit last month",
+        "liking": "it was great seeing you at the offsite last week"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Executive Assistant to the CFO", "organisation": "manufacturing organisation"},
+        {"type": "prior_relationship", "span": "great seeing you at the offsite last week", "organisation": null},
+        {"type": "payment_request", "span": "process a payment of five thousand dollars", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Meeting Confirmation",
+      "body": "Hi Sarah, as we discussed during our meeting yesterday, I have scheduled your call with Marcus for Tuesday at 2 PM. We will be using conference room B. Please let me know if this still fits your calendar.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "Executive Assistant", "organisation": "manufacturing organisation"},
+        {"type": "prior_relationship", "span": "as we discussed during our meeting yesterday", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p002",
+    "attack": {
+      "subject": "Urgent transfer required",
+      "body": "Finance team, as the Chief Operations Officer, I am directing an immediate wire transfer for our new regional supplier. Everyone else in the leadership circle has already signed off on this project today. This is the last opportunity to process this before the bank closes for the quarter. You must complete this transfer by 4 PM today. Do not reply to this email thread; send the confirmation of the wire to my private address at ops.director@provider.net.",
+      "tactic_cues": {
+        "urgency": "You must complete this transfer by 4 PM today",
+        "scarcity": "This is the last opportunity to process this",
+        "social_proof": "Everyone else in the leadership circle has already signed off"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Finance team", "organisation": "logistics organisation"},
+        {"type": "authority", "span": "as the Chief Operations Officer", "organisation": null},
+        {"type": "payment_request", "span": "directing an immediate wire transfer", "organisation": null},
+        {"type": "reply_direction", "span": "send the confirmation of the wire to my private address", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Payment request for PO-9921",
+      "body": "Hello Finance, please find the attached invoice for purchase order PO-9921 regarding the recent freight shipment. This request has been approved by the warehouse manager and is ready for payment in the next cycle as per our standard vendor agreement.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "Finance", "organisation": "logistics organisation"},
+        {"type": "payment_request", "span": "ready for payment in the next cycle", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p003",
+    "attack": {
+      "subject": "Urgent client gift request",
+      "body": "As the Director of Sales, I am ordering an immediate purchase of client appreciation gifts. We have run out of stock and this is our final chance to secure the inventory before the upcoming conference. You are tasked with purchasing twenty gift cards at five hundred dollars each. This request is time-sensitive and must be completed within the hour. Please do not discuss this with other departments or your manager. Send the digital codes and the receipt directly to my personal line at 555-0199. I need these cards ready for distribution by the end of the day or the entire account strategy will be compromised. Failure to act now will result in a significant loss of our primary client base. Please confirm via text once the transaction is finalized.",
+      "tactic_cues": {
+        "urgency": "must be completed within the hour",
+        "scarcity": "this is our final chance to secure the inventory"
+      },
+      "claims": [
+        {"type": "authority", "span": "As the Director of Sales", "organisation": null},
+        {"type": "gift_card", "span": "purchasing twenty gift cards", "organisation": null},
+        {"type": "reply_direction", "span": "Send the digital codes and the receipt directly to my personal line", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Gift cards for client event",
+      "body": "Hi team, we need to provide gift cards for the upcoming client event next week. Please submit a request through the procurement portal so we can order these items in time for the session. We have a set budget for these rewards, so please ensure your request aligns with the standard gift policy. If you have questions about the process, you can reach out to the office manager for assistance. Thank you for handling this.",
+      "claims": [
+        {"type": "gift_card", "span": "provide gift cards for the upcoming client event", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p004",
+    "attack": {
+      "subject": "Invoice follow up",
+      "body": "Hello, as we discussed last month, we are still waiting on the payment for invoice 4402. We really valued our earlier conversation regarding the software rollout. However, we have a high volume of accounts and need this settled immediately to maintain your service level. This is the last chance to avoid a service suspension. Please remit payment by 3 PM today to avoid any disruption to your institution. Thank you for your continued partnership.",
+      "tactic_cues": {
+        "urgency": "need this settled immediately",
+        "reciprocity": "We really valued our earlier conversation"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "software rollout", "organisation": "education organisation"},
+        {"type": "payment_request", "span": "waiting on the payment for invoice 4402", "organisation": null},
+        {"type": "prior_relationship", "span": "as we discussed last month", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Invoice 4402 status",
+      "body": "Dear Billing Department, following our recent meeting regarding the educational software agreement, I am writing to check the status of invoice 4402. The invoice was issued on the first of the month and is due by Friday. Please confirm if you have received the documentation.",
+      "claims": [
+        {"type": "affiliation_external", "span": "educational software agreement", "organisation": "education organisation"},
+        {"type": "payment_request", "span": "check the status of invoice 4402", "organisation": null},
+        {"type": "prior_relationship", "span": "following our recent meeting", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p005",
+    "attack": {
+      "subject": "Urgent mailbox security update",
+      "body": "Hello, the IT Help Desk is performing security updates across the healthcare network. Since we have assisted you with past password resets, we now require your cooperation to keep your account active. Everyone else in your department has already verified their credentials to prevent lockout. You must verify your login details immediately or your mailbox will be disabled by 5 PM today. Please follow the verification steps in the portal.",
+      "tactic_cues": {
+        "urgency": "You must verify your login details immediately",
+        "reciprocity": "Since we have assisted you with past password resets",
+        "social_proof": "Everyone else in your department has already verified their credentials"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "IT Help Desk", "organisation": "healthcare organisation"},
+        {"type": "credential_request", "span": "verify your login details", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled server maintenance",
+      "body": "Dear Staff, the IT department will be performing scheduled server maintenance this Saturday between 2 AM and 4 AM. During this time, the internal email server will be temporarily inaccessible. No action is required from your side.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "IT department", "organisation": "healthcare organisation"}
+      ]
+    }
+  },
+  {
+    "pair": "p006",
+    "attack": {
+      "subject": "Confidential document request",
+      "body": "As we discussed at the meeting, I am the lead counsel for the merger. Since I have always enjoyed our collaboration, I need you to share the restricted employee files immediately. The entire executive team has already reviewed these, so please send them to my private email today.",
+      "tactic_cues": {
+        "urgency": "need you to share the restricted employee files immediately",
+        "social_proof": "The entire executive team has already reviewed these",
+        "liking": "Since I have always enjoyed our collaboration"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "lead counsel for the merger", "organisation": "software organisation"},
+        {"type": "authority", "span": "I am the lead counsel", "organisation": null},
+        {"type": "data_request", "span": "share the restricted employee files", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed at the meeting", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Legal disclosure request",
+      "body": "To the relevant department, please provide the standard disclosure documents regarding the upcoming merger per our legal review agreement. These files are required for the regulatory filing process and should be sent through the secure legal portal by Friday.",
+      "claims": [
+        {"type": "affiliation_external", "span": "legal review agreement", "organisation": "software organisation"},
+        {"type": "data_request", "span": "provide the standard disclosure documents", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p007",
+    "attack": {
+      "subject": "Urgent update",
+      "body": "It was great chatting earlier. I need to change my direct deposit details immediately. Please keep this request between us and do not notify HR. Reply to my personal email address to confirm when this is updated.",
+      "tactic_cues": {
+        "urgency": "I need to change my direct deposit details immediately",
+        "liking": "It was great chatting earlier",
+        "secrecy": "Please keep this request between us and do not notify HR"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "employee", "organisation": "construction organisation"},
+        {"type": "payment_change", "span": "change my direct deposit details", "organisation": null},
+        {"type": "reply_direction", "span": "Reply to my personal email address", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Bank detail change process",
+      "body": "Hi HR, I am writing to ask how I can update my direct deposit bank details. Is there a specific form I need to complete through the internal employee portal to ensure my payroll information is updated correctly?",
+      "claims": [
+        {"type": "affiliation_internal", "span": "employee", "organisation": "construction organisation"},
+        {"type": "payment_change", "span": "update my direct deposit bank details", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p008",
+    "attack": {
+      "subject": "Confidential payment requirement",
+      "body": "As we discussed during our private strategy session last Tuesday, the logistics department is moving forward with the confidential acquisition. As the Chief Financial Officer, I am overseeing the final disbursements and need you to prioritize the payment to our consulting firm immediately. It is always a pleasure working with such a dedicated team member like yourself. Please arrange the transfer of the outstanding balance by 2 PM today. I am relying on you to ensure this sensitive matter is handled with the appropriate level of care and precision, as it is critical to the success of our upcoming expansion. The contract has been finalized, and I need the payment confirmation on my desk before the end of the business day. Thank you for your continued commitment to our shared goals and for your quick attention to this specific request as we finalize the acquisition details.",
+      "tactic_cues": {
+        "authority": "As the Chief Financial Officer",
+        "urgency": "need you to prioritize the payment to our consulting firm immediately",
+        "liking": "It is always a pleasure working with such a dedicated team member like yourself"
+      },
+      "claims": [
+        {"type": "authority", "span": "As the Chief Financial Officer", "organisation": null},
+        {"type": "payment_request", "span": "arrange the transfer of the outstanding balance", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed during our private strategy session last Tuesday", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Payment for approved contract",
+      "body": "Hello, I am writing from the Finance department regarding the payment for the recently signed contract with our logistics consulting firm. The legal team has already reviewed the terms and signed off on the invoice. Please process the payment in accordance with our standard agreement terms. If you require the final contract document for your records, it is available in the shared internal drive under the active projects folder. Let me know if you have any questions regarding the invoice details before you proceed.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "Finance department", "organisation": "logistics organisation"},
+        {"type": "payment_request", "span": "process the payment", "organisation": null}
+      ]
+    }
+  }
+]

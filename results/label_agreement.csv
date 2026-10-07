@@ -1,0 +1,21 @@
+kind,label,items,positives_first,positives_second,both_positive,agree_pct,kappa,reading,span_overlap_pct
+tactic,authority,692,218.0,76.0,73.0,78.6,0.399,fair,
+tactic,urgency,692,245.0,178.0,166.0,86.8,0.694,substantial,
+tactic,scarcity,692,141.0,156.0,124.0,92.9,0.79,substantial,
+tactic,reciprocity,692,28.0,14.0,6.0,95.7,0.266,fair,
+tactic,social_proof,692,12.0,3.0,2.0,98.4,0.262,fair,
+tactic,liking,692,39.0,13.0,11.0,95.7,0.406,moderate,
+tactic,secrecy,692,107.0,66.0,63.0,93.2,0.692,substantial,
+claim,affiliation_internal,692,72.0,84.0,32.0,86.7,0.336,fair,90.9
+claim,affiliation_external,692,191.0,186.0,136.0,84.8,0.617,substantial,91.3
+claim,authority,692,83.0,71.0,51.0,92.5,0.62,substantial,84.3
+claim,reply_direction,692,67.0,57.0,45.0,95.1,0.699,substantial,83.0
+claim,signature_contact,692,193.0,143.0,103.0,81.2,0.493,moderate,88.3
+claim,prior_relationship,692,28.0,11.0,4.0,95.5,0.187,slight,75.0
+claim,payment_request,692,20.0,13.0,5.0,96.7,0.287,fair,60.0
+claim,payment_change,692,10.0,2.0,2.0,98.8,0.33,fair,50.0
+claim,credential_request,692,135.0,87.0,81.0,91.3,0.681,substantial,81.7
+claim,gift_card,692,2.0,2.0,1.0,99.7,0.499,moderate,100.0
+claim,data_request,692,103.0,29.0,22.0,87.3,0.287,fair,77.3
+mean_tactic,mean of 7 defined,692,,,,,0.501,moderate,
+mean_claim,mean of 11 defined,692,,,,,0.458,moderate,

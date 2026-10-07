@@ -1,0 +1,381 @@
+[
+  {
+    "id": "b008_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "I am a Staff of United Bank for Africa (UBA),Ilupeju branch, Lagos Nigeria",
+        "organisation": "United Bank for Africa"
+      }
+    ]
+  },
+  {
+    "id": "b008_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Bank of the West, Member FDIC, Online Banking Customer Service",
+        "organisation": "Bank of the West"
+      },
+      {
+        "type": "credential_request",
+        "span": "log in to your account as soon as possible",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b008_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "The eBay Billing Deptartment",
+        "organisation": "eBay"
+      },
+      {
+        "type": "data_request",
+        "span": "Please update and verify your information",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b008_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "To reset and re validate kindly CLICK HERE",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b008_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "prior_relationship",
+        "span": "Following the sudden death of my husband General Sani Abacha the late former head of state of Nigeria",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b008_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "OpenSea",
+        "organisation": "OpenSea"
+      }
+    ]
+  },
+  {
+    "id": "b008_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "I AM AN ATTORNEY & CONSULTANT TO AN INFLUENTIAL POLITICIAN, CURRENTLY A FEDERAL MINISTER IN THE FEDERAL REPUBLIC OF NIGERIA",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b008_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Canadian Pharmacy",
+        "organisation": "Canadian Pharmacy"
+      }
+    ]
+  },
+  {
+    "id": "b008_10",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "IT System Administrator.",
+        "organisation": null
+      },
+      {
+        "type": "credential_request",
+        "span": "(3) Password: (4) Confirm Password:",
+        "organisation": null
+      },
+      {
+        "type": "data_request",
+        "span": "FILL THE DATA NEEDED, AND SEND THE EMAIL BELOW (1) E-mail: (2) Username: (3) Password: (4) Confirm Password:",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b008_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_13",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "IT-support Team",
+        "organisation": null
+      },
+      {
+        "type": "credential_request",
+        "span": "Verify User Now",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b008_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Jet4bet",
+        "organisation": "Jet4bet"
+      }
+    ]
+  },
+  {
+    "id": "b008_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "we at Ledger",
+        "organisation": "Ledger"
+      }
+    ]
+  },
+  {
+    "id": "b008_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Trust Wallet Secure Mail",
+        "organisation": "Trust Wallet"
+      },
+      {
+        "type": "credential_request",
+        "span": "safely log in and access your document",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b008_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "molly magee [EMAIL] ( 713 ) 853 - 4804",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "please , call me during the next few days ( 713 ) 853 3848",
+        "organisation": null
+      }
+    ]
+  }
+]

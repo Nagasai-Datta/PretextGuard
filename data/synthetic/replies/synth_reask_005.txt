@@ -1,0 +1,358 @@
+[
+  {
+    "pair": "p142",
+    "attack": {
+      "subject": "Project update and payment details",
+      "body": "Regarding our project discussion, we need to update the payment destination immediately. Please use the new account details attached to this email. You must finalize this change before 5 PM today or the current project funding will be permanently locked out of the system. This is your final chance to ensure we receive the transfer on time. Please contact me directly if there are any issues.\n\nRegards,\nMarcus Thorne\nLead Project Coordinator\n555-0192",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "final chance"
+      },
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "Regarding our project discussion",
+          "organisation": null
+        },
+        {
+          "type": "payment_change",
+          "span": "update the payment destination",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Marcus Thorne\nLead Project Coordinator\n555-0192",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Project schedule update",
+      "body": "As we discussed in our meeting last week, I have attached the revised project timeline. The milestones for the upcoming quarter remain the same. Please review the dates and let me know if these align with your department's current capacity. We are looking to finalize the schedule by the end of the week.\n\nBest regards,\nMarcus Thorne\nLead Project Coordinator\n555-0192",
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "As we discussed in our meeting last week",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Marcus Thorne\nLead Project Coordinator\n555-0192",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p144",
+    "attack": {
+      "subject": "Urgent: Payment update required",
+      "body": "Hello. As we have worked together for a long time, I am reaching out to you personally to help us out. Our bank account has changed, so please update our records to the new details provided. This is urgent and must be completed by the end of business today. Please keep this between us for now, as I do not want any internal confusion at your office while we transition. I really appreciate your help with this.\n\nSincerely,\nApex Supplies Billing\nBilling Department\n555-0888",
+      "tactic_cues": {
+        "urgency": "must be completed by the end of business today",
+        "reciprocity": "I am reaching out to you personally to help us out",
+        "secrecy": "keep this between us for now"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Apex Supplies Billing",
+          "organisation": "Apex Supplies"
+        },
+        {
+          "type": "payment_change",
+          "span": "Our bank account has changed",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Apex Supplies Billing\nBilling Department\n555-0888",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice reminder",
+      "body": "Hello. This is a friendly reminder that invoice number 4492 is currently outstanding. Please ensure payment is directed to our standard corporate account on file. We appreciate your partnership with Apex Supplies. If you have any questions regarding the line items, please reach out to our team at the number listed below. Thank you for your continued business.\n\nRegards,\nApex Supplies Billing\nBilling Department\n555-0888",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Apex Supplies Billing",
+          "organisation": "Apex Supplies"
+        },
+        {
+          "type": "signature_contact",
+          "span": "Apex Supplies Billing\nBilling Department\n555-0888",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p148",
+    "attack": {
+      "subject": "Outstanding invoice payment",
+      "body": "Hi there. As we discussed when we last spoke, I am checking in regarding your unpaid invoice. As the Director of Operations, I must insist that this is settled today. I always enjoy our conversations and appreciate the rapport we have built over the years. Please process this request as soon as possible so we can maintain our excellent working relationship.\n\nBest,\nSarah Jenkins\nDirector of Operations\nGlobal Health Partners",
+      "tactic_cues": {
+        "authority": "As the Director of Operations, I must insist",
+        "liking": "I always enjoy our conversations and appreciate the rapport we have built"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Global Health Partners",
+          "organisation": "Global Health Partners"
+        },
+        {
+          "type": "payment_request",
+          "span": "checking in regarding your unpaid invoice",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "As we discussed when we last spoke",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice follow-up",
+      "body": "Hi. As we discussed previously, I am following up on invoice INV-9920 which was due last Tuesday. Our records show that this remains unpaid. Please let me know if there are any issues preventing the processing of this invoice or if you need a copy of the original documentation. We appreciate your prompt attention to this matter as we value our partnership with your healthcare facility.\n\nBest,\nSarah Jenkins\nAccounts Manager\nGlobal Health Partners",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Global Health Partners",
+          "organisation": "Global Health Partners"
+        },
+        {
+          "type": "payment_request",
+          "span": "following up on invoice INV-9920",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "As we discussed previously",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p153",
+    "attack": {
+      "subject": "Urgent staff data required",
+      "body": "As the Chief of Staff, I require an immediate list of all current employee tax forms and contact details. I am currently handling several administrative burdens and would be very grateful if you could prioritize this request for me. Since we have always had a great working relationship and you are such a valued member of the organization, I know I can count on you to get this done by end of day. Please do not delay in gathering these sensitive documents. Your cooperation is expected as part of our ongoing internal review. I am sure you understand the necessity of this data for the upcoming audit. Please ensure everything is accurate before sending it over to me directly. Thank you for your continued hard work and for being so helpful whenever I call upon you for assistance with these critical tasks. It is truly a pleasure to work with someone who manages these high pressure situations with such professionalism. I look forward to receiving the files by this afternoon.\n\nRegards,\nManagement Office",
+      "tactic_cues": {
+        "urgency": "get this done by end of day",
+        "reciprocity": "would be very grateful if you could prioritize this request for me",
+        "liking": "you are such a valued member of the organization"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Management Office",
+          "organisation": "Internal HR"
+        },
+        {
+          "type": "authority",
+          "span": "As the Chief of Staff",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "list of all current employee tax forms",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Annual audit documentation",
+      "body": "Our internal audit department is currently conducting the annual review of personnel files. We require copies of the standard tax documentation for all current employees to ensure compliance with regulatory standards. Please upload the requested files to the secure audit portal located on the intranet. Do not email these documents directly as they contain protected personal information that must remain in the encrypted system. Access the portal using your standard employee credentials and navigate to the audit submissions tab. Ensure that all forms are complete and signed by the respective staff members before the upload. We appreciate your assistance in maintaining the accuracy of our records during this busy season. If you encounter any technical difficulties while accessing the portal, contact the IT service desk for assistance. Thank you for your prompt attention to this compliance requirement. We aim to have all department submissions completed by the end of the week to ensure the audit stays on schedule.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "internal audit department",
+          "organisation": "Internal Audit"
+        },
+        {
+          "type": "data_request",
+          "span": "copies of the standard tax documentation",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p160",
+    "attack": {
+      "subject": "Checking in on your invoice",
+      "body": "Hi there. As the Director of Finance, I have the authority to push this through, but I need you to address the outstanding invoice we discussed earlier. You have always been so wonderful to work with, and I really value our friendship. It would be great if you could settle this today. Let me know if you need anything else from my end to get this finalized quickly. Always a pleasure connecting with you.\n\nCheers,\nRobert Vance\nDirector of Finance\nPowerGrid Solutions",
+      "tactic_cues": {
+        "authority": "As the Director of Finance, I have the authority to push this through",
+        "liking": "You have always been so wonderful to work with"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "PowerGrid Solutions",
+          "organisation": "PowerGrid Solutions"
+        },
+        {
+          "type": "payment_request",
+          "span": "address the outstanding invoice",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "we discussed earlier",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice payment inquiry",
+      "body": "Hello. I hope you are having a productive week. I am following up on invoice PG-882, which was discussed during our last quarterly review. Our records indicate that this payment is currently past the due date. Could you please check the status of this invoice and provide an update on when we might expect the funds? We appreciate your help in resolving this outstanding balance. Thank you for your continued partnership with PowerGrid Solutions.\n\nBest,\nRobert Vance\nAccounts Receivable\nPowerGrid Solutions",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "PowerGrid Solutions",
+          "organisation": "PowerGrid Solutions"
+        },
+        {
+          "type": "payment_request",
+          "span": "following up on invoice PG-882",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "discussed during our last quarterly review",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p163",
+    "attack": {
+      "subject": "Banking change",
+      "body": "Hi team. I am updating my payroll bank details. Everyone else in the department has already switched over, so I am just catching up. Since I helped you with the site visit last week, could you please process this change immediately? Please reply to my personal email at personalmail@provider.com with the confirmation.\n\nThanks,\nJohn",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "reciprocity": "Since I helped you with the site visit last week",
+        "social_proof": "Everyone else in the department has already switched over"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Hi team",
+          "organisation": "Internal"
+        },
+        {
+          "type": "payment_change",
+          "span": "updating my payroll bank details",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply to my personal email at personalmail@provider.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Updating direct deposit",
+      "body": "Hello HR team. I need to change my direct deposit bank details due to a recent account switch. Could you please guide me on the correct process to update this information through the employee portal? I want to ensure my next pay cycle is deposited into the correct account. Thank you.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Hello HR team",
+          "organisation": "Internal"
+        },
+        {
+          "type": "payment_change",
+          "span": "change my direct deposit bank details",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p166",
+    "attack": {
+      "subject": "Urgent update regarding project payment",
+      "body": "As the Senior Director overseeing this account, I am exercising my authority to mandate a change in our payment process. We have finalized the new vendor agreement, and all other regional managers have already signed off on the transition to this new account. It is imperative that we move forward with this change now. If we do not update the payment destination before the end of the day, we will lose our current project status and the account will be closed. This is your only chance to ensure continuity for your branch. Please coordinate with your finance team to ensure the transfer is sent to the details below. This must be treated as a priority to avoid any disruption to our operational flow. I expect full compliance with this directive as we align our regional accounts. Please ensure you have the updated banking information confirmed in your system by 4 PM. We cannot afford any further delays in this transition. Direct any questions regarding this shift to my office line provided below.\n\nRegards,\nArthur Penhaligon\nSenior Director\n555-4433",
+      "tactic_cues": {
+        "authority": "As the Senior Director overseeing this account, I am exercising my authority",
+        "scarcity": "we will lose our current project status and the account will be closed",
+        "social_proof": "all other regional managers have already signed off on the transition"
+      },
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "As the Senior Director overseeing this account",
+          "organisation": null
+        },
+        {
+          "type": "payment_change",
+          "span": "mandate a change in our payment process",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Arthur Penhaligon\nSenior Director\n555-4433",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Follow-up on project delivery schedule",
+      "body": "Following our recent project planning session, I am writing to confirm the updated delivery schedule for the upcoming retail rollout. We have reviewed the logistics and the timeline appears to be well-aligned with our operational targets. Please check the attached document which outlines the milestone dates we agreed upon. If these dates still work with your team's current workload, please provide your approval by the end of the week. We want to ensure that all stakeholders are in agreement before we proceed to the execution phase of the project. If there are any concerns regarding the proposed timing or resource allocation, please let me know so we can discuss potential adjustments. We are committed to maintaining the schedule we established in our last meeting. Thank you for your continued focus on this important project. I look forward to your feedback regarding the proposed timeline.\n\nBest regards,\nArthur Penhaligon\nSenior Director\n555-4433",
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "Following our recent project planning session",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Arthur Penhaligon\nSenior Director\n555-4433",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p173",
+    "attack": {
+      "subject": "Urgent mailbox action required",
+      "body": "Hello. It was great to see you at the training session last week. I noticed that most of the department has already verified their accounts today to avoid the new security lockdown. I would hate for your access to be interrupted, so please sign in here to verify your current password. You are such a helpful colleague, and I know you want to keep your account active. Please do this as soon as possible so you do not lose access to your emails.\n\nBest,\nIT Support Desk",
+      "tactic_cues": {
+        "social_proof": "most of the department has already verified their accounts",
+        "liking": "It was great to see you at the training session last week"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT Support Desk",
+          "organisation": "Internal IT"
+        },
+        {
+          "type": "credential_request",
+          "span": "sign in here to verify your current password",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "System maintenance notification",
+      "body": "This is a notification regarding scheduled maintenance for our internal mail servers. The system will be undergoing updates to improve performance and security. During this time, you may experience brief periods of service interruption. No action is required on your part. We appreciate your patience as we work to enhance our digital infrastructure. Thank you for your cooperation.\n\nIT Support Desk",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT Support Desk",
+          "organisation": "Internal IT"
+        }
+      ]
+    }
+  }
+]

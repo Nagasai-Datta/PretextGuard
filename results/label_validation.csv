@@ -1,0 +1,30 @@
+annotator,metric,value
+annotator_1,batch_files_total,36
+annotator_1,batch_files_replied,36
+annotator_1,items_valid,694
+annotator_1,items_awaiting_reask,0
+annotator_1,reask_files_written,0
+annotator_1,items_dropped,6
+annotator_1,problem: a claim span is not in the email,22
+annotator_2,batch_files_total,37
+annotator_2,batch_files_replied,37
+annotator_2,items_valid,694
+annotator_2,items_awaiting_reask,0
+annotator_2,reask_files_written,0
+annotator_2,items_dropped,6
+annotator_2,problem: a claim is not an object,1
+annotator_2,problem: a claim span is not in the email,38
+annotator_2,problem: a claim span is too long,1
+annotator_2,problem: unknown claim type 'affiliation_ external',1
+annotator_2,problem: unknown claim type 'scarcity',1
+tiebreaker,batch_files_total,26
+tiebreaker,batch_files_replied,26
+tiebreaker,items_valid,464
+tiebreaker,items_awaiting_reask,0
+tiebreaker,reask_files_written,0
+tiebreaker,items_dropped,2
+tiebreaker,problem: a claim span is not in the email,10
+tiebreaker,problem: a claim span is too long,4
+tiebreaker,problem: reply unreadable: no JSON array found in the reply,20
+tiebreaker,problem: unknown claim type 'affiliation_ external',1
+tiebreaker,problem: unknown claim type 'social_proof',1

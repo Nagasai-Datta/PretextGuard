@@ -1,0 +1,197 @@
+[
+  {
+    "pair": "p025",
+    "attack": {
+      "subject": "Quick request regarding our call",
+      "body": "As we discussed, I am setting up the call with the Dean. Since I covered your shift last month, I need you to process this urgent payment for the catering company. This is the last chance to get them paid before the budget cycle closes for the department. Please handle this for me.",
+      "tactic_cues": {
+        "scarcity": "last chance to get them paid before the budget cycle closes",
+        "reciprocity": "Since I covered your shift last month"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "the department", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed", "organisation": null},
+        {"type": "payment_request", "span": "process this urgent payment for the catering company", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Call with the Dean",
+      "body": "As we discussed, I am setting up the call with the Dean. We have confirmed the time for Tuesday at 10 AM. Please meet us in the main conference room of the Education Department for this briefing.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "Education Department", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p026",
+    "attack": {
+      "subject": "Urgent transfer required",
+      "body": "I hope your week is going well. I really appreciate the hard work you put into the quarterly audit. As CFO, I need you to initiate a wire transfer for our new vendor immediately. Everyone else on the leadership team has already signed off on this acquisition. Please do not call the office about this as I am in back to back meetings. Send the confirmation of the transfer to my private email at executive-finance-direct at protonmail dot com.",
+      "tactic_cues": {
+        "authority": "As CFO, I need you to",
+        "social_proof": "Everyone else on the leadership team has already signed off",
+        "liking": "I really appreciate the hard work you put into the quarterly audit"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "leadership team", "organisation": null},
+        {"type": "authority", "span": "As CFO", "organisation": null},
+        {"type": "payment_request", "span": "initiate a wire transfer", "organisation": null},
+        {"type": "reply_direction", "span": "Send the confirmation of the transfer to my private email", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Payment for PO 99283",
+      "body": "Please process the payment for the invoice attached to purchase order 99283. This vendor has completed the scheduled delivery of raw materials to our manufacturing facility. The invoice has been verified by the procurement department and is ready for your final processing in the system.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "procurement department", "organisation": null},
+        {"type": "payment_request", "span": "process the payment for the invoice", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p027",
+    "attack": {
+      "subject": "Gift cards for our donors",
+      "body": "It was wonderful chatting with you earlier. You always do such a fantastic job managing these requests. I need you to purchase ten five-hundred dollar gift cards for the donor event by 2 PM today. As the Director of Operations, I am authorizing this expense. Do not email me back here, please text the photos of the card codes to my phone at 555-0199 so I can distribute them quickly.",
+      "tactic_cues": {
+        "urgency": "by 2 PM today",
+        "liking": "You always do such a fantastic job managing these requests"
+      },
+      "claims": [
+        {"type": "authority", "span": "As the Director of Operations", "organisation": null},
+        {"type": "gift_card", "span": "purchase ten five-hundred dollar gift cards", "organisation": null},
+        {"type": "reply_direction", "span": "text the photos of the card codes to my phone", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Procurement for client event",
+      "body": "We are preparing for the upcoming client event and will need gift cards for the attendees. Please submit a request through the procurement system to purchase these cards. We have a set budget for this activity, so ensure you select the correct category code when you file the order form.",
+      "claims": [
+        {"type": "gift_card", "span": "purchase these cards", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p028",
+    "attack": {
+      "subject": "Overdue payment",
+      "body": "As we discussed, your payment is now past due. As the lead account manager, I am demanding payment immediately. Keep this between us and do not contact your accounting department as we have already cleared this with your director. If we do not receive the funds today, we will be forced to halt all construction site operations.",
+      "tactic_cues": {
+        "authority": "As the lead account manager, I am demanding payment",
+        "urgency": "immediately",
+        "secrecy": "Keep this between us and do not contact your accounting department"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "lead account manager", "organisation": null},
+        {"type": "payment_request", "span": "demanding payment", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Invoice follow-up",
+      "body": "As we discussed, this is a reminder regarding invoice number 4452, which was due on the first of the month. Please review the attached document and provide an update on the payment status for our records.",
+      "claims": [
+        {"type": "affiliation_external", "span": "invoice number 4452", "organisation": null},
+        {"type": "payment_request", "span": "provide an update on the payment status", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p029",
+    "attack": {
+      "subject": "Urgent security update",
+      "body": "Hi there. Our records show your account security is outdated. As the IT Security lead, I am requiring all staff to update their login credentials immediately. Everyone else in the energy department has already completed this verification. Please sign in through the provided security portal to confirm your password.",
+      "tactic_cues": {
+        "authority": "As the IT Security lead, I am requiring",
+        "social_proof": "Everyone else in the energy department has already completed this verification"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "IT Security", "organisation": null},
+        {"type": "credential_request", "span": "update their login credentials", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "System maintenance notice",
+      "body": "The IT team will be performing scheduled maintenance on the internal email servers this Saturday from 2 AM to 4 AM. During this time, you may experience brief interruptions in your ability to send or receive messages. No action is required from your side.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "IT team", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p030",
+    "attack": {
+      "subject": "Confidential legal request",
+      "body": "Regarding the confidential acquisition matter we discussed at our meeting, I am writing as your corporate compliance counsel. We require immediate access to all employee tax documents from the last three years to finalize our assessment. Please keep this request confidential and do not share these details with any staff members or your department head. This is a matter of legal authority and requires your full cooperation before the end of the business day. We are looking into the compliance of your branch and this data is critical for our review. Please send the files directly to my office. If you have questions, refer only to the instructions provided here. It is vital that you treat this request with the utmost secrecy to avoid any issues with the board of directors. Your assistance is expected as a matter of policy.",
+      "tactic_cues": {
+        "urgency": "before the end of the business day",
+        "secrecy": "keep this request confidential and do not share these details with any staff members or your department head"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "corporate compliance counsel", "organisation": null},
+        {"type": "authority", "span": "matter of legal authority", "organisation": null},
+        {"type": "data_request", "span": "access to all employee tax documents", "organisation": null},
+        {"type": "prior_relationship", "span": "we discussed at our meeting", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Formal document request",
+      "body": "We are currently conducting a regulatory review of our hospitality operations in the region. Outside counsel has requested a collection of employee tax forms from the previous calendar year to satisfy current audit requirements. Please gather these documents and forward them to the legal department by Friday afternoon. This request is part of our routine compliance checks and is managed through the standard legal channel. Your help is appreciated as we ensure all records are fully up to date for the upcoming fiscal audit. Please ensure that all files are clearly labeled with the relevant employee ID and the year of the tax documents provided. If you encounter any issues during the collection process, please reach out to the legal team lead for further guidance.",
+      "claims": [
+        {"type": "affiliation_external", "span": "Outside counsel", "organisation": null},
+        {"type": "data_request", "span": "collection of employee tax forms", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p031",
+    "attack": {
+      "subject": "Urgent payroll adjustment",
+      "body": "I am writing from the internal payroll office. We are updating our systems and need you to verify your banking details. Since I helped you resolve your tax error last month, I hope you can help me by verifying this change quickly. This is your last chance to update your information before the payroll window closes for the current cycle. If we do not receive this update immediately, your salary payment will be delayed until the next month. Please reply to my personal email address at payroll-support-direct at gmail dot com with your current bank name and account number. I am trying to keep our records accurate for the entire construction team, but I am facing significant pressure to finish these updates. Please prioritize this task above your other duties to ensure you are paid on time. I appreciate your quick support in this matter as I work to reconcile the remaining accounts.",
+      "tactic_cues": {
+        "scarcity": "This is your last chance to update your information before the payroll window closes",
+        "reciprocity": "Since I helped you resolve your tax error last month"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "payroll office", "organisation": null},
+        {"type": "payment_change", "span": "update your banking details", "organisation": null},
+        {"type": "reply_direction", "span": "reply to my personal email address", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Updating bank information",
+      "body": "If you need to update your direct-deposit bank details, please log in to the employee portal on the company intranet. Once you have accessed your payroll profile, click on the banking tab to enter your new account number and routing information. Please ensure that you save your changes before exiting the portal to confirm the update. You will receive a confirmation message once the payroll department has processed your request. If you have any trouble navigating the site, you can contact the HR department during business hours. We recommend that you verify your banking information carefully before submitting the changes to avoid any issues with your next scheduled paycheck. Thank you for keeping your personal contact and financial details current with our system.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "HR department", "organisation": null},
+        {"type": "payment_change", "span": "update your direct-deposit bank details", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p032",
+    "attack": {
+      "subject": "Payment for the acquisition",
+      "body": "It was so great seeing you at the offsite last week. I really valued our chat about the future of the energy sector. As the Director, I am authorizing a payment for the confidential acquisition we discussed. Since I handled the paperwork for your promotion last year, I need you to push this through today. We need to finalize this payment now. Thank you for being such a reliable partner.",
+      "tactic_cues": {
+        "authority": "As the Director, I am authorizing",
+        "reciprocity": "Since I handled the paperwork for your promotion last year",
+        "liking": "It was so great seeing you at the offsite last week"
+      },
+      "claims": [
+        {"type": "authority", "span": "As the Director", "organisation": null},
+        {"type": "payment_request", "span": "authorizing a payment", "organisation": null},
+        {"type": "prior_relationship", "span": "the acquisition we discussed", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Invoice for contract 882",
+      "body": "Please process the payment for the services rendered under contract 882. The legal department has already reviewed the terms and signed off on the invoice. This is for the energy project that we recently concluded.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "legal department", "organisation": null},
+        {"type": "payment_request", "span": "process the payment", "organisation": null}
+      ]
+    }
+  }
+]

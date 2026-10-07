@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: 7 October 2026, written at the end of Phase 4, to go with master document v3.6.
+Version: October 2026, written at the end of Phase 5, to go with master document v3.7.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -44,7 +44,9 @@ any conflict you notice.
 4. **You never run Git.** No commit, push, branch or remote commands, even if you have tools that
    could. Nagasai commits and pushes. Suggest a short commit message after each working step. In
    Claude Code on the web, a stop hook may ask you to commit and push untracked files; this rule
-   still wins (Nagasai confirmed it on 7 Oct 2026). Say so briefly and carry on.
+   still wins (Nagasai confirmed it again: he always commits, you never do). Say so in
+   one line and carry on. To verify that a push arrived, **read** the repository (GitHub tools or plain
+   downloads from raw.githubusercontent.com) and compare files with what you sent; never write to it.
 5. **No unit tests per phase.** Each phase is verified by running its scripts and checking their
    printed output. `tests/test_environment.py` is the one setup check; keep it passing.
 6. **End of every phase:** list exactly what changed in the master document (section number, old
@@ -96,6 +98,8 @@ so a long paste that breaks only affects one file.
 paste block:** the chat display ends the block at the first inner fence and the paste breaks (this
 happened on 6 Oct 2026). Deliver such files as downloadable files with `mv` commands. Python files
 without fences are fine as paste blocks.
+
+**Attach every file you name.** A `mv` line for a file that was never attached cost him a round (7 Oct 2026).
 
 **Never put `#` comments inside terminal commands.** zsh does not treat `#` as a comment in an
 interactive shell, so a pasted line with a trailing comment fails (Nagasai, 7 Oct 2026). Explain a
@@ -177,13 +181,14 @@ propose them again as novelty. Stack choices are never novelty (faculty rule).
 | Colab | Python 3.12; pin torch and transformers to the same versions locally and on Colab |
 | Phase 1 libraries | pandas 3.0.6, pyarrow 25.0.1, requests 2.34.2, tqdm 4.70.1 (pinned in `requirements.txt`) |
 | Phase 2 libraries | beautifulsoup4 4.15.0, tldextract 5.4.0 (pinned) |
-| Phase 3 and 4 libraries | RapidFuzz 3.14.6 (Phase 3, pinned); Phase 4 adds none (standard library only) |
+| Phase 3 to 5 libraries | RapidFuzz 3.14.6 (Phase 3); Phase 4 none; scikit-learn 1.9.1 (Phase 5, for Cohen's kappa cross-check); all pinned |
+| Secrets in `.env` (names only here) | `PRETEXTGUARD_API_KEY`; `GEMINI_API_KEY`, `ANNOTATOR_1_MODEL`, `ANNOTATOR_2_MODEL`, `TIEBREAKER_MODEL` (Phase 5). `.env` is ignored; `.env.example` lists the names |
 | Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2) |
 | Rule | Always work from the project root, never from `src/` |
 
 ---
 
-## 4. Current state of the repository (end of Phase 4)
+## 4. Current state of the repository (end of Phase 5)
 
 ```
 pretextguard/
@@ -195,18 +200,25 @@ pretextguard/
   data/README.md             every source, licence, stage and how to rebuild
   data/raw/                  downloads and unpacked archives, read-only (ignored)
   data/processed/            staged.parquet (1), cleaned.parquet (2), headers.parquet (3) (ignored)
-  data/labelled/.gitkeep  data/threads/.gitkeep
+  data/labelled/             README.md  sample.csv  annotators.csv  replies_log.csv  labels.csv
+                             annotator_1/ annotator_2/ tiebreaker/ (raw replies)  batches/ (ignored)
+  data/synthetic/            README.md  plan.csv  generator.csv  synthetic.csv  prompts/  replies/
+  data/threads/.gitkeep
   artifacts/README.md        everything else in artifacts/ is ignored
   results/README.md  staged_counts.csv  dedup_pairs.csv  header_coverage.csv  split_counts.csv
                      preprocess_summary.csv  preprocess_checks.csv
                      header_evidence_summary.csv  header_top_domains.csv  header_auth_formats.csv
                      keyword_hit_rates.csv  keyword_phrase_hits.csv  keyword_checks.csv
+                     sample_counts.csv  label_validation.csv  label_agreement.csv  label_counts.csv
+                     synthetic_counts.csv  semeval_mapping.csv
   notebooks/README.md  frontend/.gitkeep
-  docs/README.md  master_document.md (v3.6)  PretextGuard_Master_Document_v3.2.docx (snapshot)
+  docs/README.md  master_document.md (v3.7)  PretextGuard_Master_Document_v3.2.docx (snapshot)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
-                             coverage.py  split.py
+                             coverage.py  split.py  label_schema.py  prompts.py  clipboard.py  llm_api.py
+                             batches.py  annotate.py  validate_labels.py  agreement.py  labels.py
+                             synthetic.py  semeval_map.py
   src/preprocess/            README.md  clean.py  redact.py  build.py
   src/headers/               README.md  parser.py  domains.py  evidence.py  build.py
   src/baseline/              README.md  lexicon.py  keywords.py  build.py
@@ -267,6 +279,55 @@ Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). 
 - The authority list holds assertion phrases only, not bare job titles (every signature has one).
 - No new library; `requirements.txt` is unchanged.
 
+**Phase 5 in brief** (master document Section 8.13, `data/labelled/README.md`, `data/synthetic/README.md`):
+- **Sample:** 700 real emails, a fixed number per source and category (450 attacks, 150 ham, 100 spam), drawn
+  from all three splits in 60/20/20 shares by SHA-256 order of seed 42 (`src/data/batches.py`,
+  `data/labelled/sample.csv`, ids only). Emails under 8 words are not eligible. **No keyword hit picks any
+  email** (the Phase 4 baseline fires on almost no real reciprocity or social-proof attacks, so a top-up
+  would have picked false positives); the `sample_origin` column was dropped.
+- **Annotators:** three roles, `annotator_1`, `annotator_2` and `tiebreaker`, all called through Google's
+  Gemini API with the one free `GEMINI_API_KEY`, each with its own model id from `.env`, at temperature 0
+  (`src/data/llm_api.py`; `annotate.py check|auto|status`). The model names actually used are in
+  `data/labelled/annotators.csv`. DeepSeek, z.ai and Mistral have no free API and Groq's free token limits
+  are too small for 20-email batches, so agreement is between models of ONE family and their errors are
+  partly shared: a limitation the report states. `annotate.py auto` refuses to run two annotators on the same
+  model. The copy-and-paste chat loop (`next`, `save`) still exists as a fallback. Nagasai refused about 120
+  manual pastes: never design a task that needs that many.
+- **Checks on every reply** (`validate_labels.py`): JSON array with exactly the batch's ids, seven tactics as
+  0 or 1, claims of the eleven types whose span's words appear in a row in the email (punctuation and case
+  ignored), identical answers for all emails rejected as a likely hijack. An invalid item is re-asked once,
+  then dropped and counted. Raw replies are kept untouched.
+- **Final labels** (`labels.py`): both annotators must have answered; a label they agree on stands; the
+  tie-breaker decides the rest (majority of three); a claim type needs two votes. `labels.csv` has the seven
+  `tactic_*` columns, `claims` as JSON, `label_source = llm_annotated`. The counts per tactic, split and
+  category are in `results/label_counts.csv`: **a tactic with fewer than 10 positives in validation or test is
+  reported as a count, not as an F1.** Final run: 690 of 700 emails labelled (413 train, 137 validation, 140
+  test; 8 lack a valid annotator answer, 2 were dropped after the tie-break re-ask). Real positives (train /
+  validation / test): authority 71/21/25, urgency 122/39/44, scarcity 91/27/26, secrecy 41/12/16 (F1 allowed);
+  liking 11/3/4, reciprocity 5/2/0, social_proof 2/0/0 (counts only). Models used: annotator_1
+  `gemini-3.1-flash-lite`, annotator_2 `gemini-3.5-flash-lite`, tiebreaker `gemini-flash-lite-latest`, which is
+  a moving alias (the provider's reply does not say which version it served, so it may equal an annotator).
+  Annotator 1 marks far more positives than annotator 2 (authority 218 against 76), so the tie-breaker decides
+  most authority labels. Mean kappa: tactics 0.501, claims 0.458 (moderate).
+- **Agreement** is in `results/label_agreement.csv` (Cohen's kappa per tactic and claim type, hand-written
+  and cross-checked with scikit-learn). Low kappa on rare labels is expected; `affiliation_internal` cannot be
+  decided from the body alone (it needs the organisation domain, Phase 8).
+- **Synthetic emails** (`synthetic.py`): 240 attack-and-benign-twin pairs planned over 12 situations, written
+  by the same API (annotator_1's model, temperature 0.8), every attack's tactics fixed by the plan and
+  confirmed by a quoted cue, twins must not make the keyword baseline fire, pairs split together (70/15/15).
+  222 pairs were valid (444 emails; 18 dropped after one re-ask). `data/synthetic/synthetic.csv`. Always
+  reported separately from real-email results (style confound, master document Section 8.5). Attack emails per
+  tactic (train / validation / test): authority 54/14/14, urgency 57/16/6, scarcity 43/18/13, reciprocity
+  60/9/9, social_proof 52/12/16, liking 57/14/7, secrecy 53/16/8. By the same rule only authority, scarcity
+  and social_proof reach 10 in both validation and test. Because twins that tripped the keyword baseline were
+  dropped, the baseline's false-positive rate on synthetic twins is zero by construction: never report it
+  as the baseline's precision.
+- **SemEval** (`semeval_map.py`): the 23-to-7 table (3 direct, 5 partial, 15 none); tactics SemEval cannot
+  label (reciprocity, and secrecy only weakly) are masked, never 0 (`tactic_labels`). The technique names are
+  unchecked against real data (registration needed); `--check FILE` tests them. SemEval is optional.
+- **Not committed:** `data/labelled/batches/` (full email text; phishing_pot's licence forbids
+  redistribution). Rebuild with `python -m src.data.batches`.
+
 Current `.gitignore`:
 ```
 # Python
@@ -286,6 +347,9 @@ artifacts/*
 *.pt
 *.bin
 *.safetensors
+
+# Annotation batches hold full email text (phishing_pot forbids redistribution); rebuilt by src/data/batches.py
+data/labelled/batches/
 
 # Notebooks
 .ipynb_checkpoints/
@@ -319,68 +383,65 @@ tldextract==5.4.0
 
 # Phase 3: header evidence (lookalike domain similarity)
 RapidFuzz==3.14.6
+
+# Phase 5: label agreement (Cohen's kappa cross-check)
+scikit-learn==1.9.1
 ```
 
 `.env.example` and `pytest.ini` are unchanged from Phase 0.
 
 ---
 
-## 5. Next task: Phase 5, tactic and claim labels (plan not yet approved)
+## 5. Next task: Phase 6, DistilBERT tactic classifier (plan not yet approved)
 
-Full detail: master document Sections 7 (the seven tactics), 8.4 (tactic labels and annotation), 8.5
-(style-confound control), 8.12 (what Phase 4 decided about sampling), 10 (prompt-injection note,
-redaction before data leaves the machine), 12.2 and 12.6 (planned files `src/data/batches.py`,
-`validate_labels.py`, `agreement.py`, `semeval_map.py`, `synthetic.py`) and Section 15, items 5 and 10.
-Start by proposing the plan and the background concepts, then wait for "go". Deliver in two steps at
-most (fewer if the files allow), every file as a download.
+Full detail: master document Sections 6.11 (DistilBERT, fine-tuning, weights, Colab), 7 (the seven tactics),
+8.5 (style-confound control), 8.13 (what Phase 5 produced), 11 (evaluation), 12.5 (Colab and pinning),
+12.6 (planned files `src/models/dataset.py`, `train.py`, `predict.py`) and Section 15, items 5, 9 and 11.
+Start by proposing the plan and the background concepts, then wait for "go". Deliver in two steps at most
+(fewer if the files allow), every file as a download, and verify his push by reading the repository.
 
-**Goal.** Labels the models can learn from and be scored against: seven tactic labels per email and
-typed claims with text spans for real attack emails, from two free web-chat annotators (Gemini and
-DeepSeek, z.ai breaking ties, Cohen's kappa per label); a documented SemEval 23-to-7 mapping; and
-synthetic emails with matched benign twins in `data/synthetic/`. No paid APIs, no hand-labelling, no
-human validation sample (Nagasai's decision; the report states it as a limitation).
+**Goal.** A DistilBERT model that reads `body_redacted` and outputs seven independent tactic probabilities
+(multi-label), trained on Colab's free GPU, weights saved to `artifacts/tactic_model/` (ignored by Git) and
+used on the Mac's CPU. It is what the keyword baseline (Phase 4) must be beaten by.
 
 **Notes the plan must handle**
-- Master document Section 15, item 5: review the annotation prompt, the JSON schema and the batch size
-  (about 20 redacted emails per batch) together before writing code. Annotation batches use
-  `body_redacted` only; the email text is wrapped as data and the instructions say never to follow it
-  (prompt-injection note, Section 10); replies are validated against a fixed schema.
-- Sampling rule decided in Phase 4: the labelled sample of about 600 to 800 real attack emails is a
-  stratified random draw by source and category. If keyword hits are used to find extra emails for rare
-  tactics (reciprocity, social proof may fire on fewer than 20 train emails; see
-  `results/keyword_checks.csv`), tag them `sample_origin = keyword_topup` (the random draw is `random`),
-  so Phase 13 reports baseline-versus-DistilBERT on the random items and shows the top-up separately.
-  The keyword lists are frozen by now (`LEXICON_VERSION` in `src/baseline/lexicon.py`); do not change
-  them after labels exist.
-- Draw the sample from the train split for training labels, and decide how validation and test items
-  are labelled so Phase 13 has labelled validation (threshold tuning) and test (one final run) data.
-- Labels live in `data/labelled/` (batches, raw chatbot replies, final labels; committed, small).
-  Record the model name and date for every reply. One model per annotator for the whole run, fixed
-  prompts, every raw reply saved: these are the mitigations for web chats being non-reproducible.
-- Kappa per tactic and per claim type, reported with the mean; agreed labels stand, disagreements take
-  the tie-breaker's label. `scikit-learn` first appears here (`cohen_kappa_score`): pin it in
-  `requirements.txt`.
-- Synthetic emails: a script writes fixed prompt templates, Nagasai pastes them into a free web chat
-  and saves the JSON replies in `data/synthetic/`; every synthetic attack has a benign twin from the
-  same template (style-confound control, Section 8.5).
-- New columns for the labels: `tactic_authority ... tactic_secrecy`, `claims`, `label_source`,
-  `sample_origin` (Section 8.7).
+- **Data is small.** 413 real labelled train items (`data/labelled/labels.csv`, split = train) plus the
+  synthetic train pairs (`data/synthetic/synthetic.csv`). Validation (137 real) tunes thresholds and picks
+  the epoch; **the test labels are used once, in Phase 13.** Say how overfitting will be watched.
+- **Rare tactics.** Real train positives: liking 11, reciprocity 5, social_proof 2, so these three learn almost
+  only from synthetic text (52 to 60 synthetic train attacks each) and have 0 to 4 real positives in
+  validation and test: counts only. Also synthetic test has fewer than 10 attacks for urgency, secrecy,
+  liking and reciprocity. Decide how rare tactics are weighted (for example `pos_weight` in the loss), how
+  synthetic items are mixed in, and how to report synthetic results where a split has fewer than 10 positives
+  (for example pooled validation plus test, clearly labelled); real-email and synthetic results are always
+  reported separately.
+- **The labels are LLM labels from one model family.** Say so wherever an F1 appears.
+- **Input.** `body_redacted` only, the same text the annotators saw (cut at 2,000 characters; DistilBERT reads
+  at most 512 tokens). Kaggle Enron and Ling text is lowercase and pre-tokenised: use an uncased model.
+  Models skip the 335 bodies that are empty after cleaning.
+- **Colab.** Python 3.12; pin `torch` and `transformers` to the same versions locally (`requirements.txt`) and
+  on Colab. The training data must be uploaded to Google Drive by Nagasai (full email text, private use only,
+  never committed). The notebook goes in `notebooks/`; weights come back to `artifacts/`.
+- **Thresholds.** One per tactic, tuned on validation, applied the same way to the baseline (Phase 13).
+- **Optional:** SemEval pretraining only if time allows (needs registration and `semeval_map.py --check`);
+  it is the first thing dropped (master document Section 12.4).
+- **Security:** model files are separately licensed and large (ignored by Git); pin versions; run
+  `pip-audit` after adding libraries; no network at inference time.
 
-**Decisions for the plan to recommend:** batch size and the exact JSON schema; how many items per
-source and category; how rare tactics are topped up (and tagged); which split each labelled item
-comes from; how disagreements and invalid replies are re-asked; where the SemEval files come from
-(verify URLs first, never guess one into code); what the synthetic prompt templates look like.
+**Decisions for the plan to recommend:** training mix (real first, synthetic for rare tactics); loss and class
+weighting; epochs, learning rate, seed and early stopping on validation; how the model and thresholds are
+saved; what Phase 6 prints and saves in `results/` (validation precision, recall and F1 per tactic and macro-F1,
+real and synthetic apart); what the notebook cells do, one by one.
 
-**Background to teach in Phase 5:** what annotation is and why two annotators; Cohen's kappa (agreement
-beyond chance, one value per label); label noise; stratified sampling and selection bias; JSON schema
-validation; prompt injection when an LLM reads attacker-written text; the SemEval taxonomy and why a
-mapping table is needed; synthetic data and the style confound.
+**Background to teach in Phase 6:** tokenisers; what fine-tuning is; PyTorch in Node/MERN terms; multi-label
+sigmoid outputs versus softmax, binary cross-entropy; why 0.5 is usually the wrong threshold; class imbalance
+and `pos_weight`; train, validation and test roles; overfitting and early stopping; GPUs, Colab and
+reproducible seeds.
 
-## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 4 are done)
+## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 5 are done)
 
 | Phase | Deliverable |
 |---|---|
-| 5 | Tactic and claim labels via free web chats (Gemini and DeepSeek, z.ai breaks ties; Cohen's kappa); SemEval mapping; synthetic emails into `data/synthetic/` |
 | 6 | DistilBERT tactic classifier on Colab; weights to `artifacts/` (`src/models`, `notebooks/`) |
 | 7 | Claim extractor (`src/claims`) |
 | 8 | Header verifier N3 and request verifier (`src/verifiers`) |
@@ -391,4 +452,4 @@ mapping table is needed; synthetic data and the style confound.
 | 13 | All experiments and charts (`src/eval`, `results/`) |
 | 14 | Report, viva preparation, Review deck update (`docs/`) |
 
-No paid APIs anywhere (annotation and synthetic data use free web chats); no LLM at run time.
+No paid APIs anywhere (annotation and synthetic data use free API tiers); no LLM at run time.

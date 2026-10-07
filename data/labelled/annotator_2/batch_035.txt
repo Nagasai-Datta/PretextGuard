@@ -1,0 +1,372 @@
+[
+  {
+    "id": "b035_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Please confirm your account with the link below",
+        "organisation": "USAA"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "USAA Federal Savings Bank",
+        "organisation": "USAA Federal Savings Bank"
+      }
+    ]
+  },
+  {
+    "id": "b035_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_03",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 1,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Federal Ministry of works and housing, Federal secretariat office complex, Lagos, Nigeria.",
+        "organisation": "Federal Ministry of Works and Housing"
+      },
+      {
+        "type": "authority",
+        "span": "I am Engr: Abubakar Saeed, the director of works FMW&H Nigeria and chairman of contract award and review committee",
+        "organisation": "Federal Ministry of Works and Housing"
+      }
+    ]
+  },
+  {
+    "id": "b035_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "The PayPal Team",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "you are requested to please update your account info at the following link",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Edward A. Wrick Security Advisor [DOMAIN]",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b035_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "please reply to my private email address: [EMAIL]",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Barrister Anthony Njaba Lagos Nigeria Private email: [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b035_07",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Internet Crime Complain Center (IC3)",
+        "organisation": "Internet Crime Complaint Center"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Email: [EMAIL]",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Aaron Ramsey Director Internet Crime Complain Center (IC3) New York, NY 10216 USA.",
+        "organisation": "Internet Crime Complaint Center"
+      }
+    ]
+  },
+  {
+    "id": "b035_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "Please send all emails to:[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b035_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_13",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Being a top executive at ICEP, I have all secret details and necessary contacts",
+        "organisation": "Independent Committee of Eminent Persons (ICEP)"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "Independent Committee of Eminent Persons (ICEP), Switzerland",
+        "organisation": "Independent Committee of Eminent Persons (ICEP)"
+      }
+    ]
+  },
+  {
+    "id": "b035_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_15",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "BANK OF AFRICA(B.O.A) OUAGADOUGOU BURKINA-FASO WEST AFRICA",
+        "organisation": "Bank of Africa"
+      },
+      {
+        "type": "authority",
+        "span": "MR ALIABDULAHI(ESQ)HEAD OF FILE DEPARTMENT & DEBT RECOVERING",
+        "organisation": "Bank of Africa"
+      }
+    ]
+  },
+  {
+    "id": "b035_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "update your personal records",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b035_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Martin Goudale [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b035_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  }
+]

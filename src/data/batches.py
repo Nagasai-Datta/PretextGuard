@@ -55,9 +55,9 @@ ALLOCATION = [
 TOTAL = sum(n for _, n in ALLOCATION)
 
 ANNOTATOR_ROWS = {
-    "gemini": ("Gemini web chat", "annotator 1"),
-    "deepseek": ("DeepSeek web chat", "annotator 2"),
-    "zai": ("z.ai (GLM) web chat", "tie-breaker"),
+    "annotator_1": ("API", "annotator 1"),
+    "annotator_2": ("API", "annotator 2"),
+    "tiebreaker": ("API", "tie-breaker"),
 }
 
 
@@ -124,15 +124,21 @@ def write_batch_file(name, items):
 
 
 def write_annotators_file():
-    """Create annotators.csv once. The model name is filled in by hand: annotate.py refuses to run without it."""
+    """Create annotators.csv, or bring an existing one up to date: one row per annotator, model names kept.
+
+    The model name is filled in by annotate.py auto (the API model id) or by hand (the model shown in a chat
+    window); annotate.py next and save refuse to run without it. Rows of annotators that no longer exist are dropped.
+    """
+    kept = {}
     if ANNOTATORS_CSV.exists():
-        return
+        with open(ANNOTATORS_CSV, newline="", encoding="utf-8") as handle:
+            kept = {row["annotator"]: row["model_name"] for row in csv.DictReader(handle)}
     with open(ANNOTATORS_CSV, "w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
         writer.writerow(["annotator", "chat_service", "model_name", "role"])
         for annotator in ALL_ANNOTATORS:
             service, role = ANNOTATOR_ROWS[annotator]
-            writer.writerow([annotator, service, "", role])
+            writer.writerow([annotator, service, kept.get(annotator, ""), role])
 
 
 def existing_replies():

@@ -3,17 +3,17 @@
 Run from the project root after validate_labels, agreement and the tie-break round:
     python -m src.data.labels
 
-Reads  data/labelled/sample.csv and the valid answers of gemini, deepseek and zai
+Reads  data/labelled/sample.csv and the valid answers of the two annotators and the tie-breaker
 Writes data/labelled/labels.csv       one row per labelled email: ids, split, seven tactic labels, claims (committed)
        results/label_counts.csv       how many positives each tactic and claim type has, per split and category (committed)
 
 The rules, in the order they apply:
-- An email is labelled only when gemini and deepseek both gave a valid answer.
+- An email is labelled only when both annotators (annotator_1 and annotator_2) gave a valid answer.
 - A tactic or claim type both agree on stands.
-- Where they disagree, zai's answer decides (the majority of three). An email on which they disagree
-  and zai has not answered (yet, or its answer was dropped) is left out and counted as pending.
+- Where they disagree, the tie-breaker's answer decides (the majority of three). An email on which they disagree
+  and the tie-breaker has not answered (yet, or its answer was dropped) is left out and counted as pending.
 - A claim type is kept when at least two annotators listed it. The span and organisation come from the
-  first annotator in the order gemini, deepseek, zai who listed that type.
+  first annotator in the order annotator_1, annotator_2, tiebreaker who listed that type.
 
 The counts decide how Phase 13 reports each tactic. A tactic with fewer than 10 positives in the
 validation or test items is reported as a count, not as an F1 score: with so few positives, one email
@@ -29,7 +29,7 @@ from src.data.paths import LABEL_COUNTS_CSV, LABELS_CSV, RESULTS_DIR, SAMPLE_CSV
 from src.data.validate_labels import load_answers
 
 MIN_POSITIVES = 10
-PRIORITY = ("gemini", "deepseek", "zai")
+PRIORITY = ALL_ANNOTATORS
 
 
 def merge_item(votes):
@@ -50,7 +50,7 @@ def merge_item(votes):
         listing = [a for a in PRIORITY if a in votes and any(c["type"] == kind for c in votes[a]["claims"])]
         agreed = len(listing) >= 2
         if len(votes) == 2 and len(listing) == 1:
-            return None  # the two annotators disagree about this claim type and zai has not decided yet
+            return None  # the two annotators disagree about this claim type and the tie-breaker has not decided yet
         if agreed:
             claims += [c for c in votes[listing[0]]["claims"] if c["type"] == kind]
     return tactics, claims
@@ -78,7 +78,7 @@ def main():
                      "annotators": "+".join(a for a in PRIORITY if a in votes), "label_source": "llm_annotated"})
     labels = pd.DataFrame(rows)
     print(f"Sample {len(sample)}: labelled {len(labels)}, waiting for a tie-break {undecided}, "
-          f"missing a valid answer from gemini or deepseek {unanswered}")
+          f"missing a valid answer from an annotator {unanswered}")
     if labels.empty:
         raise SystemExit("No email is labelled yet.")
 

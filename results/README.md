@@ -24,12 +24,17 @@ The files here hold counts and scores only, never email text, so they are safe t
 | `keyword_hit_rates.csv` | `python -m src.baseline.build` | Train split: % of emails where each tactic fires, for all emails, per category and per source and category |
 | `keyword_phrase_hits.csv` | `python -m src.baseline.build` | Train split: how many emails contain each phrase of the keyword lexicon, per category |
 | `keyword_checks.csv` | `python -m src.baseline.build` | The keyword baseline's sanity checks (PASS, FAIL, info), lexicon version and run details |
+| `sample_counts.csv` | `python -m src.data.batches` | Emails drawn per source, category and split for annotation, and how many were eligible or too short |
+| `label_validation.csv` | `python -m src.data.validate_labels` | Per annotator: batch files answered, items valid, re-asked, dropped, and the problems seen |
+| `label_agreement.csv` | `python -m src.data.agreement` | Cohen's kappa per tactic and per claim type between the two annotators, with span overlap for claims |
+| `label_counts.csv` | `python -m src.data.labels` | Positive labels per tactic and claim type, per split and category |
+| `synthetic_counts.csv` | `python -m src.data.synthetic collect` | Valid and dropped synthetic pairs, attack tactics per split, claims per role |
+| `semeval_mapping.csv` | `python -m src.data.semeval_map` | The 23 SemEval techniques, the tactic each maps to and how well |
 
 ## Still to come
 
 | Phase | Results |
 |---|---|
 | 4 (F1) | Keyword baseline precision, recall and F1 against the labels: Phase 13, after the Phase 5 labels |
-| 5 | Annotator agreement (Cohen's kappa per label) |
 | 6 | Tactic classifier precision, recall and F1 per tactic |
 | 13 | N1, N2, N3 and architecture ablations; claim-extraction accuracy; paraphrase and style-confound tests; charts |

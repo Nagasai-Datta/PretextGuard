@@ -1,0 +1,429 @@
+[
+  {
+    "id": "b010_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "my email for contact is: [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b010_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b010_10",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Chase Bank Online Department Notice",
+        "organisation": "Chase Bank"
+      },
+      {
+        "type": "credential_request",
+        "span": "confirm your banking details",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Regards, Chase Bank - Chase Online Banking Department  2005 JPMorgan Chase & Co.",
+        "organisation": "Chase Bank"
+      }
+    ]
+  },
+  {
+    "id": "b010_11",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "validar o seu e-mail agora por clicando no link abaixo",
+        "organisation": null
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "Webmail © 2013 Atualização da Equipe",
+        "organisation": "Webmail"
+      }
+    ]
+  },
+  {
+    "id": "b010_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "1-888 - 542-2236",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b010_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b010_15",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Alliant IT Help Desk",
+        "organisation": "Alliant"
+      }
+    ]
+  },
+  {
+    "id": "b010_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "you will be prompted to enter a verification code",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "support@ [DOMAIN]",
+        "organisation": "Fax, Inc."
+      },
+      {
+        "type": "affiliation_external",
+        "span": "Copyright Fax, Inc.",
+        "organisation": "Fax, Inc."
+      }
+    ]
+  },
+  {
+    "id": "b010_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "fax : + 612-93853641 phone : + 612-93853026",
+        "organisation": "University of New South Wales"
+      }
+    ]
+  },
+  {
+    "id": "b011_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Trabalho no banco como contabilista",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Senhorita Cathy Olivia",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b011_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Revolution Casino Team",
+        "organisation": "Revolution Casino"
+      }
+    ]
+  },
+  {
+    "id": "b011_03",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Vaše e-mailová adresa :.......... Heslo :................ Umístění :............... Datum narození :...........",
+        "organisation": null
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "Správce systému",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b011_04",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "verify your identity",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b011_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Raghu Devaraj",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b011_06",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Auditor General of one of the prime banks here in South Africa",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Jeffery Hill. PHONE:(874)-762864167, FAX :(874)-762864168",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b011_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "CHARLES TAYLOR, The Former President of Liberia",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "APPLY TO : online security company COMPANY",
+        "organisation": "online security company COMPANY"
+      },
+      {
+        "type": "signature_contact",
+        "span": "CHARLES TAYLOR Former President of Liberia",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b011_09",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "The Microsoft account team",
+        "organisation": "Microsoft"
+      }
+    ]
+  },
+  {
+    "id": "b011_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b011_11",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "enter it in the appropriate field online",
+        "organisation": null
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "Online Banking Team",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b011_12",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Auditor General of a reputable bank in Spain",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "DEAN GRAY CALLE SEVILLA 112, 28001,MADRID- SPAIN TELL:+34 639 446 879 PRIVATE E-MAIL:[EMAIL]",
+        "organisation": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {"id": "b005_01", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_02", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_03", "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 1, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_04", "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "affiliation_internal", "span": "Chase Online Personal Banking", "organisation": "Chase"}]},
+  {"id": "b005_05", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_06", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_07", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_08", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_09", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_10", "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "authority", "span": "Barr.Myke Utaki,an Attorney at law, I am the Personal Attorney to a deceased engineer", "organisation": null}]},
+  {"id": "b005_11", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_12", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_13", "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "signature_contact", "span": "Tel: 234-1-7760497 Fax: 234-1-7599947 Private Email:[EMAIL]", "organisation": "Standard Trust Bank PLC"}]},
+  {"id": "b005_14", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_15", "tactics": {"authority": 0, "urgency": 0, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "affiliation_external", "span": "Netflix", "organisation": "Netflix"}]},
+  {"id": "b005_16", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_17", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_18", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_19", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b005_20", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "affiliation_external", "span": "Groenkeuze", "organisation": "Groenkeuze"}]}
+]

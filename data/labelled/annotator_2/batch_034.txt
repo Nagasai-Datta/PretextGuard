@@ -1,0 +1,362 @@
+[
+  {
+    "id": "b034_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "office of human resources , saint michael 's college , winooski park , colchester , vt 05439",
+        "organisation": "Saint Michael's College"
+      }
+    ]
+  },
+  {
+    "id": "b034_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "signature_contact",
+        "span": "PayPal Account Review Department",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b034_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "SkyCrown",
+        "organisation": "SkyCrown"
+      }
+    ]
+  },
+  {
+    "id": "b034_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_08",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "UNION BANK OF NIGERIA PLC",
+        "organisation": "Union Bank of Nigeria PLC"
+      },
+      {
+        "type": "authority",
+        "span": "DR. ANAYO AWKA BANK MANAGER (UNION BANK OF NIGERIA PLC)",
+        "organisation": "Union Bank of Nigeria PLC"
+      },
+      {
+        "type": "signature_contact",
+        "span": "DR. ANAYO AWKA , a Manager at the Union Bank Nigeria PLC, Lagos.",
+        "organisation": "Union Bank of Nigeria PLC"
+      }
+    ]
+  },
+  {
+    "id": "b034_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Comerica Bank",
+        "organisation": "Comerica Bank"
+      }
+    ]
+  },
+  {
+    "id": "b034_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "international lotto netherland",
+        "organisation": "International Lotto Netherland"
+      },
+      {
+        "type": "signature_contact",
+        "span": "mr . mark lansford . financial director universal securities and finance bv 20 - 24 vesusstu dorm , norwenger sl 4 3 bb , amsterdam , netherlands tel : ( + 31 ) 645808259 , fax : ( + 31 ) 645 590445 email : marklansfordl @ mail 2 [DOMAIN]",
+        "organisation": "Universal Securities and Finance BV"
+      }
+    ]
+  },
+  {
+    "id": "b034_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "eBay",
+        "organisation": "eBay"
+      }
+    ]
+  },
+  {
+    "id": "b034_15",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "mr . George Smith , with this email ([EMAIL])",
+        "organisation": "Postal Service of Uganda"
+      },
+      {
+        "type": "authority",
+        "span": "The Honourable Robert P. Storch Inspector General, Anti-Fraud International",
+        "organisation": "Anti-Fraud International"
+      },
+      {
+        "type": "signature_contact",
+        "span": "The Honourable Robert P. Storch Inspector General, Anti-Fraud International",
+        "organisation": "Anti-Fraud International"
+      },
+      {
+        "type": "data_request",
+        "span": "Please provide your full details , postal address , name , and telephone number",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b034_16",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Ati Mayoo",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b034_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b034_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "Click the link below to verify this email address and other information: Forgotten your PayPal password",
+        "organisation": "PayPal"
+      }
+    ]
+  }
+]

@@ -1,0 +1,353 @@
+[
+  {
+    "pair": "p065",
+    "attack": {
+      "subject": "Urgent mailbox update",
+      "body": "Hi there. Since I helped you resolve that lobby printer issue last week, could you do me a quick favor? Our IT help desk needs to verify your account credentials immediately or your mailbox will be disabled by the end of the day. Please reply with your password so we can secure your access.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "reciprocity": "Since I helped you resolve that lobby printer issue last week"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT help desk",
+          "organisation": "hospitality organisation"
+        },
+        {
+          "type": "credential_request",
+          "span": "reply with your password",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled maintenance notice",
+      "body": "Hello team. This is a notification from the IT help desk that we will be performing routine server maintenance this Saturday. No action is required from your side, and your email access will remain unaffected throughout the process. Thank you for your cooperation as we work to improve our internal systems.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT help desk",
+          "organisation": "hospitality organisation"
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p066",
+    "attack": {
+      "subject": "Regarding our recent site audit",
+      "body": "As we discussed at the project review meeting, I am finalizing the report for the compliance board. Since I cleared the path for your recent zoning permits, I need your help to finalize these documents. Please provide the confidential structural schematics and the full contractor payroll list by tomorrow. This is a final call as the submission window is closing, and any missing data will result in a total loss of your current project standing. As Director of External Compliance, I require these files to be sent to my office immediately to avoid further sanctions. Failure to act now means you will lose the chance to rectify these compliance gaps before the board takes further action against the firm. I appreciate your prompt attention to this matter as we wrap up our previous agreement.",
+      "tactic_cues": {
+        "scarcity": "This is a final call as the submission window is closing",
+        "reciprocity": "Since I cleared the path for your recent zoning permits"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Director of External Compliance",
+          "organisation": "External Compliance"
+        },
+        {
+          "type": "authority",
+          "span": "As Director of External Compliance",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "confidential structural schematics and the full contractor payroll list",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "As we discussed at the project review meeting",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Request for project documentation",
+      "body": "Dear project team, our outside counsel, Sterling and Associates, has requested updated documentation regarding the current construction site status for the ongoing regulatory review. Please provide the standard structural schematics and the current contractor payroll logs as outlined in the initial engagement letter. You may upload these files directly to the secure legal portal under the folder marked for external counsel review. This information is needed to ensure our project remains in full compliance with municipal building codes. If you have any questions regarding the scope of this request, please contact the legal department during standard business hours. We appreciate your assistance in gathering these records for our external partners.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "outside counsel, Sterling and Associates",
+          "organisation": "Sterling and Associates"
+        },
+        {
+          "type": "data_request",
+          "span": "standard structural schematics and the current contractor payroll logs",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p067",
+    "attack": {
+      "subject": "Urgent payroll adjustment",
+      "body": "Hello. It was such a pleasure chatting with you at the faculty mixer last month; you are truly a valued member of our department. Since I recently helped you get that research grant approved, I am hoping you can return the favor. I am currently updating my bank details for the upcoming pay cycle, but the portal is locked for most users. I am at risk of missing my mortgage payment this month if I cannot finalize this update. Could you please reply directly to my personal email address with your current banking institution and routing information so I can coordinate this change? This is my last chance to secure my funds before the payroll system closes for the month. I would really appreciate your kindness in helping me resolve this stressful situation quickly.",
+      "tactic_cues": {
+        "scarcity": "This is my last chance to secure my funds",
+        "reciprocity": "Since I recently helped you get that research grant approved",
+        "liking": "It was such a pleasure chatting with you at the faculty mixer last month; you are truly a valued member of our department"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "department",
+          "organisation": "education organisation"
+        },
+        {
+          "type": "payment_change",
+          "span": "updating my bank details",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply directly to my personal email address",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Updating direct deposit information",
+      "body": "Dear faculty and staff, this message is to inform you that the human resources department has updated the payroll portal to allow for easier management of your personal banking information. If you need to change your direct deposit details, please log into the official employee portal using your secure credentials. Once logged in, navigate to the compensation tab and select the banking information option to update your records. Please ensure that all changes are submitted at least ten business days prior to the next scheduled pay date to avoid any potential processing delays. If you encounter any technical issues while using the portal, please submit a ticket through the HR help desk website for assistance. Thank you for your attention to these administrative updates.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "human resources department",
+          "organisation": "education organisation"
+        },
+        {
+          "type": "payment_change",
+          "span": "change your direct deposit details",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p068",
+    "attack": {
+      "subject": "Follow up on our acquisition",
+      "body": "Hi there. It was great working with you on the store expansion project last quarter. Since I stepped in to handle those inventory issues for you, I was hoping you could help me with a small matter regarding the confidential acquisition we discussed. The board is pushing for this payment to be finalized today. Everyone else involved in the project has already signed off on this wire transfer, so I just need your approval to move forward. As the Director of Operations, I am overseeing the final settlement and need this processed now. Let me know if you can get this paid for me today.",
+      "tactic_cues": {
+        "reciprocity": "Since I stepped in to handle those inventory issues for you",
+        "social_proof": "Everyone else involved in the project has already signed off on this wire transfer",
+        "liking": "It was great working with you on the store expansion project last quarter"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "As the Director of Operations",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "payment to be finalized",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "acquisition we discussed",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Contract payment authorization",
+      "body": "Hello, the legal department has completed their review of the signed contract for the new retail supply agreement. The terms are consistent with our expectations, and the invoice is now ready for payment. Please process the attached invoice through the standard vendor management system by the end of the week. This will ensure that our supply chain remains uninterrupted as we move into the next phase of our growth strategy. Thank you for your assistance in finalizing this payment, and please reach out if you have any questions regarding the contract details.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "legal department",
+          "organisation": "retail organisation"
+        },
+        {
+          "type": "payment_request",
+          "span": "process the attached invoice",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p069",
+    "attack": {
+      "subject": "Staff data request",
+      "body": "I appreciate how hard you have been working lately. As the Department Head, I require the full list of employee tax forms for the current audit. This is a very limited window, and the documents will be purged from the server shortly, so I need them now. Provide the list immediately. Do not delay.",
+      "tactic_cues": {
+        "scarcity": "this is a very limited window",
+        "liking": "I appreciate how hard you have been working lately"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Department Head",
+          "organisation": "education organisation"
+        },
+        {
+          "type": "authority",
+          "span": "As the Department Head",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "full list of employee tax forms",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Annual audit documentation",
+      "body": "The finance department is currently conducting an annual audit and requires access to employee tax documentation for the past fiscal year. Please upload the requested files through the secure document repository link provided by the compliance team. Ensure that all data is encrypted before submission. This documentation is necessary to complete our internal review process and maintain our regulatory standing. Thank you for your assistance in providing these records by the end of the week.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "finance department",
+          "organisation": "education organisation"
+        },
+        {
+          "type": "data_request",
+          "span": "employee tax documentation",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p070",
+    "attack": {
+      "subject": "Re: Project updates",
+      "body": "Hey, it is good to hear from you again regarding the clinic expansion. As the Director of Facilities, I have been reviewing the budget and we need to shift the final payment to a new account to keep the project on track. This is sensitive information, so please keep this between us and do not loop in your manager or the finance team until I give the go-ahead. I have authorized this change myself to ensure we meet our internal deadlines. Please update the payment details for the next invoice using the account number below. Please contact me directly at the number listed in my signature if you have any questions, as I am currently in meetings all day. Best regards, Director of Facilities, 555-0199, facility.director@hospital.internal",
+      "tactic_cues": {
+        "authority": "As the Director of Facilities, I have been reviewing the budget",
+        "secrecy": "please keep this between us and do not loop in your manager"
+      },
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "clinic expansion",
+          "organisation": null
+        },
+        {
+          "type": "payment_change",
+          "span": "shift the final payment to a new account",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "555-0199, facility.director@hospital.internal",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Re: Project updates",
+      "body": "Hi there, it is great to see the progress we are making on the clinic expansion. Based on our last conversation, I have updated the project schedule to reflect the timeline adjustments for the medical equipment installation. Please review the attached document to ensure the milestones align with your current site availability. We are aiming to have the primary construction phase completed by the end of next month. Let me know if you would like to adjust any of these dates before we finalize the project plan. If you need anything further, feel free to reach out to me at my office extension or send me an email. Best regards, Project Manager, 555-0122, pm.office@hospital.internal",
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "our last conversation",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "555-0122, pm.office@hospital.internal",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p071",
+    "attack": {
+      "subject": "Urgent assistance needed",
+      "body": "Hi there. I have always appreciated your dedication to our team. Since I covered your shifts while you were out last month, I am hoping you can help me out. I am currently abroad and having issues with my banking. Could you process a payment request for me? Please reply directly to my private number at 555-0988. As your manager, I need this handled now.",
+      "tactic_cues": {
+        "authority": "As your manager, I need this handled now.",
+        "reciprocity": "Since I covered your shifts while you were out last month",
+        "liking": "I have always appreciated your dedication to our team."
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "As your manager",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "process a payment request",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply directly to my private number at 555-0988",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Travel expense approval",
+      "body": "Hello. I am preparing for my upcoming site visit and need to finalize the expense approval form. Could you please review the attached request for my travel and lodging costs? The finance department needs this submitted by Friday to ensure the funds are processed before my departure. Let me know if you have any questions about the projected budget. Thanks for your help with this.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "finance department",
+          "organisation": "healthcare organisation"
+        },
+        {
+          "type": "payment_request",
+          "span": "finalize the expense approval form",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p072",
+    "attack": {
+      "subject": "Urgent: Payment update required",
+      "body": "As the Director of Procurement, I am notifying you that our bank account has changed. Everyone else has already updated their records, so please update your payment details for the next invoice immediately. This is time sensitive. Regards, Apex Parts, 555-0144, billing@apexparts.com",
+      "tactic_cues": {
+        "authority": "As the Director of Procurement",
+        "urgency": "immediately",
+        "social_proof": "Everyone else has already updated their records"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Apex Parts",
+          "organisation": "Apex Parts"
+        },
+        {
+          "type": "payment_change",
+          "span": "our bank account has changed",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Apex Parts, 555-0144, billing@apexparts.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice reminder",
+      "body": "Hello, this is a reminder that invoice INV-9928 for the recent shipment of manufacturing components is now due. Please ensure that payment is processed to the existing account on file by the end of the week. You can find our standard payment terms and wire instructions attached to the original invoice document. If you have any questions, please contact our accounts receivable department. Regards, Apex Parts, 555-0144, billing@apexparts.com",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Apex Parts",
+          "organisation": "Apex Parts"
+        },
+        {
+          "type": "signature_contact",
+          "span": "Apex Parts, 555-0144, billing@apexparts.com",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

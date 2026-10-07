@@ -1,0 +1,191 @@
+[
+  {
+    "pair": "p217",
+    "attack": {
+      "subject": "Meeting follow up",
+      "body": "As the Executive Assistant to the CEO, I have the authority to direct this payment. Since I handled your recent promotion paperwork, please process this urgent invoice for our consultant. Keep this request strictly between us as we navigate internal budget shifts.",
+      "tactic_cues": {
+        "authority": "I have the authority to direct this payment",
+        "reciprocity": "Since I handled your recent promotion paperwork",
+        "secrecy": "Keep this request strictly between us"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Executive Assistant to the CEO",
+          "organisation": "Logistics Corp"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "handled your recent promotion paperwork",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "process this urgent invoice",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Meeting confirmation",
+      "body": "Following our conversation earlier today, I have confirmed your meeting with the Director of Logistics. Please report to Conference Room B at 2 PM on Thursday as we discussed. I look forward to seeing you there.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Director of Logistics",
+          "organisation": "Logistics Corp"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "Following our conversation earlier today",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p222",
+    "attack": {
+      "subject": "Urgent Compliance Review",
+      "body": "As the Lead Compliance Officer for Global Legal Partners, I am exercising my authority to demand the immediate production of the 2023 audit files we discussed in our prior meeting. This is the final opportunity to submit these records before we escalate the matter to the board. Every other department head has already submitted their full documentation to satisfy our regulatory obligations. Failure to provide these specific files by the end of this business day will result in a formal breach notification. We require these documents to ensure the firm remains compliant with external standards. Please upload the data to the secure portal immediately. This is a critical matter that impacts our standing with the industry oversight committee, and we cannot afford any delays or omissions at this juncture. Please ensure that all folders are complete, as partial submissions will not be accepted under any circumstances. You are expected to prioritize this over all other current tasks to avoid further scrutiny from our partners.",
+      "tactic_cues": {
+        "authority": "I am exercising my authority to demand the immediate production",
+        "scarcity": "This is the final opportunity to submit these records",
+        "social_proof": "Every other department head has already submitted their full documentation"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Global Legal Partners",
+          "organisation": "Global Legal Partners"
+        },
+        {
+          "type": "authority",
+          "span": "Lead Compliance Officer",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "production of the 2023 audit files",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "we discussed in our prior meeting",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Audit documentation request",
+      "body": "We are currently reviewing the case files for the upcoming litigation. Per our external counsel at Sterling Legal Group, we require copies of the 2023 audit documents to proceed with our assessment of the current portfolio. Please provide these files at your earliest convenience so that we may integrate them into our legal review process. We have been working with your department to gather all necessary evidence to ensure we have a comprehensive view of the matter. If you have any questions regarding the scope of this request, please feel free to reach out to our office to discuss the details. We appreciate your assistance in providing these records, as they are essential for the next phase of our work. Thank you for your continued cooperation in this process.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Sterling Legal Group",
+          "organisation": "Sterling Legal Group"
+        },
+        {
+          "type": "data_request",
+          "span": "copies of the 2023 audit documents",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p230",
+    "attack": {
+      "subject": "Urgent wire transfer",
+      "body": "As the VP of Finance, I have the authority to override standard procedures for this vendor. This is your last chance to process the wire transfer today before the window closes. It was great catching up at the team dinner last week, and I would appreciate your help with this. Please send the funds to the account details attached. Reply to my personal email at vpf-direct@proton-mail.com to confirm once the payment has been initiated. This is a critical transaction that needs to be settled immediately to avoid service disruptions for our main project.",
+      "tactic_cues": {
+        "authority": "As the VP of Finance, I have the authority to override standard procedures",
+        "scarcity": "This is your last chance to process the wire transfer today before the window closes",
+        "liking": "It was great catching up at the team dinner last week"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "VP of Finance",
+          "organisation": "Software Solutions Inc"
+        },
+        {
+          "type": "authority",
+          "span": "VP of Finance",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "send the funds to the account details attached",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "Reply to my personal email at vpf-direct@proton-mail.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Payment request for PO-9928",
+      "body": "Please process the payment for invoice number 9928 in the amount of five thousand dollars. This charge corresponds to the software licensing purchase order approved by the procurement team last month. The invoice has been uploaded to the finance portal for your review and final sign-off. Please ensure this is processed according to our standard net-thirty terms as outlined in the vendor agreement. If you find any discrepancies between the invoice and the purchase order, please flag them before submitting the transaction for final approval. Thank you for your help in managing these recurring vendor payments.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "procurement team",
+          "organisation": "Software Solutions Inc"
+        },
+        {
+          "type": "payment_request",
+          "span": "process the payment for invoice number 9928",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p238",
+    "attack": {
+      "subject": "Re: Project updates",
+      "body": "Since I covered your shifts while you were out, could you do me a favor and update the payee information for our latest shipment? Please keep this change between us for now. Use the new bank details provided below.\n\nBest, Mark\nContact: 555-0199",
+      "tactic_cues": {
+        "reciprocity": "Since I covered your shifts while you were out",
+        "secrecy": "Please keep this change between us"
+      },
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "covered your shifts",
+          "organisation": null
+        },
+        {
+          "type": "payment_change",
+          "span": "update the payee information",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Contact: 555-0199",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Re: Project updates",
+      "body": "I have reviewed the schedule for the upcoming warehouse deliveries. Everything looks aligned with the current logistics plan. Let us aim to finalize the loading schedule by Friday afternoon to ensure we stay on track. Please let me know if you need anything else before then.\n\nRegards, Sarah\nProject Coordinator, 555-0122",
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "reviewed the schedule",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Project Coordinator, 555-0122",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

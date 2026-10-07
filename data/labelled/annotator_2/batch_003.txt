@@ -1,0 +1,410 @@
+[
+  {
+    "id": "b003_01",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "To re-validate your account please CLICK HERE",
+        "organisation": null
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "Admin Staff",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Ledger Support",
+        "organisation": "Ledger"
+      },
+      {
+        "type": "reply_direction",
+        "span": "For assistance, reply directly to this email.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b003_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b003_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b003_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "The PayPal Team",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "click the link below and then complete all steps from the following page as we try to verify your identity.",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b003_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b003_08",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "NATIONAL PETROLEUM INVESTMENTS MANAGEMENT SERVICES (NAPIMS)",
+        "organisation": "NAPIMS"
+      },
+      {
+        "type": "authority",
+        "span": "GENERAL VICTOR MALU",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "email: [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Regions Bank",
+        "organisation": "Regions Bank"
+      },
+      {
+        "type": "credential_request",
+        "span": "complete the Regions InterAct Confirmation Form",
+        "organisation": "Regions Bank"
+      }
+    ]
+  },
+  {
+    "id": "b003_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "payment_request",
+        "span": "ALL for 1 Special LOW Price of Only $29.99!",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "1 - 8 0 0 - 8 6 1 - 1 4 8 1",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 1,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Lowe's Home Improvement",
+        "organisation": "Lowe's"
+      }
+    ]
+  },
+  {
+    "id": "b003_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "McDonald's",
+        "organisation": "McDonald's"
+      },
+      {
+        "type": "data_request",
+        "span": "Bestätige einfach deine Daten",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b003_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Docusign",
+        "organisation": "Docusign"
+      },
+      {
+        "type": "reply_direction",
+        "span": "reach out to the sender by emailing them directly.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_15",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "SunTrust Promotions International",
+        "organisation": "SunTrust"
+      },
+      {
+        "type": "authority",
+        "span": "Mr. Morgan West. The Coordinator.",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "contact our agents by email or telephone",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_16",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Mr.Eze Ekeyion, the Auditor General of a bank in Africa",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b003_18",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "COMISSÃO DE INDENIZAÇÃO DA CEDEAO",
+        "organisation": "CEDEAO"
+      },
+      {
+        "type": "reply_direction",
+        "span": "ENTRE EM CONTATO COM A SRA. SYLVIE SCHOLASTIQUE IDA COULIBALY",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_19",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "CAIXA TEM",
+        "organisation": "CAIXA"
+      }
+    ]
+  },
+  {
+    "id": "b003_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 1,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  }
+]

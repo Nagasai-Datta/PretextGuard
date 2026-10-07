@@ -1,0 +1,373 @@
+[
+  {
+    "id": "b032_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "The Internet banking Team Copyright Standard Bank.",
+        "organisation": "Standard Bank"
+      },
+      {
+        "type": "credential_request",
+        "span": "login your Internet Banking to Stop the R 460.99 deduction",
+        "organisation": "Standard Bank"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Customer Contact Centre on 0860 123 000 . If you are calling from outside South Africa, call +27 11 299 4701",
+        "organisation": "Standard Bank"
+      }
+    ]
+  },
+  {
+    "id": "b032_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "TS Exim Sdn Bhd",
+        "organisation": "TS Exim Sdn Bhd"
+      }
+    ]
+  },
+  {
+    "id": "b032_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b032_04",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "operational manager in account management section in charge of credit and foreign bills",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Dr.Kazim Loch",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b032_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b032_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b032_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b032_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 1,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Consumer Today",
+        "organisation": "Consumer Today"
+      }
+    ]
+  },
+  {
+    "id": "b032_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 1,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b032_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b032_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "The Facebook Team",
+        "organisation": "Facebook"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Report the user ([EMAIL]?subject=Send+Statement phishing@[EMAIL]) Yes, me ([EMAIL]?subject=Yes+me phishing@[EMAIL])",
+        "organisation": "Facebook"
+      },
+      {
+        "type": "credential_request",
+        "span": "verify it's really you",
+        "organisation": "Facebook"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Facebook, Inc., Attention: Community Support, 1 Facebook Way, Menlo Park, CA 94025",
+        "organisation": "Facebook"
+      }
+    ]
+  },
+  {
+    "id": "b032_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "enron",
+        "organisation": "Enron"
+      },
+      {
+        "type": "signature_contact",
+        "span": "kathy mcmahon enron 713 - 853 - 6232",
+        "organisation": "Enron"
+      }
+    ]
+  },
+  {
+    "id": "b032_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Williams KABILA",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b032_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Sailesh Sankaran CISSP Digital Plant – Next Generation Services",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b032_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b032_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b032_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b032_18",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Bank Of Korea",
+        "organisation": "Bank Of Korea"
+      },
+      {
+        "type": "authority",
+        "span": "manager of bills/exchange at the foreign remittance department",
+        "organisation": "Bank Of Korea"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Mr. Jun Cheng, Bank Of Korea, 16-1, Yoido-dong, Youngdungpo-gu, Seoul 150-873.",
+        "organisation": "Bank Of Korea"
+      }
+    ]
+  },
+  {
+    "id": "b032_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "email me at [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b032_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Casino",
+        "organisation": "Casino"
+      }
+    ]
+  }
+]

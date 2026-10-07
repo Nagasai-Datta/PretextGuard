@@ -1,0 +1,367 @@
+[
+  {
+    "id": "b007_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b007_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Email Address: [EMAIL] Telephone number: 0031630655043",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b007_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "Email me with 'Send Link' in the subject line to: [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b007_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "prior_relationship",
+        "span": "In response to our previous email",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b007_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": []
+  },
+  {
+    "id": "b007_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b007_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "[DOMAIN]",
+        "organisation": "[DOMAIN]"
+      },
+      {
+        "type": "signature_contact",
+        "span": "billing inquiries : phone : toll free in the u . s . and canada : ( 800 ) 899 - 9723 outside the u . s . and canada : + 1 ( 902 ) 742 - 1466 online : [URL]",
+        "organisation": null
+      },
+      {
+        "type": "payment_request",
+        "span": "amount charged ( us $ ) : $ 35 . 00",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b007_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "enron",
+        "organisation": "enron"
+      }
+    ]
+  },
+  {
+    "id": "b007_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b007_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Staff of United Bank for Africa (UBA),Ilupeju branch, Lagos Nigeria",
+        "organisation": "United Bank for Africa (UBA)"
+      },
+      {
+        "type": "signature_contact",
+        "span": "FROM:MARTIN CHIME PRIVATE Tel: 234-1-7756809 Fax: 234-1-7599173 E-MAIL:[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b008_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "eBay",
+        "organisation": "eBay"
+      },
+      {
+        "type": "credential_request",
+        "span": "Please update and verify your information by clicking the link below: [URL]",
+        "organisation": "eBay"
+      },
+      {
+        "type": "data_request",
+        "span": "Please update and verify your information",
+        "organisation": "eBay"
+      }
+    ]
+  },
+  {
+    "id": "b008_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "To reset and re validate kindly CLICK HERE: Activate Here: [URL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b008_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_10",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "IT System Administrator",
+        "organisation": null
+      },
+      {
+        "type": "authority",
+        "span": "IT System Administrator",
+        "organisation": null
+      },
+      {
+        "type": "credential_request",
+        "span": "(3) Password: (4) Confirm Password:",
+        "organisation": null
+      },
+      {
+        "type": "data_request",
+        "span": "(1) E-mail: (2) Username:",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "SEND THE EMAIL BELOW",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b008_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": []
+  },
+  {
+    "id": "b008_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "we at Ledger",
+        "organisation": "Ledger"
+      }
+    ]
+  }
+]

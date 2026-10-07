@@ -1,0 +1,351 @@
+[
+  {
+    "pair": "p113",
+    "attack": {
+      "subject": "Urgent Security Action Required",
+      "body": "This is the IT Help Desk. By order of the Global Security Director, all staff are required to verify their mailbox credentials today. Every other department has already completed this mandatory security update to prevent system access errors. You are required to provide your current login password to this email thread to ensure your account remains active and compliant with our new protocol. Failure to comply with this direct instruction from the security office will result in immediate loss of access to the logistics network.",
+      "tactic_cues": {
+        "authority": "By order of the Global Security Director",
+        "social_proof": "Every other department has already completed this mandatory security update"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT Help Desk",
+          "organisation": "Logistics Organization"
+        },
+        {
+          "type": "credential_request",
+          "span": "provide your current login password",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled Maintenance Notice",
+      "body": "The IT Help Desk will be performing routine server maintenance this Saturday from 2 AM to 6 AM. During this time, the logistics network and email services will be intermittently unavailable. We recommend that all staff save their work and log out before the maintenance window begins. No action is required from your end, and you do not need to provide any information or credentials. We appreciate your patience as we continue to improve our infrastructure and system reliability for the upcoming quarter.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT Help Desk",
+          "organisation": "Logistics Organization"
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p114",
+    "attack": {
+      "subject": "Follow up on our confidential discussion",
+      "body": "It was truly wonderful catching up with you at the Hospitality Summit last month. As the Lead Compliance Officer for this regulatory inquiry, I am reaching out regarding the confidential files we discussed. Because of the strict federal oversight involved, this request is extremely time-sensitive. We are down to our final window to submit these records before the regulatory board closes the case file entirely. It is absolutely vital that you keep this matter strictly between us and do not reach out to your internal legal team or supervisors for clarification, as any delay will jeopardize our standing. Please send the requested documents immediately so we do not lose this final chance to resolve the matter favorably. We have so little time left to ensure the organization remains compliant and avoids the severe penalties that will follow if we miss this window.",
+      "tactic_cues": {
+        "urgency": "extremely time-sensitive",
+        "scarcity": "down to our final window",
+        "secrecy": "keep this matter strictly between us"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Lead Compliance Officer",
+          "organisation": "Regulatory Board"
+        },
+        {
+          "type": "authority",
+          "span": "Lead Compliance Officer",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "send the requested documents",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "catching up with you at the Hospitality Summit",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Request for documentation: Case 4492",
+      "body": "I am writing on behalf of the outside legal counsel firm, Miller and Associates, regarding the ongoing compliance review for your department. We have been tasked with gathering specific documentation to support our upcoming audit of hospitality standards. Please review the attached list of required files and provide them to our secure portal by the end of the business week. We understand this involves significant preparation and appreciate your cooperation in gathering these records. If you have any questions regarding the scope of this request, please feel free to reach out to our team at the law firm directly through the established contact channels provided in our previous correspondence. We are looking forward to finalizing this review process efficiently and ensuring all documentation meets the necessary legal requirements for our client.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Miller and Associates",
+          "organisation": "Miller and Associates"
+        },
+        {
+          "type": "data_request",
+          "span": "provide them to our secure portal",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p115",
+    "attack": {
+      "subject": "Update to my payroll details",
+      "body": "Hi there, it was such a pleasure working with you on the recent contract audit. You really handled that project with such grace and professionalism. I am writing to request a quick change to my direct deposit bank information. I have hit a wall with the HR portal and am hoping you could help me out directly. Could you please process this change for me by replying to my personal email address at payroll-update@protonmail.com with the confirmation? Please keep this request strictly confidential between us, as I do not want to cause any internal administrative confusion. I realize this is a bit outside the normal procedure, but given how much I appreciate your help, this is my last chance to ensure my mortgage payment goes through this month. I would be so grateful if you could prioritize this for me today.",
+      "tactic_cues": {
+        "scarcity": "this is my last chance to ensure my mortgage payment goes through",
+        "liking": "it was such a pleasure working with you",
+        "secrecy": "keep this request strictly confidential between us"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "HR",
+          "organisation": "Legal Services Organization"
+        },
+        {
+          "type": "payment_change",
+          "span": "request a quick change to my direct deposit bank information",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply to my personal email address",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Procedure for updating direct deposit bank details",
+      "body": "I am writing to inquire about the standard procedure for updating my direct deposit bank information. I have recently switched my primary checking account and need to ensure my payroll details are current for the upcoming pay cycle. Could you please direct me to the correct section of the HR portal where I can safely input these new banking details? I understand there may be a verification step involved to ensure the security of these payments. Please let me know if there are any specific forms I need to submit or if the process is handled entirely through the self-service portal. I want to make sure I follow the correct internal policy to avoid any delays in my payroll processing. Thank you for your guidance on how to manage this update effectively within our existing human resources framework.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "HR",
+          "organisation": "Legal Services Organization"
+        },
+        {
+          "type": "payment_change",
+          "span": "updating my direct deposit bank information",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p116",
+    "attack": {
+      "subject": "URGENT: Project Falcon Payment",
+      "body": "As the Chief Financial Officer, I am overseeing the final stages of the Project Falcon acquisition we discussed last month. I need you to expedite a payment to our vendor immediately to secure the final assets. Since I covered for your department during the budget shortfall last quarter, I am relying on your team to handle this sensitive transaction without delay. This is your last chance to complete this transfer before the vendor closes the account and we lose the acquisition opportunity entirely. The details for the transfer are attached to this message. Please ensure this is processed before the end of the day. Your cooperation on this matter is essential, and I expect this to be completed as a priority task given our history of working together on these high-stakes projects.",
+      "tactic_cues": {
+        "scarcity": "this is your last chance to complete this transfer",
+        "reciprocity": "Since I covered for your department during the budget shortfall"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "Chief Financial Officer",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "expedite a payment to our vendor",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "Project Falcon acquisition we discussed last month",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Payment approval for Project Falcon vendor",
+      "body": "The legal department has completed their final review of the service agreement for the Project Falcon acquisition. As per our internal procurement guidelines, we are now ready to issue the initial payment to the designated vendor. Please find the approved invoice attached for your records and processing. The amount reflects the agreed-upon milestones as outlined in the contract signed by both parties last week. Once you have verified the details against the project budget, please forward the payment authorization to the accounts payable department. We have ensured that all regulatory checks are complete and that the payment terms align with our current operational standards. Thank you for your assistance in finalizing this transaction to ensure that the project timeline remains on track for the coming months.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "legal department",
+          "organisation": "Manufacturing Organization"
+        },
+        {
+          "type": "payment_request",
+          "span": "issue the initial payment to the designated vendor",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p117",
+    "attack": {
+      "subject": "Urgent request for employee data",
+      "body": "As the Director of Operations, I am requiring an immediate report of all employee tax forms and current staff lists for the construction division. Every other department head has already submitted their data for this internal audit, and your team is the final one pending. Please provide these documents in a reply to this email thread immediately. We are under strict time pressure to finalize these files before the inspection begins. Your prompt cooperation is required to maintain our project status.",
+      "tactic_cues": {
+        "urgency": "immediate",
+        "social_proof": "Every other department head has already submitted their data"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Director of Operations",
+          "organisation": "Construction Organization"
+        },
+        {
+          "type": "authority",
+          "span": "Director of Operations",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "report of all employee tax forms and current staff lists",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Annual audit documentation request",
+      "body": "The Human Resources department is initiating the annual audit of employee documentation for the construction division. To comply with our internal reporting standards, we require updated tax forms and verified staff lists for your team. Please upload these documents through the secure document portal by the end of the week. This audit is a routine process to ensure that all personnel records are accurate and up to date. We appreciate your assistance in gathering this information and ensuring that your department remains in full compliance with our internal governance policies. If you have any questions regarding the specific documents required, please contact the HR audit coordinator through the internal ticketing system.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Human Resources department",
+          "organisation": "Construction Organization"
+        },
+        {
+          "type": "data_request",
+          "span": "require updated tax forms and verified staff lists",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p118",
+    "attack": {
+      "subject": "RE: Logistics contract follow up",
+      "body": "It was great chatting about the warehouse expansion project last week! You are always so easy to work with, which I truly appreciate. Regarding the invoice we discussed, we have had to change our banking details for the final settlement. Could you please update your records to the new account information attached here? We need this payment to be processed immediately so we can keep the project on schedule. It is vital that we get this sorted before the end of the day. Thanks again for all your help on this. If you have any trouble with the new details, please call my direct line at 555-0199 so we can resolve it right away.\n\nBest regards,\n\nMarcus Thorne\nProject Manager\n555-0199",
+      "tactic_cues": {
+        "urgency": "processed immediately",
+        "liking": "You are always so easy to work with"
+      },
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "chatting about the warehouse expansion project last week",
+          "organisation": null
+        },
+        {
+          "type": "payment_change",
+          "span": "change our banking details",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Marcus Thorne\nProject Manager\n555-0199",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "RE: Logistics contract follow up",
+      "body": "Following up on our conversation from last week regarding the warehouse expansion, I wanted to confirm that the delivery schedule has been finalized. We have accounted for the lead times you mentioned and adjusted our logistics plan accordingly. It looks like everything is in alignment with the original project goals we established. I will send over the updated project timeline by the end of the week for your final approval. Please let me know if there are any specific milestones you would like us to prioritize during the upcoming phase. I look forward to continuing our work on this project and ensuring everything stays on track. Should you need to discuss any further details, please reach out to me at my office number below.\n\nBest regards,\n\nSarah Jenkins\nLogistics Coordinator\n555-0122",
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "conversation from last week regarding the warehouse expansion",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Sarah Jenkins\nLogistics Coordinator\n555-0122",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p119",
+    "attack": {
+      "subject": "Emergency help needed",
+      "body": "I am currently traveling abroad for the university board meeting and have run into a bit of a crisis. I know how much you value our work together and I really admire your dedication to this team. Please keep this between us as I do not want the finance office alerted while I am in this time zone. As the Director, I need you to facilitate an emergency payment for my hotel and travel expenses immediately. Please reply to this email and tell me you can handle this for me so I can give you the account details. I would be so grateful if you could manage this quietly.",
+      "tactic_cues": {
+        "liking": "I really admire your dedication to this team",
+        "secrecy": "keep this between us"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "Director",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "facilitate an emergency payment",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply to this email",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Upcoming travel expense approval",
+      "body": "I am preparing for my upcoming trip to the international education conference and wanted to check on the status of my travel expense request. The finance team mentioned that they need a few more details regarding the estimated airfare and accommodation costs before they can provide final approval. Could you please review the attached draft expense report and let me know if it aligns with our departmental budget for this quarter? I want to ensure that everything is in order before I submit the formal request to the office. Thank you for your assistance in reviewing these figures so we can avoid any issues during the reimbursement process. I appreciate your support in getting this travel approved in a timely manner.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "finance team",
+          "organisation": "Education Organization"
+        },
+        {
+          "type": "payment_request",
+          "span": "travel expense request",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p120",
+    "attack": {
+      "subject": "Urgent Notice: Banking Update",
+      "body": "As the Director of Accounts, I am notifying you that we have updated our bank details effective immediately. Please ensure all future invoices are paid to the new account provided in the attachment. Keep this update restricted to yourself and do not inform your accounts payable department until the transition is complete. Your compliance is mandatory.\n\nRegards,\n\nJohn Miller\nDirector of Accounts\n555-0988",
+      "tactic_cues": {
+        "authority": "As the Director of Accounts",
+        "secrecy": "Keep this update restricted to yourself"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Director of Accounts",
+          "organisation": "Supplier Organization"
+        },
+        {
+          "type": "payment_change",
+          "span": "updated our bank details",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "John Miller\nDirector of Accounts\n555-0988",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice Reminder: INV-992",
+      "body": "This is a reminder that invoice INV-992 for the logistics services provided last month is now due. Please ensure that payment is processed to our standard bank account as listed on the invoice header. If you have already sent the payment, please disregard this message. Thank you for your business.\n\nRegards,\n\nAccounts Receivable Team\nLogistics Solutions Inc.\n555-0123",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Logistics Solutions Inc.",
+          "organisation": "Logistics Solutions Inc."
+        },
+        {
+          "type": "signature_contact",
+          "span": "Accounts Receivable Team\nLogistics Solutions Inc.\n555-0123",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,357 @@
+[
+  {
+    "pair": "p169",
+    "attack": {
+      "subject": "Quick follow up",
+      "body": "Following our chat earlier, Mr. Henderson needs that vendor payment processed today. As his assistant, I am authorizing this action. Since I handled those expense reports for you last month, I need you to prioritize this immediately. Please keep this private between us to avoid any office gossip.",
+      "tactic_cues": {
+        "authority": "I am authorizing this action",
+        "reciprocity": "Since I handled those expense reports for you last month",
+        "secrecy": "keep this private between us"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Mr. Henderson",
+          "organisation": "Logistics Corp"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "Following our chat earlier",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "vendor payment processed",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Meeting confirmation",
+      "body": "As we discussed earlier, Mr. Henderson would like to meet with you to review the logistics report. I have scheduled the call for Tuesday at 10 AM in Conference Room B. Please let me know if this time still works for your schedule.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Mr. Henderson",
+          "organisation": "Logistics Corp"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "As we discussed earlier",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p170",
+    "attack": {
+      "subject": "Urgent transfer",
+      "body": "As CEO, I require an immediate wire transfer to our new partner. Since I supported your recent promotion, I need you to handle this now. Send the confirmation details to my private email at ceo-direct@protonmail.com rather than replying here.",
+      "tactic_cues": {
+        "urgency": "immediate",
+        "reciprocity": "Since I supported your recent promotion"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "CEO",
+          "organisation": "Software Solutions Inc"
+        },
+        {
+          "type": "authority",
+          "span": "As CEO",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "wire transfer",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "my private email at ceo-direct@protonmail.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Payment request for PO 9822",
+      "body": "Please process the attached payment request for PO 9822 regarding the cloud infrastructure services. The invoice has been signed off by the department head and aligns with the budget. Please let me know once the transfer has been initiated.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "department head",
+          "organisation": "Software Solutions Inc"
+        },
+        {
+          "type": "payment_request",
+          "span": "process the attached payment request",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p171",
+    "attack": {
+      "subject": "Client appreciation",
+      "body": "I am directing you to purchase twenty gift cards for our primary contractors as a gesture of goodwill. This is the last chance to secure them before the fiscal period closes at noon. Given that I have consistently advocated for your salary increase, I am counting on you to handle this request personally. Do not mention this to the accounting department, as it is a sensitive matter for the upcoming project launch. Please send the digital codes directly to my personal text line at 555-0199 instead of using the company platform. I expect these to be ready for distribution by the end of the day. Your discretion is vital here, and I expect you to adhere to these instructions without deviation or discussion with your colleagues. The success of our upcoming site visit depends on this being managed quietly by you alone, so please prioritize this task above all other administrative duties you currently have on your desk.",
+      "tactic_cues": {
+        "scarcity": "This is the last chance",
+        "reciprocity": "Given that I have consistently advocated for your salary increase",
+        "secrecy": "Do not mention this to the accounting department"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "I am directing you",
+          "organisation": null
+        },
+        {
+          "type": "gift_card",
+          "span": "purchase twenty gift cards",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "personal text line at 555-0199",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Gift cards for client event",
+      "body": "We are planning to host a small recognition event for our long-term construction partners next month. To show our appreciation, we would like to provide some gift cards as tokens of thanks. Please coordinate with the procurement team to purchase these through our standard vendor account. Ensure that you follow the official guidelines for client gifting as outlined in the corporate handbook. You will need to obtain the necessary budget codes from the project manager before submitting the order. Please keep the procurement team updated on the timeline for when these cards are needed, as they will require at least one week to finalize the purchase. Thank you for assisting with the coordination of these items for the event. If you have any questions regarding the approved vendors or the spending limits per client, please review the current policy on the company intranet or reach out to the finance department for further clarification on the process.",
+      "claims": [
+        {
+          "type": "gift_card",
+          "span": "purchase these",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p172",
+    "attack": {
+      "subject": "Overdue invoice",
+      "body": "As the Director of Operations, I am notifying you that your payment is significantly overdue. This is your final notice, and if payment is not made within the next two hours, we will be forced to terminate your contract immediately. Considering that we gave you a generous discount during our last meeting, I expect you to resolve this now. We have been partners for years, so it is disappointing to have to chase this payment. Please ensure the wire is sent to our new account details provided in the attached file. Your failure to act will result in the suspension of all construction services at your site. We have always maintained a good working relationship, and I would hate to see that damaged by a simple oversight on your part. Please confirm receipt of this email and verify that the transfer has been initiated before the deadline. We need this settled urgently to keep our own operations moving forward according to schedule.",
+      "tactic_cues": {
+        "authority": "As the Director of Operations",
+        "urgency": "within the next two hours",
+        "reciprocity": "Considering that we gave you a generous discount"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Director of Operations",
+          "organisation": "BuildRight Contractors"
+        },
+        {
+          "type": "payment_request",
+          "span": "payment is significantly overdue",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "during our last meeting",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice 44521 payment status",
+      "body": "I hope this message finds you well. I am writing to follow up on Invoice 44521, which was discussed during our project review meeting last month. Our records indicate that this invoice, which was due on the 15th, remains outstanding. We value our ongoing collaboration with your firm and would appreciate it if you could look into the status of this payment at your earliest convenience. If the invoice has already been paid, please disregard this note or provide the remittance advice so we can update our records accordingly. We have attached a copy of the original invoice for your reference. If you have any questions or require further information, please feel free to reach out to our billing department. Thank you for your time and your continued partnership on the current construction projects. We look forward to hearing from you soon regarding this matter.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "our billing department",
+          "organisation": "BuildRight Contractors"
+        },
+        {
+          "type": "payment_request",
+          "span": "Invoice 44521",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "discussed during our project review meeting",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p173",
+    "attack": {
+      "subject": "Account verification",
+      "body": "Hi there, it was great catching up at the breakroom earlier. Since almost everyone in the retail division has already verified their account status to keep their access, I wanted to help you get this done quickly. We just need to confirm your credentials to prevent your mailbox from being disabled. Please click below and log in to verify your identity. It is a quick process and helps ensure everything stays running smoothly for you. Everyone else found it very straightforward. Thanks for being such a great part of the team.",
+      "tactic_cues": {
+        "social_proof": "almost everyone in the retail division has already verified",
+        "liking": "great catching up at the breakroom"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT help desk",
+          "organisation": "Retail Group"
+        },
+        {
+          "type": "credential_request",
+          "span": "log in to verify your identity",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled mailbox maintenance",
+      "body": "This is a notification from the IT help desk regarding scheduled maintenance on our email servers. The maintenance window is set for this coming Sunday between 2 AM and 4 AM. During this time, users may experience brief interruptions in email service. No action is required from your side. We appreciate your patience as we work to improve our infrastructure. Please contact the help desk if you experience any persistent issues following the maintenance period.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT help desk",
+          "organisation": "Retail Group"
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p174",
+    "attack": {
+      "subject": "Confidential records",
+      "body": "It was wonderful seeing you at the industry gala last week. As the external compliance officer for our recent audit, I need you to share the employee salary data we discussed. Your cooperation is expected as I have the authority to review these documents for the manufacturing board. You are doing a great job, and I am happy to facilitate this process for you. Please send the files over so we can conclude this matter efficiently.",
+      "tactic_cues": {
+        "authority": "I have the authority to review these documents",
+        "liking": "You are doing a great job"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "external compliance officer",
+          "organisation": "Legal Partners LLP"
+        },
+        {
+          "type": "authority",
+          "span": "As the external compliance officer",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "employee salary data",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "discussed",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Document request for compliance audit",
+      "body": "We are currently conducting the annual compliance audit for the manufacturing division. As part of this process, we require access to the employee payroll records to verify historical data. Please provide the requested documents through the secure document portal. If you have any questions regarding the scope of this request, please contact our office directly. We appreciate your cooperation in ensuring the audit proceeds according to schedule.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "our office",
+          "organisation": "Legal Partners LLP"
+        },
+        {
+          "type": "data_request",
+          "span": "employee payroll records",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p175",
+    "attack": {
+      "subject": "Payroll update",
+      "body": "I am sending you this request because you helped me with that registration issue last term. I need to change my direct-deposit bank details before the next pay cycle. Please do not share this request with the main HR desk as I prefer to handle this directly with you. Text me your confirmation at 555-0988 after you process the change to my account. It would be a huge help to me.",
+      "tactic_cues": {
+        "reciprocity": "you helped me with that registration issue last term",
+        "secrecy": "do not share this request with the main HR desk"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "HR",
+          "organisation": "University Staff"
+        },
+        {
+          "type": "payment_change",
+          "span": "change my direct-deposit bank details",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "Text me your confirmation at 555-0988",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Updating bank account information",
+      "body": "If you need to update your direct-deposit bank details, please log in to the employee portal. Once logged in, navigate to the payroll section and select the account information tab. You can update your bank name, routing number, and account number there. Please ensure that all information is accurate to avoid any delays in your salary payments. If you encounter any issues with the portal, contact the payroll department for assistance.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "payroll department",
+          "organisation": "University Staff"
+        },
+        {
+          "type": "payment_change",
+          "span": "update your direct-deposit bank details",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p176",
+    "attack": {
+      "subject": "Urgent acquisition payment",
+      "body": "As the Executive VP, I am requiring the final payment for the confidential acquisition we discussed. This is the last chance to settle the funds before the deal expires tonight. Please process the transfer immediately to the new account provided.",
+      "tactic_cues": {
+        "authority": "As the Executive VP",
+        "scarcity": "This is the last chance"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "Executive VP",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "final payment",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "we discussed",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Approval for acquisition invoice",
+      "body": "Please find attached the final invoice for the acquisition project. This contract has been reviewed by the legal department and is ready for payment. Please process this as per our standard internal procedures for capital expenditures. Thank you.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "legal department",
+          "organisation": "Hospitality Corp"
+        },
+        {
+          "type": "payment_request",
+          "span": "final invoice",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

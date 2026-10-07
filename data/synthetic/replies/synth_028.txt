@@ -1,0 +1,198 @@
+[
+  {
+    "pair": "p217",
+    "attack": {
+      "subject": "Urgent request regarding our call",
+      "body": "As the Executive Assistant to the CEO, I require you to process a payment request today. Since I covered for your project delays last month, I need you to prioritize this transfer now. Do not share this with anyone else or mention it to your manager. This remains between us.",
+      "tactic_cues": {
+        "authority": "I require you to process a payment",
+        "reciprocity": "Since I covered for your project delays last month",
+        "secrecy": "Do not share this with anyone else or mention it to your manager"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Executive Assistant to the CEO", "organisation": "Logistics Corp"},
+        {"type": "prior_relationship", "span": "covered for your project delays last month", "organisation": null},
+        {"type": "payment_request", "span": "process a payment request", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Meeting confirmation",
+      "body": "As we discussed earlier, I have scheduled your call with our CEO for Tuesday at 2 PM. We have reserved Conference Room B for this session. Please let me know if you have any questions before we meet.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "Executive Assistant", "organisation": "Logistics Corp"},
+        {"type": "prior_relationship", "span": "As we discussed earlier", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p218",
+    "attack": {
+      "subject": "Urgent wire transfer",
+      "body": "As the Chief Financial Officer, I am directing you to initiate a wire transfer for the new software licensing fee. Every other department head has already signed off on this to avoid service gaps. Please execute this payment immediately. Do not use the standard ticketing system for this request. Reply only to my personal email address at cfo.finance@private-mail.com to confirm once the funds have been moved. This is a critical priority for the board and must be handled with full focus. Ensure the transfer is completed before the close of business today to maintain our standing with the vendor.",
+      "tactic_cues": {
+        "authority": "As the Chief Financial Officer, I am directing you",
+        "social_proof": "Every other department head has already signed off on this"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Chief Financial Officer", "organisation": "SoftTech Solutions"},
+        {"type": "authority", "span": "Chief Financial Officer", "organisation": "SoftTech Solutions"},
+        {"type": "payment_request", "span": "initiate a wire transfer", "organisation": null},
+        {"type": "reply_direction", "span": "Reply only to my personal email address", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Payment request for PO-9921",
+      "body": "I am submitting the invoice for the recent cloud infrastructure services provided under Purchase Order 9921. This request is for the standard monthly maintenance fee. Please process this payment through our internal accounts payable system following our normal approval process. If you require any additional documentation regarding the service level agreement or the breakdown of the charges, please let me know. I have attached the original invoice for your records. Thank you for your assistance with getting this processed by the end of the week.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "internal accounts payable system", "organisation": "SoftTech Solutions"},
+        {"type": "payment_request", "span": "process this payment", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p219",
+    "attack": {
+      "subject": "Urgent gift card procurement",
+      "body": "As your Manager, I am instructing you to purchase ten five-hundred dollar gift cards for our VIP logistics clients immediately. Everyone else on the team has already submitted their allocated cards for the event, and I need yours to finalize the set before the afternoon deadline. This is a mandatory task for the department's client relations strategy. Please do not bother the finance department with this; just purchase them and text me the codes at 555-0199 so I can verify them before the meeting starts. We are relying on your prompt action to ensure the client appreciation gifts are ready on time. Your cooperation is essential to maintain our reputation with these key partners. Please confirm once you have completed the purchase and sent the codes as instructed.",
+      "tactic_cues": {
+        "authority": "As your Manager, I am instructing you",
+        "urgency": "immediately",
+        "social_proof": "Everyone else on the team has already submitted their allocated cards"
+      },
+      "claims": [
+        {"type": "authority", "span": "Manager", "organisation": "Logistics Pro"},
+        {"type": "gift_card", "span": "purchase ten five-hundred dollar gift cards", "organisation": null},
+        {"type": "reply_direction", "span": "text me the codes at 555-0199", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Client appreciation event",
+      "body": "We are preparing for our upcoming logistics client appreciation event. To show our gratitude, we have decided to provide gift cards to our top partners. Please coordinate with the procurement department to order the necessary gift cards. I have listed the required denominations and quantities in the attached file for your review. Please ensure that the procurement team handles the purchase according to our standard office policy. We want to make sure everything is ready well in advance of the event date next month. If you have any questions about the budget or the specific vendors we are using, please reach out to the project coordinator. Thank you for your help in organizing these materials.",
+      "claims": [
+        {"type": "gift_card", "span": "order the necessary gift cards", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p220",
+    "attack": {
+      "subject": "Final notice regarding payment",
+      "body": "As the Director of Accounts at Global Hospitality Services, I am writing to resolve the outstanding balance for our recent facility audit. As we discussed during our last meeting, this payment is now significantly overdue. Our records indicate that every other firm we serviced this quarter has already settled their accounts, and we cannot extend your credit further. This is your final notice, and if payment is not received today, we will be forced to suspend all services immediately. We value our partnership, but we must adhere to our standard financial protocols regarding overdue invoices. Please remit payment via our secure portal to avoid service interruption.",
+      "tactic_cues": {
+        "authority": "As the Director of Accounts",
+        "scarcity": "This is your final notice",
+        "social_proof": "every other firm we serviced this quarter has already settled their accounts"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "Global Hospitality Services", "organisation": "Global Hospitality Services"},
+        {"type": "payment_request", "span": "remit payment", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed during our last meeting", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Invoice Reminder: INV-4492",
+      "body": "I hope you are having a productive week. I am reaching out regarding invoice INV-4492 for the catering services provided to your hotel last month. According to our records, this invoice was due on the first of the month and remains outstanding. As we discussed during our initial contract signing, we appreciate prompt payment for all hospitality services rendered. Could you please check the status of this payment and let me know when we can expect the funds to arrive? If you have already sent the payment, please disregard this notification. Thank you for your attention to this matter.",
+      "claims": [
+        {"type": "affiliation_external", "span": "catering services", "organisation": "Hospitality Partner Inc"},
+        {"type": "payment_request", "span": "invoice INV-4492", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed during our initial contract signing", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p221",
+    "attack": {
+      "subject": "URGENT: Security maintenance",
+      "body": "Hello. I am writing from the IT Help Desk to inform you that we are conducting an urgent security update. Since the team assisted you with your workstation setup last week, we are reaching out to you first to ensure your access remains active. Everyone else in your department has already verified their credentials successfully to avoid lockout. Because we helped you resolve that technical issue previously, we are prioritizing your account migration today. Please reply to this message with your current password so we can migrate your data to the new secure server. Failure to do so will result in your account being disabled by the end of the hour. We are working hard to ensure that all staff members are transitioned without any loss of service or connectivity. Thank you for your cooperation in this matter as we secure our network infrastructure.",
+      "tactic_cues": {
+        "reciprocity": "Since the team assisted you with your workstation setup last week",
+        "social_proof": "Everyone else in your department has already verified their credentials"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "IT Help Desk", "organisation": "SoftTech Corp"},
+        {"type": "credential_request", "span": "reply to this message with your current password", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled server maintenance",
+      "body": "Please be advised that the IT Help Desk will be performing scheduled server maintenance this coming Saturday between 2 AM and 6 AM. During this time, company email services and access to the internal network will be temporarily unavailable. We recommend that you save all your work and log out of all applications before the maintenance window begins. Our team is performing these updates to improve overall system stability and security for all users. No action is required on your part, and all services should be restored by the time you arrive at the office on Monday morning. We appreciate your patience while we perform these necessary infrastructure upgrades. Please contact the help desk if you have any questions regarding this maintenance schedule.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "IT Help Desk", "organisation": "SoftTech Corp"}
+      ]
+    }
+  },
+  {
+    "pair": "p222",
+    "attack": {
+      "subject": "Confidential legal request",
+      "body": "As the Lead Compliance Officer for Legal Partners Group, I am directing you to provide the requested tax documents immediately. As we discussed during our previous engagement, this matter is of the utmost importance. Every other department lead has already provided their relevant employee files to us. This is your last chance to submit these records before we escalate this to the internal audit board. Please ensure all documents are complete as we are under strict regulatory timelines that will not permit further delays. We are counting on your full cooperation to finalize this compliance review. Do not discuss this request with other staff, as it involves sensitive data. We require these files to be sent directly to this address to maintain confidentiality and ensure the project remains on schedule for the upcoming board meeting this Friday.",
+      "tactic_cues": {
+        "authority": "As the Lead Compliance Officer",
+        "scarcity": "This is your last chance",
+        "social_proof": "Every other department lead has already provided their relevant employee files"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "Legal Partners Group", "organisation": "Legal Partners Group"},
+        {"type": "authority", "span": "Lead Compliance Officer", "organisation": "Legal Partners Group"},
+        {"type": "data_request", "span": "provide the requested tax documents", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed during our previous engagement", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Request for compliance records",
+      "body": "I am writing on behalf of our external counsel at Regulatory Oversight Associates regarding the annual compliance review. As part of our standard audit procedure, we are requesting copies of the department tax documentation for the previous fiscal year. Please provide the requested files at your earliest convenience to assist with the ongoing audit. Our legal team has reviewed the scope of this request and confirmed that it aligns with our current contractual obligations. You may submit these documents through the secure company portal or send them to the designated compliance email address provided in our previous memo. Thank you for your assistance in ensuring our records remain up to date and in full accordance with regulatory standards. Please let us know if you require any clarification on the specific files needed for this submission.",
+      "claims": [
+        {"type": "affiliation_external", "span": "Regulatory Oversight Associates", "organisation": "Regulatory Oversight Associates"},
+        {"type": "data_request", "span": "requesting copies of the department tax documentation", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p223",
+    "attack": {
+      "subject": "Urgent payroll adjustment",
+      "body": "As the HR Director, I am authorizing a change to your direct deposit information. I have always liked your dedication to the retail team, and I am happy to help you process this update quickly. Please reply to this email with your new bank account and routing numbers immediately so I can ensure your next paycheck is deposited correctly. It is important that we handle this change before the payroll processing deadline today. I am personally overseeing this to make sure your transition is seamless. Please verify the numbers in your reply so there are no errors in the transfer. Your quick response will ensure everything goes through smoothly without any delays to your compensation. I appreciate you getting this back to me as soon as possible so I can finalize the batch for the entire staff.",
+      "tactic_cues": {
+        "authority": "As the HR Director",
+        "liking": "I have always liked your dedication to the retail team, and I am happy to help you"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "HR Director", "organisation": "Retail Solutions"},
+        {"type": "payment_change", "span": "change to your direct deposit information", "organisation": null},
+        {"type": "reply_direction", "span": "reply to this email with your new bank account and routing numbers", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Updating bank account information",
+      "body": "If you need to update your direct deposit bank details, please log in to the employee self-service portal. Once you are logged in, navigate to the payroll section and select the option to update your bank information. You will need your current routing number and account number to complete the change. Please ensure that all information is entered accurately to prevent any issues with your future payroll deposits. If you have any trouble accessing the portal or if you have questions about the process, please contact the HR department during normal business hours. We recommend that you double-check your entries before submitting the request to ensure a smooth transition for your next pay cycle. Thank you for keeping your personal information up to date in our system.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "HR department", "organisation": "Retail Solutions"},
+        {"type": "payment_change", "span": "update your direct deposit bank details", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p224",
+    "attack": {
+      "subject": "Confidential acquisition payment",
+      "body": "As the Chief Executive Officer, I am ordering an immediate payment for the acquisition we discussed last week. This is a highly confidential matter, so please do not inform any other staff or your manager about this transaction. You are the only person I trust to handle this sensitive request discreetly. Please process the transfer to the bank details provided below. We need to finalize this payment today to complete the acquisition process successfully. Your role in this is critical to our expansion strategy, and I am relying on your ability to execute this quietly and efficiently. Keep this between us until the official announcement is made later this month. Please confirm once the wire has been sent so I can update the board on our progress. Your discretion is highly valued as we move forward with this important business acquisition.",
+      "tactic_cues": {
+        "authority": "As the Chief Executive Officer, I am ordering",
+        "secrecy": "do not inform any other staff or your manager about this transaction"
+      },
+      "claims": [
+        {"type": "authority", "span": "Chief Executive Officer", "organisation": "Hospitality Group"},
+        {"type": "payment_request", "span": "ordering an immediate payment", "organisation": null},
+        {"type": "prior_relationship", "span": "we discussed last week", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Payment for contract completion",
+      "body": "I am writing to authorize the payment related to the recent service contract we signed. Our legal department has reviewed the terms and confirmed that all requirements have been met. Please proceed with the payment process according to our standard operating procedures for vendor settlements. I have attached the signed contract and the final invoice for your reference. This payment covers the work completed by the external consultancy firm during the initial phase of our project. Please ensure that the finance team receives these documents by the end of the week so that the account can be closed out. Thank you for your assistance in managing this contract and for ensuring that our vendors are paid in a timely and compliant manner. If you have any further questions regarding this request, please let me know.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "legal department", "organisation": "Hospitality Group"},
+        {"type": "payment_request", "span": "authorize the payment", "organisation": null}
+      ]
+    }
+  }
+]

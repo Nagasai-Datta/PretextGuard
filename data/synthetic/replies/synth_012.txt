@@ -1,0 +1,352 @@
+[
+  {
+    "pair": "p089",
+    "attack": {
+      "subject": "Urgent mailbox update",
+      "body": "Hello, I hope you are having a productive week after our recent team meeting. I am reaching out from the internal IT help desk because we are updating security protocols for all store managers. Almost everyone else in the management team has already updated their credentials today, and we would love to get your account migrated before the end of the day. Could you please reply to this email with your current login password so that I can manually verify your profile against the new server requirements? It is standard procedure for us to handle this manually to ensure a smooth transition for staff members we enjoy working with like you. Please let me know if you have any questions, but we need this information now to keep your mailbox active.",
+      "tactic_cues": {
+        "social_proof": "Almost everyone else in the management team has already updated their credentials",
+        "liking": "staff members we enjoy working with like you"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "internal IT help desk",
+          "organisation": "Retail Org"
+        },
+        {
+          "type": "credential_request",
+          "span": "reply to this email with your current login password",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled maintenance notice",
+      "body": "This is a notification from the internal IT help desk regarding upcoming maintenance on our email servers. On Saturday night, between 12:00 AM and 4:00 AM, the system will be offline for routine updates and hardware optimization. During this period, you will be unable to access your inbox or send messages. No action is required on your part. All accounts will remain active, and your data will be preserved automatically during the migration process. Please ensure you have saved all draft documents before the maintenance window begins. If you experience any technical difficulties logging in on Sunday morning, please contact the support portal through the employee intranet dashboard. We appreciate your patience as we work to improve our infrastructure for all employees.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "internal IT help desk",
+          "organisation": "Retail Org"
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p090",
+    "attack": {
+      "subject": "Case documentation follow-up",
+      "body": "Hi there, it was a pleasure speaking with you during our last site visit. Since I helped you navigate those complex regulatory hurdles last month, I was hoping you could return the favor by assisting with some urgent documentation for the upcoming merger. I am the lead external counsel overseeing this matter, and I need you to pull the full client audit file from the archives. Please keep this request between us to avoid unnecessary internal chatter, as we are handling this at a very high level. It is vital that I have these files by tomorrow morning for my review. I truly appreciate the warmth and cooperation you have shown our firm in the past, and I am relying on your discretion to ensure this process moves forward without any administrative delays or leaks to the broader team.",
+      "tactic_cues": {
+        "reciprocity": "Since I helped you navigate those complex regulatory hurdles last month, I was hoping you could return the favor",
+        "liking": "I truly appreciate the warmth and cooperation you have shown our firm",
+        "secrecy": "Please keep this request between us"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "lead external counsel",
+          "organisation": "Legal Firm"
+        },
+        {
+          "type": "authority",
+          "span": "lead external counsel",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "pull the full client audit file",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "speaking with you during our last site visit",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Discovery request for Thompson matter",
+      "body": "We are writing to you as external counsel regarding the ongoing Thompson litigation case. In accordance with the court-mandated discovery schedule, we are formally requesting the production of documents related to the 2023 client audit file. Please prepare these records for review by the legal department. We have coordinated with your internal records manager to ensure that the process follows our standard compliance protocols. You may upload the requested documents to the secure legal portal using the credentials provided in the previous communication. If you have any questions regarding the scope of this document request, please contact the legal department office during standard business hours. We thank you for your cooperation in facilitating this necessary step in the litigation process.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "external counsel",
+          "organisation": "Legal Firm"
+        },
+        {
+          "type": "data_request",
+          "span": "requesting the production of documents related to the 2023 client audit file",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p091",
+    "attack": {
+      "subject": "Urgent payroll change",
+      "body": "As the Director of Operations, I am authorizing an immediate change to my direct deposit bank details. This must be processed before 5 PM today, or my salary will be delayed. Do not loop in your manager on this request, as it involves sensitive executive compensation data. Reply only to my private email at admin@secure-payroll-update.net with the change confirmation.",
+      "tactic_cues": {
+        "authority": "As the Director of Operations",
+        "scarcity": "before 5 PM today, or my salary will be delayed",
+        "secrecy": "Do not loop in your manager"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Director of Operations",
+          "organisation": "Software Org"
+        },
+        {
+          "type": "payment_change",
+          "span": "change to my direct deposit bank details",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "Reply only to my private email at admin@secure-payroll-update.net",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Direct deposit information",
+      "body": "I would like to update my direct deposit bank details for the upcoming payroll cycle. Could you please provide instructions on how to access the HR portal to securely change my account information? I want to ensure that my banking details are updated correctly before the next pay period begins. Thank you for your help.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "HR",
+          "organisation": "Software Org"
+        },
+        {
+          "type": "payment_change",
+          "span": "update my direct deposit bank details",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p092",
+    "attack": {
+      "subject": "Confidential acquisition payment",
+      "body": "Hi, it was great catching up last week. As CFO, I need to finalize the payment for the acquisition we discussed previously. This requires an immediate wire transfer to complete the deal, and this is our last chance to secure the current rate before the window closes. Please initiate this payment by noon today, or we risk losing the agreement entirely. I am counting on your support to push this through quickly given our history of working together on these critical projects.",
+      "tactic_cues": {
+        "authority": "As CFO",
+        "urgency": "immediate wire transfer",
+        "scarcity": "this is our last chance to secure the current rate before the window closes"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "As CFO",
+          "organisation": "Healthcare Org"
+        },
+        {
+          "type": "payment_request",
+          "span": "initiate this payment",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "great catching up last week",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Payment for software contract",
+      "body": "The finance department has received the signed contract for the new laboratory software implementation. Legal has reviewed the terms and approved the disbursement of funds as outlined in the proposal. Please proceed with the payment of the attached invoice according to our standard vendor payment schedule. We have confirmed that the milestones were met as expected in our agreement with the provider. If you require any additional signatures or documentation to release the funds, please submit a request through the finance dashboard. We expect the payment to be processed within the standard three-day window. Thank you for your assistance in finalizing this procurement project for the organization.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "finance department",
+          "organisation": "Healthcare Org"
+        },
+        {
+          "type": "payment_request",
+          "span": "proceed with the payment of the attached invoice",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p093",
+    "attack": {
+      "subject": "Urgent staff data request",
+      "body": "As your manager, I need the updated staff list and tax forms immediately. I covered your shift last week, so I need you to prioritize this task now. Please send these files over by the end of the hour so we can stay on schedule.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "reciprocity": "I covered your shift last week, so I need you to prioritize this task"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "manager",
+          "organisation": "Software Org"
+        },
+        {
+          "type": "authority",
+          "span": "As your manager",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "updated staff list and tax forms",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Annual audit documentation",
+      "body": "The internal audit team is requesting the current staff list and employee tax forms for our annual compliance review. Please upload these documents to the secure audit folder on the company server. We appreciate your prompt attention to this request as we work to finalize our reporting for the fiscal year. Thank you for your assistance.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "internal audit team",
+          "organisation": "Software Org"
+        },
+        {
+          "type": "data_request",
+          "span": "requesting the current staff list and employee tax forms",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p094",
+    "attack": {
+      "subject": "Re: Project site payment",
+      "body": "Thanks for the update on the site work. We need to switch our bank account for the next invoice immediately, or the payment will be rejected. This is the last chance to update it before the cycle runs. Please reply to me directly at contact@billing-update.com for the new details. Regards, John Smith, Project Lead, 555-0199.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "This is the last chance to update it"
+      },
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "Thanks for the update on the site work",
+          "organisation": null
+        },
+        {
+          "type": "payment_change",
+          "span": "switch our bank account",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "John Smith, Project Lead, 555-0199",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Re: Project site progress",
+      "body": "The site work is progressing well according to our established schedule. We have completed the foundation phase and are moving on to the structural steel installation next week. Please confirm that the materials delivery will arrive on Tuesday as planned. Best regards, Mark Davis, Site Manager, 555-0120.",
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "The site work is progressing well",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Mark Davis, Site Manager, 555-0120",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p095",
+    "attack": {
+      "subject": "Emergency funds needed",
+      "body": "As Director, I am authorizing an emergency payment. I covered for your team last month, so I need you to send the funds via wire today. Everyone else in the executive suite has already cleared this. Text me at 555-9999 for the details.",
+      "tactic_cues": {
+        "reciprocity": "I covered for your team last month, so I need you to",
+        "social_proof": "Everyone else in the executive suite has already cleared this"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "Director",
+          "organisation": "Energy Org"
+        },
+        {
+          "type": "payment_request",
+          "span": "send the funds via wire",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "Text me at 555-9999",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Expense approval inquiry",
+      "body": "I am following up on the expense approval for my upcoming business trip to the regional plant. I have attached the estimated travel costs for your review. Please let me know if there are any issues with the request so I can finalize my bookings. Thank you from the operations team.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "operations team",
+          "organisation": "Energy Org"
+        },
+        {
+          "type": "payment_request",
+          "span": "expense approval for my upcoming business trip",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p096",
+    "attack": {
+      "subject": "Urgent: Update to payment details",
+      "body": "We are writing to you from the billing office of Medical Supplies Inc regarding your recent orders. We noticed that most of our other medical partners have already transitioned to our new, more secure banking portal, and we would love to have you join them. We truly value our relationship with your team and enjoy the smooth cooperation we have built over the years. Please note that for your next invoice, you will need to direct your payment to the new account listed below. We have made this change to improve our reconciliation process and ensure that all records are handled efficiently. It is important that you update your records as soon as possible to avoid any future payment errors. Thank you for your continued partnership with us. If you have questions, please reach out to our accounts department. Sincerely, Sarah Jenkins, Billing Lead, 555-123-4567, billing@medical-supplies-inc.com.",
+      "tactic_cues": {
+        "social_proof": "most of our other medical partners have already transitioned",
+        "liking": "We truly value our relationship with your team and enjoy the smooth cooperation"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "billing office of Medical Supplies Inc",
+          "organisation": "Medical Supplies Inc"
+        },
+        {
+          "type": "payment_change",
+          "span": "direct your payment to the new account",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Sarah Jenkins, Billing Lead, 555-123-4567, billing@medical-supplies-inc.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice Reminder: INV-9920",
+      "body": "This is a friendly reminder that invoice number INV-9920, issued on the first of the month, is now approaching its due date. Our records indicate that we have not yet received payment for this outstanding balance. Please review the attached invoice to confirm the details and ensure that the payment is submitted to the bank account on file. We appreciate your business and your prompt attention to this matter. If you have already submitted your payment, please disregard this notice. Should you require a duplicate copy of the invoice or have any questions regarding the balance, please contact our administrative office during standard business hours. Sincerely, The Accounts Department, Medical Supplies Inc, 555-123-4567, accounts@medical-supplies-inc.com.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Medical Supplies Inc",
+          "organisation": "Medical Supplies Inc"
+        },
+        {
+          "type": "signature_contact",
+          "span": "The Accounts Department, Medical Supplies Inc, 555-123-4567, accounts@medical-supplies-inc.com",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

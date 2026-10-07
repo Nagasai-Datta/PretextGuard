@@ -7,11 +7,12 @@ from the prompt (which tactics the attack was told to use), and every attack has
 same template (style-confound control, Section 8.5): same sender kind, same situation, same claims,
 no manipulation. Synthetic results are always reported separately from real-email results.
 
-    python -m src.data.synthetic build      write the plan and 30 prompts (240 pairs, 8 per prompt)
-    python -m src.data.synthetic next       copy the next unanswered prompt to the clipboard
+    python -m src.data.synthetic build               write the plan and 30 prompts (240 pairs, 8 per prompt)
+    python -m src.data.synthetic auto annotator_1    send every pending prompt to that role's API (--limit 2 tries two; see llm_api.py)
+    python -m src.data.synthetic next                by hand: copy the next unanswered prompt to the clipboard
     (fresh chat, paste, send, copy the whole reply)
-    python -m src.data.synthetic save       save the reply on the clipboard and check it
-    python -m src.data.synthetic collect    check every reply, write re-ask prompts for failures, write synthetic.csv
+    python -m src.data.synthetic save                by hand: save the reply on the clipboard and check it
+    python -m src.data.synthetic collect             check every reply, write re-ask prompts for failures, write synthetic.csv
 
 "Labels known from the prompt" is only true if the chat did what it was told, so every reply is
 verified: each attack must quote, word for word, the phrase that carries each required tactic
@@ -34,13 +35,15 @@ from datetime import datetime, timezone
 import pandas as pd
 
 from src.baseline.keywords import DEFAULT_THRESHOLD, score_tactics
+from src.data import llm_api
 from src.data.clipboard import ClipboardError, copy, paste
 from src.data.label_schema import CLAIM_DEFINITIONS, CLAIM_TYPES, TACTIC_DEFINITIONS, TACTICS
 from src.data.paths import RESULTS_DIR, SYNTHETIC_COUNTS_CSV, SYNTHETIC_CSV, SYNTHETIC_DIR, relative
-from src.data.validate_labels import check_claims, extract_json, ReplyProblem, squash
+from src.data.validate_labels import ReplyProblem, check_claims, extract_json, span_in, squash, word_key
 from src.preprocess.redact import redact
 
 SEED = 42
+SYNTH_TEMPERATURE = 0.8  # some variety between emails; annotation uses 0
 PAIRS = 240
 PAIRS_PER_PROMPT = 8
 MIN_WORDS, MAX_WORDS = 20, 260
@@ -196,8 +199,8 @@ def check_email(email, required_claims, cues):
         problems.append(f"body has {words(body)} words, outside {MIN_WORDS} to {MAX_WORDS}")
     if any(marker in body.lower() for marker in LINK_MARKERS):
         problems.append("the body contains a link")
-    squashed = squash(body)
-    claims, claim_problems = check_claims(email.get("claims"), squashed)
+    key = word_key(body)
+    claims, claim_problems = check_claims(email.get("claims"), key)
     problems += claim_problems
     listed = {c["type"] for c in claims}
     problems += [f"required claim {c} is missing" for c in required_claims if c not in listed]
@@ -208,7 +211,7 @@ def check_email(email, required_claims, cues):
             problems.append("tactic_cues must have exactly the required tactics")
         else:
             for tactic, phrase in given.items():
-                if not isinstance(phrase, str) or not phrase.strip() or squash(phrase) not in squashed:
+                if not isinstance(phrase, str) or not span_in(phrase, key):
                     problems.append(f"the cue for {tactic} is not in the body")
                 else:
                     clean_cues[tactic] = phrase.strip()
@@ -299,6 +302,21 @@ def cmd_next():
         print(f"{problem}. Copy {relative(PROMPTS_DIR / (stem + '.txt'))} by hand; save the reply as {relative(REPLIES_DIR / (stem + '.txt'))}.")
 
 
+def store_reply(stem, text, model):
+    """Save a reply as received, check it, log it. Returns (valid, problems, notes, number of pairs asked)."""
+    path = REPLIES_DIR / f"{stem}.txt"
+    path.write_text(text, encoding="utf-8")
+    specs = specs_of(stem)
+    valid, problems, notes = check_pairs(text, specs)
+    new = not LOG_CSV.exists()
+    with open(LOG_CSV, "a", newline="", encoding="utf-8") as handle:
+        writer = csv.writer(handle)
+        if new:
+            writer.writerow(["time_utc", "model", "prompt", "pairs", "valid"])
+        writer.writerow([datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), model, stem, len(specs), len(valid)])
+    return valid, problems, notes, len(specs)
+
+
 def cmd_save():
     model = model_name()
     stem, _, _ = next_stem()
@@ -312,17 +330,8 @@ def cmd_save():
         sys.exit("The clipboard is empty. Copy the chat's reply first.")
     if "PAIRS of emails" in text and "Pairs to write" in text:
         sys.exit("The clipboard holds the prompt, not the reply.")
-    path = REPLIES_DIR / f"{stem}.txt"
-    path.write_text(text, encoding="utf-8")
-    specs = specs_of(stem)
-    valid, problems, notes = check_pairs(text, specs)
-    new = not LOG_CSV.exists()
-    with open(LOG_CSV, "a", newline="", encoding="utf-8") as handle:
-        writer = csv.writer(handle)
-        if new:
-            writer.writerow(["time_utc", "model", "prompt", "pairs", "valid"])
-        writer.writerow([datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), model, stem, len(specs), len(valid)])
-    print(f"Saved {relative(path)}\n{stem}: {len(valid)} of {len(specs)} pairs valid")
+    valid, problems, notes, asked = store_reply(stem, text, model)
+    print(f"Saved {relative(REPLIES_DIR / (stem + '.txt'))}\n{stem}: {len(valid)} of {asked} pairs valid")
     for pair, issues in list(problems.items())[:6]:
         print(f"  {pair}: {'; '.join(issues)[:230]}")
     for note in notes:
@@ -331,6 +340,38 @@ def cmd_save():
         print("Failed pairs are re-asked once: run python -m src.data.synthetic collect at the end.")
     after, done, total = next_stem()
     print(f"{done} of {total} prompts answered" + (f"; next: {after}" if after else "; all done"))
+
+
+def cmd_auto(provider, limit, force):
+    """Send every unanswered prompt to the provider's API and save the replies as the by-hand loop would."""
+    try:
+        label = llm_api.label(provider, SYNTH_TEMPERATURE)
+    except llm_api.ApiError as problem:
+        sys.exit(str(problem))
+    if not GENERATOR_CSV.exists():
+        sys.exit("Run python -m src.data.synthetic build first.")
+    with open(GENERATOR_CSV, newline="", encoding="utf-8") as handle:
+        current = next(csv.DictReader(handle), {}).get("model_name", "").strip()
+    if current and current != label and any(REPLIES_DIR.glob("*.txt")) and not force:
+        sys.exit(f"Replies already exist from a different model ({current}). Delete them (the files in {relative(REPLIES_DIR)}) or use --force.")
+    with open(GENERATOR_CSV, "w", newline="", encoding="utf-8") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(["chat_service", "model_name"])
+        writer.writerow([llm_api.service_name(provider), label])
+    pending = [s for s in stems() if not (REPLIES_DIR / f"{s}.txt").exists()]
+    todo = pending[:limit] if limit else pending
+    print(f"{len(pending)} prompt(s) to do, running {len(todo)} now with {label}. You can stop with Ctrl+C and start again.")
+    for number, stem in enumerate(todo, start=1):
+        try:
+            reply = llm_api.chat(provider, (PROMPTS_DIR / f"{stem}.txt").read_text(encoding="utf-8"), temperature=SYNTH_TEMPERATURE)
+        except llm_api.ApiError as problem:
+            sys.exit(f"Stopped at {stem}: {problem}\nNothing is lost; run the same command again to continue from {stem}.")
+        valid, _, _, asked = store_reply(stem, reply.text, label)
+        print(f"  [{number}/{len(todo)}] {stem}: {len(valid)} of {asked} pairs valid" + ("  (cut off at the length limit)" if reply.truncated else ""))
+        if number < len(todo):
+            llm_api.pause()
+    left = [s for s in stems() if not (REPLIES_DIR / f"{s}.txt").exists()]
+    print(f"{len(stems()) - len(left)} of {len(stems())} prompts answered." + (" Run python -m src.data.synthetic collect next." if not left else ""))
 
 
 def cmd_collect():
@@ -398,17 +439,30 @@ def cmd_collect():
     print(pd.DataFrame({t: attack.groupby("split")[f"tactic_{t}"].sum() for t in TACTICS}).T.assign(all=lambda d: d.sum(axis=1)).to_string())
     print(f"\nSaved {relative(SYNTHETIC_CSV)} ({len(table)} emails) and {relative(SYNTHETIC_COUNTS_CSV)}")
     if retry:
-        print("Re-ask prompts were written: run python -m src.data.synthetic next to answer them.")
+        print("Re-ask prompts were written: run python -m src.data.synthetic auto <annotator_1|annotator_2|tiebreaker> (or next and save by hand), then collect again.")
 
 
 def main(argv):
+    flags = [a for a in argv if a.startswith("--")]
+    args = [a for a in argv if not a.startswith("--")]
+    limit = None
+    if "--limit" in flags:
+        try:
+            limit = int(args.pop())
+        except (IndexError, ValueError):
+            sys.exit("usage: python -m src.data.synthetic auto <annotator_1|annotator_2|tiebreaker> [--limit N] [--force]")
     commands = {"build": lambda: print(f"Wrote {len(write_plan_and_prompts())} pairs to {relative(PLAN_CSV)} and "
-                                       f"{len(stems())} prompts to {relative(PROMPTS_DIR)}. Fill in {relative(GENERATOR_CSV)}, then run next."),
+                                       f"{len(stems())} prompts to {relative(PROMPTS_DIR)}. Then run auto <provider> (or fill in {relative(GENERATOR_CSV)} and use next and save)."),
                 "next": cmd_next, "save": cmd_save, "collect": cmd_collect}
-    if len(argv) == 1 and argv[0] in commands:
-        return commands[argv[0]]()
-    sys.exit("usage: python -m src.data.synthetic build | next | save | collect")
+    if len(args) == 1 and args[0] in commands:
+        return commands[args[0]]()
+    if len(args) == 2 and args[0] == "auto" and args[1] in llm_api.PROVIDERS:
+        return cmd_auto(args[1], limit, "--force" in flags)
+    sys.exit("usage: python -m src.data.synthetic build | auto <annotator_1|annotator_2|tiebreaker> [--limit N] [--force] | next | save | collect")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    try:
+        main(sys.argv[1:])
+    except KeyboardInterrupt:
+        sys.exit("\nStopped by you. Nothing is lost; run the same command again to continue.")

@@ -1,0 +1,355 @@
+[
+  {
+    "pair": "p209",
+    "attack": {
+      "subject": "System Verification Required",
+      "body": "Hi there, I really enjoyed our chat at the site safety briefing last week. Since I helped you get your laptop configured, I was hoping you could do me a quick favour. Most of the engineering team has already verified their credentials through the IT help desk portal today to keep the system running smoothly. Please follow the prompt and enter your password to confirm your account status so we can keep things moving. Thanks for being such a great teammate.",
+      "tactic_cues": {
+        "reciprocity": "I helped you get your laptop configured",
+        "social_proof": "Most of the engineering team has already verified their credentials",
+        "liking": "I really enjoyed our chat at the site safety briefing last week"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT help desk",
+          "organisation": "Construction Corp"
+        },
+        {
+          "type": "credential_request",
+          "span": "enter your password",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled Maintenance Notice",
+      "body": "The IT help desk will be performing routine server maintenance this coming Saturday between 2 AM and 4 AM. During this window, internal email services and the document management system will be unavailable. No action is required on your part, and all services will be fully restored by the start of the next business day. Please plan your work accordingly if you were intending to access remote systems during these hours. Thank you for your cooperation as we improve our infrastructure.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "IT help desk",
+          "organisation": "Construction Corp"
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p210",
+    "attack": {
+      "subject": "Confidential Compliance Review",
+      "body": "As we discussed during our consultation last month, the regulatory audit requires immediate attention. As Director of Compliance, I am overseeing this matter and require all student enrollment records from the past fiscal year. Please ensure this remains strictly between us, as looping in your department manager at this stage could compromise the integrity of the review. It is a pleasure working with such a diligent professional on these sensitive tasks. Note that we are down to the final few requests, and any files not submitted today will be permanently excluded from the report, leaving us unable to defend our position. I expect these documents by the end of the day without exception. Please treat this with the utmost discretion to avoid any external scrutiny regarding our data handling procedures. Your cooperation is essential to the success of this project and to maintaining our standing with the board of governors.",
+      "tactic_cues": {
+        "scarcity": "any files not submitted today will be permanently excluded",
+        "liking": "It is a pleasure working with such a diligent professional",
+        "secrecy": "ensure this remains strictly between us"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Director of Compliance",
+          "organisation": "State Legal Partners"
+        },
+        {
+          "type": "authority",
+          "span": "Director of Compliance",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "student enrollment records",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "As we discussed during our consultation last month",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Request for Records - Case 402",
+      "body": "Our firm is representing the university in the ongoing matter regarding student enrollment documentation. Per the discovery request filed by the opposing counsel, please provide a copy of the enrollment records for the fiscal year 2023. These documents are necessary to fulfill our obligations under the court order dated last Tuesday. You may upload the files directly to the secure portal using the credentials provided in our previous correspondence with the registrar office. If you have questions regarding the scope of this request, please contact our administrative assistant to arrange a call with the lead attorney. We appreciate your assistance in gathering these materials for the upcoming hearing. Please ensure that all files are in PDF format and verified for accuracy before submission. We look forward to your prompt response to this request to ensure we stay within the court-mandated deadline for production of materials.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Our firm",
+          "organisation": "State Legal Partners"
+        },
+        {
+          "type": "data_request",
+          "span": "enrollment records for the fiscal year 2023",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p211",
+    "attack": {
+      "subject": "Payroll Update",
+      "body": "Hi, as the department lead, I am streamlining our payroll process. Since I managed the team budget last year, I need you to update your bank details for the upcoming cycle. Everyone else has completed this update already. Please reply to my personal email at p.dev@fastmail.com with your new account and routing numbers so I can finish the processing.",
+      "tactic_cues": {
+        "authority": "as the department lead",
+        "reciprocity": "Since I managed the team budget last year",
+        "social_proof": "Everyone else has completed this update already"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "department lead",
+          "organisation": "CodeLogic"
+        },
+        {
+          "type": "payment_change",
+          "span": "update your bank details",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply to my personal email at p.dev@fastmail.com",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Updating Bank Details",
+      "body": "If you need to update your direct deposit information, please log in to the employee payroll portal. Once you are signed in, navigate to the personal profile section and select the bank account tab. You can make changes to your payment details there at any time. Let the HR team know if you encounter any technical issues with the portal interface.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "HR team",
+          "organisation": "CodeLogic"
+        },
+        {
+          "type": "payment_change",
+          "span": "update your direct deposit information",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p212",
+    "attack": {
+      "subject": "Urgent Project Alpha Payment",
+      "body": "Regarding our acquisition discussion last week, I need the payment for the Alpha vendor processed before 4 PM today. This is the CFO speaking. We are at risk of losing the exclusivity window if the funds are not wired immediately. Keep this between us and do not contact anyone else in finance to avoid delaying the transaction. We must finalize this now.",
+      "tactic_cues": {
+        "urgency": "before 4 PM today",
+        "scarcity": "at risk of losing the exclusivity window",
+        "secrecy": "Keep this between us"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "This is the CFO speaking",
+          "organisation": "TechStream"
+        },
+        {
+          "type": "payment_request",
+          "span": "payment for the Alpha vendor",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "Regarding our acquisition discussion last week",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Payment Request: Project Alpha",
+      "body": "We have received the invoice for the initial consulting phase of Project Alpha. Legal has completed their review of the contract and confirmed the terms are acceptable for payment. Please process this invoice through our standard accounts payable system by the end of the week. Let me know if you need any additional documentation to get this finalized in the system.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Legal",
+          "organisation": "TechStream"
+        },
+        {
+          "type": "payment_request",
+          "span": "process this invoice",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p213",
+    "attack": {
+      "subject": "Employee Data Request",
+      "body": "Hello there, it is so great to see how well the team is doing this quarter. As the Director of Operations, I am conducting a mandatory internal review of our staffing levels. I need you to send over the full list of employee tax forms and contact details by tomorrow. This is a rare opportunity to clean up our records, and since we are closing the files on the current fiscal year, this will be the last chance to submit your department data. I know you have a lot on your plate, but I really appreciate your help in getting this sorted out quickly. Please send these files directly to me so I can cross-reference them with the main database. Your effort in keeping our records accurate is truly valued and makes a big difference to the whole firm. Thank you for your hard work and for being such a supportive colleague throughout this busy season.",
+      "tactic_cues": {
+        "scarcity": "this will be the last chance to submit your department data",
+        "liking": "I really appreciate your help in getting this sorted out quickly"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Director of Operations",
+          "organisation": "LexLaw"
+        },
+        {
+          "type": "authority",
+          "span": "Director of Operations",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "full list of employee tax forms and contact details",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Audit Data Collection",
+      "body": "Our internal audit department is currently working on the year-end compliance report. To ensure we meet our regulatory obligations, we are requesting that all department heads provide the relevant employee tax forms for their respective teams. Please upload these files to the secure audit repository using your standard employee login credentials. The audit team will then verify the information against our central payroll records to confirm everything is in order. If you have any questions regarding the security of this data or the submission process, please visit the internal audit portal or reach out to the compliance office directly. We aim to complete this collection by the end of the month to allow sufficient time for the final report drafting. Thank you for your assistance in maintaining our firm's high standards for documentation and regulatory compliance.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "internal audit department",
+          "organisation": "LexLaw"
+        },
+        {
+          "type": "data_request",
+          "span": "employee tax forms",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p214",
+    "attack": {
+      "subject": "RE: Project Phase 3 Update",
+      "body": "I hope you are doing well. As we agreed during our planning session last week, we are finalizing the vendor transition. I wanted to help you out by getting this new payment account setup sorted early. Since I helped secure the budget for your department this year, I would appreciate if you could update the payee account for the next invoice. This is a limited time offer from our vendor to consolidate accounts, and if we do not switch the details now, we might lose the current discount. Please use the new bank details below for the next payment. If you have questions, reach me at 555-0199. Thanks again for your support.\n\nNew Bank Account: 123456789\nRouting: 987654321\n\nBest regards,\nJames Miller\nSenior Manager",
+      "tactic_cues": {
+        "scarcity": "if we do not switch the details now, we might lose the current discount",
+        "reciprocity": "Since I helped secure the budget for your department this year"
+      },
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "As we agreed during our planning session last week",
+          "organisation": null
+        },
+        {
+          "type": "payment_change",
+          "span": "update the payee account",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "James Miller, 555-0199",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "RE: Project Phase 3 Update",
+      "body": "Thanks for the update on the manufacturing timeline. I agree with the proposed schedule adjustments discussed in our last meeting. Please proceed with the procurement of the raw materials as planned. I have reviewed the current budget and everything remains within the approved scope. Let me know if you need any additional sign-offs for the next phase of the project. We are on track to meet our milestones for the quarter. Please keep me updated on the delivery dates as they become available from the supplier.\n\nBest regards,\nSarah Jenkins\nProject Lead",
+      "claims": [
+        {
+          "type": "prior_relationship",
+          "span": "discussed in our last meeting",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Sarah Jenkins, Project Lead",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p215",
+    "attack": {
+      "subject": "Emergency Assistance Needed",
+      "body": "Hi, I am currently abroad and lost my wallet. As the Dean, I need you to send gift cards immediately for my travel expenses. Everyone else on the leadership team has already helped out, and I would really appreciate your support. Please text me the codes at 555-0123. Thanks.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "social_proof": "Everyone else on the leadership team has already helped out",
+        "liking": "I would really appreciate your support"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "As the Dean",
+          "organisation": "Academy Edu"
+        },
+        {
+          "type": "payment_request",
+          "span": "send gift cards",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "text me the codes at 555-0123",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Expense Approval",
+      "body": "Could you please review the expense report for the upcoming faculty conference? The finance department needs a copy of your travel booking receipts to finalize the approval process. Once you have submitted the documentation, the payments will be processed by the end of the week. Please reach out to the bursar office if you need help with the forms.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "finance department",
+          "organisation": "Academy Edu"
+        },
+        {
+          "type": "payment_request",
+          "span": "payments will be processed",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p216",
+    "attack": {
+      "subject": "Important Payment Update",
+      "body": "Hello, it was so wonderful meeting you at the software conference last month. Since we have been working together for so long, I wanted to reach out personally to let you know about a change. We are updating our bank details for all future payments effective immediately. I know this is a bit sudden, but since I have always tried to provide you with the best support, I was hoping you could prioritize this change for the next invoice. We need to get this updated before the end of the day to avoid any delays in your service. I really value our relationship and appreciate you taking care of this for me. If you have any questions, you can reach me directly at 555-9988. Thank you again for being such a fantastic partner to work with, and I look forward to our continued success together.\n\nBest,\nMarcus Vane\nAccounts Manager",
+      "tactic_cues": {
+        "urgency": "before the end of the day",
+        "reciprocity": "since I have always tried to provide you with the best support",
+        "liking": "it was so wonderful meeting you at the software conference last month"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Accounts Manager",
+          "organisation": "Global Soft Solutions"
+        },
+        {
+          "type": "payment_change",
+          "span": "updating our bank details",
+          "organisation": null
+        },
+        {
+          "type": "signature_contact",
+          "span": "Marcus Vane, 555-9988",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice Reminder: INV-992",
+      "body": "This is a friendly reminder that invoice INV-992 is due for payment by the end of the current billing cycle. Please review the attached document to ensure all line items are correct. You can submit your payment through our standard online portal using the existing account details on file. If you have already processed this payment, please disregard this notice. We appreciate your prompt attention to this matter and thank you for your continued business. If you require any further information or have questions regarding this invoice, please do not hesitate to contact our billing office during regular business hours.\n\nBest regards,\nBilling Department\nGlobal Soft Solutions",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "Billing Department",
+          "organisation": "Global Soft Solutions"
+        },
+        {
+          "type": "signature_contact",
+          "span": "Billing Department, Global Soft Solutions",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

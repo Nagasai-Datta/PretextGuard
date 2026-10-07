@@ -1,0 +1,356 @@
+[
+  {
+    "pair": "p193",
+    "attack": {
+      "subject": "Quick favour regarding the call",
+      "body": "Hi Sarah, following up on our chat at the manufacturing offsite, I have scheduled the call with the Director for Tuesday at 10 AM. It was so great catching up with you there, and I really appreciated how you helped me navigate that complex project last quarter. Since I owe you one for that, I was wondering if you could do me a quick favour. We have a small invoice for a vendor that needs processing today. Could you please handle this payment request for me? It would mean a lot if you could get this sorted out while I am tied up in these back-to-back budget meetings. I know you are the best person to handle this given our history of working together. Thanks again for everything, Sarah, you are truly a lifesaver and I am so grateful for your constant support on these administrative tasks.",
+      "tactic_cues": {
+        "reciprocity": "I owe you one for that",
+        "liking": "It was so great catching up with you there"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "I have scheduled the call",
+          "organisation": "Manufacturing Executive Assistant"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "following up on our chat at the manufacturing offsite",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "Could you please handle this payment request for me",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Meeting confirmation: Director call",
+      "body": "Hi Sarah, as we discussed during our meeting on Monday, I have now finalized the scheduling for the upcoming call with the Director. The meeting is set for this Tuesday at 10 AM in the main conference room on the second floor. Please ensure that you have the relevant project notes available for the discussion, as the Director will be asking for a status update on the current production cycle. I have sent an invite to your calendar which includes the dial-in details if you prefer to join remotely, though an in-person presence is preferred. If you have any conflicts with this time, please let me know by the end of the day so that I can adjust the schedule accordingly. Thank you for your help in coordinating this, and I look forward to the productive session with the team.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "I have now finalized the scheduling",
+          "organisation": "Manufacturing Executive Assistant"
+        },
+        {
+          "type": "prior_relationship",
+          "span": "as we discussed during our meeting on Monday",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p194",
+    "attack": {
+      "subject": "Urgent wire transfer",
+      "body": "Hey there, I am working on a logistics expansion and need a wire transfer initiated for a new supplier. I see the rest of the finance team has already signed off on the initial contract documents for this vendor. Please handle this payment request immediately. I cannot talk about the details of this deal with anyone else yet due to the sensitivity of our acquisition strategy, so please do not mention this to the other department heads. As the Director of Operations, I am authorizing this move. Please reply to my personal email at operations.direct@private-mail.net with the confirmation once it is sent. It is great to see the team moving so fast on this. Let us keep this between us until the official announcement goes out. Thanks for your hard work on this initiative, I really appreciate your dedication to the logistics goals we set earlier this year.",
+      "tactic_cues": {
+        "social_proof": "rest of the finance team has already signed off",
+        "secrecy": "please do not mention this to the other department heads"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "I am working on a logistics expansion",
+          "organisation": "Logistics"
+        },
+        {
+          "type": "authority",
+          "span": "As the Director of Operations",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "need a wire transfer initiated",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "reply to my personal email at operations.direct@private-mail.net",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Payment request for PO 8842",
+      "body": "Hello finance team, I am writing to request a wire transfer payment for PO 8842 related to our recent logistics software upgrade. The invoice from the vendor is attached to the internal system under the standard procurement workflow. Please review the documentation provided and process the payment according to our usual accounts payable schedule. If you have any questions regarding the line items listed on the invoice, please reach out to the vendor representative directly or consult the project lead in the IT department. We have verified that the purchase order aligns with our budget allocation for this quarter. Thank you for your assistance in ensuring our vendors are paid on time. Please let me know once the transfer has been initiated so that I can update the project tracking board accordingly. Best regards, Manager of Logistics.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "Manager of Logistics",
+          "organisation": "Logistics"
+        },
+        {
+          "type": "payment_request",
+          "span": "request a wire transfer payment for PO 8842",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p195",
+    "attack": {
+      "subject": "Need help with client gift cards",
+      "body": "Hi, I am in a massive hurry and need your help with something. As your manager, I need you to purchase several gift cards for our clients right now. You are truly the best at handling these sensitive tasks, and I always feel so much better knowing you are the one taking care of things. Please go out and get these cards, then take photos of the codes and text them to my private number at 555-0199 instead of emailing them here. Do not tell anyone else in the office about this as it is a surprise for the clients and I do not want the team asking questions before I am ready to announce it. I know I can count on you to keep this quiet and get it done immediately. Your work is excellent and I appreciate your loyalty to the team.",
+      "tactic_cues": {
+        "liking": "You are truly the best at handling these sensitive tasks",
+        "secrecy": "Do not tell anyone else in the office about this"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "As your manager",
+          "organisation": null
+        },
+        {
+          "type": "gift_card",
+          "span": "purchase several gift cards for our clients",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "text them to my private number at 555-0199",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Gift card order for client event",
+      "body": "Hi team, we are planning a small appreciation event for our top software clients next month. We would like to provide some gift cards as tokens of our gratitude. Please submit a formal request through the procurement portal to order these cards. Make sure to include the specific denominations and the number of cards required in your application. Once the request is approved by the finance department, the cards will be delivered to the office. Please coordinate with the events coordinator to ensure the items are received before the client visit date. We want to make sure everyone is prepared for the event. Thank you for your help in managing these logistics for our client engagement strategy.",
+      "claims": [
+        {
+          "type": "gift_card",
+          "span": "provide some gift cards as tokens of our gratitude",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p196",
+    "attack": {
+      "subject": "Following up on our invoice",
+      "body": "Hi there, great to catch up recently. I am writing regarding your outstanding invoice. I am sure you have just been busy, you are always so on top of things. Could you please process this payment today? Please keep our discussion confidential and do not share these details with your accounting supervisor while we get this sorted. Thanks so much.",
+      "tactic_cues": {
+        "liking": "you are always so on top of things",
+        "secrecy": "keep our discussion confidential"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "I am writing regarding your outstanding invoice",
+          "organisation": "Vendor"
+        },
+        {
+          "type": "payment_request",
+          "span": "Could you please process this payment today",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "great to catch up recently",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Invoice Reminder: INV-4492",
+      "body": "Hello, following our conversation last week, I am writing to kindly remind you that invoice INV-4492 is currently past due. Please review the attached document and arrange for payment at your earliest convenience. We value our ongoing partnership with your manufacturing team and appreciate your prompt attention to this matter. Let me know if you have any questions.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "I am writing to kindly remind you",
+          "organisation": "Vendor"
+        },
+        {
+          "type": "payment_request",
+          "span": "arrange for payment at your earliest convenience",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "following our conversation last week",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p197",
+    "attack": {
+      "subject": "Action required: Account verification",
+      "body": "This is the IT Security team at the energy facility. As the head of security, I am ordering an immediate audit of all employee credentials to prevent unauthorized access. You have been selected as a priority user because of your high activity levels, which we really admire. To ensure your mailbox is not disabled by end of day, please reply with your current network password so we can verify your account status. We appreciate your cooperation in maintaining the integrity of our energy grid, and it is a pleasure working with such a diligent team member. Thank you for your swift response to this necessary security measure, and for being such a valued part of our organization.",
+      "tactic_cues": {
+        "authority": "As the head of security, I am ordering an immediate audit",
+        "liking": "which we really admire"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "This is the IT Security team at the energy facility",
+          "organisation": "IT Security"
+        },
+        {
+          "type": "credential_request",
+          "span": "please reply with your current network password",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled Maintenance Notice",
+      "body": "This message is to inform all staff that the IT department will be conducting routine server maintenance this weekend. During this period, some internal systems may be intermittently unavailable. We are performing these updates to improve the performance of our email infrastructure across the energy grid. No action is required from you, and we do not expect any long-term service disruptions. We apologize for any inconvenience this may cause and appreciate your patience as we work to enhance our digital workspace. If you experience any persistent issues after the maintenance window, please contact the help desk on Monday morning. Thank you for your cooperation.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "the IT department will be conducting routine server maintenance",
+          "organisation": "IT Department"
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p198",
+    "attack": {
+      "subject": "Urgent: Confidential documentation needed",
+      "body": "As the external auditor for this firm, I require the latest tax filings immediately. All other departments have already provided their data today. Do not loop in your manager or the internal counsel, as this is a strictly confidential audit we discussed last month. Please send the files now.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "social_proof": "All other departments have already provided their data today",
+        "secrecy": "Do not loop in your manager or the internal counsel"
+      },
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "As the external auditor for this firm",
+          "organisation": "External Audit"
+        },
+        {
+          "type": "authority",
+          "span": "As the external auditor",
+          "organisation": null
+        },
+        {
+          "type": "data_request",
+          "span": "require the latest tax filings",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "this is a strictly confidential audit we discussed last month",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Request for financial records",
+      "body": "We are representing the manufacturing group in the upcoming regulatory review. We require copies of the 2023 tax filings to complete our assessment of corporate compliance. Please provide these documents at your convenience through the secure legal portal. We look forward to your assistance in this matter.",
+      "claims": [
+        {
+          "type": "affiliation_external",
+          "span": "We are representing the manufacturing group",
+          "organisation": "Legal Counsel"
+        },
+        {
+          "type": "data_request",
+          "span": "require copies of the 2023 tax filings",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p199",
+    "attack": {
+      "subject": "Urgent payroll update",
+      "body": "This is the Payroll Director speaking. I am issuing a mandatory update to all direct-deposit accounts to comply with new energy sector regulations. You have until 4 PM today to update your banking details or your payroll processing will be permanently cancelled, resulting in a loss of your current payment cycle. This is a critical security update. Please do not contact the general HR line or your supervisor about this, as they are not authorized to assist with these specific changes. Reply directly to this email with your new bank routing and account numbers to ensure your funds are not frozen. Your prompt compliance is required to avoid any interruption to your salary. Thank you for your cooperation in this urgent matter, and please ensure the information is sent strictly to this address.",
+      "tactic_cues": {
+        "authority": "This is the Payroll Director speaking",
+        "scarcity": "your payroll processing will be permanently cancelled",
+        "secrecy": "Please do not contact the general HR line or your supervisor"
+      },
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "This is the Payroll Director speaking",
+          "organisation": "Payroll"
+        },
+        {
+          "type": "payment_change",
+          "span": "update your banking details",
+          "organisation": null
+        },
+        {
+          "type": "reply_direction",
+          "span": "Reply directly to this email",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Instructions for updating bank details",
+      "body": "Hello, if you need to update your direct-deposit bank information, please log into the internal employee portal. Once you have accessed your profile, navigate to the compensation section where you will find a link to edit your financial institution details. Please ensure that you have your new routing and account numbers ready before you begin the process. After you submit the change, the system will send a confirmation notification to your corporate email address. If you encounter any errors while updating your information, please submit a support ticket to the HR payroll help desk. We recommend verifying the information twice before hitting save to ensure there are no delays in your next paycheck. Thank you for managing your personal information through the secure portal.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "HR payroll help desk",
+          "organisation": "HR"
+        },
+        {
+          "type": "payment_change",
+          "span": "update your direct-deposit bank information",
+          "organisation": null
+        }
+      ]
+    }
+  },
+  {
+    "pair": "p200",
+    "attack": {
+      "subject": "Confidential payment request",
+      "body": "Hi, it was great speaking with you last week about the expansion. As the CFO, I need your help with a payment request. Since I covered for you during the audit last month, I know I can count on you to handle this. Please process this payment for the acquisition acquisition vendor immediately. You are a valued member of the software team, and I really appreciate your support on these sensitive matters. Your hard work never goes unnoticed by leadership, and I am glad we have this professional relationship.",
+      "tactic_cues": {
+        "reciprocity": "Since I covered for you during the audit last month",
+        "liking": "You are a valued member of the software team"
+      },
+      "claims": [
+        {
+          "type": "authority",
+          "span": "As the CFO",
+          "organisation": null
+        },
+        {
+          "type": "payment_request",
+          "span": "need your help with a payment request",
+          "organisation": null
+        },
+        {
+          "type": "prior_relationship",
+          "span": "it was great speaking with you last week",
+          "organisation": null
+        }
+      ]
+    },
+    "benign": {
+      "subject": "Payment for software services contract",
+      "body": "Hello, please find the attached invoice for the software services contract that was signed last month. Legal has already reviewed the terms, and the project team has confirmed that the deliverables have been met. Please process this payment request from the finance department so we can finalize the contract closure. If you need any additional documentation regarding the signed agreement, please let me know. We appreciate your prompt attention to these accounts payable items to ensure our partners remain in good standing. Thank you for your continued assistance in managing these operational expenses.",
+      "claims": [
+        {
+          "type": "affiliation_internal",
+          "span": "finance department",
+          "organisation": "Finance"
+        },
+        {
+          "type": "payment_request",
+          "span": "process this payment request",
+          "organisation": null
+        }
+      ]
+    }
+  }
+]

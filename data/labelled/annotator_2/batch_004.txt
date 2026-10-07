@@ -1,0 +1,391 @@
+[
+  {
+    "id": "b004_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b004_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 1,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Lieber Decathlon-Kunde,",
+        "organisation": "Decathlon"
+      }
+    ]
+  },
+  {
+    "id": "b004_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Beste Zilveren Kruis Lid,",
+        "organisation": "Zilveren Kruis"
+      },
+      {
+        "type": "signature_contact",
+        "span": "supportestem via [EMAIL] ([URL]) of bel ons op +31 763459313",
+        "organisation": "Zilveren Kruis"
+      }
+    ]
+  },
+  {
+    "id": "b004_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "BILL AND EXCHANGE MANAGER AUDITING AND ACCOUNTING UNIT. FOREIGN REMITTANCE DEPT. BANK OF AFRICA",
+        "organisation": "BANK OF AFRICA"
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "I am Alima Ahmed, the manager in charge of auditing and accounting unit foreign remittance department of bank of africa (BOA)ouaga-burkina faso",
+        "organisation": "BANK OF AFRICA"
+      }
+    ]
+  },
+  {
+    "id": "b004_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b004_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "can you mail all travel and lodging receipts to my secretary joan payne at the following address : joan payne department of finance 2163 ceba louisiana state university baton rouge , la ? 70803",
+        "organisation": "Louisiana State University"
+      },
+      {
+        "type": "signature_contact",
+        "span": "voice ( 225 ) 388 - 0477 ? | ? fax : ( 800 ) 859 - 6361 e - mail : ? [EMAIL]",
+        "organisation": "Louisiana State University"
+      }
+    ]
+  },
+  {
+    "id": "b004_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "payment_request",
+        "span": "you have paid [EMAIL] $699.99 USD using PayPal",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b004_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "616 Corporate Way Ste.2-9092 Valley Cottage, NY 10989",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b004_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b004_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b004_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "World Trade Organisation",
+        "organisation": "World Trade Organisation"
+      },
+      {
+        "type": "authority",
+        "span": "Accounts/ Project Director in-charge of the Middle East regional representation",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b004_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Benin centre for external trade, tourism department",
+        "organisation": "Benin centre for external trade"
+      }
+    ]
+  },
+  {
+    "id": "b004_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "contact me if you are Intersted To serve as the guardian of this fund and to come assist me visit the security company here to retrive the consignment. Thanks contact email ;[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b004_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "holland academic graphics po box 53292 2505 ag the hague the netherlands fax : + 31 70 448 0177",
+        "organisation": "Holland Academic Graphics"
+      }
+    ]
+  },
+  {
+    "id": "b004_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b004_16",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "eBay",
+        "organisation": "eBay"
+      },
+      {
+        "type": "credential_request",
+        "span": "confirm your Account Informations",
+        "organisation": "eBay"
+      }
+    ]
+  },
+  {
+    "id": "b004_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b004_18",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "eBay",
+        "organisation": "eBay"
+      },
+      {
+        "type": "credential_request",
+        "span": "re-update your account information",
+        "organisation": "eBay"
+      }
+    ]
+  },
+  {
+    "id": "b004_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "AAA | American Automobile Association",
+        "organisation": "American Automobile Association"
+      }
+    ]
+  },
+  {
+    "id": "b004_20",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Ledger",
+        "organisation": "Ledger"
+      },
+      {
+        "type": "credential_request",
+        "span": "verify whether your recovery phrase has been compromised using our encrypted verification portal",
+        "organisation": "Ledger"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Ledger, 27 Rue des Rosiers, 75004 Paris, France",
+        "organisation": "Ledger"
+      }
+    ]
+  }
+]

@@ -1,0 +1,386 @@
+[
+  {
+    "id": "b001_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b001_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "For further assistance with this issue, Please contact our support team here.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b001_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b001_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "This message was sent to [EMAIL] by DocuSign Electronic Signature Service.",
+        "organisation": "DocuSign"
+      }
+    ]
+  },
+  {
+    "id": "b001_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b001_07",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "System Helpdesk 920.056.453",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "ELOS UBA, E-mailaddress:[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b001_10",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "System Administrator",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b001_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "dott. Ivano Mario Luberti Archimede Informatica società cooperativa a r. l. Via Gereschi 36, 56127 Pisa tel.: +39 050/580959 web: [URL]",
+        "organisation": "Archimede Informatica"
+      }
+    ]
+  },
+  {
+    "id": "b001_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "[DOMAIN] email support",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_14",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Bank Of America",
+        "organisation": "Bank Of America"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Bank Of America Online Support.",
+        "organisation": "Bank Of America"
+      }
+    ]
+  },
+  {
+    "id": "b001_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "andrew carnie , at : [EMAIL]",
+        "organisation": null
+      },
+      {
+        "type": "data_request",
+        "span": "please include in your request message a brief statement about your research interests , background , affiliation and other information that might be valuable to help us select a suitable reviewer .",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "MISS Vivian Mutan EMAIL:([EMAIL])",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "INTERNATIONAL COMMERCIAL BANK LTD. (ICB)",
+        "organisation": "International Commercial Bank Ltd."
+      },
+      {
+        "type": "signature_contact",
+        "span": "Mrs. Monica Kofi credit officer of the International Commercial Bank Ltd. (ICB)",
+        "organisation": "International Commercial Bank Ltd."
+      },
+      {
+        "type": "data_request",
+        "span": "all that is required from you at this stage is for you to provide me with your Full Names and Address",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_18",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Regions Bank",
+        "organisation": "Regions Bank"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Regions Customer Service",
+        "organisation": "Regions Bank"
+      }
+    ]
+  },
+  {
+    "id": "b001_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Hon. Mr. Hope Sithole one of the Personal Assistants to the young President Joseph Kabila of Democratic Republic of Congo (DRC)",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Hon. Mr. Hope Sithole [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_20",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Bank Of Africa",
+        "organisation": "Bank Of Africa"
+      },
+      {
+        "type": "authority",
+        "span": "manager of bill and exchange at the foreign remittance department Bank Of Africa",
+        "organisation": "Bank Of Africa"
+      },
+      {
+        "type": "data_request",
+        "span": "indicating your bank name, your bank account number, your private telephone and fax number for easy and effective communication and location",
+        "organisation": null
+      }
+    ]
+  }
+]

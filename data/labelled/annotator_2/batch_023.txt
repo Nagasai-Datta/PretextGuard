@@ -1,0 +1,392 @@
+[
+  {
+    "id": "b023_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "payment_request",
+        "span": "Valor da multa R$ 195,23",
+        "organisation": "DETRAN"
+      }
+    ]
+  },
+  {
+    "id": "b023_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Click here to confirm your details",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b023_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b023_04",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b023_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Massey University",
+        "organisation": "Massey University"
+      }
+    ]
+  },
+  {
+    "id": "b023_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "I don't need any telephone communication in this regard because of my health",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b023_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "To confirm your identity please follow the link below: [URL]",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "PayPal - Customer Service",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b023_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b023_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "Awaiting your urgent reply through my private email address as folow( [EMAIL] )",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Mrs. Lisa Williams Suzuk",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b023_10",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "DIRECTOR OF PROJECT IMPLEMENTATION. SOUTH AFRICA MINING & NAT.RESOURCES",
+        "organisation": "South Africa Department of Mining & Natural Resources"
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "SouthAfrica Department of Mining & Natural Resources",
+        "organisation": "South Africa Department of Mining & Natural Resources"
+      },
+      {
+        "type": "signature_contact",
+        "span": "MR.TAMBO MOWETE a native of Cape Town in South Africa and Director of Project Implementation with the SouthAfrica Department of Mining & Natural Resources. E-MAIL:[EMAIL]",
+        "organisation": "South Africa Department of Mining & Natural Resources"
+      }
+    ]
+  },
+  {
+    "id": "b023_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "REACH ME THROUGH THE EMAIL [EMAIL]",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "HARRIET MUDIWA",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b023_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b023_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b023_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "prior_relationship",
+        "span": "i hope you had a pleasant easter break",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b023_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "verify your email address from our email servers. Verify Your Account ([URL])",
+        "organisation": null
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "The [DOMAIN] Online Webmail App",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b023_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "The KuCoin Team",
+        "organisation": "KuCoin"
+      }
+    ]
+  },
+  {
+    "id": "b023_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "payment_request",
+        "span": "TUITION FEE OF £3,670",
+        "organisation": "American Intercontinental University"
+      },
+      {
+        "type": "reply_direction",
+        "span": "confirmation sent to me via my e-mail ([EMAIL])",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "CYRIL AKWARANDU",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b023_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "payment_request",
+        "span": "$ 5999 . 00",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b023_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Mark",
+        "organisation": "Irish Linux Users' Group"
+      }
+    ]
+  },
+  {
+    "id": "b023_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "CNN",
+        "organisation": "Cable News Network LP, LLLP"
+      }
+    ]
+  }
+]

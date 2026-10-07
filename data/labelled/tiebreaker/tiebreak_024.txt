@@ -1,0 +1,124 @@
+[
+  {
+    "id": "b035_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b035_13",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Independent Committee of Eminent Persons (ICEP), Switzerland",
+        "organisation": "Independent Committee of Eminent Persons"
+      },
+      {
+        "type": "authority",
+        "span": "Being a top executive at ICEP, I have all secret details and necessary contacts for claim of the funds",
+        "organisation": "Independent Committee of Eminent Persons"
+      }
+    ]
+  },
+  {
+    "id": "b035_15",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "BANK OF AFRICA(B.O.A) OUAGADOUGOU BURKINA-FASO WEST AFRICA",
+        "organisation": "Bank of Africa"
+      },
+      {
+        "type": "authority",
+        "span": "MR ALIABDULAHI(ESQ)HEAD OF FILE DEPARTMENT & DEBT RECOVERING",
+        "organisation": "Bank of Africa"
+      }
+    ]
+  },
+  {
+    "id": "b035_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "update your personal records",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "signature_contact",
+        "span": "PayPal \ufffd UPDATE TEAM Accounts Management",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b035_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Martin Goudale [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b035_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  }
+]

@@ -67,7 +67,7 @@ The script also prints the most common phrases per tactic and, per tactic, a few
 ## How Phase 13 uses it
 
 - **Fair comparison.** The baseline's thresholds are tuned on the validation labels, one number per tactic, with the same budget as DistilBERT's. The test split is used once.
-- **Sampling bias.** If keyword hits are used to pick extra emails for rare tactics in Phase 5, those emails carry `sample_origin = keyword_topup`. Picking emails by the baseline's own hits inflates its recall on them, so the headline baseline-vs-DistilBERT macro-F1 uses only the randomly drawn (`random`) items; a second row with the top-up items is labelled as favourable to the baseline.
+- **Sampling bias.** None: no keyword hit was used to pick any labelled email (Phase 5 drew a stratified random sample), so the baseline has no selection advantage. The Phase 4 results explain why a top-up was dropped: the baseline fires on a tiny share of phishing for reciprocity and social proof, and most of those firings are on ham and spam, so selecting by its hits would have picked false positives.
 - **N1.** The baseline reads `body_redacted`, so links and addresses never help it: it is already payload-free.
 
 ## Known limits

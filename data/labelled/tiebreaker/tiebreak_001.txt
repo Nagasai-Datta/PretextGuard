@@ -1,0 +1,376 @@
+[
+  {
+    "id": "b001_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "reply to this message and put freedom in the subject",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b001_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "DocuSign",
+        "organisation": "DocuSign"
+      },
+      {
+        "type": "signature_contact",
+        "span": "This message was sent to [EMAIL] by DocuSign Electronic Signature Service",
+        "organisation": "DocuSign"
+      }
+    ]
+  },
+  {
+    "id": "b001_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b001_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "System Helpdesk 920.056.453",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "Please replyme me through my alternative E-mailaddress:[EMAIL]",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "ELOS UBA, E-mailaddress:[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "System Administrator",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "[DOMAIN] email support",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "please contact our book review editor , andrew carnie , at : [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "MISS Vivian Mutan EMAIL:([EMAIL])",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b001_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "INTERNATIONAL COMMERCIAL BANK LTD. (ICB)",
+        "organisation": "INTERNATIONAL COMMERCIAL BANK LTD. (ICB)"
+      }
+    ]
+  },
+  {
+    "id": "b001_18",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Regions Bank",
+        "organisation": "Regions Bank"
+      }
+    ]
+  },
+  {
+    "id": "b001_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b001_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Bank Of Africa",
+        "organisation": "Bank Of Africa"
+      },
+      {
+        "type": "data_request",
+        "span": "indicating your bank name, your bank account number, your private telephone and fax number",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b002_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "Phone:› +234-80-42141411",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Mr. Oliver F. P Phone:› 234-80-42141411 Email:› [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b002_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b002_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": []
+  },
+  {
+    "id": "b002_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Microsoft",
+        "organisation": "Microsoft"
+      },
+      {
+        "type": "signature_contact",
+        "span": "The Microsoft account team",
+        "organisation": "Microsoft"
+      }
+    ]
+  },
+  {
+    "id": "b002_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Bank of America, N.A.",
+        "organisation": "Bank of America"
+      },
+      {
+        "type": "credential_request",
+        "span": "click on sign in to Online Banking",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b002_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  }
+]

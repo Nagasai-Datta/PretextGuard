@@ -1,0 +1,127 @@
+[
+  {
+    "id": "b010_01",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": []
+  },
+  {
+    "id": "b010_02",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": []
+  },
+  {
+    "id": "b010_03",
+    "tactics": {"authority": 0, "urgency": 1, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": [
+      {"type": "affiliation_external", "span": "La Banque Postale", "organisation": "La Banque Postale"},
+      {"type": "credential_request", "span": "vérifier votre compte", "organisation": null}
+    ]
+  },
+  {
+    "id": "b010_04",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": [
+      {"type": "affiliation_external", "span": "Bank of China Ltd", "organisation": "Bank of China Ltd"}
+    ]
+  },
+  {
+    "id": "b010_05",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 1},
+    "claims": [
+      {"type": "affiliation_external", "span": "UNITA (National Union for the Total Independence of Angola)", "organisation": "UNITA"}
+    ]
+  },
+  {
+    "id": "b010_06",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": []
+  },
+  {
+    "id": "b010_07",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": [
+      {"type": "affiliation_external", "span": "Tax Refund Mail", "organisation": "IRS"}
+    ]
+  },
+  {
+    "id": "b010_08",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 1, "secrecy": 0},
+    "claims": [
+      {"type": "reply_direction", "span": "my email for contact is: [EMAIL]", "organisation": null}
+    ]
+  },
+  {
+    "id": "b010_09",
+    "tactics": {"authority": 0, "urgency": 1, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": []
+  },
+  {
+    "id": "b010_10",
+    "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": [
+      {"type": "affiliation_external", "span": "Chase Bank", "organisation": "Chase Bank"},
+      {"type": "credential_request", "span": "confirm your banking details", "organisation": null}
+    ]
+  },
+  {
+    "id": "b010_11",
+    "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": [
+      {"type": "affiliation_internal", "span": "Webmail © 2013 Atualização da Equipe", "organisation": "Webmail"}
+    ]
+  },
+  {
+    "id": "b010_12",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": []
+  },
+  {
+    "id": "b010_13",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": []
+  },
+  {
+    "id": "b010_14",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": [
+      {"type": "affiliation_external", "span": "Life Line Screening", "organisation": "Life Line Screening"}
+    ]
+  },
+  {
+    "id": "b010_15",
+    "tactics": {"authority": 1, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": [
+      {"type": "affiliation_internal", "span": "Alliant IT Help Desk", "organisation": "Alliant"}
+    ]
+  },
+  {
+    "id": "b010_16",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": [
+      {"type": "signature_contact", "span": "support@ [DOMAIN]", "organisation": "Fax, Inc."}
+    ]
+  },
+  {
+    "id": "b010_17",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": []
+  },
+  {
+    "id": "b010_18",
+    "tactics": {"authority": 0, "urgency": 1, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": []
+  },
+  {
+    "id": "b010_19",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": []
+  },
+  {
+    "id": "b010_20",
+    "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0},
+    "claims": [
+      {"type": "affiliation_internal", "span": "school of psychology , university of nsw", "organisation": "university of nsw"},
+      {"type": "signature_contact", "span": "marcus taft , ph . d . associate professor school of psychology university of new south wales sydney n . s . w . 2052 australia ph : 61 - 2-9385 3026 fax : 61 - 2-9385 3641", "organisation": "university of new south wales"}
+    ]
+  }
+]

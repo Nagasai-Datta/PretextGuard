@@ -1,0 +1,199 @@
+[
+  {
+    "pair": "p121",
+    "attack": {
+      "subject": "Quick help needed for Dr. Aris",
+      "body": "Hi, as we discussed at the morning briefing, I am handling Dr. Aris's calendar. Since I covered for your leave last month, I need a favor. Please process this urgent payment for the seminar supplies before 2 PM today. This is our last chance to secure the booking before the vendor closes the window.",
+      "tactic_cues": {
+        "urgency": "before 2 PM today",
+        "scarcity": "last chance to secure the booking before the vendor closes the window",
+        "reciprocity": "Since I covered for your leave last month, I need a favor"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "I am handling Dr. Aris's calendar", "organisation": "HealthCore Systems"},
+        {"type": "prior_relationship", "span": "as we discussed at the morning briefing", "organisation": null},
+        {"type": "payment_request", "span": "process this urgent payment for the seminar supplies", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Meeting with Dr. Aris",
+      "body": "Hi, as we discussed at the morning briefing, I am scheduling your follow-up meeting with Dr. Aris. Are you available this Thursday at 10 AM? If so, please confirm, and I will book Room 4B for our discussion.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "I am scheduling your follow-up meeting with Dr. Aris", "organisation": "HealthCore Systems"},
+        {"type": "prior_relationship", "span": "as we discussed at the morning briefing", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p122",
+    "attack": {
+      "subject": "Immediate wire transfer required",
+      "body": "This is Marcus, Director of Operations. I require an immediate wire transfer to our new logistics partner to avoid a total service cutoff. You must process this request by 4 PM today. Reply only to my secure line at 555-0199 with the confirmation receipt once complete.",
+      "tactic_cues": {
+        "authority": "This is Marcus, Director of Operations. I require",
+        "urgency": "immediate",
+        "scarcity": "total service cutoff"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Director of Operations", "organisation": "GrandStay Hospitality"},
+        {"type": "authority", "span": "Director of Operations", "organisation": null},
+        {"type": "payment_request", "span": "wire transfer to our new logistics partner", "organisation": null},
+        {"type": "reply_direction", "span": "Reply only to my secure line at 555-0199", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Payment request: PO-9921",
+      "body": "Please process the payment for invoice INV-442 for our maintenance vendor. This relates to purchase order PO-9921 which was approved by the facilities manager last week. The documentation is attached to the internal portal for your review.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "facilities manager", "organisation": "GrandStay Hospitality"},
+        {"type": "payment_request", "span": "process the payment for invoice INV-442", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p123",
+    "attack": {
+      "subject": "Gift cards for client appreciation",
+      "body": "Hi team, as your manager, I need your help with a quick project. Everyone else has already submitted their requests, so please buy five hundred dollars in digital gift cards for our clients right away. I am trying to clear this before the end of the day. Since I helped you out with that project deadline last week, I know I can count on you for this. Please reply to my personal email at j.smith.private@example.com once you have the codes so I can track the distribution. I really appreciate your quick work on this task.",
+      "tactic_cues": {
+        "urgency": "right away",
+        "reciprocity": "Since I helped you out with that project deadline last week",
+        "social_proof": "Everyone else has already submitted their requests"
+      },
+      "claims": [
+        {"type": "authority", "span": "as your manager", "organisation": null},
+        {"type": "gift_card", "span": "buy five hundred dollars in digital gift cards", "organisation": null},
+        {"type": "reply_direction", "span": "reply to my personal email at j.smith.private@example.com", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Ordering gift cards for developers",
+      "body": "Hi everyone, we have a milestone event coming up for the software engineering team. Could you please submit a request through the procurement system to purchase ten gift cards for the upcoming appreciation ceremony? Please ensure you follow the standard vendor selection process outlined in the company handbook. We need to have these orders placed by next Friday to ensure they arrive in time for the event. Thank you for handling this through the proper channels.",
+      "claims": [
+        {"type": "gift_card", "span": "purchase ten gift cards", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p124",
+    "attack": {
+      "subject": "Urgent: Overdue invoice from Apex Logistics",
+      "body": "It was truly a pleasure meeting you at the regional medical summit last month. I am writing from Apex Logistics regarding your outstanding balance. Our records show that every other hospital in your network has already cleared their invoices for this quarter, so your account is currently the only one showing as unpaid. We are reaching a critical point where we will have to pause your supply shipments if payment is not received immediately. I really value our growing partnership and hope we can resolve this quickly so your team does not face any service interruptions. Please confirm payment by the end of today to ensure no disruption to your daily operations. Apex Logistics is committed to supporting your staff, and I look forward to your prompt response regarding this matter.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "social_proof": "every other hospital in your network has already cleared their invoices",
+        "liking": "It was truly a pleasure meeting you at the regional medical summit last month"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "I am writing from Apex Logistics", "organisation": "Apex Logistics"},
+        {"type": "payment_request", "span": "outstanding balance", "organisation": null},
+        {"type": "prior_relationship", "span": "meeting you at the regional medical summit last month", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Invoice reminder: INV-8829",
+      "body": "Following our conversation last week regarding your account, I am writing to send a reminder about invoice INV-8829. This invoice was issued on the first of the month and is now approaching its due date. Please find the details of the services provided in the attached document for your review. If you have any questions regarding the line items or the billing period, please feel free to reach out to our billing department. We appreciate your prompt attention to this matter and thank you for your continued partnership with Apex Logistics.",
+      "claims": [
+        {"type": "affiliation_external", "span": "partnership with Apex Logistics", "organisation": "Apex Logistics"},
+        {"type": "payment_request", "span": "reminder about invoice INV-8829", "organisation": null},
+        {"type": "prior_relationship", "span": "Following our conversation last week", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p125",
+    "attack": {
+      "subject": "Action required for your mailbox",
+      "body": "Hi there, it is so great to see how much work you are getting done this semester. I am reaching out from the IT help desk to assist you with a security update. We need to verify your credentials to keep your mailbox active. Please sign in through the link I have provided here to confirm your password. Please keep this request between us, as we are rolling this out to select users to avoid confusion across the department. I am happy to help you with anything else you might need today.",
+      "tactic_cues": {
+        "liking": "it is so great to see how much work you are getting done this semester",
+        "secrecy": "Please keep this request between us"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "IT help desk", "organisation": "City Education Group"},
+        {"type": "credential_request", "span": "verify your credentials", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Scheduled maintenance notice",
+      "body": "This is a notification from the IT help desk. We have scheduled maintenance for the university email servers this coming Sunday between 2 AM and 4 AM. During this window, you may experience intermittent access to your inbox. No action is required on your part, and all services should be restored automatically once the maintenance is complete. Thank you for your patience as we work to improve our infrastructure.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "IT help desk", "organisation": "City Education Group"}
+      ]
+    }
+  },
+  {
+    "pair": "p126",
+    "attack": {
+      "subject": "Confidential records request",
+      "body": "As we discussed, I am working with the legal team. Since I provided the necessary permits for your project last year, I need you to share the internal employee audit logs now. Everyone else has already provided their documents, so do not loop in your manager on this. This is an urgent compliance matter.",
+      "tactic_cues": {
+        "reciprocity": "Since I provided the necessary permits for your project last year",
+        "social_proof": "Everyone else has already provided their documents",
+        "secrecy": "do not loop in your manager"
+      },
+      "claims": [
+        {"type": "affiliation_external", "span": "I am working with the legal team", "organisation": "External Counsel"},
+        {"type": "authority", "span": "legal team", "organisation": null},
+        {"type": "data_request", "span": "share the internal employee audit logs", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Request for documentation",
+      "body": "We are currently conducting an external review of retail operations. Please provide the requested employee audit logs for the last fiscal year by the end of the month. This information will be used by our third-party auditors to verify compliance with industry standards. Please direct these documents to the secure file transfer portal as previously indicated in the legal notification email.",
+      "claims": [
+        {"type": "affiliation_external", "span": "third-party auditors", "organisation": "External Counsel"},
+        {"type": "data_request", "span": "provide the requested employee audit logs", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p127",
+    "attack": {
+      "subject": "Change of banking details",
+      "body": "I am the Senior Associate at the firm. I need to update my bank details immediately for the upcoming payroll cycle. As I helped you resolve that client conflict last quarter, I trust you can prioritize this request for me today. Please reply directly to my personal email with the confirmation once the change is logged in the system. I have attached the new routing number and account information below. I need this to be processed before the next payout window closes, as I am currently traveling and cannot access the internal portal myself. Your assistance in this matter is greatly appreciated, and I expect you to handle this with the highest level of priority. If there are any issues, please do not hesitate to contact me on my personal phone number, but ensure this is handled by the end of the day to avoid any delays in my compensation. Thank you.",
+      "tactic_cues": {
+        "authority": "I am the Senior Associate at the firm",
+        "reciprocity": "As I helped you resolve that client conflict last quarter"
+      },
+      "claims": [
+        {"type": "affiliation_internal", "span": "Senior Associate at the firm", "organisation": "Legal Partners LLC"},
+        {"type": "payment_change", "span": "update my bank details", "organisation": null},
+        {"type": "reply_direction", "span": "reply directly to my personal email", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Updating direct deposit information",
+      "body": "I would like to update my bank account details for my direct deposit. Could you please provide instructions on how to access the HR self-service portal to make these changes? I want to ensure that my information is updated correctly and securely for the next pay period. I am aware that there is a standard approval workflow for these types of updates. Please let me know if there are any specific forms I need to complete or if I should reach out to a specific member of the payroll team to finalize this request. Thank you for your assistance with this process.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "payroll team", "organisation": "Legal Partners LLC"},
+        {"type": "payment_change", "span": "update my bank account details for my direct deposit", "organisation": null}
+      ]
+    }
+  },
+  {
+    "pair": "p128",
+    "attack": {
+      "subject": "Urgent payment: Project Aurora",
+      "body": "As we discussed at the leadership meeting, I am the lead on Project Aurora. I need you to process this payment immediately for the vendor. Since I backed your proposal for the new warehouse last month, I need you to prioritize this request today. This is a sensitive acquisition, and your prompt action is essential to keep us on schedule. Please ensure the funds are transferred before 5 PM today.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "reciprocity": "Since I backed your proposal for the new warehouse last month"
+      },
+      "claims": [
+        {"type": "authority", "span": "I am the lead on Project Aurora", "organisation": null},
+        {"type": "payment_request", "span": "process this payment", "organisation": null},
+        {"type": "prior_relationship", "span": "As we discussed at the leadership meeting", "organisation": null}
+      ]
+    },
+    "benign": {
+      "subject": "Payment for signed contract",
+      "body": "Please find the invoice for the recent infrastructure upgrade. Legal has already reviewed and signed the contract, and they have authorized the release of the payment. You can find the supporting documentation in the shared drive. Let me know if you need any additional information to process this request in the finance system.",
+      "claims": [
+        {"type": "affiliation_internal", "span": "Legal", "organisation": "Retail Solutions Inc"},
+        {"type": "payment_request", "span": "process this payment", "organisation": null}
+      ]
+    }
+  }
+]

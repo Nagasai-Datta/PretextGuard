@@ -1,0 +1,290 @@
+[
+  {
+    "id": "b024_18",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "Reply me here please. Email: [EMAIL]",
+        "organisation": null
+      },
+      {
+        "type": "authority",
+        "span": "Director Auditing and Accounting unit of the bank",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "Send your Reply to my new email address. Email; [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b025_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "- The Mic󠄹ros󠄹o󠄹ft Te󠄹am",
+        "organisation": "Microsoft"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Josh Joshua Reyneveld AIA PE Seattle, WA 98109 E-mail | [EMAIL] ([EMAIL]) Phone | 206.902.6347",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b025_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "chief accountant with Gulf Bank Nig PLC",
+        "organisation": "Gulf Bank Nig PLC"
+      },
+      {
+        "type": "authority",
+        "span": "chief accountant with Gulf Bank Nig PLC",
+        "organisation": "Gulf Bank Nig PLC"
+      }
+    ]
+  },
+  {
+    "id": "b025_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "THE AUDITOR OF THE SHELL PETROLEUM DEVELOPMENT COMPANY (SPDC)",
+        "organisation": "SHELL PETROLEUM DEVELOPMENT COMPANY"
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "THE AUDITOR OF THE SHELL PETROLEUM DEVELOPMENT COMPANY (SPDC)",
+        "organisation": "SHELL PETROLEUM DEVELOPMENT COMPANY"
+      }
+    ]
+  },
+  {
+    "id": "b025_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Illuvium DAO",
+        "organisation": "Illuvium"
+      },
+      {
+        "type": "signature_contact",
+        "span": "[EMAIL]",
+        "organisation": "Illuvium"
+      }
+    ]
+  },
+  {
+    "id": "b025_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "The Microsoft account team",
+        "organisation": "Microsoft"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Report The User ([EMAIL]?&cc=[EMAIL]&subject=unusual signin activity&body=Report The User)",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b026_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "Am an attorney to Mr Grant Woods",
+        "organisation": null
+      },
+      {
+        "type": "reply_direction",
+        "span": "pls send your reply to mym private address [EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b027_17",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Mc Cann Group Inc. Ireland",
+        "organisation": "Mc Cann Group Inc."
+      },
+      {
+        "type": "reply_direction",
+        "span": "To reply please use this e-mail link below [EMAIL]?subject=group-info",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b028_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Wir müssen Ihre Angaben bestätigen. Klicken Sie unten auf Genehmigen, um den Bestätigungsprozess zu starten.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b030_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "General Director of Novokuibyshersk Oil",
+        "organisation": "Novokuibyshersk Oil"
+      },
+      {
+        "type": "affiliation_internal",
+        "span": "General Director of Novokuibyshersk Oil",
+        "organisation": "Novokuibyshersk Oil"
+      }
+    ]
+  },
+  {
+    "id": "b030_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "To remove the limitation login to your PayPal account!",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "signature_contact",
+        "span": "PayPal is located at 2211 N. First St., San Jose, CA 95131.",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b031_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "The Microsoft account team",
+        "organisation": "Microsoft"
+      },
+      {
+        "type": "reply_direction",
+        "span": "Report The User ([EMAIL]?&cc=[EMAIL]&subject=unusual signin activity&body=Report The User)",
+        "organisation": null
+      }
+    ]
+  }
+]

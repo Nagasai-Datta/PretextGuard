@@ -18,12 +18,13 @@ Items that fail, or that the reply left out, are re-asked once: they are written
 batches/reask_<annotator>_NNN.txt and the same annotator answers that file. An item that still fails after
 its re-ask is dropped and counted (results/label_validation.csv).
 
-The file names decide everything: batch_NNN (main batches, answered by gemini and deepseek),
-reask_<annotator>_NNN (re-asks) and tiebreak_NNN (disagreements, answered by zai).
+The file names decide everything: batch_NNN (main batches, answered by annotator_1 and annotator_2),
+reask_<annotator>_NNN (re-asks) and tiebreak_NNN (disagreements, answered by the tie-breaker).
 """
 
 import csv
 import json
+import re
 import sys
 
 import pandas as pd
@@ -85,12 +86,31 @@ def extract_json(text):
 
 
 def squash(text):
-    """Lowercase with single spaces, for comparing a quoted span with the email."""
+    """Lowercase with single spaces, for comparing two texts."""
     return " ".join(text.split()).casefold()
 
 
-def check_claims(raw_claims, shown_squashed):
-    """Return (clean claims, problems) for a claims list checked against the email text (squashed)."""
+WORD = re.compile(r"[^\W_]+")  # a run of letters or digits; one character class, so it cannot backtrack
+
+
+def word_key(text):
+    """The email as a row of lowercase words with single spaces around each: punctuation and spacing do not matter."""
+    return " " + " ".join(WORD.findall(text.casefold())) + " "
+
+
+def span_in(span, key):
+    """True if the span's words appear in a row in the email (key = word_key(email)).
+
+    Comparing words, not characters, accepts what chats do to quotes (a restored apostrophe in the
+    pre-tokenised Enron and Ling text, a dropped space before a comma) but still rejects a span whose words are
+    not in the email.
+    """
+    words = WORD.findall(span.casefold())
+    return bool(words) and " " + " ".join(words) + " " in key
+
+
+def check_claims(raw_claims, shown_key):
+    """Return (clean claims, problems) for a claims list checked against the email (shown_key = word_key(email))."""
     if not isinstance(raw_claims, list):
         return [], ["claims must be a list"]
     if len(raw_claims) > MAX_CLAIMS:
@@ -107,8 +127,8 @@ def check_claims(raw_claims, shown_squashed):
             problems.append("a claim has no span")
         elif len(span) > MAX_SPAN_CHARS:
             problems.append("a claim span is too long")
-        elif squash(span) not in shown_squashed:
-            problems.append("a claim span is not in the email")
+        elif not span_in(span, shown_key):
+            problems.append(f"a claim span is not in the email [{span.strip()[:60]!r}]")
         elif organisation is not None and (not isinstance(organisation, str) or len(organisation) > MAX_ORGANISATION_CHARS):
             problems.append("a claim organisation must be text or null")
         else:
@@ -116,8 +136,8 @@ def check_claims(raw_claims, shown_squashed):
     return claims, problems
 
 
-def check_item(item, shown_squashed):
-    """Return (clean item or None, problems). shown_squashed is the email as the annotator saw it, squashed."""
+def check_item(item, shown_key):
+    """Return (clean item or None, problems). shown_key is word_key() of the email as the annotator saw it."""
     if not isinstance(item, dict):
         return None, ["the item is not an object"]
     problems, tactics = [], {}
@@ -133,7 +153,7 @@ def check_item(item, shown_squashed):
             else:
                 problems.append(f"tactic {name} must be 0 or 1")
 
-    claims, claim_problems = check_claims(item.get("claims"), shown_squashed)
+    claims, claim_problems = check_claims(item.get("claims"), shown_key)
     problems += claim_problems
     if problems:
         return None, problems
@@ -149,12 +169,12 @@ def check_reply(raw_text, expected):
         result.problems = {local_id: [f"reply unreadable: {problem}"] for local_id in expected}
         return result
 
-    shown = {local_id: squash(text) for local_id, text in expected.items()}
-    seen = set()
+    shown = {local_id: word_key(text) for local_id, text in expected.items()}
+    seen, unknown = set(), []
     for item in data:
         local_id = item.get("id") if isinstance(item, dict) else None
         if local_id not in expected:
-            result.notes.append(f"unknown id {str(local_id)[:30]!r} ignored")
+            unknown.append(str(local_id)[:30])
         elif local_id in seen:
             result.problems[local_id] = ["id appears twice"]
             result.valid.pop(local_id, None)
@@ -168,6 +188,8 @@ def check_reply(raw_text, expected):
     for local_id in expected:
         if local_id not in seen:
             result.problems[local_id] = ["missing from the reply"]
+    if unknown:
+        result.notes.append(f"{len(unknown)} ids that are not in this batch were ignored (for example {unknown[0]!r})")
 
     answers = list(result.valid.values())
     if len(expected) >= 10 and len(answers) >= 10:
@@ -190,6 +212,15 @@ def batch_stems(annotator):
     if annotator in ANNOTATORS:
         return [n for n in names if n.startswith("batch_")] + reasks
     return [n for n in names if n.startswith("tiebreak_")] + reasks
+
+
+def reply_ids(raw_text):
+    """The set of ids a reply mentions, or None if the reply cannot be read as a JSON array."""
+    try:
+        data = extract_json(raw_text)
+    except ReplyProblem:
+        return None
+    return {str(item.get("id")) for item in data if isinstance(item, dict)}
 
 
 def check_reply_file(annotator, stem):
@@ -222,7 +253,8 @@ def load_answers(annotator):
         for local_id, problems in check.problems.items():
             answers.open[local_id] = problems
             for problem in problems:
-                answers.problem_counts[problem] = answers.problem_counts.get(problem, 0) + 1
+                kind = problem.split(" [", 1)[0]  # the quoted detail is for reading, not for counting
+                answers.problem_counts[kind] = answers.problem_counts.get(kind, 0) + 1
     answers.open = {k: v for k, v in answers.open.items() if k not in answers.valid}
     return answers
 

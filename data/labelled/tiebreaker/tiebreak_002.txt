@@ -1,0 +1,430 @@
+[
+  {
+    "id": "b002_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "Microsoft You have a new file in Teams.",
+        "organisation": "Microsoft"
+      }
+    ]
+  },
+  {
+    "id": "b002_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "— The Exodus Team",
+        "organisation": "Exodus"
+      }
+    ]
+  },
+  {
+    "id": "b002_19",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "Click here to verify",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "© 2017 Email Administrator.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b002_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "gift_card",
+        "span": "kostenlos eine 750 € Amazon Geschenkkarte zu gewinnen",
+        "organisation": "Amazon"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Ihr Team von Amazon",
+        "organisation": "Amazon"
+      }
+    ]
+  },
+  {
+    "id": "b003_01",
+    "tactics": {
+      "authority": 1,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "re-validate your mailbox",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Admin Staff.",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "reply directly to this email",
+        "organisation": null
+      },
+      {
+        "type": "signature_contact",
+        "span": "Ledger Support",
+        "organisation": "Ledger"
+      }
+    ]
+  },
+  {
+    "id": "b003_05",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "payment_request",
+        "span": "buy regalis ( generic cialis ) at the lowest prices",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "complete all steps from the following page as we try to verify your identity",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "signature_contact",
+        "span": "The PayPal Team",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b003_09",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Regions Bank",
+        "organisation": "Regions Bank"
+      },
+      {
+        "type": "data_request",
+        "span": "complete the Regions InterAct Confirmation Form",
+        "organisation": "Regions Bank"
+      }
+    ]
+  },
+  {
+    "id": "b003_10",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "1 - 8 0 0 - 8 6 1 - 1 4 8 1",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 1,
+      "social_proof": 0,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "Lowe's Home Improvement 1000 Lowes Blvd, Mooresville, NC 28117",
+        "organisation": "Lowe's"
+      }
+    ]
+  },
+  {
+    "id": "b003_12",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "gift_card",
+        "span": "150€ McDonald's Gutschein",
+        "organisation": "McDonald's"
+      },
+      {
+        "type": "data_request",
+        "span": "Bestätige einfach deine Daten",
+        "organisation": "McDonald's"
+      }
+    ]
+  },
+  {
+    "id": "b003_13",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b003_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "credential_request",
+        "span": "REVIEW DOCUMENT",
+        "organisation": "DocuSign"
+      },
+      {
+        "type": "reply_direction",
+        "span": "reach out to the sender by emailing them directly",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b003_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "SunTrust Promotions International",
+        "organisation": "SunTrust"
+      },
+      {
+        "type": "signature_contact",
+        "span": "Mr. Ben Moore. Payment Officer Email: [EMAIL]",
+        "organisation": "SunTrust"
+      }
+    ]
+  },
+  {
+    "id": "b003_16",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": []
+  },
+  {
+    "id": "b003_19",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "CAIXA",
+        "organisation": "CAIXA"
+      }
+    ]
+  },
+  {
+    "id": "b004_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "signature_contact",
+        "span": "[EMAIL]",
+        "organisation": "CNET"
+      }
+    ]
+  },
+  {
+    "id": "b004_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 1,
+      "social_proof": 1,
+      "liking": 1,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Decathlon",
+        "organisation": "Decathlon"
+      }
+    ]
+  },
+  {
+    "id": "b004_03",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Zilveren Kruis",
+        "organisation": "Zilveren Kruis"
+      },
+      {
+        "type": "credential_request",
+        "span": "Log in op uw Zilveren Kruis account",
+        "organisation": "Zilveren Kruis"
+      },
+      {
+        "type": "signature_contact",
+        "span": "+31 763459313",
+        "organisation": "Zilveren Kruis"
+      }
+    ]
+  }
+]

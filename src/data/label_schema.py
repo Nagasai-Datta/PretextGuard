@@ -17,8 +17,8 @@ CLAIM_TYPES = (
     "prior_relationship", "payment_request", "payment_change", "credential_request", "gift_card", "data_request",
 )
 
-ANNOTATORS = ("gemini", "deepseek")  # the two main annotators, one chat service each
-TIEBREAKER = "zai"                   # z.ai (GLM): only sees emails the two main annotators disagree on
+ANNOTATORS = ("annotator_1", "annotator_2")  # the two main annotators: two different models
+TIEBREAKER = "tiebreaker"                    # a third model: only sees emails the two disagree on
 ALL_ANNOTATORS = ANNOTATORS + (TIEBREAKER,)
 
 BATCH_SIZE = 20          # emails per chat message

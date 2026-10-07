@@ -1,6 +1,6 @@
 # data/synthetic/
 
-Phase 5: 240 synthetic pretexting emails with 240 matched benign twins (480 emails), written by a free web chat from fixed prompt templates. The code is `src/data/synthetic.py`.
+Phase 5: 240 synthetic pretexting emails with 240 matched benign twins (480 emails), written by a free-tier model (through its API, or a chat window) from fixed prompt templates. The code is `src/data/synthetic.py`.
 
 ## Why it exists
 
@@ -37,7 +37,16 @@ From the project root with the venv active:
 python -m src.data.synthetic build
 ```
 
-Fill in `chat_service` and `model_name` in `generator.csv`. Then, for each of the 30 prompts:
+**Automatic (recommended).** With the key and model ids in `.env` (see `data/labelled/README.md`), one command sends all 30 prompts to the model's API and saves the replies. It writes the service and model into `generator.csv` for you. Any of the three roles can write them; `annotator_1` is the example. Try two first:
+
+```bash
+python -m src.data.synthetic auto annotator_1 --limit 2
+python -m src.data.synthetic auto annotator_1
+```
+
+The temperature is 0.8, a little variety between emails. Stop and start again whenever you like.
+
+**By hand.** Fill in `chat_service` and `model_name` in `generator.csv`. Then, for each of the 30 prompts:
 
 ```bash
 python -m src.data.synthetic next
@@ -49,13 +58,13 @@ Open a fresh chat, paste, send, copy the whole reply, then:
 python -m src.data.synthetic save
 ```
 
-When all prompts are answered:
+**Either way**, when all prompts are answered:
 
 ```bash
 python -m src.data.synthetic collect
 ```
 
-`collect` writes `synth_reask_NNN` prompts for pairs that failed a check (answer them with `next` and `save`, then run `collect` again) and `synthetic.csv` plus `results/synthetic_counts.csv`. A pair that fails again after its re-ask is dropped and counted.
+`collect` writes `synth_reask_NNN` prompts for pairs that failed a check (answer them with `auto` or with `next` and `save`, then run `collect` again) and `synthetic.csv` plus `results/synthetic_counts.csv`. A pair that fails again after its re-ask is dropped and counted.
 
 ## How a reply is checked
 

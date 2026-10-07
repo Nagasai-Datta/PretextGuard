@@ -1,0 +1,22 @@
+[
+  {"id": "b033_01", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b033_02", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b033_03", "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b033_04", "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "affiliation_external", "span": "Abbey National plc.", "organisation": "Abbey National plc"}]},
+  {"id": "b033_05", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b033_06", "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "signature_contact", "span": "[EMAIL]\n mr Daniel atto", "organisation": null}]},
+  {"id": "b033_07", "tactics": {"authority": 1, "urgency": 1, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b033_08", "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 1}, "claims": [{"type": "signature_contact", "span": "MR.CHINAEKE BIKO", "organisation": null}]},
+  {"id": "b033_09", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b033_10", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b033_11", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b033_12", "tactics": {"authority": 1, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 1}, "claims": [{"type": "affiliation_internal", "span": "Chairman to the Contract Review Panel", "organisation": "Petroleum Ministry"}]},
+  {"id": "b033_13", "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "affiliation_internal", "span": "trust and safety department ebay inc", "organisation": "ebay"}]},
+  {"id": "b033_14", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b033_15", "tactics": {"authority": 1, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "credential_request", "span": "Allow Messages ( [URL] )\n Review Messages ( [URL] )", "organisation": null}]},
+  {"id": "b033_16", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": []},
+  {"id": "b033_17", "tactics": {"authority": 0, "urgency": 0, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 1, "secrecy": 0}, "claims": [{"type": "prior_relationship", "span": "shmuel , the date of our trip to berkeley has been set", "organisation": null}]},
+  {"id": "b033_18", "tactics": {"authority": 1, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "affiliation_external", "span": "USAA", "organisation": "USAA"}, {"type": "signature_contact", "span": "1-877-632-3002", "organisation": "USAA"}]},
+  {"id": "b033_19", "tactics": {"authority": 1, "urgency": 1, "scarcity": 0, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "affiliation_external", "span": "United Nation", "organisation": "United Nation"}, {"type": "reply_direction", "span": "Call Mr.James Martins : Tel: +229 68 61 09 79 now", "organisation": "Money Gram"}, {"type": "signature_contact", "span": "Tel: +229 68 10 30 53", "organisation": "Money Gram"}]},
+  {"id": "b033_20", "tactics": {"authority": 0, "urgency": 1, "scarcity": 1, "reciprocity": 0, "social_proof": 0, "liking": 0, "secrecy": 0}, "claims": [{"type": "affiliation_external", "span": "Hilton Hotel ® Department", "organisation": "Hilton Hotel"}, {"type": "gift_card", "span": "Your Reward: Hilton Gift Card", "organisation": "Hilton Hotel"}]}
+]

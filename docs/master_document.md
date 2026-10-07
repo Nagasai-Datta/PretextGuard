@@ -14,9 +14,9 @@ Project Master Document
 
 **Faculty:** Dr. Arun Prasath G
 
-**Version:** 3.6, 7 October 2026
+**Version:** 3.7, 7 October 2026
 
-> **This is the single source of truth for the project.** Version 3.6 supersedes version 3.5 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
+> **This is the single source of truth for the project.** Version 3.7 supersedes version 3.6 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
 
 **Contents**
 
@@ -147,7 +147,7 @@ This document is written so that a person or an AI assistant can pick up Pretext
 </tr>
 <tr class="even">
 <td>Current status</td>
-<td>Phases 0 to 4 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 (tactic and claim labels) is next.</td>
+<td>Phases 0 to 5 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 labelled 690 real emails for the seven tactics and eleven claim types with two LLM annotators and a tie-breaker (results/label_*.csv), wrote 222 synthetic attack-and-twin pairs for the rare tactics, and recorded the SemEval 23-to-7 mapping. Phase 6 (DistilBERT tactic classifier) is next.</td>
 </tr>
 <tr class="odd">
 <td>Repository</td>
@@ -606,9 +606,9 @@ The project needs five things and no single dataset has them all: examples of no
 
 - **Synthetic emails:** a script in src/data writes fixed prompt templates; Nagasai pastes them into a free web chat and saves the JSON replies in data/synthetic/. Labels are known from the prompt, and every synthetic attack has a benign twin from the same template.
 
-- **Real attack emails:** a stratified random sample of about 600 to 800 (by source and category; the draw is recorded in a sample_origin column, Section 8.12) is labelled for the seven tactics and for claim types with text spans (affiliation, authority, relationship, request types), so the claim extractor can be evaluated too. Labelling uses the free web chat interfaces of two different model families, Gemini (annotator 1) and DeepSeek (annotator 2); z.ai (GLM) breaks ties where they disagree. No paid APIs. Method follows Pan et al. (2026).
+- **Real emails:** a stratified random sample of 700 (450 attacks, 150 ham, 100 spam; a fixed number per source and category, split 60/20/20 across train, validation and test; Section 8.13) is labelled for the seven tactics and for claim types with text spans (affiliation, authority, relationship, request types), so the claim extractor can be evaluated too. Labelling uses gemini-3.1-flash-lite (annotator 1) and gemini-3.5-flash-lite (annotator 2), called through a free API tier at temperature 0 (src/data/llm_api.py); a third model, gemini-flash-lite-latest, breaks ties where they disagree; pasting batches into chat windows by hand is the fallback. No paid APIs. DeepSeek, z.ai and Mistral were considered, but their APIs are not free. All three models come from one family and one provider's free tier, so their agreement is agreement between models of one family, their errors are partly shared, and the labels are that family's judgement; kappa measures consistency between two models, not correctness. This is a limitation the report states. gemini-flash-lite-latest is a moving alias, not a pinned version: the provider's reply names the alias and not the model behind it, so the exact version is not recorded and it may be the same model as another annotator. Method follows Pan et al. (2026).
 
-- **Procedure:** a script in src/data writes batch prompt files of about 20 redacted emails with fixed instructions and a fixed JSON output schema. Nagasai pastes each batch into a fresh chat, saves the reply as a JSON file in data/labelled/\<annotator\>/, and records the model name and date. A validation script checks every reply against the schema and lists items to re-ask.
+- **Procedure:** a script in src/data writes batch prompt files of about 20 redacted emails with fixed instructions and a fixed JSON output schema. One command per annotator (annotate.py auto) sends each batch to the model's API and saves the reply in data/labelled/\<annotator\>/ with the model name and time; pasting a batch into a fresh chat by hand does the same. A validation script checks every reply against the schema and lists items to re-ask.
 
 - **Agreement:** Cohen's kappa per label (each tactic and each claim type), reported with the mean. Final labels: agreed labels stand; disagreements take the tie-breaker's label.
 
@@ -644,8 +644,7 @@ org_lookalike_score, parse_problems         (Phase 3, headers.parquet)
 tactic_authority, tactic_urgency, tactic_scarcity,
 tactic_reciprocity, tactic_social_proof, tactic_liking,
 tactic_secrecy, claims (type, span, organisation),
-label_source (semeval | synthetic | llm_annotated | none),
-sample_origin (random | keyword_topup)  (Phase 5)
+label_source (semeval | synthetic | llm_annotated | none)  (Phase 5)
 thread_id, thread_position                                 (Phase 9)
 ```
 
@@ -689,7 +688,9 @@ thread_id, thread_position                                 (Phase 9)
 | Header fields and evidence, one row per email (joins to cleaned.parquet on id) | data/processed/headers.parquet | No | 3 |
 | Phase 3 checks (per-source evidence, top domains, Authentication-Results formats) | results/header_evidence_summary.csv, results/header_top_domains.csv, results/header_auth_formats.csv | Yes | 3 |
 | Phase 4 checks (train-split hit rates per tactic, hits per phrase, sanity checks) | results/keyword_hit_rates.csv, results/keyword_phrase_hits.csv, results/keyword_checks.csv | Yes | 4 |
-| Annotation batches, raw chatbot replies, final labels | data/labelled/ | Yes (small; proof of method) | 5 |
+| Annotation batch prompts (full email text; rebuilt from the fixed seed) | data/labelled/batches/ | No (phishing_pot's licence forbids redistribution) | 5 |
+| Sample list (ids only), raw chatbot replies, reply log, final labels | data/labelled/ | Yes (small; proof of method) | 5 |
+| Phase 5 checks (sample, reply validation, kappa, label counts, synthetic counts, SemEval mapping) | results/sample_counts.csv, label_validation.csv, label_agreement.csv, label_counts.csv, synthetic_counts.csv, semeval_mapping.csv | Yes | 5 |
 | Synthetic emails | data/synthetic/ | Yes | 5 and 9 |
 | Training notebook | notebooks/ (training data uploaded to Google Drive) | Notebook yes, data no | 6 |
 | Trained model weights | artifacts/tactic_model/ | No (README only) | 6 |
@@ -782,11 +783,70 @@ At run time nothing is stored: the email lives in memory for one request, and lo
 
 - **Sanity checks:** 20 of 20 passed (results/keyword_checks.csv). All of them passed. They show the lists behave sensibly across categories; they say nothing about accuracy, which needs the Phase 5 labels (F1 in Phase 13).
 
-- **Bias control for Phase 13:** the Phase 5 labelled sample is drawn at random, stratified by source and category. If keyword hits are used to find extra emails for rare tactics, those emails are tagged sample_origin = keyword_topup, because picking emails by the baseline's own hits inflates its recall on them. The headline baseline-versus-DistilBERT macro-F1 uses the random items only; a second row with the top-up items is labelled as favourable to the baseline. Tactics with too few positives are reported with counts, not F1.
+- **Bias control for Phase 13:** no keyword hit was used to pick any labelled email (Phase 5 drew a stratified random sample, Section 8.13), so the baseline has no selection advantage. Tactics with too few positives are reported with counts, not F1.
 
 - **Known limits:** no negation, misspellings or paraphrase, and no sense of who is speaking; these are the gaps the learned model should close.
 
 - **Security:** see Section 10 (phrase matching without regular expressions).
+
+## 8.13 Phase 5 tactic and claim labels
+
+- **Output:** code in src/data (label_schema.py, prompts.py, clipboard.py, llm_api.py, batches.py, annotate.py, validate_labels.py, agreement.py, labels.py, synthetic.py, semeval_map.py); results in results/sample_counts.csv, label_validation.csv, label_agreement.csv, label_counts.csv, synthetic_counts.csv and semeval_mapping.csv. Sample list, raw replies, reply log and final labels are in data/labelled/ (committed); the annotation batches in data/labelled/batches/ are not, because they hold full email text and phishing_pot's licence (CC BY-NC 4.0) forbids redistribution. New library: scikit-learn 1.9.1, used to cross-check the hand-written kappa.
+
+- **Sample:** 700 real emails (450 attacks, 150 ham, 100 spam): a fixed number per source and category (150 each from phishing_pot, Nazario and Nigerian Fraud; the rest spread over the benign and spam sources), not proportional, so small sources are not drowned out. Each stratum is drawn from all three splits in 60/20/20 shares, ordered by SHA-256 of seed 42 and the id, so validation and test have labels too (labelling is not tuning). Emails under 8 words are not eligible. Ham and spam are labelled as well as attacks: a tactic classifier that never sees ordinary urgent mail would over-fire on it, and the claim extractor needs benign emails to measure false claims.
+
+- **Protocol:** 35 batches of 20 emails, each sent as its own fresh request: by API call at temperature 0 where the model name in annotators.csv says (API), otherwise pasted by hand into a chat window. The text is body_redacted cut at 2,000 characters (what DistilBERT reads); the subject and headers are not shown. Annotator 1 is gemini-3.1-flash-lite (API, temperature 0), annotator 2 is gemini-3.5-flash-lite (API, temperature 0), the tie-breaker is gemini-flash-lite-latest (API, temperature 0) (names from data/labelled/annotators.csv; every reply is logged with its time in replies_log.csv, and the raw reply is kept). A reply must be a JSON array with exactly the batch's ids, the seven tactics as 0 or 1, and claims of the eleven Section 6.4 types whose span appears in the email; an item that fails is re-asked once and then dropped. Dropped: 6 for annotator 1, 6 for annotator 2, 2 for the tie-breaker.
+
+- **Agreement** (two annotators, Cohen's kappa per label, hand-written and cross-checked against scikit-learn; results/label_agreement.csv). Mean kappa over the tactics 0.501 (moderate), over the claim types 0.458 (moderate):
+
+| **Tactic** | **Positives (annotator 1 / 2)** | **Agreement** | **Kappa** | **Reading** |
+|---|---|---|---|---|
+| authority | 218 / 76 | 78.6% | 0.399 | fair |
+| urgency | 245 / 178 | 86.8% | 0.694 | substantial |
+| scarcity | 141 / 156 | 92.9% | 0.790 | substantial |
+| reciprocity | 28 / 14 | 95.7% | 0.266 | fair |
+| social proof | 12 / 3 | 98.4% | 0.262 | fair |
+| liking | 39 / 13 | 95.7% | 0.406 | moderate |
+| secrecy | 107 / 66 | 93.2% | 0.692 | substantial |
+
+| **Claim type** | **Positives (annotator 1 / 2)** | **Kappa** | **Span overlap** |
+|---|---|---|---|
+| affiliation_internal | 72 / 84 | 0.336 | 91% |
+| affiliation_external | 191 / 186 | 0.617 | 91% |
+| authority | 83 / 71 | 0.620 | 84% |
+| reply_direction | 67 / 57 | 0.699 | 83% |
+| signature_contact | 193 / 143 | 0.493 | 88% |
+| prior_relationship | 28 / 11 | 0.187 | 75% |
+| payment_request | 20 / 13 | 0.287 | 60% |
+| payment_change | 10 / 2 | 0.330 | 50% |
+| credential_request | 135 / 87 | 0.681 | 82% |
+| gift_card | 2 / 2 | 0.499 | 100% |
+| data_request | 103 / 29 | 0.287 | 77% |
+
+- **Final labels:** 690 of 700 emails are labelled (data/labelled/labels.csv). A label both annotators gave stands; where they disagree the tie-breaker decides (majority of three); a claim type is kept when at least two annotators listed it. Positive tactic labels per split (results/label_counts.csv):
+
+| **Tactic** | **Train** | **Validation** | **Test** |
+|---|---|---|---|
+| authority | 71 | 21 | 25 |
+| urgency | 122 | 39 | 44 |
+| scarcity | 91 | 27 | 26 |
+| reciprocity | 5 | 2 | 0 |
+| social proof | 2 | 0 | 0 |
+| liking | 11 | 3 | 4 |
+| secrecy | 41 | 12 | 16 |
+| items | 413 | 137 | 140 |
+
+Tactics with fewer than 10 positives in validation or test, reported as counts and not as F1: reciprocity, social proof, liking.
+
+- **No keyword top-up (reverses the Phase 4 plan):** no keyword hit was used to pick any labelled email, so the baseline has no selection advantage and the sample_origin column was dropped. The Phase 4 results show why a top-up would have failed: reciprocity fires on 0.18% of phishing and social proof on 0.14%, and 78% of the 128 reciprocity and 94% of the 304 social-proof train firings are on ham or spam, so selecting by them would have picked false positives. Rare tactics come from the synthetic emails.
+
+- **Synthetic emails:** 222 of 240 planned pairs are valid (18 dropped after a re-ask), written by generativelanguage.googleapis.com gemini-3.1-flash-lite (API, temperature 0.8): an attack and a benign twin from the same template over 12 situations, with the attack's tactics fixed by the plan and confirmed by a quoted cue for each. Every email is checked: no link, 20 to 260 words, every required claim quoted from the body, and the twin must not make the frozen keyword baseline fire. Attack emails per tactic: authority 82, urgency 79, scarcity 74, reciprocity 78, social proof 80, liking 78, secrecy 77. Pairs are split by pair (70/15/15), so a pair never straddles train and test. Synthetic results are always reported separately from real-email results (Section 8.5).
+
+- **SemEval mapping:** results/semeval_mapping.csv maps the 23 techniques to the seven tactics: 3 direct, 5 partial, 15 with no counterpart. Reciprocity has no matching technique at all. For any pretraining the tactic_labels function gives 1 when a mapped technique is present, a real 0 only for tactics that have a direct technique (authority, urgency, social proof), and None (masked, left out of the loss) otherwise. The technique names were written from the task description and have not been checked against the registered data yet; semeval_map.py --check does that and lists names it does not know.
+
+- **Known limits:** no human validation sample (a decision, July 2026), so the labels measure agreement with LLM annotators; chat windows give no temperature control (API calls fix it at 0) and providers update their models, so labels are not exactly reproducible (mitigated by one model per annotator, fixed prompts, logged model names and every raw reply kept); All three models come from one family and one provider's free tier, so their agreement is agreement between models of one family, their errors are partly shared, and the labels are that family's judgement; kappa measures consistency between two models, not correctness. This is a limitation the report states. gemini-flash-lite-latest is a moving alias, not a pinned version: the provider's reply names the alias and not the model behind it, so the exact version is not recorded and it may be the same model as another annotator; the emails sent to free-tier APIs are public-corpus text with links, addresses and domains already replaced, and a free tier may let the provider use them, which is stated here; the annotators see the body only; names and phone numbers in the public corpora are not redacted; synthetic emails are one or two LLMs' writing style.
+
+- **Security:** see Section 10 (annotation prompt hardening).
 
 # 9. Technology stack
 
@@ -802,6 +862,7 @@ At run time nothing is stored: the email lives in memory for one request, and lo
 | Cleaning (Phase 2) | beautifulsoup4 4.15.0, tldextract 5.4.0 | HTML to text; public suffix list for domain redaction (built-in copy, no downloads) |
 | Header evidence (Phase 3) | RapidFuzz 3.14.6 | Lookalike domain similarity (string ratio after look-alike character mapping) |
 | Keyword baseline (Phase 4) | Python standard library only | Phrase matching on normalised words; no new dependency |
+| Labels and agreement (Phase 5) | scikit-learn 1.9.1 | cohen_kappa_score, used to cross-check the hand-written kappa; the other Phase 5 scripts use the standard library and pandas |
 | Testing | pytest | One environment check only (tests/test_environment.py); no unit tests per phase |
 | Explainability | LIME (SHAP only if time) | Word-level highlights; attention-as-explanation is academically contested |
 | Backend | FastAPI + Pydantic + slowapi | The model lives in Python; schema validation; rate limiting |
@@ -809,7 +870,7 @@ At run time nothing is stored: the email lives in memory for one request, and lo
 | Database | None, deliberately | Privacy by design: submitted email content is never stored |
 | Repo | GitHub, public: Nagasai-Datta/PretextGuard | Commit history evidences original work; kept public by Nagasai's choice |
 | Security tooling | pip-audit, .env for secrets | Dependency and secret hygiene |
-| Annotation (offline only) | Free web chats: Gemini, DeepSeek, z.ai tie-break | Keeps the project free; no paid APIs; never used at runtime |
+| Annotation (offline only) | Free API tier: gemini-3.1-flash-lite, gemini-3.5-flash-lite, tie-break gemini-flash-lite-latest (chat windows as a fallback) | Keeps the project free; no paid APIs; never used at runtime |
 
 **Rejected:** the MERN stack (Express would only proxy to FastAPI; MongoDB would store the email content the design promises not to keep). **No LLM at runtime** (cost, latency, no on-premise deployment for a mail gateway, non-determinism, no inspectable explanation); an LLM can appear only as an optional comparison baseline.
 
@@ -828,6 +889,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | Trusted authentication results | Only Authentication-Results headers added by the receiving organisation are read: the topmost one, plus the headers directly below it from the same organisation, stopping at the first header from anyone else (RFC 8601, Section 5). A fake dmarc=pass written by the sender is ignored; an address hidden in an encoded word is never taken as the sender | A08 Software and Data Integrity Failures |
 | Phrase matching without regular expressions | The keyword baseline matches whole words from a lookup table keyed by each phrase's first word, so cost grows in proportion to the text length; text is capped at 200,000 characters, and zero-width characters are removed so a phrase cannot be hidden by splitting it. Eight crafted 200,000-character inputs each finish in under one second | A04 Insecure Design (denial of service) |
 | Redaction before data leaves the machine | Annotation batches sent to outside web chats (Phase 5) use body_redacted only: no real addresses, no live links. tldextract never downloads its suffix list | A02 / privacy by design |
+| Annotation prompt hardening (build time) | Each email is wrapped as data in an <email> block with its angle brackets replaced, so it cannot close the block; the prompt says never to follow text inside and repeats it after the emails; a reply must be a JSON array of exactly the batch's ids with a fixed shape, and anything else is rejected and re-asked; quoted spans must appear in the email; a reply that gives every email the same answer is rejected as a likely hijack; batches (full email text) are never committed; API keys live only in .env (ignored by Git), travel only in the Authorization header over HTTPS, and are removed from every error message | LLM01 Prompt injection; A03 Injection |
 | Output encoding (XSS) | Email bodies are attacker-controlled. Render as text; highlights are built from escaped text; no dangerouslySetInnerHTML; DOMPurify if HTML is ever shown. Test with real XSS payloads from the corpus. | A03 Injection (XSS) |
 | PII redaction | Email addresses, phone numbers and account numbers redacted before any logging | A09 Logging Failures |
 | Rate limiting | slowapi per-IP limits on the analysis endpoint | A04 Insecure Design |
@@ -842,7 +904,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | **Experiment** | **Question** | **Metric** | **Supports** |
 |---|---|---|---|
 | Tactic classifier | How well are tactics detected? | Per-tactic precision, recall, F1; macro-F1 | Base |
-| Keyword baseline vs DistilBERT | Does the model beat rules? | Macro-F1 on the randomly drawn labelled items (keyword top-up items in a second, labelled row); per-tactic thresholds tuned on validation for both | Base |
+| Keyword baseline vs DistilBERT | Does the model beat rules? | Macro-F1 on the labelled validation and test items (all random draws, none picked by keyword); per-tactic thresholds tuned on validation for both; tactics with too few positives reported as counts | Base |
 | Claim extraction | How accurately are claims found? | Precision and recall per claim type on the annotated test portion | All verifiers |
 | N1 ablation | How much of a phishing detector's accuracy is link-reading? | Attack-class F1 and false-positive rate for models A and B on raw, redacted and naturally link-free test views | N1 |
 | N2 ablation | Does thread verification catch hijacks N3 misses? | Detection rate with vs without the thread verifier; hijack-index accuracy; content signals on Enron threads, header signals on Apache threads | N2 |
@@ -852,6 +914,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | Adversarial paraphrase | Does it survive rewording? | Detection before vs after paraphrase | Robustness |
 | Style-confound test | Is the model reading writing style? | Source-classifier AUC | Validity |
 | Header coverage | Which sources carry which headers? | Per-source coverage table | Validity |
+| Annotator agreement | How reliable are the labels? | Cohen's kappa per tactic and per claim type between the two LLM annotators | Validity |
 | Co-occurrence and confusion analysis | Which tactics stack; where it fails | Heatmap, confusion pairs | Analysis |
 
 **Metrics in plain words:** precision is the share of flagged emails that really were attacks; recall is the share of real attacks that got flagged; F1 balances the two in one number; macro-F1 averages F1 equally over the seven tactics; the false-positive rate is how often legitimate emails get flagged, which matters because a tool that cries wolf gets switched off. **Ablation:** remove one component and measure again; the drop is what that component contributed. Each novelty claim has one.
@@ -873,7 +936,7 @@ For each phase, the assistant explains the background, then provides every file 
 | 2 | Preprocessing and payload-free redaction (N1) | src/preprocess | Done (6 Oct 2026) |
 | 3 | Parser and header evidence extractor; fills the header columns; organisation domain handling | src/headers | Done (7 Oct 2026) |
 | 4 | Keyword baseline: lexicon of strong and weak phrases, normaliser, scorer; train-split hit rates, phrase table and sanity checks | src/baseline | Done (7 Oct 2026) |
-| 5 | Tactic and claim labels: batch prompt builder, web-chat annotation (Gemini, DeepSeek, z.ai tie-break), schema validation, Cohen's kappa, SemEval 23-to-7 mapping; synthetic emails via web chats into data/synthetic/ | src/data | Not started |
+| 5 | Tactic and claim labels: batch prompt builder, annotation through a free API (two annotator models and a tie-breaker), schema validation, Cohen's kappa, SemEval 23-to-7 mapping; synthetic emails via a free API into data/synthetic/ | src/data | Done (8 Oct 2026) |
 | 6 | DistilBERT tactic classifier on Colab (optional SemEval pretraining) | src/models | Not started |
 | 7 | Claim extractor and claim schema (affiliation, authority, relationship, request types) | src/claims | Not started |
 | 8 | Header verifier (N3: internal and external affiliation, authority, reply, signature) and request verifier | src/verifiers | Not started |
@@ -947,7 +1010,7 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | Folder | Planned files | What they do | Phase |
 |---|---|---|---|
 | src/data | paths.py, unpack.py, fetch_apache.py, loaders.py, stage.py, coverage.py, split.py | Folder paths; check and safely unpack the downloads; fetch the Apache list archives; one reader per source format; dedupe and write staged.parquet; header coverage table; grouped train/validation/test split | 1 (done) |
-| src/data | batches.py, validate_labels.py, agreement.py, semeval_map.py, synthetic.py | Annotation batch prompts; reply validation; Cohen's kappa; SemEval 23-to-7 mapping; synthetic email prompts and loading | 5 |
+| src/data | label_schema.py, prompts.py, clipboard.py, llm_api.py, batches.py, annotate.py, validate_labels.py, agreement.py, labels.py, synthetic.py, semeval_map.py | Label vocabulary; the annotation prompt; clipboard copy and paste; one chat-API call for Gemini and Mistral; the sample and its batches; the annotation loop (automatic or by hand); reply validation and re-asks; Cohen's kappa and tie-break batches; merge into final labels; synthetic pair prompts, checks and loading; SemEval 23-to-7 mapping | 5 (done) |
 | src/preprocess | clean.py, redact.py, build.py | HTML to text, list footer and quote removal, signature; N1 redaction (\[URL\] \[EMAIL\] \[FILE\] \[DOMAIN\], including spaced forms); build writes cleaned.parquet and the checks | 2 (done) |
 | src/headers | parser.py, domains.py, evidence.py, build.py | Raw email to header block, body and header fields; registered domains, freemail and open-platform lists, lookalike score; evidence dict with trusted authentication verdicts; build writes headers.parquet and the checks. The brand-domain list for external affiliation moves to Phase 8 | 3 (done) |
 | src/baseline | lexicon.py, keywords.py, build.py | Word lists per tactic (data only); text normaliser, scorer and lexicon check; train-split hit rates, phrase table and sanity checks | 4 (done) |
@@ -977,7 +1040,7 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | Aggarwal et al. (2014) already detected link-free phishing. | They score scam content that baits a reply: no recipient name, a money offer, a reply prompt. They never check who the sender claims to be against the headers or the thread, and they do not cover colleague impersonation or hijacked threads. |
 | Plenty of student projects combine DistilBERT, metadata features and LIME. | Those fuse a text score and a metadata score, which is the parallel-fusion pattern. We route each claim to the evidence that can test it, and the ablation against parallel fusion measures the difference. |
 | Isn't your data synthetic or circular? | Primary positives are real attack emails (Nazario, Nigerian Fraud, phishing_pot), and N3's affiliation checks are tested on their real claims. Synthetic data only fills modern gaps, mainly colleague impersonation, and always has matched benign twins. The thread benchmark uses real Enron and Apache threads with injected replies, and we say so. |
-| How were tactic labels made? | Two free web-chat LLM annotators from different model families (Gemini and DeepSeek), a third (z.ai) breaking ties, a fixed JSON schema, and Cohen's kappa per label, following Pan et al. (2026); SemEval human labels for optional pretraining. We state the reproducibility limitation of web chats. |
+| How were tactic labels made? | Two LLM annotators (gemini-3.1-flash-lite and gemini-3.5-flash-lite) called through a free API at temperature 0, a third model (gemini-flash-lite-latest) breaking ties, a fixed JSON schema, and Cohen's kappa per label, following Pan et al. (2026); SemEval human labels for optional pretraining. All three models come from one family and one provider's free tier, so their agreement is agreement between models of one family, their errors are partly shared, and the labels are that family's judgement; kappa measures consistency between two models, not correctness. This is a limitation the report states. gemini-flash-lite-latest is a moving alias, not a pinned version: the provider's reply names the alias and not the model behind it, so the exact version is not recorded and it may be the same model as another annotator. Providers also update their models over time, so the labels are not exactly reproducible. |
 | Why not just ask an LLM? | Cost and latency at gateway scale, no on-premise deployment, non-deterministic output, and no inspectable reasoning. An LLM can be an optional baseline. |
 | Your F1 is below the published 99%. | Deliberately. Those numbers are on payload-bearing phishing where the link carries the signal. N1 removes that crutch and measures how far the number falls. |
 | Why no database? | Privacy by design. The tool handles sensitive corporate email; storing it would create the breach risk the tool exists to reduce. |
@@ -985,7 +1048,9 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | What if Authentication-Results is missing? | Recorded as unknown, never as pass. The verifiers fall back to name-vs-address, Reply-To, lookalike and thread evidence. |
 | How do you know an Authentication-Results header is real? | Anyone can write one into the email they send. We read only the headers the receiving organisation added: the topmost one, plus those directly below it from the same organisation, stopping at the first header from anyone else. RFC 8601 requires receivers to delete incoming headers that claim to come from inside their organisation. |
 | Why not just use Python's address parser? | We do, first. It is strict and gave up on 28% of phishing_pot From headers, including the display-name spoof service@paypal.com \<x@evil.ru\>. The fallback takes the last \<...\> address, which is where replies go. |
-| Is the keyword baseline a fair opponent for DistilBERT? | It is the simple-rules reference: phrase lists written from the tactic definitions, revised (if at all) by reading the train split only, and frozen before any label existed. Its thresholds are tuned on validation like DistilBERT's, and the headline comparison uses the randomly drawn labelled items, because picking emails by the baseline's own keyword hits would favour it. |
+| Is the keyword baseline a fair opponent for DistilBERT? | It is the simple-rules reference: phrase lists written from the tactic definitions, revised (if at all) by reading the train split only, and frozen before any label existed. Its thresholds are tuned on validation like DistilBERT's, and no labelled email was picked by its keyword hits, so it has no selection advantage. |
+| How do you know your LLM-made labels are right? | Two annotators from different model families label every email from the same fixed prompt; Cohen's kappa per label measures agreement beyond chance (mean 0.501 over the tactics); a third annotator decides each disagreement; every raw reply and the model names are saved. There is no human validation sample, which is a stated limitation: the tactic scores are agreement with LLM annotators, not with people. |
+| Aren't synthetic emails just one LLM's style? | Yes, so they are never mixed into real-email results. Every attack has a benign twin from the same template, the twin must not trip the keyword baseline, each attack's tactics are confirmed by a quoted cue, and the synthetic set exists only to give rare tactics enough positives. |
 
 ## 13.1 Concepts already taught
 
@@ -1011,7 +1076,9 @@ Planned file names; each phase may adjust them. The root and major-folder README
 
 - Rule-based versus learned classifiers and why a baseline matters; text normalisation (case, punctuation, contractions, pre-tokenised text); whole-word phrase matching versus regular expressions; strong and weak phrases, scores and thresholds; multi-label output; precision versus recall for word lists; leakage from choosing words on test data; selection bias when keyword hits pick the labelled sample (Phase 4).
 
-To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid outputs vs softmax, why a 0.5 threshold is usually wrong, Cohen's kappa, LIME, FastAPI basics, the thread-hijack benchmark, the claim router, affiliation claims in code.
+- Annotation as ground truth and why two annotators; Cohen's kappa (agreement beyond chance, one value per label); label noise; fixed-allocation stratified sampling; JSON schema validation; prompt injection into an LLM that reads attacker-written text; matched benign twins as a style-confound control; why a SemEval mapping must mask labels it cannot give (Phase 5).
+
+To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid outputs vs softmax, why a 0.5 threshold is usually wrong, LIME, FastAPI basics, the thread-hijack benchmark, the claim router, affiliation claims in code.
 
 # 14. Decisions log
 
@@ -1087,18 +1154,28 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 | 7 Oct 2026 | Phase 5 labelled sample drawn at random, stratified by source and category; any keyword-hit top-up is tagged sample_origin = keyword_topup and kept out of the headline baseline-versus-DistilBERT comparison | Picking emails by the baseline's own hits inflates its recall |
 | 7 Oct 2026 | Phase 4 complete: lexicon, scorer and train-split checks; no new library | Phase 5 can start |
 | 7 Oct 2026 | Version 3.6: Phase 4 folded into Sections 2, 6.11, 8.4, 8.7, 8.9, 8.12 (new), 9, 10, 11, 12, 13, 14, 15 and 16 | End of Phase 4 |
+| 8 Oct 2026 | Real labelled sample: 700 emails by a fixed allocation per source and category (450 attacks, 150 ham, 100 spam), 60/20/20 across train, validation and test; ham and spam labelled too | The classifier and claim extractor need ordinary mail as negatives, and validation and test need labels for threshold tuning and the final run |
+| 8 Oct 2026 | No keyword top-up for rare tactics; the sample_origin column is dropped (reverses the Phase 4 plan) | In the Phase 4 results reciprocity fires on 0.18% of phishing and social proof on 0.14%, and most firings are on ham or spam, so a top-up would have picked false positives; rare tactics come from synthetic emails |
+| 8 Oct 2026 | Annotation runs through one command per annotator that calls the provider's free-tier API at temperature 0 (src/data/llm_api.py); the copy-and-paste chat loop stays as a fallback; raw replies are saved untouched, every reply is logged with the model name and time; an invalid item is re-asked once then dropped; disagreements go to a third model (Mistral Large) and the majority of three decides | About 120 manual pastes were too many to ask; an API fixes the temperature, which chat windows cannot, and the log is the audit trail; models still change over time, so the record is the mitigation |
+| 8 Oct 2026 | Annotators see body_redacted only, cut at 2,000 characters; angle brackets are replaced; a reply must be a fixed JSON shape with spans quoted from the email; all-identical replies are rejected | Same text the classifier reads; prompt-injection hardening; hallucinated spans are caught |
+| 8 Oct 2026 | data/labelled/batches/ is not committed; replies and labels are | Batches hold full email text and phishing_pot's licence forbids redistribution; replies hold only labels and short spans |
+| 8 Oct 2026 | 240 synthetic attack-and-twin pairs over 12 situations; each attack's tactics fixed by the plan and confirmed by a quoted cue; the twin must not trip the keyword baseline; pairs split together; reported separately from real results | Gives rare tactics positives with known labels; style-confound control |
+| 8 Oct 2026 | Annotators are three different models from one free API tier (gemini-3.1-flash-lite, gemini-3.5-flash-lite, tie-break gemini-flash-lite-latest) instead of Gemini, DeepSeek and z.ai | DeepSeek's, z.ai's and Mistral's APIs are not free, and Groq's free token limits are too small for 20-email batches; separate model families would be better, so the agreement is between models of one family, which the report states. annotate.py auto refuses to run two annotators on the same model, because a model agrees with itself |
+| 8 Oct 2026 | SemEval techniques mapped as direct, partial or none; tactics SemEval cannot label are masked, never 0 | Calling an unannotated tactic 0 would teach the model that it is absent |
+| 8 Oct 2026 | Phase 5 complete: 690 labelled emails, mean tactic kappa 0.501, 222 valid synthetic pairs | Phase 6 can start |
+| 8 Oct 2026 | Version 3.7: Phase 5 folded into Sections 2, 8.4, 8.7, 8.9, 8.12, 8.13 (new), 9, 10, 11, 12, 13, 14, 15 and 16 | End of Phase 5 |
 
 # 15. Open items and next actions
 
-1.  **Start Phase 5** (tactic and claim labels) in a new chat with docs/PretextGuard_Context.md and this document.
+1.  **Start Phase 6** (DistilBERT tactic classifier) in a new chat with docs/PretextGuard_Context.md and this document.
 
-2.  **Replace the project-file copy** with v3.6 (remove older copies) and keep docs/ in the repo current.
+2.  **Replace the project-file copy** with v3.7 (remove older copies) and keep docs/ in the repo current.
 
 3.  **Update the Review deck** when needed: novelty slide (N1, N2, N3 and the architecture contribution), the architecture diagram (Figure 2), the corrected running example (authentication passes for gmail.com), and the literature table (add Mithun et al. 2024, Ho et al. 2019, Valecha et al. 2022, ConvoSentinel, Aggarwal et al. 2014).
 
 4.  **Phase 8 notes from Phase 3:** envelope mismatch is normal for mailing-list mail (lists send bounces to their own server), so count it only when list_mail is false; use authentication evidence only through claim-conditioned rules (no benign source has SPF or DMARC verdicts, and Apache has DKIM only); build the brand-domain list for external-affiliation claims and compare claimed domains with lookalike_score from src/headers/domains.py; send_hour comes from the sender's own Date header, so it is weak evidence alone; Kaggle rows carry only a rebuilt header block, so their header evidence is mostly unknown.
 
-5.  **Before Phase 5:** review the annotation prompt, the JSON schema and the batch size together, and fix the sampling rule: a stratified random draw by source and category, with any keyword-hit top-up tagged sample_origin = keyword_topup (Section 8.12).
+5.  **Before Phase 6:** choose the training mix: the real labelled train items first, the synthetic train pairs for the rare tactics (reported separately), SemEval pretraining only if time allows, with unmapped tactics masked (src/data/semeval_map.py).
 
 6.  **Re-verify statistics** before the report: IC3 2024 (and whether a 2025 report is out), DBIR 2026 wording, and the under-8% figure.
 
@@ -1108,7 +1185,9 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 
 9.  **Later phases:** Kaggle Enron and Ling bodies are lowercase and tokenised; DistilBERT-uncased and TF-IDF see the same tokens either way, but a cased model would not (Phase 6). The naturally link-free attacks come mostly from Nigerian Fraud, Nazario and phishing_pot; report per-source shares with the N1 results (Phase 13). Models skip the 335 bodies that are empty after cleaning.
 
-10. **Phase 13 notes from Phase 4:** tune one threshold per tactic on validation labels for the baseline and for DistilBERT alike (the default 1.0 until then); report baseline-versus-DistilBERT macro-F1 on the randomly drawn labelled items only, with keyword top-up items in a second, labelled row; report tactics with too few positives (see results/keyword_checks.csv) with counts instead of F1; state the lexicon version used (LEXICON_VERSION in src/baseline/lexicon.py).
+10. **Phase 13 notes from Phase 4:** tune one threshold per tactic on validation labels for the baseline and for DistilBERT alike (the default 1.0 until then); report baseline-versus-DistilBERT macro-F1 on the labelled validation and test items (all random draws, so no selection bias); report tactics with too few positives (see results/keyword_checks.csv) with counts instead of F1; state the lexicon version used (LEXICON_VERSION in src/baseline/lexicon.py).
+
+11. **Phase 6 notes from Phase 5:** report real-email and synthetic results separately; tactics with fewer than 10 positives in validation or test (see results/label_counts.csv) are reported as counts, not F1; tune per-tactic thresholds on the validation labels only and use the test labels once; the labels are LLM labels, so say so wherever an F1 appears; run semeval_map.py --check on the registered data before any SemEval pretraining.
 
 # 16. Glossary
 
@@ -1168,7 +1247,13 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 | Lexicon | The word and phrase lists of the keyword baseline; a strong phrase fires a tactic alone, a weak phrase needs a second different one |
 | Normalisation | Turning text into one standard form (lowercase, plain apostrophes, no punctuation) before comparing it with phrases |
 | Selection bias | A sample that favours one model because of how its items were picked, for example emails chosen by the baseline's own keyword hits |
-| sample_origin | Phase 5 column: whether a labelled email was drawn at random (random) or picked by keyword hits (keyword_topup) |
+| Annotator | One of the free-tier models that labels emails: annotator 1 and annotator 2 label everything, a third model (the tie-breaker) decides their disagreements |
+| Batch | 20 emails and the instructions, pasted into one fresh chat |
+| Re-ask | Sending an item back to the same annotator once because its answer was invalid or missing |
+| Span | The exact words of an email that carry a claim, copied by the annotator and checked against the email |
+| Benign twin | A legitimate synthetic email written from the same template as an attack, with no manipulation |
+| Prompt injection | Text inside the data that tries to give instructions to the model reading it |
+| Masked label | A label left out of training because its source cannot say whether it is 0 or 1 |
 
 # 17. References
 

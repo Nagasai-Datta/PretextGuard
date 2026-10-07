@@ -1,0 +1,284 @@
+[
+  {
+    "id": "b023_01",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "DETRAN",
+        "organisation": "DETRAN"
+      }
+    ]
+  },
+  {
+    "id": "b023_06",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": []
+  },
+  {
+    "id": "b023_07",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "confirm your identity in order to regain full privileges of your account",
+        "organisation": "PayPal"
+      }
+    ]
+  },
+  {
+    "id": "b023_08",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 1,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b023_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "([EMAIL])",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b023_10",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "authority",
+        "span": "DIRECTOR OF PROJECT IMPLEMENTATION",
+        "organisation": "SOUTH AFRICA MINING & NAT.RESOURCES"
+      },
+      {
+        "type": "signature_contact",
+        "span": "MR.TAMBO MOWETE([DOMAIN]/[DOMAIN]). DIRECTOR OF PROJECT IMPLEMENTATION. SOUTH AFRICA MINING & NAT.RESOURCES. E-MAIL:[EMAIL]",
+        "organisation": "SOUTH AFRICA MINING & NAT.RESOURCES"
+      },
+      {
+        "type": "reply_direction",
+        "span": "E-MAIL:[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b023_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "reply_direction",
+        "span": "[EMAIL]",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b023_14",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b023_15",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_internal",
+        "span": "The [DOMAIN] Online Webmail App",
+        "organisation": null
+      },
+      {
+        "type": "credential_request",
+        "span": "verify your email address",
+        "organisation": null
+      }
+    ]
+  },
+  {
+    "id": "b025_08",
+    "tactics": {
+      "authority": 1,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "The Mic󠄹ros󠄹of󠄹t Te󠄹am",
+        "organisation": "Microsoft"
+      },
+      {
+        "type": "payment_change",
+        "span": "update your account information to ensure we have the most accurate and current details on file. To change your payment method at any time",
+        "organisation": "Microsoft"
+      }
+    ]
+  },
+  {
+    "id": "b029_09",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": []
+  },
+  {
+    "id": "b031_02",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "Microsoft account team",
+        "organisation": "Microsoft"
+      }
+    ]
+  },
+  {
+    "id": "b034_11",
+    "tactics": {
+      "authority": 0,
+      "urgency": 1,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 1
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "international lotto netherlands",
+        "organisation": "International Lotto Netherlands"
+      },
+      {
+        "type": "signature_contact",
+        "span": "mr . mark lansford . financial director universal securities and finance bv 20 - 24 vesusstu dorm , norwenger sl 4 3 bb , amsterdam , netherlands tel : ( + 31 ) 645808259 , fax : ( + 31 ) 645 590445 email : marklansfordl @ mail 2 [DOMAIN]",
+        "organisation": "Universal Securities and Finance BV"
+      },
+      {
+        "type": "reply_direction",
+        "span": "email : marklansfordl @ mail 2 [DOMAIN]",
+        "organisation": "Universal Securities and Finance BV"
+      }
+    ]
+  },
+  {
+    "id": "b034_20",
+    "tactics": {
+      "authority": 0,
+      "urgency": 0,
+      "scarcity": 0,
+      "reciprocity": 0,
+      "social_proof": 0,
+      "liking": 0,
+      "secrecy": 0
+    },
+    "claims": [
+      {
+        "type": "affiliation_external",
+        "span": "PayPal",
+        "organisation": "PayPal"
+      },
+      {
+        "type": "credential_request",
+        "span": "verify this email address and other information",
+        "organisation": "PayPal"
+      }
+    ]
+  }
+]
