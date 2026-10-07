@@ -2,6 +2,7 @@
 
 registered_domain("mail.paypal.com")        -> "paypal.com"
 registered_domain("paypal.com.evil-site.ru") -> "evil-site.ru"   (what phishers count on)
+registered_domain("paypal-billing.onmicrosoft.com") -> "paypal-billing.onmicrosoft.com" (a tenant)
 is_freemail("gmail.com")                     -> True
 lookalike_score("paypa1.com", "paypal.com")  -> 100.0 (look-alike characters mapped first)
 
@@ -19,8 +20,10 @@ from rapidfuzz import fuzz
 # suffix_list_urls=() means: never download the list, use the copy shipped inside tldextract.
 _extract = tldextract.TLDExtract(suffix_list_urls=())
 
-# Major free email providers, written by hand. build.py prints the most common sender
-# domains per source, so a big provider missing from this list shows up and can be added.
+# Free and consumer mailbox providers, written by hand: anyone can get an address
+# there, so the domain says nothing about which organisation the sender belongs to.
+# build.py prints the most common sender domains per source, so a big provider
+# missing from this list shows up and can be added.
 FREEMAIL = frozenset({
     "gmail.com", "googlemail.com",
     "yahoo.com", "yahoo.co.uk", "yahoo.co.in", "yahoo.fr", "yahoo.de", "yahoo.es", "yahoo.it",
@@ -36,7 +39,20 @@ FREEMAIL = frozenset({
     "qq.com", "163.com", "126.com", "sina.com", "yeah.net",
     "rediffmail.com", "naver.com", "hanmail.net", "libero.it", "orange.fr", "laposte.net",
     "t-online.de", "comcast.net", "verizon.net", "att.net", "sbcglobal.net", "earthlink.net",
+    # added in Phase 3 step 2, from the sender domains build.py printed and other large providers
+    "virgilio.it", "tiscali.it", "tiscali.co.uk", "netscape.net", "latinmail.com", "maktoob.com",
+    "juno.com", "netzero.net", "usa.net", "hotmail.es", "live.fr", "aol.co.uk", "yahoo.co.jp",
+    "gmx.at", "gmx.ch", "freenet.de", "seznam.cz", "wp.pl", "o2.pl", "interia.pl", "abv.bg", "ukr.net",
+    "sohu.com", "foxmail.com", "aliyun.com", "uol.com.br", "bol.com.br", "terra.com.br", "sapo.pt",
+    "btinternet.com", "cox.net", "charter.net", "shaw.ca", "rogers.com", "sympatico.ca", "bigpond.com",
 })
+
+# Shared platforms where anyone can create a sub-domain for free: every Microsoft 365
+# tenant gets <name>.onmicrosoft.com, every Firebase project <name>.firebaseapp.com.
+# The <name> part is chosen by whoever signed up, so it is treated as the registered
+# name (it is what a look-alike tenant such as "acme-payroll" imitates). Both are
+# common senders in phishing_pot.
+OPEN_PLATFORMS = frozenset({"onmicrosoft.com", "firebaseapp.com"})
 
 # Characters that look alike, mapped to the letter they imitate before comparing.
 # Two-letter tricks first ("rn" looks like "m", "vv" like "w"), then single characters.
@@ -49,12 +65,18 @@ CONFUSABLE_CHARS = str.maketrans({
 
 @lru_cache(maxsize=200_000)
 def split_domain(domain):
-    """(name, suffix) of a domain's registered part: 'mail.paypal.co.uk' -> ('paypal', 'co.uk')."""
+    """(name, suffix) of a domain's registered part: 'mail.paypal.co.uk' -> ('paypal', 'co.uk').
+
+    On an open platform the tenant is the name: 'acme.onmicrosoft.com' -> ('acme', 'onmicrosoft.com').
+    """
     if not isinstance(domain, str) or not domain:  # None, or pandas' NaN for a missing value
         return None, None
     parts = _extract(domain.lower().strip("."))
     if not (parts.domain and parts.suffix):
         return None, None
+    platform = f"{parts.domain}.{parts.suffix}"
+    if platform in OPEN_PLATFORMS and parts.subdomain:
+        return parts.subdomain.rsplit(".", 1)[-1], platform
     return parts.domain, parts.suffix
 
 
@@ -65,8 +87,11 @@ def registered_domain(domain):
 
 
 def is_freemail(domain):
-    """True if the domain's registered part is a free email provider."""
-    return registered_domain(domain) in FREEMAIL
+    """True if anyone can get an address on this domain: a free mailbox provider or an open platform."""
+    name, suffix = split_domain(domain)
+    if not name:
+        return False
+    return f"{name}.{suffix}" in FREEMAIL or suffix in OPEN_PLATFORMS
 
 
 def skeleton(name):

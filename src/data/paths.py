@@ -40,6 +40,7 @@ PREPROCESS_CHECKS_CSV = RESULTS_DIR / "preprocess_checks.csv"
 HEADERS_PARQUET = PROCESSED_DIR / "headers.parquet"
 HEADER_EVIDENCE_SUMMARY_CSV = RESULTS_DIR / "header_evidence_summary.csv"
 HEADER_TOP_DOMAINS_CSV = RESULTS_DIR / "header_top_domains.csv"
+HEADER_AUTH_FORMATS_CSV = RESULTS_DIR / "header_auth_formats.csv"
 
 
 def relative(path):

@@ -7,11 +7,13 @@ Reads  data/processed/cleaned.parquet (never modified)
 Writes data/processed/headers.parquet   one row per email: id plus the header fields and evidence
        results/header_evidence_summary.csv  per-source percentages (committed)
        results/header_top_domains.csv       most common sender and recipient domains per source (committed)
+       results/header_auth_formats.csv      most common Authentication-Results formats per source (committed)
 
 headers.parquet joins to cleaned.parquet on id. What this prints is the check
 that Phase 3 worked: per-source evidence, fields that could not be parsed, the
 most common sender and recipient domains (to spot missing freemail providers and
-collector addresses), and two examples.
+collector addresses), the Authentication-Results formats each source uses, and
+two examples.
 """
 
 import pandas as pd
@@ -19,19 +21,26 @@ from tqdm import tqdm
 
 from src.data.paths import (
     CLEANED_PARQUET,
+    HEADER_AUTH_FORMATS_CSV,
     HEADER_EVIDENCE_SUMMARY_CSV,
     HEADER_TOP_DOMAINS_CSV,
     HEADERS_PARQUET,
     RESULTS_DIR,
     relative,
 )
-from src.headers.domains import registered_domain
-from src.headers.evidence import header_evidence
+from src.headers.domains import is_freemail, registered_domain
+from src.headers.evidence import auth_format, header_evidence
 from src.headers.parser import parse_header_fields
 
-# Recipient domains that say nothing about the recipient's organisation: the corpus
-# collector's own mailbox. Emails sent to them get no organisation domain (not checkable).
-COLLECTOR_DOMAINS = {"monkey.org"}  # every Nazario message was delivered to jose@monkey.org
+# Recipient domains that say nothing about the recipient's organisation, found in the
+# recipient domains build.py printed. Emails sent to them get no organisation domain
+# (not checkable).
+COLLECTOR_DOMAINS = {
+    "monkey.org",         # Nazario: delivered to the collector's own mailbox, jose@monkey.org
+    "example.com", "example.net", "example.org", "domain.com",  # placeholders written over real recipients
+    "ceas-challenge.cc",  # CEAS 2008: the challenge's collection domain (60% of its recipients)
+    "taint.org",          # SpamAssassin: the corpus donor's personal domain
+}
 
 FIELD_COLUMNS = [
     "from_name", "from_addr", "from_domain", "reply_to", "return_path", "to_domain", "subject",
@@ -42,9 +51,11 @@ BOOLEAN_COLUMNS = ["auth_aligned", "freemail", "name_has_address", "list_mail", 
 
 
 def organisation_domain(to_domain):
-    """The recipient organisation's registered domain, or None for collectors and missing To."""
+    """The recipient organisation's registered domain, or None for collectors, free mailboxes and missing To."""
     org = registered_domain(to_domain) if to_domain else None
-    return None if org in COLLECTOR_DOMAINS else org
+    if org in COLLECTOR_DOMAINS or is_freemail(org):  # a gmail.com mailbox belongs to a person, not an organisation
+        return None
+    return org
 
 
 def process(table):
@@ -59,6 +70,7 @@ def process(table):
         row["date"] = date.isoformat() if date is not None else None  # keeps the sender's own time zone
         row.update(evidence)
         row["parse_problems"] = ",".join(problems) or None
+        row["auth_format"] = auth_format(fields.get("auth_results") or [])  # for the formats table only
         rows.append(row)
     out = pd.DataFrame.from_records(rows)
     for column in BOOLEAN_COLUMNS:
@@ -80,7 +92,8 @@ def summary_table(data):
         rows[source] = {
             "rows": len(group),
             "from_parsed_pct": percent(group["from_addr"].notna()),
-            "auth_known_pct": percent(group["auth_source"] != "none"),
+            "auth_header_pct": percent(group["auth_source"] != "none"),
+            "auth_known_pct": percent((group[["spf", "dkim", "dmarc"]] != "unknown").any(axis=1)),
             "spf_pass_pct": percent(group["spf"] == "pass"),
             "spf_fail_pct": percent(group["spf"].isin(["fail", "softfail"])),
             "dkim_pass_pct": percent(group["dkim"] == "pass"),
@@ -112,6 +125,16 @@ def top_domains(data):
     return pd.DataFrame(records)
 
 
+def auth_formats(data):
+    """The 5 most common Authentication-Results formats per source, with counts and % of the source."""
+    records = []
+    for source, group in data.groupby("source"):
+        for described, count in group["auth_format"].value_counts().head(5).items():
+            records.append({"source": source, "format": described, "count": int(count),
+                            "pct": round(count / len(group) * 100, 1)})
+    return pd.DataFrame(records, columns=["source", "format", "count", "pct"])
+
+
 def print_examples(data):
     """Show the evidence for one phishing_pot attack and one Apache list message."""
     columns = ["from_addr", "reply_to", "spf", "dkim", "dmarc", "authenticated_domain", "auth_aligned",
@@ -135,15 +158,17 @@ def main():
     out = process(table)
 
     temp = HEADERS_PARQUET.with_name(HEADERS_PARQUET.name + ".part")
-    out.to_parquet(temp, index=False)
+    out.drop(columns="auth_format").to_parquet(temp, index=False)
     temp.replace(HEADERS_PARQUET)  # the finished file appears in one step
 
     data = out.merge(table[["id", "source"]], on="id")
     summary = summary_table(data)
     domains = top_domains(data)
+    formats = auth_formats(data)
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     summary.to_csv(HEADER_EVIDENCE_SUMMARY_CSV, index_label="source")
     domains.to_csv(HEADER_TOP_DOMAINS_CSV, index=False)
+    formats.to_csv(HEADER_AUTH_FORMATS_CSV, index=False)
 
     print("\nPer source (% of that source's emails)")
     print(summary.T.to_string())
@@ -157,12 +182,19 @@ def main():
         listed = ", ".join(f"{d} {c}" for d, c in zip(group["domain"], group["count"]))
         print(f"  {source:<22} {kind:<4} {listed}")
 
+    print("\nAuthentication-Results formats (server domain: methods, for the first 3 headers)")
+    for source, group in formats.groupby("source", sort=True):
+        print(f"  {source}")
+        for described, pct in zip(group["format"], group["pct"]):
+            print(f"    {pct:5.1f}%  {described}")
+
     print("\nExamples")
     print_examples(data)
 
     print(f"\nSaved {relative(HEADERS_PARQUET)}")
     print(f"Saved {relative(HEADER_EVIDENCE_SUMMARY_CSV)}")
     print(f"Saved {relative(HEADER_TOP_DOMAINS_CSV)}")
+    print(f"Saved {relative(HEADER_AUTH_FORMATS_CSV)}")
 
 
 if __name__ == "__main__":

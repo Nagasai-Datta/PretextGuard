@@ -24,6 +24,7 @@ MAX_RECEIVED = 50             # Received lines kept (a long chain is a warning s
 MAX_FIELD_CHARS = 2000        # a single field longer than this is cut
 
 MESSAGE_ID = re.compile(r"<[^<>\s]{1,250}>")
+ANGLE_ADDRESS = re.compile(r"<\s{0,5}([^<>\s@]{1,64}@[^<>\s@]{1,255})\s{0,5}>")  # "<x@evil.ru>"
 
 
 # ---------- Raw email: header block and body text ----------
@@ -77,12 +78,29 @@ def decode_text(value):
     return " ".join(value.split())[:MAX_FIELD_CHARS]
 
 
-def parse_address(value):
-    """Return (display name, address) from a header value; the address is lower-case, or None."""
-    name, addr = email.utils.parseaddr(value)
+def usable(addr):
+    """The address in lower case if it looks like local@domain.tld, else None."""
     addr = addr.strip().lower()
     if addr.count("@") != 1 or "." not in addr.split("@")[1]:
-        addr = None  # not a usable address, for example "undisclosed-recipients:;"
+        return None  # not a usable address, for example "undisclosed-recipients:;"
+    return addr
+
+
+def parse_address(value):
+    """Return (display name, address) from a header value; the address is lower-case, or None.
+
+    Python's parser is strict and gives up on display names with an unquoted "@",
+    "," or ";", such as 'service@paypal.com <x@evil.ru>'. Those are common in
+    attacks, so when it gives up, the last <...> address is taken as the address
+    (mail apps send replies there) and the text before it as the name.
+    """
+    name, addr = email.utils.parseaddr(value)
+    addr = usable(addr)
+    if addr is None:
+        found = list(ANGLE_ADDRESS.finditer(value[:MAX_FIELD_CHARS]))
+        if found:
+            addr = usable(found[-1].group(1))
+            name = value[:found[-1].start()].strip(" \t\"'")
     return decode_text(name) or None, addr
 
 
@@ -106,8 +124,13 @@ def first_address(message, name):
 
 def to_domain(message):
     """The domain of the first usable address in To."""
-    for _, addr in email.utils.getaddresses(message.get_all("To", [])[:5]):
-        _, addr = parse_address(addr)
+    values = [str(value) for value in message.get_all("To", [])[:5]]
+    for _, addr in email.utils.getaddresses(values):
+        addr = usable(addr)
+        if addr:
+            return addr.split("@")[1]
+    for value in values:  # the strict parser gave up on all of them: try the <...> fallback
+        _, addr = parse_address(value)
         if addr:
             return addr.split("@")[1]
     return None

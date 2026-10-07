@@ -1,0 +1,21 @@
+source,format,count,pct
+apache_kafka_users,1 apache.org: auth | 2 apache.org: dkim,782,74.1
+apache_kafka_users,1 apache.org: auth,157,14.9
+apache_kafka_users,"1 apache.org: auth | 2 apache.org: dkim | 3 no server name: dkim,dmarc",100,9.5
+apache_kafka_users,"1 apache.org: auth | 2 apache.org: dkim | 3 microsoft.com: dkim,dmarc",13,1.2
+apache_kafka_users,1 apache.org: auth | 2 apache.org: dkim | 3 mail.ru: auth,2,0.2
+apache_tomcat_users,1 apache.org: auth | 2 apache.org: dkim,1131,53.0
+apache_tomcat_users,1 apache.org: auth,613,28.7
+apache_tomcat_users,"1 apache.org: auth | 2 apache.org: dkim | 3 no server name: dkim,dmarc",288,13.5
+apache_tomcat_users,1 apache.org: auth | 2 apache.org: dkim | 3 not a domain: spf,22,1.0
+apache_tomcat_users,1 apache.org: auth | 2 apache.org: dkim | 3 archicoop.it: dkim,17,0.8
+nazario,"1 hostedemail.com: dkim,dmarc,spf",1418,14.8
+nazario,"1 hostedemail.com: dkim,dkim-adsp,dkim-atps",280,2.9
+nazario,"1 hostedemail.com: dmarc | 2 hostedemail.com: dkim,dkim-adsp,dkim-atps",63,0.7
+nazario,"1 hostedemail.com: arc,dkim,dmarc,spf",52,0.5
+nazario,1 no server name: spf,21,0.2
+phishing_pot,"1 no server name: compauth,dkim,dmarc,spf",5511,73.6
+phishing_pot,"1 no server name: dkim,dmarc,spf",1756,23.4
+phishing_pot,1 no server name: no results,52,0.7
+phishing_pot,1 protonmail.ch: dmarc | 2 protonmail.ch: spf | 3 protonmail.ch: arc,38,0.5
+phishing_pot,1 protonmail.ch: dkim | 2 protonmail.ch: dmarc | 3 protonmail.ch: spf,34,0.5

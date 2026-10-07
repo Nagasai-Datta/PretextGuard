@@ -10,6 +10,8 @@ header_evidence(fields, org_domain) returns one flat dict:
     org_domain, org_checkable, from_matches_org, org_lookalike_score
 
 Missing evidence is recorded as unknown (None or "unknown"), never as pass.
+Both Authentication-Results forms are read: the standard one, which starts with
+the checking server's name, and Microsoft's, which leaves the name out.
 
 Security: only the topmost Authentication-Results header is trusted, because the
 receiving server adds it at the top; an attacker can write a fake
@@ -27,6 +29,7 @@ SYNONYMS = {"hardfail": "fail", "bestguesspass": "pass"}
 
 COMMENT = re.compile(r"\([^()]{0,500}\)")  # "(google.com: domain of ... designates ...)"
 METHOD_RESULT = re.compile(r"\b(spf|dkim|dmarc)\s{0,5}=\s{0,5}([a-z]{1,20})", re.IGNORECASE)
+METHOD_NAME = re.compile(r"([a-z][a-z0-9_.-]{0,30})\s{0,5}=", re.IGNORECASE)  # any method name, "arc=" and "compauth=" too
 PROPERTY = re.compile(r"\b(smtp\.mailfrom|header\.from|header\.d|header\.i)\s{0,5}=\s{0,5}([^\s;]{1,255})", re.IGNORECASE)
 IPV4 = re.compile(r"\b(\d{1,3}(?:\.\d{1,3}){3})\b")
 ADDRESS_OR_DOMAIN = re.compile(r"\b[a-z0-9-]{1,63}(?:\.[a-z0-9-]{1,63}){1,8}\b", re.IGNORECASE)
@@ -44,6 +47,23 @@ def domain_part(value):
     return value.rsplit("@", 1)[-1] or None
 
 
+def split_auth_results(value):
+    """(server name or None, result clauses) of one Authentication-Results value.
+
+    The standard form starts with the name of the server that did the checks:
+      "mx.google.com; spf=pass ...; dkim=pass ..."  -> ("mx.google.com", ["spf=pass ...", "dkim=pass ..."])
+    Microsoft (Outlook, Hotmail, Microsoft 365) leaves the name out and starts with a result:
+      "spf=pass (sender IP is ...) smtp.mailfrom=...; dkim=..." -> (None, ["spf=pass ...", "dkim=..."])
+    A server name never contains "=", so a first part with "=" is already a result.
+    """
+    parts = COMMENT.sub(" ", value).split(";")
+    first = parts[0].strip()
+    if "=" in first:
+        return None, [part for part in parts if part.strip()]
+    server = first.split()[0] if first else None
+    return server, [part for part in parts[1:] if part.strip()]
+
+
 def parse_auth_results(value):
     """Read one Authentication-Results value into verdicts and the domains they are about.
 
@@ -51,7 +71,7 @@ def parse_auth_results(value):
     dmarc=pass header.from=y.com" -> spf/dkim/dmarc = pass, with domains y.com.
     """
     verdicts = {}  # method -> (result, domain)
-    for clause in COMMENT.sub(" ", value).split(";")[1:]:  # the part before the first ";" names the checker
+    for clause in split_auth_results(value)[1]:
         match = METHOD_RESULT.search(clause)
         if not match:
             continue
@@ -67,6 +87,25 @@ def parse_auth_results(value):
         if method not in verdicts or (result == "pass" and verdicts[method][0] != "pass"):
             verdicts[method] = (result, domain)
     return verdicts
+
+
+def auth_format(values, limit=3):
+    """Describe the first Authentication-Results headers by server domain and method names only.
+
+    ["mx.google.com; spf=pass ...; dkim=pass ...", "..."] -> "1 google.com: dkim,spf | 2 ..."
+    build.py counts these per source, to show which formats each source uses.
+    """
+    described = []
+    for position, value in enumerate(values[:limit], start=1):
+        server, clauses = split_auth_results(value)
+        where = "no server name" if server is None else (registered_domain(server) or "not a domain")
+        methods = set()
+        for clause in clauses:
+            match = METHOD_NAME.match(clause.strip())
+            if match:
+                methods.add(match.group(1).lower())
+        described.append(f"{position} {where}: {','.join(sorted(methods)) or 'no results'}")
+    return " | ".join(described) or None
 
 
 def authentication(fields):
