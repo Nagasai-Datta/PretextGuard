@@ -1,0 +1,63 @@
+data,system,tactic,threshold,items,positives,predicted,tp,fp,fn,precision,recall,f1,reported
+real_validation,distilbert,authority,0.55,137,21.0,33.0,16.0,17.0,5.0,0.4848,0.7619,0.5926,f1
+real_validation,distilbert,urgency,0.45,137,39.0,60.0,30.0,30.0,9.0,0.5,0.7692,0.6061,f1
+real_validation,distilbert,scarcity,0.65,137,27.0,31.0,16.0,15.0,11.0,0.5161,0.5926,0.5517,f1
+real_validation,distilbert,reciprocity,0.5,137,2.0,1.0,0.0,1.0,2.0,,,,count only (fewer than 10 positives)
+real_validation,distilbert,social_proof,0.5,137,0.0,0.0,0.0,0.0,0.0,,,,count only (fewer than 10 positives)
+real_validation,distilbert,liking,0.5,137,3.0,2.0,0.0,2.0,3.0,,,,count only (fewer than 10 positives)
+real_validation,distilbert,secrecy,0.9,137,12.0,8.0,7.0,1.0,5.0,0.875,0.5833,0.7,f1
+real_validation,distilbert,macro_main4,,137,,,,,,,,0.6126,"mean F1 over authority, urgency, scarcity, secrecy"
+synthetic_validation,distilbert,authority,0.55,76,14.0,28.0,12.0,16.0,2.0,0.4286,0.8571,0.5714,f1
+synthetic_validation,distilbert,urgency,0.45,76,16.0,37.0,15.0,22.0,1.0,0.4054,0.9375,0.566,f1
+synthetic_validation,distilbert,scarcity,0.65,76,18.0,7.0,4.0,3.0,14.0,0.5714,0.2222,0.32,f1
+synthetic_validation,distilbert,reciprocity,0.5,76,9.0,30.0,8.0,22.0,1.0,,,,count only (fewer than 10 positives)
+synthetic_validation,distilbert,social_proof,0.5,76,12.0,21.0,12.0,9.0,0.0,0.5714,1.0,0.7273,f1
+synthetic_validation,distilbert,liking,0.5,76,14.0,22.0,14.0,8.0,0.0,0.6364,1.0,0.7778,f1
+synthetic_validation,distilbert,secrecy,0.9,76,16.0,2.0,2.0,0.0,14.0,1.0,0.125,0.2222,f1
+synthetic_validation,distilbert,macro_main4,,76,,,,,,,,0.4199,"mean F1 over authority, urgency, scarcity, secrecy"
+real_validation,distilbert_real_only,authority,0.65,137,21.0,27.0,16.0,11.0,5.0,0.5926,0.7619,0.6667,f1
+real_validation,distilbert_real_only,urgency,0.3,137,39.0,81.0,36.0,45.0,3.0,0.4444,0.9231,0.6,f1
+real_validation,distilbert_real_only,scarcity,0.45,137,27.0,46.0,22.0,24.0,5.0,0.4783,0.8148,0.6027,f1
+real_validation,distilbert_real_only,reciprocity,0.5,137,2.0,0.0,0.0,0.0,2.0,,,,count only (fewer than 10 positives)
+real_validation,distilbert_real_only,social_proof,0.5,137,0.0,0.0,0.0,0.0,0.0,,,,count only (fewer than 10 positives)
+real_validation,distilbert_real_only,liking,0.5,137,3.0,0.0,0.0,0.0,3.0,,,,count only (fewer than 10 positives)
+real_validation,distilbert_real_only,secrecy,0.4,137,12.0,28.0,12.0,16.0,0.0,0.4286,1.0,0.6,f1
+real_validation,distilbert_real_only,macro_main4,,137,,,,,,,,0.6174,"mean F1 over authority, urgency, scarcity, secrecy"
+synthetic_validation,distilbert_real_only,authority,0.65,76,14.0,14.0,4.0,10.0,10.0,0.2857,0.2857,0.2857,f1
+synthetic_validation,distilbert_real_only,urgency,0.3,76,16.0,70.0,16.0,54.0,0.0,0.2286,1.0,0.3721,f1
+synthetic_validation,distilbert_real_only,scarcity,0.45,76,18.0,36.0,7.0,29.0,11.0,0.1944,0.3889,0.2593,f1
+synthetic_validation,distilbert_real_only,reciprocity,0.5,76,9.0,0.0,0.0,0.0,9.0,,,,count only (fewer than 10 positives)
+synthetic_validation,distilbert_real_only,social_proof,0.5,76,12.0,0.0,0.0,0.0,12.0,0.0,0.0,0.0,f1
+synthetic_validation,distilbert_real_only,liking,0.5,76,14.0,0.0,0.0,0.0,14.0,0.0,0.0,0.0,f1
+synthetic_validation,distilbert_real_only,secrecy,0.4,76,16.0,9.0,2.0,7.0,14.0,0.2222,0.125,0.16,f1
+synthetic_validation,distilbert_real_only,macro_main4,,76,,,,,,,,0.2693,"mean F1 over authority, urgency, scarcity, secrecy"
+real_validation,keyword_default,authority,1.0,137,21.0,6.0,2.0,4.0,19.0,0.3333,0.0952,0.1481,f1
+real_validation,keyword_default,urgency,1.0,137,39.0,6.0,6.0,0.0,33.0,1.0,0.1538,0.2667,f1
+real_validation,keyword_default,scarcity,1.0,137,27.0,11.0,7.0,4.0,20.0,0.6364,0.2593,0.3684,f1
+real_validation,keyword_default,reciprocity,1.0,137,2.0,0.0,0.0,0.0,2.0,,,,count only (fewer than 10 positives)
+real_validation,keyword_default,social_proof,1.0,137,0.0,0.0,0.0,0.0,0.0,,,,count only (fewer than 10 positives)
+real_validation,keyword_default,liking,1.0,137,3.0,14.0,0.0,14.0,3.0,,,,count only (fewer than 10 positives)
+real_validation,keyword_default,secrecy,1.0,137,12.0,3.0,3.0,0.0,9.0,1.0,0.25,0.4,f1
+real_validation,keyword_default,macro_main4,,137,,,,,,,,0.2958,"mean F1 over authority, urgency, scarcity, secrecy"
+synthetic_validation,keyword_default,authority,1.0,76,14.0,4.0,2.0,2.0,12.0,,0.1429,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_default,urgency,1.0,76,16.0,8.0,5.0,3.0,11.0,,0.3125,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_default,scarcity,1.0,76,18.0,14.0,13.0,1.0,5.0,,0.7222,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_default,reciprocity,1.0,76,9.0,4.0,3.0,1.0,6.0,,0.3333,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_default,social_proof,1.0,76,12.0,6.0,6.0,0.0,6.0,,0.5,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_default,liking,1.0,76,14.0,7.0,5.0,2.0,9.0,,0.3571,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_default,secrecy,1.0,76,16.0,12.0,12.0,0.0,4.0,,0.75,,recall only (twins were filtered against this baseline)
+real_validation,keyword_tuned,authority,0.5,137,21.0,17.0,6.0,11.0,15.0,0.3529,0.2857,0.3158,f1
+real_validation,keyword_tuned,urgency,0.5,137,39.0,22.0,15.0,7.0,24.0,0.6818,0.3846,0.4918,f1
+real_validation,keyword_tuned,scarcity,0.5,137,27.0,25.0,17.0,8.0,10.0,0.68,0.6296,0.6538,f1
+real_validation,keyword_tuned,reciprocity,1.0,137,2.0,0.0,0.0,0.0,2.0,,,,count only (fewer than 10 positives)
+real_validation,keyword_tuned,social_proof,1.0,137,0.0,0.0,0.0,0.0,0.0,,,,count only (fewer than 10 positives)
+real_validation,keyword_tuned,liking,1.0,137,3.0,14.0,0.0,14.0,3.0,,,,count only (fewer than 10 positives)
+real_validation,keyword_tuned,secrecy,0.5,137,12.0,15.0,7.0,8.0,5.0,0.4667,0.5833,0.5185,f1
+real_validation,keyword_tuned,macro_main4,,137,,,,,,,,0.495,"mean F1 over authority, urgency, scarcity, secrecy"
+synthetic_validation,keyword_tuned,authority,0.5,76,14.0,14.0,6.0,8.0,8.0,,0.4286,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_tuned,urgency,0.5,76,16.0,31.0,15.0,16.0,1.0,,0.9375,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_tuned,scarcity,0.5,76,18.0,14.0,13.0,1.0,5.0,,0.7222,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_tuned,reciprocity,1.0,76,9.0,4.0,3.0,1.0,6.0,,0.3333,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_tuned,social_proof,1.0,76,12.0,6.0,6.0,0.0,6.0,,0.5,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_tuned,liking,1.0,76,14.0,7.0,5.0,2.0,9.0,,0.3571,,recall only (twins were filtered against this baseline)
+synthetic_validation,keyword_tuned,secrecy,0.5,76,16.0,16.0,15.0,1.0,1.0,,0.9375,,recall only (twins were filtered against this baseline)

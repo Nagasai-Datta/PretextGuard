@@ -1,0 +1,64 @@
+check,item,value,expected,status
+no_test_rows,splits in the file,train+validation,train and validation only,PASS
+unique_ids,duplicate ids,0,0,PASS
+text_present,empty texts,0,0,PASS
+labels_binary,label values,0 or 1,0 or 1,PASS
+main_tactics,authority: real validation positives,21,>= 10 (main tactic),PASS
+main_tactics,urgency: real validation positives,39,>= 10 (main tactic),PASS
+main_tactics,scarcity: real validation positives,27,>= 10 (main tactic),PASS
+main_tactics,reciprocity: real validation positives,2,< 10 (rare tactic),PASS
+main_tactics,social_proof: real validation positives,0,< 10 (rare tactic),PASS
+main_tactics,liking: real validation positives,3,< 10 (rare tactic),PASS
+main_tactics,secrecy: real validation positives,12,>= 10 (main tactic),PASS
+twins_have_no_tactic,benign twins with a tactic,0,0,PASS
+attacks_have_a_tactic,synthetic attacks with no tactic,0,0,PASS
+matches_phase5,real train authority positives,71,71,PASS
+matches_phase5,synthetic train authority positives,54,54,PASS
+matches_phase5,real train urgency positives,122,122,PASS
+matches_phase5,synthetic train urgency positives,57,57,PASS
+matches_phase5,real train scarcity positives,91,91,PASS
+matches_phase5,synthetic train scarcity positives,43,43,PASS
+matches_phase5,real train reciprocity positives,5,5,PASS
+matches_phase5,synthetic train reciprocity positives,60,60,PASS
+matches_phase5,real train social_proof positives,2,2,PASS
+matches_phase5,synthetic train social_proof positives,52,52,PASS
+matches_phase5,real train liking positives,11,11,PASS
+matches_phase5,synthetic train liking positives,57,57,PASS
+matches_phase5,real train secrecy positives,41,41,PASS
+matches_phase5,synthetic train secrecy positives,53,53,PASS
+matches_phase5,real validation authority positives,21,21,PASS
+matches_phase5,synthetic validation authority positives,14,14,PASS
+matches_phase5,real validation urgency positives,39,39,PASS
+matches_phase5,synthetic validation urgency positives,16,16,PASS
+matches_phase5,real validation scarcity positives,27,27,PASS
+matches_phase5,synthetic validation scarcity positives,18,18,PASS
+matches_phase5,real validation reciprocity positives,2,2,PASS
+matches_phase5,synthetic validation reciprocity positives,9,9,PASS
+matches_phase5,real validation social_proof positives,0,0,PASS
+matches_phase5,synthetic validation social_proof positives,12,12,PASS
+matches_phase5,real validation liking positives,3,3,PASS
+matches_phase5,synthetic validation liking positives,14,14,PASS
+matches_phase5,real validation secrecy positives,12,12,PASS
+matches_phase5,synthetic validation secrecy positives,16,16,PASS
+data_matches_colab,sha256 of the upload table,aacb5e0b3c1610c3,aacb5e0b3c1610c3,PASS
+safetensors_only,weights file,model.safetensors,model.safetensors,PASS
+safetensors_only,pickle-style files in the model folder,0,0,PASS
+thresholds_valid,model thresholds equal the run's,equal,equal,PASS
+thresholds_valid,rare tactics stay at 0.5,"0.50, 0.50, 0.50",0.50 each,PASS
+probabilities_valid,all probabilities,between 0 and 1,"finite, between 0 and 1",PASS
+mac_reproduces_colab,"largest probability difference, all validation emails",0.000001,<= 0.001,PASS
+mac_reproduces_colab,same predictions after thresholds,0 of 1491 differ,0,PASS
+same_library_versions,transformers (Colab / Mac),5.19.0 / 5.19.0,equal,PASS
+same_library_versions,"torch (Colab / Mac), for the record",2.11.0+cu130 / 2.14.1,,info
+not_degenerate,authority: share of real validation emails flagged,24.1%,above 0% and below 100%,PASS
+not_degenerate,urgency: share of real validation emails flagged,43.8%,above 0% and below 100%,PASS
+not_degenerate,scarcity: share of real validation emails flagged,22.6%,above 0% and below 100%,PASS
+not_degenerate,secrecy: share of real validation emails flagged,5.8%,above 0% and below 100%,PASS
+training_loss_fell,mix seed 42: epoch 1 to last epoch,1.151 to 0.424,falls,PASS
+training_loss_fell,mix seed 43: epoch 1 to last epoch,1.140 to 0.400,falls,PASS
+training_loss_fell,mix seed 44: epoch 1 to last epoch,1.145 to 0.496,falls,PASS
+training_loss_fell,real_only seed 42: epoch 1 to last epoch,0.921 to 0.445,falls,PASS
+training_loss_fell,real_only seed 43: epoch 1 to last epoch,0.923 to 0.421,falls,PASS
+training_loss_fell,real_only seed 44: epoch 1 to last epoch,0.929 to 0.456,falls,PASS
+overfitting_watch,"mix chosen seed 43, epoch 8: train loss / validation loss",0.400 / 0.584,,info
+overfitting_watch,"real_only chosen seed 43, epoch 8: train loss / validation loss",0.421 / 0.546,,info

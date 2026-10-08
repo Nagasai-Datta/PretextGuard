@@ -1,0 +1,7 @@
+condition,seed,best_epoch,epochs_run,val_macro_f1,val_loss,chosen
+mix,42,8,8,0.55375,0.58865,False
+mix,43,8,8,0.57058,0.58419,True
+mix,44,3,6,0.53947,0.6439,False
+real_only,42,8,8,0.5541,0.57202,False
+real_only,43,8,8,0.59633,0.54568,True
+real_only,44,7,8,0.55366,0.5712,False
