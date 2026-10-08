@@ -64,6 +64,17 @@ LABEL_COUNTS_CSV = RESULTS_DIR / "label_counts.csv"
 SYNTHETIC_COUNTS_CSV = RESULTS_DIR / "synthetic_counts.csv"
 SEMEVAL_MAPPING_CSV = RESULTS_DIR / "semeval_mapping.csv"
 
+# Files written by Phase 6 (src/models): the tactic classifier
+TACTIC_DATA_PARQUET = PROCESSED_DIR / "tactic_data.parquet"   # train + validation text uploaded to Colab; never committed
+TACTIC_MODEL_DIR = PROJECT_ROOT / "artifacts" / "tactic_model"  # weights, tokenizer, thresholds; never committed
+TACTIC_DATA_COUNTS_CSV = RESULTS_DIR / "tactic_data_counts.csv"
+TACTIC_TRAINING_LOG_CSV = RESULTS_DIR / "tactic_training_log.csv"
+TACTIC_SEED_SUMMARY_CSV = RESULTS_DIR / "tactic_seed_summary.csv"
+TACTIC_VAL_PROBS_CSV = RESULTS_DIR / "tactic_val_probs.csv"
+TACTIC_RUN_INFO_JSON = RESULTS_DIR / "tactic_run_info.json"
+TACTIC_VALIDATION_SCORES_CSV = RESULTS_DIR / "tactic_validation_scores.csv"
+TACTIC_CHECKS_CSV = RESULTS_DIR / "tactic_checks.csv"
+
 
 def relative(path):
     """Return path relative to the project root, for short printouts.

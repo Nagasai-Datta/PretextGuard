@@ -1,22 +1,84 @@
 # notebooks/
 
-Google Colab notebooks for the one job the Mac cannot do quickly: training the DistilBERT tactic classifier (Phase 6), and optional SemEval pretraining if time allows. Everything else runs as scripts in `src/`.
+Google Colab notebooks for the one job the Mac cannot do quickly: training the DistilBERT tactic classifier (Phase 6). Optional SemEval pretraining would be a second notebook, only if time allows. Everything else runs as scripts in `src/`.
+
+| Notebook | Phase | Job |
+|---|---|---|
+| `phase6_tactic_classifier.ipynb` | 6 | Clones the code, installs the pinned `transformers`, reads the data from Google Drive, runs `src/models/train.py` on the GPU, saves the results to Drive |
 
 ## Why Colab
 
-Fine-tuning DistilBERT needs a GPU. Colab gives one for free in the browser. The trained model is then downloaded and used on the Mac's CPU, which is fast enough for one email at a time.
+Fine-tuning DistilBERT needs a GPU. Colab gives one for free in the browser. The trained model is then downloaded and used on the Mac's CPU, which is fast enough for one email at a time. The training code is not in the notebook: it is `src/models/train.py`, committed to Git like all other code, so the training is part of the project history. The notebook only prepares the machine and starts it.
 
-## Workflow (Phase 6)
+## The whole Phase 6 workflow
 
-1. The training notebook lives here and is committed to Git, so the training code is part of the project history.
-2. The training data (labelled, redacted emails) is uploaded to your Google Drive, not to GitHub: it contains email text.
-3. In Colab: open the notebook from GitHub, choose a GPU runtime, mount Google Drive, install the pinned libraries, train.
-4. The notebook saves the model files; download them into `artifacts/tactic_model/` on the Mac (see `artifacts/README.md`).
-5. The scores the notebook prints are saved into `results/` by a script, like every other number.
+### 1. On the Mac: install, build the data file, check
+
+```bash
+cd ~/Desktop/pretextguard
+source venv/bin/activate
+python -m pip install -r requirements.txt
+python -m src.eval.metrics
+python -m src.models.dataset
+```
+
+`python -m src.models.dataset` writes `data/processed/tactic_data.parquet`: the train and validation emails (full text) with their seven labels, no test rows. Commit and push the code (not the data file; it is ignored by Git), because the notebook clones the code from GitHub.
+
+### 2. Upload one file to Google Drive
+
+In the browser: Google Drive, New, Folder, name it `pretextguard`, open it, then drag `tactic_data.parquet` in. In Terminal, `open data/processed` shows the file in Finder. The file holds full email text: it goes only to your own Drive.
+
+### 3. On Colab
+
+1. Open <https://colab.research.google.com>, File, Open notebook, tab GitHub, enter `Nagasai-Datta/PretextGuard`, choose `notebooks/phase6_tactic_classifier.ipynb` (or File, Upload notebook, and pick the file from the Mac).
+2. Runtime, Change runtime type, **T4 GPU**, Save.
+3. Runtime, Run all. Colab asks once for permission to read your Drive (cell 3). Cell 4 trains and takes the longest: about 30 to 45 minutes of GPU time (an estimate; three seeds of each of two conditions, with early stopping).
+4. When the last cell has printed the zip path, open the `pretextguard` folder in Google Drive and download `phase6_outputs.zip` (about 250 MB; if Drive warns that it cannot scan the file for viruses, choose Download anyway).
+
+### 4. Back on the Mac: put the files in place and validate
+
+```bash
+cd ~/Desktop/pretextguard
+source venv/bin/activate
+mkdir -p ~/Downloads/phase6_outputs
+unzip -o ~/Downloads/phase6_outputs.zip -d ~/Downloads/phase6_outputs
+mv ~/Downloads/phase6_outputs/tactic_model artifacts/tactic_model
+mv ~/Downloads/phase6_outputs/tactic_training_log.csv results/tactic_training_log.csv
+mv ~/Downloads/phase6_outputs/tactic_seed_summary.csv results/tactic_seed_summary.csv
+mv ~/Downloads/phase6_outputs/tactic_val_probs.csv results/tactic_val_probs.csv
+mv ~/Downloads/phase6_outputs/tactic_run_info.json results/tactic_run_info.json
+python -m src.models.validate
+```
+
+`validate.py` prints the validation scores and the PASS/FAIL checks and writes `results/tactic_validation_scores.csv` and `results/tactic_checks.csv`. Commit the files in `results/` (counts, scores and probabilities, never email text); the model folder in `artifacts/` is ignored by Git.
+
+## What each cell does
+
+| Cell | Job |
+|---|---|
+| 1 (code) | Prints the PyTorch version and checks a GPU is attached; stops with a message if not |
+| 2 (code) | Clones the public repository into `/content/PretextGuard`, reads the `transformers` pin from `requirements.txt` and installs exactly that version, prints the versions in use and the code's commit |
+| 3 (code) | Mounts Google Drive, reads `tactic_data.parquet`, prints the number of emails per origin and split, and stops if a test row is in the file |
+| 4 (code) | Runs `python -m src.models.train`: two conditions, three seeds, an epoch line each with the training loss, validation loss and validation macro-F1 |
+| 5 (code) | Prints the seed table and the thresholds, and plots the chosen model's training and validation loss (the overfitting watch) |
+| 6 (code) | Zips the output folder into `phase6_outputs.zip` in the Drive folder |
 
 ## Version pinning
 
-Colab runs Python 3.12, the same as the project's venv. The first cell of every notebook installs `torch` and `transformers` with exactly the versions pinned in `requirements.txt` (`pip install torch==... transformers==...`). A model trained with one version and loaded with another can fail to load or give different predictions, so the two sides must always match.
+Colab runs Python 3.12, the same as the project's venv. Cell 2 installs the `transformers` version pinned in `requirements.txt`, so the model files are written and read by the same library on both sides.
+
+`torch` is the exception: it is **not** reinstalled on Colab. Colab already has a build that matches its GPU driver, while the default pip build of the pinned version (2.14.1) targets a newer CUDA version (13.0) that a free Colab machine may not support. Both torch versions are recorded in `results/tactic_run_info.json`, and the Mac check `mac_reproduces_colab` proves in practice that the two sides give the same predictions (weights are stored as plain numbers in `.safetensors`, so they do not depend on the torch version).
+
+## If something goes wrong
+
+| Symptom | Fix |
+|---|---|
+| Cell 1 stops: no GPU | Runtime, Change runtime type, T4 GPU, then Run all again. Free GPU time is limited per day; try again later if Colab refuses |
+| Cell 2: `git clone` fails | The code must be pushed to GitHub first, on the branch named in `BRANCH` |
+| Cell 3: file not found | The path is `MyDrive/pretextguard/tactic_data.parquet`; check the folder name and that the upload finished |
+| `ModuleNotFoundError: No module named 'src'` | Run cell 2 first: it moves into `/content/PretextGuard`, where `src/` is |
+| The session disconnects during cell 4 | Run all again; the run starts from scratch (a few minutes lost per finished seed) |
+| Hugging Face warns about a newly initialised classifier | Expected: the seven-output layer is new and is what we train. `train.py` stops by itself if anything else failed to load |
 
 ## Rules
 

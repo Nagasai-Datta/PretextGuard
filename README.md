@@ -119,6 +119,7 @@ Phase 1 gathered nine sources into one table of **99,324 unique emails** (20,313
 - `data/processed/staged.parquet`: the one table, with a fixed 70/15/15 train/validation/test split (not committed).
 - `data/processed/cleaned.parquet` (Phase 2): the same rows plus clean and payload-free redacted bodies (not committed).
 - `data/processed/headers.parquet` (Phase 3): header fields and evidence, one row per email, joined on `id` (not committed).
+- `data/processed/tactic_data.parquet` (Phase 6): train and validation emails with their tactic labels, uploaded to Colab (not committed).
 - `results/`: every count and score, written by scripts (committed).
 
 ## 8. Proof: one ablation per claim
@@ -133,7 +134,7 @@ An ablation removes one part and measures again; the drop is what that part cont
 | Data | pandas, pyarrow (Parquet), requests, tqdm |
 | Cleaning | BeautifulSoup (HTML to text) |
 | Email parsing | Python `email` and `mailbox` (standard library); tldextract (public suffix list, offline) and rapidfuzz (lookalike domains) |
-| Model | DistilBERT (Hugging Face Transformers, PyTorch), trained on Colab, run on CPU |
+| Model | DistilBERT (Hugging Face Transformers, PyTorch), trained on Colab, run on CPU; weights stored as safetensors |
 | NLP extras | spaCy for names and organisations |
 | Explanations | LIME |
 | Backend | FastAPI, Pydantic, slowapi |
@@ -187,7 +188,7 @@ pretextguard/
 | 3 | Email parser and header evidence extractor | Done |
 | 4 | Keyword baseline | Done |
 | 5 | Tactic and claim labels (free web-chat annotators, Cohen's kappa), synthetic emails | Done |
-| 6 | DistilBERT tactic classifier on Colab | Not started |
+| 6 | DistilBERT tactic classifier on Colab | In progress (code written; Colab run next) |
 | 7 | Claim extractor | Not started |
 | 8 | Header verifier (N3) and request verifier | Not started |
 | 9 | Thread builder, thread-hijack benchmark, thread verifier (N2) | Not started |
@@ -240,6 +241,14 @@ python -m src.baseline.build      # hit rates and sanity checks -> results/keywo
 ```
 
 Phase 5 (labels) starts with `python -m src.data.batches` and continues as a copy-and-paste loop with two chat services; see `data/labelled/README.md` and `data/synthetic/README.md`.
+
+Phase 6 (tactic classifier): build the file for Colab, train on Colab with `notebooks/phase6_tactic_classifier.ipynb`, then validate on the Mac. The exact steps are in `notebooks/README.md`.
+
+```bash
+python -m src.eval.metrics        # metrics self-test (hand-written functions against scikit-learn)
+python -m src.models.dataset      # train and validation emails with their labels -> data/processed/tactic_data.parquet (upload to Drive)
+python -m src.models.validate     # after Colab: scores and PASS/FAIL checks -> results/tactic_validation_scores.csv, tactic_checks.csv
+```
 
 ## Privacy
 

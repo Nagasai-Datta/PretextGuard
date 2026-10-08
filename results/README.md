@@ -30,11 +30,18 @@ The files here hold counts and scores only, never email text, so they are safe t
 | `label_counts.csv` | `python -m src.data.labels` | Positive labels per tactic and claim type, per split and category |
 | `synthetic_counts.csv` | `python -m src.data.synthetic collect` | Valid and dropped synthetic pairs, attack tactics per split, claims per role |
 | `semeval_mapping.csv` | `python -m src.data.semeval_map` | The 23 SemEval techniques, the tactic each maps to and how well |
+| `tactic_data_counts.csv` | `python -m src.models.dataset` | Items and positive labels per origin (real, synthetic), split (train, validation) and tactic in the table sent to Colab |
+| `tactic_training_log.csv` | `train.py` on Colab | Per condition (`mix`, `real_only`), seed and epoch: training loss, validation loss, validation macro-F1, and whether it was the chosen epoch |
+| `tactic_seed_summary.csv` | `train.py` on Colab | Per condition and seed: best epoch, epochs run, validation macro-F1, and which seed was chosen |
+| `tactic_val_probs.csv` | `train.py` on Colab | The chosen model's probability for each tactic on every validation email (ids and numbers only); the Mac compares its own predictions with these |
+| `tactic_run_info.json` | `train.py` on Colab | Settings, `pos_weight`, thresholds, library versions, GPU name, data checksum, code commit and base-model revision of the Colab run |
+| `tactic_validation_scores.csv` | `python -m src.models.validate` | Precision, recall and F1 per tactic for DistilBERT (with and without synthetic training emails) and the keyword baseline (default and tuned thresholds), on real and synthetic validation emails, apart; counts only below 10 positives |
+| `tactic_checks.csv` | `python -m src.models.validate` | PASS/FAIL checks on the data and the model, including that the Mac's CPU reproduces Colab's predictions to within 0.001 |
 
 ## Still to come
 
 | Phase | Results |
 |---|---|
 | 4 (F1) | Keyword baseline precision, recall and F1 against the labels: Phase 13, after the Phase 5 labels |
-| 6 | Tactic classifier precision, recall and F1 per tactic |
+| 6 (test) | Tactic classifier and baseline on the test split: Phase 13, once, with the thresholds fixed on validation |
 | 13 | N1, N2, N3 and architecture ablations; claim-extraction accuracy; paraphrase and style-confound tests; charts |

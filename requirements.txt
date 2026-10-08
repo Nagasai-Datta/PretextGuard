@@ -20,3 +20,7 @@ RapidFuzz==3.14.6
 
 # Phase 5: label agreement (Cohen's kappa cross-check)
 scikit-learn==1.9.1
+
+# Phase 6: tactic classifier (trained on Colab, run on the Mac's CPU)
+torch==2.14.1
+transformers==5.19.0
