@@ -189,7 +189,7 @@ pretextguard/
 | 4 | Keyword baseline | Done |
 | 5 | Tactic and claim labels (free web-chat annotators, Cohen's kappa), synthetic emails | Done |
 | 6 | DistilBERT tactic classifier on Colab | Done |
-| 7 | Claim extractor | Next |
+| 7 | Claim extractor | In progress (code written; first run on real data next) |
 | 8 | Header verifier (N3) and request verifier | Not started |
 | 9 | Thread builder, thread-hijack benchmark, thread verifier (N2) | Not started |
 | 10 | Claim router, verdict ledger, risk score, LIME | Not started |
@@ -248,6 +248,14 @@ Phase 6 (tactic classifier): build the file for Colab, train on Colab with `note
 python -m src.eval.metrics        # metrics self-test (hand-written functions against scikit-learn)
 python -m src.models.dataset      # train and validation emails with their labels -> data/processed/tactic_data.parquet (upload to Drive)
 python -m src.models.validate     # after Colab: scores and PASS/FAIL checks -> results/tactic_validation_scores.csv, tactic_checks.csv
+```
+
+Phase 7 (claim extractor): `requirements.txt` installs spaCy and its English model (pinned by URL and SHA-256). Details in [`src/claims/README.md`](src/claims/README.md).
+
+```bash
+python -m src.claims.extractor            # self-test: hand-made emails and crafted inputs
+python -m src.claims.build --train-only   # train-split hit rates and train scores (validation never loaded) -> results/claim_*.csv
+python -m src.claims.build                # final run of a frozen pattern version: also scores the validation emails, once
 ```
 
 ## Privacy

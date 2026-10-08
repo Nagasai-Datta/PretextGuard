@@ -1,0 +1,43 @@
+check,item,value,expected,status
+patterns,phrases compile; ids unique; every word is one token,71,all valid,PASS
+attack_vs_ham,credential_request on phishing,31.79% vs ham 0.97%,>= 2x ham and above 0,PASS
+attack_vs_ham,affiliation_external on phishing,77.98% vs ham 56.43%,>= 2x ham and above 0,FAIL
+attack_vs_ham,reply_direction on fraud,24.92% vs ham 2.64%,>= 2x ham and above 0,PASS
+attack_vs_ham,authority on fraud,51.31% vs ham 1.64%,>= 2x ham and above 0,PASS
+attack_vs_ham,data_request on fraud,23.02% vs ham 3.18%,>= 2x ham and above 0,PASS
+claims_valid,"claims whose text is not the slice of their span, or with a bad type, zone or confidence",0,0,PASS
+claims_capped,most claims in one email / most of one type,12 / 3,<= 12 / <= 3,PASS
+crafted_inputs,"slowest of 8 crafted 200,000-character inputs",0.54 s,< 2 s,PASS
+leakage_guard,splits read for hit rates,train,train only,PASS
+leakage_guard,splits read for scoring,train,train and validation only (train only with --train-only),PASS
+validation_scored,this run scored the validation emails,no (--train-only),yes in the final run of a frozen version,info
+coverage,affiliation_internal,fires on 2596 emails,>= 20 (a finding if not),PASS
+coverage,affiliation_external,fires on 39944 emails,>= 20 (a finding if not),PASS
+coverage,authority,fires on 2428 emails,>= 20 (a finding if not),PASS
+coverage,reply_direction,fires on 1934 emails,>= 20 (a finding if not),PASS
+coverage,signature_contact,fires on 12378 emails,>= 20 (a finding if not),PASS
+coverage,prior_relationship,fires on 1184 emails,>= 20 (a finding if not),PASS
+coverage,payment_request,fires on 2195 emails,>= 20 (a finding if not),PASS
+coverage,payment_change,fires on 469 emails,>= 20 (a finding if not),PASS
+coverage,credential_request,fires on 4380 emails,>= 20 (a finding if not),PASS
+coverage,gift_card,fires on 128 emails,>= 20 (a finding if not),PASS
+coverage,data_request,fires on 4067 emails,>= 20 (a finding if not),PASS
+dominant_pattern,affiliation_internal: ai_dept_role,85.8% of its hits,<= 50% (a finding if not),info
+dominant_pattern,affiliation_external: ae_org_mention,72.8% of its hits,<= 50% (a finding if not),info
+dominant_pattern,authority: au_i_am_title,29.2% of its hits,<= 50% (a finding if not),PASS
+dominant_pattern,reply_direction: rd_contact_me_weak,30.6% of its hits,<= 50% (a finding if not),PASS
+dominant_pattern,signature_contact: sc_name_contact,47.0% of its hits,<= 50% (a finding if not),PASS
+dominant_pattern,prior_relationship: pre_as_discussed,35.9% of its hits,<= 50% (a finding if not),PASS
+dominant_pattern,payment_request: pr_pay_the,85.3% of its hits,<= 50% (a finding if not),info
+dominant_pattern,payment_change: pc_details_changed,53.8% of its hits,<= 50% (a finding if not),info
+dominant_pattern,credential_request: cr_verify_your,33.8% of its hits,<= 50% (a finding if not),PASS
+dominant_pattern,gift_card: gc_gift_card,96.9% of its hits,<= 50% (a finding if not),info
+dominant_pattern,data_request: dr_bank_details,24.4% of its hits,<= 50% (a finding if not),PASS
+run,pattern_version,0.1,,info
+run,phrases,71,,info
+run,spacy / model,3.8.16 / en_core_web_sm 3.8.0,,info
+run,train_emails,69542,,info
+run,labelled real emails scored (train / validation),413 / 0,,info
+run,--limit (0 means every train email),0,0 in the final run,PASS
+run,mean claims per labelled real email,3.18,,info
+run,seconds,1180,,info

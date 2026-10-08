@@ -21,7 +21,7 @@ Never `cd src` and never `python src/data/stage.py`. With `-m`, Python treats th
 | `headers/` | Email parser and header evidence extractor; organisation domain | 3 | Done (see `headers/README.md`) |
 | `baseline/` | Keyword baseline (word lists per tactic, scorer) | 4 | Done (see `baseline/README.md`) |
 | `models/` | DistilBERT tactic classifier: data preparation, training (Colab), prediction, validation | 6 | Done (see `models/README.md`) |
-| `claims/` | Claim extractor: typed claims with text spans | 7 | Not started |
+| `claims/` | Claim extractor: typed claims with text spans | 7 | Code written; first run on real data next (see `claims/README.md`) |
 | `verifiers/` | Header verifier (N3), request verifier, thread verifier (N2) | 8, 9 | Not started |
 | `thread/` | Thread builder and thread signals | 9 | Not started |
 | `router/` | Claim router, verdict ledger, risk score, end-to-end pipeline | 10 | Not started |

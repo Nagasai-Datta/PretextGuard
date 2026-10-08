@@ -75,6 +75,12 @@ TACTIC_RUN_INFO_JSON = RESULTS_DIR / "tactic_run_info.json"
 TACTIC_VALIDATION_SCORES_CSV = RESULTS_DIR / "tactic_validation_scores.csv"
 TACTIC_CHECKS_CSV = RESULTS_DIR / "tactic_checks.csv"
 
+# Files written by Phase 7 (src/claims): the claim extractor
+CLAIM_HIT_RATES_CSV = RESULTS_DIR / "claim_hit_rates.csv"
+CLAIM_PATTERN_HITS_CSV = RESULTS_DIR / "claim_pattern_hits.csv"
+CLAIM_SCORES_CSV = RESULTS_DIR / "claim_scores.csv"
+CLAIM_CHECKS_CSV = RESULTS_DIR / "claim_checks.csv"
+
 
 def relative(path):
     """Return path relative to the project root, for short printouts.

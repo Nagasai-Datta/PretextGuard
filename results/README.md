@@ -37,6 +37,10 @@ The files here hold counts and scores only, never email text, so they are safe t
 | `tactic_run_info.json` | `train.py` on Colab | Settings, `pos_weight`, thresholds, library versions, GPU name, data checksum, code commit and base-model revision of the Colab run |
 | `tactic_validation_scores.csv` | `python -m src.models.validate` | Precision, recall and F1 per tactic for DistilBERT (with and without synthetic training emails) and the keyword baseline (default and tuned thresholds), on real and synthetic validation emails, apart; counts only below 10 positives |
 | `tactic_checks.csv` | `python -m src.models.validate` | PASS/FAIL checks on the data and the model, including that the Mac's CPU reproduces Colab's predictions to within 0.001 |
+| `claim_hit_rates.csv` | `python -m src.claims.build` | Train split: % of emails where each of the eleven claim types is found, for all emails and per category, for every claim and for strong claims only |
+| `claim_pattern_hits.csv` | `python -m src.claims.build` | Train split: how many emails each claim pattern and rule fires on, per category (also patterns that never fired) |
+| `claim_scores.csv` | `python -m src.claims.build` | Precision, recall and F1 per claim type on the labelled real emails and on the synthetic emails (train, and validation in the final run), apart, at two confidence levels; counts only below 10 positives |
+| `claim_checks.csv` | `python -m src.claims.build` | PASS/FAIL checks on the claim extractor, plus pattern version, spaCy version and run details |
 
 ## Still to come
 
@@ -44,4 +48,5 @@ The files here hold counts and scores only, never email text, so they are safe t
 |---|---|
 | 4 (F1) | Keyword baseline precision, recall and F1 against the labels: Phase 13, after the Phase 5 labels |
 | 6 (test) | Tactic classifier and baseline on the test split: Phase 13, once, with the thresholds fixed on validation |
+| 7 (test) | Claim extractor on the test split: Phase 13, once, with the patterns frozen |
 | 13 | N1, N2, N3 and architecture ablations; claim-extraction accuracy; paraphrase and style-confound tests; charts |
