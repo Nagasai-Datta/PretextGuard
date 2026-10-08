@@ -13,6 +13,8 @@ THE PATTERN LANGUAGE. A phrase is words separated by spaces; every word is one t
     verif*        any token that starts with "verif" (verify, verified, verification ...)
     sign|log      either word; each alternative can end in * too:  verif*|confirm*|update
     !writing|to   any token EXCEPT these (use it to stop a pattern from matching the wrong sentence)
+    =IT|HR        the token with exactly this capitalisation ("IT" the department, never "it" the pronoun)
+    #             one token made of digits (a house number, a postcode)
     ?the          the token is optional
     ..3           up to 3 tokens of anything (between 1 and 6; never first or last)
     @PERSON       a run of tokens that spaCy marks as a PERSON (or @ORG for an organisation)
@@ -28,7 +30,7 @@ that need entities or surface shapes (organisation names, signature blocks, phon
 extractor.py and use the word lists below.
 """
 
-PATTERN_VERSION = "0.1"
+PATTERN_VERSION = "0.4"
 
 STRONG = 0.9
 WEAK = 0.6
@@ -47,12 +49,12 @@ PHRASES = {
         ("cr_sign_in", "sign|log in|on", WEAK),
     ],
     "reply_direction": [
-        ("rd_private_address", "reply|respond|write|answer|send|email|contact|reach|get|call|text|message|forward ..5 private|personal|alternative|alternate|direct|separate|secure|own|new|secret ..2 email|mail|address|number|phone|telephone|mobile|line|inbox|box|contact", STRONG),
+        ("rd_private_address", "reply|respond|write|answer|send|email|contact|reach|call|text ..5 private|personal|alternative|alternate|direct|separate|secure|own|new|secret ..2 email|address|number|phone|telephone|mobile|line|inbox", STRONG),
         ("rd_directly", "reply|respond|write|answer ..3 directly|privately|personally|only|strictly", STRONG),
-        ("rd_contact_me", "contact*|reach*|email*|call*|text*|messag*|whatsapp ..1 me ..1 directly|privately|personally|only|strictly|through|via|on|at|by", STRONG),
+        ("rd_contact_me", "contact*|reach*|email*|messag*|text*|whatsapp|call|calling ..1 me ..1 directly|privately|personally|only|strictly|through|via|on|at|by", STRONG),
         ("rd_send_to_address", "send|reply|respond|write|forward ..4 to|via|through ..3 private|personal|alternative|alternate|new|following|below|my ..2 address|email|mail", STRONG),
         ("rd_my_mobile", "reply|text|call|contact|reach|send|message|respond ..5 my ..1 personal|private|direct|mobile|cell|own|text ..1 mobile|cell|phone|line|number|text|whatsapp", STRONG),
-        ("rd_my_address", "my private|personal|alternative|alternate|new|other ..2 email|mail|address", STRONG),
+        ("rd_my_address", "my private|personal|alternative|alternate|new|other ..2 email|mail|address", WEAK),
         ("rd_messaging", "text|message|whatsapp|call|chat ..1 me ..2 on|at|via ..2 whatsapp|telegram|signal|viber|skype|number|phone|mobile|cell", STRONG),
         ("rd_address_below", "send|reply|respond|write|mail ..4 to ..4 address|email|mail below|given|provided|following", STRONG),
         ("rd_contact_by", "contact* ..2 us|agents|team|office|department|support|sender ..1 by|via|through|at ..1 email|telephone|phone|mail|mobile", WEAK),
@@ -60,17 +62,21 @@ PHRASES = {
         ("rd_contact_me_weak", "contact|reach|call|email me", WEAK),
     ],
     "data_request": [
-        ("dr_send_sensitive", "send|provide|submit|forward|furnish|supply|reply|share|give|attach|upload|return|fill|complete ..6 your|me|us|the|following ..3 full|complete|personal|private|bank*|residential|home|mailing|tax|payroll|passport|identity|ssn|social|credit|debit|telephone|phone|fax|name*|age|occupation|nationality|particulars", STRONG),
-        ("dr_staff_records", "staff|employee*|payroll|tax|student|customer|client ..2 list*|records|forms|documents|files|data|information|statements|returns|w2|filings|particulars", STRONG),
+        ("dr_send_sensitive", "send|provide|submit|forward|furnish|supply|reply|share|give|attach|upload|fill|complete ..3 your ..2 full|complete|personal|private|bank*|residential|home|mailing|tax|payroll|passport|identity|ssn|social|telephone|phone|fax|name*|age|occupation|nationality|particulars", STRONG),
+        ("dr_card", "send|provide|enter|submit|verify|confirm|update|supply|give|reply|share ..3 your ..1 credit|debit ..1 card*|number*|details|information", STRONG),
+        ("dr_staff_records", "staff|employee*|payroll|tax|student ..2 list*|records|forms|documents|files|data|information|statements|returns|w2|filings|particulars", STRONG),
         ("dr_fill_form", "complete|fill ..5 form|data|information|details", WEAK),
         ("dr_send_documents", "send|provide|share|submit|forward|furnish ..4 documents|documentation|records|files|logs|list|data|reports|statements|forms", WEAK),
         ("dr_additional", "additional|following|below|required|requested|necessary ..1 details|information|documents|data|particulars", WEAK),
         ("dr_bank_details", "bank|account|banking ..2 details|particulars|number|information", WEAK),
     ],
     "payment_request": [
-        ("pr_pay_the", "pay|process|wire|transfer|remit|settle|send|make|authorize|authorise|approve|issue|release|initiate|proceed|complete|sign|finalize|finalise|arrange|schedule|submit|handle|execute|clear ..4 payment*|invoice*|wire|transfer|amount|funds|money|balance|bill|fee*|deposit|payroll|reimbursement*|remittance*|refund*", STRONG),
+        ("pr_pay_the", "pay|process|wire|remit|settle|authorize|authorise|approve|issue|release|initiate|proceed|finalize|finalise|arrange|schedule ..4 payment*|invoice*|wire|amount|balance|bill|fee*|payroll|reimbursement*|remittance*|refund*", STRONG),
+        ("pr_make_payment", "make ..1 payment*", STRONG),
+        ("pr_send_money", "pay|send|wire|transfer|remit ..3 money|funds|cash|deposit", WEAK),
         ("pr_wire_transfer", "wire|bank transfer*", STRONG),
-        ("pr_overdue", "payment*|invoice*|balance|bill|fee*|amount ..3 due|overdue|outstanding|owed|pending|unpaid|required", STRONG),
+        ("pr_overdue", "payment*|invoice*|balance|bill|fee*|amount ..3 due|overdue|outstanding|owed|unpaid", STRONG),
+        ("pr_pending", "payment*|invoice*|balance|bill|fee*|amount ..3 pending|required", WEAK),
         ("pr_charged", "charged|debited ..3 to|from ..2 card|account", STRONG),
         ("pr_outstanding", "outstanding|unpaid|overdue ..1 invoice*|balance|payment*|bill|fee*", STRONG),
         ("pr_pay_now", "pay ..1 now|today|immediately|promptly", WEAK),
@@ -81,11 +87,12 @@ PHRASES = {
         ("pc_direct_deposit", "direct deposit", WEAK),
     ],
     "gift_card": [
-        ("gc_gift_card", "gift ..1 card*|certificate*|voucher*", STRONG),
+        ("gc_gift_card", "gift ..1 card*", STRONG),
+        ("gc_gift_voucher", "gift ..1 certificate*|voucher*", WEAK),
         ("gc_buy_cards", "buy|purchase|get|obtain|pick|scratch|photograph ..3 the|these|those|some|several|few|five|ten|two|three|four|six|seven|eight|nine ..1 card*", WEAK),
     ],
     "prior_relationship": [
-        ("pre_as_discussed", "as|per ..2 discuss*|agree*|mention*|promis*|talk*|spoke*|chat*", STRONG),
+        ("pre_as_discussed", "as|per ?we|i|you ?previously|already|earlier|also discussed|agreed|mentioned|promised|talked|spoke|spoken|chatted|requested", STRONG),
         ("pre_following_our", "follow* ..1 up ..1 on|with|from ..1 our|my|the|your ..2 call|conversation|meeting|discussion|email|chat|message|talk|visit|session|walkthrough|exchange", STRONG),
         ("pre_following", "following ..1 our|my|your|the ..2 call|conversation|meeting|discussion|email|chat|talk|visit|exchange", STRONG),
         ("pre_our_last", "our|my ..1 last|previous|earlier|recent|prior|past ..1 call|conversation|meeting|discussion|email|chat|talk|visit|exchange|correspondence|session", STRONG),
@@ -100,7 +107,7 @@ PHRASES = {
         ("pre_worked_together", "worked|working|worked ..1 together|with ..1 you", STRONG),
     ],
     "authority": [
-        ("au_i_am_title", "i am|'m|are !writing|writting|contacting|sending|emailing|replying|reaching|forwarding|interested|happy|pleased|glad|sorry|not|so|very|just ..5 ceo|cfo|coo|cto|president|chairman|chairwoman|director|manager|officer|auditor|accountant|attorney|barrister|lawyer|secretary|minister|governor|commissioner|supervisor|administrator|controller|treasurer|executive|chief|head|assistant|aide|counsel|partner|dean|principal|founder|owner|superintendent|provost|chancellor|solicitor|judge|mayor|ambassador|senator|chair", STRONG),
+        ("au_i_am_title", "i am|'m|are !writing|writting|contacting|sending|emailing|replying|reaching|forwarding|interested|happy|pleased|glad|sorry|not|so|very|just ..5 ceo|cfo|coo|cto|president|chairman|chairwoman|director|manager|officer|auditor|accountant|attorney|barrister|lawyer|secretary|minister|governor|commissioner|supervisor|administrator|controller|treasurer|executive|chief|head|assistant|aide|counsel|partner|dean|principal|founder|owner|superintendent|provost|chancellor|solicitor|judge|mayor|ambassador|senator|chair|official|advisor|adviser|spokesman|spokesperson", STRONG),
         ("au_as_the", "as ?the|your|a|an ..2 ceo|cfo|coo|cto|president|chairman|chairwoman|director|manager|officer|auditor|accountant|attorney|secretary|minister|governor|commissioner|supervisor|administrator|controller|treasurer|executive|chief|head", STRONG),
         ("au_this_is_the", "this is|'s ?the|your ..2 ceo|cfo|coo|cto|president|chairman|director|manager|officer|auditor|accountant|attorney|secretary|minister|governor|supervisor|administrator|controller|treasurer|executive|chief|head", STRONG),
         ("au_qualified_title", "senior|chief|general|executive|managing|deputy|assistant|former|internal|external|personal|top ..1 director|manager|officer|auditor|accountant|attorney|secretary|minister|governor|supervisor|administrator|controller|treasurer|president|chairman|counsel|partner", WEAK),
@@ -110,16 +117,25 @@ PHRASES = {
         ("au_officer_of", "officer|auditor|director|manager|governor|minister|president|accountant ..1 of|at|in ..4 bank|ministry|government|corporation|company|plc|ltd|treasury|authority|commission|foundation|committee", WEAK),
     ],
     "affiliation_internal": [
-        ("ai_dept_role", "it|ict|hr|finance|payroll|accounts|accounting|helpdesk|help|service|security|network|system*|mail|webmail|admin*|billing|procurement|legal|compliance|operations|technical|executive|domain|email ..2 department|dept|team|desk|administrator*|staff|office|division|unit|group|support|maintenance", STRONG),
-        ("ai_this_is_from", "this|here is|'s ..3 from|with ..2 finance|hr|it|payroll|accounts|accounting|security|support|helpdesk|admin*|procurement|legal|compliance|operations|management|marketing|sales|facilities|engineering|treasury", STRONG),
-        ("ai_i_am_from", "i am|'m|are ..4 from|with|in|of ..2 ?the ..1 finance|hr|it|payroll|accounts|accounting|security|support|helpdesk|admin*|procurement|legal|compliance|operations|management|marketing|sales|facilities|engineering|treasury", STRONG),
-        ("ai_your_team", "your ..1 it|hr|finance|payroll|helpdesk|help|security|support|admin*|system*|network*|email|mail|account*|service ..2 department|team|desk|administrator|staff|office|provider|support", STRONG),
-        ("ai_title_dept", "director|manager|head|chief|officer|assistant|vp|lead ..1 of|to ?the ..1 hr|it|finance|payroll|accounts|operations|procurement|legal|compliance|ceo|cfo|coo|cto|president", WEAK),
-        ("ai_staff_of", "i am|'m ..2 staff|member|employee|worker ..1 of|at|with", STRONG),
+        ("ai_dept_role", "hr|finance|payroll|accounts|accounting|helpdesk|help|service|security|network|system|systems|mail|webmail|admin*|billing|procurement|legal|compliance|operations|technical|executive|domain|email ..1 department|dept|team|desk|administrator*|staff|office|division|unit|group", STRONG),
+        ("ai_it_dept", "=IT|ICT|HR ..1 department|dept|team|desk|administrator*|staff|office|support|helpdesk|service|services", STRONG),
+        ("ai_this_is_from", "this|here is|'s ..3 from|with ..2 finance|hr|payroll|accounts|accounting|security|support|helpdesk|admin*|procurement|legal|compliance|operations|management|marketing|sales|facilities|engineering|treasury", STRONG),
+        ("ai_this_is_from_it", "this|here is|'s ..3 from|with ..2 =IT|ICT|HR", STRONG),
+        ("ai_i_am_from", "i am|'m|are ..4 from|with ..2 ?the ..1 finance|hr|payroll|accounts|accounting|security|support|helpdesk|admin*|procurement|legal|compliance|operations|management|marketing|sales|facilities|engineering|treasury", STRONG),
+        ("ai_i_am_from_it", "i am|'m|are ..4 from|with ..2 ?the ..1 =IT|ICT|HR", STRONG),
+        ("ai_your_team", "your ..1 it|hr|finance|payroll|helpdesk|help|security|support|admin*|system*|network*|email|mail|service ..1 department|team|desk|administrator|staff|office|provider|support", STRONG),
+        ("ai_title_dept", "director|manager|head|chief|officer|assistant|vp|lead ..1 of|to ?the ..1 hr|finance|payroll|accounts|operations|procurement|legal|compliance|ceo|cfo|coo|cto|president", WEAK),
+        ("ai_title_dept_it", "director|manager|head|chief|officer|assistant|vp|lead ..1 of|to ?the ..1 =IT|ICT|HR", WEAK),
+        ("ai_staff_of", "i am|'m ..2 staff|employee ..1 of|at|with", STRONG),
         ("ai_system_admin", "system|network|mail|email|web|database|server|domain administrator*|admin", WEAK),
-        ("ai_dept_alone", "it|hr|finance|payroll|accounts|security|helpdesk|procurement|compliance department|dept|team|desk", WEAK),
+        ("ai_dept_alone", "finance|payroll|accounts|security|helpdesk|procurement|compliance department|dept|team|desk", WEAK),
     ],
     "signature_contact": [
+        ("sc_street_zip", "# ..4 street|st|avenue|ave|road|rd|blvd|boulevard|drive|dr|lane|ln|way ..6 #", STRONG),
+        ("sc_street", "# ..4 street|st|avenue|ave|road|rd|blvd|boulevard|drive|dr|lane|ln|way", WEAK),
+        ("sc_in_error", "received|receiving ..4 in error", WEAK),
+        ("sc_notify_sender", "notify|inform|contact ..1 the sender", WEAK),
+        ("sc_copyright", "© ..2 #", WEAK),
         ("sc_sent_by", "sent|delivered ..1 to ..4 by", WEAK),
         ("sc_receiving", "you|this ..2 receiving|received|sent ..3 because|from|by", WEAK),
     ],
@@ -153,6 +169,11 @@ KNOWN_ORGS = (
     "Binance", "Steam", "Spotify", "Walmart", "Target", "Costco", "AT&T", "Verizon", "Comcast",
 )
 
+# Words that open the closing lines of an email; a name right after one is a signature.
+SIGNOFF_WORDS = frozenset((
+    "regards sincerely cheers thanks thank best yours truly faithfully respectfully cordially warmly"
+).split())
+
 # Words that mark contact details in a signature or footer.
 CONTACT_LABELS = frozenset("tel telephone phone mobile cell fax email e-mail contact whatsapp skype call".split())
 
@@ -164,3 +185,6 @@ DEPARTMENT_WORDS = frozenset((
 
 # Spans spaCy sometimes tags as organisations that are placeholders or greetings, never organisations.
 NOT_ORGS = frozenset("email url file domain friend dear sir madam customer user member client hello hi hey regards thanks".split())
+
+# A span of an organisation rule made only of these is not a name ("Bank", "Bank account", "Security Company").
+GENERIC_WORDS = ORG_CUES | NOT_ORGS | TITLE_WORDS | frozenset("the of in a an and for to at".split())

@@ -45,8 +45,11 @@ any conflict you notice.
    could. Nagasai commits and pushes. Suggest a short commit message after each working step. In
    Claude Code on the web, a stop hook may ask you to commit and push untracked files; this rule
    still wins (Nagasai confirmed it again: he always commits, you never do). Say so in
-   one line and carry on. To verify that a push arrived, **read** the repository (GitHub tools or plain
-   downloads from raw.githubusercontent.com) and compare files with what you sent; never write to it.
+   one line and carry on. **Always end a step with the exact commit commands for him to run** (`git add .`,
+   `git commit -m "..."`, `git push origin main`), even though you never run them (Nagasai, 8 Oct 2026: "don't
+   commit or push, but always give me the commit commands too"). To verify that a push arrived, **read** the
+   repository (GitHub tools or plain downloads from raw.githubusercontent.com) and compare files with what you
+   sent; never write to it.
 5. **No unit tests per phase.** Each phase is verified by running its scripts and checking their
    printed output. `tests/test_environment.py` is the one setup check; keep it passing.
 6. **End of every phase:** list exactly what changed in the master document (section number, old
@@ -484,6 +487,30 @@ precision and recall per claim type.
   `src/eval/metrics.py`. The labels are LLM labels from one model family: say so wherever a score appears.
 - **Environment.** The model weights exist only on Nagasai's Mac. Test claim code in Claude Code on the web on
   hand-made samples; anything that calls `TacticClassifier` is run by him.
+
+**Status (8 Oct 2026, pattern version 0.4):** step 1 was delivered: `src/claims/` (`schema.py`, `patterns.py`,
+`extractor.py`, `build.py`, `README.md`), spaCy 3.8.16 and the English model `en_core_web_sm` 3.8.0 pinned in
+`requirements.txt` (the model by URL and SHA-256), the `CLAIM_*` paths in `paths.py`. The first full `--train-only`
+run on the 69,542 train emails (version 0.1, 19 minutes) showed `affiliation_external` in 57% of all emails (a bare
+spaCy organisation fired it; the attack-vs-ham check FAILED), over-firing of `payment_request`, `data_request` and
+`affiliation_internal`, good behaviour of `credential_request`, `authority` and `reply_direction`, and recall 0.43
+for `signature_contact`. Version 0.2 fixed the causes the printed false positives showed (exact-case `=IT` in the
+pattern language, whole-word `as discussed`, weak "send money", organisations only when cued or known) and added
+`--diagnose`; its quick run (6,000 train emails) passed every check (macro-F1 over the five scoreable types on the
+413 labelled train emails: 0.597 for all claims, 0.565 for strong claims only; these are development scores).
+Version 0.3 added the copyright-sign organisation rule, labelled contact details anywhere, a generic-words filter
+for organisations and tighter internal-affiliation and data-request patterns (details in `src/claims/README.md`).
+Its quick run: macro-F1 over the five scoreable types on the 413 labelled train emails 0.611 (all claims) and
+0.599 (strong only). For context, the F1 of annotator 1 against annotator 2 (from `results/label_agreement.csv`) is
+0.41 (`affiliation_internal`), 0.72 (`affiliation_external`), 0.66 (`authority`), 0.73 (`credential_request`), 0.61
+(`signature_contact`), 0.73 (`reply_direction`) and 0.33 (`data_request`), so most types are near what the labels
+support; `reply_direction` and `signature_contact` have the most room. Version 0.4 fixed placeholder tokens matching
+pattern words and a few verb forms, and is the candidate to freeze. **The development loop while patterns are written:** `python -m src.claims.build --train-only --limit
+6000 --diagnose TYPE1,TYPE2` (about 3 minutes; Nagasai pastes the output; only train data is ever read), revise
+`patterns.py`, bump `PATTERN_VERSION`, repeat. When the train results are acceptable, **freeze**, then run
+`python -m src.claims.build` (no flags) once: it also scores the validation emails. Then write
+`update_docs_phase7.py` (master document v3.9; it reads `results/claim_*.csv`, like `update_docs_phase6_v2.py` did)
+and rewrite this file for Phase 8. Do not look at validation or test claim spans or scores before the freeze.
 
 **Decisions for the plan to recommend:** which types are pattern-only and which need spaCy; the claim object and how
 `confidence` is defined for rules; how spans stay relative to `body_redacted`; what Phase 7 prints and saves in

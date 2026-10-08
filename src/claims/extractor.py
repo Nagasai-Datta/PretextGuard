@@ -39,7 +39,8 @@ from spacy.matcher import Matcher
 from spacy.util import filter_spans
 
 from src.claims.patterns import (
-    CONTACT_LABELS, DEPARTMENT_WORDS, KNOWN_ORGS, NOT_ORGS, ORG_CUES, PATTERN_VERSION, PHRASES, STRONG, TITLE_WORDS, WEAK,
+    CONTACT_LABELS, DEPARTMENT_WORDS, GENERIC_WORDS, KNOWN_ORGS, NOT_ORGS, ORG_CUES, PATTERN_VERSION, PHRASES, SIGNOFF_WORDS, STRONG, TITLE_WORDS,
+    WEAK,
 )
 from src.claims.schema import CLAIM_TYPES, MAX_CLAIMS, MAX_PER_TYPE, SIGNATURE_CHARS, check_claim, make_claim
 from src.models.dataset import model_text
@@ -75,14 +76,20 @@ def compile_phrase(phrase):
             pattern.extend({"OP": "?"} for _ in range(count))
         elif item.startswith("@"):
             pattern.append({"ENT_TYPE": item[1:], "OP": "+"})
+        elif item == "#":
+            pattern.append({"IS_DIGIT": True})
         else:
-            optional, negated = item.startswith("?"), item.lstrip("?").startswith("!")
-            words = item.lstrip("?").lstrip("!").lower().split("|")
+            optional = item.startswith("?")
+            item = item.lstrip("?")
+            negated, same_case = item.startswith("!"), item.startswith("=")
+            words = item.lstrip("!=").split("|") if same_case else item.lstrip("!").lower().split("|")
             exact = [w for w in words if not w.endswith("*")]
             stems = [w[:-1] for w in words if w.endswith("*")]
-            if negated and stems:
-                raise ValueError("a stem cannot follow !: %r" % phrase)
-            if negated:
+            if (negated or same_case) and stems:
+                raise ValueError("a stem cannot follow ! or =: %r" % phrase)
+            if same_case:
+                token = {"TEXT": exact[0]} if len(exact) == 1 else {"TEXT": {"IN": exact}}
+            elif negated:
                 token = {"LOWER": {"NOT_IN": exact}}
             elif stems:
                 alternatives = [re.escape(s) for s in stems] + [re.escape(w) + "$" for w in exact]
@@ -111,15 +118,16 @@ def check_patterns(nlp):
                 raise ValueError("%s: strength must be STRONG or WEAK" % pattern_id)
             compile_phrase(phrase)
             for item in phrase.split():
-                if item.startswith(("..", "@")):
+                if item.startswith(("..", "@")) or item == "#":
                     continue
-                for word in item.lstrip("?!").split("|"):
+                for word in item.lstrip("?!=").split("|"):
                     if not word.endswith("*") and word not in CONTRACTIONS and len(nlp.make_doc(word)) != 1:
                         raise ValueError("%s: %r is not one token" % (pattern_id, word))
             count += 1
     return count
 
 
+KNOWN_LOWER = frozenset(name.lower() for name in KNOWN_ORGS)
 _STATE = {}
 
 
@@ -171,10 +179,17 @@ def attributes_for(doc, first, last, pattern_id, zone):
     return {"person": person, "organisation": organisation, "department": department, "pattern": pattern_id, "zone": zone}
 
 
+def is_placeholder(doc, i):
+    """True if token i is the word inside a redaction placeholder: the EMAIL of [EMAIL], the URL of [URL] ..."""
+    return (0 < i < len(doc) - 1 and doc[i].text in ("EMAIL", "URL", "FILE", "DOMAIN") and doc[i - 1].text == "[" and doc[i + 1].text == "]")
+
+
 def phrase_candidates(doc, zone):
     """Claims from the phrase patterns."""
     found = []
     for match_id, first, last in _STATE["phrases"](doc):
+        if is_placeholder(doc, first) or is_placeholder(doc, last - 1):
+            continue      # the word "email" in the pattern must not match the EMAIL of the placeholder [EMAIL]
         claim_type, pattern_id, strength = _STATE["meta"][match_id]
         span = doc[first:last]
         found.append((claim_type, span.start_char, span.end_char, strength, pattern_id, first, last, zone))
@@ -190,10 +205,14 @@ def org_candidates(doc, zone):
         if is_not_an_org(span):
             continue                                         # "CFO", "Finance" and "Dear Customer" are not outside organisations
         words = [t.lower_ for t in span]
+        if all(w in GENERIC_WORDS for w in words):
+            continue                                         # "Bank", "Bank account" and "Security Company" name nobody
         end = span.end
         while end < len(doc) and end < span.end + 2 and doc[end].lower_ in ORG_CUES:   # "PayPal Security Team"
             end += 1
         cued = end > span.end or any(w in ORG_CUES for w in words)
+        if not cued and span.text.lower() not in KNOWN_LOWER:
+            continue            # a bare organisation name that spaCy found is too common in ordinary mail to be a claim
         found.append(("affiliation_external", span.start_char, doc[end - 1].idx + len(doc[end - 1]), STRONG if cued else WEAK,
                       "ae_org_cue" if cued else "ae_org_mention", span.start, end, zone))
     return found
@@ -215,7 +234,7 @@ def signature_candidates(doc, zone_text, base, zone):
     contacts = [m.span() for m in PHONE.finditer(zone_text) if is_phone(m.group())]
     contacts += [m.span() for m in EMAIL_TAG.finditer(zone_text)]
     if not contacts:
-        return []
+        return signoff_candidates(doc, zone_text, base, zone)
     first, last = min(s for s, _ in contacts), max(e for _, e in contacts)
     window = max(0, first - 12)
     label = LABEL_BEFORE.search(zone_text[window:first])
@@ -230,9 +249,54 @@ def signature_candidates(doc, zone_text, base, zone):
              None, None, zone)]
 
 
+def signoff_candidates(doc, zone_text, base, zone):
+    """A weak signature_contact claim: a name or organisation right after a closing word ("Thanks, John Smith")."""
+    for token in doc:
+        if token.idx < base or token.idx - base >= len(zone_text) or token.lower_ not in SIGNOFF_WORDS:
+            continue
+        for ent in doc.ents:
+            close = 0 <= ent.start_char - token.idx <= 40
+            if close and ent.label_ in ("PERSON", "ORG") and ent.text.lower() not in NOT_ORGS and ent.text.lower() not in PLACEHOLDERS:
+                return [("signature_contact", ent.start_char, ent.end_char, WEAK, "sc_signoff_name", None, None, zone)]
+    return []
+
+
+COPYRIGHT_SKIP = frozenset(("-", "\u2013", "\u2014", ",", "\u00a9", "(c)", "copyright"))
+NOT_A_NAME = frozenset(("all", "alle", "tous", "todos", "tutti", "tutti", "rights", "reserved"))
+
+
+def copyright_candidates(doc, zone):
+    """affiliation_external claims: the name after a copyright sign and year, as in "(c) 2024 Omaha Steaks. All rights reserved"."""
+    found = []
+    for token in doc:
+        if token.text not in ("\u00a9", "(c)") and token.lower_ != "copyright":
+            continue
+        i = token.i + 1
+        while i < len(doc) and (doc[i].like_num or doc[i].lower_ in COPYRIGHT_SKIP):
+            i += 1
+        j = i
+        while j < len(doc) and j < i + 3 and doc[j].text[:1].isalpha() and (doc[j].is_title or doc[j].is_upper) and doc[j].lower_ not in NOT_A_NAME:
+            j += 1
+        if j > i:
+            found.append(("affiliation_external", doc[i].idx, doc[j - 1].idx + len(doc[j - 1]), STRONG, "ae_copyright", i, j, zone))
+    return found
+
+
+def labelled_contact_candidates(text, zone):
+    """signature_contact claims: a phone number or [EMAIL] placeholder with a label (Tel, Fax, E-mail) just before it, anywhere in the text."""
+    found = []
+    shapes = [m.span() for m in PHONE.finditer(text) if is_phone(m.group())] + [m.span() for m in EMAIL_TAG.finditer(text)]
+    for start, end in shapes:
+        window = max(0, start - 14)
+        label = LABEL_BEFORE.search(text[window:start])
+        if label and label.group(1).lower() in CONTACT_LABELS:
+            found.append(("signature_contact", window + label.start(1), end, STRONG, "sc_labelled_contact", None, None, zone))
+    return found
+
+
 def zone_candidates(doc, zone):
     """Every rule that works on one searched text."""
-    return phrase_candidates(doc, zone) + org_candidates(doc, zone)
+    return phrase_candidates(doc, zone) + org_candidates(doc, zone) + copyright_candidates(doc, zone) + labelled_contact_candidates(doc.text, zone)
 
 
 # ----------------------------------------------------------------------------------------------------------
@@ -314,7 +378,8 @@ def extract_many(bodies, signatures=None, min_confidence=0.0, batch_size=64):
 # Self-test: python -m src.claims.extractor
 # ----------------------------------------------------------------------------------------------------------
 
-# (email text, signature, claim types that must be found, claim types that must NOT be found)
+# (email text, signature, claim types that must be found, claim types that must NOT be found[, min_confidence])
+# The last cases are false positives that the first train run (pattern version 0.1) printed for ordinary emails.
 CASES = [
     ("Hello, this is David from Finance. Please process the wire transfer before 3 PM today.", None,
      {"affiliation_internal", "payment_request"}, {"credential_request", "gift_card"}),
@@ -329,6 +394,27 @@ CASES = [
      {"signature_contact"}, {"credential_request", "payment_request", "gift_card", "data_request"}),
     ("The quarterly report is attached. Let me know if the numbers look right.", None, set(), set(CLAIM_TYPES)),
     ("I am writing to the manager of the hotel to book a room.", None, set(), {"authority"}),
+    ("Thanks for the update on the site work.\nBest regards,\nJames Sterling", None, {"signature_contact"}, set()),
+    ("Visit our office at 1000 Lowes Blvd, Mooresville, NC 28117 any weekday.", None, {"signature_contact"}, set()),
+    ("If you have received this message in error, please notify the sender immediately.", None, {"signature_contact"}, set()),
+    ("Kindly reply to me. My private TEL: 233-27-587908. E-MAIL: [EMAIL]. " + "The fund will be moved after the audit is done. " * 12, None,
+     {"signature_contact"}, set(), 0.9),
+    ("Thank you for shopping with us. \u00a9 2024 Omaha Steaks. All rights reserved.", None, {"affiliation_external"}, set(), 0.9),
+    ("I work in a Bank here in Abidjan and need a Bank account to receive it.", None, set(), {"affiliation_external"}),
+    ("Please send your credit card number to confirm the order.", None, {"data_request"}, set(), 0.9),
+    ("PayPal has successfully charged $175 to your credit card.", None, set(), {"data_request"}, 0.9),
+    ("My name is Anna and I am a social worker with a small charity.", None, set(), {"affiliation_internal"}),
+    ("You have added [EMAIL] as a new email address for your account.", None, set(), {"reply_direction"}),
+    ("He secretly called me on his bed side and told me about a secret fund.", None, set(), {"reply_direction"}),
+    ("Transfer the funds into your account through the office of the director.", None, set(), {"affiliation_internal"}),
+    ("I am Peter Kok, a top government official in the ministry.", None, {"authority"}, set()),
+    ("Hi, this is Maria from IT. Your mailbox is full.", None, {"affiliation_internal"}, set()),
+    ("I think it may support the new format, so ask them whether it will work.", None, set(), {"affiliation_internal"}),
+    ("As let's talk about it later. The word \"promiscuous\" means something else here.", None, set(), {"prior_relationship"}),
+    ("You can make money fast. I will send Mr Pratchett money tomorrow.", None, set(), {"payment_request"}, 0.9),
+    ("Please return with your credit for the new card. We accept credit.", None, set(), {"data_request"}),
+    ("The gift voucher is valid for one year.", None, set(), {"gift_card"}, 0.9),
+    ("Please note that my personal mail is not checked often.", None, set(), {"reply_direction"}, 0.9),
 ]
 
 
@@ -358,8 +444,8 @@ def self_test():
 
     nlp = load_nlp()
     check("patterns compile", True, "(%d phrases, version %s, spaCy model %s)" % (check_patterns(nlp), PATTERN_VERSION, nlp.meta["version"]))
-    for text, signature, must, must_not in CASES:
-        claims = extract_claims(text, signature)
+    for text, signature, must, must_not, *conf in CASES:
+        claims = extract_claims(text, signature, conf[0] if conf else 0.0)
         found = {c["type"] for c in claims}
         valid = all(not check_claim(c, model_text(text), prepare(text, signature)[1]) for c in claims)
         check("%r" % (text[:48] + "..."), must <= found and not (found & must_not) and valid,

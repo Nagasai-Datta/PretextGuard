@@ -4,7 +4,10 @@ Phase 7: the claim extractor. It reads one email and returns the **claims** the 
 
 ```bash
 python -m src.claims.extractor           # self-test: ten hand-made emails (one with no claims, one that must not match), non-text input, eight crafted 200,000-character inputs
-python -m src.claims.build --train-only  # while patterns are being written: hit rates on the train split and scores on the train labels; validation is never loaded
+python -m src.claims.build --train-only --limit 6000       # a quick development run (about 3 minutes): a random 6,000 train emails for the hit rates
+python -m src.claims.build --train-only --limit 6000 --diagnose signature_contact,payment_request
+                                         # also prints, for labelled TRAIN emails, the claims it misses and the ones nobody labelled (never saved)
+python -m src.claims.build --train-only  # all 69,542 train emails: about 20 minutes; validation is never loaded
 python -m src.claims.build               # the final run of a frozen version: also scores the validation emails, once
 ```
 
@@ -46,8 +49,8 @@ The same eleven as the annotation (`CLAIM_TYPES` in `src/data/label_schema.py`) 
 1. **What is read.** `model_text(body)`: `body_redacted` cut at 2,000 characters, exactly the text the annotators labelled. The signature block is read too: the `signature` column of `cleaned.parquet` is cut from `body_clean`, so it still holds raw addresses and links; `extract_claims` redacts it first (Phase 2's `redact`) and cuts it at 1,000 characters. If the redacted signature is already inside the body text, it is not read twice; if the body was cut before the signature, the signature is read as its own zone.
 2. **spaCy** (`en_core_web_sm`, only the tokenizer and the named-entity recogniser, about 8 ms per email) splits the text into tokens and marks people (PERSON) and organisations (ORG).
 3. **Phrase patterns** (`patterns.py`) match token sequences for ten of the eleven types. Examples: `verif*|confirm* ..2 your ..2 account*` finds "verify your account"; `this|here is|'s ..3 from|with ..2 finance|hr|it ...` finds "this is David from Finance".
-4. **Organisation rule** (`affiliation_external`): every ORG entity spaCy finds, plus a short list of often-imitated organisations that spaCy misses (`KNOWN_ORGS`, data only; Phase 8 attaches their real domains). An organisation followed by Team, Support, Bank, Security and similar words is a strong claim ("PayPal Security Team"); a bare mention is a weak one. Numbers, greetings, placeholders and bare job titles are not organisations.
-5. **Signature rule** (`signature_contact`): in the signature block, or in the last 350 characters of an email that has none, a phone number (7 to 15 digits, not a date) or an `[EMAIL]` placeholder is a claim. A name or organisation within 160 characters before it makes the claim strong.
+4. **Organisation rules** (`affiliation_external`): an ORG entity from spaCy next to a word like Team, Support, Bank or Security is a strong claim ("PayPal Security Team"); the name after a copyright sign and year ("(c) 2024 Omaha Steaks") is a strong claim; a bare mention counts only for a short list of often-imitated organisations that spaCy can miss (`KNOWN_ORGS`, data only; Phase 8 attaches their real domains), and then weakly. Numbers, greetings, placeholders, bare job titles, department words and spans made only of generic words ("Bank account") are not organisations.
+5. **Contact rules** (`signature_contact`): a phone number (7 to 15 digits, not a date) or an `[EMAIL]` placeholder with a label just before it (Tel, Fax, E-mail) is a strong claim anywhere in the text; without a label it counts in the signature block, or in the last 350 characters of an email that has none, and a name or organisation within 160 characters before it makes it strong. Postal addresses, disclaimers, copyright lines and a name right after a closing word ("Thanks, John") are weak claims, because the train labels show annotators marked them.
 6. **Selection.** Weak claims below `min_confidence` are dropped; within a type, overlapping candidates keep the longest; at most 3 claims per type and 12 per email.
 7. **Attributes.** The nearest PERSON, the nearest ORG and a department word (IT, HR, Finance ...) within 6 tokens of the claim fill `attributes`; `pattern` names the rule that fired and `zone` says which text the span points into.
 
@@ -61,6 +64,8 @@ A phrase is words separated by spaces, each word one spaCy token:
 | `verif*` | any token that starts with "verif" |
 | `sign\|log` | either word (each alternative may end in `*`) |
 | `!writing\|to` | any token except these |
+| `=IT\|HR` | the token with exactly this capitalisation ("IT" the department, never "it" the pronoun) |
+| `#` | one token made of digits (a house number, a postcode) |
 | `?the` | the token is optional |
 | `..3` | up to 3 tokens of anything (1 to 6; never first or last) |
 | `@PERSON`, `@ORG` | a run of tokens spaCy marks as that entity |
@@ -77,7 +82,10 @@ Each phrase is **strong** (confidence 0.9: hard to say innocently, such as "veri
 
 | Version | Date | Change |
 |---|---|---|
-| 0.1 | Oct 2026 | First patterns: 71 phrases, the organisation rule, the signature rule |
+| 0.1 | Oct 2026 | First patterns: 71 phrases, the organisation rule, the signature rule. First run on the 69,542 train emails showed: `affiliation_external` found in 57% of all emails (a bare organisation name from spaCy fired it), "make money" and "send Mr Pratchett money" fired `payment_request`, "it) may support" fired `affiliation_internal` (the pronoun "it"), "as let's talk" and "as \"promiscuous\"" fired `prior_relationship` (the stem `promis*`), "return with your credit" fired `data_request`, "gift voucher" fired `gift_card`, "message for direct mail" and "my personal mail" fired `reply_direction`; `signature_contact` found 43% of the labelled signatures |
+| 0.2 | Oct 2026 | Read off those train results: a bare organisation counts only for the known, often-imitated ones (or when a word like Team or Bank is next to it); "IT" is matched in capitals only; "make money" and "send money" are weak; `as discussed` uses whole words; gift vouchers are weak; `data_request` needs "your" before the sensitive word; `reply_direction` no longer fires on "my personal mail" as a strong claim. `signature_contact` now also reads postal addresses, disclaimers ("please notify the sender"), copyright lines and a name right after a closing word, because the train labels show annotators marked those. The regression cases above are in the self-test. Added `--diagnose` |
+| 0.3 | Oct 2026 | Read off the second train run (`--diagnose`): the name after a copyright sign is an organisation (the labels show McDonald's, Lowe's, Omaha Steaks, MetaMask and OpenSea marked this way); a span of generic words only ("Bank", "Bank account", "Security Company") is not an organisation; a labelled phone number or e-mail (Tel, Fax, E-mail) counts anywhere, not only at the end; `affiliation_internal` no longer fires on "I am a social worker with", "I'm one of the authors of the OAuth support" or "system maintenance" (`worker`, `member`, `of`, `maintenance` removed); `data_request` no longer fires on "charged to your credit card" (the card pattern needs a request verb) or "Customer, Our records"; "payment pending" is weak. Six more regression cases in the self-test |
+| 0.4 | Oct 2026 | Read off the third train run: redaction placeholders no longer match pattern words (the EMAIL of `[EMAIL]` matched the word "email", which made "You have added [EMAIL] as a new email address" a reply direction); "called me on" no longer matches the contact verb "call"; "your account through the office" no longer matches the internal-affiliation pattern; `official`, `advisor` and `spokesman` count as titles. Four more regression cases. **Frozen here for the validation read** if the full train run is acceptable |
 
 ## Scoring (`build.py`)
 

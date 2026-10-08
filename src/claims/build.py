@@ -1,9 +1,12 @@
 """Phase 7: run the claim extractor over the training split and score it against the Phase 5 claim labels.
 
 Run from the project root (after Phases 2, 5 and 6; needs the spaCy model of requirements.txt):
-    python -m src.claims.build --train-only # while the patterns are being written: validation is never loaded
+    python -m src.claims.build --train-only --limit 6000    # a quick development run (about 3 minutes)
+    python -m src.claims.build --train-only --limit 6000 --diagnose signature_contact,payment_request
+                                            # also print, for labelled TRAIN emails, the claims the extractor misses and
+                                            # the ones it finds that nobody labelled, with a little context (never saved)
+    python -m src.claims.build --train-only # all train emails, about 20 minutes; validation is never loaded
     python -m src.claims.build              # the final run of a frozen version: also scores the validation emails (once)
-    python -m src.claims.build --limit 5000 # a quick run: a random sample of 5,000 train emails for the hit rates
 
 Reads  data/processed/cleaned.parquet   TRAIN rows for the hit rates, plus the labelled train and validation emails
        data/labelled/labels.csv         the claim labels (spans and types) of the 690 labelled real emails
@@ -60,6 +63,8 @@ MIN_FIRED = 20                               # a type that fires on fewer train 
 DOMINANT_SHARE = 0.5
 MIN_RATIO = 2.0
 EXAMPLES_PER_TYPE = 3
+DIAGNOSE_LINES = 25          # examples printed per kind and type by --diagnose
+DIAGNOSE_TAIL = 90           # characters from the end of an email printed next to a missed claim
 SNIPPET_CHARS = 70
 
 # Where a claim type is expected to fire clearly more often than on ordinary mail.
@@ -69,7 +74,9 @@ EXPECTED_HIGHER = [
 ]
 # Rules in extractor.py that are not phrase patterns.
 RULE_PATTERNS = [("affiliation_external", "ae_org_cue", STRONG), ("affiliation_external", "ae_org_mention", 0.6),
-                 ("signature_contact", "sc_name_contact", STRONG), ("signature_contact", "sc_contact", 0.6)]
+                 ("affiliation_external", "ae_copyright", STRONG),
+                 ("signature_contact", "sc_name_contact", STRONG), ("signature_contact", "sc_contact", 0.6),
+                 ("signature_contact", "sc_labelled_contact", STRONG), ("signature_contact", "sc_signoff_name", 0.6)]
 
 
 def load_train(limit):
@@ -173,7 +180,7 @@ def span_scores(label_lists, found_lists, claim_type):
 
 
 def score_set(name, bodies, signatures, label_lists, note=""):
-    """Score one labelled set at both operating points. Returns (rows, problems, claim lists at the lowest threshold)."""
+    """Score one labelled set at both operating points. Returns (rows, problems, claims per email, the texts that were read)."""
     claims, prepared = extract_many(bodies, signatures)
     problems = [p for email_claims, (text, sig) in zip(claims, prepared) for c in email_claims for p in check_claim(c, text, sig)]
     truth = truth_matrix(label_lists)
@@ -190,7 +197,29 @@ def score_set(name, bodies, signatures, label_lists, note=""):
         rows.append({"data": name, "min_confidence": conf, "claim_type": "macro_scoreable5", "items": len(bodies),
                      "f1": round(macro_f1(truth, predicted, CLAIM_TYPES, SCOREABLE), 4), "reported": "mean F1 over " + ", ".join(SCOREABLE),
                      "note": note})
-    return rows, problems, claims
+    return rows, problems, claims, prepared
+
+
+def diagnose(claim_types, prepared, label_lists, claims):
+    """Print the labelled train emails where a claim type is missed or found without a label (terminal only, never saved)."""
+    for claim_type in claim_types:
+        misses, extras = [], []
+        for (text, sig), labelled, found in zip(prepared, label_lists, claims):
+            wanted = [c["span"] for c in labelled if c["type"] == claim_type]
+            ours = [c for c in found if c["type"] == claim_type]
+            if wanted and not ours and len(misses) < DIAGNOSE_LINES:
+                misses.append("labelled: %-70r end of the email: %r" % (wanted[0][:70], text[-DIAGNOSE_TAIL:]))
+            if ours and not wanted and len(extras) < DIAGNOSE_LINES:
+                claim = ours[0]
+                source = text if claim["attributes"]["zone"] == "body" else sig
+                start, end = claim["span"]
+                around = source[max(0, start - 40):start] + "[[" + source[start:end][:80] + "]]" + source[end:end + 40]
+                extras.append("%-16s %.1f  %r" % (claim["attributes"]["pattern"], claim["confidence"], around))
+        print("\nDIAGNOSE %s (real train): %d missed, then %d found without a label" % (claim_type, len(misses), len(extras)))
+        for line in misses:
+            print("  MISS ", line)
+        for line in extras:
+            print("  EXTRA", line)
 
 
 def print_scores(scores, name, conf):
@@ -210,6 +239,7 @@ def print_scores(scores, name, conf):
 
 def main():
     parser = argparse.ArgumentParser(description="Claim extractor: train hit rates and scores against labels (Phase 7).")
+    parser.add_argument("--diagnose", default="", help="comma-separated claim types: print the misses and the unlabelled finds on labelled train emails")
     parser.add_argument("--train-only", action="store_true", help="never load validation emails or labels (use while writing patterns)")
     parser.add_argument("--limit", type=int, default=0, help="a random sample of N train emails for the hit rates (a quick run)")
     args = parser.parse_args()
@@ -237,6 +267,10 @@ def main():
 
     # ---- parts 2 and 3 -------------------------------------------------------------------------------------------
     labels = pd.read_csv(LABELS_CSV, dtype={"id": str})
+    diagnose_types = [t for t in args.diagnose.split(",") if t]
+    unknown = [t for t in diagnose_types if t not in CLAIM_TYPES]
+    if unknown:
+        raise SystemExit("--diagnose: unknown claim types %s" % unknown)
     splits = ("train",) if args.train_only else ("train", "validation")
     labels = labels[labels["split"].isin(splits)]                           # the test labels are never used here
     assert not (labels["split"] == "test").any()
@@ -247,13 +281,15 @@ def main():
     for split in splits:
         part = labels[labels["split"] == split]
         sigs = [s if isinstance(s, str) else "" for s in text.loc[part["id"], "signature"]]
-        result, found_problems, claims = score_set("real_" + split, text.loc[part["id"], "body_redacted"].tolist(), sigs,
-                                                   [json.loads(c) for c in part["claims"]])
+        label_lists = [json.loads(c) for c in part["claims"]]
+        result, found_problems, claims, prepared = score_set("real_" + split, text.loc[part["id"], "body_redacted"].tolist(), sigs, label_lists)
         rows += result
         labelled_problems += found_problems
         claim_counts += [len(c) for c in claims]
+        if split == "train" and diagnose_types:
+            diagnose(diagnose_types, prepared, label_lists, claims)
         part = synthetic[synthetic["split"] == split]
-        result, found_problems, claims = score_set("synthetic_" + split, part["body_redacted"].tolist(), None,
+        result, found_problems, claims, _ = score_set("synthetic_" + split, part["body_redacted"].tolist(), None,
                                                    [json.loads(c) for c in part["claims"]],
                                                    note="labels list only the claims the generator was required to include: precision is a lower bound")
         rows += result
