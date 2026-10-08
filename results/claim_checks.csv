@@ -9,8 +9,8 @@ claims_valid,"claims whose text is not the slice of their span, or with a bad ty
 claims_capped,most claims in one email / most of one type,12 / 3,<= 12 / <= 3,PASS
 crafted_inputs,"slowest of 8 crafted 200,000-character inputs",0.54 s,< 2 s,PASS
 leakage_guard,splits read for hit rates,train,train only,PASS
-leakage_guard,splits read for scoring,train,train and validation only (train only with --train-only),PASS
-validation_scored,this run scored the validation emails,no (--train-only),yes in the final run of a frozen version,info
+leakage_guard,splits read for scoring,train+validation,train and validation only (train only with --train-only),PASS
+validation_scored,this run scored the validation emails,yes,yes in the final run of a frozen version,PASS
 coverage,affiliation_internal,fires on 1831 emails,>= 20 (a finding if not),PASS
 coverage,affiliation_external,fires on 15878 emails,>= 20 (a finding if not),PASS
 coverage,authority,fires on 2457 emails,>= 20 (a finding if not),PASS
@@ -37,7 +37,7 @@ run,pattern_version,0.4,,info
 run,phrases,85,,info
 run,spacy / model,3.8.16 / en_core_web_sm 3.8.0,,info
 run,train_emails,69542,,info
-run,labelled real emails scored (train / validation),413 / 0,,info
+run,labelled real emails scored (train / validation),413 / 137,,info
 run,--limit (0 means every train email),0,0 in the final run,PASS
-run,mean claims per labelled real email,2.49,,info
-run,seconds,1186,,info
+run,mean claims per labelled real email,2.42,,info
+run,seconds,1197,,info

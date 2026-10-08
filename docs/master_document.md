@@ -14,9 +14,9 @@ Project Master Document
 
 **Faculty:** Dr. Arun Prasath G
 
-**Version:** 3.8, 8 October 2026
+**Version:** 3.9, 8 October 2026
 
-> **This is the single source of truth for the project.** Version 3.8 supersedes version 3.7 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
+> **This is the single source of truth for the project.** Version 3.9 supersedes version 3.8 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
 
 **Contents**
 
@@ -147,7 +147,7 @@ This document is written so that a person or an AI assistant can pick up Pretext
 </tr>
 <tr class="even">
 <td>Current status</td>
-<td>Phases 0 to 6 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 labelled 690 real emails for the seven tactics and eleven claim types with two LLM annotators and a tie-breaker (results/label_*.csv), wrote 222 synthetic attack-and-twin pairs for the rare tactics, and recorded the SemEval 23-to-7 mapping. Phase 6 fine-tuned DistilBERT on the seven tactics on Colab (real and synthetic training emails, three seeds, thresholds tuned on validation) and scored it against the keyword baseline on the validation emails, real and synthetic apart (results/tactic_*.csv, Section 8.14). Phase 7 (claim extractor) is next.</td>
+<td>Phases 0 to 7 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 labelled 690 real emails for the seven tactics and eleven claim types with two LLM annotators and a tie-breaker (results/label_*.csv), wrote 222 synthetic attack-and-twin pairs for the rare tactics, and recorded the SemEval 23-to-7 mapping. Phase 6 fine-tuned DistilBERT on the seven tactics on Colab (real and synthetic training emails, three seeds, thresholds tuned on validation) and scored it against the keyword baseline on the validation emails, real and synthetic apart (results/tactic_*.csv, Section 8.14). Phase 7 built the claim extractor: spaCy name detection, 85 token patterns and organisation and signature rules turn an email into typed claims of the eleven types of Section 6.4; the patterns were written from the train split only, frozen at version 0.4 and scored once on the validation emails (results/claim_*.csv, Section 8.15). Phase 8 (header verifier and request verifier) is next.</td>
 </tr>
 <tr class="odd">
 <td>Repository</td>
@@ -392,7 +392,7 @@ It is presented on the architecture slide as the system design the three claims 
 | Header evidence extractor | Headers + organisation domain(s) | Evidence dict: SPF, DKIM and DMARC verdicts (or unknown) from trusted Authentication-Results headers, the authenticated domain and its alignment with From, From name/address/domain, Reply-To divergence, envelope mismatch, Received hops and origin IP, send hour, freemail and open-platform flag, name-shows-address flag, list mail, lookalike score vs the organisation domain (vs claimed domains in Phase 8, same function) | email.utils, tldextract (offline), rapidfuzz, hand-written freemail list (Section 8.11) | src/headers |
 | Body preprocessor | Body | Clean text (links kept), redacted text (N1), signature | BeautifulSoup HTML to text; list footer and quoted history removed; ReDoS-safe regular expressions; tldextract with its offline public suffix list (Section 8.10) | src/preprocess |
 | Thread builder | Several messages | Ordered thread, per-message evidence, quoted history | Message-ID, In-Reply-To, References; fallback for Enron: normalised subject, participants and quote matching | src/thread |
-| Claim extractor | Redacted body and signature block | Typed claims (affiliation_internal, affiliation_external, authority, relationship, request types) with text span, claimed organisation and confidence | DistilBERT 7-head tactic classifier + spaCy NER + regex patterns | src/claims |
+| Claim extractor | Redacted body and signature block | Typed claims (the eleven types of Section 6.4) with text span, attributes (person, organisation, department, rule, zone) and confidence | spaCy tokenizer and named-entity recogniser + 85 token patterns and organisation and signature rules (Section 8.15); nothing is trained, and no regular expression runs over email text; the tactic classifier (Section 8.14) runs beside the extractor, not inside it | src/claims |
 | Claim router | Claims | Claim-to-verifier assignments | Rule table (Section 6.4) | src/router |
 | Header verifier (N3) | Affiliation, authority, reply and signature claims + header evidence + organisation domain | Ledger rows | Python rules with weights | src/verifiers |
 | Thread verifier (N2) | Relationship and request claims + thread | Ledger rows + hijack index | Tactic deltas, request drift (set differences on payment details), sending-path comparison, Message-ID and quote matching | src/verifiers |
@@ -412,10 +412,12 @@ Claim object produced by the claim extractor:
   "type": "affiliation_internal",
   "text": "this is David from Finance",
   "span": [10, 36],
-  "attributes": {"person": "David", "organisation": "Acme", "department": "Finance"},
-  "confidence": 0.91
+  "attributes": {"person": "David", "organisation": null, "department": "Finance", "pattern": "ai_this_is_from", "zone": "body"},
+  "confidence": 0.9
 }
 ```
+
+The span points into the text the extractor read (the redacted body cut at 2,000 characters, or the redacted signature block named by zone), not into the raw email. Confidence is the strength of the rule that fired (0.9 strong, 0.6 weak), not a probability. attributes.pattern names the rule, so every claim can say why it exists.
 
 Ledger row produced by a verifier:
 
@@ -537,7 +539,7 @@ Run-time steps, mapped to the code that performs them:
 
 - **Weights and Colab:** training needs a GPU, so it runs on Google Colab's free GPU. The result is a set of weight files (the learned numbers), downloaded into artifacts/ and used on the Mac's CPU, which is fast enough for one email at a time.
 
-- **spaCy and regex:** spaCy finds people and organisation names; regex patterns catch phrases such as "this is X from Y", account numbers and signature blocks. The claim extractor combines them with the classifier into typed claims.
+- **spaCy and token patterns:** spaCy cuts the text into words (tokens) and marks the names of people and organisations; hand-written patterns over tokens (not regular expressions over characters) catch phrases such as "this is X from Y" or "verify your account", and rules read the signature block. Together they turn an email into typed claims (Section 8.15). Nothing is trained for this step.
 
 - **LIME:** removes words one at a time, watches how a tactic probability changes, and highlights the words that mattered most.
 
@@ -696,6 +698,7 @@ thread_id, thread_position                                 (Phase 9)
 | Trained model weights | artifacts/tactic_model/ | No (README only) | 6 |
 | Training table: train and validation emails with their tactic labels, uploaded to Drive (never any test row) | data/processed/tactic_data.parquet | No (full email text) | 6 |
 | Phase 6 results (data counts, training log, seed summary, validation probabilities, run record, validation scores, checks) | results/tactic_data_counts.csv, tactic_training_log.csv, tactic_seed_summary.csv, tactic_val_probs.csv, tactic_run_info.json, tactic_validation_scores.csv, tactic_checks.csv | Yes | 6 |
+| Phase 7 results (train-split hit rates, hits per pattern, scores against the labels, checks and run details) | results/claim_hit_rates.csv, claim_pattern_hits.csv, claim_scores.csv, claim_checks.csv | Yes | 7 |
 | Rebuilt threads and hijack benchmark | data/threads/ | Decided in Phase 9 by size | 9 |
 | Every experiment number and chart | results/ | Yes (rubric requirement) | 13 |
 | Report and slides | docs/ | Yes | 14 |
@@ -708,7 +711,7 @@ At run time nothing is stored: the email lives in memory for one request, and lo
 
 - **body_clean:** HTML converted to text with BeautifulSoup and Python's built-in parser (scripts, styles and \<blockquote\> replies dropped; each link's hidden target written after its text, so model A sees links that HTML hides); a mailing-list footer removed (it would mark a message as list mail, so ham); quoted history removed from the earliest reply marker and every line starting with "\>" (the whole text is kept if nothing readable remains); whitespace collapsed for every source. Links stay in: body_clean is N1 model A's raw view.
 
-- **signature:** a "-- " line, or a closing such as "Best regards," near the end. It stays inside body_clean (affiliation claims live there) and is copied to its own column for Phase 7.
+- **signature:** a "-- " line, or a closing such as "Best regards," near the end. It stays inside body_clean (affiliation claims live there) and is copied to its own column for Phase 7 (unredacted, because it is cut from body_clean; the claim extractor redacts it before reading it, Section 8.15).
 
 - **body_redacted:** \[URL\], \[EMAIL\], \[FILE\] and \[DOMAIN\], applied in that order. URLs go first so a link's domain is not caught on its own; file names go before domains because some file endings are real top-level domains (invoice.zip). A domain must end in a real public suffix (tldextract, with its built-in list and no downloads), so Mr.Smith and e.g stay. \[EMAIL\] is a fourth placeholder added in Phase 2: an address hides a domain.
 
@@ -907,6 +910,115 @@ Tactics with fewer than 10 positives in validation or test, reported as counts a
 
 - **Security:** see Section 10 (model files and offline inference).
 
+## 8.15 Phase 7 claim extractor
+
+- **Output:** src/claims (schema.py, patterns.py, extractor.py, build.py, README.md). `extract_claims(body_redacted, signature, min_confidence)` returns the claim objects of Section 6.3 for the eleven types of Section 6.4; `extract_many` does a batch. Results in results/claim_hit_rates.csv, claim_pattern_hits.csv, claim_scores.csv and claim_checks.csv. New libraries: spaCy 3.8.16 and its English model en_core_web_sm 3.8.0 (the model is not on PyPI, so requirements.txt pins it by URL and SHA-256 hash and pip refuses a different file; pip-audit reported no known vulnerability in spaCy or its dependencies and says it cannot audit the model itself).
+
+- **What is read:** model_text(body_redacted), the same text the annotators labelled and DistilBERT reads (2,000 characters), plus the signature block. The signature column of cleaned.parquet is cut from body_clean in Phase 2, so it still holds raw addresses and links; extract_claims redacts it with the Phase 2 redact function first and cuts it at 1,000 characters. A claim's span points into the text that was read, and its zone says whether that was the body or the signature.
+
+- **Method:** no model is trained and no LLM runs. spaCy (only the tokenizer and the named-entity recogniser, which keeps it fast) cuts the text into tokens and marks people and organisations. Then three kinds of rule: (1) 85 phrase patterns in a small token-pattern language compiled to spaCy's Matcher (words, word starts, alternatives, exact-case words such as IT, optional words, up to 6 free tokens, digits, person and organisation entities), one or more for each of the eleven types; (2) an organisation rule for affiliation_external (an organisation name next to a cue word such as Team, Bank or Security; the name after a copyright sign; a short list of often-imitated organisations, KNOWN_ORGS, which Phase 8 will attach real domains to) with filters for greetings, job titles, department words, placeholders and spans made only of generic words; (3) a signature rule for signature_contact (labelled phone numbers and addresses anywhere, unlabelled ones in the signature or the last 350 characters, postal addresses, disclaimers and a name after a closing word as weak claims). Within a type overlapping candidates keep the longest, with at most 3 claims per type and 12 per email. **Confidence is the strength of the rule that fired** (0.9 strong, 0.6 weak), not a probability, and nothing calibrates it; every result is reported at two operating points, all claims and strong claims only (min_confidence 0.0 and 0.9). Token patterns replace the regular expressions planned in Section 6.2: their cost grows with the number of tokens and cannot blow up, each word is one whole token, and the same patterns read Kaggle's pre-tokenised text.
+
+- **Protocol (no leakage):** the patterns were written from the claim definitions, general knowledge of how business email compromise, phishing and advance-fee fraud are worded, and the train split only; they exist in four versions (0.1 to 0.4, below), each revision made by reading train results, and `build.py --train-only` never loads a validation email or label. Version 0.4 was frozen and committed (8633c4f) before the validation emails were scored once by `python -m src.claims.build`; no pattern changed afterwards, and the test split is not used until Phase 13. Scores on the real train emails are development scores: the patterns were written while reading them.
+
+| **Version** | **What the train results showed, and the change** |
+|---|---|
+| 0.1 | First patterns. A bare organisation name from spaCy made affiliation_external fire on 57% of all emails (the attack-versus-ham check failed); "make money" fired payment_request, the pronoun "it" fired affiliation_internal, the stem promis* fired prior_relationship, gift vouchers fired gift_card. Only 43% of labelled signatures were found |
+| 0.2 | Bare organisations count only when known or cued; IT matched in capitals only; weak "send money"; whole-word "as discussed"; data_request needs "your"; signature rule extended to postal addresses, disclaimers, copyright lines and a name after a closing word (the train labels show annotators marked those); --diagnose added |
+| 0.3 | Name after a copyright sign is an organisation; spans of generic words are not; labelled phone or address counts anywhere; internal-affiliation and data-request patterns tightened ("I am a social worker with", "charged to your credit card" no longer fire) |
+| 0.4 | Redaction placeholders no longer match pattern words (the EMAIL of [EMAIL] matched "email"); "called me on" no longer matches the contact verb; official, advisor and spokesman count as titles. Frozen here |
+
+- **Hit rates on the train split** (69,542 emails; results/claim_hit_rates.csv; percentage of emails in which a claim of the type is found, no labels involved). A claim type should fire far more on the attacks it belongs to than on ordinary mail. All claims:
+
+| **Claim type** | **All emails** | **Ham** | **Spam** | **Phishing** | **Fraud** |
+|---|---|---|---|---|---|
+| affiliation_internal | 2.63 | 1.42 | 0.43 | 9.87 | 5.18 |
+| affiliation_external | 22.83 | 12.46 | 19.39 | 50.34 | 52.15 |
+| authority | 3.53 | 1.64 | 1.63 | 3.09 | 52.32 |
+| reply_direction | 2.38 | 2.51 | 1.03 | 1.04 | 23.11 |
+| signature_contact | 32.44 | 34.82 | 17.87 | 50.92 | 68.75 |
+| prior_relationship | 1.52 | 2.03 | 0.41 | 2.28 | 3.54 |
+| payment_request | 2.01 | 0.48 | 0.82 | 4.04 | 24.83 |
+| payment_change | 0.67 | 0.04 | 0.10 | 3.41 | 1.02 |
+| credential_request | 6.29 | 0.97 | 1.01 | 31.74 | 1.06 |
+| gift_card | 0.18 | 0.15 | 0.17 | 0.34 | 0.00 |
+| data_request | 5.19 | 2.56 | 3.14 | 13.62 | 18.24 |
+
+Strong claims only:
+
+| **Claim type** | **All emails** | **Ham** | **Spam** | **Phishing** | **Fraud** |
+|---|---|---|---|---|---|
+| affiliation_internal | 2.46 | 1.34 | 0.38 | 9.56 | 3.23 |
+| affiliation_external | 19.91 | 9.85 | 17.65 | 44.10 | 49.40 |
+| authority | 1.70 | 0.51 | 0.72 | 0.23 | 36.39 |
+| reply_direction | 1.22 | 1.00 | 0.67 | 0.45 | 14.25 |
+| signature_contact | 12.28 | 15.15 | 4.69 | 18.23 | 29.22 |
+| prior_relationship | 1.18 | 1.57 | 0.26 | 2.10 | 1.64 |
+| payment_request | 1.03 | 0.37 | 0.42 | 2.96 | 6.15 |
+| payment_change | 0.31 | 0.02 | 0.04 | 1.48 | 1.02 |
+| credential_request | 5.29 | 0.34 | 0.71 | 28.30 | 0.40 |
+| gift_card | 0.13 | 0.07 | 0.14 | 0.26 | 0.00 |
+| data_request | 0.57 | 0.21 | 0.33 | 0.44 | 8.68 |
+
+- **Real labelled emails** (137 validation emails, 413 train; results/claim_scores.csv). Email level: does the email contain a claim of the type, as the annotators say. F1 is reported only for a type with 10 or more positives in the set, otherwise the counts (true positives, false positives, false negatives). The last column is the F1 of annotator 2's labels against annotator 1's, computed from results/label_agreement.csv, to show what agreement the labels themselves support. All scores are agreement with LLM labels from one model family.
+
+| **Claim type** | **Positives (train / validation)** | **Train, all claims (development set)** | **Validation, all claims** | **Validation, strong claims only** | **Annotator 1 against annotator 2 (F1)** |
+|---|---|---|---|---|---|
+| affiliation_internal | 32 / 15 | 0.492 | 0.167 | 0.087 | 0.410 |
+| affiliation_external | 116 / 38 | 0.693 | 0.703 | 0.651 | 0.721 |
+| authority | 45 / 15 | 0.707 | 0.621 | 0.500 | 0.662 |
+| reply_direction | 35 / 9 | 0.585 | tp 5, fp 3, fn 4 | tp 4, fp 0, fn 5 | 0.726 |
+| signature_contact | 87 / 26 | 0.465 | 0.505 | 0.510 | 0.613 |
+| prior_relationship | 8 / 1 | tp 4, fp 11, fn 4 | tp 0, fp 4, fn 1 | tp 0, fp 1, fn 1 | 0.205 |
+| payment_request | 8 / 0 | tp 2, fp 38, fn 6 | tp 0, fp 11, fn 0 | tp 0, fp 5, fn 0 | 0.303 |
+| payment_change | 1 / 1 | tp 0, fp 7, fn 1 | tp 1, fp 3, fn 0 | tp 1, fp 2, fn 0 | 0.333 |
+| credential_request | 62 / 25 | 0.727 | 0.783 | 0.683 | 0.730 |
+| gift_card | 1 / 0 | tp 1, fp 1, fn 0 | tp 0, fp 1, fn 0 | tp 0, fp 0, fn 0 | 0.500 |
+| data_request | 23 / 5 | 0.416 | tp 2, fp 13, fn 3 | tp 1, fp 2, fn 4 | 0.333 |
+| macro-F1 (5 types with enough real positives) |  | 0.617 | 0.556 | 0.486 | 0.627 |
+
+Validation, the five types with enough positives; span precision and recall use the Phase 5 overlap rule (one span contains the other, or at least half the words are shared) and are stricter than the email-level scores:
+
+| **Claim type** | **Precision** | **Recall** | **Span precision** | **Span recall** | **Precision, strong only** | **Recall, strong only** |
+|---|---|---|---|---|---|---|
+| affiliation_internal | 0.22 | 0.13 | 0.20 | 0.13 | 0.12 | 0.07 |
+| affiliation_external | 0.60 | 0.84 | 0.47 | 0.71 | 0.60 | 0.71 |
+| authority | 0.64 | 0.60 | 0.30 | 0.33 | 0.67 | 0.40 |
+| signature_contact | 0.35 | 0.92 | 0.24 | 0.73 | 0.52 | 0.50 |
+| credential_request | 0.86 | 0.72 | 0.55 | 0.56 | 0.88 | 0.56 |
+
+- **Synthetic emails** (76 validation emails, 306 train; always apart from the real ones, Section 8.5). Their labels list only the claims the generator was required to include, so precision is a lower bound and recall is the meaningful number. They are the only place the rarest request types can be measured at all.
+
+| **Claim type** | **Positives (train / validation)** | **Train, all claims** | **Validation, all claims** | **Validation, strong claims only** |
+|---|---|---|---|---|
+| affiliation_internal | 142 / 44 | 0.575 | 0.557 | 0.486 |
+| affiliation_external | 80 / 18 | 0.147 | 0.370 | 0.370 |
+| authority | 81 / 17 | 0.804 | 0.739 | 0.757 |
+| reply_direction | 49 / 12 | 0.851 | 0.783 | 0.667 |
+| signature_contact | 52 / 12 | 0.693 | 0.615 | 0.783 |
+| prior_relationship | 101 / 33 | 0.828 | 0.885 | 0.885 |
+| payment_request | 115 / 32 | 0.792 | 0.867 | 0.848 |
+| payment_change | 42 / 14 | 0.950 | 0.963 | 0.880 |
+| credential_request | 15 / 1 | 0.857 | tp 1, fp 3, fn 0 | tp 1, fp 1, fn 0 |
+| gift_card | 30 / 2 | 0.984 | tp 2, fp 0, fn 0 | tp 1, fp 0, fn 1 |
+| data_request | 52 / 14 | 0.661 | 0.540 | 0.600 |
+| macro-F1 (the same 5 types) |  | 0.616 | 0.536 | 0.613 |
+
+- **Reading of the tables** (every number and comparison below is computed from them by the script that wrote this section):
+
+    - on the 137 real validation emails, the first unbiased reading of this version, the macro-F1 over the five types with enough real positives is 0.556 for all claims and 0.486 for strong claims only, against 0.617 and 0.605 on the real train emails (the development set the patterns were written from); the five validation F1 values run from 0.167 to 0.783.
+    - the fall comes mostly from one type: affiliation_internal went from 0.492 on train to 0.167 on validation (15 validation positives, 2 found, 7 wrong, 13 missed), while the other four types moved between -0.086 and +0.055.
+    - the two annotators' labels agree with each other at F1 0.410 to 0.730 on these five types (last column of the real table); the extractor is within 0.1 of the annotators' own agreement on 3 of 5 (affiliation_external, authority and credential_request) and lower by more than 0.1 on affiliation_internal and signature_contact; labels that two annotators only partly share set a level that a rule-based extractor cannot be expected to pass by much.
+    - affiliation_internal has the lowest validation precision (0.22 at recall 0.13).
+    - strong claims only raise precision on 3 of 5 types (authority, signature_contact and credential_request) and lower F1 on 4 of 5 (affiliation_internal, affiliation_external, authority and credential_request); the per-type choice between the two operating points is made on validation in Phase 13.
+    - the five types have only 15 to 38 validation positives each, so differences of a few points are within noise (Phase 13 adds confidence intervals); 6 of the 11 types (reply_direction, prior_relationship, payment_request, payment_change, gift_card and data_request) have fewer than 10 real validation positives and are counts only.
+    - on the synthetic validation emails the macro-F1 is 0.536 for all claims and 0.613 for strong claims only, and recall is below 0.5 for affiliation_external, because the rule that rejects organisation names made only of generic words (a choice made to stop false positives on real mail) also rejects most of the generic-sounding company names the generator invented; credential_request and gift_card have fewer than 10 synthetic validation positives and are counts only; synthetic precision is a lower bound because the labels list only the claims the generator was required to include.
+
+- **Checks** (results/claim_checks.csv): 31 PASS, 0 FAIL, 11 info. They cover the patterns (they compile and every word is one token), 5 attack-versus-ham contrasts (credential requests on phishing, outside organisations on phishing, reply directions, authority and data requests on fraud: each at least twice the ham rate), the claim objects (every claim's text is exactly the slice of its span, at most 12 per email and 3 per type), speed (slowest of eight crafted 200,000-character inputs 0.54 s), leakage (hit rates read the train split only; scoring read train and validation only) and coverage. Findings that are not failures: affiliation_internal: ai_dept_role (79.8% of its hits); affiliation_external: ae_org_cue (68.0% of its hits); payment_change: pc_details_changed (53.8% of its hits); gift_card: gc_gift_card (67.7% of its hits). The full run took 1197 seconds (about 20 minutes) on the Mac for 69,542 train emails plus the labelled sets (413 / 137 train / validation); the mean is 2.42 claims per labelled real email.
+
+- **Known limits:** English only (the corpora contain Portuguese, German, Italian and other mail); patterns do not understand negation ("never send your password" can still match) or paraphrase; spaCy's small model misses some organisations and mislabels some words, and the claim attributes inherit its mistakes; the labels are LLM labels from one model family and the annotators agreed only moderately (mean kappa 0.458 over the claim types), so a score is agreement with those labels; affiliation_internal cannot be decided from the body alone (it needs the organisation domain, Phase 8) and is the weakest type here; six of the eleven types have fewer than 10 real positives and are counts only; real train scores are development scores; validation was read once and not used to change anything, but Phase 13 will choose the operating point per type on it, so the validation scores of that choice are slightly optimistic.
+
+- **Security:** see Section 10 (claim extraction).
+
 # 9. Technology stack
 
 | **Layer** | **Choice** | **Why** |
@@ -914,7 +1026,7 @@ Tactics with fewer than 10 positives in validation or test, reported as counts a
 | Language | Python 3.12 (Homebrew python@3.12) in a venv | Python 3.12 was Colab's runtime when it was chosen; the Phase 6 run found Colab on Python 3.13.15, which does not affect saved weights; venv is Python's node_modules |
 | Model | DistilBERT via HuggingFace Transformers + PyTorch | Small enough to fine-tune on a free Colab GPU; fast inference on CPU |
 | Training | Google Colab (free GPU) | No local GPU needed; torch and transformers pinned to the same versions as local |
-| NLP extras | spaCy (en_core_web_sm) | Names and organisations for identity claims |
+| Claim extractor (Phase 7) | spaCy 3.8.16 with en_core_web_sm 3.8.0 (tokenizer and named-entity recogniser only) | Token patterns and organisation names for claims; the English model is not on PyPI, so requirements.txt pins it by URL and SHA-256 |
 | Header parsing | email stdlib, mailbox, tldextract, rapidfuzz | Parsing, .mbox reading, domain splitting, lookalike and organisation-name matching |
 | Data and metrics | pandas, pyarrow, scikit-learn | Tables in memory, Parquet files, metrics (scikit-learn is first used in Phase 5) |
 | Downloads and progress (Phase 1) | requests, tqdm | Fetching the Apache list archives; progress bars for long runs |
@@ -951,6 +1063,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | Redaction before data leaves the machine | Annotation batches sent to outside web chats (Phase 5) use body_redacted only: no real addresses, no live links. tldextract never downloads its suffix list | A02 / privacy by design |
 | Annotation prompt hardening (build time) | Each email is wrapped as data in an <email> block with its angle brackets replaced, so it cannot close the block; the prompt says never to follow text inside and repeats it after the emails; a reply must be a JSON array of exactly the batch's ids with a fixed shape, and anything else is rejected and re-asked; quoted spans must appear in the email; a reply that gives every email the same answer is rejected as a likely hijack; batches (full email text) are never committed; API keys live only in .env (ignored by Git), travel only in the Authorization header over HTTPS, and are removed from every error message | LLM01 Prompt injection; A03 Injection |
 | Model files and offline inference (Phase 6) | Weights are stored and loaded as safetensors (plain numbers; the older pickle format can run code when loaded); loading is offline (local_files_only), trust_remote_code is never set, and the model's output order is checked against the tactic order; input is cut at 2,000 characters and 512 tokens; the Colab upload file holds train and validation rows only, so test emails and labels never reach training; the check suite fails if a pickle-style file sits in the model folder | A08 Software and Data Integrity Failures; A06 Vulnerable Components |
+| Claim extraction (Phase 7) | Input is cut before matching (2,000 characters of body, 1,000 of signature); phrase patterns match spaCy tokens, so cost grows with the number of tokens and cannot backtrack, and the only regular expressions are two short bounded ones (a phone number and the [EMAIL] placeholder); eight crafted 200,000-character inputs each finish in 0.54 s; the signature column is redacted before it is read; the spaCy model is loaded from disk, never downloaded at run time, and pinned by URL and SHA-256; every claim's text is checked to be exactly the slice of its span, so a highlight cannot point at the wrong words; results files hold counts only | A04 Insecure Design (denial of service); A08 Software and Data Integrity Failures; A06 Vulnerable Components |
 | Output encoding (XSS) | Email bodies are attacker-controlled. Render as text; highlights are built from escaped text; no dangerouslySetInnerHTML; DOMPurify if HTML is ever shown. Test with real XSS payloads from the corpus. | A03 Injection (XSS) |
 | PII redaction | Email addresses, phone numbers and account numbers redacted before any logging | A09 Logging Failures |
 | Rate limiting | slowapi per-IP limits on the analysis endpoint | A04 Insecure Design |
@@ -966,7 +1079,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 |---|---|---|---|
 | Tactic classifier | How well are tactics detected? | Per-tactic precision, recall, F1; macro-F1 | Base |
 | Keyword baseline vs DistilBERT | Does the model beat rules? | Macro-F1 on the labelled validation and test items (all random draws, none picked by keyword); per-tactic thresholds tuned on validation for both; tactics with too few positives reported as counts | Base |
-| Claim extraction | How accurately are claims found? | Precision and recall per claim type on the annotated test portion | All verifiers |
+| Claim extraction | How accurately are claims found? | Precision, recall and F1 per claim type against the LLM claim labels, for the five types with enough real positives (affiliation_internal, affiliation_external, authority, signature_contact, credential_request) and counts for the other six; real and synthetic emails apart; at two confidence levels (all claims, strong claims only); validation in Phase 7, the test split once in Phase 13 | All verifiers |
 | N1 ablation | How much of a phishing detector's accuracy is link-reading? | Attack-class F1 and false-positive rate for models A and B on raw, redacted and naturally link-free test views | N1 |
 | N2 ablation | Does thread verification catch hijacks N3 misses? | Detection rate with vs without the thread verifier; hijack-index accuracy; content signals on Enron threads, header signals on Apache threads | N2 |
 | N3 ablation | Does conditioning beat the alternatives? | F1 and false-positive rate: full vs text-only vs headers-only vs parallel fusion; real affiliation positives and synthetic BEC reported separately | N3 |
@@ -999,7 +1112,7 @@ For each phase, the assistant explains the background, then provides every file 
 | 4 | Keyword baseline: lexicon of strong and weak phrases, normaliser, scorer; train-split hit rates, phrase table and sanity checks | src/baseline | Done (7 Oct 2026) |
 | 5 | Tactic and claim labels: batch prompt builder, annotation through a free API (two annotator models and a tie-breaker), schema validation, Cohen's kappa, SemEval 23-to-7 mapping; synthetic emails via a free API into data/synthetic/ | src/data | Done (8 Oct 2026) |
 | 6 | DistilBERT tactic classifier on Colab (SemEval pretraining skipped), validation scores and checks | src/models, src/eval | Done (8 Oct 2026) |
-| 7 | Claim extractor and claim schema (affiliation, authority, relationship, request types) | src/claims | Not started |
+| 7 | Claim extractor and claim schema (spaCy, token patterns, organisation and signature rules; train-only development, frozen version scored once on validation) | src/claims | Done (8 Oct 2026) |
 | 8 | Header verifier (N3: internal and external affiliation, authority, reply, signature) and request verifier | src/verifiers | Not started |
 | 9 | Thread builder (Enron and Apache), thread-hijack benchmark, thread verifier (N2, including request drift) | src/thread, src/verifiers, src/data | Not started |
 | 10 | Claim router, verdict ledger, risk score, LIME highlights | src/router, src/explain | Not started |
@@ -1076,7 +1189,7 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | src/headers | parser.py, domains.py, evidence.py, build.py | Raw email to header block, body and header fields; registered domains, freemail and open-platform lists, lookalike score; evidence dict with trusted authentication verdicts; build writes headers.parquet and the checks. The brand-domain list for external affiliation moves to Phase 8 | 3 (done) |
 | src/baseline | lexicon.py, keywords.py, build.py | Word lists per tactic (data only); text normaliser, scorer and lexicon check; train-split hit rates, phrase table and sanity checks | 4 (done) |
 | src/models | dataset.py, train.py, predict.py, validate.py | Training table (train and validation rows only) and its checks; fine-tuning on Colab; loading weights and predicting 7 tactic probabilities; validation scores and PASS/FAIL checks on the Mac | 6 (done) |
-| src/claims | schema.py, patterns.py, extractor.py | Claim object; regex patterns; classifier + spaCy + patterns to typed claims | 7 |
+| src/claims | schema.py, patterns.py, extractor.py, build.py | Claim object and limits; phrase patterns and word lists (data only); spaCy and token patterns to typed claims; train hit rates, scores against the labels and checks | 7 (done) |
 | src/verifiers | header_verifier.py, request_verifier.py | N3 checks; who is asking for money or credentials | 8 |
 | src/thread, src/verifiers, src/data | builder.py, signals.py, thread_verifier.py, hijack_benchmark.py | Thread rebuilding; N2 signal helpers; N2 verifier and flip point; hijack benchmark | 9 |
 | src/router, src/explain | router.py, ledger.py, score.py, pipeline.py, lime_explain.py | Routing table; ledger rows; 0-100 score and bands; analyze(email) end to end; LIME highlights | 10 |
@@ -1116,6 +1229,11 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | How do you know the model is not just memorising 700 emails? | The training and validation loss are logged every epoch, training stops after three epochs without improvement on real validation emails and keeps the best epoch, three seeds are run and all reported, and the test split is touched once, in Phase 13. The validation scores are slightly optimistic because validation picked the epoch, the seed and the thresholds; the report says so. |
 | Why are reciprocity, social proof and liking counts and not F1? | Each has fewer than 10 real positives in validation or test, so one email would move F1 by several points. They learn mostly from synthetic emails, whose results are reported apart because they carry one LLM's style. |
 | Why tune thresholds, and why on validation? | A 0.5 cutoff assumes balanced classes; with rare tactics and a loss that up-weights positives the probabilities are shifted, so each of the four main tactics gets its own cutoff chosen on validation emails. The keyword baseline is tuned the same way, and the test split is used once with the cutoffs fixed. |
+| How does the claim extractor work, and why not a neural model or an LLM? | spaCy cuts the text into tokens and marks names; 85 hand-written patterns over tokens, plus organisation and signature rules, turn it into typed claims. The claim types are a closed list of typical phrasings, so rules need no training data beyond a few hundred labels, every claim names the rule that produced it (an explanation by construction), cost grows only with text length, and there is no LLM at run time. The limit is that it does not understand paraphrase, and the scores say how large that limit is. |
+| How do you know the claim patterns were not fitted to the validation or test data? | There are four versions (0.1 to 0.4) and each revision was made only after reading train results (the false positives printed from the train split); the development runs never load a validation email (--train-only); version 0.4 was committed (8633c4f) before the validation emails were scored once; nothing was changed after that, and the test split is untouched until Phase 13. The train scores are called development scores for that reason. |
+| Your claim F1 is modest. Is that good? | Partly. On the validation emails the five types with enough positives score F1 0.17 to 0.78 (macro 0.56). On 3 of the 5 the extractor is within 0.1 of the F1 the two LLM annotators reach against each other, which is about the most that labels agreeing this loosely can support (mean kappa over claim types 0.458); on the others (affiliation_internal and signature_contact) it is clearly lower, and affiliation_internal (0.17) is the weak one because it cannot be decided from the body alone. Six of the eleven types have too few real positives to give an F1 and are reported as counts. The tables in Section 8.15 show each type. |
+| What does a claim's confidence mean? | The strength of the rule that fired (0.9 for a phrase that is hard to say innocently, 0.6 for one that is common in ordinary mail). It is not a probability and nothing calibrates it. Results are reported at two operating points, every claim and strong claims only, and Phase 13 chooses between them per type on validation. |
+| Can an attacker get past the extractor by rewording, or by writing in another language? | Yes, that is a stated limit: the patterns are English phrasings and do not read paraphrase. Two things limit the damage: the signature and organisation rules do not depend on the attacker's wording, and the header verifier checks the sender's evidence whatever words were used. The paraphrase test in Phase 13 measures the loss. |
 
 ## 13.1 Concepts already taught
 
@@ -1145,7 +1263,9 @@ Planned file names; each phase may adjust them. The root and major-folder README
 
 - Tokenisers and word pieces; fine-tuning a pretrained model; tensors, autograd, the training loop and DataLoader in PyTorch (compared with Node and React); multi-label sigmoid outputs versus softmax; binary cross-entropy; class imbalance and pos_weight; why 0.5 is usually the wrong threshold and per-tactic thresholds tuned on validation; train, validation and test roles; overfitting and early stopping; seeds and GPU reproducibility; safetensors versus pickle (Phase 6).
 
-To be taught during the build: LIME, FastAPI basics, the thread-hijack benchmark, the claim router, affiliation claims in code.
+- Tokens, named-entity recognition and what spaCy's small English model does and does not find; rules versus learned extraction; a token-pattern language compiled to spaCy's Matcher and why it avoids ReDoS; character spans and offsets; precision and recall per type at two operating points (all claims, strong claims only); development set versus frozen version, and why patterns are written from the train split only (Phase 7).
+
+To be taught during the build: header checks in code, LIME, FastAPI basics, the thread-hijack benchmark, the claim router.
 
 # 14. Decisions log
 
@@ -1242,12 +1362,19 @@ To be taught during the build: LIME, FastAPI basics, the thread-hijack benchmark
 | 8 Oct 2026 | SemEval pretraining skipped | The first item to drop (Section 12.4); the labelled and synthetic emails were enough to start |
 | 8 Oct 2026 | Phase 6 complete: validation scores and checks in results/tactic_validation_scores.csv and tactic_checks.csv | Phase 7 can start |
 | 8 Oct 2026 | Version 3.8: Phase 6 folded into Sections 2, 8.9, 8.14 (new), 9, 10, 12, 13, 14, 15 and 16 | End of Phase 6 |
+| 8 Oct 2026 | Claims are found by spaCy name detection plus hand-written token patterns and organisation and signature rules; no model is trained for this step (revises the regular-expression plan of Section 6.2) | The claim types are a closed list of typical phrasings; token patterns cost time in proportion to the text and cannot backtrack (ReDoS-safe); each word is one whole token; the same patterns read Kaggle's pre-tokenised text; every claim names the rule behind it |
+| 8 Oct 2026 | A claim's confidence is the strength of its rule (0.9 strong, 0.6 weak), not a probability; every result is reported for all claims and for strong claims only | Nothing calibrates the number, so it must not be read as a probability; two operating points show the precision and recall trade-off, and Phase 13 picks one per type on validation |
+| 8 Oct 2026 | Patterns were written from the train split only, in four versions (0.1 to 0.4) with each revision read off train results; `--train-only` never loads validation; version 0.4 was committed (8633c4f) before the validation emails were scored once, and nothing changed afterwards | The same leakage discipline as the keyword baseline: a pattern revised after seeing validation would be tuning on validation. The real train scores are development scores |
+| 8 Oct 2026 | The signature column is redacted at read time, and the extractor reads body_redacted cut at 2,000 characters (what the annotators labelled) plus 1,000 characters of signature | The Phase 2 signature column is cut from body_clean and still holds raw addresses; the labels' spans were quoted from the 2,000 characters |
+| 8 Oct 2026 | Only five types (affiliation_internal, affiliation_external, authority, signature_contact, credential_request) have 10 or more real positives in validation and test and get an F1; the other six are counts; synthetic emails are scored apart and their precision is a lower bound | One email moves F1 by several points below 10 positives; the synthetic labels list only the claims the generator was required to include |
+| 8 Oct 2026 | Phase 7 complete: hit rates, validation scores and checks in results/claim_*.csv | Phase 8 can start |
+| 8 Oct 2026 | Version 3.9: Phase 7 folded into Sections 2, 6.2, 6.3, 6.11, 8.9, 8.10, 8.15 (new), 9, 10, 11, 12, 13, 14, 15 and 16 | End of Phase 7 |
 
 # 15. Open items and next actions
 
-1.  **Start Phase 7** (claim extractor) in a new chat with docs/PretextGuard_Context.md and this document.
+1.  **Start Phase 8** (header verifier N3 and request verifier) in a new chat with docs/PretextGuard_Context.md and this document.
 
-2.  **Replace the project-file copy** with v3.8 (remove older copies) and keep docs/ in the repo current.
+2.  **Replace the project-file copy** with v3.9 (remove older copies) and keep docs/ in the repo current.
 
 3.  **Update the Review deck** when needed: novelty slide (N1, N2, N3 and the architecture contribution), the architecture diagram (Figure 2), the corrected running example (authentication passes for gmail.com), and the literature table (add Mithun et al. 2024, Ho et al. 2019, Valecha et al. 2022, ConvoSentinel, Aggarwal et al. 2014).
 
@@ -1268,6 +1395,10 @@ To be taught during the build: LIME, FastAPI basics, the thread-hijack benchmark
 11. **Phase 6 notes from Phase 5 (applied in Phase 6, repeat them in Phase 13):** report real-email and synthetic results separately; tactics with fewer than 10 positives in validation or test (see results/label_counts.csv) are reported as counts, not F1; tune per-tactic thresholds on the validation labels only and use the test labels once; the labels are LLM labels, so say so wherever an F1 appears; run semeval_map.py --check on the registered data before any SemEval pretraining.
 
 12. **Phase 13 notes from Phase 6:** load the model with TacticClassifier (src/models/predict.py) and its thresholds from artifacts/tactic_model/thresholds.json; reuse src/eval/metrics.py for every system; use the test split once, with thresholds fixed on validation (tuned thresholds for the keyword baseline are in results/tactic_validation_scores.csv); report real and synthetic results apart; for synthetic emails with fewer than 10 attack positives in a split (test has fewer than 10 for urgency, liking, secrecy and reciprocity), pool validation and test and label it as pooled; keep tactics with fewer than 10 real positives as counts; quote the validation scores as slightly optimistic; report a bootstrap confidence interval for each F1 (with 12 to 44 positives per tactic, differences of a few points are noise); the baseline gets recall only on synthetic emails. LIME (Phase 10) needs a batch prediction function: use TacticClassifier.probabilities.
+
+13. **Phase 8 notes from Phase 7:** extract_claims (src/claims/extractor.py) works on one email; the API reuses it. Route by type as in Section 6.4 and use attributes.organisation, attributes.department and attributes.person as the claimed identity. KNOWN_ORGS in src/claims/patterns.py (about 55 often-imitated organisations, data only) is the starting point for the brand-domain list: attach each name's real domains and compare the sender's registered domain with lookalike_score from src/headers/domains.py; an affiliation_external claim with no organisation in its attributes (a cue like "Security Team" alone) has nothing to check and is recorded as not checkable. affiliation_internal claims are phrases like "IT help desk" or "this is David from Finance" with at most a department; whether they are internal depends on the organisation domain (Section 4.4), so the verifier decides, and the extractor found only 13% of the labelled ones on validation, so a missing claim is never evidence of honesty. Spans point into the text the extractor read (body_redacted cut at 2,000 characters, or the redacted signature named by zone), so the API must keep that text for highlights. signature_contact finds contact blocks in redacted text, where every address is the placeholder [EMAIL]; to compare a signature address with the From address, the verifier must read the addresses from the unredacted signature (the signature column, or the parsed email at run time). confidence is rule strength, so a verifier may give strong claims more weight but must not treat it as a probability.
+
+14. **Phase 13 notes from Phase 7:** the frozen patterns are in src/claims/patterns.py (PATTERN_VERSION is saved in results/claim_checks.csv); build.py never loads the test split, so Phase 13 adds src/eval/claim_extraction.py, which scores the frozen patterns on the test labels once. Choose the operating point (all claims or strong only) per type on validation and apply it once to test. Report the five types with enough positives as F1 with a bootstrap confidence interval and the other six as counts; real and synthetic apart; say that every score is agreement with LLM labels from one model family. Report affiliation_internal, signature_contact precision and reply_direction recall as the weak spots, with the annotator-agreement F1 beside them (results/label_agreement.csv). Include the claim extractor in the adversarial paraphrase test.
 
 # 16. Glossary
 
@@ -1344,6 +1475,14 @@ To be taught during the build: LIME, FastAPI basics, the thread-hijack benchmark
 | Overfitting | A model memorising its training emails: training loss keeps falling while validation loss rises |
 | Seed | The number that fixes shuffling and starting values, so a run can be repeated (GPU arithmetic still makes it similar, not identical) |
 | Safetensors | A model file format that holds only numbers; the older pickle format can run code when loaded |
+| Claim extractor | The part that reads an email and returns the claims it makes about itself (src/claims); it finds claims, the verifiers check them |
+| Token | One word-like piece of text as spaCy splits it ("verify", "David", ","); the patterns match tokens, not characters |
+| Named-entity recognition | Finding the names of people and organisations in text; spaCy's small English model does it, with mistakes |
+| Token pattern | A hand-written phrase such as `verif*\|confirm* ..2 your ..2 account*` that matches a run of tokens; cost grows with text length and cannot backtrack |
+| Rule strength (confidence) | 0.9 for a phrase hard to say innocently, 0.6 for one common in ordinary mail; not a probability |
+| Operating point | One way of using the same extractor: all claims (higher recall) or strong claims only (higher precision) |
+| Development set | Data a system was built while reading (here the train emails and their labels); its scores are optimistic and are kept apart from the frozen version's validation scores |
+| Frozen version | A pattern or model version that is committed and no longer changed before it is scored on validation or test |
 
 # 17. References
 

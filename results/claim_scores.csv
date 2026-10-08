@@ -47,3 +47,51 @@ synthetic_train,0.9,credential_request,306,15.0,15.0,15.0,0.0,0.0,1.0,1.0,1.0,f1
 synthetic_train,0.9,gift_card,306,30.0,28.0,27.0,1.0,3.0,0.9643,0.9,0.931,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
 synthetic_train,0.9,data_request,306,52.0,29.0,29.0,0.0,23.0,1.0,0.5577,0.716,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
 synthetic_train,0.9,macro_scoreable5,306,,,,,,,,0.6607,"mean F1 over affiliation_external, affiliation_internal, authority, credential_request, signature_contact",,,labels list only the claims the generator was required to include: precision is a lower bound
+real_validation,0.0,affiliation_internal,137,15.0,9.0,2.0,7.0,13.0,0.2222,0.1333,0.1667,f1,0.2,0.1333,
+real_validation,0.0,affiliation_external,137,38.0,53.0,32.0,21.0,6.0,0.6038,0.8421,0.7033,f1,0.466,0.7105,
+real_validation,0.0,authority,137,15.0,14.0,9.0,5.0,6.0,0.6429,0.6,0.6207,f1,0.3,0.3333,
+real_validation,0.0,reply_direction,137,9.0,8.0,5.0,3.0,4.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.0,signature_contact,137,26.0,69.0,24.0,45.0,2.0,0.3478,0.9231,0.5053,f1,0.241,0.7308,
+real_validation,0.0,prior_relationship,137,1.0,4.0,0.0,4.0,1.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.0,payment_request,137,0.0,11.0,0.0,11.0,0.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.0,payment_change,137,1.0,4.0,1.0,3.0,0.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.0,credential_request,137,25.0,21.0,18.0,3.0,7.0,0.8571,0.72,0.7826,f1,0.5484,0.56,
+real_validation,0.0,gift_card,137,0.0,1.0,0.0,1.0,0.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.0,data_request,137,5.0,15.0,2.0,13.0,3.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.0,macro_scoreable5,137,,,,,,,,0.5557,"mean F1 over affiliation_external, affiliation_internal, authority, credential_request, signature_contact",,,
+real_validation,0.9,affiliation_internal,137,15.0,8.0,1.0,7.0,14.0,0.125,0.0667,0.087,f1,0.1111,0.0667,
+real_validation,0.9,affiliation_external,137,38.0,45.0,27.0,18.0,11.0,0.6,0.7105,0.6506,f1,0.4125,0.5789,
+real_validation,0.9,authority,137,15.0,9.0,6.0,3.0,9.0,0.6667,0.4,0.5,f1,0.3333,0.2,
+real_validation,0.9,reply_direction,137,9.0,4.0,4.0,0.0,5.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.9,signature_contact,137,26.0,25.0,13.0,12.0,13.0,0.52,0.5,0.5098,f1,0.4444,0.4231,
+real_validation,0.9,prior_relationship,137,1.0,1.0,0.0,1.0,1.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.9,payment_request,137,0.0,5.0,0.0,5.0,0.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.9,payment_change,137,1.0,3.0,1.0,2.0,0.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.9,credential_request,137,25.0,16.0,14.0,2.0,11.0,0.875,0.56,0.6829,f1,0.5833,0.44,
+real_validation,0.9,gift_card,137,0.0,0.0,0.0,0.0,0.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.9,data_request,137,5.0,3.0,1.0,2.0,4.0,,,,count only (fewer than 10 positives),,,
+real_validation,0.9,macro_scoreable5,137,,,,,,,,0.4861,"mean F1 over affiliation_external, affiliation_internal, authority, credential_request, signature_contact",,,
+synthetic_validation,0.0,affiliation_internal,76,44.0,35.0,22.0,13.0,22.0,0.6286,0.5,0.557,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.0,affiliation_external,76,18.0,9.0,5.0,4.0,13.0,0.5556,0.2778,0.3704,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.0,authority,76,17.0,29.0,17.0,12.0,0.0,0.5862,1.0,0.7391,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.0,reply_direction,76,12.0,11.0,9.0,2.0,3.0,0.8182,0.75,0.7826,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.0,signature_contact,76,12.0,27.0,12.0,15.0,0.0,0.4444,1.0,0.6154,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.0,prior_relationship,76,33.0,28.0,27.0,1.0,6.0,0.9643,0.8182,0.8852,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.0,payment_request,76,32.0,28.0,26.0,2.0,6.0,0.9286,0.8125,0.8667,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.0,payment_change,76,14.0,13.0,13.0,0.0,1.0,1.0,0.9286,0.963,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.0,credential_request,76,1.0,4.0,1.0,3.0,0.0,,,,count only (fewer than 10 positives),,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.0,gift_card,76,2.0,2.0,2.0,0.0,0.0,,,,count only (fewer than 10 positives),,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.0,data_request,76,14.0,23.0,10.0,13.0,4.0,0.4348,0.7143,0.5405,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.0,macro_scoreable5,76,,,,,,,,0.5364,"mean F1 over affiliation_external, affiliation_internal, authority, credential_request, signature_contact",,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,affiliation_internal,76,44.0,30.0,18.0,12.0,26.0,0.6,0.4091,0.4865,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,affiliation_external,76,18.0,9.0,5.0,4.0,13.0,0.5556,0.2778,0.3704,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,authority,76,17.0,20.0,14.0,6.0,3.0,0.7,0.8235,0.7568,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,reply_direction,76,12.0,9.0,7.0,2.0,5.0,0.7778,0.5833,0.6667,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,signature_contact,76,12.0,11.0,9.0,2.0,3.0,0.8182,0.75,0.7826,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,prior_relationship,76,33.0,28.0,27.0,1.0,6.0,0.9643,0.8182,0.8852,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,payment_request,76,32.0,27.0,25.0,2.0,7.0,0.9259,0.7812,0.8475,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,payment_change,76,14.0,11.0,11.0,0.0,3.0,1.0,0.7857,0.88,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,credential_request,76,1.0,2.0,1.0,1.0,0.0,,,,count only (fewer than 10 positives),,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,gift_card,76,2.0,1.0,1.0,0.0,1.0,,,,count only (fewer than 10 positives),,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,data_request,76,14.0,6.0,6.0,0.0,8.0,1.0,0.4286,0.6,f1,,,labels list only the claims the generator was required to include: precision is a lower bound
+synthetic_validation,0.9,macro_scoreable5,76,,,,,,,,0.6126,"mean F1 over affiliation_external, affiliation_internal, authority, credential_request, signature_contact",,,labels list only the claims the generator was required to include: precision is a lower bound

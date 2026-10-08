@@ -189,7 +189,7 @@ pretextguard/
 | 4 | Keyword baseline | Done |
 | 5 | Tactic and claim labels (free web-chat annotators, Cohen's kappa), synthetic emails | Done |
 | 6 | DistilBERT tactic classifier on Colab | Done |
-| 7 | Claim extractor | In progress (code written; first run on real data next) |
+| 7 | Claim extractor | Done |
 | 8 | Header verifier (N3) and request verifier | Not started |
 | 9 | Thread builder, thread-hijack benchmark, thread verifier (N2) | Not started |
 | 10 | Claim router, verdict ledger, risk score, LIME | Not started |
