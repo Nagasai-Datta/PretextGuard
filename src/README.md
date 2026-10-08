@@ -20,7 +20,7 @@ Never `cd src` and never `python src/data/stage.py`. With `-m`, Python treats th
 | `preprocess/` | Cleaning (HTML, quotes, signatures) and N1 redaction | 2 | Done (see `preprocess/README.md`) |
 | `headers/` | Email parser and header evidence extractor; organisation domain | 3 | Done (see `headers/README.md`) |
 | `baseline/` | Keyword baseline (word lists per tactic, scorer) | 4 | Done (see `baseline/README.md`) |
-| `models/` | DistilBERT tactic classifier: data preparation, training (Colab), prediction, validation | 6 | Code written; the trained model comes from the Colab run (see `models/README.md`) |
+| `models/` | DistilBERT tactic classifier: data preparation, training (Colab), prediction, validation | 6 | Done (see `models/README.md`) |
 | `claims/` | Claim extractor: typed claims with text spans | 7 | Not started |
 | `verifiers/` | Header verifier (N3), request verifier, thread verifier (N2) | 8, 9 | Not started |
 | `thread/` | Thread builder and thread signals | 9 | Not started |

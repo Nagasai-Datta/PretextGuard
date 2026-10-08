@@ -65,9 +65,9 @@ python -m src.models.validate
 
 ## Version pinning
 
-Colab runs Python 3.12, the same as the project's venv. Cell 2 installs the `transformers` version pinned in `requirements.txt`, so the model files are written and read by the same library on both sides.
+The project's venv runs Python 3.12; Colab's own Python can differ (the Phase 6 run had Python 3.13), which does not matter for the saved weights. Cell 2 installs the `transformers` version pinned in `requirements.txt`, so the model files are written and read by the same library on both sides.
 
-`torch` is the exception: it is **not** reinstalled on Colab. Colab already has a build that matches its GPU driver, while the default pip build of the pinned version (2.14.1) targets a newer CUDA version (13.0) that a free Colab machine may not support. Both torch versions are recorded in `results/tactic_run_info.json`, and the Mac check `mac_reproduces_colab` proves in practice that the two sides give the same predictions (weights are stored as plain numbers in `.safetensors`, so they do not depend on the torch version).
+`torch` is the exception: it is **not** reinstalled on Colab. Colab already has a build that matches its GPU driver, and reinstalling the pinned version would be a download of several gigabytes that could mismatch the driver. The Mac pins `torch` 2.14.1, Colab used its own (2.11.0 in the Phase 6 run). Both versions are recorded in `results/tactic_run_info.json` and `results/tactic_checks.csv`, and the Mac check `mac_reproduces_colab` shows in practice that the two sides give the same predictions (the Phase 6 run: largest difference 0.000001). Weights are stored as plain numbers in `.safetensors`, so they do not depend on the torch version.
 
 ## If something goes wrong
 

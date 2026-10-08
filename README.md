@@ -130,7 +130,7 @@ An ablation removes one part and measures again; the drop is what that part cont
 
 | Layer | Choice |
 |---|---|
-| Language | Python 3.12 in a venv (matches Google Colab) |
+| Language | Python 3.12 in a venv |
 | Data | pandas, pyarrow (Parquet), requests, tqdm |
 | Cleaning | BeautifulSoup (HTML to text) |
 | Email parsing | Python `email` and `mailbox` (standard library); tldextract (public suffix list, offline) and rapidfuzz (lookalike domains) |
@@ -188,8 +188,8 @@ pretextguard/
 | 3 | Email parser and header evidence extractor | Done |
 | 4 | Keyword baseline | Done |
 | 5 | Tactic and claim labels (free web-chat annotators, Cohen's kappa), synthetic emails | Done |
-| 6 | DistilBERT tactic classifier on Colab | In progress (code written; Colab run next) |
-| 7 | Claim extractor | Not started |
+| 6 | DistilBERT tactic classifier on Colab | Done |
+| 7 | Claim extractor | Next |
 | 8 | Header verifier (N3) and request verifier | Not started |
 | 9 | Thread builder, thread-hijack benchmark, thread verifier (N2) | Not started |
 | 10 | Claim router, verdict ledger, risk score, LIME | Not started |

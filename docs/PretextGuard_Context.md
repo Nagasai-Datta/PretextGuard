@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: October 2026, written at the end of Phase 5, to go with master document v3.7.
+Version: October 2026, written at the end of Phase 6, to go with master document v3.8.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -51,7 +51,11 @@ any conflict you notice.
    printed output. `tests/test_environment.py` is the one setup check; keep it passing.
 6. **End of every phase:** list exactly what changed in the master document (section number, old
    text, new text) and deliver a script file that applies the edits to `docs/master_document.md`
-   (see 1.4). Bump its version (3.3, 3.4, ...) and add a row to the decisions log (Section 14).
+   (see 1.4). Bump its version (3.3, 3.4, ...) and add a row to the decisions log (Section 14). When a
+   script needs results that do not exist yet, deliver it with the step that produces them (Phase 6: the script
+   reads `results/` and stops if a check failed). Always give him the exact command to run it: inside the venv
+   (it needs pandas), `cd ~/Downloads`, then `python update_docs_phaseN.py`, then delete the script; he did not
+   know how to run it in Phase 6.
 7. **When a design choice also improves security, say so explicitly** (security is 15 marks).
 8. **Style:** direct and honest; recommendations rather than open questions; no em dashes; no filler
    words such as "showcase", "testament", "underscore", "passionate about". Keep answers no longer than
@@ -113,7 +117,7 @@ source venv/bin/activate
 ```
 
 **Claude Code on the web.** Its sandbox usually cannot reach the data hosts (Kaggle, monkey.org,
-CMU, lists.apache.org), so test new scripts there on small hand-made samples before handing them
+CMU, lists.apache.org) or huggingface.co (PyPI works), so test new scripts there on small hand-made samples before handing them
 over; real numbers always come from Nagasai's runs. It can read the public GitHub repository, so
 files Nagasai has pushed (for example `results/*.csv`) can be read there instead of asking him to
 paste them. It can attach downloadable files (Mode A), which is the safe way to deliver long or
@@ -178,17 +182,18 @@ propose them again as novelty. Stack choices are never novelty (faculty rule).
 | Install packages with | `python -m pip install ...`, then pin with `==` in `requirements.txt` |
 | Tools installed | Homebrew, Git, GitHub CLI (`gh`), VS Code with the Python extension |
 | Repository | github.com/Nagasai-Datta/PretextGuard, public by Nagasai's choice, branch `main` |
-| Colab | Python 3.12; pin torch and transformers to the same versions locally and on Colab |
+| Colab | Free T4 GPU. In Phase 6 it ran Python 3.13.15 (the venv is 3.12), pandas 2.2.3, numpy 2.1.3 and its own torch 2.11.0+cu130, which is not reinstalled; `transformers` is pinned to the same version as the Mac. The notebook clones the public repo, so push before running it |
 | Phase 1 libraries | pandas 3.0.6, pyarrow 25.0.1, requests 2.34.2, tqdm 4.70.1 (pinned in `requirements.txt`) |
 | Phase 2 libraries | beautifulsoup4 4.15.0, tldextract 5.4.0 (pinned) |
 | Phase 3 to 5 libraries | RapidFuzz 3.14.6 (Phase 3); Phase 4 none; scikit-learn 1.9.1 (Phase 5, for Cohen's kappa cross-check); all pinned |
+| Phase 6 libraries | torch 2.14.1 (the Mac; macOS arm64 wheel), transformers 5.19.0 (Mac and Colab); pinned, `pip-audit` found nothing in them or their dependencies |
 | Secrets in `.env` (names only here) | `PRETEXTGUARD_API_KEY`; `GEMINI_API_KEY`, `ANNOTATOR_1_MODEL`, `ANNOTATOR_2_MODEL`, `TIEBREAKER_MODEL` (Phase 5). `.env` is ignored; `.env.example` lists the names |
-| Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2) |
+| Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2); `data/processed/tactic_data.parquet` (Phase 6, train and validation text for Colab); `artifacts/tactic_model/` (Phase 6, about 270 MB, ignored by Git, exists only on the Mac) |
 | Rule | Always work from the project root, never from `src/` |
 
 ---
 
-## 4. Current state of the repository (end of Phase 5)
+## 4. Current state of the repository (end of Phase 6)
 
 ```
 pretextguard/
@@ -199,20 +204,22 @@ pretextguard/
   venv/                      Python 3.12.14 (ignored)
   data/README.md             every source, licence, stage and how to rebuild
   data/raw/                  downloads and unpacked archives, read-only (ignored)
-  data/processed/            staged.parquet (1), cleaned.parquet (2), headers.parquet (3) (ignored)
+  data/processed/            staged.parquet (1), cleaned.parquet (2), headers.parquet (3), tactic_data.parquet (6) (ignored)
   data/labelled/             README.md  sample.csv  annotators.csv  replies_log.csv  labels.csv
                              annotator_1/ annotator_2/ tiebreaker/ (raw replies)  batches/ (ignored)
   data/synthetic/            README.md  plan.csv  generator.csv  synthetic.csv  prompts/  replies/
   data/threads/.gitkeep
-  artifacts/README.md        everything else in artifacts/ is ignored
+  artifacts/README.md        everything else in artifacts/ is ignored (tactic_model/ holds the Phase 6 weights, local only)
   results/README.md  staged_counts.csv  dedup_pairs.csv  header_coverage.csv  split_counts.csv
                      preprocess_summary.csv  preprocess_checks.csv
                      header_evidence_summary.csv  header_top_domains.csv  header_auth_formats.csv
                      keyword_hit_rates.csv  keyword_phrase_hits.csv  keyword_checks.csv
                      sample_counts.csv  label_validation.csv  label_agreement.csv  label_counts.csv
                      synthetic_counts.csv  semeval_mapping.csv
-  notebooks/README.md  frontend/.gitkeep
-  docs/README.md  master_document.md (v3.7)  PretextGuard_Master_Document_v3.2.docx (snapshot)
+                     tactic_data_counts.csv  tactic_training_log.csv  tactic_seed_summary.csv
+                     tactic_val_probs.csv  tactic_run_info.json  tactic_validation_scores.csv  tactic_checks.csv
+  notebooks/README.md  phase6_tactic_classifier.ipynb  frontend/.gitkeep
+  docs/README.md  master_document.md (v3.8)  PretextGuard_Master_Document_v3.2.docx (snapshot)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
@@ -222,7 +229,9 @@ pretextguard/
   src/preprocess/            README.md  clean.py  redact.py  build.py
   src/headers/               README.md  parser.py  domains.py  evidence.py  build.py
   src/baseline/              README.md  lexicon.py  keywords.py  build.py
-  src/{thread,models,claims,verifiers,router,explain,eval,api}/__init__.py  (all empty)
+  src/models/                README.md  dataset.py  train.py  predict.py  validate.py
+  src/eval/                  README.md  metrics.py
+  src/{thread,claims,verifiers,router,explain,api}/__init__.py  (all empty)
   tests/test_environment.py  16 checks (unchanged)
 ```
 
@@ -328,6 +337,49 @@ Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). 
 - **Not committed:** `data/labelled/batches/` (full email text; phishing_pot's licence forbids
   redistribution). Rebuild with `python -m src.data.batches`.
 
+**Phase 6 in brief** (master document Section 8.14, `src/models/README.md`, `notebooks/README.md`):
+- **Code:** `src/models`: `dataset.py` builds `data/processed/tactic_data.parquet` (train and validation rows only,
+  932 rows: real 413 + 137, synthetic 306 + 76; a test row stops the build and the training), `train.py` is the
+  Colab loop, `predict.py` holds `TacticClassifier` (load once, `predict(body_redacted)`), `predict_probs` and
+  `load_tactic_model`, `validate.py` scores on the Mac and runs the PASS/FAIL checks. `src/eval/metrics.py` has
+  hand-written precision, recall, F1, macro-F1 and `tune_threshold`, cross-checked against scikit-learn (F1 is
+  hidden below 10 positives; Phase 13 reuses it). The model reads `model_text(body_redacted)` (2,000 characters,
+  the annotators' text without the truncation note).
+- **Settings:** `distilbert/distilbert-base-uncased`, 7 sigmoid outputs, binary cross-entropy with `pos_weight`
+  (negatives over positives, at most 10), 512 tokens, batch 16, AdamW 3e-5 with 10% warm-up and linear decay,
+  at most 8 epochs, stop after 3 without improvement, seeds 42, 43, 44. Two conditions: `mix` (real + synthetic
+  train emails; the model) and `real_only` (comparison). Epoch and seed chosen by macro-F1 over authority, urgency,
+  scarcity and secrecy on real validation at threshold 0.5; thresholds for those four tuned on real validation;
+  reciprocity, social proof and liking stay at 0.5 (counts only). Safetensors only, offline loading, output order
+  checked.
+- **The run:** Colab T4, 22.2 minutes, code commit 407861e, base model revision 12040acc. Chosen: mix, seed 43,
+  epoch 8; thresholds authority 0.55, urgency 0.45, scarcity 0.65, secrecy 0.90, others 0.5. The Mac's CPU
+  reproduced Colab's probabilities to within 0.000001 (limit 0.001; torch 2.11.0 on Colab, 2.14.1 on the Mac);
+  213 validation emails in 9.6 s. All checks passed (results/tactic_checks.csv).
+- **Results** (validation only, real and synthetic apart; `results/tactic_validation_scores.csv`). Real validation
+  macro-F1 over the four main tactics: DistilBERT 0.613, trained without synthetic emails 0.617, keyword baseline
+  tuned 0.495, keyword default 0.296. Per tactic, DistilBERT against the tuned baseline: authority 0.593 / 0.316,
+  urgency 0.606 / 0.492, scarcity 0.552 / 0.654 (the baseline is ahead), secrecy 0.700 / 0.518. Synthetic
+  validation macro-F1: 0.420 with and 0.269 without synthetic training emails. The model found 0 of the 5 real
+  validation positives of reciprocity, social proof and liking (counts only). The final comparison is Phase 13,
+  once, on the test split; validation scores are slightly optimistic (validation chose the epoch, seed and
+  thresholds), and the labels are LLM labels from one model family.
+- **Findings to carry forward:** the synthetic training emails made no measurable difference on real emails (a
+  difference of -0.005 against a seed spread of 0.539 to 0.571) but are the only reason the rare tactics are
+  learned at all, and only on synthetic emails. In 4 of 6 runs the best epoch was the last (8), but the validation
+  loss had stopped falling (minimum around epochs 5 to 7 for the mix seeds), so more epochs were not tried. Secrecy
+  at threshold 0.90 scores 0.222 F1 on synthetic emails (0.700 on real ones). The tuned keyword thresholds all
+  landed at 0.5 (any single weak phrase fires). Phase 13 should add bootstrap confidence intervals: each tactic has
+  only 12 to 39 real validation positives.
+- **Where things live:** the weights (`artifacts/tactic_model/`, about 270 MB) and `tactic_data.parquet` exist only
+  on Nagasai's Mac (ignored by Git), so Claude Code on the web cannot load the model: test code that uses it on
+  hand-made samples and have him run it. Phase 6 was tested offline with a tiny random DistilBERT (a masked-LM base
+  saved as safetensors, tokenizer built with `vocab=`) and fake text for the real ids. In transformers 5.x
+  `from_pretrained` raises when a head's size differs from the checkpoint, and tokenizers take `vocab=`, not
+  `vocab_file=`.
+- **Docs:** `update_docs_phase6.py` (a download, run from `~/Downloads` inside the venv; it reads `results/`) made
+  master document v3.8. SemEval pretraining was skipped.
+
 Current `.gitignore`:
 ```
 # Python
@@ -386,64 +438,68 @@ RapidFuzz==3.14.6
 
 # Phase 5: label agreement (Cohen's kappa cross-check)
 scikit-learn==1.9.1
+
+# Phase 6: tactic classifier (trained on Colab, run on the Mac's CPU)
+torch==2.14.1
+transformers==5.19.0
 ```
 
 `.env.example` and `pytest.ini` are unchanged from Phase 0.
 
 ---
 
-## 5. Next task: Phase 6, DistilBERT tactic classifier (plan not yet approved)
+## 5. Next task: Phase 7, claim extractor (plan not yet approved)
 
-Full detail: master document Sections 6.11 (DistilBERT, fine-tuning, weights, Colab), 7 (the seven tactics),
-8.5 (style-confound control), 8.13 (what Phase 5 produced), 11 (evaluation), 12.5 (Colab and pinning),
-12.6 (planned files `src/models/dataset.py`, `train.py`, `predict.py`) and Section 15, items 5, 9 and 11.
-Start by proposing the plan and the background concepts, then wait for "go". Deliver in two steps at most
-(fewer if the files allow), every file as a download, and verify his push by reading the repository.
+Full detail: master document Sections 4.4 (what N3 checks), 6.2 (the claim extractor row), 6.3 (the claim object),
+6.4 (routing table), 8.13 (what Phase 5 produced: 690 emails with claim labels), 11 (claim extraction row), 12.6
+(planned files `src/claims/schema.py`, `patterns.py`, `extractor.py`) and Section 15. Start by proposing the plan
+and the background concepts, then wait for "go". Deliver in two steps at most, every file as a download, and verify
+his push by reading the repository.
 
-**Goal.** A DistilBERT model that reads `body_redacted` and outputs seven independent tactic probabilities
-(multi-label), trained on Colab's free GPU, weights saved to `artifacts/tactic_model/` (ignored by Git) and
-used on the Mac's CPU. It is what the keyword baseline (Phase 4) must be beaten by.
+**Goal.** A function `extract_claims(body_redacted, signature)` that returns typed claims in the Section 6.3 form
+(claim_id, type, text, span, attributes, confidence) for the eleven claim types (affiliation_internal,
+affiliation_external, authority, reply_direction, signature_contact, prior_relationship, payment_request,
+payment_change, credential_request, gift_card, data_request), plus the tactic probabilities from `TacticClassifier`
+as modifiers, so the verifiers (Phases 8 and 9) have claims to check. Measured against the Phase 5 claim labels with
+precision and recall per claim type.
 
 **Notes the plan must handle**
-- **Data is small.** 413 real labelled train items (`data/labelled/labels.csv`, split = train) plus the
-  synthetic train pairs (`data/synthetic/synthetic.csv`). Validation (137 real) tunes thresholds and picks
-  the epoch; **the test labels are used once, in Phase 13.** Say how overfitting will be watched.
-- **Rare tactics.** Real train positives: liking 11, reciprocity 5, social_proof 2, so these three learn almost
-  only from synthetic text (52 to 60 synthetic train attacks each) and have 0 to 4 real positives in
-  validation and test: counts only. Also synthetic test has fewer than 10 attacks for urgency, secrecy,
-  liking and reciprocity. Decide how rare tactics are weighted (for example `pos_weight` in the loss), how
-  synthetic items are mixed in, and how to report synthetic results where a split has fewer than 10 positives
-  (for example pooled validation plus test, clearly labelled); real-email and synthetic results are always
-  reported separately.
-- **The labels are LLM labels from one model family.** Say so wherever an F1 appears.
-- **Input.** `body_redacted` only, the same text the annotators saw (cut at 2,000 characters; DistilBERT reads
-  at most 512 tokens). Kaggle Enron and Ling text is lowercase and pre-tokenised: use an uncased model.
-  Models skip the 335 bodies that are empty after cleaning.
-- **Colab.** Python 3.12; pin `torch` and `transformers` to the same versions locally (`requirements.txt`) and
-  on Colab. The training data must be uploaded to Google Drive by Nagasai (full email text, private use only,
-  never committed). The notebook goes in `notebooks/`; weights come back to `artifacts/`.
-- **Thresholds.** One per tactic, tuned on validation, applied the same way to the baseline (Phase 13).
-- **Optional:** SemEval pretraining only if time allows (needs registration and `semeval_map.py --check`);
-  it is the first thing dropped (master document Section 12.4).
-- **Security:** model files are separately licensed and large (ignored by Git); pin versions; run
-  `pip-audit` after adding libraries; no network at inference time.
+- **Data.** `data/labelled/labels.csv`, column `claims` (JSON: type, span, organisation) for 690 real emails; counts
+  per claim type and split in `results/label_counts.csv` (kind = claim); agreement per type in
+  `results/label_agreement.csv` (mean kappa 0.458; weakest: prior_relationship 0.187, data_request 0.287,
+  payment_request 0.287, payment_change 0.330, affiliation_internal 0.336). Types with fewer than 10 positives in
+  validation or test are counts only. The synthetic emails have a `claims` column too (their required claims were
+  quoted from the body): extra positives for rare types, always reported apart from real emails.
+- **Method (master document 6.2).** Regular-expression patterns + spaCy named-entity recognition (`en_core_web_sm`,
+  a new library: pin it, run `pip-audit`, install the model without network access at run time) + the tactic
+  classifier. No LLM at run time. Patterns run on attacker-written text, so the ReDoS rules of Phases 2 to 4 apply
+  (bounded repeats, input caps, crafted-input self-test).
+- **Inputs.** `body_redacted` through `model_text` (the 2,000 characters the annotators labelled; spans were quoted
+  from it) and the `signature` column of `cleaned.parquet`.
+- **affiliation_internal** cannot be decided from the body alone (it needs the organisation domain, Phase 8): the
+  extractor finds phrasing like "this is David from Finance"; the verifier decides whether it is internal.
+- **Leakage discipline** (as for the keyword baseline): write patterns from the definitions and the train split
+  only; validation for tuning; the test split once, in Phase 13. Score spans by overlap (the annotator comparison
+  in `src/data/agreement.py` already has a span-overlap rule) and precision and recall per type with
+  `src/eval/metrics.py`. The labels are LLM labels from one model family: say so wherever a score appears.
+- **Environment.** The model weights exist only on Nagasai's Mac. Test claim code in Claude Code on the web on
+  hand-made samples; anything that calls `TacticClassifier` is run by him.
 
-**Decisions for the plan to recommend:** training mix (real first, synthetic for rare tactics); loss and class
-weighting; epochs, learning rate, seed and early stopping on validation; how the model and thresholds are
-saved; what Phase 6 prints and saves in `results/` (validation precision, recall and F1 per tactic and macro-F1,
-real and synthetic apart); what the notebook cells do, one by one.
+**Decisions for the plan to recommend:** which types are pattern-only and which need spaCy; the claim object and how
+`confidence` is defined for rules; how spans stay relative to `body_redacted`; what Phase 7 prints and saves in
+`results/` (hit rates on the train split first, as in Phase 4, then validation scores); how a claim's `attributes`
+(person, organisation, department) are filled; the two-step delivery.
 
-**Background to teach in Phase 6:** tokenisers; what fine-tuning is; PyTorch in Node/MERN terms; multi-label
-sigmoid outputs versus softmax, binary cross-entropy; why 0.5 is usually the wrong threshold; class imbalance
-and `pos_weight`; train, validation and test roles; overfitting and early stopping; GPUs, Colab and
-reproducible seeds.
+**Background to teach in Phase 7:** named-entity recognition and spaCy; rules versus learned extraction; regular
+expressions again, with ReDoS; character offsets and span overlap; precision and recall per claim type; why a claim
+differs from a tactic (a claim names who or what, a tactic describes how the writer pushes).
 
-## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 5 are done)
+## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 6 are done)
 
 | Phase | Deliverable |
 |---|---|
-| 6 | DistilBERT tactic classifier on Colab; weights to `artifacts/` (`src/models`, `notebooks/`) |
-| 7 | Claim extractor (`src/claims`) |
+| 6 | DistilBERT tactic classifier on Colab; weights to `artifacts/` (`src/models`, `notebooks/`): done |
+| 7 | Claim extractor (`src/claims`): next |
 | 8 | Header verifier N3 and request verifier (`src/verifiers`) |
 | 9 | Thread builder, hijack benchmark, thread verifier N2 (`src/thread`, `src/verifiers`, `src/data`) |
 | 10 | Router, ledger, risk score, LIME (`src/router`, `src/explain`) |

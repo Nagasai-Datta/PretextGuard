@@ -14,9 +14,9 @@ Project Master Document
 
 **Faculty:** Dr. Arun Prasath G
 
-**Version:** 3.7, 8 October 2026
+**Version:** 3.8, 8 October 2026
 
-> **This is the single source of truth for the project.** Version 3.7 supersedes version 3.6 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
+> **This is the single source of truth for the project.** Version 3.8 supersedes version 3.7 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
 
 **Contents**
 
@@ -147,7 +147,7 @@ This document is written so that a person or an AI assistant can pick up Pretext
 </tr>
 <tr class="even">
 <td>Current status</td>
-<td>Phases 0 to 5 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 labelled 690 real emails for the seven tactics and eleven claim types with two LLM annotators and a tie-breaker (results/label_*.csv), wrote 222 synthetic attack-and-twin pairs for the rare tactics, and recorded the SemEval 23-to-7 mapping. Phase 6 (DistilBERT tactic classifier) is next.</td>
+<td>Phases 0 to 6 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 labelled 690 real emails for the seven tactics and eleven claim types with two LLM annotators and a tie-breaker (results/label_*.csv), wrote 222 synthetic attack-and-twin pairs for the rare tactics, and recorded the SemEval 23-to-7 mapping. Phase 6 fine-tuned DistilBERT on the seven tactics on Colab (real and synthetic training emails, three seeds, thresholds tuned on validation) and scored it against the keyword baseline on the validation emails, real and synthetic apart (results/tactic_*.csv, Section 8.14). Phase 7 (claim extractor) is next.</td>
 </tr>
 <tr class="odd">
 <td>Repository</td>
@@ -694,6 +694,8 @@ thread_id, thread_position                                 (Phase 9)
 | Synthetic emails | data/synthetic/ | Yes | 5 and 9 |
 | Training notebook | notebooks/ (training data uploaded to Google Drive) | Notebook yes, data no | 6 |
 | Trained model weights | artifacts/tactic_model/ | No (README only) | 6 |
+| Training table: train and validation emails with their tactic labels, uploaded to Drive (never any test row) | data/processed/tactic_data.parquet | No (full email text) | 6 |
+| Phase 6 results (data counts, training log, seed summary, validation probabilities, run record, validation scores, checks) | results/tactic_data_counts.csv, tactic_training_log.csv, tactic_seed_summary.csv, tactic_val_probs.csv, tactic_run_info.json, tactic_validation_scores.csv, tactic_checks.csv | Yes | 6 |
 | Rebuilt threads and hijack benchmark | data/threads/ | Decided in Phase 9 by size | 9 |
 | Every experiment number and chart | results/ | Yes (rubric requirement) | 13 |
 | Report and slides | docs/ | Yes | 14 |
@@ -848,11 +850,68 @@ Tactics with fewer than 10 positives in validation or test, reported as counts a
 
 - **Security:** see Section 10 (annotation prompt hardening).
 
+## 8.14 Phase 6 tactic classifier
+
+- **Output:** src/models (dataset.py, train.py, predict.py, validate.py), src/eval/metrics.py (precision, recall, F1 and threshold tuning written by hand and cross-checked against scikit-learn) and notebooks/phase6_tactic_classifier.ipynb. Results in results/tactic_data_counts.csv, tactic_training_log.csv, tactic_seed_summary.csv, tactic_val_probs.csv, tactic_run_info.json, tactic_validation_scores.csv and tactic_checks.csv; the weights are in artifacts/tactic_model/ and are not committed. New libraries: torch 2.14.1 and transformers 5.19.0 (pip-audit reported no known vulnerability in them or their dependencies when they were added).
+
+- **Data:** one table, data/processed/tactic_data.parquet, holds the train and validation emails only, so test emails and test labels cannot reach the training code. Real: 413 train and 137 validation emails (data/labelled/labels.csv, text from cleaned.parquet). Synthetic: 306 train and 76 validation emails (attack and benign-twin pairs). The text is what the annotators saw: body_redacted cut at 2,000 characters, without the truncation note (which only marks long emails and could become a shortcut). The table is checked against the Phase 5 counts before it is written, and the upload file stays out of Git (full email text).
+
+- **Model and training:** distilbert/distilbert-base-uncased, uncased because the Kaggle Enron and Ling text is lowercase; seven outputs with one sigmoid each (multi-label), loss binary cross-entropy with pos_weight per tactic (negatives divided by positives, at most 10). Settings: 512 tokens with dynamic padding, batch size 16, AdamW at learning rate 3e-5 with a 10% warm-up and linear decay, weight decay 0.01, gradient clipping at 1.0, at most 8 epochs, stop after 3 without improvement, seeds 42, 43, 44. Two conditions: mix (real and synthetic training emails; the model) and real_only (real emails alone; a comparison that measures whether the synthetic emails help, its weights are not kept).
+
+- **Selection and thresholds:** each epoch is scored by macro-F1 over authority, urgency, scarcity and secrecy on the real validation emails at threshold 0.5 (ties go to the lower validation loss); the best epoch of each seed is kept and the best seed becomes the model. Thresholds for those four tactics are tuned on the real validation emails (grid 0.05 to 0.95, step 0.05); reciprocity, social proof and liking stay at 0.5 and are reported as counts, because each has fewer than 10 real positives in validation or test. Chosen thresholds: authority 0.55, urgency 0.45, scarcity 0.65, reciprocity 0.50, social_proof 0.50, liking 0.50, secrecy 0.90. Validation picked the epoch, the seed and the thresholds, so the validation scores are slightly optimistic; the test split is used once, in Phase 13.
+
+- **Run:** Tesla T4, 22.2 minutes, Python 3.13.15, transformers 5.19.0 on Colab; code commit 407861e7, base-model revision 12040acc, finished 2026-10-08 14:38:30 (UTC). Colab's own preinstalled torch was used (2.11.0+cu130 on Colab, 2.14.1 on the Mac) and only transformers was pinned to the Mac's version; the check mac_reproduces_colab shows the difference does not matter in practice. The project's venv runs Python 3.12; Colab's Python was 3.13.15, which does not affect the saved weights (plain numbers in a safetensors file).
+
+- **Seeds** (results/tactic_seed_summary.csv; macro-F1 over authority, urgency, scarcity and secrecy on real validation emails at threshold 0.5):
+
+| **Condition** | **Seed** | **Best epoch** | **Epochs run** | **Validation macro-F1** | **Chosen** |
+|---|---|---|---|---|---|
+| mix | 42 | 8 | 8 | 0.554 |  |
+| mix | 43 | 8 | 8 | 0.571 | yes |
+| mix | 44 | 3 | 6 | 0.539 |  |
+| real_only | 42 | 8 | 8 | 0.554 |  |
+| real_only | 43 | 8 | 8 | 0.596 | yes |
+| real_only | 44 | 7 | 8 | 0.554 |  |
+
+- **Real validation emails** (137 emails; results/tactic_validation_scores.csv). F1 is reported only for a tactic with 10 or more positives; otherwise the counts (true positives, false positives, false negatives) are shown. The keyword baseline appears twice: with its default threshold (every tactic fires at score 1.0) and with one threshold per main tactic tuned on these same validation emails (authority 0.5, urgency 0.5, scarcity 0.5, secrecy 0.5), so the comparison with the tuned DistilBERT is fair. The final comparison is Phase 13, on the test split.
+
+| **Tactic** | **Positives** | **DistilBERT** | **DistilBERT, real emails only** | **Keyword baseline, default** | **Keyword baseline, tuned** |
+|---|---|---|---|---|---|
+| authority | 21 | 0.593 | 0.667 | 0.148 | 0.316 |
+| urgency | 39 | 0.606 | 0.600 | 0.267 | 0.492 |
+| scarcity | 27 | 0.552 | 0.603 | 0.368 | 0.654 |
+| reciprocity | 2 | tp 0, fp 1, fn 2 | tp 0, fp 0, fn 2 | tp 0, fp 0, fn 2 | tp 0, fp 0, fn 2 |
+| social proof | 0 | tp 0, fp 0, fn 0 | tp 0, fp 0, fn 0 | tp 0, fp 0, fn 0 | tp 0, fp 0, fn 0 |
+| liking | 3 | tp 0, fp 2, fn 3 | tp 0, fp 0, fn 3 | tp 0, fp 14, fn 3 | tp 0, fp 14, fn 3 |
+| secrecy | 12 | 0.700 | 0.600 | 0.400 | 0.518 |
+| macro-F1 (authority, urgency, scarcity, secrecy) |  | 0.613 | 0.617 | 0.296 | 0.495 |
+
+- **Synthetic validation emails** (76 emails, reported apart from the real ones because they carry one LLM's writing style). Counts only for a tactic with fewer than 10 positives. The keyword baseline gets recall only: twins that made it fire were dropped when the synthetic emails were made, so its precision there would be fake.
+
+| **Tactic** | **Positives** | **DistilBERT** | **DistilBERT, real emails only** | **Keyword baseline, default** | **Keyword baseline, tuned** |
+|---|---|---|---|---|---|
+| authority | 14 | 0.571 | 0.286 | recall 0.14 (2 of 14) | recall 0.43 (6 of 14) |
+| urgency | 16 | 0.566 | 0.372 | recall 0.31 (5 of 16) | recall 0.94 (15 of 16) |
+| scarcity | 18 | 0.320 | 0.259 | recall 0.72 (13 of 18) | recall 0.72 (13 of 18) |
+| reciprocity | 9 | tp 8, fp 22, fn 1 | tp 0, fp 0, fn 9 | recall 0.33 (3 of 9) | recall 0.33 (3 of 9) |
+| social proof | 12 | 0.727 | 0.000 | recall 0.50 (6 of 12) | recall 0.50 (6 of 12) |
+| liking | 14 | 0.778 | 0.000 | recall 0.36 (5 of 14) | recall 0.36 (5 of 14) |
+| secrecy | 16 | 0.222 | 0.160 | recall 0.75 (12 of 16) | recall 0.94 (15 of 16) |
+| macro-F1 (authority, urgency, scarcity, secrecy) |  | 0.420 | 0.269 | - | - |
+
+- **Reading of the tables** (every number below is computed from them by the script that wrote this section): on the real validation emails the macro-F1 over authority, urgency, scarcity and secrecy is 0.613 for DistilBERT, 0.495 for the keyword baseline with tuned thresholds and 0.296 with its default thresholds; DistilBERT is ahead of the tuned baseline on authority, urgency, secrecy and behind it on scarcity; trained without the synthetic emails the model scores 0.617, a difference of -0.005 from the mix model, against a spread of 0.539 to 0.571 between the three mix seeds at threshold 0.5, so on real emails the synthetic training emails made no measurable difference; on the synthetic validation emails the macro-F1 is 0.420 with and 0.269 without synthetic training emails; of the 5 real validation positives of reciprocity, social proof and liking the model found 0 (the counts are too small to conclude anything about these three tactics). Each tactic has only 12 to 39 real validation positives, so differences of a few points are within noise; these are validation readings, and Phase 13 repeats the comparison once on the test split, with confidence intervals.
+
+- **Checks** (results/tactic_checks.csv): 60 PASS, 0 FAIL, 3 info. The Mac's CPU reproduced Colab's probabilities on every validation email to within 0.000001 (limit 0.001). The checks cover the data (no test rows, counts equal to Phase 5), the model files (safetensors only, thresholds valid, output order), the run (same data file as Colab, same transformers version, training loss fell, no tactic flagged on all or none of the real validation emails) and the reproduction on the Mac.
+
+- **Known limits:** the labels are LLM labels from one model family and no human validated them, so every F1 is agreement with those labels; the three rare tactics have almost no real positives, so on real emails they are counts only and the model learns them mostly from synthetic text; validation scores are optimistic (validation chose the epoch, the seed and the thresholds); GPU arithmetic is not bit-exact, so a rerun is similar, not identical; SemEval pretraining was skipped.
+
+- **Security:** see Section 10 (model files and offline inference).
+
 # 9. Technology stack
 
 | **Layer** | **Choice** | **Why** |
 |---|---|---|
-| Language | Python 3.12 (Homebrew python@3.12) in a venv | Matches Google Colab's runtime (Python 3.12), so the same library versions can be pinned in Colab and locally; venv is Python's node_modules |
+| Language | Python 3.12 (Homebrew python@3.12) in a venv | Python 3.12 was Colab's runtime when it was chosen; the Phase 6 run found Colab on Python 3.13.15, which does not affect saved weights; venv is Python's node_modules |
 | Model | DistilBERT via HuggingFace Transformers + PyTorch | Small enough to fine-tune on a free Colab GPU; fast inference on CPU |
 | Training | Google Colab (free GPU) | No local GPU needed; torch and transformers pinned to the same versions as local |
 | NLP extras | spaCy (en_core_web_sm) | Names and organisations for identity claims |
@@ -863,6 +922,7 @@ Tactics with fewer than 10 positives in validation or test, reported as counts a
 | Header evidence (Phase 3) | RapidFuzz 3.14.6 | Lookalike domain similarity (string ratio after look-alike character mapping) |
 | Keyword baseline (Phase 4) | Python standard library only | Phrase matching on normalised words; no new dependency |
 | Labels and agreement (Phase 5) | scikit-learn 1.9.1 | cohen_kappa_score, used to cross-check the hand-written kappa; the other Phase 5 scripts use the standard library and pandas |
+| Tactic classifier (Phase 6) | torch 2.14.1 on the Mac, transformers 5.19.0 on the Mac and on Colab (Colab keeps its own preinstalled torch) | Fine-tuning and CPU inference; weights as safetensors; precision, recall and F1 hand-written in src/eval/metrics.py (scikit-learn only inside its self-test) |
 | Testing | pytest | One environment check only (tests/test_environment.py); no unit tests per phase |
 | Explainability | LIME (SHAP only if time) | Word-level highlights; attention-as-explanation is academically contested |
 | Backend | FastAPI + Pydantic + slowapi | The model lives in Python; schema validation; rate limiting |
@@ -890,6 +950,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | Phrase matching without regular expressions | The keyword baseline matches whole words from a lookup table keyed by each phrase's first word, so cost grows in proportion to the text length; text is capped at 200,000 characters, and zero-width characters are removed so a phrase cannot be hidden by splitting it. Eight crafted 200,000-character inputs each finish in under one second | A04 Insecure Design (denial of service) |
 | Redaction before data leaves the machine | Annotation batches sent to outside web chats (Phase 5) use body_redacted only: no real addresses, no live links. tldextract never downloads its suffix list | A02 / privacy by design |
 | Annotation prompt hardening (build time) | Each email is wrapped as data in an <email> block with its angle brackets replaced, so it cannot close the block; the prompt says never to follow text inside and repeats it after the emails; a reply must be a JSON array of exactly the batch's ids with a fixed shape, and anything else is rejected and re-asked; quoted spans must appear in the email; a reply that gives every email the same answer is rejected as a likely hijack; batches (full email text) are never committed; API keys live only in .env (ignored by Git), travel only in the Authorization header over HTTPS, and are removed from every error message | LLM01 Prompt injection; A03 Injection |
+| Model files and offline inference (Phase 6) | Weights are stored and loaded as safetensors (plain numbers; the older pickle format can run code when loaded); loading is offline (local_files_only), trust_remote_code is never set, and the model's output order is checked against the tactic order; input is cut at 2,000 characters and 512 tokens; the Colab upload file holds train and validation rows only, so test emails and labels never reach training; the check suite fails if a pickle-style file sits in the model folder | A08 Software and Data Integrity Failures; A06 Vulnerable Components |
 | Output encoding (XSS) | Email bodies are attacker-controlled. Render as text; highlights are built from escaped text; no dangerouslySetInnerHTML; DOMPurify if HTML is ever shown. Test with real XSS payloads from the corpus. | A03 Injection (XSS) |
 | PII redaction | Email addresses, phone numbers and account numbers redacted before any logging | A09 Logging Failures |
 | Rate limiting | slowapi per-IP limits on the analysis endpoint | A04 Insecure Design |
@@ -937,7 +998,7 @@ For each phase, the assistant explains the background, then provides every file 
 | 3 | Parser and header evidence extractor; fills the header columns; organisation domain handling | src/headers | Done (7 Oct 2026) |
 | 4 | Keyword baseline: lexicon of strong and weak phrases, normaliser, scorer; train-split hit rates, phrase table and sanity checks | src/baseline | Done (7 Oct 2026) |
 | 5 | Tactic and claim labels: batch prompt builder, annotation through a free API (two annotator models and a tie-breaker), schema validation, Cohen's kappa, SemEval 23-to-7 mapping; synthetic emails via a free API into data/synthetic/ | src/data | Done (8 Oct 2026) |
-| 6 | DistilBERT tactic classifier on Colab (optional SemEval pretraining) | src/models | Not started |
+| 6 | DistilBERT tactic classifier on Colab (SemEval pretraining skipped), validation scores and checks | src/models, src/eval | Done (8 Oct 2026) |
 | 7 | Claim extractor and claim schema (affiliation, authority, relationship, request types) | src/claims | Not started |
 | 8 | Header verifier (N3: internal and external affiliation, authority, reply, signature) and request verifier | src/verifiers | Not started |
 | 9 | Thread builder (Enron and Apache), thread-hijack benchmark, thread verifier (N2, including request drift) | src/thread, src/verifiers, src/data | Not started |
@@ -993,7 +1054,7 @@ Drop in this order: (1) SemEval pretraining, (2) the style-drift signal, (3) the
 
 - data/raw is read-only. Scripts read from raw and write to processed, so any mistake can be fixed by deleting processed and rerunning.
 
-- Train on Colab (Python 3.12), save the model to artifacts/, run inference locally on CPU. Pin torch and transformers to the same versions in Colab and in requirements.txt.
+- Train on Colab, save the model to artifacts/, run inference locally on CPU. transformers is pinned to the same version in Colab and in requirements.txt. torch is pinned in requirements.txt for the Mac; Colab keeps its own preinstalled torch, and its Python version can differ from the venv's (the Phase 6 run: torch 2.11.0+cu130 and Python 3.13.15 on Colab, torch 2.14.1 and Python 3.12 on the Mac). The saved weights are plain numbers, and the Phase 6 check that the Mac reproduces Colab's predictions to within 0.001 passed (largest difference 0.000001).
 
 - .gitignore includes: venv/, \_\_pycache\_\_/, \*.pyc, .env, data/raw/, data/processed/, artifacts/\* with !artifacts/README.md (so the folder README is committed), \*.pt, \*.bin, \*.safetensors, node_modules/, frontend/dist/, .ipynb_checkpoints/, .pytest_cache/, .DS_Store.
 
@@ -1014,14 +1075,14 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | src/preprocess | clean.py, redact.py, build.py | HTML to text, list footer and quote removal, signature; N1 redaction (\[URL\] \[EMAIL\] \[FILE\] \[DOMAIN\], including spaced forms); build writes cleaned.parquet and the checks | 2 (done) |
 | src/headers | parser.py, domains.py, evidence.py, build.py | Raw email to header block, body and header fields; registered domains, freemail and open-platform lists, lookalike score; evidence dict with trusted authentication verdicts; build writes headers.parquet and the checks. The brand-domain list for external affiliation moves to Phase 8 | 3 (done) |
 | src/baseline | lexicon.py, keywords.py, build.py | Word lists per tactic (data only); text normaliser, scorer and lexicon check; train-split hit rates, phrase table and sanity checks | 4 (done) |
-| src/models | dataset.py, train.py, predict.py | Training data preparation; fine-tuning on Colab; loading weights and predicting 7 tactic probabilities | 6 |
+| src/models | dataset.py, train.py, predict.py, validate.py | Training table (train and validation rows only) and its checks; fine-tuning on Colab; loading weights and predicting 7 tactic probabilities; validation scores and PASS/FAIL checks on the Mac | 6 (done) |
 | src/claims | schema.py, patterns.py, extractor.py | Claim object; regex patterns; classifier + spaCy + patterns to typed claims | 7 |
 | src/verifiers | header_verifier.py, request_verifier.py | N3 checks; who is asking for money or credentials | 8 |
 | src/thread, src/verifiers, src/data | builder.py, signals.py, thread_verifier.py, hijack_benchmark.py | Thread rebuilding; N2 signal helpers; N2 verifier and flip point; hijack benchmark | 9 |
 | src/router, src/explain | router.py, ledger.py, score.py, pipeline.py, lime_explain.py | Routing table; ledger rows; 0-100 score and bands; analyze(email) end to end; LIME highlights | 10 |
 | src/api | main.py, schemas.py, security.py | FastAPI app and routes; Pydantic request and response shapes; API key, rate limit, size caps, safe logging | 11 |
 | frontend/src | main.jsx, App.jsx, api.js, pages/AnalyzerPage.jsx, pages/DashboardPage.jsx, components/EmailInput.jsx, RiskBadge.jsx, HighlightedBody.jsx, FindingsTable.jsx, HeaderFindings.jsx, ThreadTimeline.jsx | Entry and layout; API calls; analyzer and dashboard pages; input, score, highlighted body, ledger table, header results, thread timeline | 12 |
-| src/eval | metrics.py, ablation_n1.py, ablation_n2.py, ablation_n3.py, ablation_arch.py, claim_extraction.py, style_confound.py, paraphrase.py, charts.py | Metrics; one script per ablation; supporting experiments; charts | 13 |
+| src/eval | metrics.py, ablation_n1.py, ablation_n2.py, ablation_n3.py, ablation_arch.py, claim_extraction.py, style_confound.py, paraphrase.py, charts.py | Metrics (metrics.py, written in Phase 6); one script per ablation; supporting experiments; charts | 6, 13 |
 
 # 13. Viva preparation
 
@@ -1051,6 +1112,10 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | Is the keyword baseline a fair opponent for DistilBERT? | It is the simple-rules reference: phrase lists written from the tactic definitions, revised (if at all) by reading the train split only, and frozen before any label existed. Its thresholds are tuned on validation like DistilBERT's, and no labelled email was picked by its keyword hits, so it has no selection advantage. |
 | How do you know your LLM-made labels are right? | Two annotators from different model families label every email from the same fixed prompt; Cohen's kappa per label measures agreement beyond chance (mean 0.501 over the tactics); a third annotator decides each disagreement; every raw reply and the model names are saved. There is no human validation sample, which is a stated limitation: the tactic scores are agreement with LLM annotators, not with people. |
 | Aren't synthetic emails just one LLM's style? | Yes, so they are never mixed into real-email results. Every attack has a benign twin from the same template, the twin must not trip the keyword baseline, each attack's tactics are confirmed by a quoted cue, and the synthetic set exists only to give rare tactics enough positives. |
+| Why DistilBERT, and can it run without a GPU? | DistilBERT is a smaller, faster BERT (6 layers, 66 million learned numbers). Fine-tuning needs a GPU, so it ran once on Colab; analysing one email afterwards takes a fraction of a second on a CPU, which is all the web app needs, and there is no LLM at run time. |
+| How do you know the model is not just memorising 700 emails? | The training and validation loss are logged every epoch, training stops after three epochs without improvement on real validation emails and keeps the best epoch, three seeds are run and all reported, and the test split is touched once, in Phase 13. The validation scores are slightly optimistic because validation picked the epoch, the seed and the thresholds; the report says so. |
+| Why are reciprocity, social proof and liking counts and not F1? | Each has fewer than 10 real positives in validation or test, so one email would move F1 by several points. They learn mostly from synthetic emails, whose results are reported apart because they carry one LLM's style. |
+| Why tune thresholds, and why on validation? | A 0.5 cutoff assumes balanced classes; with rare tactics and a loss that up-weights positives the probabilities are shifted, so each of the four main tactics gets its own cutoff chosen on validation emails. The keyword baseline is tuned the same way, and the test split is used once with the cutoffs fixed. |
 
 ## 13.1 Concepts already taught
 
@@ -1078,7 +1143,9 @@ Planned file names; each phase may adjust them. The root and major-folder README
 
 - Annotation as ground truth and why two annotators; Cohen's kappa (agreement beyond chance, one value per label); label noise; fixed-allocation stratified sampling; JSON schema validation; prompt injection into an LLM that reads attacker-written text; matched benign twins as a style-confound control; why a SemEval mapping must mask labels it cannot give (Phase 5).
 
-To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid outputs vs softmax, why a 0.5 threshold is usually wrong, LIME, FastAPI basics, the thread-hijack benchmark, the claim router, affiliation claims in code.
+- Tokenisers and word pieces; fine-tuning a pretrained model; tensors, autograd, the training loop and DataLoader in PyTorch (compared with Node and React); multi-label sigmoid outputs versus softmax; binary cross-entropy; class imbalance and pos_weight; why 0.5 is usually the wrong threshold and per-tactic thresholds tuned on validation; train, validation and test roles; overfitting and early stopping; seeds and GPU reproducibility; safetensors versus pickle (Phase 6).
+
+To be taught during the build: LIME, FastAPI basics, the thread-hijack benchmark, the claim router, affiliation claims in code.
 
 # 14. Decisions log
 
@@ -1164,18 +1231,29 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 | 8 Oct 2026 | SemEval techniques mapped as direct, partial or none; tactics SemEval cannot label are masked, never 0 | Calling an unannotated tactic 0 would teach the model that it is absent |
 | 8 Oct 2026 | Phase 5 complete: 690 labelled emails, mean tactic kappa 0.501, 222 valid synthetic pairs | Phase 6 can start |
 | 8 Oct 2026 | Version 3.7: Phase 5 folded into Sections 2, 8.4, 8.7, 8.9, 8.12, 8.13 (new), 9, 10, 11, 12, 13, 14, 15 and 16 | End of Phase 5 |
+| 8 Oct 2026 | Training mix for the tactic classifier: the real and the synthetic train emails together, plus a real-only run with the same settings as a comparison | The three rare tactics have 2 to 11 real train positives and can only learn from synthetic text; the comparison measures whether the synthetic emails help |
+| 8 Oct 2026 | Loss: binary cross-entropy with pos_weight per tactic (negatives divided by positives, at most 10), one sigmoid per tactic | Seven independent yes/no questions, so no softmax; a rare positive has to count like many negatives |
+| 8 Oct 2026 | distilbert-base-uncased, 512 tokens with dynamic padding, batch 16, AdamW at 3e-5 with warm-up and linear decay, at most 8 epochs, stop after 3 without improvement, seeds 42, 43 and 44 all reported | Uncased because the Kaggle Enron and Ling text is lowercase; early stopping and three seeds guard against overfitting on about 700 emails and show how much luck matters |
+| 8 Oct 2026 | Epoch, seed and thresholds chosen on real validation macro-F1 over authority, urgency, scarcity and secrecy; reciprocity, social proof and liking stay at 0.5 and are counts only | Tuning on fewer than 10 positives would only fit noise; validation scores are therefore slightly optimistic and the test split is used once, in Phase 13 |
+| 8 Oct 2026 | The file uploaded to Colab holds train and validation rows only | Test emails and test labels cannot reach the training code |
+| 8 Oct 2026 | Weights stored and loaded as safetensors, offline, with the output order checked against the tactic order | A pickle-format model can run code when loaded; a wrong output order would silently attach one tactic's probability to another |
+| 8 Oct 2026 | Colab keeps its own preinstalled torch and Python (torch 2.11.0+cu130, Python 3.13.15 in the run); transformers is pinned to the same version as the Mac, and torch stays pinned for the Mac | Reinstalling torch on Colab is a multi-gigabyte download that can mismatch the GPU driver, and weights are plain numbers; the check that the Mac reproduces Colab's predictions (largest difference 0.000001, limit 0.001) shows the difference does not matter |
+| 8 Oct 2026 | The keyword baseline is scored in Phase 6 too, with its default thresholds and with thresholds tuned on the same real validation emails; on synthetic emails it gets recall only | A fair comparison tunes both alike; twins that tripped the baseline were dropped, so its synthetic precision would be fake. The final comparison stays in Phase 13, on the test split |
+| 8 Oct 2026 | SemEval pretraining skipped | The first item to drop (Section 12.4); the labelled and synthetic emails were enough to start |
+| 8 Oct 2026 | Phase 6 complete: validation scores and checks in results/tactic_validation_scores.csv and tactic_checks.csv | Phase 7 can start |
+| 8 Oct 2026 | Version 3.8: Phase 6 folded into Sections 2, 8.9, 8.14 (new), 9, 10, 12, 13, 14, 15 and 16 | End of Phase 6 |
 
 # 15. Open items and next actions
 
-1.  **Start Phase 6** (DistilBERT tactic classifier) in a new chat with docs/PretextGuard_Context.md and this document.
+1.  **Start Phase 7** (claim extractor) in a new chat with docs/PretextGuard_Context.md and this document.
 
-2.  **Replace the project-file copy** with v3.7 (remove older copies) and keep docs/ in the repo current.
+2.  **Replace the project-file copy** with v3.8 (remove older copies) and keep docs/ in the repo current.
 
 3.  **Update the Review deck** when needed: novelty slide (N1, N2, N3 and the architecture contribution), the architecture diagram (Figure 2), the corrected running example (authentication passes for gmail.com), and the literature table (add Mithun et al. 2024, Ho et al. 2019, Valecha et al. 2022, ConvoSentinel, Aggarwal et al. 2014).
 
 4.  **Phase 8 notes from Phase 3:** envelope mismatch is normal for mailing-list mail (lists send bounces to their own server), so count it only when list_mail is false; use authentication evidence only through claim-conditioned rules (no benign source has SPF or DMARC verdicts, and Apache has DKIM only); build the brand-domain list for external-affiliation claims and compare claimed domains with lookalike_score from src/headers/domains.py; send_hour comes from the sender's own Date header, so it is weak evidence alone; Kaggle rows carry only a rebuilt header block, so their header evidence is mostly unknown.
 
-5.  **Before Phase 6:** choose the training mix: the real labelled train items first, the synthetic train pairs for the rare tactics (reported separately), SemEval pretraining only if time allows, with unmapped tactics masked (src/data/semeval_map.py).
+5.  **Training mix (decided and run in Phase 6):** the real and synthetic train emails together, with a real-only comparison run (Section 8.14); SemEval pretraining was skipped, so no label was masked (src/data/semeval_map.py stays available if time allows).
 
 6.  **Re-verify statistics** before the report: IC3 2024 (and whether a 2025 report is out), DBIR 2026 wording, and the under-8% figure.
 
@@ -1187,7 +1265,9 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 
 10. **Phase 13 notes from Phase 4:** tune one threshold per tactic on validation labels for the baseline and for DistilBERT alike (the default 1.0 until then); report baseline-versus-DistilBERT macro-F1 on the labelled validation and test items (all random draws, so no selection bias); report tactics with too few positives (see results/keyword_checks.csv) with counts instead of F1; state the lexicon version used (LEXICON_VERSION in src/baseline/lexicon.py).
 
-11. **Phase 6 notes from Phase 5:** report real-email and synthetic results separately; tactics with fewer than 10 positives in validation or test (see results/label_counts.csv) are reported as counts, not F1; tune per-tactic thresholds on the validation labels only and use the test labels once; the labels are LLM labels, so say so wherever an F1 appears; run semeval_map.py --check on the registered data before any SemEval pretraining.
+11. **Phase 6 notes from Phase 5 (applied in Phase 6, repeat them in Phase 13):** report real-email and synthetic results separately; tactics with fewer than 10 positives in validation or test (see results/label_counts.csv) are reported as counts, not F1; tune per-tactic thresholds on the validation labels only and use the test labels once; the labels are LLM labels, so say so wherever an F1 appears; run semeval_map.py --check on the registered data before any SemEval pretraining.
+
+12. **Phase 13 notes from Phase 6:** load the model with TacticClassifier (src/models/predict.py) and its thresholds from artifacts/tactic_model/thresholds.json; reuse src/eval/metrics.py for every system; use the test split once, with thresholds fixed on validation (tuned thresholds for the keyword baseline are in results/tactic_validation_scores.csv); report real and synthetic results apart; for synthetic emails with fewer than 10 attack positives in a split (test has fewer than 10 for urgency, liking, secrecy and reciprocity), pool validation and test and label it as pooled; keep tactics with fewer than 10 real positives as counts; quote the validation scores as slightly optimistic; report a bootstrap confidence interval for each F1 (with 12 to 44 positives per tactic, differences of a few points are noise); the baseline gets recall only on synthetic emails. LIME (Phase 10) needs a batch prediction function: use TacticClassifier.probabilities.
 
 # 16. Glossary
 
@@ -1254,6 +1334,16 @@ To be taught during the build: tokenisers and fine-tuning, multi-label sigmoid o
 | Benign twin | A legitimate synthetic email written from the same template as an attack, with no manipulation |
 | Prompt injection | Text inside the data that tries to give instructions to the model reading it |
 | Masked label | A label left out of training because its source cannot say whether it is 0 or 1 |
+| Tokeniser | Cuts text into word pieces and maps each to a number from a fixed dictionary; DistilBERT reads at most 512 of them |
+| Logit / sigmoid | The raw number the model gives per tactic / the function that turns it into a probability between 0 and 1; one sigmoid per tactic, so the seven probabilities do not add up to 1 |
+| Binary cross-entropy | The loss for a yes/no answer: the more confident the wrong answer, the larger the penalty |
+| pos_weight | A per-tactic loss weight (negatives divided by positives, at most 10) so a rare positive counts like many negatives |
+| Threshold | The probability at which a tactic counts as fired; tuned per tactic on validation emails |
+| Epoch | One pass over all training emails |
+| Early stopping | Stopping after several epochs without validation improvement and keeping the best epoch; a guard against overfitting |
+| Overfitting | A model memorising its training emails: training loss keeps falling while validation loss rises |
+| Seed | The number that fixes shuffling and starting values, so a run can be repeated (GPU arithmetic still makes it similar, not identical) |
+| Safetensors | A model file format that holds only numbers; the older pickle format can run code when loaded |
 
 # 17. References
 
