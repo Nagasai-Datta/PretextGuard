@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: October 2026, written at the end of Phase 7, to go with master document v3.9.
+Version: October 2026, written at the end of Phase 8, to go with master document v3.10.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -38,7 +38,9 @@ any conflict you notice.
    7 Oct 2026):** each step delivers every file it needs, including READMEs, edits to existing files
    and the document updates, then one run, one check and one commit. Phase 1's five steps were too
    long; Phase 4's second step carried `build.py`, its README, the document-update script and this
-   file together.
+   file together. On 8 Oct 2026 he asked again for "as much as you can in one step": Phase 8 delivered all code,
+   the READMEs, the self-test and the document-update script (which also writes the next phase's context
+   file) in one step; the runs, the script and the commits followed.
 3. **You write all code.** Well-known libraries are fine; write the project logic fresh. Never copy
    code from GitHub repositories, and never open or adapt other students' PretextGuard-like projects.
 4. **You never run Git.** No commit, push, branch or remote commands, even if you have tools that
@@ -191,13 +193,14 @@ propose them again as novelty. Stack choices are never novelty (faculty rule).
 | Phase 3 to 5 libraries | RapidFuzz 3.14.6 (Phase 3); Phase 4 none; scikit-learn 1.9.1 (Phase 5, for Cohen's kappa cross-check); all pinned |
 | Phase 6 libraries | torch 2.14.1 (the Mac; macOS arm64 wheel), transformers 5.19.0 (Mac and Colab); pinned, `pip-audit` found nothing in them or their dependencies |
 | Phase 7 libraries | spaCy 3.8.16 and its English model `en_core_web_sm` 3.8.0, installed from `requirements.txt` (the model is not on PyPI, so it is pinned by URL and SHA-256 and `pip-audit` lists it as not auditable; it found nothing in spaCy or its dependencies). The extractor loads the model from disk and never downloads it at run time |
+| Phase 8 libraries | none; the verifiers use the standard library, tldextract and RapidFuzz (Phase 3) and pandas in `build.py`. `requirements.txt` is unchanged |
 | Secrets in `.env` (names only here) | `PRETEXTGUARD_API_KEY`; `GEMINI_API_KEY`, `ANNOTATOR_1_MODEL`, `ANNOTATOR_2_MODEL`, `TIEBREAKER_MODEL` (Phase 5). `.env` is ignored; `.env.example` lists the names |
-| Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2); `data/processed/tactic_data.parquet` (Phase 6, train and validation text for Colab); `artifacts/tactic_model/` (Phase 6, about 270 MB, ignored by Git, exists only on the Mac) |
+| Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2); `data/processed/tactic_data.parquet` (Phase 6, train and validation text for Colab); `data/processed/claims_cache/` (Phase 8, the extracted claims per split, ignored by Git, Mac only); `artifacts/tactic_model/` (Phase 6, about 270 MB, ignored by Git, exists only on the Mac) |
 | Rule | Always work from the project root, never from `src/` |
 
 ---
 
-## 4. Current state of the repository (end of Phase 7)
+## 4. Current state of the repository (end of Phase 8)
 
 ```
 pretextguard/
@@ -208,7 +211,7 @@ pretextguard/
   venv/                      Python 3.12.14 (ignored)
   data/README.md             every source, licence, stage and how to rebuild
   data/raw/                  downloads and unpacked archives, read-only (ignored)
-  data/processed/            staged.parquet (1), cleaned.parquet (2), headers.parquet (3), tactic_data.parquet (6) (ignored)
+  data/processed/            staged.parquet (1), cleaned.parquet (2), headers.parquet (3), tactic_data.parquet (6), claims_cache/ (8) (ignored)
   data/labelled/             README.md  sample.csv  annotators.csv  replies_log.csv  labels.csv
                              annotator_1/ annotator_2/ tiebreaker/ (raw replies)  batches/ (ignored)
   data/synthetic/            README.md  plan.csv  generator.csv  synthetic.csv  prompts/  replies/
@@ -223,6 +226,7 @@ pretextguard/
                      tactic_data_counts.csv  tactic_training_log.csv  tactic_seed_summary.csv
                      tactic_val_probs.csv  tactic_run_info.json  tactic_validation_scores.csv  tactic_checks.csv
                      claim_hit_rates.csv  claim_pattern_hits.csv  claim_scores.csv  claim_checks.csv
+                     verifier_rates.csv  verifier_rule_hits.csv  verifier_checks.csv
   notebooks/README.md  phase6_tactic_classifier.ipynb  frontend/.gitkeep
   docs/README.md  master_document.md (v3.9)  PretextGuard_Master_Document_v3.2.docx (snapshot)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)
@@ -237,7 +241,8 @@ pretextguard/
   src/models/                README.md  dataset.py  train.py  predict.py  validate.py
   src/eval/                  README.md  metrics.py
   src/claims/                README.md  schema.py  patterns.py  extractor.py  build.py
-  src/{thread,verifiers,router,explain,api}/__init__.py  (all empty)
+  src/verifiers/             README.md  rows.py  facts.py  brands.py  bank.py  header_verifier.py  request_verifier.py  verify.py  selftest.py  build.py
+  src/{thread,router,explain,api}/__init__.py  (all empty)
   tests/test_environment.py  16 checks (unchanged)
 ```
 
@@ -420,7 +425,8 @@ Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). 
   reply_direction 5/3/4, data_request 2/13/3, prior_relationship 0/4/1, payment_request 0/11/0, payment_change
   1/3/0, gift_card 0/1/0. For context, annotator 2's labels against annotator 1's give F1 0.410 (internal), 0.721
   (external), 0.662 (authority), 0.613 (signature), 0.730 (credential) from `label_agreement.csv`. Synthetic
-  validation macro 0.571 / 0.599; affiliation_external recall there is 0.28 because the generic-word filter rejects
+  validation macro 0.536 / 0.613 (0.570 / 0.599 without credential_request, which has one positive there; caveat in master document
+  8.15); affiliation_external recall there is 0.28 because the generic-word filter rejects
   the generic-sounding company names the generator invented. All scores are agreement with LLM labels from one model
   family; the train scores are development scores.
 - **Findings to carry forward:** (1) affiliation_internal does not generalise (15 validation positives, 2 found): it
@@ -437,6 +443,47 @@ Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). 
   real data. `data/processed/` tables exist only on his Mac.
 - **Docs:** `update_docs_phase7.py` (a download, run from `~/Downloads` inside the venv; it reads `results/` and stops
   if a check failed or the validation emails were not scored) made master document v3.9.
+
+**Phase 8 in brief** (master document Section 8.16, `src/verifiers/README.md`):
+- **Code:** `src/verifiers`: `rows.py` (the ledger row, `check_row`, `ROUTES`, `clean_text`, `clean_domain`), `facts.py` (`prepare_facts`,
+  `auth_state`, `similar_domain`, `find_addresses`), `brands.py` (data only), `bank.py` (`find_bank_details`, `bank_detail_keys`),
+  `header_verifier.py` (N3), `request_verifier.py`, `verify.py` (`verify_claims(claims, {**fields, **evidence}, contact_text, body_text)`,
+  `RULES_VERSION`, `VERSION_LOG`, `ALL_RULES`), `selftest.py` and `build.py`. No new library. The API reuses `verify_claims` unchanged.
+- **Ledger row** (Section 6.3 plus `claim_type` and `rule`): `contradiction` is true (severity high, medium or low), false (severity none)
+  or null (severity not_checkable). Missing evidence is never 'no contradiction'. Severity is rule strength, not a probability; a weak claim
+  (confidence 0.6) lowers it one step; Phase 10 turns severities into points. 63 rules (50 header, 12 request, one
+  thread placeholder `tv_needs_thread` for prior_relationship).
+- **Header verifier:** internal affiliation (free mailbox or look-alike of the organisation domain: high; exact-domain spoof with DMARC fail:
+  high; not checkable without an organisation domain, on mailing-list mail, or when From shows the organisation's domain and there is no
+  verdict), external affiliation (brand domains from `brands.py`; free mailbox, look-alike or display name showing another address: high; an
+  unrelated domain: medium; no organisation named or no domain on file: not checkable), authority, reply direction (Reply-To against From,
+  list-set Reply-To excluded) and signature contact (addresses read from the UNREDACTED signature block or the end of the cleaned body).
+  Authentication enters only through these claim-conditioned rules. Fixed numbers, never tuned: look-alike = equal after look-alike
+  character mapping, or rapidfuzz ratio 80 or more with both names at least 6 letters.
+- **Request verifier:** who is asking. Signals: look-alike sender, DMARC fail (high); free mailbox (medium, high when outside the recipient's
+  organisation); Reply-To to another domain, display name showing another address, SPF fail (medium); no check passed (low). payment_change and
+  gift_card +1 step, data_request -1, valid bank details +1. A bank-detail change is always 'not checkable: needs the thread'. Bank details are
+  found by `bank.py` without regular expressions (IBAN mod 97 and country length, labelled account, routing and sort numbers, SWIFT) and
+  shown masked.
+- **Discipline:** rules written from definitions and train results only, in versions up to 0.3 (`VERSION_LOG` in `verify.py`);
+  `build.py --train-only` never loads a validation email; the final run read validation once; the test split is unused. The train rates are
+  development rates. The claims the Phase 7 extractor finds are cached in `data/processed/claims_cache/` (one file per split).
+- **Results** (final run, `results/verifier_*.csv`, 31 PASS, 0 FAIL, 10 info). Train: 79590 claims routed to a verifier in
+  32872 of 69542 emails; 11.5% could be checked and 79.5% of those were contradicted. Share of emails with at
+  least one contradicted claim, train: ham 3.5%, spam 1.7%, phishing 18.4%, fraud 40.9%; validation: ham 3.2%,
+  spam 1.4%, phishing 17.9%, fraud 41.3%. The checkable share runs from 0.0% (kaggle_enron) to 27.1% (spamassassin) across
+  sources because the evidence differs by source. There are no contradiction labels, so these are rates, not precision or recall; the effect on
+  detection is the Phase 13 N3 ablation. The per-type tables, per-source coverage and the reading are in Section 8.16.
+- **Findings to carry forward:** (1) attacks and ham come from different corpora with different header evidence, so category contrasts are partly
+  corpus contrasts; always report per source. (2) Real internal-affiliation evidence is thin (organisation domain known for 3.6% of
+  phishing_pot and 9.8% of Nazario emails) and the extractor finds 13% of the labelled internal claims, so a missing claim is never evidence of
+  honesty. (3) A sender that authenticates as its own domain is only 'consistent': a hijacked real account passes every check, which is
+  what Phase 9 is for. (4) prior_relationship and payment_change are routed to the thread verifier; until it exists their rows are not checkable.
+  (5) Brand domains: 51 organisations, 15 secondary domains flagged for a hand check (`CONFIRM` in `brands.py`), six left out as not certain.
+- **Where things live:** results in `results/verifier_*.csv` (counts only); the claims cache in `data/processed/claims_cache/` (ignored by
+  Git, exists only on the Mac). Claude Code on the web cannot reach the data: test code on hand-made header blocks and claims, as `selftest.py` does.
+- **Docs:** `update_docs_phase8.py` (a download, run from `~/Downloads` inside the venv; it reads `results/` and stops if a check failed or the
+  validation emails were not read) made master document v3.10, including a caveat in Section 8.15 on the synthetic validation macro-F1.
 
 Current `.gitignore`:
 ```
@@ -510,85 +557,67 @@ en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_
 
 ---
 
-## 5. Next task: Phase 8, header verifier (N3) and request verifier (plan not yet approved)
+## 5. Next task: Phase 9, thread builder, thread-hijack benchmark and thread verifier N2 (plan not yet approved)
 
-Full detail: master document Sections 4.4 (what N3 checks), 4.5, 6.2 (the verifier rows), 6.3 (the ledger row), 6.4
-(routing table), 6.5 (header signals), 6.7 (worked example and the exact-domain variant), 8.11 (what Phase 3
-produced), 8.15 (what Phase 7 produced), 10, 11 (N3 ablation) and 12.6 (planned files `src/verifiers/header_verifier.py`
-and `request_verifier.py`), and Section 15, items 4 and 13. Start by proposing the plan and the background concepts,
-then wait for "go". Deliver in two steps at most, every file as a download, and verify his push by reading the
-repository.
+Full detail: master document Sections 4.3 (what N2 checks), 4.5, 6.2 (the thread rows), 6.3 (the ledger row), 6.4 (routing: prior_relationship and
+the request types go to the thread verifier), 6.5, 8.1 and 8.3 (the benchmark), 8.11 (Apache headers), 8.16 (what Phase 8 produced), 10, 11 (N2
+ablation) and 12.6 (planned files `src/thread/builder.py`, `signals.py`, `src/verifiers/thread_verifier.py`, `src/data/hijack_benchmark.py`), and
+Section 15, items 15 and 16. Start by proposing the plan and the background concepts, then wait for "go". Fold the phase into as few steps as
+you can (Nagasai asked for as much as possible per step), deliver every file as a download, and verify his push by reading the repository.
 
-**Goal.** Two rule-based verifiers (no training) that take what Phases 3 and 7 produce for one email, the claims from
-`extract_claims` and the evidence from `header_evidence(fields, org_domain)` (plus the optional organisation domain),
-and return **ledger rows** in the master document 6.3 form (`claim_id, verifier, evidence, contradiction, severity,
-reason`), including rows marked not checkable. The header verifier handles `affiliation_internal`,
-`affiliation_external`, `authority`, `reply_direction` and `signature_contact` (Section 4.4 table); the request
-verifier handles `payment_request`, `payment_change`, `credential_request`, `gift_card` and `data_request` (who is
-asking: freemail, external, lookalike, unauthenticated). `prior_relationship` goes to the thread verifier (Phase 9):
-Phase 8 only records that it needs a thread. Phase 10 turns the rows into the risk score.
+**Goal.** Rebuild real threads, build the thread-hijack benchmark, and write the thread verifier (N2): a message is checked against the earlier
+messages of its own thread, so a hijacked account whose headers look clean is still caught. N2 returns ledger rows of the Phase 8 shape
+(`verifier` 'thread', rule ids starting `tv_`) plus the index of the message where the thread flipped. Signals (Section 4.3): tactic onset
+(tactic probabilities of the new message against the average of the earlier ones), request drift (payment details, account numbers and
+credential requests against everything earlier), sending-path drift (first Received hop, X-Mailer, sender domain against the same sender's
+earlier messages) and thread integrity (In-Reply-To and References must point to real earlier Message-IDs; quoted history must match the real
+earlier text). Style drift is optional and dropped first. The thread verifier also answers `prior_relationship` claims ("as we discussed on
+the call": does such a conversation exist?) and replaces the placeholder row `tv_needs_thread` of Phase 8.
 
 **Notes the plan must handle**
-- **Conditioning is the point of N3.** The same header values mean different things depending on the claim: dmarc=pass
-  on a Gmail message that claims to be Acme's Finance Director is a contradiction (authentication passed for the wrong
-  domain); spf=fail on a newsletter is low risk. Authentication evidence is never a learned feature (no benign source
-  has SPF or DMARC verdicts, and Apache has DKIM only): it enters only through these claim-conditioned rules.
-- **Evidence coverage differs by source** (master document 8.11): phishing_pot has verdicts for 99.1%, Nazario 20.8%,
-  Apache DKIM only, SpamAssassin, CEAS-08 and Kaggle none; Kaggle rows carry only a rebuilt header block. A missing
-  verdict is `unknown`, never pass, and a check that lacks its evidence is `not checkable`, not "no contradiction".
-  Report results per source.
-- **Organisation domain.** Internal-affiliation checks need it; it comes from the To header and is missing for
-  collector mailboxes, placeholders and free mailboxes (`org_checkable`). Not checkable then, never guessed.
-- **Brand-domain list.** `KNOWN_ORGS` in `src/claims/patterns.py` (about 55 often-imitated organisations, data only) is
-  the starting point: attach each name's real registered domains in a data-only file, compare the sender's registered
-  domain and the authenticated domain with them, and use `lookalike_score` from `src/headers/domains.py` (it already
-  maps look-alike characters and punycode). An `affiliation_external` claim with no organisation in `attributes` (a cue
-  like "Security Team" alone) has nothing to check. Never guess a domain: write only domains he can confirm, and say
-  which ones to check. Legitimate brand mail often goes through a third-party mailer, so a different authenticated
-  domain is not always a contradiction; the rule needs a severity, not a yes/no.
-- **Signature address.** The claim says a contact block exists; the address itself is `[EMAIL]` in redacted text. Read
-  the addresses from the unredacted signature (the `signature` column, or the parsed email at run time) and compare
-  with the From address. Reply-To divergence is not counted for list mail (`list_mail`), and envelope mismatch is
-  normal for list mail.
-- **How to verify it.** There are no contradiction labels. Use (1) a self-test of hand-made emails with header blocks and
-  expected ledger rows (the David email from gmail.com, the exact-domain spoof with dmarc=fail, an honest internal
-  mail, a newsletter with spf=fail, a list mail with a list-set Reply-To); (2) contradiction rates per category and
-  per source on the train split, as in Phases 4 and 7 (attacks should show more contradictions than ham; print the
-  contradictions found in ham and read them); (3) one validation read of the frozen rules, with the same discipline
-  as Phase 7 (rules written from the definitions and the train split only, validation read once, test in Phase 13).
-  The N3 ablation (full against text-only, headers-only and parallel fusion) is Phase 13, with real affiliation
-  positives and synthetic BEC apart. The synthetic emails have no headers, so decide in the plan whether Phase 8
-  generates clearly synthetic header blocks for them (a BEC attack from a freemail sender with a matched benign twin
-  from the organisation's own domain), reported apart from real results.
-- **Leakage and labels.** Weights and severities are initial and calibrated in Phase 10 on validation, never test. The
-  claim labels are LLM labels from one model family; say so wherever a score appears. `affiliation_internal` claims
-  were found with recall 0.13 on validation, so an absent claim is never evidence.
-- **Security.** Headers and signatures are attacker-written: reuse the Phase 3 caps and per-field parsing, no
-  backtracking regular expressions (account numbers and IBANs need bounded patterns and a crafted-input test), domain
-  comparisons through the offline `tldextract`, and reasons built from validated values only (the UI must still escape
-  them, Phase 12).
-- **Environment.** `headers.parquet` and the tables exist only on Nagasai's Mac. Test the verifiers in Claude Code on the
-  web on hand-made header blocks and claims; real-data runs are his.
+- **Data (Section 8.3).** Raw Enron (CMU maildir, 517,401 messages) has no In-Reply-To, References, Received or X-Mailer, so its threads are rebuilt
+  from normalised "RE:" subjects, participants and quoted text and can only test the content signals (tactic onset, request drift). Apache
+  tomcat and kafka lists (in the single-email table as ham) keep Message-ID, In-Reply-To (63 to 78%), References and Received, so they test the header
+  signals (sending-path drift, thread integrity). Keep threads with at least three messages. Raw Enron is not in `cleaned.parquet` (the Kaggle
+  merge holds Enron bodies); decide how the builder reads it (`src/data/paths.py` has `ENRON_DIR`).
+- **Benchmark.** Real base threads, injected attacker replies in three variants (account-takeover reply with content drift, where on Apache threads
+  the sending details are copied from that sender's real messages; mid-thread look-alike domain swap; forged thread with fabricated quoted
+  history and no matching Message-IDs). Negatives: the real next reply, plus a synthetic benign continuation from the same generator and
+  template (style-confound control). Labels: hijacked or not (thread level) and the hijack message index. Injected replies are synthetic while
+  the base threads are real, and the report says so. Generate through the free Gemini API as in Phase 5 (`src/data/llm_api.py`, `annotate.py`
+  show how); no paid APIs; never design a task that needs more than a few manual pastes. The split must be grouped by thread so one thread
+  never straddles train, validation and test.
+- **Evaluation.** Content signals on Enron threads, header signals on Apache threads, reported apart; real and synthetic apart; detection
+  with and without the thread verifier (the N2 ablation, Phase 13); the 10-positive rule; bootstrap confidence intervals. Authentication on
+  list mail belongs to the list (`auth_state` 'list_relayed'); the Apache Reply-To is set by the list.
+- **Reuse.** `bank_detail_keys` (src/verifiers/bank.py) for request drift; `TacticClassifier` (src/models/predict.py; weights only on the Mac)
+  for tactic onset; `extract_many` and the claims cache for claims; `parse_header_fields`, `header_evidence` and the headers.parquet columns
+  (`origin_ip`, `received_hops`, `mailer`, `from_registered_domain`, `message_id`, `in_reply_to`, `references`) for the header signals;
+  `rows.py` helpers and `check_row` for the rows.
+- **How to verify it.** There are no labels for real hijacks, so the benchmark is the test: self-test of hand-made threads and expected rows,
+  signal rates on real unmodified threads (false alarms: print and read them), then the injected replies; freeze, then one validation read, the
+  test split in Phase 13.
+- **Security.** Thread input is attacker-written: caps on messages per thread and MIME depth (master document Section 10), Message-ID and
+  quote parsing with bounded patterns or word lookup, a crafted-input test, reasons from validated values only (`clean_text`, `clean_domain`).
+- **Environment.** `headers.parquet`, the claims cache and the model weights exist only on Nagasai's Mac. Test the new code in Claude Code on
+  the web on hand-made threads and have him run the real-data parts.
 
-**Decisions for the plan to recommend:** the ledger row shape and severity scale (high, medium, low, plus
-not checkable and no contradiction); how a rule combines several pieces of evidence and what an exact-domain spoof
-looks like in a row; the brand-domain file format and which entries are certain; whether to generate synthetic headers
-now or in Phase 13; what Phase 8 prints and saves in `results/` (contradiction rates per category and source,
-rule hits, checks); the two-step delivery.
+**Decisions for the plan to recommend:** the thread data format and where it lives (`data/threads/`, committed or not by size); how many threads and of
+which kind; the three injection generators and their prompts; the signal weights (initial severities only, calibrated in Phase 10); what Phase 9
+prints and saves in `results/`; the step plan.
 
-**Background to teach in Phase 8:** what each header proves and does not prove (the authenticated domain against the
-From domain against the claimed domain); display-name spoofing, Reply-To hijacking and lookalike domains again, now as
-rules; claim-conditioned rules against learned features; why "not checkable" differs from "no contradiction"; severity
-and weights; BEC payment-change fraud and what an IBAN or account number looks like; verifying a rule engine without
-labels.
+**Background to teach in Phase 9:** Message-ID, In-Reply-To and References and how mail clients thread; subject normalisation and quoted text for
+Enron; why a hijacked thread still passes SPF, DKIM and DMARC; change-point detection in plain words (finding the flip message); request drift as
+a set difference; sending-path fingerprints (first Received hop, X-Mailer); building a benchmark by injection and why it can be circular (the
+disclosure and the benign continuation); grouped splits for threads.
 
-## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 7 are done)
+## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 8 are done)
 
 | Phase | Deliverable |
 |---|---|
 | 7 | Claim extractor (`src/claims`): done |
-| 8 | Header verifier N3 and request verifier (`src/verifiers`): next |
-| 9 | Thread builder, hijack benchmark, thread verifier N2 (`src/thread`, `src/verifiers`, `src/data`) |
+| 8 | Header verifier N3 and request verifier (`src/verifiers`): done |
+| 9 | Thread builder, hijack benchmark, thread verifier N2 (`src/thread`, `src/verifiers`, `src/data`): next |
 | 10 | Router, ledger, risk score, LIME (`src/router`, `src/explain`) |
 | 11 | FastAPI backend with all security controls (`src/api`) |
 | 12 | React frontend: analyzer and dashboard (`frontend/`) |

@@ -14,9 +14,9 @@ Project Master Document
 
 **Faculty:** Dr. Arun Prasath G
 
-**Version:** 3.9, 8 October 2026
+**Version:** 3.10, 9 October 2026
 
-> **This is the single source of truth for the project.** Version 3.9 supersedes version 3.8 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
+> **This is the single source of truth for the project.** Version 3.10 supersedes version 3.9 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
 
 **Contents**
 
@@ -147,7 +147,7 @@ This document is written so that a person or an AI assistant can pick up Pretext
 </tr>
 <tr class="even">
 <td>Current status</td>
-<td>Phases 0 to 7 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 labelled 690 real emails for the seven tactics and eleven claim types with two LLM annotators and a tie-breaker (results/label_*.csv), wrote 222 synthetic attack-and-twin pairs for the rare tactics, and recorded the SemEval 23-to-7 mapping. Phase 6 fine-tuned DistilBERT on the seven tactics on Colab (real and synthetic training emails, three seeds, thresholds tuned on validation) and scored it against the keyword baseline on the validation emails, real and synthetic apart (results/tactic_*.csv, Section 8.14). Phase 7 built the claim extractor: spaCy name detection, 85 token patterns and organisation and signature rules turn an email into typed claims of the eleven types of Section 6.4; the patterns were written from the train split only, frozen at version 0.4 and scored once on the validation emails (results/claim_*.csv, Section 8.15). Phase 8 (header verifier and request verifier) is next.</td>
+<td>Phases 0 to 8 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 labelled 690 real emails for the seven tactics and eleven claim types with two LLM annotators and a tie-breaker (results/label_*.csv), wrote 222 synthetic attack-and-twin pairs for the rare tactics, and recorded the SemEval 23-to-7 mapping. Phase 6 fine-tuned DistilBERT on the seven tactics on Colab (real and synthetic training emails, three seeds, thresholds tuned on validation) and scored it against the keyword baseline on the validation emails, real and synthetic apart (results/tactic_*.csv, Section 8.14). Phase 7 built the claim extractor: spaCy name detection, 85 token patterns and organisation and signature rules turn an email into typed claims of the eleven types of Section 6.4; the patterns were written from the train split only, frozen at version 0.4 and scored once on the validation emails (results/claim_*.csv, Section 8.15). Phase 8 built the header verifier (N3) and the request verifier: 63 rules turn each claim and the header evidence of its email into a ledger row (contradiction, consistent or not checkable, with the evidence, the rule and a reason); the rules were frozen at version 0.3 before the validation emails were read once, 9134 of the 79590 train claims routed to a verifier could be checked, and the contradiction rates and checks are in results/verifier_*.csv (Section 8.16). Phase 9 (thread builder, thread-hijack benchmark and thread verifier) is next.</td>
 </tr>
 <tr class="odd">
 <td>Repository</td>
@@ -394,9 +394,9 @@ It is presented on the architecture slide as the system design the three claims 
 | Thread builder | Several messages | Ordered thread, per-message evidence, quoted history | Message-ID, In-Reply-To, References; fallback for Enron: normalised subject, participants and quote matching | src/thread |
 | Claim extractor | Redacted body and signature block | Typed claims (the eleven types of Section 6.4) with text span, attributes (person, organisation, department, rule, zone) and confidence | spaCy tokenizer and named-entity recogniser + 85 token patterns and organisation and signature rules (Section 8.15); nothing is trained, and no regular expression runs over email text; the tactic classifier (Section 8.14) runs beside the extractor, not inside it | src/claims |
 | Claim router | Claims | Claim-to-verifier assignments | Rule table (Section 6.4) | src/router |
-| Header verifier (N3) | Affiliation, authority, reply and signature claims + header evidence + organisation domain | Ledger rows | Python rules with weights | src/verifiers |
+| Header verifier (N3) | Affiliation, authority, reply and signature claims + header evidence + organisation domain + the unredacted signature | Ledger rows | 50 Python rules, each row naming its rule; severities high, medium, low (initial labels, weights in Phase 10); brand domains in a data file (brands.py); no regular expression over email text (Section 8.16) | src/verifiers |
 | Thread verifier (N2) | Relationship and request claims + thread | Ledger rows + hijack index | Tactic deltas, request drift (set differences on payment details), sending-path comparison, Message-ID and quote matching | src/verifiers |
-| Request verifier | Request claims + sender evidence | Ledger rows | Regex for account numbers and IBANs, keyword patterns; checks who is asking. Request drift against the thread belongs to the thread verifier (N2) | src/verifiers |
+| Request verifier | Request claims + sender evidence + the text the extractor read | Ledger rows | 12 rules; seven signals about the asker (look-alike, DMARC fail, free mailbox, Reply-To, display name, SPF fail, no check passed); IBAN checksum and labelled-number finder written without regular expressions (bank.py), values shown masked. Request drift against the thread belongs to the thread verifier (N2) | src/verifiers |
 | Ledger + risk score | Ledger rows + tactic probabilities | Score 0-100, verdict band, recommended action | Weighted formula calibrated on validation data | src/router |
 | LIME highlights | Body + classifier | Word weights per tactic | lime library | src/explain |
 | API | HTTP request (email or thread, optional organisation domain) | JSON report | FastAPI, Pydantic, slowapi | src/api |
@@ -424,14 +424,18 @@ Ledger row produced by a verifier:
 ```
 {
   "claim_id": "c1",
+  "claim_type": "affiliation_internal",
   "verifier": "header",
+  "rule": "hv_int_freemail",
   "evidence": {"from_domain": "gmail.com", "org_domain": "acmecorp.com", "freemail": true,
-               "spf": "pass", "dkim": "pass", "dmarc": "pass"},
+               "spf": "pass", "dkim": "pass", "dmarc": "pass", "auth_state": "aligned"},
   "contradiction": true,
   "severity": "high",
-  "reason": "Claims to be internal Acme Finance, but the message authenticates as gmail.com, an external freemail domain."
+  "reason": "Claims to be internal (Finance at acmecorp.com), but the message comes from gmail.com, a free mailbox provider anyone can use. Authentication passed for gmail.com."
 }
 ```
+
+`contradiction` has three values: true (severity high, medium or low), false (severity none) and null (severity not_checkable, the evidence the claim needs is missing). `rule` names the rule that produced the row and `claim_type` the type of the claim; severity is the strength of the rule, not a probability (Section 8.16).
 
 Report returned by the API (shape): score, verdict, action, org_domain (as used, or null), tactics (name, probability, highlighted spans), ledger (rows as above, including checks marked not checkable), header_findings, thread (hijack index and signals, or null), request_id. Email content is never stored after the response.
 
@@ -699,6 +703,8 @@ thread_id, thread_position                                 (Phase 9)
 | Training table: train and validation emails with their tactic labels, uploaded to Drive (never any test row) | data/processed/tactic_data.parquet | No (full email text) | 6 |
 | Phase 6 results (data counts, training log, seed summary, validation probabilities, run record, validation scores, checks) | results/tactic_data_counts.csv, tactic_training_log.csv, tactic_seed_summary.csv, tactic_val_probs.csv, tactic_run_info.json, tactic_validation_scores.csv, tactic_checks.csv | Yes | 6 |
 | Phase 7 results (train-split hit rates, hits per pattern, scores against the labels, checks and run details) | results/claim_hit_rates.csv, claim_pattern_hits.csv, claim_scores.csv, claim_checks.csv | Yes | 7 |
+| The claims the extractor found per email, one file per split (train, validation), reused by Phases 8, 10 and 13 | data/processed/claims_cache/ | No (claim text is email text) | 8 |
+| Phase 8 results (contradiction rates per split, category and source, hits per rule, checks and run details) | results/verifier_rates.csv, verifier_rule_hits.csv, verifier_checks.csv | Yes | 8 |
 | Rebuilt threads and hijack benchmark | data/threads/ | Decided in Phase 9 by size | 9 |
 | Every experiment number and chart | results/ | Yes (rubric requirement) | 13 |
 | Report and slides | docs/ | Yes | 14 |
@@ -1011,13 +1017,177 @@ Validation, the five types with enough positives; span precision and recall use 
     - affiliation_internal has the lowest validation precision (0.22 at recall 0.13).
     - strong claims only raise precision on 3 of 5 types (authority, signature_contact and credential_request) and lower F1 on 4 of 5 (affiliation_internal, affiliation_external, authority and credential_request); the per-type choice between the two operating points is made on validation in Phase 13.
     - the five types have only 15 to 38 validation positives each, so differences of a few points are within noise (Phase 13 adds confidence intervals); 6 of the 11 types (reply_direction, prior_relationship, payment_request, payment_change, gift_card and data_request) have fewer than 10 real validation positives and are counts only.
-    - on the synthetic validation emails the macro-F1 is 0.536 for all claims and 0.613 for strong claims only, and recall is below 0.5 for affiliation_external, because the rule that rejects organisation names made only of generic words (a choice made to stop false positives on real mail) also rejects most of the generic-sounding company names the generator invented; credential_request and gift_card have fewer than 10 synthetic validation positives and are counts only; synthetic precision is a lower bound because the labels list only the claims the generator was required to include.
+    - on the synthetic validation emails the macro-F1 is 0.536 for all claims and 0.613 for strong claims only, and recall is below 0.5 for affiliation_external, because the rule that rejects organisation names made only of generic words (a choice made to stop false positives on real mail) also rejects most of the generic-sounding company names the generator invented; credential_request and gift_card have fewer than 10 synthetic validation positives and are counts only; synthetic precision is a lower bound because the labels list only the claims the generator was required to include; one correction made in Phase 8: those two macro values average five types, and one of them, credential_request, has a single positive in the synthetic validation set (1 positive; tp 1, fp 3, fn 0 for all claims), so the table shows it as counts while the macro still includes its F1; without that type the macro-F1 is 0.570 for all claims and 0.599 for strong claims only; the real-email macros and the synthetic train macros are not affected, nothing was re-run, and the scorer of Phase 13 applies the 10-positive rule to macros too.
 
 - **Checks** (results/claim_checks.csv): 31 PASS, 0 FAIL, 11 info. They cover the patterns (they compile and every word is one token), 5 attack-versus-ham contrasts (credential requests on phishing, outside organisations on phishing, reply directions, authority and data requests on fraud: each at least twice the ham rate), the claim objects (every claim's text is exactly the slice of its span, at most 12 per email and 3 per type), speed (slowest of eight crafted 200,000-character inputs 0.54 s), leakage (hit rates read the train split only; scoring read train and validation only) and coverage. Findings that are not failures: affiliation_internal: ai_dept_role (79.8% of its hits); affiliation_external: ae_org_cue (68.0% of its hits); payment_change: pc_details_changed (53.8% of its hits); gift_card: gc_gift_card (67.7% of its hits). The full run took 1197 seconds (about 20 minutes) on the Mac for 69,542 train emails plus the labelled sets (413 / 137 train / validation); the mean is 2.42 claims per labelled real email.
 
 - **Known limits:** English only (the corpora contain Portuguese, German, Italian and other mail); patterns do not understand negation ("never send your password" can still match) or paraphrase; spaCy's small model misses some organisations and mislabels some words, and the claim attributes inherit its mistakes; the labels are LLM labels from one model family and the annotators agreed only moderately (mean kappa 0.458 over the claim types), so a score is agreement with those labels; affiliation_internal cannot be decided from the body alone (it needs the organisation domain, Phase 8) and is the weakest type here; six of the eleven types have fewer than 10 real positives and are counts only; real train scores are development scores; validation was read once and not used to change anything, but Phase 13 will choose the operating point per type on it, so the validation scores of that choice are slightly optimistic.
 
 - **Security:** see Section 10 (claim extraction).
+
+## 8.16 Phase 8 header and request verifiers
+
+- **Output:** src/verifiers (rows.py, facts.py, brands.py, bank.py, header_verifier.py, request_verifier.py, verify.py, selftest.py, build.py, README.md). `verify_claims(claims, {**fields, **evidence}, contact_text, body_text)` returns the ledger rows of Section 6.3 for the claims of one email; the API (Phase 11) reuses it unchanged. Results in results/verifier_rates.csv, verifier_rule_hits.csv and verifier_checks.csv. No new library (RapidFuzz, tldextract and pandas were already pinned). The claims the Phase 7 extractor finds are cached in data/processed/claims_cache/ (ignored by Git, one file per split, rebuilt when the pattern version or the spaCy model changes) so later runs, Phase 10 and Phase 13 do not repeat its 20 minutes.
+
+- **The ledger row** (Section 6.3, with `claim_type` and `rule` added): three values, never two. `contradiction` is true (severity high, medium or low: the evidence disagrees with the claim), false (severity none: the evidence was there and does not disagree) or null (severity not_checkable: the evidence the claim needs is missing). Missing evidence is never turned into 'no contradiction': a source without authentication verdicts gets 'not checkable' for every rule that reads one. Severity is the strength of the rule, not a probability or a score; a weak claim (confidence 0.6) lowers it by one step; Phase 10 turns severities into points. Every row names the rule that produced it (63 rules: 50 for the header verifier, 12 for the request verifier, one placeholder that sends prior_relationship to the thread verifier of Phase 9). A reason is built from templates and validated values only; anything that came from the email (a claimed organisation, a department) goes through clean_text, every domain through clean_domain, and check_row rejects a reason with markup.
+
+- **Header verifier (N3).** Three domains: the From domain (what the reader sees), the authenticated domain (what SPF, DKIM or DMARC vouched for) and the claimed domain (the organisation domain, or a brand's real domains). A contradiction is a mismatch between them that the claim makes meaningful, which is why the same headers give different rows under different claims (spf=fail on a newsletter that claims nothing gives no row at all; under a payment request it is medium; dmarc=pass for gmail.com is normal for a Gmail user and high under 'this is David from Finance'). `auth_state` reduces SPF, DKIM and DMARC to one word (aligned, failed, spf_failed, other_domain, no_pass, list_relayed, unknown), and authentication is read only through these claim-conditioned rules, never as a learned feature. The rules:
+
+| **Claim** | **Contradiction when** | **Severity** |
+|---|---|---|
+| affiliation_internal | the sender is a free mailbox or a look-alike of the organisation domain; the From shows the organisation's own domain but DMARC failed (exact-domain spoof) | high |
+| | the organisation's name under another suffix; the From shows the organisation's domain but SPF failed or authentication vouched for another domain | medium |
+| | an unrelated domain (weak: where there is no List-Id the recipient domain is often a mailing list, or a partner) | low |
+| | not checkable: no organisation domain, mailing-list mail (the recipient domain is the list's), no From address, or the From shows the organisation's domain and there is no verdict | |
+| affiliation_external | checked only if the claim's own words name the organisation and say the sender is that organisation (a team, department, support, security, customer, billing, a footer or 'on behalf of'); a reference such as 'your Microsoft account' or 'SharePoint Services' is not a claim of identity and is not checkable; the organisation is read from the claim text, not from the nearest organisation in the email | |
+| | the named organisation is in brands.py and the sender is a free mailbox, a look-alike of its domain, or has a display name showing another e-mail address; the brand's own domain but DMARC failed | high |
+| | an unrelated domain (brand mail sometimes goes through a third-party mailer); the same name under another suffix | medium |
+| | consistent: the brand's own domain authenticated as itself, or the brand's domain authenticated the message although it was sent through a mailer. A claim that names no organisation, or an organisation with no domain on file (low if the sender is a free mailbox, because the name comes from a name recogniser), is not checkable | |
+| authority | display name shows another e-mail address, look-alike of the organisation domain, DMARC failed | high |
+| | free mailbox, SPF failed | medium |
+| reply_direction | Reply-To points to another domain (a free mailbox while the sender is not one, or a look-alike, is high); a list-set Reply-To is excluded; no Reply-To header is not checkable | medium |
+| signature_contact | checked only for contact claims (a name with a phone or address, a labelled contact, a bare contact in the signature); a postal address, disclaimer, copyright line or sign-off name is not checkable. The sender's block ends at the first footer or quoted-header marker (unsubscribe, mailing list, on behalf of, Sent:), an address on the recipient's domain is ignored when the recipient has no organisation, and a match on the same free mailbox provider is not checkable | |
+| | no e-mail address in the sender's unredacted signature block is on the From domain (an address that looks like the sender's own is high; a company address while the sender is a free mailbox is medium) | low |
+
+  The thresholds are fixed numbers set from definitions and never tuned: two registered names are look-alikes when they differ only by look-alike characters (paypa1, a Cyrillic a, rn for m), or have a rapidfuzz ratio of 80 or more and both names have at least 6 letters (visa and vista are too short to count); the same name under another suffix (paypal.net) is a separate, weaker relation. The addresses of a signature are read from the unredacted signature block (the signature column, or the end of the cleaned body when there is none), because the redacted text holds only the placeholder [EMAIL]; mailing-list mail has no organisation domain (apache.org is the list's host, not an employer) and cannot be an internal-affiliation finding.
+
+- **Brands.** brands.py attaches to 51 of the 55 names in KNOWN_ORGS (three more are spellings of those, and Yahoo has no domain yet) the registered domains they send mail from: only domains that are certain, none of them a free-mailbox domain (outlook.com, yahoo.com, icloud.com), none a third-party mailer. A missing domain makes the verifier more suspicious of a genuine message (medium, never high), so a gap costs a little precision and opens no hole; 15 secondary domains are listed in CONFIRM for a hand check (command in src/verifiers/README.md).
+
+- **Request verifier.** A request is not false the way a claim of identity can be, so it asks who is asking. Signals: look-alike sender (of the organisation or of the brand the request names) and DMARC fail are high; a free mailbox is medium, and high when the sender is outside the recipient's organisation; a Reply-To to another domain, a display name showing another e-mail address and SPF fail are medium; a display name that shows only a bare domain name (brands write 'Brand.com') and no check passed is low. The strongest signal sets the severity; payment_change and gift_card move it up one step, data_request down one, and valid bank details in a payment message up one (bank.py: IBANs with the mod 97 checksum and the country's length, labelled account, routing and sort numbers and SWIFT codes, found by word lookup without regular expressions and shown masked, for example DE**3000). With no signal the row is consistent only if authentication passed for the sender's own domain; a bank-detail change is always 'not checkable: needs the thread' because headers can never confirm it (the thread verifier of Phase 9 compares the new details with the earlier messages, using bank_detail_keys).
+
+- **Protocol (no leakage).** The rules were written from master document Sections 4.4 and 6.5, the Phase 3 and Phase 7 notes and the claim definitions, and revised only after reading train results; `build.py --train-only` never loads a validation email; the final run reads the validation emails once for the frozen version 0.3; the test split is not used until Phase 13. The train rates are development rates. Rule versions:
+
+| **Version** | **What the train results showed, and the change** |
+|---|---|
+| 0.1 | First version: rules written from master document Sections 4.4 and 6.5, the Phase 3 and Phase 7 notes and the claim definitions; thresholds fixed (look-alike score 80, names of 6 or more letters); severities are initial labels. No real email had been read |
+| 0.2 | Read off the first train run (6,000 emails): affiliation_external was contradicted in 98% to 100% of its checkable claims in every category, because claims that only MENTION a brand (your Microsoft account, SharePoint Services) were treated as claims of identity, and the claimed organisation was taken from the nearest organisation in the text (Lloyds next to the Financial Services Authority). Now an external claim is checked only if the claim's own words name the organisation and say the sender is that organisation (a team, department, support, security ... or a footer or 'on behalf of'); a mere reference is not checkable. An unrelated domain under an internal claim is low (in sources without a List-Id the recipient domain is often a mailing list, as in the opensuse.org and linux.ie ham examples); an unknown organisation from a free mailbox is low (the name comes from a name recogniser: 'Hi team'). A display name that holds only a bare domain name (brands write their site name, such as Brand.com, in the display name and send through mailers) is now low; only a shown e-mail address is medium. signature_contact compares addresses only for contact claims, not for postal addresses, disclaimers, copyright lines or sign-off names. The attack-versus-ham check now compares the share of EMAILS with a contradicted claim, because the rate among checkable claims is close to 100% in every category when 'checkable' mostly means 'contradicted' |
+| 0.3 | Read off the second train run (6,000 emails): the fix of 0.2 removed the external-affiliation false alarms (share of emails with a contradicted external claim 7.1% in phishing against 0.1% in ham), but signature_contact still failed its contrast (7.9% against 4.9%), and its ham alarms were list footers ('List maintainer', 'To unsubscribe from this group', 'For additional commands'), quoted headers ('On Behalf Of', 'Sent:', X-Spam lines) and the reader's own address on a collector domain (ceas-challenge.cc, monkey.org). Now the signature text is cut at the first footer or quoted-header marker, an address on the recipient's domain is ignored when the recipient has no organisation (collector, free mailbox, mailing list), and a signature address on the same free mailbox provider as the sender is not checkable (everyone at hotmail.com matches). 'Office' is no longer a speaker cue ('Microsoft Office' is a product; the digitalriver.com reseller mail in ham). An attack-versus-ham contrast that is above ham but below 2x is now a finding (info), not a failure; only a rate that is not above ham fails |
+
+- **How it is verified without contradiction labels.** Nobody marked which emails contain a contradicted claim, so there is no precision or recall for contradictions; the effect on detection is the N3 ablation of Phase 13. Instead: (1) a self-test of 67 checks (hand-made emails with real header blocks, among them the David email of Section 6.7, the exact-domain spoof, an honest internal mail, a newsletter with spf=fail, mailing-list mail, a display name showing service@paypal.com and paypa1.com; helper checks; eight crafted inputs of 60,000-character fields and floods of '@', each finishing in 0.01 s at most); (2) contradiction rates per category and per source on the train split; (3) the contradictions found in ordinary mail were printed and read; (4) one read of the frozen rules on validation. Claim types are those the Phase 7 extractor found; those claims are agreement-with-LLM-labels quality (Section 8.15), and affiliation_internal claims were found with recall 0.13 on validation, so a missing claim is never evidence of honesty.
+
+- **Results: share of emails with a contradicted claim, train split** (the measure a detector would see; the number in brackets is how many emails; the groups differ in size and in the evidence their sources carry, so read it together with the per-source tables):
+
+| **Claim type** | **Ham** | **Spam** | **Phishing** | **Fraud** |
+|---|---|---|---|---|
+| all types together | 3.5% (1040) | 1.7% (425) | 18.4% (2202) | 40.9% (923) |
+| affiliation_internal | 0.2% (53) | 0.0% (7) | 1.5% (178) | 0.6% (13) |
+| affiliation_external | 0.1% (45) | 0.1% (38) | 7.7% (925) | 4.7% (107) |
+| authority | 0.0% (12) | 0.1% (26) | 0.3% (41) | 24.4% (551) |
+| reply_direction | 0.0% (0) | 0.0% (4) | 0.2% (22) | 0.0% (0) |
+| signature_contact | 3.0% (882) | 1.2% (308) | 3.2% (388) | 11.9% (269) |
+| prior_relationship | 0.0% (0) | 0.0% (0) | 0.0% (0) | 0.0% (0) |
+| payment_request | 0.0% (9) | 0.1% (21) | 0.8% (94) | 12.3% (279) |
+| payment_change | 0.0% (0) | 0.0% (1) | 0.3% (32) | 0.6% (13) |
+| credential_request | 0.1% (29) | 0.0% (5) | 7.3% (880) | 0.4% (10) |
+| gift_card | 0.0% (1) | 0.0% (0) | 0.1% (17) | - |
+| data_request | 0.1% (24) | 0.2% (48) | 2.1% (252) | 7.8% (176) |
+
+- **Results: contradicted share of the checkable claims, train split** (results/verifier_rates.csv; 'all types together' is every type counted at once; the second number is how many claims could be checked; a type or category with nothing checkable says so; where 'checkable' mostly means 'contradicted' this rate is close to 100 percent in every category, as the first train read showed, so the email-level table above is the fair comparison; counts only, no email text):
+
+| **Claim type** | **Ham** | **Spam** | **Phishing** | **Fraud** |
+|---|---|---|---|---|
+| all types together | 52.0% of 2121 | 90.6% of 544 | 83.9% of 4600 | 96.8% of 1869 |
+| affiliation_internal | 100.0% of 61 | 100.0% of 7 | 99.0% of 208 | 100.0% of 14 |
+| affiliation_external | 100.0% of 49 | 100.0% of 39 | 98.5% of 1199 | 100.0% of 128 |
+| authority | 73.7% of 19 | 100.0% of 30 | 58.6% of 87 | 100.0% of 751 |
+| reply_direction | 0.0% of 11 | 45.5% of 11 | 38.6% of 70 | none checkable (634) |
+| signature_contact | 47.7% of 1899 | 87.5% of 360 | 79.6% of 511 | 84.5% of 388 |
+| prior_relationship | none checkable (642) | none checkable (107) | none checkable (280) | none checkable (81) |
+| payment_request | 100.0% of 9 | 100.0% of 26 | 63.5% of 178 | 100.0% of 346 |
+| payment_change | none checkable (12) | 100.0% of 1 | 100.0% of 37 | 100.0% of 13 |
+| credential_request | 94.4% of 36 | 100.0% of 9 | 79.8% of 1866 | 100.0% of 10 |
+| gift_card | 100.0% of 1 | none checkable (58) | 68.6% of 35 | - |
+| data_request | 80.6% of 36 | 100.0% of 61 | 79.0% of 409 | 100.0% of 219 |
+
+- **Results: per source** (all claim types together; a claim is checkable when the evidence its rule needs exists):
+
+| **Source** | **Split** | **Emails** | **Claims routed** | **Checkable (%)** | **Contradicted of checkable (%)** | **Emails with a contradiction (%)** | **Emails with a high contradiction (%)** |
+|---|---|---|---|---|---|---|---|
+| apache_kafka_users | train | 735 | 555 | 8.5 | 74.5 | 4.3 | 0.1 |
+| apache_tomcat_users | train | 1496 | 812 | 13.9 | 78.8 | 5.7 | 0.0 |
+| kaggle_ceas08 | train | 26654 | 17205 | 9.4 | 55.0 | 3.1 | 0.1 |
+| kaggle_enron | train | 20383 | 14587 | 0.0 | - | 0.0 | 0.0 |
+| kaggle_ling | train | 1995 | 1522 | 0.0 | - | 0.0 | 0.0 |
+| kaggle_nigerian_fraud | train | 2259 | 8063 | 23.2 | 96.8 | 40.9 | 1.2 |
+| nazario | train | 6716 | 26490 | 11.8 | 87.0 | 22.4 | 2.3 |
+| phishing_pot | train | 5262 | 7106 | 20.9 | 77.4 | 13.3 | 1.2 |
+| spamassassin | train | 4042 | 3250 | 27.1 | 65.7 | 12.6 | 0.2 |
+| apache_kafka_users | validation | 162 | 136 | 11.0 | 73.3 | 6.8 | 0.0 |
+| apache_tomcat_users | validation | 315 | 185 | 18.4 | 47.1 | 4.8 | 0.0 |
+| kaggle_ceas08 | validation | 5709 | 3534 | 8.3 | 58.3 | 2.8 | 0.0 |
+| kaggle_enron | validation | 4368 | 2995 | 0.0 | - | 0.0 | 0.0 |
+| kaggle_ling | validation | 427 | 304 | 0.0 | - | 0.0 | 0.0 |
+| kaggle_nigerian_fraud | validation | 482 | 1730 | 21.7 | 97.1 | 41.3 | 0.6 |
+| nazario | validation | 1440 | 5486 | 11.4 | 88.6 | 20.9 | 2.3 |
+| phishing_pot | validation | 1109 | 1488 | 20.6 | 72.5 | 13.9 | 0.9 |
+| spamassassin | validation | 867 | 693 | 28.3 | 58.2 | 11.2 | 0.2 |
+
+- **Results: how much of each type could be checked, per source (train)** (share of claims checkable, and the number of claims):
+
+| **Source** | **affiliation_internal** | **affiliation_external** | **authority** | **reply_direction** | **signature_contact** | **payment_request** | **credential_request** |
+|---|---|---|---|---|---|---|---|
+| apache_kafka_users | - | 6% of 109 | 50% of 2 | 0% of 1 | 8% of 413 | - | 0% of 1 |
+| apache_tomcat_users | 0% of 21 | 3% of 215 | 60% of 10 | - | 17% of 510 | - | 50% of 6 |
+| kaggle_ceas08 | 30% of 198 | 0% of 9454 | 8% of 181 | 0% of 140 | 23% of 6396 | 13% of 97 | 15% of 202 |
+| kaggle_enron | 0% of 344 | 0% of 3440 | 0% of 801 | 0% of 801 | 0% of 6845 | 0% of 256 | 0% of 450 |
+| kaggle_ling | 0% of 15 | 0% of 262 | 0% of 18 | 0% of 82 | 0% of 1035 | 0% of 13 | 0% of 4 |
+| kaggle_nigerian_fraud | 10% of 144 | 6% of 2258 | 47% of 1604 | 0% of 634 | 19% of 2073 | 50% of 689 | 42% of 24 |
+| nazario | 16% of 1236 | 8% of 10615 | 14% of 370 | 38% of 74 | 5% of 5017 | 22% of 482 | 22% of 5993 |
+| phishing_pot | 3% of 173 | 12% of 2919 | 71% of 49 | 67% of 63 | 10% of 2768 | 80% of 90 | 75% of 768 |
+| spamassassin | 20% of 40 | 3% of 920 | 30% of 93 | 42% of 53 | 40% of 1757 | 54% of 41 | 17% of 72 |
+
+- **Results: train against validation** (the contradicted share of the checkable claims, with the number of checkable claims):
+
+| **Claim type** | **Ham, train** | **Ham, validation** | **Phishing, train** | **Phishing, validation** | **Fraud, train** | **Fraud, validation** |
+|---|---|---|---|---|---|---|
+| all types together | 52.0% of 2121 | 50.7% of 432 | 83.9% of 4600 | 83.3% of 930 | 96.8% of 1869 | 97.1% of 375 |
+| affiliation_internal | 100.0% of 61 | 100.0% of 8 | 99.0% of 208 | 96.0% of 50 | 100.0% of 14 | 100.0% of 2 |
+| affiliation_external | 100.0% of 49 | 100.0% of 11 | 98.5% of 1199 | 99.5% of 218 | 100.0% of 128 | 100.0% of 32 |
+| authority | 73.7% of 19 | 28.6% of 14 | 58.6% of 87 | 50.0% of 20 | 100.0% of 751 | 100.0% of 154 |
+| reply_direction | 0.0% of 11 | none checkable (119) | 38.6% of 70 | 47.1% of 17 | none checkable (634) | none checkable (121) |
+| signature_contact | 47.7% of 1899 | 47.0% of 383 | 79.6% of 511 | 70.0% of 120 | 84.5% of 388 | 82.8% of 64 |
+| prior_relationship | none checkable (642) | none checkable (114) | none checkable (280) | none checkable (68) | none checkable (81) | none checkable (18) |
+| payment_request | 100.0% of 9 | 100.0% of 2 | 63.5% of 178 | 79.2% of 24 | 100.0% of 346 | 100.0% of 72 |
+| payment_change | none checkable (12) | none checkable (1) | 100.0% of 37 | 100.0% of 15 | 100.0% of 13 | none checkable (2) |
+| credential_request | 94.4% of 36 | 100.0% of 8 | 79.8% of 1866 | 80.2% of 379 | 100.0% of 10 | 100.0% of 3 |
+| gift_card | 100.0% of 1 | none checkable (8) | 68.6% of 35 | 100.0% of 5 | - | - |
+| data_request | 80.6% of 36 | 100.0% of 6 | 79.0% of 409 | 79.3% of 82 | 100.0% of 219 | 100.0% of 48 |
+
+- **Most frequent rules on the train emails** (results/verifier_rule_hits.csv):
+
+| **Rule** | **Claim type** | **Rows** | **Contradiction** | **Consistent** | **Not checkable** | **Meaning** |
+|---|---|---|---|---|---|---|
+| hv_sig_not_contact | signature_contact | 13863 | 0 | 0 | 13863 | a postal address, disclaimer, copyright line or sign-off name is not a contact address to compare |
+| hv_ext_reference | affiliation_external | 13117 | 0 | 0 | 13117 | names an organisation without saying the sender is that organisation (your PayPal account) |
+| rv_no_proof | any request | 8361 | 0 | 0 | 8361 | nothing contradicts the asker, but nothing proves who they are |
+| hv_ext_no_org | affiliation_external | 5155 | 0 | 0 | 5155 | the claim names no organisation |
+| hv_sig_no_from | signature_contact | 5027 | 0 | 0 | 5027 | no usable From address |
+| hv_sig_no_address | signature_contact | 4530 | 0 | 0 | 4530 | the sender's signature block holds no e-mail address (list footers, quoted headers and the reader's own address are ignored) |
+| hv_ext_unknown_org | affiliation_external | 4446 | 0 | 0 | 4446 | the claimed organisation has no known domain |
+| hv_ext_no_from | affiliation_external | 4430 | 0 | 0 | 4430 | no usable From address |
+| rv_no_from | any request | 2173 | 0 | 0 | 2173 | no usable From address |
+| hv_reply_no_header | reply_direction | 1756 | 0 | 0 | 1756 | no Reply-To header to compare |
+| hv_int_no_org | affiliation_internal | 1712 | 0 | 0 | 1712 | no organisation domain is known for the recipient |
+| hv_sig_other_domain | signature_contact | 1711 | 1711 | 0 | 0 | no signature address belongs to the sender's domain |
+| hv_ext_brand_no_auth | affiliation_external | 1629 | 0 | 0 | 1629 | From shows the brand's domain, but no authentication verdict exists |
+| hv_auth_no_evidence | authority | 1258 | 0 | 0 | 1258 | rank claimed, nothing to compare it with |
+
+- **Reading of the tables** (every number and comparison below is computed from the results files by the script that wrote this section):
+
+    - on the 69542 train emails, 79590 claims were routed to a verifier (32872 emails had at least one); 11.5% of them could be checked and 79.5% of the checkable ones were contradicted; on the validation emails 11.2% could be checked and 78.7% of those were contradicted.
+    - share of emails with at least one contradicted claim, train: ham 3.5%, spam 1.7%, phishing 18.4%, fraud 40.9%; with a high-severity contradiction: ham 0.1%, spam 0.0%, phishing 1.8%, fraud 1.2%; validation: ham 3.2%, spam 1.4%, phishing 17.9%, fraud 41.3%.
+    - attack-versus-ham contrasts on the train split (the share of emails with a contradicted claim of the type at least twice the ham share): 5 of 6 pass (affiliation_external on phishing: 7.7% vs ham 0.1%; authority on fraud: 24.4% vs ham 0.0%; credential_request on phishing: 7.3% vs ham 0.1%; payment_request on fraud: 12.3% vs ham 0.0%; data_request on fraud: 7.8% vs ham 0.1%), 1 not judged for lack of 20 checkable claims in the attack category (signature_contact on phishing); attacks and ham come from different corpora with different header evidence, so a contrast is partly a difference between corpora, and the per-source rows of the tables show it.
+    - the share of claims that could be checked runs from 0.0% (kaggle_enron) to 27.1% (spamassassin) across the sources, because the evidence differs by source (Section 8.11); a source without the evidence a rule needs shows 'not checkable', never 'no contradiction'.
+    - from train to validation the contradicted share of checkable claims (all types) moved, in percentage points: ham -1.3, spam -3.6, phishing -0.6, fraud +0.3; the rules were frozen before validation was read, so this is the first unbiased reading of this version.
+    - header verifier: hv_sig_other_domain (37.9% of its contradictions).
+    - request verifier: rv_freemail (34.1% of its contradictions).
+    - 7 of the 63 rules never fired on the train emails (a finding, not a failure: some rules guard rare situations such as a forged brand domain).
+
+- **Checks** (results/verifier_checks.csv): 31 PASS, 0 FAIL, 10 info. They cover the self-test, the brand file (no free-mailbox domain, every KNOWN_ORGS name covered, every domain a registered domain), every ledger row (keys, severity fits the contradiction value, known rule, safe reason), that contradiction + consistent + not checkable add up to the claims in every group, that no rule that reads authentication fires without a verdict, that no internal-affiliation row is decided without an organisation domain or on mailing-list mail, that no weak-claim contradiction has severity high, the attack-versus-ham contrasts, crafted inputs, and the splits read (train, and validation in the final run; never test). The full run took 90 seconds.
+
+- **Known limits:** brand domains are written by hand for 51 organisations; a brand that is not listed can only be compared when the sender is a free mailbox (medium) and is otherwise not checkable; internal-affiliation checks need the recipient's organisation domain, which exists for only 3.6% of phishing_pot and 9.8% of Nazario emails (Section 8.11), so real internal-affiliation evidence is thin; a sender that authenticates as its own domain is 'consistent' only in the sense that nothing contradicts it, and a compromised real account passes every check here (that is what the thread verifier is for); prior_relationship claims are not checkable until Phase 9; attacks and ham come from different corpora, so the category contrasts are partly corpus contrasts; the claim extractor works on English only; severities are initial labels, calibrated in Phase 10 on validation; the synthetic emails have no headers, so Phase 13 will generate clearly synthetic header blocks for the N3 ablation only (generating them now would mean tuning the rules on headers written by the same person), reported apart from the real results.
+
+- **Security:** see Section 10 (verifiers).
 
 # 9. Technology stack
 
@@ -1027,6 +1197,7 @@ Validation, the five types with enough positives; span precision and recall use 
 | Model | DistilBERT via HuggingFace Transformers + PyTorch | Small enough to fine-tune on a free Colab GPU; fast inference on CPU |
 | Training | Google Colab (free GPU) | No local GPU needed; torch and transformers pinned to the same versions as local |
 | Claim extractor (Phase 7) | spaCy 3.8.16 with en_core_web_sm 3.8.0 (tokenizer and named-entity recogniser only) | Token patterns and organisation names for claims; the English model is not on PyPI, so requirements.txt pins it by URL and SHA-256 |
+| Verifiers (Phase 8) | Python standard library, tldextract and RapidFuzz (already pinned); pandas only in build.py | Rule engines for claims against headers; no new dependency, no model, no regular expression over email text |
 | Header parsing | email stdlib, mailbox, tldextract, rapidfuzz | Parsing, .mbox reading, domain splitting, lookalike and organisation-name matching |
 | Data and metrics | pandas, pyarrow, scikit-learn | Tables in memory, Parquet files, metrics (scikit-learn is first used in Phase 5) |
 | Downloads and progress (Phase 1) | requests, tqdm | Fetching the Apache list archives; progress bars for long runs |
@@ -1064,6 +1235,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | Annotation prompt hardening (build time) | Each email is wrapped as data in an <email> block with its angle brackets replaced, so it cannot close the block; the prompt says never to follow text inside and repeats it after the emails; a reply must be a JSON array of exactly the batch's ids with a fixed shape, and anything else is rejected and re-asked; quoted spans must appear in the email; a reply that gives every email the same answer is rejected as a likely hijack; batches (full email text) are never committed; API keys live only in .env (ignored by Git), travel only in the Authorization header over HTTPS, and are removed from every error message | LLM01 Prompt injection; A03 Injection |
 | Model files and offline inference (Phase 6) | Weights are stored and loaded as safetensors (plain numbers; the older pickle format can run code when loaded); loading is offline (local_files_only), trust_remote_code is never set, and the model's output order is checked against the tactic order; input is cut at 2,000 characters and 512 tokens; the Colab upload file holds train and validation rows only, so test emails and labels never reach training; the check suite fails if a pickle-style file sits in the model folder | A08 Software and Data Integrity Failures; A06 Vulnerable Components |
 | Claim extraction (Phase 7) | Input is cut before matching (2,000 characters of body, 1,000 of signature); phrase patterns match spaCy tokens, so cost grows with the number of tokens and cannot backtrack, and the only regular expressions are two short bounded ones (a phone number and the [EMAIL] placeholder); eight crafted 200,000-character inputs each finish in 0.54 s; the signature column is redacted before it is read; the spaCy model is loaded from disk, never downloaded at run time, and pinned by URL and SHA-256; every claim's text is checked to be exactly the slice of its span, so a highlight cannot point at the wrong words; results files hold counts only | A04 Insecure Design (denial of service); A08 Software and Data Integrity Failures; A06 Vulnerable Components |
+| Verifiers (Phase 8) | Headers and signatures are attacker-written, so the verifiers read only values the Phase 3 code has capped and parsed per field; a signature is cut at 1,000 characters and scanned for addresses with fixed limits (40 '@' signs, 64 characters left, 255 right); bank details are found by word lookup on the first 5,000 characters with no regular expression; crafted inputs (60,000-character display names and Reply-To values, floods of '@', IBAN-shaped words, markup in a claimed organisation) each finish in 0.01 s at most; every string from an email goes through clean_text or clean_domain before it reaches a reason, and check_row rejects a reason with markup; account numbers and IBANs are shown masked (country and last four characters) and the self-test checks that a full IBAN never appears in a row; authentication is read only from the trusted headers of Phase 3 and domains are compared through the offline tldextract; results files hold counts only | A04 Insecure Design (denial of service); A03 Injection (XSS); A09 Logging Failures (PII) |
 | Output encoding (XSS) | Email bodies are attacker-controlled. Render as text; highlights are built from escaped text; no dangerouslySetInnerHTML; DOMPurify if HTML is ever shown. Test with real XSS payloads from the corpus. | A03 Injection (XSS) |
 | PII redaction | Email addresses, phone numbers and account numbers redacted before any logging | A09 Logging Failures |
 | Rate limiting | slowapi per-IP limits on the analysis endpoint | A04 Insecure Design |
@@ -1080,6 +1252,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | Tactic classifier | How well are tactics detected? | Per-tactic precision, recall, F1; macro-F1 | Base |
 | Keyword baseline vs DistilBERT | Does the model beat rules? | Macro-F1 on the labelled validation and test items (all random draws, none picked by keyword); per-tactic thresholds tuned on validation for both; tactics with too few positives reported as counts | Base |
 | Claim extraction | How accurately are claims found? | Precision, recall and F1 per claim type against the LLM claim labels, for the five types with enough real positives (affiliation_internal, affiliation_external, authority, signature_contact, credential_request) and counts for the other six; real and synthetic emails apart; at two confidence levels (all claims, strong claims only); validation in Phase 7, the test split once in Phase 13 | All verifiers |
+| Verifier contradiction rates | Do contradictions appear more in attacks than in ordinary mail, and where can claims be checked at all? | Contradicted share of the checkable claims per category and per source; claims that could not be checked reported apart, never as 'no contradiction'; train and validation; no precision or recall (nobody labelled contradictions), the effect on detection is the N3 ablation | N3 |
 | N1 ablation | How much of a phishing detector's accuracy is link-reading? | Attack-class F1 and false-positive rate for models A and B on raw, redacted and naturally link-free test views | N1 |
 | N2 ablation | Does thread verification catch hijacks N3 misses? | Detection rate with vs without the thread verifier; hijack-index accuracy; content signals on Enron threads, header signals on Apache threads | N2 |
 | N3 ablation | Does conditioning beat the alternatives? | F1 and false-positive rate: full vs text-only vs headers-only vs parallel fusion; real affiliation positives and synthetic BEC reported separately | N3 |
@@ -1113,7 +1286,7 @@ For each phase, the assistant explains the background, then provides every file 
 | 5 | Tactic and claim labels: batch prompt builder, annotation through a free API (two annotator models and a tie-breaker), schema validation, Cohen's kappa, SemEval 23-to-7 mapping; synthetic emails via a free API into data/synthetic/ | src/data | Done (8 Oct 2026) |
 | 6 | DistilBERT tactic classifier on Colab (SemEval pretraining skipped), validation scores and checks | src/models, src/eval | Done (8 Oct 2026) |
 | 7 | Claim extractor and claim schema (spaCy, token patterns, organisation and signature rules; train-only development, frozen version scored once on validation) | src/claims | Done (8 Oct 2026) |
-| 8 | Header verifier (N3: internal and external affiliation, authority, reply, signature) and request verifier | src/verifiers | Not started |
+| 8 | Header verifier (N3: internal and external affiliation, authority, reply, signature) and request verifier; rules written from definitions and train results, frozen at version 0.3, validation read once | src/verifiers | Done (9 October 2026) |
 | 9 | Thread builder (Enron and Apache), thread-hijack benchmark, thread verifier (N2, including request drift) | src/thread, src/verifiers, src/data | Not started |
 | 10 | Claim router, verdict ledger, risk score, LIME highlights | src/router, src/explain | Not started |
 | 11 | FastAPI backend with all security controls | src/api | Not started |
@@ -1190,7 +1363,7 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | src/baseline | lexicon.py, keywords.py, build.py | Word lists per tactic (data only); text normaliser, scorer and lexicon check; train-split hit rates, phrase table and sanity checks | 4 (done) |
 | src/models | dataset.py, train.py, predict.py, validate.py | Training table (train and validation rows only) and its checks; fine-tuning on Colab; loading weights and predicting 7 tactic probabilities; validation scores and PASS/FAIL checks on the Mac | 6 (done) |
 | src/claims | schema.py, patterns.py, extractor.py, build.py | Claim object and limits; phrase patterns and word lists (data only); spaCy and token patterns to typed claims; train hit rates, scores against the labels and checks | 7 (done) |
-| src/verifiers | header_verifier.py, request_verifier.py | N3 checks; who is asking for money or credentials | 8 |
+| src/verifiers | rows.py, facts.py, brands.py, bank.py, header_verifier.py, request_verifier.py, verify.py, selftest.py, build.py | Ledger row and its checks; cleaned facts, domain similarity and signature addresses; brand domains (data only); IBAN and bank-detail finder; N3 checks; who is asking for money or credentials; routing of claims to verifiers; self-test; contradiction rates and checks | 8 (done) |
 | src/thread, src/verifiers, src/data | builder.py, signals.py, thread_verifier.py, hijack_benchmark.py | Thread rebuilding; N2 signal helpers; N2 verifier and flip point; hijack benchmark | 9 |
 | src/router, src/explain | router.py, ledger.py, score.py, pipeline.py, lime_explain.py | Routing table; ledger rows; 0-100 score and bands; analyze(email) end to end; LIME highlights | 10 |
 | src/api | main.py, schemas.py, security.py | FastAPI app and routes; Pydantic request and response shapes; API key, rate limit, size caps, safe logging | 11 |
@@ -1265,7 +1438,9 @@ Planned file names; each phase may adjust them. The root and major-folder README
 
 - Tokens, named-entity recognition and what spaCy's small English model does and does not find; rules versus learned extraction; a token-pattern language compiled to spaCy's Matcher and why it avoids ReDoS; character spans and offsets; precision and recall per type at two operating points (all claims, strong claims only); development set versus frozen version, and why patterns are written from the train split only (Phase 7).
 
-To be taught during the build: header checks in code, LIME, FastAPI basics, the thread-hijack benchmark, the claim router.
+- Claim-conditioned rules versus learned features (a route guard that reads the request body, not a global middleware); the three domains (From, authenticated, claimed) and what each header proves; a three-valued result (contradiction, consistent, not checkable; true, false, null) and why 'not checkable' is never 'no contradiction'; severity as rule strength, not probability; display-name spoofing, Reply-To hijacking and look-alike domains as rules; brand domains and third-party mailers; the IBAN mod 97 checksum; testing a rule engine without labels (hand-made cases, rates by category and source, reading the false alarms, then a freeze) (Phase 8).
+
+To be taught during the build: the thread builder and the thread-hijack benchmark, LIME, FastAPI basics, the claim router.
 
 # 14. Decisions log
 
@@ -1369,12 +1544,30 @@ To be taught during the build: header checks in code, LIME, FastAPI basics, the 
 | 8 Oct 2026 | Only five types (affiliation_internal, affiliation_external, authority, signature_contact, credential_request) have 10 or more real positives in validation and test and get an F1; the other six are counts; synthetic emails are scored apart and their precision is a lower bound | One email moves F1 by several points below 10 positives; the synthetic labels list only the claims the generator was required to include |
 | 8 Oct 2026 | Phase 7 complete: hit rates, validation scores and checks in results/claim_*.csv | Phase 8 can start |
 | 8 Oct 2026 | Version 3.9: Phase 7 folded into Sections 2, 6.2, 6.3, 6.11, 8.9, 8.10, 8.15 (new), 9, 10, 11, 12, 13, 14, 15 and 16 | End of Phase 7 |
+| 9 Oct 2026 | Ledger rows have three values: contradiction (true), consistent (false) and not checkable (null); a rule that lacks its evidence returns not checkable, never 'no contradiction'; every row carries the rule and the claim type | Missing evidence must never read as safe, and a source without authentication verdicts must not look cleaner than one with them; a row traceable to its rule is an explanation by construction |
+| 9 Oct 2026 | Authentication is read only through claim-conditioned rules; internal-affiliation checks need the organisation domain and are not checkable for mailing-list mail (the recipient domain is the list's host) | The same header values mean different things under different claims; no benign source has SPF or DMARC verdicts, so a learned feature would read 'has verdicts' as 'attack' |
+| 9 Oct 2026 | Brand domains are a hand-written data file of certain domains only, with no free-mailbox domain and no third-party mailer; a missing domain gives a medium contradiction, never high; a brand's mail through a mailer counts as genuine only if the brand's own domain authenticated it | A gap in the list should cost a little precision and open no hole; 15 secondary domains are flagged for a hand check |
+| 9 Oct 2026 | A look-alike is a name equal after look-alike character mapping, or a rapidfuzz ratio of 80 or more with both names at least 6 letters; the same name under another suffix is a weaker relation (medium) | Fixed from definitions, not tuned; short names such as visa and vista are alike by chance; regional domains of one brand are common |
+| 9 Oct 2026 | Severity is the strength of the rule (high, medium, low), a weak claim lowers it one step, and the request verifier moves it for payment_change and gift_card (+1), data_request (-1) and valid bank details (+1) | Initial labels set from definitions; Phase 10 turns them into points and calibrates on validation, never on test |
+| 9 Oct 2026 | The request verifier asks who is asking, not whether the request is true; a bank-detail change is always 'not checkable: needs the thread'; bank details are found without regular expressions (IBAN mod 97 and the country's length, labelled numbers) and shown masked | Headers can never confirm a change of bank details; no whole account number in a row or a log |
+| 9 Oct 2026 | Signature addresses are read from the unredacted signature block (or the end of the cleaned body), not from the redacted text | The redacted text holds only the placeholder [EMAIL] |
+| 9 Oct 2026 | The verifiers are checked by contradiction rates per category and per source, a self-test and a reading of the false alarms, not by precision or recall; the category contrasts are judged only with 20 or more checkable claims on both sides and are called partly corpus contrasts | Nobody labelled contradictions; attacks and ham come from different corpora with different header evidence |
+| 9 Oct 2026 | Rules were revised only after reading train results, in versions up to 0.3; the validation emails were read once for the frozen version; the test split waits for Phase 13 | The same leakage discipline as Phases 4 and 7 |
+| 9 Oct 2026 | An affiliation_external claim is checked only if the claim's own words name the organisation and say the sender is that organisation (a team, department, support, security, a footer, 'on behalf of'); a reference such as 'your Microsoft account' is not checkable, and the organisation is read from the claim text, not from the nearest organisation | The first train read contradicted 98 to 100 percent of the checkable external claims in every category, because brand mentions in ordinary mail were treated as claims of identity |
+| 9 Oct 2026 | The attack-versus-ham check compares the share of emails with a contradicted claim, not the rate among checkable claims | The second is close to 100 percent in every category when 'checkable' mostly means 'contradicted'; changed after seeing the first train read and logged as that |
+| 9 Oct 2026 | The signature text is cut at the first list-footer or quoted-header marker, the reader's own address is ignored when the recipient has no organisation, and a signature address on the same free mailbox provider as the sender is not checkable; an attack-versus-ham contrast that is above ham but below twice is a finding (info), and only a rate not above ham fails | The second train read showed the signature_contact alarms in ordinary mail were list footers, quoted headers and the collector mailbox of the corpus (ceas-challenge.cc, monkey.org); at version 0.2 signature_contact separated only 1.6 times, which is a finding for a low-severity rule, not a failure |
+| 9 Oct 2026 | A display name with only a bare domain (Brand.com) is a low signal and only a shown e-mail address is medium; signature addresses are compared only for contact claims, not for postal addresses, disclaimers, copyright lines or sign-off names; an unrelated domain under an internal claim, and an unknown organisation from a free mailbox, are low | Read off the ham false alarms of the first train run: mailing-list recipient domains without a List-Id, name-recogniser mistakes such as 'Hi team', brand names written as Brand.com |
+| 9 Oct 2026 | The extracted claims are cached per split in data/processed/claims_cache/ | The extractor takes about 20 minutes over the train split; the rules were revised several times and Phases 10 and 13 reuse the claims |
+| 9 Oct 2026 | Synthetic header blocks are generated in Phase 13 for the N3 ablation only, reported apart from real results (not in Phase 8) | Tuning the rules on headers written by the same person would be circular |
+| 9 Oct 2026 | A caveat is added to Section 8.15: the synthetic validation macro-F1 averages five types, one of which (credential_request) has a single positive there; no re-run, and the scorer of Phase 13 applies the 10-positive rule to macros too | The table showed the type as counts while the macro still included its F1 |
+| 9 Oct 2026 | Phase 8 complete: contradiction rates, rule hits and checks in results/verifier_*.csv | Phase 9 can start |
+| 9 Oct 2026 | Version 3.10: Phase 8 folded into Sections 2, 6.2, 6.3, 8.9, 8.15, 8.16 (new), 9, 10, 11, 12, 13, 14, 15 and 16 | End of Phase 8 |
 
 # 15. Open items and next actions
 
-1.  **Start Phase 8** (header verifier N3 and request verifier) in a new chat with docs/PretextGuard_Context.md and this document.
+1.  **Start Phase 9** (thread builder, thread-hijack benchmark and thread verifier N2) in a new chat with docs/PretextGuard_Context.md and this document.
 
-2.  **Replace the project-file copy** with v3.9 (remove older copies) and keep docs/ in the repo current.
+2.  **Replace the project-file copy** with v3.10 (remove older copies) and keep docs/ in the repo current.
 
 3.  **Update the Review deck** when needed: novelty slide (N1, N2, N3 and the architecture contribution), the architecture diagram (Figure 2), the corrected running example (authentication passes for gmail.com), and the literature table (add Mithun et al. 2024, Ho et al. 2019, Valecha et al. 2022, ConvoSentinel, Aggarwal et al. 2014).
 
@@ -1399,6 +1592,10 @@ To be taught during the build: header checks in code, LIME, FastAPI basics, the 
 13. **Phase 8 notes from Phase 7:** extract_claims (src/claims/extractor.py) works on one email; the API reuses it. Route by type as in Section 6.4 and use attributes.organisation, attributes.department and attributes.person as the claimed identity. KNOWN_ORGS in src/claims/patterns.py (about 55 often-imitated organisations, data only) is the starting point for the brand-domain list: attach each name's real domains and compare the sender's registered domain with lookalike_score from src/headers/domains.py; an affiliation_external claim with no organisation in its attributes (a cue like "Security Team" alone) has nothing to check and is recorded as not checkable. affiliation_internal claims are phrases like "IT help desk" or "this is David from Finance" with at most a department; whether they are internal depends on the organisation domain (Section 4.4), so the verifier decides, and the extractor found only 13% of the labelled ones on validation, so a missing claim is never evidence of honesty. Spans point into the text the extractor read (body_redacted cut at 2,000 characters, or the redacted signature named by zone), so the API must keep that text for highlights. signature_contact finds contact blocks in redacted text, where every address is the placeholder [EMAIL]; to compare a signature address with the From address, the verifier must read the addresses from the unredacted signature (the signature column, or the parsed email at run time). confidence is rule strength, so a verifier may give strong claims more weight but must not treat it as a probability.
 
 14. **Phase 13 notes from Phase 7:** the frozen patterns are in src/claims/patterns.py (PATTERN_VERSION is saved in results/claim_checks.csv); build.py never loads the test split, so Phase 13 adds src/eval/claim_extraction.py, which scores the frozen patterns on the test labels once. Choose the operating point (all claims or strong only) per type on validation and apply it once to test. Report the five types with enough positives as F1 with a bootstrap confidence interval and the other six as counts; real and synthetic apart; say that every score is agreement with LLM labels from one model family. Report affiliation_internal, signature_contact precision and reply_direction recall as the weak spots, with the annotator-agreement F1 beside them (results/label_agreement.csv). Include the claim extractor in the adversarial paraphrase test.
+
+15. **Phase 9 notes from Phase 8:** `verify_claims` (src/verifiers/verify.py) routes prior_relationship to the thread verifier and, until Phase 9 exists, returns the placeholder row `tv_needs_thread` (not checkable); the thread verifier returns rows of the same shape (verifier 'thread', rule ids starting tv_, built with `contradiction_row`, `consistent_row` and `unchecked_row` of src/verifiers/rows.py and checked with `check_row`) and replaces the placeholder. Request drift: `bank_detail_keys(text)` (src/verifiers/bank.py) returns the set of (kind, value) bank details of a message; compare the sets between messages; the request verifier already marks a bank-detail change 'not checkable: needs the thread' (rule rv_change_needs_thread). Sending-path drift reads origin_ip, received_hops, mailer and from_registered_domain from headers.parquet; on mailing-list mail the authenticated domain and the DKIM signature belong to the list, not the author (auth_state 'list_relayed'), and the Apache Reply-To is set by the list. The claims of every message in headers.parquet are already in data/processed/claims_cache/ (train and validation); raw Enron messages are not in cleaned.parquet, so their claims need `extract_many`. Tactic onset needs the tactic probabilities of every message from TacticClassifier (the weights exist only on the Mac). Use the 10-positive rule and bootstrap confidence intervals for the N2 results.
+
+16. **Phase 13 notes from Phase 8:** the rules are frozen at version 0.3 (RULES_VERSION in src/verifiers/verify.py, saved in results/verifier_checks.csv); the test split is read once with them. The N3 ablation (full against text-only, headers-only and parallel fusion) needs per-source results because authentication evidence differs by source (Section 8.11) and real affiliation positives apart from synthetic BEC; the synthetic emails have no headers, so generate clearly synthetic header blocks (a BEC attack from a freemail sender with a matched benign twin from the organisation's own domain) for that ablation only and report them apart. Choose the claim operating point (all claims or strong claims only) per type on validation and apply it once to test; severities become points in Phase 10 and are calibrated on validation. Say wherever a number appears that the claims come from a rule-based extractor scored against LLM labels from one model family, and that the contradiction rates are not precision or recall. Use the cached claims (data/processed/claims_cache/) for the train and validation splits; the test split needs its own cache.
 
 # 16. Glossary
 
@@ -1483,6 +1680,14 @@ To be taught during the build: header checks in code, LIME, FastAPI basics, the 
 | Operating point | One way of using the same extractor: all claims (higher recall) or strong claims only (higher precision) |
 | Development set | Data a system was built while reading (here the train emails and their labels); its scores are optimistic and are kept apart from the frozen version's validation scores |
 | Frozen version | A pattern or model version that is committed and no longer changed before it is scored on validation or test |
+| Ledger row | One verdict about one claim: the claim, the verifier, the rule, the evidence, contradiction (true, false or null), severity and a plain-English reason |
+| Not checkable | A ledger row whose evidence is missing (no organisation domain, no authentication verdict, no thread); it is never counted as 'no contradiction' |
+| Claim-conditioned rule | A check that runs only for one type of claim, so the same header values mean different things under different claims |
+| Severity | The strength of the rule that fired (high, medium, low); not a probability; Phase 10 turns it into points |
+| Look-alike domain | A registered name that differs from a real one only by look-alike characters or a letter or two (paypa1.com, acme-corp.co) |
+| Brand domain | A domain an often-imitated organisation really sends mail from; the list is hand-written in src/verifiers/brands.py |
+| IBAN checksum | Move the first four characters to the end, turn letters into numbers (A is 10), read the result as one number: it must leave remainder 1 when divided by 97 |
+| Request drift | A request in a new message (new bank details, a new account) that differs from everything earlier in the thread; checked in Phase 9 |
 
 # 17. References
 
