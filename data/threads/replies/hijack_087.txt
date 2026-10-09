@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "apache_5b072d8a4e1b",
+    "attack": {
+      "body": "Hi Thomas, it seems like the HTTP/2 stream reset change might be triggering that strict consistency check when sitting behind a proxy. As the Lead Infrastructure Architect, I am requiring all team members to review their configurations immediately before 3 PM today. Please follow the attached process and confirm your email login so we can ensure your environment is fully compliant with the new security standards.",
+      "tactic_cues": {
+        "authority": "As the Lead Infrastructure Architect, I am requiring all team members",
+        "urgency": "immediately before 3 PM today"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Hi Thomas, that sounds like a regression or an unintended side effect of the stricter HTTP/2 validation logic. If you can provide a minimal reproduction case or a thread dump from your server, it would help the team pinpoint if this needs a patch in the next point release. Let me know if you can share those logs."
+    },
+    "fake_quote": "We have seen similar behavior when using certain ingress controllers that don't strictly adhere to the updated header specifications. It might be worth checking if your proxy is stripping the stream headers before they reach the connector."
+  },
+  {
+    "thread": "apache_5253c082c9e3",
+    "attack": {
+      "body": "Christopher, I checked the cipher suites and the intermediate certificates are correctly chained. Since this is our last chance to fix the handshake before the audit, you must verify your credentials immediately. Please send a verification code to confirm your email login so I can grant you access to the document containing the updated cipher list.",
+      "tactic_cues": {
+        "scarcity": "this is our last chance",
+        "urgency": "verify your credentials immediately"
+      },
+      "request_cue": "send a verification code to confirm your email login"
+    },
+    "benign": {
+      "body": "Christopher, you were right about the cipher suite mismatch. It turns out Chrome was negotiating a newer TLS version that wasn't properly configured on the virtual host, while Firefox was falling back to a version that the server supported. Adjusting the supported cipher list in the server configuration resolved the issue for both browsers."
+    },
+    "fake_quote": "I have been digging through the packet captures to see if there is any difference in the SNI extension during the initial connection. Chrome seems to be sending a slightly different set of extensions compared to what we see in the Firefox logs."
+  },
+  {
+    "thread": "apache_fab33a4bf41a",
+    "attack": {
+      "body": "Anup, setting up Okta with Kafka requires specific scope configurations in your provider settings. This is your last chance to get this working before the production migration, so please purchase gift cards and send the codes immediately to the procurement team to unlock the premium configuration guide that will solve your issue.",
+      "tactic_cues": {
+        "scarcity": "This is your last chance",
+        "urgency": "send the codes immediately"
+      },
+      "request_cue": "purchase gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Anup, I found some internal documentation regarding the callback URL format for Okta. You need to ensure that the principal builder is correctly mapping the OIDC claims to the Kafka user identity. Have you checked the logs to see if the token is being correctly parsed by the broker?"
+    },
+    "fake_quote": "I recall running into issues with the token expiration time when using Okta as an identity provider. Make sure your clock synchronization is set up correctly between the broker and the authentication service, as even a small drift can cause invalid token errors."
+  },
+  {
+    "thread": "apache_178368b1dc5e",
+    "attack": {
+      "body": "Izek, the 400 errors you are seeing in the logs match the behavior of a known issue with header size limits. As a member of the Security Oversight Committee, I am initiating a mandatory audit. Please keep this between us and do not loop in your manager, but confirm your email login via the secure portal to continue.",
+      "tactic_cues": {
+        "authority": "As a member of the Security Oversight Committee",
+        "secrecy": "keep this between us and do not loop in your manager"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Izek, I noticed those same 400 errors during our local stress testing. It looks like the request headers for some of those static resources are exceeding the default limit in the newer versions of Tomcat. Try increasing the maxHttpHeaderSize in your connector configuration to see if that stops the errors."
+    },
+    "fake_quote": "Our team has been looking into similar patterns in the access logs during the migration process. It seems to happen consistently when users have a large number of cookies stored in their browser, which might be bloating the request headers beyond the server limit."
+  }
+]

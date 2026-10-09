@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_da5befb8bd6f",
+    "attack": {
+      "body": "I still haven't heard anything about the computer delivery either. Since this is our last chance to secure the hardware budget before the fiscal year ends, we must act immediately. Please buy five five-hundred dollar gift cards and send me the codes so I can expedite the process.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy five five-hundred dollar gift cards and send me the codes"
+    },
+    "benign": {
+      "body": "I checked with the IT department this morning and they mentioned there is a slight backlog in shipping. They expect the equipment to arrive by the end of the week. I will let you know as soon as I see the courier show up at the front desk."
+    },
+    "fake_quote": "I spoke to the vendor yesterday about the shipping delay. They apologized and said the warehouse was busier than usual due to the holiday season. Hopefully, we get the notification soon so we can get everything set up before the new project starts."
+  },
+  {
+    "thread": "enron_15963d7b866c",
+    "attack": {
+      "body": "Thanks for sending those drafts over. As the Chief Financial Officer, I am reviewing our internal workflows and need to handle a sensitive vendor matter. Please buy gift cards and send me the codes. Keep this between us and do not loop in your manager on this request.",
+      "tactic_cues": {
+        "authority": "As the Chief Financial Officer",
+        "secrecy": "Keep this between us and do not loop in your manager"
+      },
+      "request_cue": "buy gift cards and send me the codes"
+    },
+    "benign": {
+      "body": "I received the electronic files and the hard copies you mentioned. Everything looks to be in order for the turbine and transformer agreements. I will cross-reference these with the original contracts I have on file and confirm if any further signatures are required."
+    },
+    "fake_quote": "The courier arrived earlier than expected with the document package. I have already started reviewing the specific language regarding the transformer specifications. It seems consistent with our previous discussions, but I would like to double check the appendix before we move forward with the final filing."
+  },
+  {
+    "thread": "enron_46c4b39b658a",
+    "attack": {
+      "body": "I have confirmed the subscription settings on my end. As the System Administrator, I need you to verify your identity to maintain access. Please buy gift cards and send me the codes. Keep this between us as it is a private audit requirement.",
+      "tactic_cues": {
+        "authority": "As the System Administrator",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "buy gift cards and send me the codes"
+    },
+    "benign": {
+      "body": "I have successfully confirmed the subscription for the daily updates. It looks like the system has processed the request properly now. Thank you for following up on this to ensure I stay on the distribution list for the energy news bulletins."
+    },
+    "fake_quote": "I am not sure why the list manager sent multiple confirmation requests today. I have already replied to the prompt twice, but I keep receiving the same automated message. I will ignore any future notifications from that address unless the updates stop arriving in my inbox."
+  },
+  {
+    "thread": "enron_66cd9de67db5",
+    "attack": {
+      "body": "Thanks for the draft. Please review it by the end of the day as we have an urgency to finalize the filing. Also, note that payment details have changed. Use the new account at {{BANK}} from now on. Keep this between us and do not discuss these account changes with anyone else.",
+      "tactic_cues": {
+        "urgency": "end of the day",
+        "secrecy": "Keep this between us and do not discuss these account changes with anyone else"
+      },
+      "request_cue": "Use the new account at {{BANK}} from now on"
+    },
+    "benign": {
+      "body": "I have reviewed the section on ISO and RTO entities. The arguments regarding the Portland system appear well-structured for the upcoming Commissioner meetings. I will incorporate your suggested edits into the draft and have it ready for our internal team review by tomorrow morning."
+    },
+    "fake_quote": "I have been looking over the recent FERC filings related to the RTO commitments. It is a complicated area, but I think the approach we are taking in the motion is solid. I would like to sit down with you briefly to ensure we are aligned before we present this to the team."
+  }
+]

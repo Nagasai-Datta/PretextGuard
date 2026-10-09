@@ -46,7 +46,7 @@ from email.utils import getaddresses
 
 from src.headers.evidence import header_evidence
 from src.headers.parser import body_text, parse_header_fields, split_headers
-from src.preprocess.clean import MAX_BODY_CHARS, html_to_text, looks_like_html, normalise_whitespace, split_quoted, strip_list_footer
+from src.preprocess.clean import MAX_BODY_CHARS, QUOTE_MARKERS, html_to_text, looks_like_html, normalise_whitespace, split_quoted, strip_list_footer
 from src.preprocess.redact import redact
 from src.thread.signals import MAX_MESSAGES
 from src.verifiers.facts import FACT_KEYS
@@ -61,18 +61,35 @@ MAX_SUBJECT_CHARS = 300
 MAX_PREFIXES = 20            # reply prefixes removed from one subject
 MAX_PARTICIPANTS = 20        # To addresses read per message
 MAX_QUOTED_CHARS = 20_000    # the quoted history is kept up to this length
+MAX_FULL_CHARS = 60_000      # the whole cleaned body is kept up to this length (the thread code reads no more than that)
 PREFIXES = ("re", "fw", "fwd", "aw", "sv", "antw")
 
 
 # ----------------------------------------------------------------------------------------------- text of a message
 
 def split_message(raw_body):
-    """{'text': the new text, 'quoted': the quoted history} of one raw body, cut as Phase 2 cuts it."""
+    """{'text', 'quoted', 'full'} of one raw body.
+
+    text    the new text, cut exactly as Phase 2 cuts it (everything before the first quote marker, minus lines starting with '>')
+    quoted  the quotation proper: the lines marked with '>' and, when the first marker is an Outlook-style one ("-----Original Message-----",
+            "From: ... Sent:", a forward), everything after that marker. After a Gmail or Thunderbird "On ... wrote:" line only the '>' lines
+            count: people answer INLINE there, and their own answers between the quoted paragraphs are not quoted history
+    full    the whole cleaned body, new text and quotation together: what a LATER reply may quote from this message (an inline answer
+            written here is quoted back by the next reply, so the pool a quotation is compared with must hold it)
+    """
     raw = raw_body.replace("\r\n", "\n").replace("\r", "\n")[:MAX_BODY_CHARS] if isinstance(raw_body, str) else ""
     text = html_to_text(raw)[0] if looks_like_html(raw) else html.unescape(raw)
     text, _ = strip_list_footer(text)
-    main, quoted = split_quoted(text)
-    return {"text": normalise_whitespace(main), "quoted": " ".join(quoted.split())[:MAX_QUOTED_CHARS]}
+    main, _ = split_quoted(text)
+    first = None
+    for marker in QUOTE_MARKERS:
+        found = marker.search(text)
+        if found and (first is None or found.start() < first[0]):
+            first = (found.start(), marker)
+    parts = [line.lstrip().lstrip("> \t") for line in text.split("\n") if line.lstrip().startswith(">")]
+    if first is not None and "wrote" not in first[1].pattern:        # Outlook style: no '>' marks, the history is everything after the marker
+        parts.append(text[first[0]:])
+    return {"text": normalise_whitespace(main), "quoted": " ".join(" ".join(parts).split())[:MAX_QUOTED_CHARS], "full": " ".join(text.split())[:MAX_FULL_CHARS]}
 
 
 def strip_prefix(text):
@@ -167,7 +184,7 @@ def message_record(key, source, fields, evidence, body_raw):
         "subject": fields.get("subject") or "", "date": date.isoformat() if hasattr(date, "isoformat") else (date or None),
         "origin_ip": evidence.get("origin_ip"), "mailer": fields.get("mailer"), "received_hops": json_safe(evidence.get("received_hops")),
         "list_mail": bool(evidence.get("list_mail")),
-        "text": parts["text"], "quoted": parts["quoted"], "redacted": redact(parts["text"])[0],
+        "text": parts["text"], "quoted": parts["quoted"], "full": parts["full"], "redacted": redact(parts["text"])[0],
         "facts": {k: json_safe(merged.get(k)) for k in FACT_KEYS},
         "tactics": None, "claims": None,
     }
@@ -186,7 +203,7 @@ def record_from_table(key, source, header, body_raw):
         "from_domain": json_safe(header.get("from_registered_domain")), "subject": json_safe(header.get("subject")) or "",
         "date": json_safe(header.get("date")), "origin_ip": json_safe(header.get("origin_ip")), "mailer": json_safe(header.get("mailer")),
         "received_hops": json_safe(header.get("received_hops")), "list_mail": bool(json_safe(header.get("list_mail"))),
-        "text": parts["text"], "quoted": parts["quoted"], "redacted": redact(parts["text"])[0],
+        "text": parts["text"], "quoted": parts["quoted"], "full": parts["full"], "redacted": redact(parts["text"])[0],
         "facts": {k: json_safe(header.get(k)) for k in FACT_KEYS},
         "tactics": None, "claims": None,
     }

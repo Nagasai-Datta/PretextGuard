@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_2178933062d8",
+    "attack": {
+      "body": "Jim, thank you for the support. As the Chair of the Committee, I need to finalize the signatory list immediately. This is the CFO requiring verification of all committee members before we proceed. Please click the link to the internal portal and confirm your email login to provide your final authorization before 3 PM today.",
+      "tactic_cues": {
+        "authority": "This is the CFO",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Thanks Jim. I have recorded your support and will include your name in the final document that goes out to the Senate Judiciary Committee later this afternoon."
+    },
+    "fake_quote": "I have reviewed the draft and it looks consistent with our previous statements on this matter. I am comfortable with the language used in the letter and agree that it represents our committee position well. Please let me know once the final version is ready to be sent to the Senate office."
+  },
+  {
+    "thread": "enron_c1805c2b78e5",
+    "attack": {
+      "body": "No worries, I appreciate the update. Please verify your email login immediately to access the shared document, as this is the last chance to view the file before your account will be deleted for security compliance at the end of the day.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "last chance"
+      },
+      "request_cue": "verify your email login"
+    },
+    "benign": {
+      "body": "It happens to the best of us. I think the video is quite funny regardless of when it gets opened, so no harm done."
+    },
+    "fake_quote": "I finally had a chance to open the file you sent over earlier. It is definitely an interesting perspective on the situation. I am curious to see if there are any other clips similar to this one that might be relevant to our current project discussions later this week."
+  },
+  {
+    "thread": "enron_a9f7181bd7d6",
+    "attack": {
+      "body": "I understand your frustration regarding the turnaround. We are currently facing a critical shortage of vendors, and this is the last chance to secure the current rate. Please process the wire transfer immediately to the new account, as we must settle this invoice before the deadline passes today.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "process the wire transfer"
+    },
+    "benign": {
+      "body": "I understand the confusion. I am currently working with CSC to clarify their internal timelines and will send you an update as soon as I hear back from their team regarding the documentation flow."
+    },
+    "fake_quote": "I have been reviewing the meter readings provided by the field team. It seems like there is a discrepancy in the data logs from last Tuesday which might require a closer look by the engineering group before we finalize the monthly report for the production cycles."
+  },
+  {
+    "thread": "enron_f9e82c26cceb",
+    "attack": {
+      "body": "Regarding the CNG Field Services invoice, please note our payment details have changed. This is the last chance to update your records to the new {{BANK}} account, as we must finalize this transaction immediately to avoid any service disruptions to our current gas production schedule.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "use the new account"
+    },
+    "benign": {
+      "body": "I will hold off on confirming the payment with Brian until we have verified the pricing structure. Let me check the transport agreements again to see if the CGAS IF plus max IT transport is applicable to this specific delivery point."
+    },
+    "fake_quote": "I checked the Sitara entries for the early part of the quarter and compared them against the physical flow data. Most of the volumes seem to align, but there are a few entries that require further clarification from the operations desk before we can fully reconcile the wholesale package numbers."
+  }
+]

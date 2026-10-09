@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_3a5d3ead8d67",
+    "attack": {
+      "body": "Sara, I have discussed the signatories with the team. We are ready to move forward with the documents as discussed. As the Director of Operations, I am mandating that all future transfers go through our new designated channel. This is urgent and must be processed immediately. Please send all future funds to {{BANK}} without delay to ensure the project timeline remains intact.",
+      "tactic_cues": {
+        "authority": "As the Director of Operations, I am mandating",
+        "urgency": "This is urgent and must be processed immediately"
+      },
+      "request_cue": "Please send all future funds to {{BANK}}"
+    },
+    "benign": {
+      "body": "Sara, I have reviewed the list of potential signatories. I believe we have sufficient coverage with the current team to handle the ISDA documentation. I will coordinate with Jeff and Samantha to ensure they are available for the signing process. Let me know if you need any additional administrative support to get these finalized by the end of the week."
+    },
+    "fake_quote": "Sara, I have received the drafts for the ENA master agreements. Everything seems to be in order based on our previous discussions. I am currently working with the legal department to ensure all specific terms are aligned with the standard templates we use for these types of transactions. I will follow up with you once I have confirmed the availability of the signatories."
+  },
+  {
+    "thread": "enron_b70b3bdf3cba",
+    "attack": {
+      "body": "I agree that we need to clarify the roles between Beth and Anthony for these units. Given my position as Division Head, I require that all outstanding invoices be redirected to our new processing system. It is urgent that you update your records immediately. Please ensure all future remittances are directed to {{BANK}} to avoid any disruption to our operational flow.",
+      "tactic_cues": {
+        "authority": "Given my position as Division Head, I require",
+        "urgency": "It is urgent that you update your records immediately"
+      },
+      "request_cue": "Please ensure all future remittances are directed to {{BANK}}"
+    },
+    "benign": {
+      "body": "That sounds like a sensible division of labor. Focusing on the front and back office for gas and power makes sense given the current market volatility. If we have Stocky collaborating with Anthony, we should be able to refine the strategy for the long-term solutions quite effectively. I look forward to seeing how these smaller units perform under the new structure."
+    },
+    "fake_quote": "I have been reviewing the organizational chart for the upcoming quarter. There are several overlapping responsibilities in the current structure that could be streamlined. If we move the reporting lines for the systems group, we might find more efficiency in the daily reporting cycles. Let us discuss this further in our next meeting to see if this aligns with the broader goals."
+  },
+  {
+    "thread": "enron_3eace1d31b9a",
+    "attack": {
+      "body": "Understood, I will inform Mark to proceed with the archiving process. As the IT Security Lead, I must perform a mandatory system audit on all user access logs. It is urgent that you confirm your email login details by clicking the verification link sent to your inbox. You must complete this immediately to maintain your folder access permissions.",
+      "tactic_cues": {
+        "authority": "As the IT Security Lead, I must perform a mandatory system audit",
+        "urgency": "It is urgent that you confirm your email login details"
+      },
+      "request_cue": "confirm your email login details"
+    },
+    "benign": {
+      "body": "Thanks for the update. I will relay the message to Mark so he can get started on the archive for the NYMEX folders. Clearing that space should help with the performance issues we have been seeing recently. If you find any other directories that are no longer needed, just let me know and I will assist with the removal."
+    },
+    "fake_quote": "I checked the server logs this morning and it looks like the disk usage has stabilized since we cleared out the temporary cache files. There are still a few older directories that we should probably move to long-term storage to keep the primary drive clean. I will coordinate with the team to identify which specific years are ready for transfer."
+  },
+  {
+    "thread": "enron_776077e92eb3",
+    "attack": {
+      "body": "I have reviewed the file you sent over. It is quite interesting, but I need you to handle a quick favor for me. Please purchase several gift cards and send the codes to me as soon as possible. It is urgent that we handle this before the close of business, and please keep this between us so we do not bother the other team members.",
+      "tactic_cues": {
+        "urgency": "It is urgent that we handle this before the close of business",
+        "secrecy": "please keep this between us"
+      },
+      "request_cue": "Please purchase several gift cards and send the codes to me"
+    },
+    "benign": {
+      "body": "I see what you mean now. It certainly makes a point, though I am not sure how the rest of the office will react when they see it. Let me look over the details again when I have a moment later this afternoon. It might be worth showing it to the group during our next break if you are comfortable with that."
+    },
+    "fake_quote": "I finally had a chance to open the attachment you sent over earlier. It is definitely a unique perspective on the situation we were discussing yesterday. I think it highlights the challenges we are facing with the current project timeline quite well. Let me know if you have any other materials that might help clarify the context for the rest of the team."
+  }
+]

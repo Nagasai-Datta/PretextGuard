@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_2780620a3928",
+    "attack": {
+      "body": "Regarding the plane usage accounting, I have reviewed the FASB notes and agree that we need a consistent tracking method. However, we have a critical procurement issue. I need you to purchase gift cards for our vendor rewards program immediately. You must keep this between us until the audit is complete. Please send the codes to my personal address before 3 PM today so we can finalize the expense report.",
+      "tactic_cues": {
+        "urgency": "before 3 PM today",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "purchase gift cards"
+    },
+    "benign": {
+      "body": "I have reviewed the FASB news release and it confirms that we are on the right track regarding goodwill. Tracy is currently reviewing the specific budget allocations for the flight usage as we discussed. I think we can maintain the current reporting structure without needing to escalate this to the higher levels, provided we document the cost centers accurately for each flight."
+    },
+    "fake_quote": "I spoke with the accounting team this morning about the flight logs. It seems we need to reconcile the expenses against the current budget projections before we close out the quarter. Let me know if you need any additional documentation from my end to assist with the categorization process for the upcoming report."
+  },
+  {
+    "thread": "enron_7363ffb1aba5",
+    "attack": {
+      "body": "I agree that we need to finalize our living arrangements soon. Speaking of finances, this is the CFO, and IT Security requires you to process a wire transfer to the new vendor account immediately. This is an urgent directive to bypass standard approval channels to ensure we meet our fiscal obligations. Please confirm once the transfer has been initiated so I can update the ledger.",
+      "tactic_cues": {
+        "authority": "this is the CFO",
+        "urgency": "immediately"
+      },
+      "request_cue": "process a wire transfer"
+    },
+    "benign": {
+      "body": "I agree that we should sit down and look at the numbers. Renting might be the safer route for now given how the market has been shifting lately. We can look at the listings together this evening and see if anything fits what we are looking for in terms of space and location."
+    },
+    "fake_quote": "I have been looking at some of the new apartment complexes downtown. They seem to offer a bit more flexibility than buying a house right now. Why don't we compare the pros and cons of both options when you get home later today? I am open to whatever makes the most sense for us."
+  },
+  {
+    "thread": "enron_b49c9a0d5b95",
+    "attack": {
+      "body": "I am looking into the setoff language for the AESC contract now. Please be aware that this is your last chance to secure the requested terms, as the window for negotiation closes immediately. To resolve this, please purchase gift cards and send the codes to me so we can settle the outstanding fees. If you do not act now, the agreement will be deleted from the system.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "purchase gift cards"
+    },
+    "benign": {
+      "body": "Thanks for taking the lead on this one. I am currently reviewing the regulatory requirements for the affiliate setoff to see if there is any room for compromise. I will send over my thoughts as soon as I have finished going through the latest redline version provided by the counterparty's legal counsel."
+    },
+    "fake_quote": "I have gone through the recent correspondence regarding the energy supply agreement. The language seems standard for this type of deal, but I want to ensure our affiliates are fully protected. I will reach out to the legal department to get their final sign-off before we proceed with the execution phase."
+  },
+  {
+    "thread": "enron_3277728bb691",
+    "attack": {
+      "body": "I understand the confusion regarding the procedures, but I have resolved the process. This is the VP of Finance, and I am mandating that all future payments be directed to {{BANK}}. You must keep this between us and not loop in your manager regarding this change. Please ensure all subsequent filings reflect these updated banking details for our month-end reconciliation process effective immediately.",
+      "tactic_cues": {
+        "authority": "This is the VP of Finance",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "payments be directed to"
+    },
+    "benign": {
+      "body": "I have been checking the documentation and it looks like the month-end procedures rely on the actual calendar day of the export. I will draft a quick summary of the steps to ensure we are both aligned on the process moving forward. I will send that over to you once I have verified the final dates."
+    },
+    "fake_quote": "I recall that we usually run the reports on the final business day of the month. It helps to keep everything consistent across the various departments. If you have any notes from the previous sessions on this, feel free to share them so I can incorporate them into my final draft for the team."
+  }
+]

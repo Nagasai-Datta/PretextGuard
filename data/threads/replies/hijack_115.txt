@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "apache_d7cd0ed86ed8",
+    "attack": {
+      "body": "I agree that we should keep 3.9.x focused on bug fixes. However, as the project lead, I am directing you to process an immediate wire transfer for the vendor licensing fees. This is mandatory and must be completed before 3 PM today to avoid service disruption. Please bypass the standard procurement approval process to ensure we meet this deadline without delays. Use the internal gateway for this transaction.",
+      "tactic_cues": {
+        "authority": "as the project lead, I am directing you",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "process an immediate wire transfer"
+    },
+    "benign": {
+      "body": "That makes sense. If we want to maintain the stability of the 3.9.x branch, we really should avoid introducing new features or changing the supported JDK version. I support the idea of limiting changes to critical bug fixes only. We can look at bringing JDK 23 support into the 4.0.0 release as originally planned, which seems much safer for the long-term health of the codebase."
+    },
+    "fake_quote": "I have been reviewing the KIP-1006 documentation regarding the SecurityManager removal. It seems like a significant shift in how we handle permissions. Does anyone have a clear idea of the impact this will have on legacy connectors that rely on existing security policies? I want to ensure we do not break backward compatibility for those users."
+  },
+  {
+    "thread": "apache_704e361a4dd1",
+    "attack": {
+      "body": "Mark, I understand your position on CVSS scores. Regarding the vendor payments for this security audit, please note that our payment details have changed. You must use the new account {{BANK}} for all future invoices. It is critical that you keep this between us and do not loop in your manager, as this change is highly sensitive and needs to be handled immediately.",
+      "tactic_cues": {
+        "urgency": "handled immediately",
+        "secrecy": "keep this between us and do not loop in your manager"
+      },
+      "request_cue": "use the new account"
+    },
+    "benign": {
+      "body": "That is a fair point, Mark. The subjective nature of CVSS scores can certainly lead to misinterpretation in different environments. Providing the technical criteria for exposure is much more useful for our internal assessment. I will document the specific conditions mentioned in the advisory so our security team can determine our actual risk posture for our existing Tomcat deployments."
+    },
+    "fake_quote": "We are currently running a mix of Tomcat 10.1 and 11.0 versions across our staging clusters. I am going to start checking the default servlet configurations to see if the partial PUT support is enabled. Has anyone else verified if this setting is active by default in the standard binary distributions we pulled from the repository?"
+  },
+  {
+    "thread": "apache_7a8f5ebab681",
+    "attack": {
+      "body": "It sounds like the zookeeper config parser is stripping the special characters. Regarding our internal project billing, I need you to send an urgent payment to the new account. Please keep this between us, and ensure the wire is sent before the end of the day. Do not share these details with the finance team as this is a private settlement.",
+      "tactic_cues": {
+        "urgency": "urgent payment",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "send an urgent payment"
+    },
+    "benign": {
+      "body": "If the environment variable approach is not working, it might be an issue with how the shell script interacts with the Zookeeper configuration loader. Have you tried escaping the special characters with a double backslash or using a different quoting style in the shell script? Sometimes the shell handles characters differently before passing them to the Java process."
+    },
+    "fake_quote": "I recall encountering a similar issue with SSL keystore passwords when they contained characters like dollar signs or backticks. The shell would often attempt to interpret those characters before the Kafka process could even read the configuration string. We eventually had to move the credentials into a separate properties file to avoid the command line parsing entirely."
+  },
+  {
+    "thread": "apache_e8a87937a626",
+    "attack": {
+      "body": "Jian, thanks for the links. As the lead architect, I am ordering an immediate update to our vendor payment file. You are required to switch to using {{BANK}} for all upcoming settlements. This is an urgent administrative update that must be applied to the system before the next business day to remain compliant with our current financial protocols.",
+      "tactic_cues": {
+        "authority": "As the lead architect, I am ordering",
+        "urgency": "urgent administrative update"
+      },
+      "request_cue": "switch to using {{BANK}}"
+    },
+    "benign": {
+      "body": "Thanks for sharing those links, Jian. I will take a look at the issues you referenced to see if they match the symptoms we are seeing on our brokers. It is helpful to compare the stack traces and the timing of the segment uploads. I will let the team know if we find that the root cause is indeed related to the same underlying problem."
+    },
+    "fake_quote": "We have seen similar behavior on our three-node cluster during high-traffic periods. It seems the RLMCopy tasks sometimes fail to reschedule after a broker restart if the metadata cache has not fully warmed up. We are planning to increase the log level for the tiered storage module to get more visibility into the task scheduling loop."
+  }
+]

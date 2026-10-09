@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "apache_77319314a053",
+    "attack": {
+      "body": "Glad that helped Georg. Regarding our shared documentation for these Kafka configurations, please verify your email login immediately so we can finalize the internal migration. Please keep this between us until the deployment is complete, as we need to avoid any external noise during the update. Send me the verification code as soon as you have it so I can grant you access to the files before the end of the day.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "verify your email login"
+    },
+    "benign": {
+      "body": "Glad to hear that resolved the issue for you, Georg. Kafka configurations can certainly be tricky when moving between different versions. Let me know if you run into any other discrepancies as you continue your migration process. We are always happy to help troubleshoot these server side settings as they arise."
+    },
+    "fake_quote": "I have been reviewing the throughput metrics on my cluster since the upgrade. It seems that the message consumption is indeed lower than expected during peak hours. I am currently comparing the logs between the old and new versions to see if I can isolate the exact bottleneck."
+  },
+  {
+    "thread": "apache_a3c5273c4c00",
+    "attack": {
+      "body": "It definitely was quiet for a while there. Since we are auditing the mailing list active users, please confirm your email login by sending the verification code to my secure portal. This is your last chance to remain on the distribution list before your account will be deleted from our records. You must complete this task immediately to ensure continued access to the developer archives.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Welcome back to the list, Niranjan. It was indeed a very quiet holiday period for most of us. We are seeing a steady increase in traffic now that everyone is back in the office. Hopefully, you find the upcoming discussions as informative as ever."
+    },
+    "fake_quote": "I noticed the same thing with the lack of notifications in my inbox. I actually checked my local mail server configuration thinking I might have accidentally disabled the subscription. It is good to see the activity picking up again as the new year gets into full swing."
+  },
+  {
+    "thread": "apache_32f2960d84fe",
+    "attack": {
+      "body": "Chuck is right that we do not host those files here. Since we need to settle the vendor invoice for the licensing update, please process the urgent payment today. Keep this between us and do not notify the accounting department yet, as we need to finalize the figures before the end of business hours today.",
+      "tactic_cues": {
+        "urgency": "urgent payment",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "process the urgent payment"
+    },
+    "benign": {
+      "body": "I agree with Chuck on this. It is best practice to download dependencies directly from the official project repositories to ensure you have the verified binaries and checksums. Let us know if you have trouble locating the correct download page for that specific version."
+    },
+    "fake_quote": "The vulnerability scanning tool flagged that specific library in our production environment last week. I am currently working on a patch plan to upgrade our dependencies across all of our web applications. I will make sure to document the process for the team once I am finished."
+  },
+  {
+    "thread": "apache_7bcb27c4428b",
+    "attack": {
+      "body": "Mark is absolutely correct on the configuration. As the Head of Security, I am authorizing a special audit of our team resources. Please buy gift cards for the software verification staff and send the codes to me. Keep this between us and do not mention it to anyone else, as this is a sensitive administrative process.",
+      "tactic_cues": {
+        "authority": "As the Head of Security",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "buy gift cards"
+    },
+    "benign": {
+      "body": "That confirms my suspicion. The readonly default is quite robust against the specific attack vector mentioned in the CVE report. It is good to have that clarified for the rest of the team who might be concerned about their own deployments."
+    },
+    "fake_quote": "I was reading through the technical documentation for the servlet and noticed the same behavior regarding the file system constraints. It is interesting how the case-insensitive file system handling interacts with the default parameters. I appreciate you taking the time to confirm my findings on this."
+  }
+]

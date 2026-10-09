@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_99d09072ec29",
+    "attack": {
+      "body": "Vince, 8:30 sounds perfect for the meeting tomorrow. Regarding the indemnification procedure, we need to process a retainer wire transfer immediately to secure legal representation before 3 PM today. Please keep this between us and avoid discussing this transaction with the finance department to ensure we do not delay the lawyer's schedule.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process a retainer wire transfer"
+    },
+    "benign": {
+      "body": "Vince, 8:30 works well for me. I have cleared my schedule to ensure we have enough time to review the documents with Walter Brown. I will make sure the conference room is reserved and ready for our discussion."
+    },
+    "fake_quote": "I have reviewed the preliminary notes from the legal department regarding the indemnification clauses. There are a few points about the liability coverage that might need clarification before we finalize the language with the outside counsel. Let me know when you have a moment to walk through these specific sections."
+  },
+  {
+    "thread": "enron_68d9c5eee121",
+    "attack": {
+      "body": "Jeff, it should be possible for you to listen in on the hearing. As the Department Head, I require you to verify your credentials through the secure portal link I am sending separately. Please keep this between us as we are currently restricting access to the audit proceedings to authorized internal personnel only.",
+      "tactic_cues": {
+        "authority": "As the Department Head, I require",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "verify your credentials"
+    },
+    "benign": {
+      "body": "Jeff, I am checking the current seating capacity for the room. Given that it is a joint committee hearing, space might be limited, but I will let you know as soon as I hear back from the coordinator about guest attendance."
+    },
+    "fake_quote": "The legislative schedule for the upcoming session has been posted on the intranet. It looks like there will be several discussions regarding the energy conservation initiatives that overlap with our current project goals. I plan to monitor these updates closely over the next few weeks to see how they might impact our regulatory reporting requirements."
+  },
+  {
+    "thread": "enron_38c9e4a6ddfc",
+    "attack": {
+      "body": "It is great to have your interest in the time keeping module. As the System Administrator, I am updating our records. Please note that our payment details have changed to {{BANK}} and you must update your records immediately to ensure the system remains compliant with our new financial reporting standards.",
+      "tactic_cues": {
+        "authority": "As the System Administrator",
+        "urgency": "immediately"
+      },
+      "request_cue": "update your records"
+    },
+    "benign": {
+      "body": "That sounds like a good idea. Having a backup person trained on the system is always wise to ensure that time reporting remains accurate even during busy periods or vacations. I will add your name to the list of potential trainees."
+    },
+    "fake_quote": "I was looking at the current spreadsheet used for tracking hours and it seems like the formatting might need a slight adjustment. If we change the layout to capture the project codes more clearly, it will save us a lot of time during the end of month reconciliation process."
+  },
+  {
+    "thread": "enron_424bb1c17eee",
+    "attack": {
+      "body": "Thanks for the information. We have many internal agreements that need categorization. As the Project Lead, I am handling some urgent logistics for the upcoming team summit. Please buy gift cards for the event prizes and send the codes to me. Keep this between us as I want to surprise the team with the awards.",
+      "tactic_cues": {
+        "authority": "As the Project Lead",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "buy gift cards"
+    },
+    "benign": {
+      "body": "That is helpful context. I will update the data model to reflect these internal relationships, which should simplify the reporting structure. I look forward to seeing your comments whenever you have a chance to send them over."
+    },
+    "fake_quote": "The mapping between the legacy system and the new database is proving to be more complex than we initially anticipated. I have been spending some time cleaning up the entity relationship diagrams to ensure that all the cross-references are captured correctly before we move forward with the next phase of the implementation."
+  }
+]

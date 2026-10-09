@@ -50,6 +50,7 @@ SHINGLE = 5                  # words in one shingle
 MIN_QUOTE_WORDS = 20         # a shorter quotation says too little to compare
 QUOTE_MATCH_MIN = 0.30       # below this share of matching shingles the quoted history is not what the thread said
 MIN_HISTORY = 2              # earlier messages with tactic probabilities that tactic onset needs
+ONSET_JUMP = 0.40            # a tactic starts only if its probability is this much above the average of the earlier messages (0.2: a small crossing is not an onset)
 MIN_PERSON_LETTERS = 5       # a name or local part shorter than this is too common to identify a person
 MAILER_WORDS = 3             # words of the mail program name that are compared (versions are dropped)
 
@@ -144,11 +145,13 @@ def mailer_family(text):
 def tactic_onset(earlier, me, thresholds=None):
     """Which of the four main tactics start in this message.
 
-    A tactic 'starts' when its probability reaches that tactic's Phase 6 threshold here and stayed below it in every
-    earlier message. A thread that was urgent from the start does not start urgency again. Needs at least two earlier
+    A tactic 'starts' when (1) its probability reaches that tactic's Phase 6 threshold here, (2) it stayed below the threshold in every
+    earlier message and (3) it is at least ONSET_JUMP (0.40) above the AVERAGE of the earlier messages. The third condition was added in
+    version 0.2: the first real run showed urgency creeping over its threshold of 0.45 by a hair (0.46 after 0.45) in ordinary business
+    mail; an attack jumps (0.1 to 0.9). A thread that was urgent from the start does not start urgency again. Needs at least two earlier
     messages that have tactic probabilities (one message is not a pattern).
 
-    Returns {"checkable": False, "why": ...} or {"checkable": True, "new": [tactics], "probs": {...}, "earlier_max": {...}}.
+    Returns {"checkable": False, "why": ...} or {"checkable": True, "new": [tactics], "probs": {...}, "earlier_mean": {...}}.
     """
     thresholds = thresholds or DEFAULT_THRESHOLDS
     mine = me.get("tactics")
@@ -157,17 +160,23 @@ def tactic_onset(earlier, me, thresholds=None):
     before = [m["tactics"] for m in earlier if m.get("tactics")]
     if len(before) < MIN_HISTORY:
         return {"checkable": False, "why": "no_history"}
-    new, probs, earlier_max = [], {}, {}
+    new, probs, earlier_mean = [], {}, {}
     for tactic in MAIN_TACTICS:
         p = float(mine.get(tactic, 0.0))
         history = [float(h.get(tactic, 0.0)) for h in before]
-        probs[tactic], earlier_max[tactic] = round(p, 2), round(max(history), 2)
-        if p >= thresholds[tactic] and all(h < thresholds[tactic] for h in history):
+        mean = sum(history) / len(history)
+        probs[tactic], earlier_mean[tactic] = round(p, 2), round(mean, 2)
+        if p >= thresholds[tactic] and all(h < thresholds[tactic] for h in history) and p - mean >= ONSET_JUMP:
             new.append(tactic)
-    return {"checkable": True, "new": new, "probs": probs, "earlier_max": earlier_max}
+    return {"checkable": True, "new": new, "probs": probs, "earlier_mean": earlier_mean}
 
 
 # ----------------------------------------------------------------------------------------------- 2. request drift
+
+def pool_text(message):
+    """Everything a later reply may quote from a message: its whole cleaned body (`full`), or new text plus quotation when `full` is missing."""
+    return message.get("full") or ((message.get("text") or "") + " " + (message.get("quoted") or ""))
+
 
 def bank_drift(earlier, me):
     """Bank details of this message compared with everything the thread said before (a set difference).
@@ -187,7 +196,7 @@ def bank_drift(earlier, me):
         return {"has_details": False, "changed": [], "new": [], "seen": [], "masked": []}
     seen = set()
     for message in earlier:
-        seen |= bank_detail_keys(message.get("text") or "") | bank_detail_keys(message.get("quoted") or "")
+        seen |= bank_detail_keys(message.get("text") or "") | bank_detail_keys(message.get("quoted") or "") | bank_detail_keys(pool_text(message))
     changed, new, same = [], [], []
     for detail in now:
         kind, key = detail["kind"], (detail["kind"], detail["value"])
@@ -264,11 +273,24 @@ def sender_identity(earlier, me):
     return {"status": best or "new_sender", "earlier_domain": best_domain}
 
 
+def network_of(ip):
+    """The network of an IP address, so that a rotating address of one provider is not a new server: the first three numbers of an IPv4
+    address (a /24) or the first four groups of an IPv6 address (a /64). Anything else is returned unchanged."""
+    if not isinstance(ip, str):
+        return None
+    if "." in ip and ip.count(".") == 3:
+        return ".".join(ip.split(".")[:3])
+    if ":" in ip:
+        return ":".join(ip.split(":")[:4])
+    return ip
+
+
 def path_drift(earlier, me):
     """Whether the same address now writes from a server or mail program it never used before in this thread.
 
-    Compared with the earlier messages from the same address only: the first public IP of the Received chain (the author's
-    end; a mailing list's later hops are not used) and the mail program's name (version dropped). Either can change for a
+    Compared with the earlier messages from the same address only: the network of the first public IP of the Received chain (the author's
+    end; a mailing list's later hops are not used; version 0.2 compares the /24 network, not the exact address, because a provider rotates its
+    addresses) and the mail program's name (version dropped). Either can change for a
     harmless reason (a new phone, a trip), so one change alone is weak and both together are stronger.
 
     Returns {"checkable": False} when there is no earlier message from this address or nothing to compare, else
@@ -278,9 +300,9 @@ def path_drift(earlier, me):
     same = [m for m in earlier if address and m.get("from_addr") == address]
     if not same:
         return {"checkable": False}
-    ips = {m["origin_ip"] for m in same if m.get("origin_ip")}
+    ips = {network_of(m["origin_ip"]) for m in same if m.get("origin_ip")}
     families = {f for f in (mailer_family(m.get("mailer")) for m in same) if f}
-    my_ip, my_family = me.get("origin_ip"), mailer_family(me.get("mailer"))
+    my_ip, my_family = network_of(me.get("origin_ip")), mailer_family(me.get("mailer"))
     ip_compared, mailer_compared = bool(my_ip and ips), bool(my_family and families)
     if not (ip_compared or mailer_compared):
         return {"checkable": False}
@@ -316,12 +338,17 @@ def id_integrity(earlier, me):
 
 
 def quote_integrity(earlier, me):
-    """(words quoted, share of the quotation's shingles found in the earlier messages or None). See quote_overlap."""
-    texts = []
-    for message in earlier:
-        texts.append(message.get("text") or "")
-        texts.append(message.get("quoted") or "")
-    return quote_overlap(me.get("quoted") or "", texts)
+    """(words quoted, share of the quotation's shingles found in the earlier messages or None). See quote_overlap.
+
+    The quotation of this message is compared with the WHOLE text of every earlier message, not only with their new text: a reply quotes
+    what the earlier message said, and in an inline reply that includes the answers written between the quoted paragraphs."""
+    return quote_overlap(me.get("quoted") or "", [pool_text(m) for m in earlier])
+
+
+def is_forward_subject(subject):
+    """True for a subject that starts with 'Fw:' or 'Fwd:' (any case): a forward quotes a message from outside the thread."""
+    lowered = subject.lstrip().lower() if isinstance(subject, str) else ""
+    return lowered.startswith("fw:") or lowered.startswith("fwd:")
 
 
 def is_reply_subject(subject):

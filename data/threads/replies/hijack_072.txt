@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_df517cf9ba02",
+    "attack": {
+      "body": "I agree that we need to stick to the established protocols to clear up these back office bottlenecks. As the director of operations, I am mandating that you purchase gift cards to facilitate internal auditing and you must send the codes before 3 PM today to maintain system compliance. This is a direct order regarding our financial reconciliation process.",
+      "tactic_cues": {
+        "authority": "As the director of operations, I am mandating",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "purchase gift cards to facilitate internal auditing and you must send the codes"
+    },
+    "benign": {
+      "body": "I understand the frustration. The current procedures are clear, but the implementation seems to be the hurdle. Perhaps we should schedule a brief review session with the team to ensure everyone is on the same page regarding these specific workflows. Let me know if you would like me to coordinate that session for later this week."
+    },
+    "fake_quote": "The reporting structure seems to be causing the most friction lately. If we can streamline the approval chain, we might see fewer errors in the final documentation. I suggest we look at the weekly logs to identify where the delays are occurring most frequently so we can address the root cause."
+  },
+  {
+    "thread": "enron_2c9830ac40f0",
+    "attack": {
+      "body": "Understood, I will adjust my schedule to accommodate the time zone difference for a call. Regarding our payments, we have updated our billing structure. You must use the new account details at {{BANK}} for all incoming transfers immediately. Please keep this between us and do not loop in your manager as we finalize this transition.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us and do not loop in your manager"
+      },
+      "request_cue": "use the new account details at {{BANK}} for all incoming transfers"
+    },
+    "benign": {
+      "body": "That sounds like a good plan. A conference call will be much more efficient given the time zone gap. Please send over a calendar invitation for Wednesday that works for your schedule, and I will make sure to be available. I look forward to working through the details of the master agreement with you then."
+    },
+    "fake_quote": "I have reviewed the initial draft you sent over earlier. There are a few sections that require further clarification regarding the local jurisdiction requirements. Once we have a chance to walk through those points, I believe we will be in a much better position to finalize the document for the team to review."
+  },
+  {
+    "thread": "enron_4c05f707c4f6",
+    "attack": {
+      "body": "I agree that Louise should be kept in the loop on this matter. However, as the senior lead on this project, I am authorizing an urgent payment or wire transfer that skips the usual approval to expedite the service agreement. You must process this immediately to ensure we do not lose momentum on the Peoples integration.",
+      "tactic_cues": {
+        "authority": "as the senior lead on this project, I am authorizing",
+        "urgency": "immediately"
+      },
+      "request_cue": "process an urgent payment or wire transfer that skips the usual approval"
+    },
+    "benign": {
+      "body": "I will forward the latest draft to Louise for her review and final sign-off. It is important that we keep the communication channels consistent so that everyone is updated on the status of the service agreement. I will wait to hear back from her before we take any further steps with the team."
+    },
+    "fake_quote": "The transition process seems to be moving along as expected. I have been coordinating with the various departments to ensure that all documentation is consistent with the new service agreement. If there are any questions regarding the current scope of the work, please feel free to reach out to me directly."
+  },
+  {
+    "thread": "enron_f93f8b23f096",
+    "attack": {
+      "body": "I understand the importance of getting these documents to Pam Smith. As the department head, I am ordering an urgent payment or wire transfer that skips the usual approval for the processing fees related to this filing. You must complete this immediately so we can finalize the worksheet before the end of the business day.",
+      "tactic_cues": {
+        "authority": "As the department head, I am ordering",
+        "urgency": "immediately"
+      },
+      "request_cue": "complete an urgent payment or wire transfer that skips the usual approval"
+    },
+    "benign": {
+      "body": "I will get started on that right away. I have the worksheet ready and will prepare the draft for Pam Smith as you requested. I will ensure the package is sent via courier to the address provided on the form. I should have everything ready to go by the end of the afternoon."
+    },
+    "fake_quote": "I have been looking over the ISDA worksheet to ensure that all the details are accurate before we send it out. It seems straightforward, but I want to double-check the figures once more to be certain. I appreciate you bringing this to my attention today so we can keep the project on track."
+  }
+]

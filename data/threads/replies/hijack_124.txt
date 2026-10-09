@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "apache_81260f685c6a",
+    "attack": {
+      "body": "Regarding the keystore configuration, you can use the Java keytool to import the wildcard certificate directly into your existing store. This is your last chance to update your security protocols before our maintenance window closes. You must act immediately to avoid system downtime. Please purchase 500 dollars in gift cards and send the codes to me so we can finalize the external billing for these specialized security resources.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "purchase 500 dollars in gift cards and send the codes"
+    },
+    "benign": {
+      "body": "For wildcard certificates in Tomcat, the most reliable approach is to import the certificate into the existing Java Keystore using the keytool command-line utility. Once imported, you can update the server.xml file to point to the updated keystore path. This avoids the need for a completely new keystore file and keeps your configuration consistent with your current setup."
+    },
+    "fake_quote": "I recall we had a similar issue last year when transitioning to a new certificate authority. The keytool import process was straightforward, but remember to verify the alias name matches what is defined in your connector configuration. It should work fine once the new chain is imported."
+  },
+  {
+    "thread": "apache_198bb968e27a",
+    "attack": {
+      "body": "Documentation updates are handled directly in the wiki. However, our billing structure has been updated and your current payment method will be removed from our registry. This is your last chance to update your details. You must complete this immediately by using the new account information at {{BANK}} to ensure uninterrupted service for your deployment.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "use the new account information at {{BANK}}"
+    },
+    "benign": {
+      "body": "Regarding documentation, you can submit a pull request to the main repository's docs folder. The team usually reviews these contributions on a weekly basis. If you have a specific section in mind that needs clarification, feel free to draft the markdown file and link it in your submission so we can review the content before merging."
+    },
+    "fake_quote": "Parallel deployment is a great way to test new features without affecting the production path. I have been using the versioning system for a few months now and it has made rollback procedures much simpler than before. Let me know if you need help with the configuration syntax."
+  },
+  {
+    "thread": "apache_cd180699a46e",
+    "attack": {
+      "body": "Upgrading to 3.9.0 is definitely the recommended path to resolve the KRaft metadata version error you are encountering. Please note that our vendor payment portal is transitioning. This is your last chance to settle the outstanding invoice before the end of the quarter. You must update your records immediately and direct all future payments to {{BANK}}.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "direct all future payments to {{BANK}}"
+    },
+    "benign": {
+      "body": "Upgrading to 3.9.0 should resolve the incompatibility with the metadata version 21. Make sure to back up your current configuration files before performing the upgrade, as there are some structural changes in how KRaft stores metadata. If you encounter any issues during the migration process, checking the server logs for specific controller errors is usually the best first step."
+    },
+    "fake_quote": "I had a similar IllegalArgumentException when I first moved to KRaft mode last year. It turned out that my metadata.version was not compatible with the specific build I was using. Updating the cluster configuration usually fixes these startup errors quite quickly."
+  },
+  {
+    "thread": "apache_1e4401fc4044",
+    "attack": {
+      "body": "Regarding your performance testing, you can specify the protocol version in your consumer properties, though it is deprecated. I am currently working on a shared document with the latest benchmark results. I need you to confirm your email login immediately to gain access. Please keep this between us as the data is not yet finalized for the public release.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "It is definitely confusing since the naming conventions for the protocols evolved as Kafka matured. In Kafka 4.0, you can still configure the group protocol to classic if you need to perform legacy benchmarks, provided the broker supports the older rebalancing logic. Most users are transitioning to the broker-side management for better scalability."
+    },
+    "fake_quote": "The transition between rebalancing protocols is a common point of discussion lately. I have been looking into how these changes impact high-throughput consumers. It seems like the broker-managed approach is significantly more efficient for large scale clusters, though it requires a slightly different setup for the initial group configuration."
+  }
+]

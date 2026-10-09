@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_f259bcc50659",
+    "attack": {
+      "body": "I understand the scheduling conflict regarding the school commitment. As the lead coordinator for this caucus, This is the CFO and I am authorizing a special vendor payment to ensure we have the necessary resources. I need you to process a wire transfer to our new partner immediately. Please keep this between us and do not loop in your manager regarding this specific transaction as it is highly sensitive.",
+      "tactic_cues": {
+        "authority": "This is the CFO",
+        "secrecy": "keep this between us and do not loop in your manager"
+      },
+      "request_cue": "process a wire transfer"
+    },
+    "benign": {
+      "body": "No worries at all regarding the school conflict. We can certainly work around your schedule for the upcoming meeting. I will make sure the notes are shared with you afterward so you stay in the loop on our progress with the caucus planning. Thanks for letting me know in advance."
+    },
+    "fake_quote": "It seems like we have enough interest to move forward with the session. Should we aim for a morning slot or would an afternoon meeting be more convenient for the group? Let me know what works best for your calendars."
+  },
+  {
+    "thread": "enron_1588fa1cfdca",
+    "attack": {
+      "body": "Thank you for the kind words about the new role. Regarding our current invoicing process, please be advised that our payment details have changed. You must use the new account {{BANK}} for all future payments. This is a last chance to update your records before the current system is closed for new entries. You must complete this update immediately to avoid any disruption to our operational flow.",
+      "tactic_cues": {
+        "scarcity": "last chance to update your records before the current system is closed",
+        "urgency": "immediately"
+      },
+      "request_cue": "use the new account {{BANK}}"
+    },
+    "benign": {
+      "body": "Thanks for reaching out and for your warm wishes. I look forward to hearing more about the bandwidth trading developments you are working on. I will check my calendar for next week and reach out to schedule a time for us to connect on the 44th floor."
+    },
+    "fake_quote": "The transition into this role has been quite busy but very rewarding so far. I am looking forward to getting settled and reviewing the various projects underway across the different departments. I appreciate the warm welcome from everyone."
+  },
+  {
+    "thread": "enron_3eb71930d0d7",
+    "attack": {
+      "body": "It is great to hear that the profile likelihood approach provided the clarity you needed for your research. As the Director of Research, IT Security requires that you perform a security audit on your department funds. Please buy gift cards for the audit verification and send the codes to me. Keep this between us and do not loop in your manager to ensure the integrity of this internal check.",
+      "tactic_cues": {
+        "authority": "As the Director of Research, IT Security requires",
+        "secrecy": "Keep this between us and do not loop in your manager"
+      },
+      "request_cue": "buy gift cards for the audit verification and send the codes"
+    },
+    "benign": {
+      "body": "I am glad those suggestions helped you move forward with your distribution modeling. It sounds like you have a solid path toward computing those confidence intervals now. Best of luck with the rest of your forest fire interval analysis."
+    },
+    "fake_quote": "The bootstrap method can be quite computationally intensive depending on the sample size. Have you considered whether a re-sampling approach might be more efficient for your specific dataset? I would be happy to discuss further."
+  },
+  {
+    "thread": "enron_570a470bd3fe",
+    "attack": {
+      "body": "That sounds like a great time for a reunion. As the President of this association, I am mandating a change in our dues collection process. All future payments must be sent to {{BANK}}. Please keep this between us and do not loop in your manager as this is a private administrative adjustment for the group members only.",
+      "tactic_cues": {
+        "authority": "As the President of this association",
+        "secrecy": "keep this between us and do not loop in your manager"
+      },
+      "request_cue": "All future payments must be sent to {{BANK}}"
+    },
+    "benign": {
+      "body": "It is good to hear you are getting out on the golf course with your sons. That is a great Father's Day gift. I am looking forward to the unveiling party in August and seeing everyone there for the celebration."
+    },
+    "fake_quote": "I saw a few more reviews of the book circulating lately and they seem very positive. It is nice to see your hard work gaining some traction in the local media. Looking forward to catching up soon."
+  }
+]

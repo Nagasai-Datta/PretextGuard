@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_2b2b2dbee205",
+    "attack": {
+      "body": "Tana, I have received the information for the Cargill NDA. Please note that our payment details have changed. Use the new account at {{BANK}} for all incoming transactions immediately as this is your last chance to update your records before the current system is deactivated. Please confirm this change.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "Use the new account at {{BANK}} for all incoming transactions"
+    },
+    "benign": {
+      "body": "Tana, thanks for looking into the Cargill NDA. I have their contact information ready to go whenever you have a moment to draft the document. Let me know if you need anything else from my side."
+    },
+    "fake_quote": "I have been reviewing the draft for the software sale agreement. It looks like we are aligned on the scope of information sharing. Please let me know if you want me to forward the latest version to the legal team for their final approval before we send it out to the client for signature."
+  },
+  {
+    "thread": "enron_6e0704c20a44",
+    "attack": {
+      "body": "Thanks for the report. As the department lead, I am issuing a directive to assist with our current project incentives. I need you to buy gift cards and send the codes to me. Keep this between us and do not loop in your manager regarding these purchases.",
+      "tactic_cues": {
+        "authority": "As the department lead, I am issuing a directive",
+        "secrecy": "Keep this between us and do not loop in your manager"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Thanks for sending this over. I will take a look at the updated figures and let you know if I have any questions regarding the capacity shifts in the California region."
+    },
+    "fake_quote": "I noticed a few discrepancies in the pipeline data for the northern sector. It might be worth double checking the source files from last month before we finalize the report for the executive summary. Let me know if you need a hand with the data entry."
+  },
+  {
+    "thread": "enron_e1ac916e2f45",
+    "attack": {
+      "body": "Regarding the hunting dates, I can make those work. I am the Director of Expenses and I require an urgent payment or wire transfer that skips the usual approval to settle the outstanding balance before 3 PM today.",
+      "tactic_cues": {
+        "authority": "I am the Director of Expenses and I require",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "urgent payment or wire transfer that skips the usual approval"
+    },
+    "benign": {
+      "body": "The dates for the hunting trip look good to me. I will put them on my calendar and coordinate with the rest of the group to see if everyone else is available then."
+    },
+    "fake_quote": "It was great getting together last weekend. I think we have a solid plan for the upcoming season. If everyone is still interested, we should probably start looking at booking the cabin soon so we can secure the dates we want."
+  },
+  {
+    "thread": "enron_06f777bdc387",
+    "attack": {
+      "body": "I have reviewed the notes regarding the J.Aron account. To proceed, confirm your email login or send a verification code to open a shared document immediately. This is your last chance to access the updated credit priorities before the file is locked.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login or send a verification code"
+    },
+    "benign": {
+      "body": "I have updated the Lotus Notes entries for the J.Aron account. I will coordinate with Carol and Tana to ensure we have the necessary commercial support to get the guaranty finalized."
+    },
+    "fake_quote": "I spoke with the commercial team this morning regarding the outstanding guarantees. They seem optimistic about the progress we have made so far. I will continue to track the developments and update the team as soon as I hear back from their representatives."
+  }
+]

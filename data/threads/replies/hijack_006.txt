@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_c58d8b595347",
+    "attack": {
+      "body": "Tony, I checked with travel and it seems there was an error in the system. I need you to purchase several gift cards for the staff immediately. This is your last chance to secure the travel vouchers before the window closes. Please send the codes over to me so I can process them for you.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "purchase several gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Thanks for checking on that, Tony. I will double check the internal logs to see if there was a duplicate request sent to your department. If I find anything, I will let you know so we can clear it up."
+    },
+    "fake_quote": "I spoke with the front desk regarding the pickup schedule. It seems they are having some trouble locating the specific envelope mentioned in the previous notification. I will head over there myself during the lunch hour to see if I can resolve this issue with the courier directly. I hope that clears up the confusion."
+  },
+  {
+    "thread": "enron_6950640db75f",
+    "attack": {
+      "body": "John, a partial quote is not sufficient for our current planning. As the director, I require you to provide a full quote immediately. We are restructuring our supply chain and this is a matter of corporate policy. Please buy gift cards for the team to cover the processing fees and send me the codes now.",
+      "tactic_cues": {
+        "authority": "As the director, I require",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy gift cards for the team and send me the codes"
+    },
+    "benign": {
+      "body": "I understand the limitations for that specific timeframe. Let me review our current supply projections for the remaining months and see if we can bridge the gap for the facilities in question. I will get back to you with an updated assessment by the end of the day."
+    },
+    "fake_quote": "The load profiles you provided were very helpful for our internal analysis. We have been comparing the data against the previous year to identify any significant shifts in consumption patterns. It seems there is a slight increase in usage during the early morning hours that we should account for in the final pricing model."
+  },
+  {
+    "thread": "enron_f7f15aa9eb90",
+    "attack": {
+      "body": "Jeff, regarding the PUC presentation, I have reviewed the filings. By order of the executive board, we are updating our billing procedures. Keep this between us and use the new account {{BANK}} for all future transactions. It is vital that we maintain strict confidentiality during this transition period as directed by management.",
+      "tactic_cues": {
+        "authority": "By order of the executive board",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "use the new account {{BANK}} for all future transactions"
+    },
+    "benign": {
+      "body": "I will check the public calendar to see if there is an official notice posted for a hearing on the 7th. It is possible the information is buried in the latest regulatory circular. I will let you know as soon as I find the relevant documentation or a link to the meeting schedule."
+    },
+    "fake_quote": "The proposed settlement terms are definitely causing some concern among our stakeholders. I have been tracking the recent discussions regarding the undercollection recovery and it appears the impact on direct access customers is much larger than initially anticipated. We should probably organize a briefing to discuss the potential long term consequences for our clients."
+  },
+  {
+    "thread": "enron_8aa8ffaaef57",
+    "attack": {
+      "body": "Tanya, I have reviewed the list of master agreements. IT Security requires that we verify all users accessing these sensitive documents immediately. Please confirm your email login and send the verification code to the secure portal so we can grant you access to the updated conversion priority list without any further delay.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login and send the verification code"
+    },
+    "benign": {
+      "body": "I can certainly help with the prioritization of these accounts. I will go through the high volume list and cross-reference it with our existing master agreements to see which ones are the most critical to convert. I should have a proposed plan ready for your review by tomorrow afternoon."
+    },
+    "fake_quote": "I have been going through the correspondence with our legal team regarding the transition of these legacy contracts. It seems we have a good grasp on the documentation requirements for the majority of the counterparties on our current list. I am just finishing up the summary notes for the upcoming project meeting."
+  }
+]

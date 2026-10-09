@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_7aa47492b54f",
+    "attack": {
+      "body": "Thanks for the feedback on the Nord Pool information. We are working to finalize the remaining materials for the Governor, but I need you to wire the outstanding consulting fee immediately to keep the project active. This is your last chance to settle the balance before we close the account and remove you from the vendor list. Please process the transfer now to avoid a service interruption.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "wire the outstanding consulting fee"
+    },
+    "benign": {
+      "body": "Glad that the Nord Pool information is helpful for your research. I am currently gathering the additional pieces on demand buy-down that we discussed. I expect to have those ready to send over to you by the end of the week. Let me know if you come across any other questions while reviewing the materials."
+    },
+    "fake_quote": "I reviewed the meeting notes from Thursday afternoon. It seems like the Governor is very focused on the specific language regarding the ISO proposals. I will start drafting our internal response tonight so we can stay ahead of the schedule we discussed. I will send you the first draft for a quick review before I finalize the document for Steve."
+  },
+  {
+    "thread": "enron_7a15e90f5b70",
+    "attack": {
+      "body": "The SCE agreement details are definitely complex, but this should provide some necessary stability for the market. Could you please pick up some gift cards for the team as a small reward? It is urgent that you get these today because this is the last chance to use the current budget allocation before it expires at midnight. Please send the codes to me as soon as you have them.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "urgent"
+      },
+      "request_cue": "pick up some gift cards"
+    },
+    "benign": {
+      "body": "Thanks for forwarding the press release regarding the SCE agreement. It is certainly a significant development for the renewable energy sector in California. I have been tracking the legal proceedings involving these qualifying facilities, and this resolution seems to align with the expectations we discussed earlier this month. I look forward to seeing how this impacts the broader market pricing."
+    },
+    "fake_quote": "I just saw the note about the agreement with the power producers. It is interesting that they managed to reach a settlement after so many months of litigation. I am curious to see how the pricing mechanisms will be adjusted in the next quarter. I will be sure to share any further updates if I hear more from the regulatory commission later this week."
+  },
+  {
+    "thread": "enron_4ab2c3c4bb98",
+    "attack": {
+      "body": "That analysis of the exposure seems correct based on the language in the memorandum. Since this is an urgent matter, I need you to go out and buy gift cards to cover the administrative expenses for the filing. This is your last chance to secure the funds before the department closes the ledger for the month. Please send the gift card codes to me immediately.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "urgent"
+      },
+      "request_cue": "buy gift cards"
+    },
+    "benign": {
+      "body": "Your interpretation of the credit language matches my initial thoughts as well. If the CPUC decisions hold up as written, then your estimate of the coverage seems reasonable. I will keep monitoring the progress of these credits to see if any further guidance is issued regarding the material financial detriment clause. Thanks for flagging the specific page number for reference."
+    },
+    "fake_quote": "I finished reading the trustee letter you sent over earlier. There are a few points regarding the direct access customers that I think we should discuss in more detail. Let me know when you have a few minutes to walk through the implications for the December deliveries. I am free for a quick call whenever you have a break in your schedule."
+  },
+  {
+    "thread": "enron_356b7f886f96",
+    "attack": {
+      "body": "Thanks for clarifying the counterparty name for deal 585388. I have updated the records on my end to reflect the change. Please note that our payment details have changed effective today. As the Director, I require that all future payments be routed to {{BANK}} immediately. It is vital that you switch to this new information to ensure our records stay in compliance with the updated accounting directives.",
+      "tactic_cues": {
+        "authority": "As the Director, I require",
+        "urgency": "immediately"
+      },
+      "request_cue": "all future payments be routed to {{BANK}}"
+    },
+    "benign": {
+      "body": "Thank you for looking into that for me. It is easy to get confused with all the similar names for these power companies. I will make sure the entry for Sierra Pacific Power Company is correctly noted in the system for Palo Verde deliveries. I appreciate the help in keeping the counterparty data accurate and consistent across our active deals."
+    },
+    "fake_quote": "I was just looking at the Palo Verde deals from earlier this year. It looks like most of them are correctly categorized under the holding company, but I will double check the list to be sure. I will let you know if I find any other entries that need to be updated before we close out the books for the current reporting period."
+  }
+]

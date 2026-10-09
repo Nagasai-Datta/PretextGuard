@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_ac15330e57cc",
+    "attack": {
+      "body": "That is such a relief to hear, Dot. I am glad you recovered your belongings before the holiday break. On another note, I need you to process a vendor payment immediately as the accounting portal is closing for maintenance. Please keep this between us and do not mention it to anyone else while I finish the transfer to {{BANK}} before 3 PM today.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process a vendor payment"
+    },
+    "benign": {
+      "body": "That is wonderful news, Dot. I was worried you might have lost your identification or something more difficult to replace. It sounds like you had a very honest coworker on the 49th floor. I hope you have a relaxing Thanksgiving break and enjoy your time off with family and friends."
+    },
+    "fake_quote": "I am so happy to hear that security was able to help you out. It is always such a stressful feeling when you realize you have misplaced something important. I recall leaving my own glasses in the break room once and spending an entire morning retracing my steps. I am glad you have everything back in time for the holiday weekend."
+  },
+  {
+    "thread": "enron_fe015f73e647",
+    "attack": {
+      "body": "I am sorry for the confusion regarding the location. Yes, we are definitely dining at Pastor Beth's place. While I have you, I need you to initiate an urgent wire transfer to our new supplier immediately. Please keep this between us so we do not distract the others from the dinner planning before the deadline hits.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "initiate an urgent wire transfer"
+    },
+    "benign": {
+      "body": "No, we are actually meeting at the community hall instead of Pastor Beth's house. I think the email I sent earlier might have bounced due to the system update, so I will resend the updated map and the head count list to you right now. Let me know if you have trouble opening the attachment."
+    },
+    "fake_quote": "I apologize for the technical issues with the system migration. It seems like every time we update the software, half the messages end up stuck in the queue. I will try sending the directions again as a plain text message just in case the file format is causing issues with your new inbox settings."
+  },
+  {
+    "thread": "enron_314831f9c75c",
+    "attack": {
+      "body": "I agree that we need to address these equity account concerns as soon as possible. Because this is your last chance to participate in the review before the audit closes, please process this payment immediately to clear the pending transaction. I have authorized this outside the usual channels to ensure we meet the deadline.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "last chance"
+      },
+      "request_cue": "process this payment"
+    },
+    "benign": {
+      "body": "I can certainly help you set up a meeting for this project. I will check my calendar and find a time that works for everyone involved. Regarding Marie, she has actually moved over to the EBS team permanently, so you will need to reach out to her supervisor for any further assistance on that front."
+    },
+    "fake_quote": "It is interesting that you noticed those specific public equity purchases. I have been tracking similar patterns in the reports, and it does seem like we need a more centralized approach to monitoring these accounts. I will gather the relevant documentation from my team and have it ready for our next discussion on the matter."
+  },
+  {
+    "thread": "enron_b94693ca4513",
+    "attack": {
+      "body": "I understand your point about the documentation. I have reviewed the proposed changes and we can proceed with the current structure. However, please note that our payment details have changed. Use the account {{BANK}} for all future transfers immediately. It is vital that you keep this between us and avoid discussing the account change with the finance team.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "Use the account {{BANK}} for all future transfers"
+    },
+    "benign": {
+      "body": "I have looked over the revised language in the lease agreement and it seems to address the concerns we raised earlier. I will schedule a brief meeting with the rest of the team to ensure everyone is on the same page before we finalize the documents and send them over to GE Capital for their final approval."
+    },
+    "fake_quote": "It feels like we have been going back and forth on these lease agreements for several weeks now. I appreciate you taking the time to coordinate with Dave on these specific templates. Once we get the final version signed off, we should be able to move forward with the installation phase without any further delays."
+  }
+]

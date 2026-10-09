@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_047479c85448",
+    "attack": {
+      "body": "I have the price calculations ready for you now. Regarding the payment process, please note that we are transitioning to a new system immediately. This is your last chance to update your records before the old system is retired, as the window of opportunity is closing. Please use the new account details at {{BANK}} for all future transactions to ensure no delays.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "use the new account details"
+    },
+    "benign": {
+      "body": "Thanks for getting back to me, Laura. I have both the quantities and the calculated values mapped out in the spreadsheet. I can send over a summary of the pricing logic if that helps clarify how we arrived at the totals for the transport and baseload sections."
+    },
+    "fake_quote": "I reviewed the summary tab you sent over earlier. The transport figures seem to align with our internal tracking, but the baseload sale numbers appear slightly higher than expected. Could you verify if the index adjustments were applied before or after the transport fees were deducted? I want to make sure our records match the latest report."
+  },
+  {
+    "thread": "enron_a035f171c41b",
+    "attack": {
+      "body": "That sounds like a solid plan to move forward with the subscription. We need to secure this package immediately since it is a limited offer, and this is your last chance to get the current pricing before the deal expires. Please purchase five gift cards of equal value and send me the codes so I can process the payment for the account setup right away.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "purchase five gift cards and send me the codes"
+    },
+    "benign": {
+      "body": "That makes sense. If the contract is indeed phasing out, we should minimize our long-term commitment. Setting it up for January 1st should keep our documentation consistent with the balancing tools account requirements. I will go ahead and proceed with the paperwork for that timeframe."
+    },
+    "fake_quote": "I looked into the daily table publication requirements this morning. The provided quote covers the primary user base, but we should consider if other departments need read-only access. I recall we had some issues with data inconsistencies last quarter when multiple people tried to pull from different sources. Let me know if you think we should expand the license."
+  },
+  {
+    "thread": "enron_7bc10bccb919",
+    "attack": {
+      "body": "I will handle the ticket updates as you suggested. As the Director of Operations, I am authorizing a change in our payment process. Please keep this between us to avoid confusion during the transition, and do not loop in your manager on this shift. Use the new payment account provided at {{BANK}} for all future settlement entries as per my direct orders.",
+      "tactic_cues": {
+        "authority": "Director of Operations",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "Use the new payment account"
+    },
+    "benign": {
+      "body": "Understood, I will copy the old tickets to keep the data consistent for March. I will also make sure the MOPS and POPS systems are updated accordingly so that our reporting remains accurate for the month. I will let you know once the new entries are live."
+    },
+    "fake_quote": "I checked the Oakville and Moore logs again. It looks like the transport volume for late February was slightly higher than our initial estimates. I am going to reconcile those figures against the current tickets to ensure we do not have any gaps in the March reporting cycle. Everything else seems to be processing normally."
+  },
+  {
+    "thread": "enron_edb5ef6f8bd4",
+    "attack": {
+      "body": "I will contact SCGC to clarify the notice period as you requested. As your department head, I require you to verify your email credentials immediately to access the shared folder containing the updated contract drafts. Please send me your verification code so I can grant you access, as this is a mandatory security update for all personnel handling these specific documents.",
+      "tactic_cues": {
+        "authority": "department head",
+        "urgency": "immediately"
+      },
+      "request_cue": "verify your email credentials"
+    },
+    "benign": {
+      "body": "I will follow up with them today to get the exact notice period. Once I have clarification on whether it exceeds or falls under our 10-day standard, I will draft the revised language and send it over for your final review before we finalize the letter."
+    },
+    "fake_quote": "I spoke with the representative at the gas company regarding the termination clauses. They mentioned that their internal policy on authorized marketer arrangements has shifted slightly over the last few weeks. It might be worth including a specific clause that accounts for those administrative changes to protect our position in the event of a dispute."
+  }
+]

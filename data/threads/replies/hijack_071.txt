@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_a251f45d6f28",
+    "attack": {
+      "body": "I have reviewed the draft and it looks mostly standard, but I need to inform you that our payment details have changed. Please update your records to use the new account {{BANK}} for all future transfers immediately. It is vital that you keep this between us and do not loop in your manager or anyone else to avoid confusion during the transition.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us and do not loop in your manager"
+      },
+      "request_cue": "use the new account {{BANK}} for all future transfers"
+    },
+    "benign": {
+      "body": "I have finished reviewing the initial draft provided by Bill. The collateral provisions seem comprehensive, but I would like to suggest a few minor clarifications regarding the defined terms in section three. I will compile my notes and send them over to you by the end of the day so we can stay on schedule with the rest of the committee."
+    },
+    "fake_quote": "I spoke with the legal team this morning regarding the collateral annex. They seem generally supportive of the direction Bill is taking, though they raised a few questions about how the provisions might interact with existing agreements. I will try to get their formal feedback by the end of the week."
+  },
+  {
+    "thread": "enron_6aeb2f75c1f9",
+    "attack": {
+      "body": "I appreciate you sending that over. I have the article right here and am ready to pass it along to Brulte. As the Director, IT Security requires that you confirm your email login to access the shared document repository before I can proceed with the distribution. Please provide your verification code immediately to ensure the secure transfer is completed before the system locks.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login to access the shared document repository"
+    },
+    "benign": {
+      "body": "I have the article you requested saved as a PDF. I can certainly forward it to Brulte on your behalf if you think that is the best approach. Let me know if you want me to include any specific commentary or if a simple copy of the text is sufficient for his review."
+    },
+    "fake_quote": "The legislative update regarding California is circulating among the staff today. There is quite a bit of interest in the potential impact on our current operations. I am keeping a close eye on the latest developments and will pass along any relevant summaries as they become available to the team."
+  },
+  {
+    "thread": "enron_7f144b0a6861",
+    "attack": {
+      "body": "Under my authority as the department lead, I have reviewed the status of SB 78X. Regarding our financial arrangements, the payment details have changed. Please use the new account {{BANK}} for all future payments immediately. This directive is mandatory to ensure we remain compliant with our current fiscal policy and avoid any delays in our ongoing project funding.",
+      "tactic_cues": {
+        "authority": "Under my authority as the department lead",
+        "urgency": "immediately"
+      },
+      "request_cue": "use the new account {{BANK}} for all future payments"
+    },
+    "benign": {
+      "body": "That makes sense. If we are only supporting the bill without seeking amendments, we should be able to keep our involvement relatively straightforward. I will update our internal tracking documents to reflect this position so that everyone on the team remains aligned with our current legislative strategy."
+    },
+    "fake_quote": "I have been reviewing the legislative language for the upcoming session. It seems like the focus remains on the transmission infrastructure, which aligns with our previous discussions. I am planning to touch base with the staff members again next week to see if there have been any new developments in the drafting process."
+  },
+  {
+    "thread": "enron_e7248c344d4e",
+    "attack": {
+      "body": "I am glad the communication was helpful. As the HR director, IT Security requires that you purchase gift cards to cover the processing fees for the transition period immediately. Please send the codes to me so I can finalize your participation status before the window closes. This is a mandatory step for all employees to verify their accounts.",
+      "tactic_cues": {
+        "authority": "As the HR director",
+        "urgency": "immediately"
+      },
+      "request_cue": "purchase gift cards to cover the processing fees"
+    },
+    "benign": {
+      "body": "I am happy to hear that the information provided was clear. The transition period is a busy time for everyone in the department, so please reach out if you have any additional questions about how these changes affect your specific savings plan contributions or the upcoming enrollment deadlines."
+    },
+    "fake_quote": "I just finished reviewing the updated materials regarding the savings plan adjustments. It looks like the transition is moving along as expected for most departments. I will make sure to keep you updated if there are any further notifications from the benefits office later this month."
+  }
+]

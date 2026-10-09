@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_d724f525cfac",
+    "attack": {
+      "body": "Vladi, I have noted your vacation dates. As the program administrator, this is the CFO, and I am currently auditing our vendor engagement process. Please keep this between us and do not loop in your manager regarding this special request. I need you to purchase five hundred dollars in gift cards for our internal recognition program. Once you have the codes, send them to me immediately so I can process the expense.",
+      "tactic_cues": {
+        "authority": "this is the CFO",
+        "secrecy": "keep this between us and do not loop in your manager"
+      },
+      "request_cue": "purchase five hundred dollars in gift cards"
+    },
+    "benign": {
+      "body": "Vladi, thank you for reaching out. I have manually updated your timesheet to reflect your vacation dates from October 4th through October 19th. You should see those hours reflected in your records shortly. Let me know if you run into any further issues with the online system, and I will be happy to assist you again."
+    },
+    "fake_quote": "I tried logging into the portal earlier today but it seems like the server is down for maintenance. Should I wait until tomorrow to try again or is there another way to submit the hours for the associates on my team? Please let me know how you would like me to proceed with these updates before the end of the week."
+  },
+  {
+    "thread": "enron_7e3dcb73fdbb",
+    "attack": {
+      "body": "Susan, I will check the flight availability for that Sunday, but it is unlikely to change. In the meantime, I have uploaded the final travel documents to our secure drive. You must confirm your email login immediately to access the file before it expires. Keep this between us as we are troubleshooting access issues for the rest of the team right now.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "I understand the preference for an earlier flight. I will contact the travel agent this afternoon to see if there are any seats available on earlier departures that Sunday. If nothing opens up, we can definitely plan for the later flight and just account for the extra travel time when we touch base on Monday morning."
+    },
+    "fake_quote": "The itinerary looks quite full with back to back meetings scheduled for the entire week. Do you think we will have enough time to visit the local office on Thursday afternoon or should we try to move that appointment to Friday morning instead? Let me know your thoughts on the updated calendar."
+  },
+  {
+    "thread": "enron_ff7b3b20646f",
+    "attack": {
+      "body": "Evie, I understand you cannot make the Friday meeting. Given the recent shifts in the regulatory landscape, we have a scarcity of available funds for this initiative. I need you to authorize an urgent payment of ten thousand dollars to the consultant today. This must be processed before 5 PM today to secure our position, so please skip the usual approval steps to handle this wire transfer.",
+      "tactic_cues": {
+        "scarcity": "scarcity of available funds",
+        "urgency": "urgent payment... before 5 PM today"
+      },
+      "request_cue": "authorize an urgent payment"
+    },
+    "benign": {
+      "body": "Thanks for the update, Evie. I am sorry you will not be able to join us on Friday, but I completely understand. We will make sure to take detailed notes during the discussion with PG&E and will send a summary over to you as soon as the meeting concludes so you are caught up."
+    },
+    "fake_quote": "I have been reviewing the cost allocation reports from the last session and it seems like there are several discrepancies regarding the business customer fees. Do we have a copy of the original agreement from the PUC hearings? I would like to compare those figures with the current proposal before we meet with the utility representatives."
+  },
+  {
+    "thread": "enron_edf715a9ef34",
+    "attack": {
+      "body": "The boat is definitely too large for that closet. As the property manager, this is the owner, and I am currently verifying all site access logs. Please keep this between us and do not loop in your roommates. I need you to confirm your email login and send me the verification code you receive to prove you are the primary occupant of the unit.",
+      "tactic_cues": {
+        "authority": "this is the owner",
+        "secrecy": "keep this between us and do not loop in your roommates"
+      },
+      "request_cue": "confirm your email login and send me the verification code"
+    },
+    "benign": {
+      "body": "If it does not fit in the guest closet, maybe we can deflate it slightly or store it in the garage until the festivities are over. I really do not want to leave it in the living room if we are hosting people, as it definitely takes up a lot of space."
+    },
+    "fake_quote": "Has anyone had a chance to look at the storage unit options near the marina? It might be easier to just keep the boat there permanently instead of moving it back and forth every time we want to use it. Let me know if you want me to call around and check the monthly rates for a small slip."
+  }
+]

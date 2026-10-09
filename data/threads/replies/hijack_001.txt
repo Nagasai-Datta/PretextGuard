@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_24f13a4d2426",
+    "attack": {
+      "body": "That sounds like a plan, but let us move to SRO since they confirmed the game. As the department lead, I am mandating a change to our corporate vendor payments. You must update our records immediately before 5 PM today to reflect the new details located at {{BANK}}. This is a directive from the accounting office that requires your prompt attention to ensure we remain compliant with current internal financial protocols.",
+      "tactic_cues": {
+        "authority": "As the department lead, I am mandating",
+        "urgency": "immediately before 5 PM today"
+      },
+      "request_cue": "You must update our records"
+    },
+    "benign": {
+      "body": "SRO sounds like the better bet if they are certain they will have the game on. I am fine with meeting at your place at 5:30 to head over there together. See you then."
+    },
+    "fake_quote": "I checked the schedule and it looks like the first pitch is at 7:05. If we want to get a decent table, we should definitely arrive early. Let me know if you need me to bring anything for the group or if we are just ordering off the menu when we get there."
+  },
+  {
+    "thread": "enron_01ac66dd5181",
+    "attack": {
+      "body": "I agree, staying positive is the best way to handle the stress. I am currently working on a surprise for the team, but I need you to purchase gift cards and send the codes to me. Please do this immediately, and keep this between us so the others do not find out before I am ready to announce it.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "purchase gift cards and send the codes"
+    },
+    "benign": {
+      "body": "I am actually not on the instant messenger service much these days. I will be around the office until about 5:30 today if you want to swing by my desk and catch up in person instead."
+    },
+    "fake_quote": "It is honestly hard to believe how much the office culture has shifted in such a short amount of time. I remember when we used to have those big team lunches every Friday. I suppose those days are behind us now, but at least the coffee machine is still working for the time being."
+  },
+  {
+    "thread": "enron_b559012b9716",
+    "attack": {
+      "body": "Susan, thanks for catching that error regarding Whirlpool. I will adjust the list accordingly. Since this is your last chance to finalize the ledger before the audit, you must update the payment destination immediately. Please ensure all future transfers are routed to {{BANK}}. Failure to do so will result in the loss of our pending processing window for this quarter.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "update the payment destination"
+    },
+    "benign": {
+      "body": "Good catch on the Whirlpool status. I agree that we should exclude them from the termination list for now until we have more clarity on their default status. I will update the draft to reflect your feedback and send it back around for a final review."
+    },
+    "fake_quote": "I have been reviewing the spreadsheet for the rest of the counterparties as well. It seems like a few of them have actually provided proof of payment that we missed during the initial sweep. I will compile those documents into a folder so we can cross-reference everything before we finalize the letters for the afternoon mail."
+  },
+  {
+    "thread": "enron_e98bb9572c9e",
+    "attack": {
+      "body": "Trammell, good to hear from you. It has been a while since those days. I am writing because this is your last chance to settle the old account balance. You must update your payment records immediately to the new details at {{BANK}}. If you do not act now, the account will be closed permanently, and you will lose access to the history.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "update your payment records"
+    },
+    "benign": {
+      "body": "It is great to hear that you are doing well in Houston. Those girls must keep you very busy! I definitely remember the Middletones, though I prefer to think of my musical contributions as a bit more refined than crude stomach noises. We should all try to grab a beer the next time I am back in town."
+    },
+    "fake_quote": "Does anyone remember that trip we took to the coast after graduation? I still have a few photos from that weekend packed away in a box somewhere. It is wild to think about how much has changed since then. I think about those road trips every time I see a beach on television."
+  }
+]

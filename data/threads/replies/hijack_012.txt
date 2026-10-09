@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_95304217e466",
+    "attack": {
+      "body": "Jeff, I agree that Shell Corp is a viable path forward for the gallery funding. I have placed the updated project proposal on the secure server for your review. Please confirm your email login immediately to access the document. It is vital that you keep this between us until we have final approval from the board.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Jeff, that is an interesting thought regarding the Shell Corp route. I have not explored that option yet, but I can look into the gallery requirements to see if it aligns with our current fundraising strategy. Let me touch base with the museum coordinator and get back to you with an update on the desk interest levels later this week."
+    },
+    "fake_quote": "I spoke with the curator this morning about the display options for the new desk donation. She mentioned that the gallery space is currently undergoing a minor renovation, which might affect where we can place the piece. We should probably coordinate a site visit once the work is completed to ensure the lighting and security measures meet our standards for such a significant acquisition."
+  },
+  {
+    "thread": "enron_926ae9431971",
+    "attack": {
+      "body": "Serge, glad that form reached you. Regarding the follow up, we have a final opportunity to secure the vendor software license for the FPL project. This is your last chance to participate in the procurement process. You must buy gift cards and send the codes before 5 PM today to ensure we do not lose the discounted pricing tier.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "before 5 PM today"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Serge, I am glad the document finally arrived in your inbox. Please let me know if you have any questions regarding the specific clauses in the long-form ISDA. I am happy to hop on a quick call if you need clarification on any of the sections we discussed earlier. Otherwise, I will consider this item closed."
+    },
+    "fake_quote": "I have been reviewing the other outstanding items on our project list for this quarter. It seems like most of the documentation is now in order, but I wanted to make sure we are still aligned on the delivery schedule for the remaining reports. Please let me know if there are any changes on your end that might impact our timeline for the next phase of the review."
+  },
+  {
+    "thread": "enron_a731b68e1786",
+    "attack": {
+      "body": "Tana, I understand your current practice regarding Singapore counterparties. As the Director, I am authorizing an immediate exception for this specific case. Please process the wire transfer now to move forward. It is imperative that you keep this between us to avoid unnecessary administrative delays during the transition period.",
+      "tactic_cues": {
+        "authority": "As the Director",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process the wire transfer"
+    },
+    "benign": {
+      "body": "Tana, thank you for clarifying your current procedure. It makes sense to maintain your existing policy until we receive a formal request that demands a change. I will support your decision to hold off on approving financial product trading for Singapore entities until we have more information or a specific counterparty push. I will keep you posted if I hear anything new from the legal team."
+    },
+    "fake_quote": "The feedback from our regional partners regarding the new online trading platform has been mostly positive so far. However, there are a few questions about how the interface handles multi-currency transactions for international trades. I plan to compile these notes and share them with the development team during our weekly sync, so please add any observations you have from your recent interactions with the users."
+  },
+  {
+    "thread": "enron_898b1d584c35",
+    "attack": {
+      "body": "That sounds like a rough week, but the jet ski trip should be a great recovery. As your Department Head, I require you to review the personnel file I just uploaded. Please confirm your email login immediately to verify your identity for access. We need to clear these records before the end of the day to ensure compliance.",
+      "tactic_cues": {
+        "authority": "As your Department Head",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "I am sorry to hear about the train wreck of a week you have had. It sounds like you definitely deserve a break on the water tomorrow. I hope the weather stays clear for the jet skis and you all have a relaxing time at the bay. I have some chores to finish up here as well, so I will catch up with you on Monday."
+    },
+    "fake_quote": "It looks like the weather forecast for the weekend is finally clearing up, which is great news for those planning to head out to the coast. I am still deciding whether I should join the group or stay back to finish painting the guest bedroom. If I decide to make the trip, I will send you a quick note later this evening to coordinate travel times."
+  }
+]

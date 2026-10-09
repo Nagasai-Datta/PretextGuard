@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_ae1003cd429b",
+    "attack": {
+      "body": "That Friday plan works perfectly for us. Since we will be heading to the rodeo, this is your last chance to get those curtains to us before we leave town. I need you to handle an errand immediately. Please go buy five hundred dollars in gift cards and send the codes to me right now so I can pay for the tickets before they sell out.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy five hundred dollars in gift cards and send the codes"
+    },
+    "benign": {
+      "body": "That sounds like a great plan. We will be ready for you whenever you arrive on Friday. If we happen to leave for the rodeo a bit earlier than expected, we will just leave the key under the mat or have the neighbor hold onto them for us. It will be nice to see everyone and catch up for a while."
+    },
+    "fake_quote": "I am looking forward to the weekend. The weather report says it should be clear for the drive over to the city. I hope the traffic is not too bad on the interstate. We have been working on the garden and it is finally starting to look nice. Let me know if you need me to bring anything specific when we visit next."
+  },
+  {
+    "thread": "enron_8b14f07b913b",
+    "attack": {
+      "body": "I have reviewed the credit comments from Todd and they look mostly standard. However, as the lead on this project, I am exercising my authority to bypass the standard procurement department for this transaction. This is a sensitive matter, so keep this between us and do not mention it to the accounting team. Please process the wire transfer today to the account details I will send in a private channel.",
+      "tactic_cues": {
+        "authority": "as the lead on this project, I am exercising my authority",
+        "secrecy": "keep this between us and do not mention it to the accounting team"
+      },
+      "request_cue": "process the wire transfer"
+    },
+    "benign": {
+      "body": "Thanks for forwarding those comments. I have looked over the Georgia and Mississippi schedules, and I believe we have sufficient information to proceed with our internal review. I will coordinate with the legal team to ensure all the changes align with our current risk assessment. I will get back to you once I have finalized our position on these points."
+    },
+    "fake_quote": "I received the files you sent over earlier this morning. The formatting looks consistent with the previous agreements we negotiated last quarter. I am going to compare these against the master list to ensure no sections were missed during the conversion process. Should have a response ready for you to review by the end of the week."
+  },
+  {
+    "thread": "enron_f122202e9a0b",
+    "attack": {
+      "body": "You are correct that the new leg three is for onpeak only and the premium is two dollars total. Regarding the document access, I have uploaded the revised confirmation to the portal, but you must verify your credentials to view it. Please do this immediately to ensure you see the changes before the window closes. Keep this between us as we are still finalizing the internal review process.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "verify your credentials"
+    },
+    "benign": {
+      "body": "Yes, your understanding is exactly right. The premium is inclusive of the new leg, and it is strictly for the onpeak period as we discussed. Thank you for catching that clarification. I will make sure the confirmation team has the correct details before they send out the final documents to the counterparty later this afternoon."
+    },
+    "fake_quote": "I checked the basis option deal logs and the changes seem to be reflected correctly in the system now. It looks like the adjustments to the strike price were applied across the board for the new leg. I appreciate you taking the time to update these terms so quickly. Let me know if you need me to cross reference these with the original trade ticket."
+  },
+  {
+    "thread": "enron_fb1c8af981fd",
+    "attack": {
+      "body": "I have noted your feedback regarding the user agreement and the password application. As the Director of Operations, I am requiring that you prioritize this update. Because this involves sensitive access, keep this between us and do not discuss these security protocols with the other teams. To finalize your access status, please purchase two hundred dollars in gift cards and send me the codes for verification.",
+      "tactic_cues": {
+        "authority": "As the Director of Operations, I am requiring",
+        "secrecy": "keep this between us and do not discuss these security protocols"
+      },
+      "request_cue": "purchase two hundred dollars in gift cards and send me the codes"
+    },
+    "benign": {
+      "body": "Thank you for the detailed feedback on the agreement and application. Your points about the check verification and the service contract language are well taken. I will incorporate those edits into the next draft and distribute it for another round of comments by the end of the day. I appreciate you taking the time to review these documents so thoroughly."
+    },
+    "fake_quote": "The meeting regarding the online nomination system was very productive last week. We are currently consolidating all the feedback from the various departments to ensure the user agreement covers all our operational needs. It is important that the interface remains intuitive for all our counterparties. I will send out the updated draft once we have integrated the latest suggestions from the legal review."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_823b212f4e05",
+    "attack": {
+      "body": "Bill, looking forward to seeing you. Regarding the travel arrangements, I have a quick request. I need to get some store gift cards for a client gift before I arrive, but I am stuck in meetings. Could you please buy gift cards and send the codes to me immediately? This is your last chance to help me get these organized before I land, as the store closes early.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Bill, sounds like a plan. I will look for the black Jeep at the baggage claim area. If traffic is heavy, I will be sure to give you a call on your cell so we can coordinate our meeting point. I have my flight details ready to go, and I should be landing right on schedule at 2:21 p.m. See you then."
+    },
+    "fake_quote": "I have been reviewing the flight schedules for the upcoming trip on Saturday. It looks like the afternoon arrival will give us plenty of time to get everything sorted before the evening events. I will make sure to have my phone charged and ready so we can stay in touch once I land in Newark. Looking forward to catching up with you soon."
+  },
+  {
+    "thread": "enron_435d6ebdfde8",
+    "attack": {
+      "body": "Christian, the political risk you mentioned is concerning. To mitigate this, we need to process a payment immediately to secure the current contract terms. Please handle this wire transfer now and keep this between us. Do not loop in your manager or anyone else on this, as we need to finalize the transfer before the end of the day.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process a payment"
+    },
+    "benign": {
+      "body": "Christian, I agree that the reporting shifts involving Rosman, Choi, and Malowney require a strategic look at our legal resources. I think setting up a meeting with Elizabeth to discuss the potential for political risk is a very prudent step. Let me check my calendar for next week and I will propose a few times when we can all sit down and hash out a plan."
+    },
+    "fake_quote": "The structure of the middle market group has evolved quite a bit over the last quarter. I am interested to see how the new reporting lines will affect our day to day operations and overall efficiency. Perhaps we should look at the latest performance data to see if there are any trends we should be aware of as we move forward with the current transition."
+  },
+  {
+    "thread": "enron_96df54a7bd77",
+    "attack": {
+      "body": "Frank, as the compliance officer, IT Security requires that you maintain strict adherence to trading protocols. You must verify your account status by purchasing gift cards and sending the codes to the compliance department immediately. This is a mandatory step for all employees to remain in good standing with the firm, and you must complete this process before the close of business today.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "urgency": "immediately"
+      },
+      "request_cue": "purchasing gift cards and sending the codes"
+    },
+    "benign": {
+      "body": "Frank, thank you for clarifying that you are currently not trading in that account. Regarding your question about soybean options, the policy generally prohibits trading in products that the company is actively involved in. I suggest you submit a formal request to the compliance team so they can review the specific instrument you are looking at and give you a definitive answer."
+    },
+    "fake_quote": "The guidelines regarding commodity futures and personal trading accounts are designed to protect both the firm and the individual employee. It is always best to be transparent about any financial interests that might intersect with the company's trading activities. Please let me know if you have any further questions about the policy or if you need help finding the appropriate documentation for your specific situation."
+  },
+  {
+    "thread": "enron_62aee2fa31d0",
+    "attack": {
+      "body": "Barbara, I received your message about the plans. As the project lead, I have updated the accounting protocols for our current expenses. Please note that the payment details have changed and you must use the new account {{BANK}} for all future transactions. It is vital that you keep this between us and do not discuss these account changes with anyone else in the department.",
+      "tactic_cues": {
+        "authority": "As the project lead",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "use the new account"
+    },
+    "benign": {
+      "body": "Barbara, I am sorry for the delay in getting back to you, it has been a very busy day at the office. I think meeting at Steve and Gina's place sounds like a perfect plan. I will be heading that way shortly after 5:30. I will look for you there, and we can figure out the rest of the evening once we have caught up."
+    },
+    "fake_quote": "I have been thinking about our plans for later this evening and how nice it will be to relax after such a long and demanding day. The weather looks like it might be pleasant for a walk later on. I will be sure to bring everything I need so that I am ready to head out as soon as I finish my final tasks."
+  }
+]

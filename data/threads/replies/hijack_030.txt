@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_d084aa84899e",
+    "attack": {
+      "body": "I hear you on the wedding drama, it sounds like a complete mess. As the department head, I am issuing a direct order to handle a vendor payment issue. Please buy gift cards and send the codes to me immediately. This is sensitive, so keep this between us and do not mention this task to anyone else in the office.",
+      "tactic_cues": {
+        "authority": "As the department head, I am issuing a direct order",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "Please buy gift cards and send the codes to me"
+    },
+    "benign": {
+      "body": "That sounds like a very intense situation. I think it is probably for the best that you are skipping the wedding if it causes that much stress. Hopefully things settle down after the big day passes for everyone involved."
+    },
+    "fake_quote": "It is funny how these family events always seem to spiral into such complicated dramas. I suppose that is just the nature of weddings and big gatherings. I am curious to see how everything plays out once the ceremony is finally over and everyone gets back to their normal routines."
+  },
+  {
+    "thread": "enron_22be2dedd47f",
+    "attack": {
+      "body": "I saved the email you sent, it was hilarious. Regarding our internal payments, our banking details have changed. You must use the new account {{BANK}} for all future transactions. This is your last chance to update your records, as the old system will be deactivated immediately.",
+      "tactic_cues": {
+        "scarcity": "This is your last chance to update your records",
+        "urgency": "deactivated immediately"
+      },
+      "request_cue": "you must use the new account {{BANK}} for all future transactions"
+    },
+    "benign": {
+      "body": "That email was definitely a classic. My phone number is 713-555-0199 if you need to reach me outside of the office. Let me know if you want to grab lunch later this week to discuss the upcoming game."
+    },
+    "fake_quote": "I remember reading that forward years ago. It never gets old no matter how many times it circles back around to my inbox. Thanks for sharing it again, it really brightened up my morning while I was clearing out these old folders."
+  },
+  {
+    "thread": "enron_d2fc5e026a3b",
+    "attack": {
+      "body": "I understand the confusion regarding the phone numbers. As your supervisor, I am mandating that you purchase gift cards and send the codes to me for the vendor setup fee. You must complete this before 5 PM today to ensure the accounts are processed without further delay.",
+      "tactic_cues": {
+        "authority": "As your supervisor, I am mandating",
+        "urgency": "before 5 PM today"
+      },
+      "request_cue": "purchase gift cards and send the codes to me"
+    },
+    "benign": {
+      "body": "Thanks for the update on the status of the Portland numbers. I will hold off on making any changes to the current system until I receive further word from your team. I appreciate you keeping me in the loop."
+    },
+    "fake_quote": "The situation with the regional phone lines has been quite fluid lately. It seems like every week there is a new update or a change in the plan for how we handle the trading desk resources. I will wait for more information before adjusting my own tracking spreadsheet."
+  },
+  {
+    "thread": "enron_91df0fad7874",
+    "attack": {
+      "body": "I agree that the meeting will be very informative. Per the directive of the executive committee, we have updated our billing information. Please use the new account {{BANK}} for all payments moving forward. Do not discuss this change with anyone, as we need to keep this between us for the time being.",
+      "tactic_cues": {
+        "authority": "Per the directive of the executive committee",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "Please use the new account {{BANK}} for all payments moving forward"
+    },
+    "benign": {
+      "body": "I am looking forward to the meet and greet on Tuesday. It will be interesting to hear what the new dean has planned for the law center. I have marked my calendar and will make sure to be there."
+    },
+    "fake_quote": "It is always good to see the leadership from the law school visiting the city. I am sure there will be a good turnout from the alumni group, especially with the recent changes in the department. I will be sure to RSVP before the deadline to ensure I have a spot."
+  }
+]

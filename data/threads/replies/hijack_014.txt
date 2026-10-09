@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_f6d4fa2f7ba9",
+    "attack": {
+      "body": "I have reviewed the EOL approval list and it seems consistent with our current policy. However, I need you to purchase gift cards for our client appreciation event immediately. Please keep this between us and send the codes to me once you have them. I am under a tight deadline to get these processed before the end of the business day.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "purchase gift cards"
+    },
+    "benign": {
+      "body": "I have reviewed the EOL approval list and it appears to be in order based on the latest guidelines. I will update the master file to reflect these changes by the end of the day. Let me know if there are any specific counterparties you need me to double check before we finalize the submission."
+    },
+    "fake_quote": "I have been looking over the documentation for the counterparty approvals sent out yesterday. It seems like we have a good grasp on the current list, but I would like to verify a few of the newer entries with the legal team before we sign off on the full batch. Let me know if you have time to look at these records sometime later this afternoon."
+  },
+  {
+    "thread": "enron_b49bda7a82a8",
+    "attack": {
+      "body": "I agree that maintaining the space is the most logical path forward until the sale is finalized. As the Director, I am authorizing an immediate wire transfer to cover the outstanding maintenance fees. This must be completed before 5 PM today and you should skip the usual approval process to ensure we do not miss the window for payment.",
+      "tactic_cues": {
+        "authority": "As the Director, I am authorizing",
+        "urgency": "immediate"
+      },
+      "request_cue": "wire transfer"
+    },
+    "benign": {
+      "body": "I agree that we should maintain the space until the buyer takes possession. It makes sense to keep the operations running smoothly to protect the value of the assets. I will follow up with the facilities manager to ensure that the current service agreements remain active through next year as discussed."
+    },
+    "fake_quote": "Regarding the Chicago office, I believe we have sufficient data to justify the continued lease for at least another twelve months. It is important that we keep the infrastructure intact so that the transition to the new buyer remains seamless. I am currently drafting a summary of the utility costs to provide a clearer picture of the ongoing expenses we are facing."
+  },
+  {
+    "thread": "enron_b7844cc23945",
+    "attack": {
+      "body": "I think keeping the support within Corporate is a reasonable approach given the recent changes. Regarding our internal financial procedures, I am officially updating the payment details for this project. As the lead on this initiative, I require that you use {{BANK}} for all future transactions. Please ensure you keep this change confidential and do not share these details with the finance department.",
+      "tactic_cues": {
+        "authority": "As the lead on this initiative, I require",
+        "secrecy": "keep this change confidential"
+      },
+      "request_cue": "use {{BANK}} for all future transactions"
+    },
+    "benign": {
+      "body": "Given the current organizational structure, it makes sense to keep the support within the Corporate group. I will reach out to the appropriate contacts to ensure we have the necessary resources aligned for the upcoming competitive analysis. I look forward to discussing the next steps with you later this week."
+    },
+    "fake_quote": "I have been reviewing the project timeline for the Xcelerator and it seems like we are hitting our major milestones as planned. It would be helpful to schedule a brief meeting to align on the technical requirements before we proceed with the next phase of development. Please let me know what your availability looks like for a quick check in sometime on Thursday."
+  },
+  {
+    "thread": "enron_b8e0e2aa7549",
+    "attack": {
+      "body": "I look forward to our meeting tomorrow to finalize the project parameters. In the meantime, I need you to initiate an urgent wire transfer for the initial retainer fee immediately. Please keep this between us and do not notify the accounting team as I am handling this aspect of the consulting arrangement myself to expedite the start date.",
+      "tactic_cues": {
+        "urgency": "urgent",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "initiate an urgent wire transfer"
+    },
+    "benign": {
+      "body": "I look forward to our meeting tomorrow to discuss the contract details and the potential scope of the work. I have reviewed the initial notes and have a few ideas on how we might best approach the preliminary presentation for the Houston team. I will see you in the morning to go over everything in more detail."
+    },
+    "fake_quote": "I have been thinking about the structure of our upcoming presentation regarding the finance research. It might be beneficial to include a section on current market trends to provide more context for the board. I will have a draft ready for you to review when we meet to discuss the consulting contract later this week."
+  }
+]

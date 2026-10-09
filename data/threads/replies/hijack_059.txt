@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_b4168d05cda7",
+    "attack": {
+      "body": "I agree that we need to look at the ISO collateral projections. As the Director of Finance, This is the CFO and I require you to handle a sensitive matter immediately. Please buy five five hundred dollar gift cards and send me the codes. You must keep this between us and don't loop in your manager on this request.",
+      "tactic_cues": {
+        "authority": "This is the CFO",
+        "secrecy": "keep this between us and don't loop in your manager"
+      },
+      "request_cue": "Please buy five five hundred dollar gift cards and send me the codes"
+    },
+    "benign": {
+      "body": "I am available at 3pm today to discuss the NEPOOL strategy. I think reviewing the collateral calculation methodology before we reach out to them would be a good use of our time. I will bring the printouts of the recent exposure projections to the conference room so we can walk through the numbers together."
+    },
+    "fake_quote": "I have been reviewing the latest load data from the New England pool. The numbers seem to fluctuate quite a bit depending on the time of day. Perhaps we should compare these figures against the historical data from last quarter to see if there is a recurring pattern we can leverage for our next filing."
+  },
+  {
+    "thread": "enron_15d29738f9f4",
+    "attack": {
+      "body": "I have printed the Master Agreement and the GISB documents for our review. Since this is your last chance to secure the necessary funding for the project, you must act immediately. Please buy two five hundred dollar gift cards and send me the codes before the meeting begins.",
+      "tactic_cues": {
+        "scarcity": "this is your last chance",
+        "urgency": "you must act immediately"
+      },
+      "request_cue": "Please buy two five hundred dollar gift cards and send me the codes"
+    },
+    "benign": {
+      "body": "I have received the documents and will have them printed out for our meeting tomorrow morning. I am looking forward to going over the firm GTC sections to ensure we are aligned before the final submission. See you at nine."
+    },
+    "fake_quote": "Are we still planning to meet in the main conference room for this discussion? I recall someone mentioning that the room might be under maintenance, but I have not received a calendar update yet. Let me know if we need to relocate to the smaller office down the hall."
+  },
+  {
+    "thread": "enron_40035bc0c4f3",
+    "attack": {
+      "body": "Thanks for the update regarding the visa status. I am updating our records, but please note that our payment details have changed. You must update your records immediately. Keep this between us and use {{BANK}} for all future transactions.",
+      "tactic_cues": {
+        "urgency": "You must update your records immediately",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "use {{BANK}} for all future transactions"
+    },
+    "benign": {
+      "body": "Thank you for the clarification on the visa process. I will make sure to follow the timeline suggested by Margret Daffin to ensure everything is filed correctly by October. I appreciate you keeping me informed on the necessary steps for the transition."
+    },
+    "fake_quote": "It is helpful to have the history of the previous email correspondence organized like this. Navigating the requirements for international staff can be complex, but having clear documentation makes the process much smoother for everyone involved. I will reach out if I have any further questions about the visa timeline."
+  },
+  {
+    "thread": "enron_1d76569b7d60",
+    "attack": {
+      "body": "I am sorry for the technical trouble earlier. As the Project Lead, IT Security requires you to process a verification payment. Please buy five gift cards and send me the codes. You must keep this between us and do not tell anyone else.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "secrecy": "keep this between us and do not tell anyone else"
+      },
+      "request_cue": "Please buy five gift cards and send me the codes"
+    },
+    "benign": {
+      "body": "I was finally able to open the file you sent over. Everything looks clear now, and I have had a chance to review the changes. I will circulate my notes to the rest of the team by the end of the day so we can finalize the agreement."
+    },
+    "fake_quote": "I have been looking over the facility agreements and I think the proposed changes to the schedule look reasonable. It should align well with the timeline we discussed during our last team sync. Let me know if you would like me to adjust any specific sections before we send the final draft."
+  }
+]

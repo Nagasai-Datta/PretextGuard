@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_956a9ff62902",
+    "attack": {
+      "body": "That sounds like a fun opportunity to be on a movie set. I am putting together the participant list for the location shoot, but I need you to verify your email login immediately to access the document. Please keep this between us so we do not get swamped with extra sign-ups before the deadline.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "verify your email login"
+    },
+    "benign": {
+      "body": "That is fantastic news, Hilary. Being cast as a lawyer for the shoot sounds like a great experience. I am sure it will be interesting to see how they recreate the PMRC hearings on camera. Let us know how the filming goes once you are on set at City Hall."
+    },
+    "fake_quote": "I heard they might be looking for extras for the courtroom scenes later this week. Does anyone know if they are still accepting applications through the production office or if the casting call is already closed for new participants?"
+  },
+  {
+    "thread": "enron_3c88937047dc",
+    "attack": {
+      "body": "Regarding the $14 deal, it was indeed a sale of operational gas. Please note that our payment details have changed. You must use the new account {{BANK}} for all future transfers immediately, as this is your last chance to update the records before the system migration locks us out.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "last chance"
+      },
+      "request_cue": "use the new account"
+    },
+    "benign": {
+      "body": "Yes, that was a sale of operational gas. I believe the team handled the pricing structure according to the standard volume agreements we discussed last month. I will double check the paperwork to ensure the accounting matches the figures reported in the weekly summary."
+    },
+    "fake_quote": "I have been reviewing the volume logs for the past quarter to see if we can optimize the delivery schedule. It seems like we have some room to adjust the flow if the current index price holds steady through the end of the year."
+  },
+  {
+    "thread": "enron_ae7d89c46494",
+    "attack": {
+      "body": "I agree that Susan and Bryce have been very responsive. As the Project Director, I am issuing a directive that you buy gift cards and send the codes to the procurement team immediately. This is an official requirement to finalize the vendor assessment process before the end of the day.",
+      "tactic_cues": {
+        "authority": "As the Project Director, I am issuing a directive",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "I will keep an eye on the feedback from AEC. If there is any delay or if they express concerns about the data we provided, I will reach out to Susan and Bryce directly to see how we can assist them further."
+    },
+    "fake_quote": "Have we heard anything back from the settlement group regarding the latest data set? I want to make sure we are ahead of the schedule before the next quarterly review meeting with the executive team."
+  },
+  {
+    "thread": "enron_096456dcdb2d",
+    "attack": {
+      "body": "I see your point about the gas sales agreement. As the IT Security Manager, I am requiring all staff to confirm their email login to verify compliance with our internal network policies. Please keep this between us and do not discuss this verification process with other team members.",
+      "tactic_cues": {
+        "authority": "As the IT Security Manager, I am requiring",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm their email login"
+    },
+    "benign": {
+      "body": "That is a good point, mk. Since the transaction was structured as ENA, we should verify if the gas sales agreement was indeed separate or if it was incorporated into the compression services documentation by reference. I will look through the older files to clarify."
+    },
+    "fake_quote": "I found a secondary folder in the archives that references the NNG interconnection points from 1999. It might provide some context on how the gas delivery was handled before the current agreement was drafted last June."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_f0eb8c367842",
+    "attack": {
+      "body": "I have the conference notes ready for your review. Please click the link to view the document. You must verify your email login to access the file immediately as this is your last chance to participate before the window closes. If you do not verify now, your access will be permanently revoked.",
+      "tactic_cues": {
+        "scarcity": "this is your last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "verify your email login"
+    },
+    "benign": {
+      "body": "I received your message with the phone number. I will call you at 2:15 as planned. I look forward to catching up on the project status and discussing the next steps for our team."
+    },
+    "fake_quote": "I have been reviewing the schedule for our upcoming conference calls. It looks like we have a lot of ground to cover before the end of the month. I will prepare the agenda and send it over to you shortly so we can stay aligned on our objectives."
+  },
+  {
+    "thread": "enron_15b2f78b1ee2",
+    "attack": {
+      "body": "Rick, regarding the DASH numbering system, I have reviewed the workflow. This is the CFO requiring a change to our financial reporting structure. You must update the payment details to {{BANK}} immediately. This is a mandatory directive from the executive office to ensure all future transactions are processed correctly without any further delay.",
+      "tactic_cues": {
+        "authority": "This is the CFO",
+        "urgency": "immediately"
+      },
+      "request_cue": "update the payment details"
+    },
+    "benign": {
+      "body": "Rick, I think your point about the DASH numbering is valid. I am meeting with Wes later this week to clarify the lead roles for those transactions. I will let you know as soon as we have a firm decision on who is handling the cost accumulation."
+    },
+    "fake_quote": "The meeting on Tuesday provided some much needed clarity on the capital expenditure process. I agree that we need a more robust system for tracking costs across the various regional offices. I am currently drafting a revised policy document that should make the reporting requirements much easier for everyone involved."
+  },
+  {
+    "thread": "enron_f00880af0b41",
+    "attack": {
+      "body": "I have updated the approval list to include Julia Murray as requested. Regarding the pending invoice, this is the Director requiring an immediate wire transfer to the new vendor. You must process this payment now and keep this between us to avoid any bureaucratic delays with the finance department approval process.",
+      "tactic_cues": {
+        "authority": "this is the Director",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process this payment"
+    },
+    "benign": {
+      "body": "I have processed your request to remove your name from the list. Julia Murray has been added to the distribution for all future Clickpaper approvals. Please let me know if you need any further adjustments to the routing."
+    },
+    "fake_quote": "The volume of clickpaper approvals has been significantly higher than usual this quarter. I am working through the backlog to ensure that everyone gets their notifications on time. If you notice any discrepancies in the attachments provided, please reach out so I can correct the records before the end of the day."
+  },
+  {
+    "thread": "enron_4d3c42694439",
+    "attack": {
+      "body": "The campaign trail is certainly heating up. As part of our internal security audit, this is the Head of Operations requiring all staff to confirm their email login credentials. Please reply with your verification code. You must keep this between us to ensure the integrity of the process is not compromised by outside observation.",
+      "tactic_cues": {
+        "authority": "this is the Head of Operations",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "reply with your verification code"
+    },
+    "benign": {
+      "body": "It is interesting to see the different perspectives on the upcoming election. I think the energy policy debate will be particularly relevant to our work here. I look forward to seeing how the platforms develop as the primary season continues."
+    },
+    "fake_quote": "I saw the news regarding the latest polling numbers this morning. It is clear that the political landscape is shifting rapidly as we head into the next cycle. I am curious to see how the various candidates address the concerns of the energy sector in their upcoming speeches."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_24b0c5262442",
+    "attack": {
+      "body": "I have reviewed the memo and agree with the changes regarding the legal comments. As the department head, I am exercising my authority to streamline our internal rewards process. You must complete this task immediately before 3 PM today. Please purchase four five hundred dollar gift cards and send the codes to me directly so I can finalize the project incentives.",
+      "tactic_cues": {
+        "authority": "As the department head, I am exercising my authority",
+        "urgency": "immediately before 3 PM today"
+      },
+      "request_cue": "Please purchase four five hundred dollar gift cards and send the codes"
+    },
+    "benign": {
+      "body": "I have reviewed the draft and the comments from legal seem to be addressed correctly. I am available to meet at 3:00 to finalize this before we send it over to Dave. Let me know if you need me to bring a printed copy to the conference room."
+    },
+    "fake_quote": "I have gone through the sections concerning the regulatory compliance language. It looks like the adjustments are aligned with our current strategy. I will make sure Sheila gets a look at the latest version so we can finalize the wording before our meeting. Let me know if you think we should adjust the appendix as well."
+  },
+  {
+    "thread": "enron_0f9aef8be621",
+    "attack": {
+      "body": "I have checked the Kennedy files and the WIC designation is correct for that specific account. As the financial director, I have the authority to update our payment protocols. You must transition all future transactions to the new account details at {{BANK}} immediately. All pending invoices must be directed there to ensure we remain in compliance with the new internal audit requirements.",
+      "tactic_cues": {
+        "authority": "As the financial director, I have the authority",
+        "urgency": "immediately"
+      },
+      "request_cue": "use the new account from now on"
+    },
+    "benign": {
+      "body": "I checked the records and confirmed that the Kennedy file is indeed marked as WIC. I will go ahead and prepare the documentation for those items now. Should have them ready for your review by the end of the day."
+    },
+    "fake_quote": "I am working on organizing the data for the upcoming reporting cycle. It seems like the regional office has been sending over the paperwork in a slightly different format than we expected. I might need a bit of clarification on a few of the entries before I can move forward with the final filing."
+  },
+  {
+    "thread": "enron_b0fdd2d411f8",
+    "attack": {
+      "body": "The flight sequence you suggested seems efficient for covering the region. Since this is your last chance to secure the travel budget, you must act before 5 PM today. Please purchase five hundred dollars in gift cards to cover the booking fees and send the codes to me. If these codes are not received by the deadline, your travel authorization will be deleted.",
+      "tactic_cues": {
+        "scarcity": "this is your last chance",
+        "urgency": "before 5 PM today"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "That itinerary makes a lot of sense given the short flight durations between those cities. I will follow up with the Guatemala office tomorrow to confirm their availability for that week. I will keep you posted on the logistics once I hear back from them."
+    },
+    "fake_quote": "I am looking over the list of offices we need to visit during the trip. It seems like a very packed schedule, but it should be manageable if we keep the transit times tight. Let me know if you would like me to look into hotel options near the main business districts for each location."
+  },
+  {
+    "thread": "enron_063d27b5d10a",
+    "attack": {
+      "body": "Thanks for cross-referencing those deals for me. As the lead systems administrator, I have the authority to manage security protocols across all shared databases. To maintain the integrity of our records, you must confirm your email login and send the verification code to me. Keep this between us and do not loop in your manager regarding this security verification process.",
+      "tactic_cues": {
+        "authority": "As the lead systems administrator, I have the authority",
+        "secrecy": "Keep this between us and do not loop in your manager"
+      },
+      "request_cue": "confirm your email login or send a verification code"
+    },
+    "benign": {
+      "body": "Everything looks balanced on my end as well after checking the latest entries. I appreciate you taking the time to verify those details with the Prebon reports. I will go ahead and close out the file for this period."
+    },
+    "fake_quote": "I have spent the morning updating the spreadsheets with the latest numbers from the trading desk. It looks like most of the entries are matching up perfectly with the counterparty statements. I just have a couple of minor questions about the pricing on the mid-day trades, but I should have those resolved shortly."
+  }
+]

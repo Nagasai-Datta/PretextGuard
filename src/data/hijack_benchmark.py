@@ -61,7 +61,7 @@ from src.data.validate_labels import ReplyProblem, extract_json, span_in, squash
 from src.headers.domains import is_freemail, split_domain
 from src.preprocess.redact import redact
 from src.thread import builder
-from src.thread.signals import MIN_QUOTE_WORDS, mailer_family, shingles, words_of
+from src.thread.signals import MIN_QUOTE_WORDS, mailer_family, pool_text, shingles, words_of
 from src.verifiers.bank import IBAN_LENGTHS, bank_detail_keys, valid_iban
 from src.verifiers.facts import similar_domain
 
@@ -101,7 +101,7 @@ def eligible_indices(source, messages):
     found = []
     for k in range(2, len(messages)):
         real, previous = messages[k], messages[k - 1]
-        if len(words_of(real["text"])) < 5 or len(words_of(previous["text"])) < MIN_QUOTE_WORDS:
+        if len(words_of(real["text"])) < 5 or len(words_of(pool_text(previous))) < MIN_QUOTE_WORDS:
             continue
         if source == "apache":
             same = [m for m in messages[:k] if m["from_addr"] and m["from_addr"] == real["from_addr"]]
@@ -530,7 +530,7 @@ def candidate_message(variant, messages, k, injection):
         if with_ids:
             message["in_reply_to"] = previous["message_id"]
             message["references"] = (list(previous["references"]) + [previous["message_id"]])[-100:]
-        message["quoted"] = " ".join(previous["text"].split()[:120])
+        message["quoted"] = " ".join(pool_text(previous).split()[:120])
     if variant == "B":                                         # a look-alike domain, a server and a mail program the sender never used
         domain = lookalike_of(real["from_domain"])
         local = real["from_addr"].split("@")[0]
@@ -544,6 +544,7 @@ def candidate_message(variant, messages, k, injection):
         if with_ids:
             message["in_reply_to"], message["references"] = FORGED_IDS[1], list(FORGED_IDS)
         message["quoted"] = injection["fake_quote"]
+    message["full"] = " ".join((message["text"] + " " + message["quoted"]).split())      # what a later reply could quote from this message
     return message, facts
 
 

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_3272d23bc475",
+    "attack": {
+      "body": "I agree with your suggestion to categorize the requirements, as it makes the compliance tracking much cleaner. As the department head, I need you to handle a time-sensitive audit reconciliation. Please purchase five hundred dollars in gift cards and send the codes to me immediately. It is vital that you keep this between us and don't loop in your manager until I have verified the results of this internal audit.",
+      "tactic_cues": {
+        "authority": "As the department head",
+        "secrecy": "keep this between us and don't loop in your manager"
+      },
+      "request_cue": "Please purchase five hundred dollars in gift cards and send the codes to me"
+    },
+    "benign": {
+      "body": "Your assessment regarding the separation of regulatory and commercial tasks makes a lot of sense. Dividing the memo that way would certainly clarify our obligations for the team. I will look over the Stamos document again with those two categories in mind before our next conference call. Thanks for bringing this up as it will help streamline our compliance process significantly."
+    },
+    "fake_quote": "I have been reviewing the materials from the Texas office today. There are several overlapping items that seem to conflict with the new guidelines we received last week. I think we should meet briefly to ensure our summary matches the current state requirements before finalizing the document for the team to use."
+  },
+  {
+    "thread": "enron_df960d3030cf",
+    "attack": {
+      "body": "I appreciate you following up on the call to Cinnabar. Please note that our payment details have changed and you must use the new account at {{BANK}} for all future transactions. This is your last chance to update the records before the current cycle closes, so please ensure this is processed immediately to avoid any service disruptions or late fees on our account.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "you must use the new account at {{BANK}} for all future transactions"
+    },
+    "benign": {
+      "body": "Thanks for checking in on that. If you manage to get a hold of them, please let me know what they say regarding the Master Draft. I want to make sure we are aligned on the terms before we proceed any further with the contract. I will keep an eye out for your update once you have finished your call."
+    },
+    "fake_quote": "The meeting with the partners went well yesterday. They seem interested in the proposal we put together, but they had a few questions about the pricing structure for the second quarter. I told them I would look into the specifics and get back to them by the end of the week."
+  },
+  {
+    "thread": "enron_4ac1f1a654d6",
+    "attack": {
+      "body": "I understand the concerns regarding the Long Beach lawsuit and how it will impact the hearing. Regarding our internal financial updates, please note that the payment details have changed and you must use the new account at {{BANK}} for all future transactions. This is your last chance to update the files, and you must complete this change immediately to ensure our payments are not rejected.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "you must use the new account at {{BANK}} for all future transactions"
+    },
+    "benign": {
+      "body": "That sounds like a smart approach to handle the questions. Focusing on the CPUC issues while being prepared for the noise from the other parties is definitely the right strategy. I am looking forward to seeing your list whenever you have it ready later today. Let me know if you need any additional data from my side."
+    },
+    "fake_quote": "The latest briefing paper covers most of the regulatory challenges we anticipate for the upcoming quarter. I have highlighted the sections that require input from the legal department. Once we have their comments, we can finalize the draft and circulate it to the rest of the committee for their internal review."
+  },
+  {
+    "thread": "enron_6c73fca84b23",
+    "attack": {
+      "body": "That situation with the swaption reconciliation sounds incredibly frustrating. On a separate note, please be advised that our payment details have changed and you must use the new account at {{BANK}} for all future transactions. This is your last chance to update your records, and you must act immediately to prevent any issues with our upcoming vendor payouts and internal accounting syncs.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "you must use the new account at {{BANK}} for all future transactions"
+    },
+    "benign": {
+      "body": "I agree that the lack of visibility in the system is the biggest issue here. If the deal ticket exists but the system record is missing, recreating the trade is probably the only way to get the position back in balance. I will check the files on my end to see if I have a copy of the original confirmation."
+    },
+    "fake_quote": "I spoke with the operations team this morning about the discrepancies in the monthly reports. They seem to think it is just a synchronization delay between the front office and the back office systems. I have requested a full log of all entries from the past two weeks to verify their theory and ensure everything is accurate."
+  }
+]

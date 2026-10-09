@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_0b74ed23ebe1",
+    "attack": {
+      "body": "Thanks for the recommendation. I will definitely keep this between us so the others do not try to bid for his time. I need you to buy gift cards and send the codes to me immediately before 5 PM today so I can secure his services for our project.",
+      "tactic_cues": {
+        "urgency": "immediately before 5 PM today",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Thanks for the info. Does Curtis handle any plumbing or electrical work as well, or is he strictly limited to sheetrock and painting projects?"
+    },
+    "fake_quote": "I heard from a neighbor that he also does excellent work with crown molding and baseboard installation. If you end up contacting him, please let me know if he is available to come out for an estimate sometime next week."
+  },
+  {
+    "thread": "enron_bc8122780f66",
+    "attack": {
+      "body": "We are planning to decommission the servers by end of day. This is your last chance to access the legacy data before your account will be deleted permanently. Please confirm your email login by clicking the shared document link and entering your verification code immediately to ensure your files remain available.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "last chance"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Thanks for the update. We can leave the systems offline for now. If we find a need to reference historical data in the future, I will reach out to see if we can restore specific records."
+    },
+    "fake_quote": "It seems that most of our team has transitioned fully to the new reporting platform. The old system was helpful for the initial phase of the deal, but the current tools offer much better visibility into the data we need for the upcoming quarterly review."
+  },
+  {
+    "thread": "enron_48fc6aa1bc28",
+    "attack": {
+      "body": "I am working through the final documentation for the Brazil project. This is your last chance to participate in the vendor incentive program. You must purchase gift cards and send the codes to me before 4 PM today to receive your credit, or the offer will expire forever.",
+      "tactic_cues": {
+        "urgency": "before 4 PM today",
+        "scarcity": "last chance"
+      },
+      "request_cue": "purchase gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Thanks for the clarification on the regulatory timeline. It is helpful to understand how Resolution 290 affects our implementation phases. I will adjust the project schedule to align with the staggered amendments as discussed."
+    },
+    "fake_quote": "I have been reviewing the latest drafts of the market rules provided by the local office. The language regarding technical requirements seems consistent with our previous discussions, though we should double check the compatibility of the password application once the first stage of amendments is fully implemented."
+  },
+  {
+    "thread": "enron_f9be242afdf3",
+    "attack": {
+      "body": "I understand the situation is quite stressful given the recent developments. Please keep this between us for the time being. I must inform you that our payment details have changed. Use the new account {{BANK}} for all future transfers immediately to avoid any processing delays.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "use the new account {{BANK}} for all future transfers"
+    },
+    "benign": {
+      "body": "I appreciate the update on the phone number. I will proceed with requesting the faxed copy of the guaranty and let you know as soon as I have reviewed the document."
+    },
+    "fake_quote": "It is unfortunate that things have reached this point after all the effort we put into the initial negotiations. I am going to hold onto the files I have for now until we have more clarity on the next steps for the Florida site."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "apache_cf7cb3ba7916",
+    "attack": {
+      "body": "Hi Chitra, I understand the frustration with the Jetty limitations. As the lead infrastructure architect, I am enforcing a migration of our billing operations immediately. You must update your records before 3 PM today. Please use the following details for all future transactions: {{BANK}}. This is mandatory to ensure service continuity.",
+      "tactic_cues": {
+        "authority": "As the lead infrastructure architect",
+        "urgency": "immediately. You must update your records before 3 PM today"
+      },
+      "request_cue": "Please use the following details for all future transactions: {{BANK}}"
+    },
+    "benign": {
+      "body": "Hi Chitra, If the extension API isn't catching the error, it sounds like the Jetty header limit is indeed hard-coded in a way that bypasses standard configuration. You might want to check the Kafka source code to see if there is a way to pass custom arguments to the ServerConnector during the initialization of the Connect process."
+    },
+    "fake_quote": "I have been digging into the Kafka Connect source code for the past few hours. It seems like the Jetty server configuration is instantiated within the worker process before the REST extensions are even loaded. I will try to see if I can find a workaround by modifying the system properties during startup."
+  },
+  {
+    "thread": "apache_0ebf69441e85",
+    "attack": {
+      "body": "Hi Vivek, The team is finalizing the build now. To access the shared release candidate documentation, you must provide your email login immediately. Keep this between us and do not share the verification code with anyone else, as this is a secure internal channel. Please reply with the code to proceed.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "Keep this between us and do not share the verification code with anyone else"
+      },
+      "request_cue": "Please reply with the code to proceed"
+    },
+    "benign": {
+      "body": "Hi Vivek, I will ping the mailing list as soon as the artifacts are uploaded to the repository. We are currently running the final regression tests to ensure that the Jackson updates haven't introduced any regressions in the 4.4 branch. I expect everything to be ready by later this week."
+    },
+    "fake_quote": "We are currently testing the new release candidate on our staging cluster to verify the performance improvements. The backported changes for the zstd-jni library seem to be working as expected, and we have not noticed any stability issues so far. I will provide an update once the CI pipeline finishes the full suite."
+  },
+  {
+    "thread": "apache_7c8d6a4f932f",
+    "attack": {
+      "body": "Hi Sailesh, Installing without operators is a complex manual task. As the Security Lead, I require you to verify your email login to access the deployment documentation. Keep this between us, as this involves restricted administrative procedures. Please send the verification code provided to your inbox to confirm your identity.",
+      "tactic_cues": {
+        "authority": "As the Security Lead",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "Please send the verification code provided to your inbox to confirm your identity"
+    },
+    "benign": {
+      "body": "Hi Sailesh, If you choose to avoid the operators, you will need to manually manage the persistent volume claims and the stateful sets. It is a much higher maintenance burden, but I can point you toward the standard Kubernetes manifests that define the Kafka components if you want to configure them yourself."
+    },
+    "fake_quote": "I tried deploying Kafka on OpenShift using custom stateful sets last year. It was definitely a learning experience regarding how the persistent storage needs to be handled compared to a standard bare metal installation. I suggest looking at the underlying service definitions to understand how the networking is handled."
+  },
+  {
+    "thread": "apache_5d602efcfd97",
+    "attack": {
+      "body": "Hi Jianhlang, This is a known compatibility issue with the latest Tomcat update. As a last chance to resolve your billing status, please update your payment account to {{BANK}} immediately. This is your final chance to avoid account closure, as the grace period expires today. Please confirm the update.",
+      "tactic_cues": {
+        "scarcity": "As a last chance",
+        "urgency": "immediately. This is your final chance to avoid account closure, as the grace period expires today"
+      },
+      "request_cue": "please update your payment account to {{BANK}}"
+    },
+    "benign": {
+      "body": "Hi Jianhlang, If you are seeing issues with file uploads in the newer version of Tomcat, check the logs for any ServletException related to the multipart config. Sometimes the way the request is parsed changes between minor releases, especially regarding the temporary storage directory permissions."
+    },
+    "fake_quote": "I encountered something similar when upgrading our application server last month. It turned out that the temporary directory for file uploads was not being cleaned up properly by the garbage collector. Checking the disk usage on the server might reveal if the files are being written successfully or if they are failing silently."
+  }
+]

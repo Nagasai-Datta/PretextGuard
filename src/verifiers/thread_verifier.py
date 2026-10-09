@@ -51,18 +51,27 @@ from src.thread import signals as sig
 from src.verifiers.rows import SEVERITIES, clean_domain, consistent_row, contradiction_row, unchecked_row
 
 VERIFIER = "thread"
-THREAD_RULES_VERSION = "0.1"
+THREAD_RULES_VERSION = "0.2"
 THREAD_VERSION_LOG = [
     ("0.1", "First version: rules written from master document Sections 4.3 and 6.4 and the Phase 3, 7 and 8 notes. Fixed numbers: the Phase 6 "
             "thresholds, a quotation of 20 words matched by 30% of its 5-word shingles, a person identified by 5 letters of name or local part. "
             "Severities are initial labels. No real thread had been read"),
+    ("0.2", "Read off the first train run (1,104 threads, no benchmark yet; false alarms on real threads: Apache 29 of 1,243 messages, Enron 158 of 3,034). "
+            "(1) tv_quote_mismatch fired 27 times on Apache and 98 on Enron, and the examples were Apache replies that answer INLINE: the code counted the sender's own "
+            "answers between the quoted paragraphs as 'quoted history', and compared the quotation only with the earlier messages' new text, so the earlier inline answers "
+            "a reply quotes back were missing. Now the quotation is only the lines marked '>' (plus everything after an Outlook-style marker, which has no '>' marks), it is compared with the WHOLE text "
+            "of every earlier message, and a forward (a Fw: subject) is not checked, because it quotes a message from outside the thread (new rule tv_quote_forward, not checkable). "
+            "(2) tv_onset_one fired 45 times and tv_onset_many 15 times on Enron, mostly urgency crossing its threshold of 0.45 by a hair (0.46 after 0.45, 0.47 after 0.27); "
+            "now a tactic also has to be at least 0.40 above the AVERAGE of the earlier messages (the wording of master document Section 4.3), because an attack jumps (0.1 to 0.9). "
+            "(3) tv_path_origin fired on 402 of 1,243 Apache messages because IP addresses rotate; now the network (the first three numbers of an IPv4 address) is compared, not the exact address. "
+            "Not changed: tv_path_origin_mailer fired once, tv_who_lookalike and tv_int_ids_unknown never on real threads"),
 ]
 
 # Rule id -> (claim type or signal, reads authentication, one-line meaning). No thread rule reads authentication: on list mail it
 # belongs to the list (auth_state 'list_relayed'), and the sending-path rules compare the author's own server and program instead.
 RULES = {
-    "tv_onset_one": ("tactic_onset", False, "one tactic starts in this message that no earlier message had"),
-    "tv_onset_many": ("tactic_onset", False, "two or more tactics start together in this message"),
+    "tv_onset_one": ("tactic_onset", False, "one tactic jumps above its threshold here and in no earlier message"),
+    "tv_onset_many": ("tactic_onset", False, "two or more tactics jump above their thresholds together in this message"),
     "tv_onset_steady": ("tactic_onset", False, "no tactic starts here that was absent before"),
     "tv_onset_no_history": ("tactic_onset", False, "fewer than two earlier messages with tactic probabilities"),
     "tv_bank_changed": ("request_drift", False, "bank details that differ from earlier details of the same kind"),
@@ -94,6 +103,7 @@ RULES = {
     "tv_quote_mismatch": ("thread_integrity", False, "the quoted history is not what the earlier messages said"),
     "tv_quote_ok": ("thread_integrity", False, "the quoted history matches the earlier messages"),
     "tv_quote_none": ("thread_integrity", False, "no quotation long enough to compare"),
+    "tv_quote_forward": ("thread_integrity", False, "a forward quotes a message from outside the thread"),
     "tv_prior_ok": ("prior_relationship", False, "an earlier message in the thread came from this sender"),
     "tv_prior_other_address": ("prior_relationship", False, "the sender who wrote earlier used another domain"),
     "tv_prior_stranger": ("prior_relationship", False, "this sender wrote none of the earlier messages of a longer thread"),
@@ -142,14 +152,14 @@ def onset_row(earlier, me, thresholds):
     new = m["new"]
     if not new:
         return consistent_row(VERIFIER, claim, "tv_onset_steady",
-                              "No tactic reaches its threshold here that was below it in every earlier message.", {"new": []})
+                              "No tactic jumps above its threshold here after staying below it in every earlier message.", {"new": []})
     evidence = {"new": new}
     for tactic in new:
-        evidence["p_" + tactic], evidence["earlier_max_" + tactic] = m["probs"][tactic], m["earlier_max"][tactic]
-    detail = ", ".join("%s %s (highest earlier %s)" % (t, pct(m["probs"][t]), pct(m["earlier_max"][t])) for t in new)
+        evidence["p_" + tactic], evidence["earlier_mean_" + tactic] = m["probs"][tactic], m["earlier_mean"][tactic]
+    detail = ", ".join("%s %s (average of the earlier messages %s)" % (t, pct(m["probs"][t]), pct(m["earlier_mean"][t])) for t in new)
     rule, severity = ("tv_onset_one", "medium") if len(new) == 1 else ("tv_onset_many", "high")
     return contradiction_row(VERIFIER, claim, rule, severity,
-                             "Manipulation starts in this message: %s. No earlier message in the thread reached that level." % detail, evidence)
+                             "Manipulation jumps in this message: %s. No earlier message in the thread reached that level." % detail, evidence)
 
 
 def bank_row(earlier, me):
@@ -226,6 +236,8 @@ def ids_row(earlier, me):
 
 def quote_row(earlier, me):
     claim = signal("thread_integrity")
+    if sig.is_forward_subject(me.get("subject")):
+        return unchecked_row(VERIFIER, claim, "tv_quote_forward", "A forward quotes a message from outside the thread, so its quotation is not compared with the thread.", {})
     words, share = sig.quote_integrity(earlier, me)
     if share is None:
         return unchecked_row(VERIFIER, claim, "tv_quote_none", "No quoted history of 20 words or more to compare with the earlier messages.", {"quoted_words": words})

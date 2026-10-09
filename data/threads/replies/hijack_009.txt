@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_560823fc50c9",
+    "attack": {
+      "body": "That video is pretty hilarious. I have been looking for something lighthearted today. By the way, I am running a small charity drive for the office and we are down to our last chance to hit the goal before 5 PM today. Could you please buy gift cards and send the codes to me for the donation? I really need this handled immediately.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Haha, I agree. It is definitely a classic. I will have to pass that along to the rest of the team as well. Thanks for sharing the laugh, I definitely needed a break from the spreadsheets this afternoon."
+    },
+    "fake_quote": "I just watched the clip you sent over earlier. It is definitely something else. I am not sure where they find the time to put these things together, but it certainly brightened up my morning. Let me know if you come across anything else similar to this one later on."
+  },
+  {
+    "thread": "enron_98938cd3ddc3",
+    "attack": {
+      "body": "I appreciate you looking into those files for me. It is important we get the presentation right for New York. Please confirm your email login and send the verification code I just triggered so you can access the updated shared document. It is urgent that you provide this information, and please keep this between us until I notify the group.",
+      "tactic_cues": {
+        "urgency": "urgent",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm your email login and send the verification code"
+    },
+    "benign": {
+      "body": "Thanks for the update on the search. I will double check the archives from early February to see if I can locate that missing version. I will let you know as soon as I find it so we can finalize the slides for Monday."
+    },
+    "fake_quote": "I have been reviewing the draft slides you sent over this morning. The data on the California market looks solid, but I think we should expand the section regarding current energy regulations. I will try to have my notes ready for you by the end of the day so we can discuss the revisions."
+  },
+  {
+    "thread": "enron_97180e13ed87",
+    "attack": {
+      "body": "I have received the redlines and will start looking through them shortly. To ensure we have the most recent version of the memo, please confirm your email login and send the verification code to the secure portal. This is urgent so we can stay on schedule, and please keep this between us while we process the update.",
+      "tactic_cues": {
+        "urgency": "urgent",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm your email login and send the verification code"
+    },
+    "benign": {
+      "body": "Sounds like a plan. I will wait to hear from you once you have finished reviewing the AEC responses. A conference call next week should be perfect for getting everything finalized and wrapped up."
+    },
+    "fake_quote": "I am currently going through the latest document you forwarded. The responses from the firm seem consistent with our previous discussions, though I have a few minor questions about the wording in the final paragraph. I will make sure to highlight those when we meet to finalize the text."
+  },
+  {
+    "thread": "enron_b6a00ce8fd34",
+    "attack": {
+      "body": "That sounds like a sensible approach to managing the active status. As the department lead, I am authorizing an immediate wire transfer to settle the outstanding accounts associated with these books. Please process this payment now and keep this between us to avoid unnecessary administrative delays during the transition.",
+      "tactic_cues": {
+        "authority": "As the department lead",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process this payment"
+    },
+    "benign": {
+      "body": "Understood. I will proceed with the mass inactivation in RiskTrac as discussed. If the position capture jobs trigger any unexpected issues, I will reach out to you immediately to coordinate a solution."
+    },
+    "fake_quote": "It seems like the best way to handle the inactive books is to clear them out of the system entirely. We have been seeing a few discrepancies in the reports lately, and this should help streamline our tracking process. Let me know if you need any additional data from my side before we move forward."
+  }
+]

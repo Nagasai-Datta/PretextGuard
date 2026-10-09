@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_604dbe8dcaa7",
+    "attack": {
+      "body": "I am in for Thursday night. As the project lead, I am directing all team members to assist with a sudden logistics issue. This is the CFO, so keep this between us and do not loop in your manager or anyone else. I need you to buy four gift cards worth five hundred dollars each and send the codes to me immediately.",
+      "tactic_cues": {
+        "authority": "This is the CFO",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "buy four gift cards"
+    },
+    "benign": {
+      "body": "Count me in for Thursday. I will bring some extra chips and salsa for the table. Looking forward to seeing everyone there."
+    },
+    "fake_quote": "Are we still doing the game at your place next week? I have been looking at the map and it seems fairly straightforward to find. Let me know if you need me to bring any specific drinks or extra snacks for the group."
+  },
+  {
+    "thread": "enron_e17fc9deb65c",
+    "attack": {
+      "body": "I agree that we should defer to Kinneman on the interest rate decision. However, we have a system update occurring immediately, so please confirm your email login and send a verification code to access the shared document. Keep this between us as we resolve this audit matter.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "I will check with Kinneman this afternoon to get his final take on the default interest rate. Once he gives the green light, I will let you know so we can finalize the agreement language."
+    },
+    "fake_quote": "I have reviewed the draft you sent over regarding the loan agreement. The language seems standard for these types of transactions, but I would like to double check the definitions section before we proceed with the formal execution of the contract."
+  },
+  {
+    "thread": "enron_caad814c2e58",
+    "attack": {
+      "body": "Thanks for the heads up on the Special Provisions. This is the CFO, and I require these documents processed before 3 PM today. You must buy five gift cards and send the codes to my office to expedite the internal account reconciliation process.",
+      "tactic_cues": {
+        "authority": "This is the CFO",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "buy five gift cards"
+    },
+    "benign": {
+      "body": "Thanks for letting me know, Harry. I will keep an eye out for those provisions and get them integrated into the contract as soon as they arrive."
+    },
+    "fake_quote": "I received the file you sent earlier today. It looks like everything is in order, but I might need a few more days to review the specific contract terms with the legal team to ensure we are fully aligned on the requirements."
+  },
+  {
+    "thread": "enron_e2e2ccf92850",
+    "attack": {
+      "body": "Thanks for clarifying that, Susan. I need you to buy some gift cards and send the codes to me immediately. This is sensitive, so keep this between us and do not discuss this request with Tami or anyone else in the office.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "buy some gift cards"
+    },
+    "benign": {
+      "body": "That sounds good, Susan. I will make sure to update my records to reflect that your evaluation has been received. Thanks for getting that turned in."
+    },
+    "fake_quote": "I have been going through the evaluations from the rest of the team. Most people seem to be finished, but I am still waiting on a few responses before I can finalize the report for the upcoming quarterly review meeting."
+  }
+]

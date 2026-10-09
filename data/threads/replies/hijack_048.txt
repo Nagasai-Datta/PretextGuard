@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_a77ff92fa961",
+    "attack": {
+      "body": "Melba, I have reviewed the spread products and they look acceptable for production. Please verify your email login immediately so I can grant you access to the shared document containing my final notes. It is vital that you keep this between us until I have finished the review process. Please confirm your credentials right away.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "verify your email login"
+    },
+    "benign": {
+      "body": "Melba, thanks for sending these over. I have taken a look at the EP-SJ and NWPL spreadsheets. Everything seems to align with our production standards for December. I do not see any issues with these figures. You are cleared to proceed with the current setup."
+    },
+    "fake_quote": "I noticed a slight discrepancy in the NWPL Rocky Mountain spread figures compared to the internal logs. Could you double check those values before we finalize the report? I want to make sure we are not misrepresenting the positions before the end of the month."
+  },
+  {
+    "thread": "enron_5f51c00c73cf",
+    "attack": {
+      "body": "Hap, I understand the need for internal sign-offs on the FERC report. Before we move forward, I have a sudden administrative request. Please buy five fifty-dollar gift cards and send the codes to me immediately. You must keep this between us, as I do not want management distracted by these minor expenses right now.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "buy five fifty-dollar gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Joe, I have reviewed your notes regarding the staff report. I agree that we need to coordinate with Mary, Sue, and Alan before taking any further action. I will set up a brief call with the team later today to ensure we are all aligned on the internal sign-offs."
+    },
+    "fake_quote": "Are there any specific sections of the draft that you think require more attention from the legal team? I want to ensure our submission is as comprehensive as possible given the recent changes in the regulatory landscape. Let me know your thoughts."
+  },
+  {
+    "thread": "enron_e62427c55fe2",
+    "attack": {
+      "body": "I appreciate the clarification regarding the Gas Control group and the contract history. We need to settle the outstanding balance for the recent flow adjustments. Please process an urgent wire transfer to the provided account immediately to avoid complications. You must keep this between us and avoid looping in the finance department at this stage.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process an urgent wire transfer"
+    },
+    "benign": {
+      "body": "Thanks for the information on the Tenaska IV contract. It makes sense why the physical restriction is the primary remedy. I will relay this information to the asset management team so we can adjust our operational expectations for the coming week accordingly."
+    },
+    "fake_quote": "I have been reviewing the hourly pull data from the last forty-eight hours. It seems like we are finally staying within the nominated ranges despite the weather fluctuations. I will continue to monitor the metrics and update the spreadsheet if I see any further deviations."
+  },
+  {
+    "thread": "enron_02395403b1f8",
+    "attack": {
+      "body": "I understand the concern about the signature block on the Citibank form. We are at the last chance to finalize this paperwork before the escrow deadline. Please confirm your email login immediately, as the verification link will expire shortly. Without this, your account access will be deleted and the deal will be stalled.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "last chance"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "I have checked the previous deal files as you suggested. You are correct that we have not used this specific language in the signature blocks for our recent escrow agreements. I will draft a revision for Citibank that aligns with our standard practice and send it over for your approval."
+    },
+    "fake_quote": "It seems like every bank has a different requirement for these incumbency certificates. I suppose we should just stick to the format we used for the last two deals to remain consistent. I will check with the legal department to see if they have any objections to that approach."
+  }
+]

@@ -1,0 +1,64 @@
+[
+  {
+    "thread": "enron_7400b8f2376c",
+    "attack": {
+      "body": "I agree that having them across the table is preferable to an unknown firm. Teresa seems convinced this is the best path forward. Regarding the upcoming settlement, we have a last chance to secure the favorable rate before the bank closes the window. Please process an immediate wire transfer for the outstanding balance to the account details provided separately. This is urgent because the offer expires by 3 PM today.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediate",
+        "urgency_secondary": "by 3 PM today"
+      },
+      "request_cue": "process an immediate wire transfer"
+    },
+    "benign": {
+      "body": "I see your point about their familiarity with our past work. If Derrick is comfortable with the potential conflict waiver, then I suppose we can proceed. I will reach out to him later this afternoon to get his final sign-off on the matter before we draft the formal response to Teresa."
+    },
+    "fake_quote": "I have been reviewing the files from the previous negotiation to see how they handled the discovery phase. It seems they were quite thorough in documenting the specific points of contention. Let me know if you need me to pull those archives from the shared drive for your own reference."
+  },
+  {
+    "thread": "enron_00696578d9e7",
+    "attack": {
+      "body": "Daren, I have reviewed your notes on the Cotten Valley adjustments. I see how the pricing change impacts the settlement. As the lead auditor, I am initiating a mandatory internal review of these accounts. Please keep this between us and proceed with a wire transfer for the corrected amount to the holding account immediately. I need this handled quietly to avoid any departmental scrutiny during the audit process.",
+      "tactic_cues": {
+        "authority": "As the lead auditor",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "proceed with a wire transfer"
+    },
+    "benign": {
+      "body": "Thanks for clarifying the pricing adjustment for August. I see why you changed it to the GD settlement price now. I will update the master spreadsheet to reflect this change so our records match the actual deliveries. I appreciate you catching that detail before the final month-end close."
+    },
+    "fake_quote": "I am working through the remaining entries for the western region. It looks like most of the volumes are aligning with the original projections, though there are a few discrepancies in the secondary accounts that I need to reconcile before the end of the week."
+  },
+  {
+    "thread": "enron_e0c824ff3fd8",
+    "attack": {
+      "body": "I have looked over the draft and the language seems standard for our storage obligations. As your manager, I require you to handle a small client appreciation task for the legal team. Please go buy gift cards for the staff and send the codes to me. Keep this between us as I do not want the administrative staff asking why they did not receive the same recognition.",
+      "tactic_cues": {
+        "authority": "As your manager",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "buy gift cards for the staff and send the codes to me"
+    },
+    "benign": {
+      "body": "I finished reviewing the draft proposal for the storage obligations. The document looks solid, though I suggest we clarify the liability section regarding the injection cycles. Otherwise, the structure seems to cover all our requirements for this phase of the project."
+    },
+    "fake_quote": "The meeting with the storage facility representatives is scheduled for Tuesday morning. If you have any additional talking points you want me to include in the presentation, please send them over by Monday afternoon so I have time to integrate them into the slides."
+  },
+  {
+    "thread": "enron_86a2ed08e00b",
+    "attack": {
+      "body": "I understand the issue regarding the missing entity setup. I will follow up with the trading desk to get the correct information. Please note that your access to the document server is currently limited. You have a last chance to confirm your email login via the security portal provided. It is urgent that you complete this authentication immediately to ensure your account remains active for the end-of-month reporting cycle.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "urgent",
+        "urgency_secondary": "immediately"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Thanks for the update on the counterparty situation. I will reach out to the Global Counterparty group directly to see if we can expedite the setup for Coral Canada US. Once they have that in the system, I can process the necessary deal changes for Sean."
+    },
+    "fake_quote": "I have been going through the recent confirmations to ensure all the regional identifiers are accurate. Most of the entries seem to be in order, but I found a few discrepancies in the billing address field that need to be cleared up before we send out the invoices."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_a979533fdaf7",
+    "attack": {
+      "body": "I have received the list and will process the access requests accordingly. Please note that our payment details have changed effective immediately. You must use the new account {{BANK}} for all future transactions because this is your last chance to update your records before the old system is permanently closed later today. Please update this before 3 PM today to avoid any interruption in your billing cycles.",
+      "tactic_cues": {
+        "scarcity": "last chance to update your records before the old system is permanently closed",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "use the new account {{BANK}} for all future transactions"
+    },
+    "benign": {
+      "body": "Thanks for the update, Patti. I have forwarded those names to the IT department so they can start provisioning the Sitara accounts. I expect they will have everything set up by the end of the week, so you should see them listed in the system shortly."
+    },
+    "fake_quote": "I spoke with the technical support team regarding the Sitara permissions earlier. They mentioned that the rollout for the new user groups should begin on Monday morning. Please let me know if anyone on the west desk encounters any issues with their login credentials once they receive their confirmation emails. I am happy to coordinate with the admin team to ensure the transition goes as smoothly as possible for everyone involved."
+  },
+  {
+    "thread": "enron_f89ef67e7273",
+    "attack": {
+      "body": "That sounds like a reasonable approach to handling the furniture valuation. Regarding our vendor payments, please be advised that the payment details have changed. You must use the new account {{BANK}} for all transfers starting now. This is your last chance to update your records as the previous billing portal will be deactivated immediately. Please ensure this is finalized before 3 PM today to prevent any processing delays.",
+      "tactic_cues": {
+        "scarcity": "last chance to update your records as the previous billing portal will be deactivated",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "use the new account {{BANK}} for all transfers"
+    },
+    "benign": {
+      "body": "I agree that trading the furniture for other assets might be the best path forward if Don is open to that. Let me look into the current inventory value once more and see if I can find a comparable valuation. I will touch base with Jeff to see if he has any specific items in mind for a trade."
+    },
+    "fake_quote": "It seems the situation with the Portland office remains complex given the lease agreements we have in place. I have been reviewing the inventory lists provided by the facilities manager to ensure we have an accurate count of the items currently in use. Hopefully we can reach a resolution that satisfies both the Estate and UBS before the upcoming quarterly audit begins. Let us keep monitoring the progress of these internal discussions."
+  },
+  {
+    "thread": "enron_b9c2ea0d55de",
+    "attack": {
+      "body": "I will make sure the rebooking is handled correctly for the ENA and Direct deal. As the project lead, this is my authority to request that you purchase gift cards to cover the current administrative processing fees. Please keep this between us and do not loop in your manager regarding this request. Send me the codes once you have them so I can finalize the paperwork for the team.",
+      "tactic_cues": {
+        "authority": "As the project lead, this is my authority",
+        "secrecy": "keep this between us and do not loop in your manager"
+      },
+      "request_cue": "purchase gift cards to cover the current administrative processing fees"
+    },
+    "benign": {
+      "body": "I have received the instructions regarding the trade rebooking. I will coordinate with Stephanie to ensure the paperwork is updated to reflect the new agreement between ENA and Direct Energy. I will notify you once the confirmation has been finalized on our end."
+    },
+    "fake_quote": "I have been reviewing the contract terms for the upcoming delivery cycle. It appears we have a few discrepancies in the volume reporting that need to be addressed before the month concludes. I will reach out to the operations team to verify the flow data against our internal logs. Let me know if you need any additional documentation from my desk regarding these specific deal numbers."
+  },
+  {
+    "thread": "enron_a59a6e808f56",
+    "attack": {
+      "body": "I can check the archives for an older operating system disk for you. Before I do that, please confirm your email login at the provided link to verify your access privileges. This is your last chance to validate your account before it is permanently restricted. You must act immediately as your session will expire before 3 PM today, and your files will be deleted if you do not complete the verification process.",
+      "tactic_cues": {
+        "scarcity": "last chance to validate your account before it is permanently restricted",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "confirm your email login at the provided link to verify your access privileges"
+    },
+    "benign": {
+      "body": "I will check our supply closet to see if we have any spare Windows 98 disks. I recall seeing some old software media in the back room, so I will take a look this afternoon. Also, thanks for the heads up regarding the printer. I will swing by your office later to pick it up."
+    },
+    "fake_quote": "Finding legacy software can certainly be a challenge these days given how much has changed in our infrastructure. I remember we had a stack of old installation disks stored away in a cabinet near the server room. If I cannot find a copy of the operating system you need, we might have to look into alternative ways to restore your home machine. I will let you know what I find."
+  }
+]

@@ -18,6 +18,7 @@ import sys
 import time
 
 from src.thread import signals as sig
+from src.preprocess.clean import clean_body
 from src.thread import builder
 from src.thread.builder import normalise_subject
 from src.verifiers.rows import check_row
@@ -106,6 +107,29 @@ def case(name, messages, must=(), must_not=(), index=None, all_rules=(), claims_
     return name, passed, detail
 
 
+INLINE_PARENT = ("Hi all,\nOn Monday, Sam wrote:\n> The nightly build fails when the cache directory is on a network drive and the timeout is too short\n"
+                 "I saw the same failure and fixed it by moving the cache to a local disk and doubling the timeout in the settings file.\n"
+                 "> Can anyone confirm that this also affects the Windows agents in our cluster setup\nYes it does affect them as well.")
+INLINE_CHILD = ("Hi Sam,\nOn Tuesday, Alex wrote:\n> I saw the same failure and fixed it by moving the cache to a local disk and doubling the timeout in the settings file.\n"
+                "Thanks, that worked for me too, the build is green again after the change and I will update the documentation page tomorrow morning. "
+                "While I was at it I also went through the other agents in the pool and found two more that kept the cache on a shared volume, so I moved those as well "
+                "and wrote down the new paths in the wiki together with the reason, in case somebody sets up another agent next month and runs into the same surprise. "
+                "If anybody has a better idea for keeping the cache fast without giving up the shared location, please say so on this list before the next release candidate.")
+OUTLOOK = ("Thanks, I will do that today.\n\n-----Original Message-----\nFrom: Bob\nSent: Monday\nSubject: Budget\n\n"
+           "Please send the revised budget numbers for the third quarter before the review meeting on Friday afternoon.")
+
+
+def inline_thread():
+    """Two messages built by the real splitter: a reply that answers inline, and a reply that quotes that inline answer back."""
+    messages = []
+    for i, body in enumerate((INLINE_PARENT, INLINE_CHILD)):
+        parts = builder.split_message(body)
+        messages.append({"key": "i%d" % i, "message_id": "<i%d@x>" % i, "in_reply_to": ("<i%d@x>" % (i - 1)) if i else None,
+                         "references": ["<i0@x>"] if i else [], "from_addr": "a%d@x.org" % i, "from_name": "Person %d" % i, "from_domain": "x.org",
+                         "subject": "Re: build", "origin_ip": None, "mailer": None, "tactics": dict(CALM_TACTICS), "claims": [], **parts})
+    return [dict(messages[0], key="i-1", message_id="<i-1@x>", in_reply_to=None, references=[]), messages[0], messages[1]]
+
+
 def cases():
     calm = thread(4)
     out = []
@@ -122,6 +146,9 @@ def cases():
     hot_start = thread(4, tactics=dict(HOT_TACTICS))
     out.append(case("a thread that was urgent from the start does not start urgency again", extend(hot_start, tactics=dict(HOT_TACTICS)), must_not=["tv_onset_one", "tv_onset_many"], all_rules=["tv_onset_steady"]))
     out.append(case("a rare tactic (liking) never counts", extend(calm, tactics=dict(CALM_TACTICS, liking=0.99)), must_not=["tv_onset_one", "tv_onset_many"]))
+    out.append(case("a small crossing of the threshold is not an onset (urgency 0.50 after 0.12: a rise of 0.38)", extend(calm, tactics=dict(CALM_TACTICS, urgency=0.50)),
+                    must_not=["tv_onset_one", "tv_onset_many"], all_rules=["tv_onset_steady"]))
+    out.append(case("a clear jump is an onset (urgency 0.60 after 0.12)", extend(calm, tactics=dict(CALM_TACTICS, urgency=0.60)), must=["tv_onset_one"]))
     out.append(case("one earlier message is not enough history for tactic onset", extend(thread(1), tactics=dict(HOT_TACTICS)), all_rules=["tv_onset_no_history"], must_not=["tv_onset_one"]))
 
     with_bank = thread(3)
@@ -148,6 +175,8 @@ def cases():
     out.append(case("same address, new server only is low", extend(calm, origin_ip="198.51.100.9"), must=["tv_path_origin"], must_not=["tv_path_origin_mailer", "tv_path_mailer"]))
     out.append(case("same address, new mail program only is low", extend(calm, mailer="Outlook Express 6"), must=["tv_path_mailer"], must_not=["tv_path_origin"]))
     out.append(case("a mail program upgrade (new version number) is not a change", extend(calm, mailer="Apple Mail (2.9999.1.1)"), must_not=["tv_path_mailer", "tv_path_origin_mailer"], all_rules=["tv_path_same"]))
+    out.append(case("a new address in the same network is not a new server (203.0.113.77 after 203.0.113.6)", extend(calm, origin_ip="203.0.113.77"),
+                    must_not=["tv_path_origin", "tv_path_origin_mailer"], all_rules=["tv_path_same"]))
     out.append(case("no server or mail program known: path not checkable", extend(calm, origin_ip=None, mailer=None), all_rules=["tv_path_no_data"]))
 
     forged = extend(calm, in_reply_to="<fake1@evil.example>", references=["<fake0@evil.example>", "<fake1@evil.example>"],
@@ -159,6 +188,11 @@ def cases():
     out.append(case("a thread without Message-IDs (raw Enron): IDs not checkable, the quote still is", extend(no_ids), all_rules=["tv_int_no_ids", "tv_quote_ok"], must_not=["tv_int_ids_unknown"]))
     enron_forged = extend(no_ids, quoted="On Monday someone wrote:\n" + wrap("Per our earlier call please prepare the transfer to the new account today and delete this message after reading it carefully"))
     out.append(case("a thread without IDs: the fabricated quotation is still caught", enron_forged, must=["tv_quote_mismatch"]))
+    out.append(case("a forward is not compared with the thread (it quotes a message from outside)", extend(calm, subject="Fw: Invoice 77", quoted=forged[-1]["quoted"]),
+                    must_not=["tv_quote_mismatch"], all_rules=["tv_quote_forward"]))
+    inline = inline_thread()
+    out.append(case("an inline reply that quotes the earlier message's own inline answer matches (the pool is the whole earlier text)", inline, all_rules=["tv_quote_ok"],
+                    must_not=["tv_quote_mismatch"]))
     out.append(case("a short quotation cannot be judged", extend(calm, quoted="Re: hello thanks"), all_rules=["tv_quote_none"], must_not=["tv_quote_mismatch"]))
 
     two_requests = thread(3)
@@ -239,7 +273,15 @@ def builder_checks():
               "subject": ("RE: " if i else "") + "Budget plan", "people": ["a@enron.com", "b@enron.com"]} for i in range(3)]
     copies = [dict(row, key=row["key"] + "_copy", message_id=row["message_id"] + "_copy") for row in index]      # same second, sender and subject, new Message-ID
     candidates, counts = builder.enron_candidates(index + copies)
+    inline = builder.split_message(INLINE_CHILD)
+    outlook = builder.split_message(OUTLOOK)
+    plain = builder.split_message("A short plain message without any quotation, just a few words to read.")
     return [
+        ("split_message: only the '>' lines are the quotation of an inline reply, the sender's own answer is not", "moving the cache to a local disk" in inline["quoted"]
+         and "Thanks, that worked" not in inline["quoted"] and "Thanks, that worked" in inline["full"]),
+        ("split_message: after an Outlook-style marker everything is quotation", "revised budget numbers" in outlook["quoted"] and "I will do that today" not in outlook["quoted"]),
+        ("split_message: a message without quotation has none", plain["quoted"] == "" and plain["text"].startswith("A short plain")),
+        ("split_message: the new text equals the Phase 2 body_clean", all(builder.split_message(b)["text"] == clean_body(b)["body_clean"] for b in (INLINE_PARENT, INLINE_CHILD, OUTLOOK))),
         ("decode_references reads the space-separated string of headers.parquet", builder.decode_references(two) == ["<a@x.example>", "<b@y.example>"]),
         ("decode_references reads the JSON list of threads.parquet, None and NaN", builder.decode_references('["<a@x>"]') == ["<a@x>"] and builder.decode_references(None) == []
          and builder.decode_references(float("nan")) == []),

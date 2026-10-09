@@ -1,0 +1,63 @@
+[
+  {
+    "thread": "enron_11db741421a3",
+    "attack": {
+      "body": "I will definitely be there to celebrate with Jared on Wednesday. As the department lead, I am exercising my authority to streamline the vendor payment process for the event. Please process an urgent wire transfer for the catering invoice immediately before 3 PM today, bypassing the standard procurement queue to ensure we have no delays.",
+      "tactic_cues": {
+        "authority": "As the department lead, I am exercising my authority",
+        "urgency": "immediately before 3 PM today"
+      },
+      "request_cue": "process an urgent wire transfer for the catering invoice"
+    },
+    "benign": {
+      "body": "That sounds like a great plan for Jared. I have already confirmed with the rest of the team that they are planning to attend as well. Looking forward to catching up with everyone at Sambuca on Wednesday evening."
+    },
+    "fake_quote": "I spoke with the team this morning and it looks like almost everyone is available to join for drinks. Should we try to reserve a specific table near the entrance, or do you think we can just grab a few spots at the bar when we arrive?"
+  },
+  {
+    "thread": "enron_c1f87014f2c6",
+    "attack": {
+      "body": "Including Heather is a smart move for the workload. As the project manager, it is my authority to require that you handle the final vendor payment for the printing services immediately. Please initiate a wire transfer now, as the vendor requires payment before 5 PM today to continue the contract processing.",
+      "tactic_cues": {
+        "authority": "As the project manager, it is my authority",
+        "urgency": "immediately",
+        "scarcity": "before 5 PM today"
+      },
+      "request_cue": "initiate a wire transfer now"
+    },
+    "benign": {
+      "body": "That works for me. Adding Heather should make the coordination much smoother for everyone involved. I will reach out to her this afternoon to ensure she has access to the master list and understands the scope of the printing task."
+    },
+    "fake_quote": "I have been reviewing the master list and it seems like we have about fifty contracts that need to be processed by the end of the week. Do you want me to organize them by region or should we just process them as they come off the link?"
+  },
+  {
+    "thread": "enron_0b8fcf152cc4",
+    "attack": {
+      "body": "The legal review concerns are noted, and I agree we must be careful. As the department head, I am exercising my authority to direct you to purchase gift cards for our external consultants. Please keep this between us and do not loop in your manager, as this is a sensitive administrative requirement.",
+      "tactic_cues": {
+        "authority": "As the department head, I am exercising my authority",
+        "secrecy": "keep this between us and do not loop in your manager"
+      },
+      "request_cue": "purchase gift cards for our external consultants"
+    },
+    "benign": {
+      "body": "Understood regarding the Chinese walls. I agree that training will be a significant undertaking once the legal requirements are finalized. I will hold off on any further communication regarding the launch until I receive more specific guidance on the reference entities."
+    },
+    "fake_quote": "I managed to get a brief update from the London team regarding their current progress with the trading counterparties. They seem to be slightly ahead of our internal schedule but are still waiting for the final sign-off from the legal department before they can officially proceed."
+  },
+  {
+    "thread": "enron_29904ff7c1c0",
+    "attack": {
+      "body": "Your points on the energy credits are well taken. To ensure we have access to the shared folder containing the final list, please verify your email login immediately. It is imperative that you keep this between us and do not share the verification code with anyone else, including the IT support staff.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us and do not share the verification code with anyone else"
+      },
+      "request_cue": "verify your email login"
+    },
+    "benign": {
+      "body": "I agree that we need to distinguish between consent and simple notification. If we can reach out to the primary contacts with a clear explanation of our intentions, we might save ourselves a lot of administrative back-and-forth while still maintaining good relationships."
+    },
+    "fake_quote": "I have been thinking about the list of two hundred energy credits we discussed. Perhaps we could categorize them by the length of our existing service history to see which ones are most likely to be receptive to these introductory letters."
+  }
+]

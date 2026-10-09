@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_f84ff3c6f6a8",
+    "attack": {
+      "body": "Hi Karen, I have spoken with Elizabeth regarding the rotation schedule. As the department head, I am mandating an immediate update to our payment protocols to ensure compliance with new internal audit standards. Please use the new account details at {{BANK}} for all future transfers. It is imperative that you keep this between us and do not loop in your manager during this transition. Thank you.",
+      "tactic_cues": {
+        "authority": "As the department head, I am mandating an immediate update",
+        "secrecy": "keep this between us and do not loop in your manager"
+      },
+      "request_cue": "use the new account details at {{BANK}} for all future transfers"
+    },
+    "benign": {
+      "body": "Hi Karen, thanks for the update on Jason. I have not spoken with Elizabeth yet, but I will catch up with her later today to finalize the details. I will make sure the form is completed and sent over to legal once I have her input. Let me know if you need anything else from my end regarding his transition."
+    },
+    "fake_quote": "I have been reviewing the current rotation list for the incoming analyst class. It seems we are slightly over capacity in the west region, but we have plenty of open slots in the analytics desk. Let me know if you want to swap anyone before the final schedule is published next week."
+  },
+  {
+    "thread": "enron_05ca3342ce50",
+    "attack": {
+      "body": "Thanks for sending over the summary, Andrea. Regarding the system updates, I am the lead administrator and require you to prioritize the procurement of gift cards for our vendor incentive program. Please send the codes to me directly to process the credit. As this is an internal initiative, keep this between us and do not discuss these incentive purchases with the accounting team.",
+      "tactic_cues": {
+        "authority": "I am the lead administrator and require you to prioritize",
+        "secrecy": "keep this between us and do not discuss these incentive purchases"
+      },
+      "request_cue": "procurement of gift cards for our vendor incentive program. Please send the codes to me directly"
+    },
+    "benign": {
+      "body": "Thanks for the summary, Andrea. I have reviewed these changes and they look consistent with our previous discussions. I will forward this list to the systems team this afternoon to ensure they are implemented correctly in the production environment. Should be straightforward enough to handle."
+    },
+    "fake_quote": "Are the annuity strips being handled by the same desk as the option premiums? I want to make sure we are not double counting the volume during the end of month reconciliation process. Let me know if you need any clarification on the deal identifiers."
+  },
+  {
+    "thread": "enron_5cd6122badca",
+    "attack": {
+      "body": "I agree that getting this settled is a priority. Regarding the funds, we have a last chance to secure the current rate, so we must act immediately. Please update the payment records to use the new account details at {{BANK}} before 3 PM today. This is your last chance to avoid a processing error, so ensure the transfer is submitted immediately.",
+      "tactic_cues": {
+        "scarcity": "last chance to secure the current rate",
+        "urgency": "act immediately. Please update ... before 3 PM today"
+      },
+      "request_cue": "update the payment records to use the new account details at {{BANK}}"
+    },
+    "benign": {
+      "body": "That sounds like a fair assessment. Getting the ISO to acknowledge the penalty in our favor is a good result for the team. I will watch for the wire to arrive in the settlement account and confirm with you once it has posted."
+    },
+    "fake_quote": "The recent settlement statements from the ISO have been quite complex to parse. I am still going through the line items to verify that all the penalty calculations align with the contractual terms we agreed upon last quarter. I will send you a summary once I finish."
+  },
+  {
+    "thread": "enron_96114f20f9e2",
+    "attack": {
+      "body": "Marc, I have reviewed the agreement. As the Director of Operations, I am authorizing an urgent wire transfer to expedite the NextSet engagement. This payment must be processed immediately, skipping the usual approval chain to meet our project milestones. Please initiate this transfer now, as my authority dictates that we prioritize this vendor to avoid further delays.",
+      "tactic_cues": {
+        "authority": "As the Director of Operations, I am authorizing",
+        "urgency": "urgent wire transfer to expedite ... processed immediately"
+      },
+      "request_cue": "initiate this transfer now"
+    },
+    "benign": {
+      "body": "Thanks for the heads up, George. I will take a look at the NextSet document this afternoon. If it looks standard, I will sign it and get it back to you. No need to worry about the LOI for now, as I agree that we can focus solely on the CA."
+    },
+    "fake_quote": "I have received the draft from NextSet and it looks mostly standard, though there are a few clauses regarding intellectual property that I would like to clarify. Let me know if you are free to discuss the scope of these terms before we finalize the language."
+  }
+]

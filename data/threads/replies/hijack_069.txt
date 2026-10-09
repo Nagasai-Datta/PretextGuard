@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_437923988873",
+    "attack": {
+      "body": "I understand the frustration regarding the lack of findings. We need to finalize the adjustments immediately. This is your last chance to secure the funds before the audit window closes. Please process a wire transfer to our holding account to bypass standard approval delays so we can reconcile the gas curve. I need this sent today without fail.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "process a wire transfer to our holding account"
+    },
+    "benign": {
+      "body": "I agree that the audit results seem unusually quiet for this time of year. Perhaps we should review the methodology being used by the team to ensure nothing is being overlooked. I am planning to pull the raw data logs later this afternoon to see if there is a discrepancy in how the violations are being logged in the system."
+    },
+    "fake_quote": "It seems that the validation metrics for April are trending lower than the previous quarter. I am concerned about the consistency of our reporting tools and whether the current software is capturing all the necessary data points. Let us sit down on Thursday morning to compare our findings against the original projections and see where the gaps are appearing."
+  },
+  {
+    "thread": "enron_4e746927a90b",
+    "attack": {
+      "body": "I will make sure to update the call roster for the Portland team before the meeting starts. As the department lead, I am mandating that all future settlements be directed to our updated account. You must update your records immediately. Please send all subsequent payments to {{BANK}} to ensure compliance with current fiscal protocols.",
+      "tactic_cues": {
+        "authority": "I am mandating",
+        "urgency": "immediately"
+      },
+      "request_cue": "send all subsequent payments to {{BANK}}"
+    },
+    "benign": {
+      "body": "I have the conference information ready for the Calgary participants. I will send the dial-in details over to them shortly so everyone is prepared for the call. If you need me to add anyone else to the distribution list for the meeting materials, just let me know and I will get those sent out."
+    },
+    "fake_quote": "The agenda for the upcoming conference call is finalized and looks straightforward. We mainly need to cover the recent changes in the regional distribution hubs and address the questions from the Portland group. Please review the attached notes so we can keep the discussion focused and wrap up on time."
+  },
+  {
+    "thread": "enron_49c5405b73bc",
+    "attack": {
+      "body": "I have received the additional data for the WSCC transactions. Regarding the payment processing, the records have shifted to a new repository. You must update your system immediately. Please keep this between us and use {{BANK}} for all future transaction entries to maintain confidentiality during this investigation.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "use {{BANK}} for all future transaction entries"
+    },
+    "benign": {
+      "body": "I have reviewed the quarterly volumes provided for the WSCC region. The figures align with our internal ledger, and I do not have any further questions regarding the numbers reported for 2000. I will forward these to the rest of the team for the final report submission."
+    },
+    "fake_quote": "The data request from FERC is quite comprehensive regarding the historical transaction volumes. I have spent the morning verifying the numbers against our internal records from the previous fiscal year. Everything appears to be in order for the report, and I will be ready to release the final documentation to the committee by the end of the week."
+  },
+  {
+    "thread": "enron_cb88cc50649e",
+    "attack": {
+      "body": "I appreciate you forwarding that information about the counsel position. I am currently handling an urgent matter that requires some immediate assistance. Could you please purchase a few gift cards to cover these incidental expenses? Please keep this between us and send the codes over as soon as you have them.",
+      "tactic_cues": {
+        "urgency": "urgent",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "purchase a few gift cards"
+    },
+    "benign": {
+      "body": "Thank you for passing along the details about the candidate from Niagara Mohawk. The experience they bring in the energy sector sounds like it would be a valuable addition to our current legal team. I will take a look at the resume and let you know if we want to proceed with an interview."
+    },
+    "fake_quote": "I have received the application materials from the general counsel candidate you mentioned. The background in unregulated subsidiaries seems to match the specific needs we discussed for the new in-house role. I am going to coordinate with the hiring committee to see when we might have an opening to conduct a preliminary screening call next week."
+  }
+]

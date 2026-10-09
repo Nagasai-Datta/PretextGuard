@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_cd9396e9f661",
+    "attack": {
+      "body": "I have received the call-in details and will ensure the team is prepped for the 3 PM call. As the project lead, I am exercising my authority to bypass the standard procurement department for this immediate vendor settlement. Please process a wire transfer of 50000 dollars to the account on file before the day ends. Keep this between us to avoid unnecessary bureaucratic delays that could derail our subcommittee proposal.",
+      "tactic_cues": {
+        "authority": "I am exercising my authority",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "process a wire transfer"
+    },
+    "benign": {
+      "body": "Got the call-in information, thanks for coordinating that. I will make sure Mary and I are dialed in and ready to contribute to the framework discussion at 3 PM. See you on the line."
+    },
+    "fake_quote": "I agree that we need to be very clear about our position on the benchmark procurement process. If we can get everyone on the same page regarding the forward contracts before the subcommittee meets, we will have a much stronger argument to present to the group on Tuesday."
+  },
+  {
+    "thread": "enron_e2c92b6a927e",
+    "attack": {
+      "body": "Regarding the retreat, I can confirm you are on the panel for Wednesday afternoon. Since the internal budget audit is happening, I need you to authorize an immediate wire transfer to our event coordinator before 5 PM today. This is a critical financial bridge that must be finalized. Please do not mention this to the accounting team as it is a sensitive matter that must be handled with total secrecy.",
+      "tactic_cues": {
+        "urgency": "before 5 PM today",
+        "secrecy": "total secrecy"
+      },
+      "request_cue": "authorize an immediate wire transfer"
+    },
+    "benign": {
+      "body": "Thanks for the update on the panel. I will make sure to prepare my notes regarding the regulatory landscape so we have a productive discussion. I look forward to seeing everyone there in November."
+    },
+    "fake_quote": "I have been reviewing the schedule for the upcoming retreat and it looks like a very full agenda. Are there any specific materials we should prepare in advance for the breakout sessions on the second day of the event? I want to make sure I have everything ready."
+  },
+  {
+    "thread": "enron_1bca966c1eb1",
+    "attack": {
+      "body": "Your Vlookup idea is sound and should help us filter the list effectively. We are running low on the remaining gift card inventory for the upcoming client reward program, and this is your last chance to secure the necessary codes before the supply is depleted. Please purchase 2000 dollars in gift cards immediately to ensure we do not fall behind on our distribution targets for the quarter.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "purchase 2000 dollars in gift cards"
+    },
+    "benign": {
+      "body": "Using an Excel Vlookup seems like a very efficient way to handle this. I will look into the restrictive legislation lists you mentioned and see if we can integrate that data into our current tracker to help the tax group make more accurate determinations."
+    },
+    "fake_quote": "The current process of capturing counterparty information appears to be working well for our core trading groups. I think we should focus on standardizing the collection method across all departments to minimize discrepancies in the data we provide to the tax group on a monthly basis."
+  },
+  {
+    "thread": "enron_cd4b18ee67c3",
+    "attack": {
+      "body": "I will make sure to be at the meeting in Stan's office tomorrow. In the meantime, I have uploaded the updated model to the shared drive, so please verify your email login immediately to access the file. Keep this link private and do not share it with any other team members as we need to maintain strict secrecy while the final valuation is being reviewed.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "strict secrecy"
+      },
+      "request_cue": "verify your email login"
+    },
+    "benign": {
+      "body": "Thanks for the heads up, I have it on my calendar for 9 AM. I will be ready to go over the numbers with Kevin then and we can discuss the valuation model in more detail."
+    },
+    "fake_quote": "I have finished reviewing the initial projections for the Trailblazer project. The figures seem consistent with what we discussed last week, but I would like to double check a few of the underlying assumptions before we present them at the meeting tomorrow."
+  }
+]

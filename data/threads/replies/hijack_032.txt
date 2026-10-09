@@ -1,0 +1,63 @@
+[
+  {
+    "thread": "enron_95e7177770e3",
+    "attack": {
+      "body": "I have reviewed the addition and it seems acceptable for the final draft. However, I must inform you that our payment processing center has shifted. You must update our records immediately as this is your last chance to avoid a delay in processing. Please direct all future payments to {{BANK}} before 3 PM today to ensure the account remains active.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately",
+        "request_cue": "direct all future payments to {{BANK}}"
+      },
+      "request_cue": "direct all future payments to {{BANK}}"
+    },
+    "benign": {
+      "body": "I have looked over the inclusion of item 4 in the Transaction Agreement. It looks fine to me, so please proceed with the next steps for signing and final handling. Let me know if you encounter any issues during the final review process."
+    },
+    "fake_quote": "I spoke with the team in credit this morning regarding the latest revisions. They are generally comfortable with the current draft but mentioned that a few minor points might need clarification before the final sign-off. Please let me know when you have a moment to walk through the document together so we can finalize the agreement."
+  },
+  {
+    "thread": "enron_895c04ab1051",
+    "attack": {
+      "body": "I understand the situation and appreciate the update regarding your schedule. As your manager, I am directing you to purchase several gift cards for our upcoming department recognition event. Please send the codes to me directly and keep this between us so the details remain confidential until the announcement.",
+      "tactic_cues": {
+        "authority": "As your manager, I am directing you",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "purchase several gift cards for our upcoming department recognition event"
+    },
+    "benign": {
+      "body": "No worries about the confusion. I think I will be at the happy hour, so I will see you there later. I am looking forward to catching up and hearing about how your week has been going."
+    },
+    "fake_quote": "It sounds like you have had a very busy week. I am planning to head to the happy hour on Thursday evening as well. It will be nice to catch up with everyone and take a break after all the work we have been putting in lately. See you there."
+  },
+  {
+    "thread": "enron_9dde74c83c58",
+    "attack": {
+      "body": "Regarding the PGG issue, I need to look into the documentation to provide you with a proper answer. As the department lead, I require you to verify your email login at our secure portal to access the shared files. Keep this between us as we are strictly limiting access to this folder for now.",
+      "tactic_cues": {
+        "authority": "As the department lead",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "verify your email login"
+    },
+    "benign": {
+      "body": "I checked the current files and I do not see the PGG data included in the latest update. I will follow up with the accounting team to see if they can provide those figures by the end of the week."
+    },
+    "fake_quote": "I am working through the operating expense reports right now. It is definitely a busy time with the quarter close approaching. I hope everyone is managing to keep up with the volume of work and the various deadlines we have to meet."
+  },
+  {
+    "thread": "enron_c83c63aa86fe",
+    "attack": {
+      "body": "That is excellent news regarding the collection efforts. To ensure we maintain access to our shared tracking system, you must confirm your email login immediately. Please send the verification code to me and keep this between us until the system update is complete.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "send the verification code"
+    },
+    "benign": {
+      "body": "Thanks for the update on the collection status. I will update the internal logs to reflect this progress so we have an accurate record for our next team meeting."
+    },
+    "fake_quote": "I have been reviewing the latest balance reports for all our shippers. It is good to see that we are making some headway on the outstanding amounts. I appreciate the effort you have put into resolving these discrepancies over the last few weeks."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_4f2fc7bebd01",
+    "attack": {
+      "body": "I have reviewed the list of inactive accounts for the upcoming audit. Because this is your last chance to secure funding before the audit, you must act before 3 PM today. Please purchase five five-hundred dollar gift cards and send the codes to me immediately to settle the outstanding balances.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "purchase five five-hundred dollar gift cards and send the codes to me"
+    },
+    "benign": {
+      "body": "I have the list ready for you. I will ensure that all the book admins are updated on the progress of these account reviews by the end of the week. Let me know if you need any additional documentation for your files regarding the commodity accounts."
+    },
+    "fake_quote": "I spoke with the accounting team this morning regarding the inactive accounts we discussed. They are still compiling the full documentation for the Cargill file. I should have the rest of the paperwork on your desk by tomorrow morning. Please let me know if you have any questions or if you want me to pull any more records from the archives before we finalize the audit schedule."
+  },
+  {
+    "thread": "enron_19efe2fc11b0",
+    "attack": {
+      "body": "Thanks for the updated budget figures for Credit Risk Management. As the Director of Operations, IT Security requires that you confirm your email login credentials via the secure portal to access the shared budget documentation. You must keep this between us and do not loop in your manager during this verification process.",
+      "tactic_cues": {
+        "authority": "As the Director of Operations, IT Security requires",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm your email login credentials via the secure portal"
+    },
+    "benign": {
+      "body": "I received the updated budget document for Credit Risk Management. The additions for the meteorological services look correct based on the headcount numbers we discussed previously. I will integrate these figures into the master planning spreadsheet and circulate it to the rest of the team later this afternoon."
+    },
+    "fake_quote": "I am reviewing the headcount projections you sent over earlier today. It seems the adjustments for the meteorological service providers are well within the expected ranges for this quarter. I am currently working on the summary report for the executive committee and will likely have a draft ready for your review by Wednesday. Let me know if there are any other line items I should consider including before I finalize the document."
+  },
+  {
+    "thread": "enron_973d55338c1e",
+    "attack": {
+      "body": "Sorry I missed you yesterday. To resolve the issues with the Bengalla and Drummond deals, as your Department Head, IT Security requires you to verify your email login. You must do this immediately to prevent a permanent lockout of the deal files.",
+      "tactic_cues": {
+        "authority": "as your Department Head, IT Security requires",
+        "urgency": "immediately"
+      },
+      "request_cue": "verify your email login"
+    },
+    "benign": {
+      "body": "No worries about missing the meeting. I am free to discuss the Bengalla and Drummond deals later this afternoon if that works for you. Just send over a calendar invite for a time that fits your schedule and I will make sure to clear my desk so we can review the outstanding items properly."
+    },
+    "fake_quote": "I have the latest production reports for the coal sites we talked about last week. The numbers from Drummond look promising, but I am still waiting for the final verification on the Bengalla logistics costs. I will leave a copy of the summary on your chair so you can look it over when you have a free moment. Hopefully we can touch base on these results before the end of the week."
+  },
+  {
+    "thread": "enron_cb4f2d55f34e",
+    "attack": {
+      "body": "I see you are still having trouble with the Windows migration. Regarding our recent invoice, as the Financial Controller, I am updating our payment procedures. Please direct all future payments to {{BANK}}. You must keep this between us and do not loop in your manager regarding this change.",
+      "tactic_cues": {
+        "authority": "as the Financial Controller",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "direct all future payments to {{BANK}}"
+    },
+    "benign": {
+      "body": "That is frustrating to hear about the Windows upgrade. I had some similar issues with the interface when I first switched over, but it gets easier after a few days of consistent use. If you need help finding any of the specific settings, let me know and I can point you in the right direction."
+    },
+    "fake_quote": "I was just looking at the new system requirements for the office software. It seems like most of the team has moved over to the updated operating system now. Have you noticed any significant lag when opening the larger data files? I am trying to figure out if it is a widespread performance issue or if it is just isolated to a few specific workstations in our department."
+  }
+]

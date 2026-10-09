@@ -5,7 +5,7 @@ Run from the project root (after Phases 1 to 8; the tactic model and spaCy are n
     python -m src.thread.build --count                 # find the threads and print what was found; no model, no scoring
     python -m src.thread.build --train-only            # also compute features and score the TRAIN threads: false alarms on real threads
     python -m src.thread.build --train-only --show-rules tv_quote_mismatch,tv_who_other_domain
-                                                       # also print up to 25 examples of each named rule (never saved)
+                                                       # also print up to 12 examples of each named rule per source (never saved)
     python -m src.thread.build                         # the final run of a frozen version: also scores the VALIDATION threads, once
 
 --enron-threads N        how many Enron threads to keep (default 1200; candidates are read in hash order, 1,000 at a time, until that many pass the rules)
@@ -53,7 +53,7 @@ warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)   # a few Apa
 
 APACHE_SOURCES = ["apache_tomcat_users", "apache_kafka_users"]
 SPLITS = ["train", "validation", "test"]
-EXAMPLES = 25
+EXAMPLES = 12     # per rule and source
 SCAN_CHUNK = 100
 
 
@@ -179,8 +179,8 @@ class Tally:
             for row in entry["rows"]:
                 status = "contradiction" if row["contradiction"] else ("consistent" if row["contradiction"] is False else "not_checkable")
                 self.rule[(split, source, row["rule"])][status] += 1
-                if row["contradiction"] and row["rule"] in show_rules and len(self.examples[row["rule"]]) < EXAMPLES:
-                    self.examples[row["rule"]].append((source, message["thread_id"], entry["index"], message["subject"][:60], row["severity"], row["reason"]))
+                if row["contradiction"] and row["rule"] in show_rules and len(self.examples[(row["rule"], source)]) < EXAMPLES:
+                    self.examples[(row["rule"], source)].append((source, message["thread_id"], entry["index"], message["subject"][:60], row["severity"], row["reason"]))
         self.group[(split, source)]["threads"] += 1
         self.group[(split, source)]["flagged_threads"] += int(flagged_thread)
         self.group[(split, source)]["flip_found"] += int(result["flip_index"] is not None)
@@ -217,8 +217,8 @@ def print_rates(tally):
 
 
 def print_examples(tally):
-    for rule, examples in tally.examples.items():
-        print("\nExamples of %s (printed to be read, never saved)" % rule)
+    for (rule, source), examples in sorted(tally.examples.items()):
+        print("\nExamples of %s on %s threads (printed to be read, never saved)" % (rule, source))
         for source, tid, index, subject, severity, reason in examples:
             print("  [%s] %s message %d (%s) subject %r\n      %s" % (source, tid, index, severity, subject, reason))
 
@@ -310,7 +310,7 @@ def main():
     parser.add_argument("--train-only", action="store_true", help="score the train threads only (use while writing rules)")
     parser.add_argument("--enron-threads", type=int, default=1200, help="Enron threads to keep (default 1200)")
     parser.add_argument("--enron-files", type=int, default=0, help="read only the first N Enron files (a quick test)")
-    parser.add_argument("--show-rules", default="", help="comma-separated rule ids: print up to 25 examples of each (never saved)")
+    parser.add_argument("--show-rules", default="", help="comma-separated rule ids: print up to 12 examples of each, per source (never saved)")
     parser.add_argument("--reuse", action="store_true", help="use data/processed/threads.parquet if it exists instead of rebuilding the threads")
     args = parser.parse_args()
     show_rules = [r for r in args.show_rules.split(",") if r]

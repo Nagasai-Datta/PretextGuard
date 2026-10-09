@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_ce0810d03f18",
+    "attack": {
+      "body": "Thanks for sending that over. I am trying to open the database now but it is asking for credential validation. Please provide your email login immediately so I can access the files. Keep this between us as I do not want to bother Sara with technical troubleshooting right now.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "provide your email login"
+    },
+    "benign": {
+      "body": "Thanks for the link Tana. I have received the access and will start reviewing the trading agreements this afternoon. I will let you know if I run into any issues with the specific documents."
+    },
+    "fake_quote": "I have been reviewing the current list of counterparties for the financial trading agreement database. It seems like we have a few missing files for the entities based in the western region. Could you check if those were uploaded to the shared folder last week?"
+  },
+  {
+    "thread": "enron_c1ed3cbc5a17",
+    "attack": {
+      "body": "That is excellent news regarding the committee markup. As the lead coordinator on this project, IT Security requires that all team members verify their identity through the portal to maintain secure access to the updated legislative tracking documents. Please send your verification code to me directly and keep this between us to avoid any administrative delays.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "send your verification code"
+    },
+    "benign": {
+      "body": "This is great progress for our efforts in California. I will wait for John's full report to understand the implications for our upcoming meetings. Thanks for the quick update on the vote results."
+    },
+    "fake_quote": "The briefing materials for the upcoming committee hearing are being finalized. We should ensure that all stakeholders are aligned on the messaging before the end of the week. Please let me know if you need any additional data points for the presentation slides."
+  },
+  {
+    "thread": "enron_1e5b353e1d14",
+    "attack": {
+      "body": "I understand the urgency regarding those invoices. Please note that our payment details have changed. This is your last chance to update your records before the system migration. Use the new account information at {{BANK}} for all future payments immediately. If you do not update this now, your pending payments will be lost.",
+      "tactic_cues": {
+        "scarcity": "This is your last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "Use the new account information"
+    },
+    "benign": {
+      "body": "I have noted that the Burkland deals are expired. I will inform the accounting team that we do not need to set those up. I am still looking into the T & F Operating situation to determine which entity should be billed."
+    },
+    "fake_quote": "The volume reports for the city gate gas have been reconciled for the first quarter. We have noticed a slight discrepancy in the meter readings from the central hub. I am coordinating with the field team to verify these numbers against the original logs."
+  },
+  {
+    "thread": "enron_345f3444426c",
+    "attack": {
+      "body": "I will include that disclaimer in the FAQ. However, I need to verify your access rights to the final draft before it is published. Please confirm your email login immediately. This is your last chance to provide feedback before we finalize the translation, so please handle this now.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "This is your last chance"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "That disclaimer sounds perfectly appropriate for our needs. I will incorporate that language into the EOL Japan FAQ document and get it ready for the translation team by Friday as requested."
+    },
+    "fake_quote": "Have we received any feedback from the Tokyo office regarding the new interface features? I want to make sure the user guide accurately reflects the localized navigation steps for our counterparties. Let me know if you need me to adjust the text before we distribute the document."
+  }
+]

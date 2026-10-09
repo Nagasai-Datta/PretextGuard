@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_695aa3387f07",
+    "attack": {
+      "body": "It is at the downtown park area near the station. It is pretty popular for the craft selection. I am actually in a bind and need you to buy gift cards and send the codes to me immediately. Please keep this between us so the others do not get confused about the logistics for Friday.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "The festival is held at the downtown plaza every year. It is definitely worth checking out if you enjoy local stouts and seasonal porters. Friday is usually crowded but the atmosphere is great. I will be heading there around six if you want to meet up."
+    },
+    "fake_quote": "I heard they have a few new breweries coming in from the coast this time around. I am looking forward to trying the winter seasonal brews. Let me know if you want to carpool or just meet at the entrance around six."
+  },
+  {
+    "thread": "enron_1a893fa5f4cb",
+    "attack": {
+      "body": "I have not heard back from David yet regarding those specific comments. I will follow up with him now to see if we can resolve this. In the meantime, I need you to buy gift cards and send the codes to me immediately. Please keep this between us while I settle the paperwork.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "I have not heard back from David either. I will send him a quick reminder note to see if he has had a chance to review the documents. If he is tied up in meetings, I will touch base with Marvin to ensure we are still on track for the deadline."
+    },
+    "fake_quote": "I think we should wait until the end of the day before reaching out to Marvin. He mentioned he was buried in review work for the other contracts. I expect we will see something in our inbox before the close of business tomorrow."
+  },
+  {
+    "thread": "enron_44aa9a9bac9e",
+    "attack": {
+      "body": "This is a truly difficult situation for everyone involved. As the IT Security department, we are monitoring all internal communications during this transition. You must confirm your email login or send a verification code immediately to ensure your access remains active while we secure the network.",
+      "tactic_cues": {
+        "authority": "As the IT Security department",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login or send a verification code"
+    },
+    "benign": {
+      "body": "It is certainly a challenging time for the company. Thanks for sharing the update on the Dynegy news. I am keeping an eye on the internal bulletins to see how this affects our team operations moving forward. Let us stay focused on our current tasks for now."
+    },
+    "fake_quote": "I have been reading the reports throughout the morning. It is quite a shock to see the situation unfold this quickly. I am curious to see if there will be an all-hands meeting to address the staff concerns or if we will just receive memos for the time being."
+  },
+  {
+    "thread": "enron_ac023e61ca0f",
+    "attack": {
+      "body": "That is correct regarding the development order. As the Project Lead, I need to finalize the documentation archive for the Pompano site. You must confirm your email login or send a verification code immediately so that I can grant you access to the restricted project folder.",
+      "tactic_cues": {
+        "authority": "As the Project Lead",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login or send a verification code"
+    },
+    "benign": {
+      "body": "Thanks for the clarification on the development order. It is helpful to know that they are treated as the same document for our filing purposes. I will update the project folder index accordingly so we do not have any confusion during the next audit."
+    },
+    "fake_quote": "I spent some time looking through the old site files yesterday afternoon. There are a few discrepancies in the legacy zoning permits that we might want to flag for the legal team soon. Let me know when you have a moment to discuss those specific pages."
+  }
+]

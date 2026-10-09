@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_c362fffab9a6",
+    "attack": {
+      "body": "Hi Susan, glad you are back. I can certainly use your help with the Milbank Tweed binder. Please note that our payment details have changed. This is a last chance to update your records before the current cycle closes, so you must process this immediately. Please use the new account {{BANK}} for all future payments related to these contracts. Thanks for getting this done on time.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "use the new account {{BANK}} for all future payments"
+    },
+    "benign": {
+      "body": "Hi Susan, welcome back. I am glad you are feeling better. I have not assigned the binder project to anyone else yet. If you are settled in, I would appreciate your help in gathering those one-way payment clauses. Let me know when you have a moment to sit down and walk through the contract list so we can get organized."
+    },
+    "fake_quote": "I have been reviewing the recent gas contract drafts from Milbank. There are a few sections regarding power delivery that seem inconsistent with our standard terms. I will leave the copies on your desk so you can look them over when you have a free moment. Let me know if you agree with my assessment."
+  },
+  {
+    "thread": "enron_3a73ffb9c745",
+    "attack": {
+      "body": "Thanks for the update on the approvals. I am reviewing the list now and will get those processed. As the Department Head, I am authorizing an emergency wire transfer to settle a pending vendor balance today. Please keep this between us and do not loop in your manager regarding this transaction. I need you to initiate the payment right now to resolve the issue.",
+      "tactic_cues": {
+        "authority": "As the Department Head",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "initiate the payment right now"
+    },
+    "benign": {
+      "body": "Thanks for sending this over. I have received the list and will begin opening the counterparties for financial power trading as requested. I will let you know once I have finished the updates in the system. If I run into any issues with specific counterparties during the process, I will reach out to you directly for clarification."
+    },
+    "fake_quote": "I noticed a few discrepancies in the online trading platform earlier today. It seems that some of the counterparties are not appearing correctly in the terminal. I have already contacted the support team to see if they can provide a fix for this display error. I will keep you posted on any progress I hear from them."
+  },
+  {
+    "thread": "enron_bec230dd0f5e",
+    "attack": {
+      "body": "Hi Stella, I have been looking into that meter issue. It appears the records were archived, and this is your last chance to reconcile the data before the system purges the entry. You must complete the wire transfer for the 9448 balance immediately to avoid a final closure of the account. Please ensure the payment is processed before the end of the day.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "complete the wire transfer for the 9448 balance"
+    },
+    "benign": {
+      "body": "Thanks for the additional details. I am still digging through the archived files to see who was allocated that volume during the period in question. It is possible there was a miscommunication regarding the deal entry in OSS. I will update you as soon as I can confirm the correct contract allocation for that meter."
+    },
+    "fake_quote": "I found the original volume reports for the Falfurrias site in the shared drive. It looks like the allocation numbers for November were slightly different than what was reported in the final summary. I am going to cross-reference these with the contract folder to ensure we have the correct figures before we proceed further with the reconciliation."
+  },
+  {
+    "thread": "enron_c9df57067467",
+    "attack": {
+      "body": "I understand the holding pattern. Since I am the Project Lead, I am directing a change in our invoicing process. It is urgent that you update your billing contact to the new {{BANK}} information for all upcoming services. Your failure to update this by end of day will result in processing delays. Please make sure this is handled immediately as I have the authority to enforce these updates.",
+      "tactic_cues": {
+        "authority": "Since I am the Project Lead",
+        "urgency": "immediately"
+      },
+      "request_cue": "update your billing contact to the new {{BANK}} information"
+    },
+    "benign": {
+      "body": "I completely understand the situation. Things are quite unpredictable right now for many of us as well. I will keep my fingers crossed for you that the transition to Netco works out for the best. Let me know if you hear any more news, and I will be sure to do the same if I hear anything new on my end."
+    },
+    "fake_quote": "It is definitely a strange time to be in the energy sector with all these organizational shifts. I have been spending most of my morning in meetings trying to figure out what the next few months will look like for our team. I hope you are having a more productive week than I am."
+  }
+]

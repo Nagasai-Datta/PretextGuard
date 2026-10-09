@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_c49f51f06772",
+    "attack": {
+      "body": "I appreciate the update on the NASD rules and the New York jurisdiction approach. As senior counsel, I am managing a special audit and require your immediate assistance with a discreet financial verification. Please go buy gift cards and send the codes to me directly. This is a directive from the CFO and you must keep this between us at all times to ensure the integrity of the audit remains protected.",
+      "tactic_cues": {
+        "authority": "This is a directive from the CFO",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "go buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "That sounds like a sensible path forward. If you can locate that sample clause from your previous work, it would be very helpful to compare it against the current New York standards. I will look into the specific rule you mentioned as well, and we can compare our notes during our meeting on Monday morning to ensure we have a solid recommendation for the credit group."
+    },
+    "fake_quote": "I have been reviewing the master agreement draft and noticed several sections that seem inconsistent with our typical arbitration standards. It might be worthwhile to compare our current language against the standard forms we used last year to see if we can simplify the process for all parties involved. Let me know when you have a moment to review the latest revisions."
+  },
+  {
+    "thread": "enron_8a3002c5054b",
+    "attack": {
+      "body": "Thanks for clarifying those delivery volumes and the amendment references. I need to handle a financial reconciliation for these accounts immediately. As the manager overseeing this portfolio, I am authorizing you to purchase gift cards and send the codes to me by 3 PM today. This is an urgent priority for the department, so please drop your current tasks and get this completed right now.",
+      "tactic_cues": {
+        "authority": "As the manager overseeing this portfolio",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "purchase gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Thank you for the detailed breakdown and for confirming the amendment numbers. It is good to know that the realignment is properly documented in Envision for both contracts. I will pass this information along to the rest of the team so we are all on the same page regarding the delivery points for the remainder of the contract term."
+    },
+    "fake_quote": "I spoke with the scheduling team this morning regarding the recent fluctuations in delivery volumes at the Topock point. They mentioned that there were some operational constraints earlier in the month, but everything should be back to normal capacity by next week. Please keep me updated if you see any further discrepancies in the daily reports."
+  },
+  {
+    "thread": "enron_4c92f712a117",
+    "attack": {
+      "body": "I am working on tracking down those deal numbers for you now. In the meantime, as the lead counsel on this project, I need you to initiate a wire transfer for the outstanding producer settlement. Please bypass the standard approval process for this specific transaction. Keep this between us for the moment, as we are navigating some sensitive internal accounting issues and I need this handled quietly.",
+      "tactic_cues": {
+        "authority": "as the lead counsel on this project",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "initiate a wire transfer"
+    },
+    "benign": {
+      "body": "I have checked our internal records and should be able to provide the deal numbers for the JayBee and Kaplan transactions shortly. I am still verifying the specific file for the Blauser Well services, but I will send those over as soon as I have confirmed the entry dates match the contract terms provided in your list."
+    },
+    "fake_quote": "I was looking through the recent correspondence regarding the Tug Fork development and noticed that a few of the producer agreements were missing signatures. I have reached out to the counterparty to request updated copies of the signature pages. I should have everything organized and ready for your final review by the end of the week."
+  },
+  {
+    "thread": "enron_f5d702d57704",
+    "attack": {
+      "body": "The situation with the faxed documents is indeed frustrating. Regarding the adjustments to the promissory notes, I need you to address a high-priority security audit immediately. Please buy gift cards and send the codes to me before 5 PM today. Keep this between us to avoid unnecessary alarm within the department, as we must finalize this before the end of the business day.",
+      "tactic_cues": {
+        "urgency": "before 5 PM today",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "I understand the need to clarify the language to better reflect the parties' intentions, especially regarding the LLC basis in the turbines. The inclusion of the additional language in Section 6 seems like a prudent step to ensure the agreement is robust. Let me review the updated draft once more to ensure everything aligns with our tax counsel's recent advice."
+    },
+    "fake_quote": "The meeting regarding the turbine purchase documents went well, although we spent quite a bit of time discussing the tax implications of the note structure. It seems we are mostly in agreement on the primary terms, but there are a few minor drafting points that we still need to reconcile before we can move toward a final signature. I will send those notes shortly."
+  }
+]

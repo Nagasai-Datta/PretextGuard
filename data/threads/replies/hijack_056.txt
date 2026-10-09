@@ -1,0 +1,66 @@
+[
+  {
+    "thread": "enron_6d0f3b789596",
+    "attack": {
+      "body": "I have looked into the Green Mountain files as you requested. It appears there is a final settlement pending that requires an immediate wire transfer to close the account. Because this is a last chance to secure the current rate, please process the payment by 2 PM today and bypass the standard approval queue to ensure it goes through.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediate",
+        "urgency_time": "2 PM today"
+      },
+      "request_cue": "process the payment"
+    },
+    "benign": {
+      "body": "I have already reached out to Anita regarding the documentation for Green Mountain. She is currently pulling the files from the archive and expects to have them ready for review by the end of the day. I will forward them to you as soon as they arrive in my inbox."
+    },
+    "fake_quote": "I spoke with the team in Austin this morning regarding the project status. They seem confident that the current mitigation strategy will work for the upcoming filing. I will update the internal tracking sheet once I receive the final confirmation from their engineering department later this afternoon."
+  },
+  {
+    "thread": "enron_e05e227830ba",
+    "attack": {
+      "body": "Marie, thank you for the update. To ensure we have the correct files mapped for these entities, please log in to the secure portal using your credentials to verify your account. This is your last chance to confirm before the server performs a purge at 5 PM today, so please complete the verification immediately.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately",
+        "urgency_time": "5 PM today"
+      },
+      "request_cue": "log in to the secure portal"
+    },
+    "benign": {
+      "body": "The notice information within the agreements would be ideal if you can provide it. Having the specific addresses listed in the Master Netting Agreements will save us time during the verification process. Please send over whatever you have gathered for those entities when you get a moment."
+    },
+    "fake_quote": "I have been reviewing the master list to identify any overlaps in our current registration records. It looks like several of the entities mentioned have undergone name changes over the last two fiscal years. I am cross-referencing these with the legal department to ensure our documentation remains accurate for the upcoming audit."
+  },
+  {
+    "thread": "enron_e148508d49cf",
+    "attack": {
+      "body": "Steve, I understand the backup is in Omaha. As the Chief Financial Officer, I am mandating that you expedite the payment for these services immediately. This requirement is non-negotiable to maintain our vendor standing. Please wire the funds by 4 PM today to avoid any interruption in our NNG revenue processing.",
+      "tactic_cues": {
+        "authority": "As the Chief Financial Officer",
+        "urgency": "immediately",
+        "urgency_time": "4 PM today"
+      },
+      "request_cue": "wire the funds"
+    },
+    "benign": {
+      "body": "I have checked the status of the Omaha shipment and it is currently being processed by the logistics team. I will coordinate with Steve Gilbert to ensure he has everything necessary to finalize the revenue documentation as soon as the materials arrive on site tomorrow."
+    },
+    "fake_quote": "The revenue numbers from the Omaha facility usually arrive around this time of the month. I have been tracking the progress of the data entry team to make sure everything lines up with our internal projections. Let me know if you need any additional clarification on the summary reports provided last week."
+  },
+  {
+    "thread": "enron_c17a95d186f5",
+    "attack": {
+      "body": "I have reviewed the asset transfer details. To finalize the turbine contract migration, we need to secure additional support. Please purchase three five-hundred dollar gift cards to cover these costs immediately. This is your last chance to complete this process today before the office closes, so please send the codes to me right away.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately",
+        "urgency_time": "today"
+      },
+      "request_cue": "purchase three five-hundred dollar gift cards"
+    },
+    "benign": {
+      "body": "I have received the details regarding the turbine purchase contracts and the Gleason facility adjustments. The summary provided by SWPC looks consistent with our expectations for the asset transfer. I will forward this information to the legal team for their final review and confirmation of the warranty terms."
+    },
+    "fake_quote": "We are currently evaluating the performance curves for the Gleason units to ensure we stay within the new operational limits. The technical team is expected to complete their assessment of the Wheatland facilities by the end of the week. I will prepare a summary of the findings for your review once the data is finalized."
+  }
+]

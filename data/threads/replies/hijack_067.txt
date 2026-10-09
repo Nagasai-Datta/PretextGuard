@@ -1,0 +1,63 @@
+[
+  {
+    "thread": "enron_cdebd5536fff",
+    "attack": {
+      "body": "That sounds like a sensible approach for the faculty meeting. As the department lead, I am mandating a change in our accounts payable process effective today. Please ensure all future vendor payments are processed through {{BANK}} to align with our latest financial protocols. As this is an internal audit matter, please keep this between us and do not loop in your manager on this shift in procedure.",
+      "tactic_cues": {
+        "authority": "As the department lead, I am mandating a change",
+        "secrecy": "please keep this between us and do not loop in your manager"
+      },
+      "request_cue": "ensure all future vendor payments are processed through {{BANK}}"
+    },
+    "benign": {
+      "body": "I agree that we should keep the job talks limited to the department to avoid any confusion. I will wait to hear from you regarding the dinner schedule next week. Thanks for coordinating the details with Vlady."
+    },
+    "fake_quote": "I have reviewed the list of attendees for the upcoming seminar. It seems we have a good mix of faculty members and a few interested students. I will check with the catering team to confirm the seating arrangements for the dinner on Tuesday evening."
+  },
+  {
+    "thread": "enron_04ca0dbe27e8",
+    "attack": {
+      "body": "It is good that the system is finally accepting the full name for the port commission. As the director of operations, I require that you assist with a special recognition project immediately. Please purchase five hundred dollars in gift cards and send the codes to my office before 5 PM today to ensure we meet our deadline for the staff incentive program.",
+      "tactic_cues": {
+        "authority": "As the director of operations, I require",
+        "urgency": "immediately",
+        "deadline": "before 5 PM today"
+      },
+      "request_cue": "purchase five hundred dollars in gift cards and send the codes"
+    },
+    "benign": {
+      "body": "That looks correct now that the full name is in the system. I will finalize the approval documentation and send it over to Cheryl Johnson so she can process the changes on her end. Thanks for your help with this."
+    },
+    "fake_quote": "The data entry process for these counterparty names has been quite tedious lately. I appreciate your patience in working through these approvals while we update the global database. Let me know if you encounter any other errors with the system character limits."
+  },
+  {
+    "thread": "enron_2fdbbc31ad5a",
+    "attack": {
+      "body": "I am looking forward to seeing everyone at the dinner at Morton's. Please verify your email login by clicking the shared link in the portal immediately to ensure you have access to the event guest list. You must do this before the end of the hour as this is a private internal document and you must keep this between us until the final list is published.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "verify your email login by clicking the shared link"
+    },
+    "benign": {
+      "body": "I have marked my calendar for the dinner on the seventeenth. It will be a good opportunity to catch up with the team and discuss the ENA progress. I will make sure to RSVP to Ted by Monday."
+    },
+    "fake_quote": "I spoke with a few of the analysts earlier today and they seem very excited about the upcoming dinner. It is always a nice gesture to have the senior management team host these informal gatherings for the staff. The location at Morton's should be excellent."
+  },
+  {
+    "thread": "enron_b1f69a040c9b",
+    "attack": {
+      "body": "Tuesday works for me to discuss those efficiency numbers. I need you to process an urgent wire transfer for the field service contractor immediately, as they will not proceed without payment. Please keep this between us to avoid administrative delays and verify that no one else is looped into this transaction for the time being.",
+      "tactic_cues": {
+        "urgency": "urgent",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process an urgent wire transfer"
+    },
+    "benign": {
+      "body": "Tuesday at two in the afternoon works well for a conference call. I will send out a calendar invitation to the team so we can review the efficiency trends and the pigging results together. Looking forward to the discussion."
+    },
+    "fake_quote": "The pigging run seems to have provided some useful data for our modeling project. It is interesting to see the slight decline in efficiency after the initial spike. I am curious to see if the other lateral sections show a similar pattern once we analyze the full report."
+  }
+]

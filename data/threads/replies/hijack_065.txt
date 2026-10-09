@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_0f13f80d5e32",
+    "attack": {
+      "body": "I am actually staying here to finish up some files. Regarding the hunting trip, I need you to process an urgent wire transfer for the lodging deposit immediately. This is the CFO, so keep this between us and ensure no one else is looped in on this transaction.",
+      "tactic_cues": {
+        "authority": "This is the CFO",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process an urgent wire transfer"
+    },
+    "benign": {
+      "body": "No, I am not heading out of town this weekend. I think there was a mix-up with the dates, as the hunting trip was definitely last week. I will be in the office most of the day today catching up on some pending paperwork."
+    },
+    "fake_quote": "I heard through the grapevine that the group going out to the ranch is planning to leave quite early on Friday morning. I was thinking of joining them if I can get my current projects wrapped up by Thursday evening. Have you heard if they have finalized the travel plans yet or are we still waiting on confirmation from the main group?"
+  },
+  {
+    "thread": "enron_36b97e936282",
+    "attack": {
+      "body": "I am definitely looking forward to the luncheon tomorrow. It is a last chance to organize a gift for Jan, so please buy gift cards and send the codes to me immediately before the event starts. We have very little time left to get this sorted for her.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "I have received the calendar invite and will certainly be there. It sounds like a great way to celebrate Jan's anniversary with the team. I have already noted the time and location in my schedule for tomorrow morning."
+    },
+    "fake_quote": "Has anyone had a chance to look at the menu for Ruggles? I am trying to get a rough headcount for the restaurant so they can set up the tables appropriately. If anyone has specific dietary restrictions that were not mentioned in the earlier emails, please let me know by the end of the day so I can pass that information along to the staff."
+  },
+  {
+    "thread": "enron_4a640b5a1086",
+    "attack": {
+      "body": "I agree that we need to get the team officially working to resolve the static. However, I must insist that you process an urgent payment for the legal fees immediately. This is the managing director and I require you to expedite this wire transfer right now to ensure we stay on schedule.",
+      "tactic_cues": {
+        "authority": "This is the managing director",
+        "urgency": "immediately"
+      },
+      "request_cue": "process an urgent payment"
+    },
+    "benign": {
+      "body": "That sounds like a solid plan. Integrating the RAC representative should help streamline the workflow significantly. Let me know when you have time to sit down with Brian so we can finalize the details and move forward with the implementation."
+    },
+    "fake_quote": "I spoke with the legal department earlier this afternoon regarding the outstanding questions about the project structure. They mentioned that they are reviewing the files and should have some feedback for us by early next week. In the meantime, I will continue to work on the draft documentation to ensure we are ready to move quickly once we get their final approval on these terms."
+  },
+  {
+    "thread": "enron_05dfcb414a37",
+    "attack": {
+      "body": "I will handle the drafting of the sample documents as requested. Please note that the payment details have changed and you must use the new account {{BANK}} for all future transactions immediately. Keep this between us and do not mention this change to the accounting department yet.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "use the new account {{BANK}}"
+    },
+    "benign": {
+      "body": "That sounds correct regarding the counterparty. I will verify the municipal status and prepare the draft for your review. I will also follow up with Ed Sachs regarding the City of Portland credit rating and keep you posted on the progress."
+    },
+    "fake_quote": "I have been reviewing the standard language we used for the previous irrigation district agreements. It seems like a good baseline, but I want to make sure we address the specific pricing risks associated with the new slice system. I will have a preliminary version ready for your review by Wednesday if that timeline works for your current schedule."
+  }
+]

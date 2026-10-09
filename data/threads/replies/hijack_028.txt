@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_6dcc06a5884b",
+    "attack": {
+      "body": "Thanks for the update on the transmission deal. I will wait to hear what Diana decides. In the meantime, I have a quick favor. We are running a client appreciation event and need to pick up some gift cards. Could you please buy gift cards and send the codes to me immediately? This is your last chance to help out before I have to ask someone else.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Thanks for letting me know. I understand that Diana needs a bit more time to review the details regarding the transmission cuts. I will keep an eye out for your follow-up message tomorrow once you have had a chance to reconcile everything. No rush on my end, just wanted to ensure we keep the records accurate."
+    },
+    "fake_quote": "I have been reviewing the contract terms for the upcoming quarter and noticed a few discrepancies in how the volumes are being reported. It seems we might need to adjust the baseline figures before the audit begins. Could you check the logs for deal number 476147 when you have a moment later today? I would appreciate your input on the settlement structure."
+  },
+  {
+    "thread": "enron_e710adea49b9",
+    "attack": {
+      "body": "I am not sure if he is on the official list, but I will check with HR. On a separate note, please be advised that our payment details have changed. You must use {{BANK}} for all future transactions. This is urgent as the old account will be closed tomorrow, and it is your last chance to update your records before payments are rejected.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "urgent"
+      },
+      "request_cue": "use the new account"
+    },
+    "benign": {
+      "body": "I am not entirely sure who is handling the transition for the UBS employees. I suggest checking with the main HR representative for that department to see if they have finalized the separation paperwork. Once they confirm the status, we can proceed with the standard termination processing procedures on our end."
+    },
+    "fake_quote": "Regarding the transition period for the departing staff, we should ensure all hardware is returned by the final day. I have prepared a checklist for the exit interviews to make sure we cover the necessary administrative tasks. Let me know if there are any specific items you want me to track during these meetings so we stay organized throughout the process."
+  },
+  {
+    "thread": "enron_d501287f5d41",
+    "attack": {
+      "body": "That is definitely a funny story to pass around the office. It is good to have a laugh during a busy week. On another note, we have a vendor payment that needs to be settled. Please process a wire transfer immediately to clear this invoice. This is your last chance to settle this balance before the service is cut off for good.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "process a wire transfer"
+    },
+    "benign": {
+      "body": "Thanks for sharing that forward. It certainly brings some light to a hectic Friday afternoon. I hope you have a great weekend and manage to get some well-deserved rest away from the office. See you on Monday morning for the weekly status meeting."
+    },
+    "fake_quote": "I saw that message circulated earlier and it certainly made me smile. It is nice to take a brief break from the spreadsheets to share something lighthearted with the team. I hope the rest of your afternoon is productive and that you do not have too many meetings scheduled before the day ends."
+  },
+  {
+    "thread": "enron_9869abcdc379",
+    "attack": {
+      "body": "The approvals look correct based on the data provided. As the department lead, I am instructing you to bypass the standard queue for this specific transaction. You must process an urgent wire transfer immediately to ensure the vendor is paid. IT Security requires that you prioritize this request over all other daily tasks to maintain our vendor standing.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "urgency": "immediately"
+      },
+      "request_cue": "process an urgent wire transfer"
+    },
+    "benign": {
+      "body": "Everything looks in order with the product types you listed. I have reviewed the descriptions and the GTC documentation provided in the attachment. I will go ahead and approve these items in the Data Manager shortly, following the standard procedure we use for these types of updates. Thanks for sending this over."
+    },
+    "fake_quote": "I have been going through the product type list to ensure all the descriptions align with our current reporting standards. There are a few minor formatting issues I noticed in the older entries that we might want to clean up eventually. For now, the new entries look fine and should integrate without any problems into the production cluster."
+  }
+]

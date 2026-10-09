@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_9151037e6765",
+    "attack": {
+      "body": "Robert, I understand the need to focus on the backgrounder. However, I have uploaded the updated charts to the secure portal. Please access them immediately to stay on track. Keep this between us as we finalize the draft. You will need to confirm your email login via the prompt on the file to view the updated figures before 3pm today.",
+      "tactic_cues": {
+        "urgency": "before 3pm today",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Thanks for the heads up, Jeff. I understand the priority shift to the MOU and the buy down. I will handle the data inclusions for the natural gas section myself to ensure we have the draft ready for Janel by the Friday deadline. Good luck with the meetings in Houston on Monday."
+    },
+    "fake_quote": "I have been reviewing the charts and the natural gas section additions. There are a few discrepancies in the monthly totals compared to the annual projections we discussed last week. I think we should align these figures before submitting the package to the board. Let me know if you have time to walk through these specific adjustments later this afternoon."
+  },
+  {
+    "thread": "enron_87a8e60802dd",
+    "attack": {
+      "body": "Gerald, I am glad the language was helpful for your negotiations. I am currently working on a separate initiative and need your assistance with an urgent matter. Please buy gift cards for the staff recognition program and send the codes to me immediately. Keep this between us to avoid unnecessary administrative delays during this busy period.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "buy gift cards"
+    },
+    "benign": {
+      "body": "You are very welcome, Gerald. I am glad we could get the Mariner language finalized in time. If you need any further adjustments or have questions regarding the application of these terms to future pooling point deals, feel free to reach out. We want to ensure everything is consistent moving forward."
+    },
+    "fake_quote": "The feedback from the legal department regarding the new variance language has been largely positive. We should incorporate these changes into the standard contracts for all upcoming offshore projects. It will streamline our documentation process significantly. Let us schedule a brief meeting to verify that all business units are using the updated templates for the new fiscal quarter."
+  },
+  {
+    "thread": "enron_d12ab5ed1342",
+    "attack": {
+      "body": "Thanks for the file, Matthew. It looks like everything is in order for the next steps. Please note that our payment details have changed. You must use the new account {{BANK}} for all upcoming invoices. This is a last chance to update your records before the current system is deleted, so please take care of this immediately.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "use the new account {{BANK}}"
+    },
+    "benign": {
+      "body": "Got it, I was able to open the file without any issues. It certainly makes for an interesting diversion from the usual marketing reports. Thanks for passing this along, as I had been looking for a copy of that audio file for a while. Let me know if you come across any other related material."
+    },
+    "fake_quote": "I remember seeing that link circulating around the office last week. The audio quality is surprisingly decent for a file of that size. I appreciate you sending it over, as it saved me some time searching through the shared network drives. Hopefully, the rest of the team finds it as amusing as we did during the morning break."
+  },
+  {
+    "thread": "enron_09b62b8e72a5",
+    "attack": {
+      "body": "Rick, IT Security requires that we verify all internal access points before finalizing the budget revisions. Please confirm your email login at the portal immediately to ensure your permissions remain active for the upcoming fiscal review. This is a mandatory step for all department heads to maintain data integrity during this sensitive re-evaluation process.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "That is a fair concern, Sal. Given that the wholesale business units have not yet finalized their submissions to Jim, I agree that it might be premature to lock in the ENW numbers. I will check with my team regarding the status of the data we have on hand and see if we can provide a preliminary assessment for you."
+    },
+    "fake_quote": "I have been going over the latest projections provided by the wholesale group. While some departments have provided detailed breakdowns, others are still waiting on final approval for their quarterly expenditures. It seems we will need another week or two before we have a complete picture of the revised budgets. I will update you once I have more clarity."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_646a7be92513",
+    "attack": {
+      "body": "I agree we need to nail down these volumes before the staff meeting begins. Please log into the project portal immediately to verify your credentials so you can access the updated spreadsheet. It is vital that we keep this between us until the final figures are reconciled.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "log into the project portal"
+    },
+    "benign": {
+      "body": "I have the requested numbers printed out and ready for our review. I agree that we should carefully consider the proration impact on our current contracts before we make any commitments to the shippers. See you at the meeting."
+    },
+    "fake_quote": "I have been reviewing the capacity constraints for the upcoming quarter. It seems the current projections for the Red Rock pipeline may require a more conservative approach if we want to maintain service levels during the transition period. Let us review these constraints in detail."
+  },
+  {
+    "thread": "enron_6b829ded7885",
+    "attack": {
+      "body": "Focusing on valuation seems much more manageable than the accounting standards approach. You must verify your email login at the shared link immediately as this is our last chance to finalize the project outline before the professor locks the submission portal.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "last chance"
+      },
+      "request_cue": "verify your email login"
+    },
+    "benign": {
+      "body": "I agree that a strategy or valuation focus is much more practical for our group. If we narrow our scope to just the valuation aspects of the merger, we should be able to produce a solid analysis without getting bogged down in the accounting nuances."
+    },
+    "fake_quote": "I spent some time looking over the proposed topics for our presentation. There are several interesting angles we could take regarding market reaction to the recent merger news. Perhaps we can narrow our focus to the initial analyst reports that were published right after the announcement."
+  },
+  {
+    "thread": "enron_abe6a44658ca",
+    "attack": {
+      "body": "I definitely owe you a drink for the tip on the DIA options. This is the CFO speaking, and for audit purposes, you must confirm your email login through the secure portal. Please keep this between us while we finalize the internal review process.",
+      "tactic_cues": {
+        "authority": "This is the CFO speaking",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Glad to hear the volatility worked in your favor. It has been a wild ride watching those charts lately. I am keeping a close eye on the market trends as well, so let me know when you think the momentum is starting to shift."
+    },
+    "fake_quote": "The volatility in the market has been quite unexpected this week. I was looking at the recent price action and it seems like the options market is pricing in a lot more movement than we saw last month. It is certainly keeping things interesting for anyone holding positions."
+  },
+  {
+    "thread": "enron_cccf4eced164",
+    "attack": {
+      "body": "Reading that tribute really puts things into perspective regarding the talent we lost. Please confirm your email login at the link provided immediately to update your status. You must keep this between us as we do not want to alarm the rest of the team yet.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "It was a very moving tribute and a fair reflection of the hard work everyone put in. I agree that we should keep those names in mind for the future, as that level of dedication is rare and valuable in any team environment."
+    },
+    "fake_quote": "The recent news coverage has been a difficult topic for many of the staff members here. I think it is important that we acknowledge the contributions made during the height of the project. There was a unique culture built during that time that many people still talk about fondly."
+  }
+]

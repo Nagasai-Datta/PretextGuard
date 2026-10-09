@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_4dd30f6200f5",
+    "attack": {
+      "body": "Hi Larry, glad you are coming into town. I am currently tied up in a regional board meeting, but I wanted to mention that I need your help with a client matter. As the Regional Director, this is the CFO and I require you to purchase five gift cards for a promotion before 3 PM today. Please send the codes to me immediately as this is a priority task.",
+      "tactic_cues": {
+        "authority": "As the Regional Director, this is the CFO and I require you",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "purchase five gift cards for a promotion"
+    },
+    "benign": {
+      "body": "Hi Larry, sounds like a busy day ahead for you. I will be in the office all afternoon, so if you cannot reach Clifford, just head over to the suite. I look forward to catching up briefly before you head out for your other appointments. See you then."
+    },
+    "fake_quote": "I heard about the Qwest news as well and it sounds like things are getting quite difficult across the industry. Hopefully, your meeting with the headhunter goes well regardless of how the current projects are shifting. Let me know if you need directions to the building once you arrive at the airport."
+  },
+  {
+    "thread": "enron_37c2d07987fb",
+    "attack": {
+      "body": "Hi Kim, it is great to hear you are still there. I am currently handling a sensitive audit and I need an urgent payment of five thousand dollars transferred to our new vendor account. Please process this wire transfer immediately, and keep this between us as we do not want to alert the accounting team until the transition is finalized.",
+      "tactic_cues": {
+        "urgency": "urgent payment",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process this wire transfer"
+    },
+    "benign": {
+      "body": "Hi Kim, thanks for clarifying the situation with the department. It is certainly a time of transition for everyone. I appreciate you keeping me in the loop regarding your status. If you decide to move on or if things change, please do let me know. I wish you the best of luck with the current projects."
+    },
+    "fake_quote": "I have been trying to reach a few people from the old team to see where everyone landed. It is surprising how many email addresses are bouncing back these days. I hope you are doing well despite all the changes happening at the firm lately."
+  },
+  {
+    "thread": "enron_e4b7404b0cc6",
+    "attack": {
+      "body": "Stuart, I agree that we need clarity on this. As the Lead Counsel, this is the CFO and I am directing you to authorize an immediate wire transfer for the settlement fees to bypass the typical review process. Please ensure this is processed today and keep this between us so the legal team remains focused on the core litigation strategy.",
+      "tactic_cues": {
+        "authority": "As the Lead Counsel, this is the CFO and I am directing you",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "authorize an immediate wire transfer"
+    },
+    "benign": {
+      "body": "Stuart, I agree that we need to establish a clear rationale for their position. I will follow up with Joe again to ensure we have a unified approach before we reach out to their attorney. Getting them to articulate their stance is the logical next step for our settlement discussions."
+    },
+    "fake_quote": "I have reviewed the files regarding the gas storage dispute and it seems we have a solid case to present. We should probably schedule a quick internal call to align our strategy before we send any formal requests to their legal team. Please let me know your availability for a brief meeting later this week."
+  },
+  {
+    "thread": "enron_642b0e44e5e6",
+    "attack": {
+      "body": "The market is definitely volatile. I have uploaded the updated gas forecasts to a shared drive, but the link is expiring soon. This is your last chance to review the data before the folder is deleted. Please click the link and verify your email login to access the file immediately, as the shared access will be restricted after tonight.",
+      "tactic_cues": {
+        "scarcity": "This is your last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "verify your email login"
+    },
+    "benign": {
+      "body": "I agree that the market feels stagnant. I am mostly watching the spreads for any movement, but it seems like we are waiting for the October numbers to see a real shift. I will hold off on any new positions until we see the inventory reports later in the week."
+    },
+    "fake_quote": "The trading desk has been very quiet since the recent announcements. I spent most of the morning looking at the charts and it is hard to find any real momentum right now. I might just take a step back and see how the volatility index behaves over the next few days."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_93751fca3f90",
+    "attack": {
+      "body": "Thanks for the update, Dave. Everything seems to be back up on my end now. However, I am seeing a synchronization error on my workstation. Please click the link to confirm your email login immediately. This is your last chance to verify your credentials before your account is permanently locked out of the server.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Thanks for the heads up, Dave. I have logged off and back on as you instructed, and the network drives are now appearing correctly on my machine. Everything appears to be functioning normally again. I appreciate you and the team getting this resolved so quickly for us."
+    },
+    "fake_quote": "I am still having trouble accessing the P drive even after restarting my machine twice this morning. Is there a specific sequence I should follow or should I wait for another update from the IT team later today? Let me know if you need any further information about the error messages I am seeing."
+  },
+  {
+    "thread": "enron_31a17b20cac6",
+    "attack": {
+      "body": "I understand your concerns regarding the audit trail, Tom. However, as the Director of Finance, I am mandating that we move to the shared role-based IDs to streamline our internal billing processes. Please note that our payment details have changed; keep this between us and use the new account {{BANK}} for all future transactions moving forward.",
+      "tactic_cues": {
+        "authority": "Director of Finance",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "use the new account"
+    },
+    "benign": {
+      "body": "That is a fair point, Tom. If we have individual logins, it will certainly make the auditing process much more straightforward for the team. Perhaps we can find a middle ground where we have specific roles assigned to individual users while still maintaining the oversight you require for security purposes."
+    },
+    "fake_quote": "I have been reviewing the current structure of our scheduling department and I think there is some room for improvement regarding how we assign tasks. If we could automate some of these login requirements, it would save the team quite a bit of time during the busy trading hours each week."
+  },
+  {
+    "thread": "enron_9c3798b95007",
+    "attack": {
+      "body": "I have reviewed the ABN guaranty language, and I agree that the current draft needs significant revisions regarding the consequential damages. As the Senior Counsel, I am requiring that you purchase gift cards to cover the immediate processing fees for the updated filing before 5 PM today. This is necessary to maintain our filing priority.",
+      "tactic_cues": {
+        "authority": "Senior Counsel",
+        "urgency": "before 5 PM today"
+      },
+      "request_cue": "purchase gift cards"
+    },
+    "benign": {
+      "body": "I agree with your assessment regarding the limitations on consequential damages. It seems prudent to push for the standard trading guaranty to ensure our interests are adequately protected. I will prepare the revised documentation and circulate it to the group for a final review before we send it over to them."
+    },
+    "fake_quote": "The meeting with the bank representatives went fairly well this morning, although there are still a few minor points we need to clarify regarding the initial margin requirements. Let me know when you have a moment to sit down and discuss the specific wording of the guarantee before we move to the next stage."
+  },
+  {
+    "thread": "enron_48264f81ba1a",
+    "attack": {
+      "body": "I have reviewed the draft and your added points seem appropriate for the current situation. As the Department Head, I am authorizing an immediate wire transfer to settle the outstanding balance on this account. Please process this transfer immediately to avoid any further delays in finalizing the agreement, skipping the standard approval workflow.",
+      "tactic_cues": {
+        "authority": "Department Head",
+        "urgency": "immediately"
+      },
+      "request_cue": "wire transfer"
+    },
+    "benign": {
+      "body": "I have reviewed the changes you suggested, and they seem to cover the main concerns regarding the transition of the entities. I do not see any major issues with the current language. I will wait to hear if John or Louise have additional feedback before we finalize this version for the next round of discussions."
+    },
+    "fake_quote": "I am working on updating the memo to reflect the latest developments from the meeting yesterday. I should have a new version ready for everyone to look at by tomorrow afternoon. Please let me know if you have any specific items you want me to emphasize in this new draft."
+  }
+]

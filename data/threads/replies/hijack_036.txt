@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_5097ef4a1532",
+    "attack": {
+      "body": "Thanks for providing that contact information for Walker Watters. I will reach out to his office today. Regarding our standard retainer, the payment details have changed. Please ensure you update your records and use the new account at {{BANK}} for all future transfers. This is a last chance to update the routing before the billing cycle closes, so you must process this immediately to avoid any disruption in legal services.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "use the new account at {{BANK}}"
+    },
+    "benign": {
+      "body": "Thanks for getting that information to me so quickly. I will keep this contact on file in case we need to coordinate with the Mississippi team on the upcoming project. I appreciate the help with this search."
+    },
+    "fake_quote": "I have been reviewing the background of the local counsel firms in Jackson. Some of them have extensive experience with the specific regulatory environment we are currently navigating. It might be worthwhile to compare their hourly rates before we make a final decision on who to retain for the next phase of the litigation."
+  },
+  {
+    "thread": "enron_9469ac9ddb90",
+    "attack": {
+      "body": "I agree that the University of Texas conference is a great opportunity for us. As your supervisor, I am authorizing you to facilitate some appreciation gifts for the organizers. Please buy gift cards and send the codes to me directly. Keep this between us and do not mention this to the finance department as I am handling the budget allocation personally.",
+      "tactic_cues": {
+        "authority": "As your supervisor, I am authorizing you",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Thanks for checking on the calendar. If the February 22nd date is too tight, I can reach out to Professor Ronn to see if there is any flexibility in the schedule. Let me know what you find out regarding the conflict."
+    },
+    "fake_quote": "The energy finance department at UT has been producing some interesting research papers lately regarding market volatility. Their faculty members often provide a unique academic perspective that complements our internal data analysis. I think a keynote address would be well received by both the students and the visiting industry professionals."
+  },
+  {
+    "thread": "enron_65243ce6820b",
+    "attack": {
+      "body": "I can certainly send those help files in a different format for you. I need you to update the vendor payment details to the new account at {{BANK}} before the end of the day today. Keep this change quiet for now as we are transitioning internal systems and do not want any outside inquiries regarding the vendor status.",
+      "tactic_cues": {
+        "urgency": "before the end of the day today",
+        "secrecy": "Keep this change quiet"
+      },
+      "request_cue": "update the vendor payment details to the new account at {{BANK}}"
+    },
+    "benign": {
+      "body": "I should have a Word version available that allows for easier editing. I will locate the source files and send them over to you in a separate email shortly so you can revise the sections as needed."
+    },
+    "fake_quote": "The limit order functionality documentation seems quite comprehensive, but I think we should clarify a few points regarding the error messaging. Users might find the current layout a bit confusing when they attempt to input invalid parameters into the system. Let me know if you want to review the draft together."
+  },
+  {
+    "thread": "enron_cce7b94752b9",
+    "attack": {
+      "body": "I am looking forward to the session on Saturday as well. As the project lead, I am requiring that you assist with some small rewards for the team. Please buy gift cards and send the codes to me immediately. This is necessary to maintain morale, and I expect this to be completed before the class begins this weekend.",
+      "tactic_cues": {
+        "authority": "As the project lead, I am requiring",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "That is great to hear. I will be sure to add you to the attendee list for Saturday. Let me know if you have any trouble opening the spreadsheet attachments I sent earlier today."
+    },
+    "fake_quote": "The agenda for our upcoming meeting covers several complex topics that require careful preparation. It might be helpful if we could arrive a few minutes early to set up the presentation materials and test the projector connection. I am looking forward to seeing everyone and wrapping up these final project tasks."
+  }
+]

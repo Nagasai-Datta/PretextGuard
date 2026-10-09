@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_44e129b26aa9",
+    "attack": {
+      "body": "Glad you made it back safely from Phoenix. That travel schedule for the Big E sounds exhausting. I am currently stuck in a meeting and need to pick up some gift cards for a client presentation. Could you please purchase them and send me the codes? This is urgent and I need them immediately. Please keep this between us so the accounting team does not get involved in the process.",
+      "tactic_cues": {
+        "urgency": "urgent and I need them immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "purchase them and send me the codes"
+    },
+    "benign": {
+      "body": "Welcome back to the office. Phoenix is a long trip for such a short time, but I am glad you are back safe. I have been catching up on my emails since Thursday morning and noticed the inbox is quite full today. Are you planning to attend the internal strategy session later this afternoon or should I update you on the notes afterward?"
+    },
+    "fake_quote": "It is good to hear you returned safely. I am still trying to clear the backlog from when I was away earlier this week. The weather here has been much cooler than what you likely experienced in Arizona. Let me know when you have a moment to catch up on the project status."
+  },
+  {
+    "thread": "enron_74b4d43418f8",
+    "attack": {
+      "body": "I agree that we need to include the MPR originations to get a clear picture of this year's activity. Given the quarter ends soon, we have a last chance to reconcile these figures. Please process an urgent payment for the outstanding balance to the vendor today. This is the only way to avoid a service interruption before the books close, so please wire the funds immediately.",
+      "tactic_cues": {
+        "urgency": "urgent payment... wire the funds immediately",
+        "scarcity": "last chance"
+      },
+      "request_cue": "process an urgent payment for the outstanding balance"
+    },
+    "benign": {
+      "body": "That sounds like a sensible approach. If we include those specific groups, the YTD balance should align better with our current projections. I will pull the documentation for those originations and circulate the updated spreadsheet to the team shortly. Do you want me to highlight the specific entries that were previously excluded?"
+    },
+    "fake_quote": "I have been reviewing the spreadsheet you sent over earlier. The numbers seem mostly consistent, but I noticed a few discrepancies in the regional breakdowns. I will verify those against the source files before we finalize the report for the management team. Should I have the updated version ready by tomorrow morning?"
+  },
+  {
+    "thread": "enron_c8610b0dc166",
+    "attack": {
+      "body": "The room is booked for Monday. As the department lead, I have authorized a change to our payment processing flow. You must use the new details at {{BANK}} for all future transactions. This is a directive from management, so keep this between us and do not loop in your manager regarding these updated instructions as it is a sensitive internal transition.",
+      "tactic_cues": {
+        "authority": "As the department lead, I have authorized",
+        "secrecy": "keep this between us and do not loop in your manager"
+      },
+      "request_cue": "use the new details at {{BANK}} for all future transactions"
+    },
+    "benign": {
+      "body": "Thanks for confirming the room, Nicole. Monday at 9 am works perfectly for my schedule. I will prepare the performance review documents ahead of time so we can go through the quarterly goals efficiently. If there are any other materials you need me to bring to the session, just let me know before the weekend."
+    },
+    "fake_quote": "I am looking forward to our discussion next week. There are a few things I want to go over regarding the upcoming projects for the new quarter. I have already started gathering the necessary reports and feedback forms for your evaluation. I will make sure everything is printed and ready before we meet."
+  },
+  {
+    "thread": "enron_01e0c8676b85",
+    "attack": {
+      "body": "I appreciate your hard work on the template. As the legal representative for this unit, I am mandating that we update our records to use the new payment routing information found at {{BANK}}. You must implement this change immediately. This is a mandatory update, so keep this between us and avoid discussing these new banking details with anyone outside the legal department.",
+      "tactic_cues": {
+        "authority": "As the legal representative for this unit, I am mandating",
+        "secrecy": "keep this between us and avoid discussing these new banking details"
+      },
+      "request_cue": "update our records to use the new payment routing information"
+    },
+    "benign": {
+      "body": "The template looks solid. Using this for future buyback confirmations will definitely save us time and ensure consistency across our documentation. I will save a copy to the shared folder so everyone on the team can access it when needed. Thanks for your help with the legal language on this."
+    },
+    "fake_quote": "I have finished reviewing the latest draft of the confirmation letter. The language seems to cover our requirements for the buyback perfectly. I will send this over to the client once I get final approval from the desk. It should be a standard procedure going forward if this one goes through without any issues."
+  }
+]

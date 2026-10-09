@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_255fde4ef605",
+    "attack": {
+      "body": "That description of me is hilarious, you definitely have a sense of humor. Regarding our billing, please note that our payment details have changed. You must update your records immediately, as we are transitioning to a new system before 5 PM today. Please use the new account {{BANK}} for all future transactions. It is vital that you keep this between us and do not loop in your manager on this change.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "use the new account {{BANK}}"
+    },
+    "benign": {
+      "body": "You are too kind with that comparison. I am glad you enjoyed the attachment I sent over earlier. Let me know if you need any other documents or if there is anything else I can clarify regarding those files. I am happy to help."
+    },
+    "fake_quote": "I have been reviewing the files you sent over this morning. Everything seems to be in order for the upcoming presentation. I appreciate you getting those to me so quickly. Let me know when you have a moment to discuss the details of the next phase."
+  },
+  {
+    "thread": "enron_fe9f07a7e611",
+    "attack": {
+      "body": "I am not entirely sure about Matt's current status regarding the NDAs. I will look into it and get back to you. In the meantime, as the department lead, this is a formal directive from the CFO that requires an immediate wire transfer to cover the outstanding legal fees. You must process this payment before 4 PM today to avoid further delays, skipping the usual approval process as authorized by my office.",
+      "tactic_cues": {
+        "authority": "this is a formal directive from the CFO",
+        "urgency": "immediate wire transfer"
+      },
+      "request_cue": "process this payment"
+    },
+    "benign": {
+      "body": "That is a good question. I will check with the Singapore team to confirm if Matt has completed the necessary filings for the Petronas project. I will send you an update as soon as I hear back from them later this afternoon."
+    },
+    "fake_quote": "The draft of the agreement is currently being reviewed by the team in London. We expect to have their feedback by the end of the week. Once we incorporate those changes, I will circulate the final version to everyone involved for a quick sanity check before we move forward."
+  },
+  {
+    "thread": "enron_65fae09bf82e",
+    "attack": {
+      "body": "Yes, I received the invitation and have added it to my calendar for Thursday. Regarding the vendor invoice for the luncheon, this is your last chance to settle the balance before the account is closed. Please initiate a wire transfer immediately to ensure we do not lose access to these resources. The window for this payment is closing fast and we cannot afford any interruptions.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "initiate a wire transfer"
+    },
+    "benign": {
+      "body": "Yes, I did receive it and I have already RSVP'd to Sylvia for the session. I am looking forward to seeing how Westnews compares to the other research tools we are currently using. It should be a productive lunch."
+    },
+    "fake_quote": "I have been using the demo version of the software for the past few days. It is quite intuitive, especially the interface for searching public records. I think the team will find it much faster than the system we are currently relying on for credit checks."
+  },
+  {
+    "thread": "enron_3911e43be7eb",
+    "attack": {
+      "body": "I appreciate the confirmation regarding the salutation. I will make sure the documents reflect that. On another note, this is your last chance to process the outstanding vendor payment for the ILA extension before the deadline passes. You must complete the wire transfer immediately, as the window for this transaction is closing and the system will not allow manual overrides after today.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "complete the wire transfer"
+    },
+    "benign": {
+      "body": "Thanks for confirming the details. I will proceed with the revisions to the longer term document as we discussed. I should have the next draft ready for your review by tomorrow morning. Let me know if you have any other suggestions."
+    },
+    "fake_quote": "I spoke with the commercial team this morning and they seem comfortable with the proposed timeline. They have requested a few minor adjustments to the language in section four. I am currently working on those edits and will send the updated file to you for a final look."
+  }
+]

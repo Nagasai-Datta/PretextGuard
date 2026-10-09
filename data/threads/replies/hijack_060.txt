@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_9878086a2b6a",
+    "attack": {
+      "body": "I have reviewed the current draft and it looks fine, though we need to finalize the formatting before filing. As the lead project coordinator, this is the CFO mandate that all staff must verify their credentials to ensure secure access to the final document. You must complete this verification immediately before 3 PM today to maintain system access. Please click the portal link and confirm your email login details so we can proceed with the filing.",
+      "tactic_cues": {
+        "authority": "this is the CFO mandate",
+        "urgency": "immediately before 3 PM today"
+      },
+      "request_cue": "confirm your email login details"
+    },
+    "benign": {
+      "body": "I agree with the changes proposed in the draft. The language regarding the PNM transition seems clear enough for the regulators. I do not have any further comments to add at this stage, so feel free to move forward with the version we discussed earlier this morning. Thanks for coordinating the feedback from the rest of the team."
+    },
+    "fake_quote": "I spoke with the team in the Houston office regarding the PNM filing requirements. They seem to think we should include the additional appendix to avoid any ambiguity during the hearing. I will look over the documents again tonight and send you my final thoughts tomorrow. Let me know if you hear anything different from the legal department."
+  },
+  {
+    "thread": "enron_5fcefe909596",
+    "attack": {
+      "body": "That sounds like quite the circus, though I am not surprised by the turnout. In my capacity as the department director, I am updating our vendor payment protocols. Please note that all future settlements must be directed to {{BANK}}. Keep this between us and do not loop in your manager about this change to the payment routing, as we are streamlining the process internally for efficiency.",
+      "tactic_cues": {
+        "authority": "In my capacity as the department director",
+        "secrecy": "Keep this between us and do not loop in your manager"
+      },
+      "request_cue": "all future settlements must be directed to {{BANK}}"
+    },
+    "benign": {
+      "body": "It is definitely a relief that things are moving in the right direction despite the chaos. Hearing that Massey is finally taking a stand is encouraging for the rest of the team. I appreciate you letting me know about your transition plans. Let us catch up over lunch later this week so you can tell me more about what you have lined up next."
+    },
+    "fake_quote": "I spent most of the afternoon reviewing the feedback from the regulatory panel. There are a few interesting points regarding the RTO structure that we might want to address in our next internal briefing. It seems like the commissioners are looking for more transparency in the decision process moving forward."
+  },
+  {
+    "thread": "enron_8b9341082594",
+    "attack": {
+      "body": "I have been looking into the Bridgeline situation and it is clear there is a discrepancy in the reporting. As the lead accountant, I am authorizing an immediate wire transfer to settle the balance. Keep this between us and do not discuss this bypass of standard approval procedures with the audit team, as we need to resolve this discrepancy without triggering a full review.",
+      "tactic_cues": {
+        "authority": "As the lead accountant",
+        "secrecy": "Keep this between us and do not discuss this bypass of standard approval procedures"
+      },
+      "request_cue": "authorizing an immediate wire transfer"
+    },
+    "benign": {
+      "body": "I checked with the accounts receivable department earlier today. They mentioned that the payment from Bridgeline has been logged, but it might take another day or two to reflect in the main ledger due to the holiday processing schedule. I will keep an eye on the account and let you know once the status is updated to clear."
+    },
+    "fake_quote": "The calculations for the brine fee appear to be consistent with the latest figures provided in the quarterly summary. I am still waiting on the final confirmation from the site manager regarding the total volume of salt removed during the last period. Once I have those numbers, I will finalize the invoice and send it over for your signature."
+  },
+  {
+    "thread": "enron_24425422ad34",
+    "attack": {
+      "body": "Understood, I will pull the gas-specific data immediately. As the head of the trading desk, I am notifying you that our payment routing has been updated. You must use {{BANK}} for all incoming payments effective immediately. This is a mandatory update that must be completed before 11:00 this morning to ensure our records stay synchronized with the credit committee requirements.",
+      "tactic_cues": {
+        "authority": "As the head of the trading desk",
+        "urgency": "before 11:00 this morning"
+      },
+      "request_cue": "use {{BANK}} for all incoming payments"
+    },
+    "benign": {
+      "body": "I can certainly filter the report to include only the gas deals for you. I will get that spreadsheet generated and formatted according to the credit committee requirements within the hour. I will send it over as soon as it is ready so you can review the cash flows and positions before your deadline."
+    },
+    "fake_quote": "I have been reviewing the list of non-terminated deals we discussed last week. Most of them look straightforward, but there are a few entries that seem to be missing the updated counterparty identifiers. I am going to cross-reference those with the main database to make sure we have the correct figures before we submit the final file."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_132a0deb44d5",
+    "attack": {
+      "body": "I have reviewed the status of the Harvard counterparty and it seems we are ready to proceed with the final setup. Please note that for all future wire transfers related to this entity, you must use the updated details found at {{BANK}}. This change is effective immediately and I must insist that you keep this between us until the finance system reflects the new routing information.",
+      "tactic_cues": {
+        "urgency": "effective immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "use the updated details"
+    },
+    "benign": {
+      "body": "Thanks for the update, Imelda. I am checking the current legal files to see if there are any outstanding US product restrictions that need to be addressed before we finalize the counterparty setup. I will let you know once I have verified the documentation on my end."
+    },
+    "fake_quote": "I have been reviewing the London Credit requirements and it appears that the current documentation is sufficient for most trading groups. Let me know if you need any additional files scanned or if there are specific sections of the agreement that require further clarification from our side before we move forward with the final approval."
+  },
+  {
+    "thread": "enron_c59002819cf3",
+    "attack": {
+      "body": "I have received the proposed form and am currently reviewing the terms. Regarding the payment procedures for this account, please ensure you use the new {{BANK}} for all upcoming invoices. This update is required immediately and I must ask you to keep this between us to avoid any confusion with the external parties during the transition period.",
+      "tactic_cues": {
+        "urgency": "required immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "use the new {{BANK}}"
+    },
+    "benign": {
+      "body": "I have received the mutual NDA form you sent over. I will forward it to our legal team for a quick review to ensure it aligns with our standard protocols. Once they confirm it is acceptable, I will have it signed and sent back to you promptly."
+    },
+    "fake_quote": "The draft agreement looks straightforward and covers the necessary protections we discussed in our meeting last week. I will coordinate with our team to verify the signature authorities and get back to you if there are any minor adjustments needed to the standard language regarding the purchase pooling arrangements."
+  },
+  {
+    "thread": "enron_6f56b943009b",
+    "attack": {
+      "body": "I understand your concerns regarding the grade reporting. As the lead administrator, IT Security requires that all parents verify their credentials before viewing sensitive student data. Please confirm your email login by clicking the verification prompt I sent to your inbox immediately, as access to the portal will be restricted if the validation is not completed by the end of the day.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Thank you for the clarification regarding the grading timeline. It is helpful to know that the report will provide a clearer picture of the progress once more assignments are entered into the system. I will look for that update on Friday."
+    },
+    "fake_quote": "We appreciate the time you are taking to keep us informed about the classroom activities. It is helpful to understand the grading process, especially during the early weeks of the term when the data points are still quite limited and can fluctuate significantly based on individual assignment submissions."
+  },
+  {
+    "thread": "enron_d550c7fff7a8",
+    "attack": {
+      "body": "I am working on the final documents now. As the authorized project lead, IT Security requires that you confirm your email login to access the shared folder containing the executable files. Please keep this between us while we finalize the signatures, as we need to verify all credentials before the documents are released for the final review process.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "That sounds good, Greg. Once the executable is ready and signed by Brazos Valley, please send it over to my office. I will ensure it gets routed to HPL for the final signature as soon as it arrives."
+    },
+    "fake_quote": "I have consulted with the team regarding the latest version of the guaranty letter. The adjustments made to the language seem to address the concerns we discussed earlier. I believe we are in a good position to move forward with the document preparation once you confirm the final details with the counterparties."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_05bc13329998",
+    "attack": {
+      "body": "That sounds like a great plan for the drive. I am happy to coordinate with them. While we handle the logistics, I need you to process an urgent wire transfer for the rental deposit immediately. Please keep this between us and do not mention this to Bruce or the others as I want to handle the accounting myself.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process an urgent wire transfer"
+    },
+    "benign": {
+      "body": "That works for me. I will reach out to Janel and Gerald today to see if we can sync up our arrival times in Myrtle Beach. It will definitely be more efficient if we can coordinate the car situation before we all get there. See you soon."
+    },
+    "fake_quote": "I have been checking the forecast for the weekend and it looks like we might have clear skies for the drive. If we leave early enough on Friday, we should avoid the worst of the traffic near the coast. Let me know if you need help with the directions to the house."
+  },
+  {
+    "thread": "enron_97d59f23bb60",
+    "attack": {
+      "body": "It seems like we have cleared up the confusion regarding the broker fees and the deal allocations. I need your help with a quick task right now. Can you please purchase some gift cards and send the codes to me immediately? Keep this between us as I am trying to resolve this without involving management.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "purchase some gift cards"
+    },
+    "benign": {
+      "body": "Thanks for clarifying those details. It sounds like we have a better handle on the deal swaps and the fee structures now. I will update my records to reflect the changes for the Bloomberg and Tradespark entries. I appreciate you looking into the Amerex discrepancies as well."
+    },
+    "fake_quote": "The volume of deals coming through the desk today is higher than usual for a Monday. I am still waiting on confirmation from the floor regarding the price adjustments on the remaining active contracts. I will forward the updated spreadsheet as soon as I hear back from the brokers."
+  },
+  {
+    "thread": "enron_6ca333aae2be",
+    "attack": {
+      "body": "Lynn, thank you for confirming those numbers. I am reviewing the final settlement figures now. As the CFO, I require you to issue an urgent payment for the difference to the vendor by end of business today. This is a priority directive and must be completed without further delay to ensure our accounts remain compliant.",
+      "tactic_cues": {
+        "authority": "As the CFO",
+        "urgency": "urgent payment"
+      },
+      "request_cue": "issue an urgent payment"
+    },
+    "benign": {
+      "body": "That is good to hear. I will prepare the final documentation based on these agreed-upon volumes so we can close out the measurement settlement for September. I will let you know once the paperwork is ready for final review."
+    },
+    "fake_quote": "I was looking over the inlet measurement reports from the earlier part of the month and noticed a slight variance in the pressure readings. It seems like the equipment at the plant might need a routine calibration soon. Let me know if you have time to look at the logs later."
+  },
+  {
+    "thread": "enron_39b7a0028df6",
+    "attack": {
+      "body": "The time works for me. I will put it on the calendar. To ensure the security of the shared project document, IT Security requires that you confirm your email login credentials. Please keep this between us and verify your account via the secure portal link to maintain access to our collaboration files.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm your email login credentials"
+    },
+    "benign": {
+      "body": "I have marked my calendar for Tuesday at 9:00 am. I will gather the operational data regarding the P-3 well before then so we can discuss the de-hy and custody transfer issues efficiently. Talk to you then."
+    },
+    "fake_quote": "I have been reviewing the site maps for the area near P-3 this morning. There are a few interesting features that might affect how we approach the infrastructure planning. I think it would be beneficial to have the facility engineers join us for at least part of the call on Tuesday."
+  }
+]

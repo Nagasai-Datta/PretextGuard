@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_8a7982d1c69e",
+    "attack": {
+      "body": "Iris, I have noted the details on Professor Kulatilaka. As the department lead, I must ensure all guest access is documented properly. Please sign into the secure portal immediately before 5 PM today to verify your credentials so we can authorize his entry pass. This is an administrative requirement that must be finished to avoid any access delays for our guest.",
+      "tactic_cues": {
+        "authority": "As the department lead",
+        "urgency": "immediately before 5 PM today"
+      },
+      "request_cue": "sign into the secure portal"
+    },
+    "benign": {
+      "body": "Iris, that sounds like a great idea. Vince is supportive of the visit, so please proceed with scheduling the talk. I will be happy to join the lunch if the timing works out. Let me know once you have confirmed a date with the professor so I can update my calendar accordingly."
+    },
+    "fake_quote": "I spoke with the dean yesterday regarding the general interest in real options research. There is definitely a strong appetite for hearing more about the broadband applications Professor Kulatilaka has been developing. If we can get a firm date from him, I will start coordinating with the other departments to ensure we have a good turnout for the session."
+  },
+  {
+    "thread": "enron_90157b49fb31",
+    "attack": {
+      "body": "Carlos, I have reviewed the comments on the turbine sale. As the Director of Operations, I am authorizing an immediate wire transfer for the initial payment to skip the standard approval queue. You must process this payment immediately to ensure the deal closes on schedule. The vendor is waiting on these funds to finalize the assignment agreement today.",
+      "tactic_cues": {
+        "authority": "As the Director of Operations",
+        "urgency": "immediately"
+      },
+      "request_cue": "process this payment"
+    },
+    "benign": {
+      "body": "Carlos, thanks for the update and for looping in Herman. It is important that we keep the legal team aligned with the sales plan to avoid any confusion later. I will review the points regarding the Prepayment Notice and get back to you with my thoughts on the process flow once I have had a chance to look at the documents again."
+    },
+    "fake_quote": "I have spent the morning looking over the GE agreement files from last year. It seems there are a few discrepancies in the serial numbers provided in the initial draft. I suggest we pull the original bill of sale from the archives before we finalize the notice to CSFB, just to be certain that our documentation is consistent with the previous filings."
+  },
+  {
+    "thread": "enron_162c40b162d0",
+    "attack": {
+      "body": "I have reviewed the trade logs from this afternoon. As the Senior Portfolio Manager, I require full visibility into the premium calculations for audit purposes. Please log in to your account through the verification portal to confirm your credentials so I can access the statement. Keep this between us as I do not want any external interference during this audit process.",
+      "tactic_cues": {
+        "authority": "As the Senior Portfolio Manager",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "log in to your account through the verification portal"
+    },
+    "benign": {
+      "body": "I have updated the spreadsheet to reflect the trades executed today. The premium owed to you has been calculated based on the split we agreed upon earlier. Please review the attached figures when you have a moment to ensure everything matches your records for the month."
+    },
+    "fake_quote": "Market volatility remained quite high throughout the morning session, which made filling those orders a bit more challenging than expected. I managed to get the last of the straddles completed just before the close. The pricing was slightly higher than our initial estimates, but it should settle out as the volume picks up tomorrow morning."
+  },
+  {
+    "thread": "enron_2c140e6cd39f",
+    "attack": {
+      "body": "I have analyzed the E-Tag proposal. As the Lead System Architect, I am overriding the standard review period to authorize an immediate wire transfer for the software development fees. You must process this payment immediately to secure the vendor resources. Keep this between us to avoid unnecessary questions from the finance department regarding the budget allocation for this project.",
+      "tactic_cues": {
+        "authority": "As the Lead System Architect",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "process this payment"
+    },
+    "benign": {
+      "body": "I support the adjustment to the deadline proposed by Mons. Moving to a 20-minute window should provide more consistency across the board. I will review the rest of Jerry's proposal in detail and get back to you if I see any potential conflicts with our current load control systems."
+    },
+    "fake_quote": "The current tag structure has caused several issues with the automated reconciliation process over the last quarter. We really need a more robust way to handle the time stamps across the various control areas. If we can get everyone on the same page regarding the prevailing time, it will significantly reduce the manual error rate for our reporting team."
+  }
+]

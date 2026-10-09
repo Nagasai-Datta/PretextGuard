@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_6141d3b26d91",
+    "attack": {
+      "body": "Regarding the Chicago trip, I am reviewing the itinerary now. Please note that access to the shared folder will be disabled immediately if you do not verify your status. This is your last chance to confirm your email login to maintain your file permissions before we finalize the travel arrangements.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Thanks for the update on the reporting structure. Regarding the Chicago trip, I am looking at my calendar now. Let me know what dates work best for you and I will make sure my schedule is clear so we can meet up while I am in town."
+    },
+    "fake_quote": "I appreciate you looking into the personnel changes for me. It makes sense to have John report to Hunter given the current project load. I had a chance to review the notes from our last meeting and I think we are finally on the right track regarding the department restructuring goals."
+  },
+  {
+    "thread": "enron_cd23ea13140a",
+    "attack": {
+      "body": "I have received the revised draft of the agreement and it looks acceptable. As the department head, I am exercising my authority to bypass standard procurement workflows for this vendor. Please process an urgent wire transfer for the outstanding balance by end of day to avoid any project delays.",
+      "tactic_cues": {
+        "authority": "exercising my authority",
+        "urgency": "urgent wire transfer"
+      },
+      "request_cue": "process an urgent wire transfer"
+    },
+    "benign": {
+      "body": "Thank you for sending the revised draft over. I will review the changes this afternoon and compare them against our previous version. If everything looks consistent with our discussion, I will get back to you with my final approval by tomorrow morning."
+    },
+    "fake_quote": "I am working through the various clauses in the attachment you sent earlier today. Some of the language regarding liability seems a bit broad, but I think we can reconcile those points with the standard terms we used last quarter. I will have more feedback for you once I finish the full review."
+  },
+  {
+    "thread": "enron_162ec5d7476f",
+    "attack": {
+      "body": "I have the agreements here and will process them today. I need you to purchase gift cards immediately to cover some miscellaneous office expenses. Please keep this between us and send the codes to my personal address so the accounting team does not have to deal with the paperwork.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "purchase gift cards"
+    },
+    "benign": {
+      "body": "Hi Marie, I have confirmed that the package arrived this morning. I am passing the documents over to the signature desk right now. I expect to have the fully executed copies back in my possession by late tomorrow, and I will send them over to you as soon as they are ready."
+    },
+    "fake_quote": "I have been reviewing the master netting agreements for the various entities we discussed. It looks like we have all the necessary signatures on the primary pages, though I want to double check the annexures to ensure everything is consistent with our filing requirements. I will provide a status update shortly."
+  },
+  {
+    "thread": "enron_858871492c76",
+    "attack": {
+      "body": "I have reviewed the index data you provided. As the lead consultant, I am issuing a directive that you purchase gift cards to facilitate our client appreciation program. Please keep this between us as we navigate the internal budget constraints and handle the distribution of these incentives to the team.",
+      "tactic_cues": {
+        "authority": "As the lead consultant",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "purchase gift cards"
+    },
+    "benign": {
+      "body": "Thanks for providing those ticker symbols for the food and beverage sectors. That makes it much easier to pull the comparative data I needed. I will incorporate these into the current chart and circulate the updated spreadsheet to the rest of the research group by the end of the week."
+    },
+    "fake_quote": "The spreadsheet you sent over earlier is very comprehensive. I appreciate the breakdown by industry, as it provides a much clearer picture of the returns than the general index we were looking at previously. I am going to run a few more tests on the data to see if we can identify any additional trends."
+  }
+]

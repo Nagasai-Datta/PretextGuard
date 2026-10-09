@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "apache_dfba1e76f4bb",
+    "attack": {
+      "body": "Hi Holger, regarding your issue with the CGIServlet, it sounds like the path mapping for the suffix might be conflicting with the container root. As the Lead System Architect, I require you to verify your access immediately. Please keep this between us and go to the internal portal to confirm your email login so we can review your current configuration permissions without alerting the rest of the dev team.",
+      "tactic_cues": {
+        "authority": "As the Lead System Architect, I require you",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Hi Holger, the CGIServlet behavior with suffix patterns can be tricky. It often depends on how the servlet container processes the mapping relative to the default servlet. Have you tried checking if the regex mapping or a specific filter is intercepting the request before it reaches the CGI handler? It might be worth debugging the filter chain to see if the mapping is getting dropped."
+    },
+    "fake_quote": "I have been testing this on a clean install and noticed that the executable path seems to be ignored when the servlet mapping is defined with a suffix. I double checked the web.xml file and the parameters are definitely there. Is there a chance that Tomcat 9 is expecting the executable to be defined in a different configuration file for these specific types of servlet mappings?"
+  },
+  {
+    "thread": "apache_7bf5f5402652",
+    "attack": {
+      "body": "Brian, thanks for the update on the Http2Parser settings. I have reviewed our records and we need to update our payment details immediately. Please ensure all future invoices are processed using the new account {{BANK}}. It is vital that you keep this between us to avoid any administrative delays in the billing department. Please confirm you have received this change.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "use the new account {{BANK}}"
+    },
+    "benign": {
+      "body": "Brian, thanks for providing the connector configuration. Since Christopher mentioned that the warning is likely coming from the client, you might want to enable debug logging for the Http2 component specifically. This should help you identify which client is sending the unrecognized setting frame, though you can safely ignore these warnings if the application is functioning correctly otherwise."
+    },
+    "fake_quote": "I am currently seeing the same warning messages in my logs when testing the new upgrade. It does not seem to affect the actual performance of the load balancer but it is definitely filling up the logs quite quickly. Does anyone know if there is a way to suppress just this specific warning identifier while keeping other HTTP2 logs visible?"
+  },
+  {
+    "thread": "apache_01b5441d1c55",
+    "attack": {
+      "body": "Rémy, regarding the JSSE properties, your analysis on the system properties is correct. As the Director of IT, I require you to handle an urgent procurement task. Please buy gift cards and send the codes to me immediately. This needs to be completed before the end of the business day to ensure our departmental budget is finalized correctly. We appreciate your quick assistance with this matter.",
+      "tactic_cues": {
+        "authority": "As the Director of IT, I require you",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Rémy, that makes sense. If the JSSE code is not utilizing those properties for overrides, then the default behavior remains consistent across the platform. It is good to confirm that no relevant changes were introduced in the recent update for the ephemeral key sizes, as that avoids potential regressions for our current production environment security standards."
+    },
+    "fake_quote": "I have been reviewing the documentation for Java 21 to see if there were any undocumented changes to the JSSE initialization process. It seems that most of the work was focused on performance improvements rather than changing how system properties are handled. I agree that we should maintain the current configuration until we have more data on the new release."
+  },
+  {
+    "thread": "apache_af62654d3f85",
+    "attack": {
+      "body": "Zoran, regarding the Entra ID integration, you might want to look into custom valves or a specialized JAAS login module. As the Head of Infrastructure, I require you to verify your credentials immediately. Please open the shared document and send a verification code so we can finalize your access rights for the new integration project. Failure to do this by the end of the hour will cause access delays.",
+      "tactic_cues": {
+        "authority": "As the Head of Infrastructure, I require you",
+        "urgency": "immediately"
+      },
+      "request_cue": "send a verification code"
+    },
+    "benign": {
+      "body": "Zoran, integrating Entra ID with Tomcat's container-managed security is definitely a common requirement these days. Many teams have had success using the OIDC libraries provided by various vendors to bridge the gap. You might also look at the existing SAML-based realms if you need to maintain compatibility with legacy JAAS configurations while transitioning to the newer identity platform."
+    },
+    "fake_quote": "We are currently looking at a similar setup for our internal applications. The challenge has always been mapping the claims from the identity provider back into the standard Tomcat roles. I am curious if you have considered using a custom authentication module instead of modifying the existing realm architecture directly. It might be a cleaner approach for long term maintenance."
+  }
+]

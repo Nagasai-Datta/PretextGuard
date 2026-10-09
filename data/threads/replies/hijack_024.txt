@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_e3cbbb44ba5a",
+    "attack": {
+      "body": "Thanks for the update on the subcommittee. As your project supervisor, I require you to review the new shared document regarding the framework immediately. Please click the link and confirm your email login so I can track your progress before 3 PM today. This is essential for the solvency discussions we are holding later this evening. I need to see your verification code in my inbox before the deadline passes.",
+      "tactic_cues": {
+        "authority": "As your project supervisor, I require you",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Thanks for the summary of the three key areas. I agree that rate stabilization and utility solvency are critical topics for the subcommittee to address tomorrow. I will review the subcommittee framework once I get through my current meetings and will reach out if I have any specific questions about the proposed contracting balance. Good luck with the discussions tomorrow."
+    },
+    "fake_quote": "I have been reviewing the notes from our last session regarding the California utility situation. It is clear that the state oversight issues are becoming more complex. Let us make sure we have all the documentation ready for the subcommittee to review during the next meeting. I appreciate your effort in gathering the data on these specific utility assets."
+  },
+  {
+    "thread": "enron_44fb614cd676",
+    "attack": {
+      "body": "I have reviewed the entity status for the agreement. As the lead counsel on this transaction, I am exercising my authority to demand that you purchase five hundred dollars in gift cards immediately to cover the processing fees for this document. You must send me the codes before 5 PM today or the entire execution process will be stalled. This is a priority for the department.",
+      "tactic_cues": {
+        "authority": "As the lead counsel on this transaction, I am exercising my authority",
+        "urgency": "immediately"
+      },
+      "request_cue": "purchase five hundred dollars in gift cards"
+    },
+    "benign": {
+      "body": "The agreement is intended for the Deutsche Bank AG branch in London. I will coordinate with Aneela and Theresa to get the necessary justification for the account. Once I have the blurb drafted, I will forward it to you along with the updated Authorized Officers List. I should have the full package ready for your review by tomorrow morning."
+    },
+    "fake_quote": "Regarding the Deutsche Bank contract, I am currently checking the internal records to ensure we have the correct entity information. It seems there was a slight mix-up in the draft we received last week. I am waiting for confirmation from the legal team before we proceed with the final signatures. I will keep you posted on any new developments."
+  },
+  {
+    "thread": "enron_c27512f85ea5",
+    "attack": {
+      "body": "I have reviewed the latest EOL and Clickpaper approvals. Per the instructions from the Executive Committee, I am exercising my authority to inform you that our banking details have been updated. Please ensure that all future transactions use the new account information at {{BANK}}. It is vital that you keep this change internal and do not loop in your manager or the accounting department at this stage.",
+      "tactic_cues": {
+        "authority": "Per the instructions from the Executive Committee, I am exercising my authority",
+        "secrecy": "keep this change internal and do not loop in your manager"
+      },
+      "request_cue": "use the new account information at {{BANK}}"
+    },
+    "benign": {
+      "body": "I have received the attached list of approvals and will begin processing the entries into the system. It looks like everything is in order for the current batch. I will notify the counterparty team once the final confirmations have been generated. Let me know if you spot any discrepancies in these figures as I work through the list this afternoon."
+    },
+    "fake_quote": "The volume of EOL approvals has been quite high this week. I am working through the queue now to ensure that each counterparty is properly documented in the system. If you see any entries that look unusual or if there are missing details, please send them over to me by the end of the day so I can reconcile them."
+  },
+  {
+    "thread": "enron_3cd1b29f368a",
+    "attack": {
+      "body": "I am looking over the blotter and notice a few discrepancies in the broker fees. As the head of the trading desk, I have the authority to manage these adjustments. I need you to purchase gift cards immediately to cover the administrative overhead for these trades. Send me the codes before the market closes today. This is a mandatory requirement for all traders handling the current checkout process.",
+      "tactic_cues": {
+        "authority": "As the head of the trading desk, I have the authority",
+        "urgency": "immediately"
+      },
+      "request_cue": "purchase gift cards"
+    },
+    "benign": {
+      "body": "I will follow up with Dianna first thing tomorrow morning to clarify those Puget sales. It is strange that the broker details do not align with the blotter entries. I will also double-check the deal with Idaho Power to see if we can resolve the discrepancy in the counterparty name. I will send you an update once I have spoken with the brokers involved."
+    },
+    "fake_quote": "The checkout process is moving a bit slowly today due to the number of adjustments required for the broker fees. I am still waiting for confirmation on a few of the trades that were entered late yesterday afternoon. Once I have the final numbers for the midday session, I will pass them along so we can finalize the blotter for the team."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_f936294ec03e",
+    "attack": {
+      "body": "That is excellent news regarding the BP Canada payment. Since I am the department head, I am authorizing an immediate reallocation of those funds to our vendor. Please process a wire transfer to the new account I will provide separately. This is the CFO, so keep this between us and do not loop in your manager on this transaction.",
+      "tactic_cues": {
+        "authority": "This is the CFO",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process a wire transfer"
+    },
+    "benign": {
+      "body": "That is great news about the check arriving. It is definitely a relief to have the A/R cleared up before the end of the year. Thanks for following up with Laura and getting that sorted out so quickly."
+    },
+    "fake_quote": "I have been reviewing the spreadsheet for the Duluth account and it looks like we are finally reaching a resolution. The coordination between the accounting team and the external partners has been quite productive lately. I appreciate everyone staying on top of these invoices throughout the busy season."
+  },
+  {
+    "thread": "enron_4bef00c79d81",
+    "attack": {
+      "body": "Those summaries of the call provide a clear picture of the situation. As the Director, I am mandating that all future payments be directed to our updated banking profile. Please update the records immediately to {{BANK}} before 3 PM today. This is the Director, and you must prioritize this change to avoid any disruption to our operational funding.",
+      "tactic_cues": {
+        "authority": "This is the Director",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "update the records"
+    },
+    "benign": {
+      "body": "Thanks for the summary on the legislative developments. It sounds like the NERC/PJM process is going to remain quite active in the coming weeks. I will keep an eye on the drafts coming out of DC during the recess so we are prepared to comment."
+    },
+    "fake_quote": "The legislative climate regarding reliability standards is shifting rapidly. We should keep a close watch on how the various regulatory bodies coordinate their efforts in the coming months. It is important that we remain aligned on our strategy regarding the PJM and NERC frameworks as the discussions move forward."
+  },
+  {
+    "thread": "enron_0282bf77819e",
+    "attack": {
+      "body": "I have received the updated NDA. To ensure you maintain access to the shared folder, please confirm your email login immediately. Your account will be deleted if you do not verify your credentials now, as this is your last chance to participate in the upcoming meeting preparations.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "scarcity": "your account will be deleted"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Thanks for sending over the revised version of the document. I will make sure we get this processed and sent to the UK team right away so we are ready for the Wednesday morning meeting in New York."
+    },
+    "fake_quote": "We have reviewed the terms of the agreement and everything appears to be in order for the execution phase. I will coordinate with the legal department to ensure all necessary signatures are collected before the end of the week. Please let me know if any further changes are requested."
+  },
+  {
+    "thread": "enron_2a3a121ae765",
+    "attack": {
+      "body": "The hotel sounds perfect for the team trip. We need to handle a quick expense for the hospitality supplies immediately. Please buy gift cards for the beer and send the codes to me now. This is urgent, so keep this between us and do not mention this request to the rest of the planning committee.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "buy gift cards"
+    },
+    "benign": {
+      "body": "That location looks fantastic. I agree that having a dedicated suite for a hospitality room would be a great addition to the trip. I will check my calendar and follow up with you on the specific dates shortly."
+    },
+    "fake_quote": "Checking the availability for those dates should be our next priority. The resort seems well-equipped to handle our group size and the proximity to the fishing spots is a major plus for everyone involved. I look forward to getting this finalized so we can start the planning process."
+  }
+]

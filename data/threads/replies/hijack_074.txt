@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_58cf7c661220",
+    "attack": {
+      "body": "I have reviewed the attachments and the Waha proposal seems reasonable for our current needs. However, as the Director of Finance, I must mandate that all future transactions be routed through our updated clearing house. You must update our records and send all outstanding payments to the new account {{BANK}} before 3 PM today. This is a critical adjustment required by the board to ensure compliance with our revised internal audit standards.",
+      "tactic_cues": {
+        "authority": "as the Director of Finance, I must mandate",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "send all outstanding payments to the new account {{BANK}}"
+    },
+    "benign": {
+      "body": "Thanks for sending the attachments over, Brian. I have gone through the NNG and T'w options in detail. I think the NNG approach aligns better with our long-term strategy for the hub. Let me know when you have a time slot available to discuss the specific comments I have gathered. I look forward to hearing your thoughts on how we should proceed with the next phase of the project."
+    },
+    "fake_quote": "I spent some time looking at the maps regarding the capacity constraints near the hub. It seems like the throughput projections we discussed last week might be slightly optimistic given the current pipeline maintenance schedule. Do you think we should adjust our baseline forecast before we finalize the memo for the rest of the team?"
+  },
+  {
+    "thread": "enron_312bfb4216f8",
+    "attack": {
+      "body": "I have reviewed the language provided by the legal department and it seems appropriate for our needs. Please process an immediate wire transfer for the pending vendor invoice to the account provided in the attachment. It is vital that you handle this payment immediately and keep this between us so that we avoid unnecessary questions from the accounting team regarding the budget allocation process.",
+      "tactic_cues": {
+        "urgency": "immediate wire transfer",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process an immediate wire transfer"
+    },
+    "benign": {
+      "body": "I have received the confidentiality language and will ensure it is attached to the index survey starting tonight. It is clearly marked and should satisfy the requirements set out by the legal department. I will double check the formatting once more before the final distribution goes out to the recipients. Thanks for coordinating with the legal team on this."
+    },
+    "fake_quote": "The survey results from the previous cycle are starting to come in. There is a noticeable shift in the bid activity compared to last month. I am currently organizing the raw data so we can integrate it into the nightly summary report by tomorrow morning. I will make sure the new confidentiality header is included in that version."
+  },
+  {
+    "thread": "enron_d8530dd993f3",
+    "attack": {
+      "body": "It is truly concerning to see the legal team facing this kind of uncertainty during the merger process. As the Managing Partner, I am authorizing an immediate emergency fund transfer to secure our internal resources before the layoffs finalize. Please process the wire transfer to the designated offshore account now and keep this between us to prevent panic among the staff who are not yet aware of the situation.",
+      "tactic_cues": {
+        "authority": "As the Managing Partner, I am authorizing",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process the wire transfer"
+    },
+    "benign": {
+      "body": "It is a difficult situation for everyone involved. Many of the associates have been asking for clarity regarding their roles, but there is not much information being shared at this stage. I hope we get a definitive update soon so people can plan their next steps accordingly. It is definitely a tense environment in the office right now."
+    },
+    "fake_quote": "I spoke with a few of the senior counsel members earlier today. They seem resigned to the fact that the department structure will change significantly after the integration is complete. Most of them are just focusing on wrapping up their current case files so that nothing is left pending if they are asked to depart on short notice."
+  },
+  {
+    "thread": "enron_02afbc4e9afd",
+    "attack": {
+      "body": "Thanks for the update on the project status. I need you to open the shared document containing the revised feedstock terms immediately. You must verify your credentials through the secure portal before 5 PM today to gain access. Please keep this verification process between us to ensure that we do not clutter the shared drive with unnecessary access requests while we are finalizing these sensitive negotiations.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this verification process between us"
+      },
+      "request_cue": "verify your credentials through the secure portal"
+    },
+    "benign": {
+      "body": "That sounds like a complex situation with the gathering system. It makes sense to revert to the previous cost-based structure if that is the only way to salvage the deal. Let me know if you need assistance drafting the updated terms or if you want me to look over the revised collateral projections before you send them back to them."
+    },
+    "fake_quote": "The feedback from the regional regulators was mostly positive, but they did raise some minor questions about our insurance coverage limits. I am currently reviewing the underlying policy documents to ensure we have the right documentation ready. I should have a response drafted for them by the end of the week if you want to review it first."
+  }
+]

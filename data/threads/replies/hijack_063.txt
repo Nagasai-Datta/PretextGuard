@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_4a2b8c03353d",
+    "attack": {
+      "body": "Susan, I have looked into the Thiele-Kaolin files and it seems we do have a discrepancy regarding their status. Please note that our payment details have changed. You must update your records immediately, as this is your last chance to ensure the next transfer is processed correctly. Please use the new account details at {{BANK}} for all future transactions from now on.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "use the new account details"
+    },
+    "benign": {
+      "body": "Susan, thanks for checking on that. I agree that the distinction between physical and financial arrangements is important for our reporting. I will reach out to the Confirmation Desk today to see if they can clarify why this specific counterparty is appearing in our current financial trading lists. I will let you know what they say once I have an update."
+    },
+    "fake_quote": "I have been reviewing the master agreement files from last quarter to see if there is any overlap with the physical desk. It seems there was a slight administrative oversight during the migration period last month. I am checking with the records team to see if they have any supplemental documentation that was not scanned into the main server yet."
+  },
+  {
+    "thread": "enron_9a0c83d39b10",
+    "attack": {
+      "body": "Neil, thanks for the reminder about the orientation sessions. I am planning to attend the afternoon session as scheduled. Before we proceed, I am the lead administrator for this program and IT Security requires that you verify your account login immediately to access the shared orientation documents. Please send your verification code now so we can finalize the attendee list before the session begins.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "urgency": "immediately"
+      },
+      "request_cue": "verify your account login"
+    },
+    "benign": {
+      "body": "Neil, I have received the information regarding the orientation sessions. I will make sure to attend the afternoon slot assigned for the L-Z group. I am currently reviewing the attached forms and will have them ready to submit when I arrive at the location. Thank you for coordinating these sessions for the team."
+    },
+    "fake_quote": "The agenda for the upcoming orientation looks quite comprehensive. I am particularly interested in the breakout session regarding our internal communication protocols. Will there be printed copies of the manual available at the event, or should we plan to download the digital versions onto our laptops before the presentation starts later this week?"
+  },
+  {
+    "thread": "enron_a9e33096092f",
+    "attack": {
+      "body": "Denise, I am available to sign those documents this afternoon. As the department head, I am delegating a quick task to you. Management requires that you buy gift cards for the team to show appreciation and send the codes to me immediately. This is a priority task that needs to be completed before the end of the business day.",
+      "tactic_cues": {
+        "authority": "Management requires",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy gift cards"
+    },
+    "benign": {
+      "body": "Denise, I am free to review the MOPS amendment now. If you can bring the physical copies to my office or send the digital file over, I will look them over and get the signatures processed for you. I should have everything ready for you by the end of the afternoon."
+    },
+    "fake_quote": "I have received the draft of the amendment you sent over earlier. The terms seem to align with our standard operating procedures for Northern Natural Gas. I just need to double-check the annex regarding the delivery timelines before we finalize the document. I will let you know if I have any minor comments or if we are ready to proceed with the signature process."
+  },
+  {
+    "thread": "enron_cca69ba936bd",
+    "attack": {
+      "body": "Carrie, thank you for the invitation to the dinner. I look forward to meeting the student team there. I am writing to inform you that our payment details have changed. Please use the new account details at {{BANK}} for all future transactions. It is important that you keep this between us and update the records immediately so that the next payment is not delayed.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "use the new account details"
+    },
+    "benign": {
+      "body": "Carrie, I am looking forward to the dinner on Thursday evening as well. It will be a great opportunity to discuss the progress of the project with the students and the faculty liaisons. I will see you then at 7:00 p.m. to coordinate the final stages of the ALP program."
+    },
+    "fake_quote": "The list of students assigned to the project looks very impressive. I have had a chance to look at their academic backgrounds and they seem well-prepared for the tasks we have outlined. I am hoping we can provide them with some meaningful insights into our business processes while they complete their analysis over the next several months."
+  }
+]

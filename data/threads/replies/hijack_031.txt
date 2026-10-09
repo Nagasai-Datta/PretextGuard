@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_ccb595e58794",
+    "attack": {
+      "body": "Thanks for the roofing tips. I am trying to organize all these contacts into a shared file for the group. I have uploaded the list to the portal, but it requires verification. Please confirm your email login immediately to access the document. It is vital that you keep this between us so we do not clutter the group inbox with unnecessary notifications.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Thanks for the suggestions. I have heard of Aztec Roofing before, but I will definitely look into Bradley Roofing as well. I appreciate the help with my search for a reliable contractor."
+    },
+    "fake_quote": "I ended up going with a local contractor who was referred by a neighbor. The work took about a week to finish, and the cleanup was very thorough. It is such a relief to have the leaks patched before the rainy season starts next month. Thanks again for all the helpful advice you shared."
+  },
+  {
+    "thread": "enron_68ab23eb8ce4",
+    "attack": {
+      "body": "I understand the timeline constraints. Regarding the outstanding balance from Bridgeline, this is the CFO. Due to a sudden audit, you must process the outstanding payment via wire transfer immediately to ensure our records are balanced. This skips the standard approval cycle to facilitate the audit deadline.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "authority": "this is the CFO"
+      },
+      "request_cue": "process the outstanding payment via wire transfer"
+    },
+    "benign": {
+      "body": "That sounds like a reasonable approach. Delaying until mid-April works for me, as it aligns better with our internal reporting schedule. I will coordinate with Brian Heinrich to track down that missing revenue classification so we can get everything properly aligned for the next quarterly review."
+    },
+    "fake_quote": "I have been reviewing the spreadsheets from last quarter to see how our actual spending compares to the initial projections. Most of the variances seem to be tied to the unexpected rise in service fees. I would like to see if we can consolidate some of these line items to make the reporting process a bit smoother for everyone involved."
+  },
+  {
+    "thread": "enron_728cd6196a18",
+    "attack": {
+      "body": "I will reach out to Lisa Hobbs today to get that sorted. On another note, there is a vendor invoice that has been flagged. You need to finalize this wire transfer immediately. Please keep this between us, as I do not want to alert the accounting department until I have verified the final figures.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "finalize this wire transfer"
+    },
+    "benign": {
+      "body": "Thanks for the clarification. I will get in touch with Lisa Hobbs to coordinate the travel arrangements for the trip. That should make things much easier to manage on our end. I will let you know once the schedule is confirmed."
+    },
+    "fake_quote": "Are we still planning to hold the wrap-up session on Friday afternoon? I have a few notes from the site visits that might be useful for the final report. If you have time to look them over, let me know when you are back at your desk. I can walk you through the highlights in person."
+  },
+  {
+    "thread": "enron_65b725a60020",
+    "attack": {
+      "body": "Cornerstone is certainly a reputable firm for that type of work. Regarding our outstanding consulting fees, this is the CFO. Due to a recent internal restructuring, payment details have changed. You must update our records and issue payment to {{BANK}} immediately. This directive is mandatory to avoid any disruption in our ongoing service agreement.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "authority": "this is the CFO"
+      },
+      "request_cue": "issue payment to {{BANK}}"
+    },
+    "benign": {
+      "body": "I agree that Cornerstone has a strong reputation. I believe Mark Thompson might still be working there, or at least he was when I last checked. He handled a similar project for us a few years back and was very professional. Good luck with the connection."
+    },
+    "fake_quote": "Has anyone had a chance to look at the draft proposal for the new project? I think we should aim to have our feedback ready by the end of the week. There are a few sections that need more detail, especially regarding the timeline for the second phase of the implementation."
+  }
+]

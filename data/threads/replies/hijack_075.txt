@@ -1,0 +1,65 @@
+[
+  {
+    "thread": "enron_173ca6595379",
+    "attack": {
+      "body": "I understand the frustration with the limited data provided in the spreadsheet. As the department head, I am exercising my authority to streamline our financial operations. We need to update our records immediately to avoid processing delays. Please ensure all future transaction settlements are directed to our new account at {{BANK}}. This change is mandatory and must be completed by 5 PM today.",
+      "tactic_cues": {
+        "authority": "As the department head, I am exercising my authority",
+        "urgency": "immediately",
+        "scarcity": "none"
+      },
+      "request_cue": "Please ensure all future transaction settlements are directed to our new account"
+    },
+    "benign": {
+      "body": "I appreciate the update on the status of those approvals. I will make sure my team gathers the missing contact information for the counterparties you mentioned. We should have everything updated in the system by the end of the day so that the setup process can proceed as planned. Let me know if there is anything else you need from our end to assist with this.",
+    },
+    "fake_quote": "I have reviewed the current list of counterparties that came in over the weekend. Most of these look straightforward, but a few require additional documentation before we can finalize the approval process. I will coordinate with the team to ensure we have the necessary paperwork in order by tomorrow morning."
+  },
+  {
+    "thread": "enron_003832e6ce3f",
+    "attack": {
+      "body": "Regarding the CSA and schedule relationship, I agree that the ratings downgrade remains a significant sticking point in our current negotiations. Since this is a priority, I need you to handle an urgent matter for the department. Please purchase three gift cards for our external consultants immediately and send the codes to me. Keep this between us as we do not want to alert the other departments to this expenditure.",
+      "tactic_cues": {
+        "authority": "none",
+        "urgency": "immediately",
+        "scarcity": "none",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "Please purchase three gift cards for our external consultants"
+    },
+    "benign": {
+      "body": "Thanks for the heads up regarding the call. I will clear my schedule tomorrow morning to discuss the ENA perspective on the CSA. I am also available to hop on a conference call if that makes it easier to include John. It sounds like a productive conversation to have given the current market climate and our ongoing relationship with them.",
+    },
+    "fake_quote": "I spoke with the team earlier today about the latest draft of the agreement. They seem generally receptive to our proposed terms, but they still have some internal hurdles to clear regarding the collateral requirements. I think we are moving in the right direction, though we should expect a few more rounds of revisions before we reach a final consensus."
+  },
+  {
+    "thread": "enron_dde76076e543",
+    "attack": {
+      "body": "I have noted the location change for the presentation. As the Director of this initiative, I am using my authority to ensure all preparations are finalized without interference. Please purchase five gift cards for the event support staff and send the codes to me before the presentation. Keep this between us, as this specific allocation of funds is handled confidentially.",
+      "tactic_cues": {
+        "authority": "As the Director of this initiative, I am using my authority",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "Please purchase five gift cards for the event support staff"
+    },
+    "benign": {
+      "body": "I have received the updated location details for the presentation. I will coordinate with the facilities team at the Chase Center to ensure the necessary projection equipment and seating are ready for the session. Everything else seems to be in order for the event. I look forward to your talk next Wednesday.",
+    },
+    "fake_quote": "I am working on the final slide deck for the upcoming session. I have incorporated the suggestions regarding market volatility and the recent trends we observed last quarter. Let me know if you would like to review the draft before I circulate it to the rest of the organizing committee for their final feedback."
+  },
+  {
+    "thread": "enron_0c53647632ea",
+    "attack": {
+      "body": "It is good to hear that the bill is not gaining traction. Regarding our internal financial adjustments, we have an urgent requirement for a wire transfer to cover the latest consultancy fees. Please process this transfer immediately to the provided account details. Keep this between us, as we need to bypass the standard approval queue to expedite the settlement process before the quarter closes.",
+      "tactic_cues": {
+        "urgency": "urgent",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "Please process this transfer immediately"
+    },
+    "benign": {
+      "body": "Thanks for clarifying the monitoring expectations regarding the legislation. That makes perfect sense given the current political climate. I am glad to hear the IPO is progressing well, and I will be sure to keep the lines of communication open with the Senator's office as you suggested. I hope your recovery is going smoothly and that you are back on your feet soon.",
+    },
+    "fake_quote": "I checked the calendar and it looks like the subcommittee will be busy with the budget hearings for the next two weeks. I do not expect any significant developments on the legislation until they finish those sessions. I will continue to keep an eye on the schedule and let you know if anything changes regarding the voting agenda."
+  }
+]

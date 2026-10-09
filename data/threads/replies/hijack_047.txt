@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_d03010c24b9a",
+    "attack": {
+      "body": "I have looked into the Heartland records and it appears we are dealing with a transition period. Given the recent sale, the current invoicing process is outdated. This is your last chance to update our records before the old system is permanently deactivated. You must process this change immediately to ensure we receive funds. Please update our billing system to point to {{BANK}} for all future settlements.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "Please update our billing system to point to {{BANK}}"
+    },
+    "benign": {
+      "body": "Thanks for flagging this. I will coordinate with the settlements team to verify the status of those payments and see if we have received any official notification regarding the CSN acquisition. We should ensure the counterparty information is accurate before we continue issuing further invoices."
+    },
+    "fake_quote": "I reviewed the ledger entries for the Heartland account earlier this morning. It seems there is a discrepancy between the invoices sent and the actual cash receipts posted to our internal database. I am going to check with the accounting department to see if they have received any recent wires that might align with these outstanding balances."
+  },
+  {
+    "thread": "enron_7023195f26af",
+    "attack": {
+      "body": "I am still waiting to hear back from Diana as well regarding these missing deals. As the lead auditor, IT Security requires that we verify all active user sessions for these specific transactions. Please confirm your email login by clicking the verification link in the shared document immediately. We need this completed by end of day to remain compliant with our internal reporting standards.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "I have not heard back from her yet either. I will try giving her a call directly to see if she has had a chance to track down those missing deal numbers. If she is unavailable, I will check the logs on my end to see if I can find the entries you are looking for."
+    },
+    "fake_quote": "I checked the broker list again and found a couple of discrepancies in the timestamps. It looks like the data entry might have been delayed due to the system update we performed last night. I will reach out to the desk and ask them to double check their records for the afternoon session."
+  },
+  {
+    "thread": "enron_19f98b4638c9",
+    "attack": {
+      "body": "I understand your concerns regarding the arbitration and the definition of business days. We need to finalize this agreement quickly. This is the last chance to secure these terms before the fiscal window closes. You must process the initial contract fee via wire transfer immediately to bypass the standard approval delay. Please send the funds to the designated account to avoid any further complications.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "process the initial contract fee via wire transfer"
+    },
+    "benign": {
+      "body": "I appreciate the clarification on the business day definition and the arbitration forum. I will review the language you proposed for the situs and see if we can reach a consensus on the remaining points. I will get back to you once I have discussed the revised terms with the legal team."
+    },
+    "fake_quote": "The draft you sent over covers most of the primary concerns we discussed during our meeting last Tuesday. I am currently looking through the indemnity section to ensure it aligns with our broader corporate policy. I should have my comments ready for your review by tomorrow afternoon."
+  },
+  {
+    "thread": "enron_f9d640d42d7d",
+    "attack": {
+      "body": "That makes sense regarding the tax asset. Regarding the transition to EFS, we need to expedite the mapping process. This request is sensitive, so please keep this between us and do not loop in your manager. I need you to process an emergency wire transfer to the new vendor account immediately to cover the integration costs. We cannot afford any delays in this transition.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process an emergency wire transfer"
+    },
+    "benign": {
+      "body": "I understand the situation with the Timberline accounts. It makes sense to set that up as a full G/L to maintain consistency across the EFS groups. I will check with the person currently handling 15A to see what the best approach is for the transition and get back to you shortly."
+    },
+    "fake_quote": "I am working on the reconciliation report for the month of August and noticed a few items that do not match the expected totals. I will need to verify these figures against the payroll records for the timberline entities before I can finalize the mapping for the upcoming SAP migration."
+  }
+]

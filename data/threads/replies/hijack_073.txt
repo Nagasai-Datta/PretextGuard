@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_01119cdc731d",
+    "attack": {
+      "body": "Sara, I have reviewed the Redistribution Agreement and it looks consistent with our goals. As the authorized representative for this transition, I am mandating that all future settlements be directed to our updated account. Please keep this between us to avoid administrative confusion. Use the following details for the next transfer: {{BANK}}. Please confirm once you have updated your records accordingly.",
+      "tactic_cues": {
+        "authority": "As the authorized representative for this transition, I am mandating that all future settlements be directed to our updated account.",
+        "secrecy": "Please keep this between us to avoid administrative confusion."
+      },
+      "request_cue": "Use the following details for the next transfer: {{BANK}}."
+    },
+    "benign": {
+      "body": "Thanks for sending this over, Sara. I have had a chance to look through the revisions, and they seem to address the points we discussed regarding the ITG requirements. I will review the document one more time against our internal checklist and let you know if I have any further questions before we finalize the agreement."
+    },
+    "fake_quote": "I have been reviewing the latest files provided by the team. There are a few sections that seem to overlap with our previous discussions. I will compare these against the master document later today to ensure we are aligned before the next meeting. Let me know if you need me to pull any older drafts from the archives."
+  },
+  {
+    "thread": "enron_4dfc69934466",
+    "attack": {
+      "body": "Lori, I have received the wish list and will begin prioritizing those entities immediately. Regarding the internal ledger, I am exercising my authority to initiate an immediate wire transfer for the pending credit balance. It is vital that we skip the usual approval process for this transaction. Please keep this between us while I process the payment.",
+      "tactic_cues": {
+        "authority": "I am exercising my authority to initiate an immediate wire transfer for the pending credit balance.",
+        "secrecy": "Please keep this between us while I process the payment."
+      },
+      "request_cue": "It is vital that we skip the usual approval process for this transaction."
+    },
+    "benign": {
+      "body": "Thanks for getting those over to me. I will start looking through the list today and check the status of each entity against our existing credit records. I should have a better idea of which ones we can approve quickly and will send you an update once I have finished my initial assessment."
+    },
+    "fake_quote": "We have been tracking the progress of the credit derivatives list throughout the week. It seems like most of the entities are already in our system, but we need to verify the specific documentation for the newer ones. I am coordinating with the team to ensure we have all the necessary paperwork filed in the main directory."
+  },
+  {
+    "thread": "enron_81f2555e9875",
+    "attack": {
+      "body": "I have reviewed the information regarding the Green Power Partners agreements. Due to a critical financial issue, we need to process an urgent wire transfer to settle the outstanding balance before the end of the day. Please skip the standard approval steps and process this immediately. Keep this between us and do not mention this request to anyone else.",
+      "tactic_cues": {
+        "urgency": "Due to a critical financial issue, we need to process an urgent wire transfer to settle the outstanding balance before the end of the day.",
+        "secrecy": "Keep this between us and do not mention this request to anyone else."
+      },
+      "request_cue": "Please skip the standard approval steps and process this immediately."
+    },
+    "benign": {
+      "body": "Thank you for the clarification on the term dates for those agreements. This helps us get a much clearer picture of the current obligations we have with each party. I will include this information in the final analysis we are preparing for the team and ensure everything is documented correctly for our records."
+    },
+    "fake_quote": "I was looking over the various contract terms this morning. It is interesting to see how the different expiration dates are spread across the current calendar year. I will organize these into a summary table so we can see which agreements might need renewal discussions in the coming months. I will send that out once it is ready."
+  },
+  {
+    "thread": "enron_61f01d4bd452",
+    "attack": {
+      "body": "Gerald, I understand the situation with the credit departments. As the lead administrator on this file, I am directing you to update our payment records to reflect the new account details. Please keep this between us and ensure all future payments are directed to {{BANK}}. This change is effective immediately for all pending invoices moving forward.",
+      "tactic_cues": {
+        "authority": "As the lead administrator on this file, I am directing you to update our payment records to reflect the new account details.",
+        "secrecy": "Please keep this between us and ensure all future payments are directed to {{BANK}}."
+      },
+      "request_cue": "ensure all future payments are directed to {{BANK}}."
+    },
+    "benign": {
+      "body": "Thank you for the update on the status of the credit department discussions. I understand that these things can take some time to resolve between the teams. I will hold off on taking any further action on my end until I hear back from you regarding the final confirmation."
+    },
+    "fake_quote": "I have been reviewing the comments provided in the latest draft of the agreement. The changes to the sections you mentioned seem reasonable given the recent feedback from our legal team. I am going to consolidate these edits into the main file and will share the updated version with you for a final review later this week."
+  }
+]
