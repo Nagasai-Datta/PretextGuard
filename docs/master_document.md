@@ -14,9 +14,9 @@ Project Master Document
 
 **Faculty:** Dr. Arun Prasath G
 
-**Version:** 3.11, 9 October 2026
+**Version:** 3.11.1, 9 October 2026
 
-> **This is the single source of truth for the project.** Version 3.11 supersedes version 3.10 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
+> **This is the single source of truth for the project.** Version 3.11.1 supersedes version 3.11 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
 
 **Contents**
 
@@ -397,8 +397,8 @@ It is presented on the architecture slide as the system design the three claims 
 | Header verifier (N3) | Affiliation, authority, reply and signature claims + header evidence + organisation domain + the unredacted signature | Ledger rows | 50 Python rules, each row naming its rule; severities high, medium, low (initial labels, weights in Phase 10); brand domains in a data file (brands.py); no regular expression over email text (Section 8.16) | src/verifiers |
 | Thread verifier (N2) | Relationship and request claims + thread | Ledger rows + hijack index | 44 Python rules over four measurements (src/thread/signals.py): tactic onset against the Phase 6 thresholds, request drift (set differences on bank details with bank_detail_keys), sending-path comparison (sender name at a look-alike domain, new server and mail program), Message-ID and quotation matching (5-word shingles); the flip point is the first message with a medium or high contradiction (Section 8.17) | src/verifiers |
 | Request verifier | Request claims + sender evidence + the text the extractor read | Ledger rows | 12 rules; seven signals about the asker (look-alike, DMARC fail, free mailbox, Reply-To, display name, SPF fail, no check passed); IBAN checksum and labelled-number finder written without regular expressions (bank.py), values shown masked. Request drift against the thread belongs to the thread verifier (N2) | src/verifiers |
-| Ledger + risk score | Ledger rows + tactic probabilities | Score 0-100, verdict band, recommended action | Weighted formula calibrated on validation data | src/router |
-| LIME highlights | Body + classifier | Word weights per tactic | lime library | src/explain |
+| Ledger + risk score | Ledger rows + tactic probabilities | Score 0-100, verdict band (Low risk, Suspicious, High risk), recommended action, coverage | Points by row severity with a reliability factor per rule; the strongest row of each claim counts and each further claim counts half as much; urgency and secrecy multiply; formula in Section 6.6; calibrated on validation data | src/router |
+| LIME highlights | The redacted text the classifier reads + the classifier | Word weights and character offsets for each tactic that fired | LIME for text, written by hand (random word removal, kernel weights, weighted ridge fit, fixed seed; Ribeiro et al. 2016) and cross-checked once against the lime package; no new dependency | src/explain |
 | API | HTTP request (email or thread, optional organisation domain) | JSON report | FastAPI, Pydantic, slowapi | src/api |
 | UI | JSON report | Analyzer page and evaluation dashboard | React + Vite + Tailwind | frontend |
 
@@ -437,7 +437,7 @@ Ledger row produced by a verifier:
 
 `contradiction` has three values: true (severity high, medium or low), false (severity none) and null (severity not_checkable, the evidence the claim needs is missing). `rule` names the rule that produced the row and `claim_type` the type of the claim; severity is the strength of the rule, not a probability (Section 8.16).
 
-Report returned by the API (shape): score, verdict, action, org_domain (as used, or null), tactics (name, probability, highlighted spans), ledger (rows as above, including checks marked not checkable), header_findings, thread (hijack index and signals, or null), request_id. Email content is never stored after the response.
+Report returned by the API (shape, defined in Phase 10): `request_id`; `mode` ('email' or 'thread'); `score` (0 to 100), `verdict` (the band) and `action`; `org_domain` (as used, or null); `versions` (the score, rule, thread-rule and claim-pattern versions that produced the report); `text_read` (the redacted text the classifier and the claim extractor read; every highlight and claim span points into it); `tactics` (for each of the seven: name, probability, threshold, whether it fired, whether it counts in the score, and for a tactic that fired its highlights as character offsets with a weight); `claims` and `routing` (each claim and the verifier or verifiers it was sent to); `ledger` (rows as above, exactly as the verifiers return them, including the ones marked not checkable); `score_detail` (the points each counted row added, the multiplier and the tactic points); `coverage` (how many claims were found, checked, contradicted, consistent and not checkable, and a plain sentence when verification was incomplete, for example because no headers were pasted); `header_findings` (the cleaned header evidence the header verifier read: From name and domain, Reply-To, SPF, DKIM and DMARC verdicts, authentication state, freemail flag, look-alike score and the organisation domain used; evidence, not rows); and `thread` (the flip index and, per message, the worst severity and the rules that fired, or null for a single email). Email content is never stored after the response.
 
 ## 6.4 Routing table
 
@@ -468,9 +468,25 @@ Report returned by the API (shape): score, verdict, action, org_domain (as used,
 
 ## 6.6 Pretext Risk Score (plain component)
 
-The score is computed from the ledger: each contradiction adds points by severity (affiliation and payment contradictions weigh most), manipulation tactics add smaller points, and urgency or secrecy multiply the weight of contradictions found alongside them. The result is capped at 100. Weights are calibrated on the validation split, never on the test split.
+The score is computed from the ledger and the tactic probabilities, and the points come from the severity of a row, not from the type of its claim: the severities of Phases 8 and 9 already say how strong each rule is, and a severity is a rule strength, not a probability (Section 8.16). Formula, initial numbers (version 0.1, frozen in Phase 10 after calibration on the validation split, never on the test split):
 
-Initial verdict bands, to be tuned in Phase 10: **0-34 Benign**, **35-69 Suspicious**, **70-100 High risk**. Each band maps to a recommended action (for example: verify through a known phone number before acting).
+1.  **Only contradictions add points.** A consistent row adds nothing and takes nothing away (authentication that passes for gmail.com says nothing about who the person is). A row marked not checkable adds nothing either: missing evidence is neither a contradiction nor proof of honesty. How many claims could not be checked is reported as coverage.
+
+2.  **Points per severity:** high 60, medium 35, low 5, multiplied by a reliability factor of 1, 0.5 or 0 per rule, set from how often that rule fires on real mail in the train split (a rule that cries wolf on ordinary mail counts less).
+
+3.  **One claim counts once.** Rows are grouped by claim (claim id and type; each thread signal is its own group) and only the strongest row of a group counts.
+
+4.  **Saturating sum.** The groups are sorted by points and the k-th counts half as much as the one before (weights 1, 0.5, 0.25 and so on): a second independent finding is strong evidence, a tenth adds almost nothing.
+
+5.  **Pressure tactics multiply.** If urgency or secrecy fired, the contradiction points are multiplied by 1 plus 0.25 for each. A tactic raises the weight of a contradiction found with it; it never creates one.
+
+6.  **Small tactic points.** Authority, urgency, scarcity and secrecy that fired add 4 points each, at most 12. Reciprocity, social proof and liking are shown but not scored: Phase 6 found fewer than 10 real positives for them and no usable detection.
+
+7.  **Cap.** The result is rounded and capped at 100.
+
+Verdict bands (initial, checked in Phase 10): **0-34 Low risk**, **35-69 Suspicious**, **70-100 High risk**. The first band was called Benign in earlier versions; 'Low risk' means that no contradiction was found among the claims that could be checked, never that the email is safe, and the report states how many claims could not be checked (the coverage block of Section 6.3). Each band maps to a recommended action built from fixed text keyed on the strongest finding, never from email text (for example: verify through a known phone number before acting). Worked values: a lone medium contradiction scores 35 (Suspicious), a lone high 60 (Suspicious), a lone high with urgency 75 (High risk), two highs 90 (High risk), twelve lows about 10 (Low risk).
+
+There are no contradiction labels, so the shape of the formula is fixed by the meaning above and the validation split sets the scale: the weights are chosen so that ordinary validation mail (ham and spam), reported per source, stays inside a false-alarm budget declared before the validation emails are read. The attack corpora, the hijack benchmark and the labelled tactic data are reported against the chosen weights and never fitted (header evidence differs by corpus, and the benchmark cases are built to trigger the rules).
 
 ## 6.7 Worked example
 
@@ -545,7 +561,7 @@ Run-time steps, mapped to the code that performs them:
 
 - **spaCy and token patterns:** spaCy cuts the text into words (tokens) and marks the names of people and organisations; hand-written patterns over tokens (not regular expressions over characters) catch phrases such as "this is X from Y" or "verify your account", and rules read the signature block. Together they turn an email into typed claims (Section 8.15). Nothing is trained for this step.
 
-- **LIME:** removes words one at a time, watches how a tactic probability changes, and highlights the words that mattered most.
+- **LIME:** takes the email text the classifier reads, hides a random set of its words many times, watches how each tactic probability changes and fits a small weighted linear model to those changes. The words with the largest weights are the ones that pushed that tactic up, and they are highlighted. It explains the classifier only; the explanation of a verifier is the reason in its ledger row. PretextGuard writes it by hand (Section 6.2). Removing one word at a time is a different method (occlusion).
 
 - **Keyword baseline:** fixed word lists per tactic; it exists to show that DistilBERT beats simple rules (built in Phase 4, Section 8.12).
 
@@ -1398,7 +1414,7 @@ validation, enron threads:
 | Labels and agreement (Phase 5) | scikit-learn 1.9.1 | cohen_kappa_score, used to cross-check the hand-written kappa; the other Phase 5 scripts use the standard library and pandas |
 | Tactic classifier (Phase 6) | torch 2.14.1 on the Mac, transformers 5.19.0 on the Mac and on Colab (Colab keeps its own preinstalled torch) | Fine-tuning and CPU inference; weights as safetensors; precision, recall and F1 hand-written in src/eval/metrics.py (scikit-learn only inside its self-test) |
 | Testing | pytest | One environment check only (tests/test_environment.py); no unit tests per phase |
-| Explainability | LIME (SHAP only if time) | Word-level highlights; attention-as-explanation is academically contested |
+| Explainability | LIME for text, written by hand (no new library; SHAP only if time) | Word-level highlights as character offsets; attention-as-explanation is academically contested; the lime package would add matplotlib and scikit-image, which only its image explainer uses |
 | Backend | FastAPI + Pydantic + slowapi | The model lives in Python; schema validation; rate limiting |
 | Frontend | React + Vite + Tailwind | Reuses existing React knowledge |
 | Database | None, deliberately | Privacy by design: submitted email content is never stored |
@@ -1774,12 +1790,17 @@ To be taught during the build: LIME, FastAPI basics, the claim router.
 | 9 Oct 2026 | Threads with a message the tactic classifier trained on are kept out of validation and test | The classifier must not have seen the messages whose onset it is asked to find |
 | 9 Oct 2026 | Phase 9 complete: thread counts, false-alarm rates, benchmark counts, detection scores and checks in results/thread_*.csv and hijack_*.csv | Phase 10 can start |
 | 9 Oct 2026 | Version 3.11: Phase 9 folded into Sections 2, 4.3, 6.2, 8.7, 8.9, 8.17 (new), 10, 11, 12, 13, 14, 15 and 16 | End of Phase 9 |
+| 9 Oct 2026 | LIME for text is written by hand (random word removal, kernel weights, weighted ridge fit, fixed seed) and cross-checked once against the lime package, instead of adding that package | `pip install lime` also installs matplotlib and scikit-image, which only its image explainer uses; no new dependency in a service graded on security; every line can be explained at the viva; exact character offsets for the highlights |
+| 9 Oct 2026 | The risk score takes points from the severity of a ledger row, not from the type of its claim; the strongest row of each claim counts, each further claim counts half as much as the one before, consistent and not-checkable rows add nothing, and a reliability factor per rule (set from train false-alarm rates) lowers a noisy rule | The severities of Phases 8 and 9 already encode how strong each rule is, so per-claim-type weights would count the same thing twice; replaces the Section 6.6 wording that affiliation and payment contradictions weigh most |
+| 9 Oct 2026 | The first verdict band is named Low risk, not Benign, and the report carries a coverage block (claims found, checked, contradicted, consistent, not checkable) | A consistent row means nothing contradicts the message, never that it is safe; a pasted body with no headers has little to check |
+| 9 Oct 2026 | header_findings is the cleaned header evidence the header verifier read, not ledger rows, and the whole report shape is spelled out in Section 6.3; Section 6.11 no longer describes LIME as removing one word at a time | The shape was listed without saying what header_findings held; removing single words is occlusion, a different method |
+| 9 Oct 2026 | Version 3.11.1: corrections before Phase 10 in Sections 6.2, 6.3, 6.6, 6.11, 9, 14, 15 and 17 | Writing the Phase 10 plan found a conflict and gaps between the context file and the master document |
 
 # 15. Open items and next actions
 
 1.  **Start Phase 10** (claim router, verdict ledger, risk score and LIME highlights) in a new chat with docs/PretextGuard_Context.md and this document.
 
-2.  **Replace the project-file copy** with v3.11 (remove older copies) and keep docs/ in the repo current.
+2.  **Replace the project-file copy** with v3.11.1 (remove older copies) and keep docs/ in the repo current.
 
 3.  **Update the Review deck** when needed: novelty slide (N1, N2, N3 and the architecture contribution), the architecture diagram (Figure 2), the corrected running example (authentication passes for gmail.com), and the literature table (add Mithun et al. 2024, Ho et al. 2019, Valecha et al. 2022, ConvoSentinel, Aggarwal et al. 2014).
 
@@ -1957,3 +1978,5 @@ To be taught during the build: LIME, FastAPI basics, the claim router.
 21. Alam, N. A. Phishing Email Dataset ("Phish No More"). Kaggle.
 
 22. Kucherawy, M. (2019). Message Header Field for Indicating Message Authentication Status. RFC 8601, IETF.
+
+23. Ribeiro, M. T., Singh, S., Guestrin, C. (2016). "Why Should I Trust You?": Explaining the Predictions of Any Classifier. Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, pp. 1135-1144.
