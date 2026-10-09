@@ -12,8 +12,15 @@ body_text     the text the claim extractor read (model_text(body_redacted)); the
 
 Routing is the table of master document Section 6.4 (ROUTES in rows.py): affiliation, authority, reply and signature
 claims go to the header verifier; the five request types go to the request verifier; prior_relationship goes to the
-thread verifier (Phase 9), which does not exist yet, so its row says so ("not checkable: needs a thread"). The six
-tactics have no verifier. Claims of an unknown type are skipped.
+thread verifier (Phase 9). The six tactics have no verifier. Claims of an unknown type are skipped.
+
+Single email (thread=None, the Phase 8 behaviour, unchanged): a prior_relationship claim gets the placeholder row
+tv_needs_thread ("not checkable: needs a thread").
+With a thread, thread=(messages, index): the position of this email in a list of message dictionaries (src/thread/signals.py).
+prior_relationship claims then get the thread verifier's row (tv_prior_*) instead of the placeholder, and every request
+claim gets a second row after the request verifier's: the thread verifier's request-drift row (tv_req_*). The rows about
+the thread itself (tactic onset, bank details, sending path, integrity) are not claim rows; the router asks for them with
+src.verifiers.thread_verifier.verify_thread_message or scan_thread.
 
 RULES_VERSION changes with every revision of any rule, threshold or severity; build.py saves it in
 results/verifier_checks.csv, and VERSION_LOG records what each revision changed and why (the master document copies it).
@@ -23,6 +30,7 @@ from src.verifiers.facts import prepare_facts
 from src.verifiers.header_verifier import RULES as HEADER_RULES, verify_header_claim
 from src.verifiers.request_verifier import RULES as REQUEST_RULES, verify_request_claim
 from src.verifiers.rows import ROUTES, unchecked_row
+from src.verifiers.thread_verifier import claim_row, split_thread
 
 RULES_VERSION = "0.3"
 VERSION_LOG = [
@@ -63,9 +71,10 @@ def thread_pending_row(claim):
                          {"needs": "thread"})
 
 
-def verify_claims(claims, facts, contact_text="", body_text=""):
-    """The ledger rows for the claims of one email (one row per routed claim, in claim order)."""
+def verify_claims(claims, facts, contact_text="", body_text="", thread=None):
+    """The ledger rows for the claims of one email (one row per routed claim, in claim order; see the module text for thread)."""
     f = prepare_facts(facts)
+    earlier, me = split_thread(*thread) if thread is not None else (None, None)
     rows = []
     for claim in claims:
         verifier = ROUTES.get(claim.get("type"))
@@ -73,8 +82,11 @@ def verify_claims(claims, facts, contact_text="", body_text=""):
             row = verify_header_claim(claim, f, contact_text)
         elif verifier == "request":
             row = verify_request_claim(claim, f, body_text)
+            if thread is not None:
+                rows.append(row)
+                row = claim_row(claim, earlier, me)
         elif verifier == "thread":
-            row = thread_pending_row(claim)
+            row = thread_pending_row(claim) if thread is None else claim_row(claim, earlier, me)
         else:
             row = None
         if row is not None:

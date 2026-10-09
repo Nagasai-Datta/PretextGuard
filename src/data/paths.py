@@ -87,6 +87,27 @@ VERIFIER_RATES_CSV = RESULTS_DIR / "verifier_rates.csv"
 VERIFIER_RULE_HITS_CSV = RESULTS_DIR / "verifier_rule_hits.csv"
 VERIFIER_CHECKS_CSV = RESULTS_DIR / "verifier_checks.csv"
 
+# Files written by Phase 9 (src/thread, src/data/hijack_benchmark.py): threads and the thread-hijack benchmark
+ENRON_MAILDIR = ENRON_DIR / "enron_mail_20150507" / "maildir"          # the unpacked CMU archive: one file per message
+ENRON_INDEX_PARQUET = PROCESSED_DIR / "enron_index.parquet"            # one row per distinct Enron message; never committed
+THREADS_PARQUET = PROCESSED_DIR / "threads.parquet"                    # one row per message of every rebuilt thread; never committed
+THREAD_FEATURES_DIR = PROCESSED_DIR / "thread_features"                # tactic probabilities and claims per message, cached; never committed
+THREADS_DIR = DATA_DIR / "threads"                                     # the benchmark: manifest, injected texts, raw replies (committed)
+HIJACK_PLAN_CSV = THREADS_DIR / "plan.csv"
+HIJACK_PROMPTS_DIR = THREADS_DIR / "prompts"                           # prompts hold excerpts of real emails: never committed
+HIJACK_REPLIES_DIR = THREADS_DIR / "replies"
+HIJACK_GENERATOR_CSV = THREADS_DIR / "generator.csv"
+HIJACK_LOG_CSV = THREADS_DIR / "replies_log.csv"
+HIJACK_INJECTIONS_CSV = THREADS_DIR / "injections.csv"                 # the synthetic texts (attack, benign twin, fake quote) per thread
+HIJACK_CASES_CSV = THREADS_DIR / "cases.csv"                           # the benchmark manifest: one row per case
+THREAD_COUNTS_CSV = RESULTS_DIR / "thread_counts.csv"
+THREAD_SIGNAL_RATES_CSV = RESULTS_DIR / "thread_signal_rates.csv"
+THREAD_CHECKS_CSV = RESULTS_DIR / "thread_checks.csv"
+HIJACK_GENERATION_CSV = RESULTS_DIR / "hijack_generation.csv"
+HIJACK_CASE_COUNTS_CSV = RESULTS_DIR / "hijack_cases.csv"
+THREAD_SCORES_CSV = RESULTS_DIR / "thread_scores.csv"
+HIJACK_CHECKS_CSV = RESULTS_DIR / "hijack_checks.csv"
+
 
 def relative(path):
     """Return path relative to the project root, for short printouts.

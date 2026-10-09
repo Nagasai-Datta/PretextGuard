@@ -19,6 +19,9 @@ artifacts/*
 # Annotation batches hold full email text (phishing_pot forbids redistribution); rebuilt by src/data/batches.py
 data/labelled/batches/
 
+# Thread-hijack prompts hold excerpts of real emails (Enron, Apache lists); rebuilt by src/data/hijack_benchmark.py
+data/threads/prompts/
+
 # Notebooks
 .ipynb_checkpoints/
 
