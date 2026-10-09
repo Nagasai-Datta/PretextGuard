@@ -1,11 +1,10 @@
 {
   "for_score_version": "0.2",
   "basis": "Computed by python -m src.router.build --weights-only --write-reliability from every train email (69542) and the Phase 9 thread rates on the train threads (results/score_rule_weights.csv)",
-  "rule": "A rule that fires on more than 5% of the checked ordinary mail of a source (or of the real thread messages of a source), with 20 or more hits, counts 0.5; above 10% it counts 0. A rule that is not listed counts 1.",
+  "rule": "A rule that fires on more than 5% of the checked legitimate mail (ham) of a source (or of the real thread messages of a source), with 20 or more hits, counts 0.5; above 10% it counts 0. A rule that is not listed counts 1.",
   "reliability": {
     "hv_sig_freemail_sender": 0.0,
     "hv_sig_other_domain": 0.0,
-    "rv_freemail": 0.5,
     "tv_path_origin": 0.0
   }
 }

@@ -8,8 +8,8 @@ validation,apache,neg_synth,high_full,40,0,0.0,0.0,0.0,negatives: these are fals
 validation,apache,neg_synth,suspicious_or_high_phase8,40,0,0.0,0.0,0.0,negatives: these are false alarms
 validation,apache,neg_synth,high_phase8,40,0,0.0,0.0,0.0,negatives: these are false alarms
 validation,apache,A,suspicious_or_high_full,40,33,0.825,0.7,0.925,
-validation,apache,A,high_full,40,9,0.225,0.1,0.35,
-validation,apache,A,suspicious_or_high_phase8,40,2,0.05,0.0,0.125,
+validation,apache,A,high_full,40,10,0.25,0.125,0.375,
+validation,apache,A,suspicious_or_high_phase8,40,7,0.175,0.075,0.3,
 validation,apache,A,high_phase8,40,0,0.0,0.0,0.0,
 validation,apache,B,suspicious_or_high_full,26,26,1.0,1.0,1.0,
 validation,apache,B,high_full,26,0,0.0,0.0,0.0,
@@ -20,8 +20,8 @@ validation,apache,C,high_full,40,0,0.0,0.0,0.0,
 validation,apache,C,suspicious_or_high_phase8,40,0,0.0,0.0,0.0,
 validation,apache,C,high_phase8,40,0,0.0,0.0,0.0,
 validation,apache,attacks (A+B+C),suspicious_or_high_full,106,99,0.934,0.887,0.973,
-validation,apache,attacks (A+B+C),high_full,106,9,0.085,0.038,0.133,
-validation,apache,attacks (A+B+C),suspicious_or_high_phase8,106,2,0.019,0.0,0.049,
+validation,apache,attacks (A+B+C),high_full,106,10,0.094,0.047,0.142,
+validation,apache,attacks (A+B+C),suspicious_or_high_phase8,106,7,0.066,0.028,0.113,
 validation,apache,attacks (A+B+C),high_phase8,106,0,0.0,0.0,0.0,
 validation,enron,neg_real,suspicious_or_high_full,29,2,0.069,0.0,0.172,negatives: these are false alarms
 validation,enron,neg_real,high_full,29,0,0.0,0.0,0.0,negatives: these are false alarms

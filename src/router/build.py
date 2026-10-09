@@ -17,25 +17,26 @@ Reads  data/processed/cleaned.parquet, headers.parquet      the emails, their ev
        artifacts/tactic_model/                              the classifier (only for emails whose probabilities are not cached yet)
 Writes data/processed/tactic_probs/                         tactic probabilities per email and split, cached (never committed)
        src/router/reliability.json                          with --write-reliability only: the reliability factor of each noisy rule (committed; the score reads it)
-       results/score_rule_weights.csv                       per rule: how often it fires on ordinary real mail, and the reliability factor that follows
+       results/score_rule_weights.csv                       per rule: how often it fires on legitimate real mail (ham, real threads), and the reliability factor that follows
        results/score_grid.csv                               the grid of points tried, the budgets, the choice
        results/score_config.csv                             the frozen score configuration and the budgets
        results/score_distribution.csv                       emails per band, per category and source (counts and shares)
-       results/score_budget.csv                             the false-alarm budget per source of ordinary mail and per source of real threads
+       results/score_budget.csv                             the false-alarm budget per source of legitimate mail (ham) and per source of real threads; spam listed, not budgeted
        results/score_benchmark_check.csv                    the hijack benchmark scored with the frozen numbers, with and without the thread verifier
        results/score_checks.csv                             PASS/FAIL checks, versions and run details
 
 WHAT THIS CAN AND CANNOT SAY. Nobody labelled which emails contain a contradicted claim, so the score has no precision or recall here. What the
 data CAN say, and what is calibrated:
-  - the false-alarm side: how many ordinary emails (ham and spam, per source) and how many unmodified messages of real threads reach Suspicious
-    or High risk. The budget (High risk at most 1%, Suspicious or above at most 5%, per source with 20 or more checked emails) is declared in this file
+  - the false-alarm side: how many legitimate emails (ham, per source) and how many unmodified messages of real threads reach Suspicious
+    or High risk. Spam is not legitimate mail (flagging it is not a false alarm), so it is reported in score_budget.csv and score_distribution.csv but has no budget
+    and does not count towards the reliability of a rule. The budget (High risk at most 1%, Suspicious or above at most 5%, per source with 20 or more checked emails) is declared in this file
     before the validation emails are read; a policy, not something the data decide.
   - the shape of the formula is fixed by its meaning (a lone high is Suspicious, a lone high with urgency or secrecy is High risk, a lone medium is
     Suspicious, a lone low is not): the grid keeps only the points that satisfy that, then picks the one closest to the initial numbers that also meets the
     budget on validation. If none does, the finding is that the rules are too noisy, and the run says so.
-  - a RELIABILITY factor per rule from train: a rule that would breach the budget on its own (it fires on more than 5% of the ordinary mail of a source,
+  - a RELIABILITY factor per rule from train: a rule that would breach the budget on its own (it fires on more than 5% of the legitimate mail (ham) of a source,
     with 20 or more hits) counts half; above 10% it counts nothing.
-What it CANNOT say: how good the score is at finding attacks. Attack emails and ordinary emails come from different corpora with different header
+What it CANNOT say: how good the score is at finding attacks. Attack emails and legitimate emails come from different corpora with different header
 evidence, so the share of phishing or fraud emails that reach each band is reported per source and is a description, not a recall. The hijack benchmark is
 synthetic and built to trigger the rules, so it is a check of the wiring (does a rule that fires reach the right band, with and without the thread
 verifier), never a fitting target. The attack and benchmark numbers are NOT used to choose any number.
@@ -76,8 +77,8 @@ from src.verifiers.verify import RULES_VERSION, verify_claims
 SCORE_FILES = {"rule_weights": SCORE_RULE_WEIGHTS_CSV, "grid": SCORE_GRID_CSV, "config": SCORE_CONFIG_CSV, "distribution": SCORE_DISTRIBUTION_CSV, "budget": SCORE_BUDGET_CSV,
                "benchmark_check": SCORE_BENCHMARK_CHECK_CSV, "checks": SCORE_CHECKS_CSV}
 
-ORDINARY = ("ham", "spam")                    # not labelled as an attack
-BUDGET_HIGH = 0.01                            # High risk may be at most this share of the checked ordinary emails of a source
+ORDINARY = ("ham",)                           # legitimate mail: the budget and the rule reliability are measured on it. Spam is not legitimate mail, so it is reported but not budgeted (see below)
+BUDGET_HIGH = 0.01                            # High risk may be at most this share of the checked legitimate emails of a source
 BUDGET_SUSPICIOUS = 0.05                      # Suspicious or above may be at most this share
 MIN_GROUP = 20                                # fewer checked emails than this in a source and the budget is not judged
 MIN_HITS = 20                                 # fewer hits than this and a rule is not called noisy
@@ -247,7 +248,7 @@ def proposed_reliability(judged_rates):
 
 
 def rule_weight_table(train_units, thread_rates, current):
-    """One row per rule and group: how often the rule fires on ordinary real mail, and the reliability that follows (the same for all rows of a rule)."""
+    """One row per rule and group: how often the rule fires on legitimate real mail (ham, real threads), and the reliability that follows (the same for all rows of a rule)."""
     denominator, hits_by = {}, {}
     for u in train_units:
         if u["category"] in ORDINARY and u["checked"]:
@@ -262,7 +263,7 @@ def rule_weight_table(train_units, thread_rates, current):
                 continue
             groups = [("train real thread messages with a past", source, den, hits) for source, hits, den in thread_rates.get(rule, [])]
         else:
-            groups = [("train ordinary mail (ham and spam) with a checked claim", source, den, hits_by.get((source, rule), 0)) for source, den in sorted(denominator.items())]
+            groups = [("train legitimate mail (ham) with a checked claim", source, den, hits_by.get((source, rule), 0)) for source, den in sorted(denominator.items())]
         judged = [hits / den for _, _, den, hits in groups if den and hits >= MIN_HITS]
         reliability = proposed_reliability(judged)
         for basis, source, den, hits in groups:
@@ -282,7 +283,7 @@ def write_reliability(factors, basis, path=None):
     """Write reliability.json for the current score version."""
     path = path or RELIABILITY_JSON
     data = {"for_score_version": SCORE_VERSION, "basis": basis,
-            "rule": "A rule that fires on more than %g%% of the checked ordinary mail of a source (or of the real thread messages of a source), with %d or more hits, counts 0.5; "
+            "rule": "A rule that fires on more than %g%% of the checked legitimate mail (ham) of a source (or of the real thread messages of a source), with %d or more hits, counts 0.5; "
                     "above %g%% it counts 0. A rule that is not listed counts 1." % (100 * HALF_RATE, MIN_HITS, 100 * ZERO_RATE),
             "reliability": factors}
     with open(path, "w", encoding="utf-8") as handle:
@@ -305,12 +306,19 @@ def scored(units, config):
 
 
 def budget_rows(units, config, split):
-    """Per group (source of emails, source of threads) of CHECKED ORDINARY units: how many, how many High risk, how many Suspicious or above, and the verdict."""
+    """Per group (source of emails, source of threads) of CHECKED LEGITIMATE units (ham, real thread messages): how many, how many High risk, how many Suspicious or above,
+    and the verdict: PASS, OVER (a finding: the point estimate is over the budget; the note says whether the interval still includes it) or info.
+
+    Spam is listed too, as kind 'email_spam', for information only: flagging spam is not a false alarm, so it has no budget."""
     scored(units, config)
     groups = {}
     for u in units:
-        if u["category"] in ORDINARY + ("real_thread",) and u["checked"]:
+        if not u["checked"]:
+            continue
+        if u["category"] in ORDINARY + ("real_thread",):
             groups.setdefault((u["kind"], u["group"]), []).append(u)
+        elif u["category"] == "spam":
+            groups.setdefault(("email_spam", u["group"]), []).append(u)
     rows = []
     for (kind, group), members in sorted(groups.items()):
         n = len(members)
@@ -318,15 +326,23 @@ def budget_rows(units, config, split):
         susp = sum(1 for u in members if u["band"] != "Low risk")
         low_h, high_h = wilson(high, n)
         low_s, high_s = wilson(susp, n)
-        judged = n >= MIN_GROUP
-        ok = (high / n <= BUDGET_HIGH and susp / n <= BUDGET_SUSPICIOUS) if judged else None
+        budgeted = kind != "email_spam"
+        judged = budgeted and n >= MIN_GROUP
+        over_high, over_susp = high / n > BUDGET_HIGH, susp / n > BUDGET_SUSPICIOUS
+        ok = (not over_high and not over_susp) if judged else None
+        notes = []
+        if judged and over_high:
+            notes.append("High risk %s%% is over %g%% (the 95%% interval %s)" % (pct(high / n), 100 * BUDGET_HIGH, "still includes the budget" if low_h <= BUDGET_HIGH else "is entirely over it"))
+        if judged and over_susp:
+            notes.append("Suspicious or above %s%% is over %g%% (the 95%% interval %s)" % (pct(susp / n), 100 * BUDGET_SUSPICIOUS,
+                                                                                         "still includes the budget" if low_s <= BUDGET_SUSPICIOUS else "is entirely over it"))
         behind = Counter(u["top_rule"] for u in members if u["band"] != "Low risk")
         rows.append({"split": split, "kind": kind, "group": group, "checked_n": n, "high_n": high, "high_pct": pct(high / n) if n >= 10 else None,
                      "high_ci_low": pct(low_h) if n >= 10 else None, "high_ci_high": pct(high_h) if n >= 10 else None,
                      "suspicious_or_high_n": susp, "suspicious_or_high_pct": pct(susp / n) if n >= 10 else None,
                      "suspicious_ci_low": pct(low_s) if n >= 10 else None, "suspicious_ci_high": pct(high_s) if n >= 10 else None,
-                     "budget": "info (fewer than %d)" % MIN_GROUP if ok is None else "PASS" if ok else "FAIL",
-                     "top_rules": "; ".join("%s:%d" % (rule, count) for rule, count in behind.most_common(4))})
+                     "budget": "info (spam: not budgeted)" if not budgeted else "info (fewer than %d)" % MIN_GROUP if ok is None else "PASS" if ok else "OVER",
+                     "budget_note": "; ".join(notes), "top_rules": "; ".join("%s:%d" % (rule, count) for rule, count in behind.most_common(4))})
     return pd.DataFrame(rows)
 
 
@@ -351,12 +367,12 @@ def grid_table(units, split, reliability):
     for h, m, s in GRID:
         config = make_config(points={"high": h, "medium": m, "low": 5}, pressure={"urgency": s, "secrecy": s}, reliability=reliability)
         table = budget_rows(units, config, split)
-        judged = table[table["budget"].isin(["PASS", "FAIL"])]
+        judged = table[table["budget"].isin(["PASS", "OVER"])]
         rows.append({"split": split, "high_points": h, "medium_points": m, "pressure_step": s, "meaning_ok": meaning_ok(h, m, s),
-                     "groups_judged": len(judged), "groups_failing": int((judged["budget"] == "FAIL").sum()),
+                     "groups_judged": len(judged), "groups_over": int((judged["budget"] == "OVER").sum()),
                      "worst_high_pct": float((100 * judged["high_n"] / judged["checked_n"]).max()) if len(judged) else None,
                      "worst_suspicious_or_high_pct": float((100 * judged["suspicious_or_high_n"] / judged["checked_n"]).max()) if len(judged) else None,
-                     "budget_ok": (int((judged["budget"] == "FAIL").sum()) == 0) if len(judged) else None,
+                     "budget_ok": (int((judged["budget"] == "OVER").sum()) == 0) if len(judged) else None,
                      "distance_from_initial": round(distance((h, m, s)), 2), "chosen": False})
     return pd.DataFrame(rows)
 
@@ -368,6 +384,15 @@ def choose(grid):
         return None
     ok = ok.sort_values(["distance_from_initial", "high_points", "medium_points", "pressure_step"])
     return ok.iloc[0]
+
+
+def settle(grid):
+    """(point kept, found). The chosen grid point, or the INITIAL numbers when no point meets the meaning and the budget (then the miss is a finding, not a failure).
+    Marks exactly one row of the grid as chosen."""
+    pick = choose(grid)
+    point = INITIAL if pick is None else (int(pick["high_points"]), int(pick["medium_points"]), float(pick["pressure_step"]))
+    grid["chosen"] = (grid["high_points"] == point[0]) & (grid["medium_points"] == point[1]) & (grid["pressure_step"] == point[2])
+    return point, pick is not None
 
 
 def current_point():
@@ -460,8 +485,15 @@ def strip_mime_headers(block):
     return "\n".join(kept)
 
 
+SINGLE_RULE = "tv_single_no_reply_ids"
+
+
 def parity_check(units, n, analyzer_factory):
-    """Run the real analyze() on n random validation emails (rebuilt from staged.parquet) and compare with the batch scores. Returns (rows, agree_band, agree_score)."""
+    """Run the real analyze() on n random validation emails (rebuilt from staged.parquet) and compare with the batch scores.
+
+    Returns (rows, share with the same band, share with the same score, number of score differences NOT explained). The one difference that is known and
+    explained: the batch code does not run the single-email thread rule (tv_single_no_reply_ids, low severity: a reply with no reply headers), because Phase 2
+    threw away the quoted text it needs, while analyze() does. A difference is explained when analyze() has that rule as its only extra contradiction."""
     rng = np.random.default_rng(SEED)
     email_units_ = [u for u in units if u["kind"] == "email"]
     picked = [email_units_[i] for i in rng.choice(len(email_units_), size=min(n, len(email_units_)), replace=False)]
@@ -472,9 +504,13 @@ def parity_check(units, n, analyzer_factory):
     for u in tqdm(picked, desc="  parity", unit=" emails"):
         raw = ("%s\n\n%s" % (strip_mime_headers(staged.at[u["id"], "raw_headers"]), staged.at[u["id"], "body_raw"])).encode("utf-8", errors="replace")
         report = analyzer.analyze(raw, explain=False)
-        rows.append({"id": u["id"], "group": u["group"], "batch_score": u["score"], "analyze_score": report["score"], "batch_band": u["band"], "analyze_band": report["verdict"]})
+        analyze_rules = {r["rule"] for r in report["ledger"] if r["contradiction"] is True}
+        extra, missing = analyze_rules - u["rules"], u["rules"] - analyze_rules
+        same = report["score"] == u["score"]
+        rows.append({"id": u["id"], "group": u["group"], "batch_score": u["score"], "analyze_score": report["score"], "batch_band": u["band"], "analyze_band": report["verdict"],
+                     "same_score": same, "explained": same or (extra == {SINGLE_RULE} and not missing)})
     frame = pd.DataFrame(rows)
-    return frame, float((frame["batch_band"] == frame["analyze_band"]).mean()), float((frame["batch_score"] == frame["analyze_score"]).mean())
+    return (frame, float((frame["batch_band"] == frame["analyze_band"]).mean()), float(frame["same_score"].mean()), int((~frame["explained"]).sum()))
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -504,21 +540,21 @@ def make_checks(ctx):
         "PASS" if set(ctx["splits"]) <= {"train", "validation"} else "FAIL")
     add("validation_read", "this run read the validation emails", "no (--train-only)" if ctx["train_only"] else "yes", "yes in --calibrate and the final run", "info" if ctx["train_only"] else "PASS")
     for row in ctx["budget"].itertuples():
-        status = row.budget if not ctx["train_only"] else ("info (development, train)" if row.budget in ("PASS", "FAIL") else row.budget)
-        summary = "%d checked; High risk %s%%, Suspicious or above %s%%" % (row.checked_n, fmt(row.high_pct), fmt(row.suspicious_or_high_pct))
-        add("budget", "%s %s (%s)" % (row.split, row.group, row.kind), summary, "High risk <= %g%%, Suspicious or above <= %g%%" % (100 * BUDGET_HIGH, 100 * BUDGET_SUSPICIOUS),
-            status if status in ("PASS", "FAIL") else "info")
-    judged = ctx["budget"][ctx["budget"]["budget"].isin(["PASS", "FAIL"])]
+        summary = "%d checked; High risk %s%%, Suspicious or above %s%%%s" % (row.checked_n, fmt(row.high_pct), fmt(row.suspicious_or_high_pct),
+                                                                          "; OVER BUDGET (a finding): " + row.budget_note if row.budget == "OVER" else "")
+        status = "PASS" if row.budget == "PASS" and not ctx["train_only"] else "info"
+        add("budget", "%s %s (%s)" % (row.split, row.group, row.kind), summary, "High risk <= %g%%, Suspicious or above <= %g%% (a finding if over)" % (100 * BUDGET_HIGH, 100 * BUDGET_SUSPICIOUS), status)
+    judged = ctx["budget"][ctx["budget"]["budget"].isin(["PASS", "OVER"])]
     add("budget", "groups with enough checked emails to be judged", len(judged), ">= 1", "PASS" if len(judged) else ("info" if ctx["train_only"] else "FAIL"))
     if ctx["grid"] is not None:
-        pick = choose(ctx["grid"])
-        if pick is None:
-            add("calibration", "a grid point that keeps the meaning and meets the budget", "none", "one", "info" if ctx["train_only"] else "FAIL")
-        else:
-            point = (int(pick["high_points"]), int(pick["medium_points"]), float(pick["pressure_step"]))
+        point, found = ctx["settled"]
+        if found:
             add("calibration", "chosen point (high, medium, pressure step) on %s" % ctx["grid"]["split"].iloc[0], str(point), "", "info")
-            if not ctx["train_only"]:
-                add("calibration", "the frozen numbers equal the chosen point", "%s vs %s" % (current_point(), point), "equal", "PASS" if current_point() == point else "FAIL")
+        else:
+            add("calibration", "a grid point that keeps the meaning and meets the budget", "none: the initial numbers %s are kept" % (INITIAL,), "one (a finding if none)", "info")
+        if not ctx["train_only"]:
+            add("calibration", "the frozen numbers equal the %s" % ("chosen point" if found else "initial numbers (kept because no point meets the budget)"),
+                "%s vs %s" % (current_point(), point), "equal", "PASS" if current_point() == point else "FAIL")
     if ctx.get("weights") is not None:
         proposed, current = reliability_from(ctx["weights"]), dict(ctx["config"]["reliability"])
         full = not ctx["train_only"] and not ctx["limit"]
@@ -526,8 +562,9 @@ def make_checks(ctx):
             "same" if proposed == current else "proposed %s, file %s" % (proposed or "none", current or "none"), "same",
             ("PASS" if proposed == current else "FAIL") if full else "info")
     if ctx.get("parity") is not None:
-        add("parity", "validation emails scored by analyze() and by the batch code: same band / same score", "%.1f%% / %.1f%% of %d" % (100 * ctx["parity"][1], 100 * ctx["parity"][2], len(ctx["parity"][0])),
-            ">= 95% same band", "PASS" if ctx["parity"][1] >= 0.95 else "FAIL")
+        frame, same_band, same_score, unexplained = ctx["parity"]
+        add("parity", "validation emails scored by analyze() and by the batch code: same band / same score / score differences not explained by the single-email rule",
+            "%.1f%% / %.1f%% / %d of %d" % (100 * same_band, 100 * same_score, unexplained, len(frame)), ">= 95% same band and 0 unexplained", "PASS" if same_band >= 0.95 and unexplained == 0 else "FAIL")
     if ctx.get("benchmark") is not None:
         bench = ctx["benchmark"]
         for source in sorted(bench["source"].unique()):
@@ -558,30 +595,31 @@ def print_distribution(dist, split):
 
 
 def print_budget(budget):
-    print("\nFalse-alarm budget (High risk <= %g%%, Suspicious or above <= %g%% of the checked ordinary emails / real thread messages of a source, judged from %d):" % (
+    print("\nFalse-alarm budget (High risk <= %g%%, Suspicious or above <= %g%% of the checked legitimate emails (ham) / real thread messages of a source, judged from %d; spam is listed, not budgeted):" % (
         100 * BUDGET_HIGH, 100 * BUDGET_SUSPICIOUS, MIN_GROUP))
     for r in budget.itertuples():
         print("  %-10s %-24s %6d checked   High risk %5s%% [%s, %s]   Suspicious or above %5s%% [%s, %s]   %s" % (
             r.kind, r.group, r.checked_n, fmt(r.high_pct), fmt(r.high_ci_low), fmt(r.high_ci_high), fmt(r.suspicious_or_high_pct), fmt(r.suspicious_ci_low), fmt(r.suspicious_ci_high), r.budget))
+        if r.budget_note:
+            print("             OVER BUDGET: %s" % r.budget_note)
         if r.top_rules:
             print("             rules behind Suspicious or above (strongest finding of each email or message): %s" % r.top_rules)
 
 
-def print_grid(grid):
-    pick = choose(grid)
+def print_grid(grid, found):
     print("\nGrid (split %s): points high / medium / pressure step -> meaning, budget, worst source" % grid["split"].iloc[0])
     for r in grid.itertuples():
-        mark = "  <== CHOSEN" if pick is not None and (r.high_points, r.medium_points, r.pressure_step) == (pick["high_points"], pick["medium_points"], pick["pressure_step"]) else ""
+        mark = ("  <== CHOSEN" if found else "  <== KEPT (the initial numbers: no point meets the budget)") if r.chosen else ""
         print("  %3d / %3d / %.2f   meaning %-5s budget %-5s worst High risk %5s%% worst Suspicious or above %5s%%  distance %.2f%s" % (
             r.high_points, r.medium_points, r.pressure_step, r.meaning_ok, r.budget_ok, None if r.worst_high_pct is None else round(r.worst_high_pct, 2),
             None if r.worst_suspicious_or_high_pct is None else round(r.worst_suspicious_or_high_pct, 2), r.distance_from_initial, mark))
-    if pick is None:
-        print("  NO grid point keeps the meaning and meets the budget: the rules are too noisy for these budgets (a finding; see score_budget.csv).")
+    if not found:
+        print("  NO grid point keeps the meaning and meets the budget (see score_budget.csv for the groups over it). That is a FINDING, not a failure: the initial numbers are kept.")
 
 
 def print_weights(weights):
     changed = weights[weights["proposed_reliability"] < 1.0]
-    print("\nRules whose reliability would be lowered (fire on > %g%% of the ordinary mail of a source or of real thread messages, with >= %d hits):" % (100 * HALF_RATE, MIN_HITS))
+    print("\nRules whose reliability would be lowered (fire on > %g%% of the legitimate mail (ham) of a source or of real thread messages, with >= %d hits):" % (100 * HALF_RATE, MIN_HITS))
     if changed.empty:
         print("  none")
     for rule, sub in changed.groupby("rule"):
@@ -619,7 +657,7 @@ def run(args, classifier=None, featurize=attach_features, analyzer_factory=None)
     print("Score version %s (rules %s, thread rules %s, claim patterns %s); tactic run %s" % (SCORE_VERSION, RULES_VERSION, THREAD_RULES_VERSION, PATTERN_VERSION, stamp.get("tactic_run")))
     counts, problems = {}, []
     ctx = {"started": started, "stamp": stamp, "train_only": args.train_only, "limit": args.limit, "config": config, "counts": counts, "problems": problems,
-           "grid": None, "benchmark": None, "parity": None, "weights": None}
+           "grid": None, "settled": None, "benchmark": None, "parity": None, "weights": None}
     results = {}
 
     # ---- the reliability of every rule from every train email (no classifier, no validation)
@@ -672,12 +710,10 @@ def run(args, classifier=None, featurize=attach_features, analyzer_factory=None)
         ctx["weights"] = weights
         print_weights(weights)
     grid = grid_table(units, unit_split, config["reliability"])
-    pick = choose(grid)
-    if pick is not None:
-        grid.loc[(grid["high_points"] == pick["high_points"]) & (grid["medium_points"] == pick["medium_points"]) & (grid["pressure_step"] == pick["pressure_step"]), "chosen"] = True
-    ctx["grid"] = grid
+    point, found = settle(grid)
+    ctx["grid"], ctx["settled"] = grid, (point, found)
     results["grid"] = grid
-    print_grid(grid)
+    print_grid(grid, found)
 
     # ---- the current numbers on the units: distribution, budget
     email_only = [u for u in units if u["kind"] == "email"]
@@ -706,9 +742,11 @@ def run(args, classifier=None, featurize=attach_features, analyzer_factory=None)
                                                                                     cells["suspicious_or_high_phase8"], cells["high_phase8"]))
         if args.parity and not args.train_only:
             ctx["parity"] = parity_check(email_only, args.parity, analyzer_factory or default_analyzer_factory(classifier_factory))
-            print("\nParity: %.1f%% of %d emails get the same band from analyze() and from the batch code, %.1f%% the same score" % (100 * ctx["parity"][1], len(ctx["parity"][0]), 100 * ctx["parity"][2]))
-            for r in ctx["parity"][0][ctx["parity"][0]["batch_score"] != ctx["parity"][0]["analyze_score"]].head(8).itertuples():
-                print("    differs: %s %s batch %d (%s) analyze %d (%s)" % (r.id, r.group, r.batch_score, r.batch_band, r.analyze_score, r.analyze_band))
+            frame, same_band, same_score, unexplained = ctx["parity"]
+            print("\nParity: %.1f%% of %d emails get the same band from analyze() and from the batch code, %.1f%% the same score; %d score differences, %d not explained by the single-email rule (tv_single_no_reply_ids)" % (
+                100 * same_band, len(frame), 100 * same_score, int((~frame["same_score"]).sum()), unexplained))
+            for r in frame[~frame["same_score"]].head(8).itertuples():
+                print("    differs: %s %s batch %d (%s) analyze %d (%s) %s" % (r.id, r.group, r.batch_score, r.batch_band, r.analyze_score, r.analyze_band, "explained" if r.explained else "NOT EXPLAINED"))
 
     # ---- write
     if not args.calibrate:

@@ -78,6 +78,8 @@ PHISH_GMAIL = ("From: IT Help Desk <it.helpdesk.acme@gmail.com>\nTo: Maria Lopez
                + "Subject: Account\nDate: Mon, 05 Oct 2026 09:12:00 +0000\n\nDear user, please verify your account password and confirm your login details.\n")
 BODY_ONLY = ("Hi Maria,\n\nThis is David from Finance. Please process a wire transfer of $48,000 today, it is urgent. Keep it confidential, it is a secret. "
              "Reply to my private email.\n\nDavid\n")
+PAYMENT_ONLY = ("From: Dana Smith <dana.smith.finance@gmail.com>\nTo: Maria Lopez <maria@acmecorp.com>\n" + auth("gmail.com")
+                + "Subject: Payment\nDate: Mon, 05 Oct 2026 09:12:00 +0000\n\nHi Maria,\n\nPlease process a wire transfer to the new vendor account today.\n\nThanks\n")
 NEWSLETTER = ("From: Shop News <news@shop-example.com>\nTo: Maria Lopez <maria@acmecorp.com>\n" + auth("shop-example.com", "fail", "none", "none")
               + "Subject: Sale\nDate: Mon, 05 Oct 2026 09:12:00 +0000\n\nOur autumn sale starts this week with new products in every category.\n")
 
@@ -136,8 +138,10 @@ def self_test(verbose=True):
         checks.append((name, bool(ok), detail))
 
     # ---- part 1a: the score ----------------------------------------------------------------------------------------------
+    neutral = make_config(reliability={})          # the formula tests do not depend on the tuning of the shipped reliability file
+
     def score_of(rows, fired=(), config=None):
-        return score_ledger(rows, fired, config)
+        return score_ledger(rows, fired, config or neutral)
 
     medium = hot("hv_ext_other_domain", "medium", "affiliation_external")
     high = hot("hv_int_freemail", "high", "affiliation_internal")
@@ -184,7 +188,8 @@ def self_test(verbose=True):
           set(score_module.RELIABILITY) <= ledger_module.KNOWN_RULES and all(v in (0.0, 0.5) for v in score_module.RELIABILITY.values()) and DEFAULT_CONFIG["reliability"] == score_module.RELIABILITY,
           str(score_module.RELIABILITY))
     noisy = [hot(rule, "low", "signature_contact") for rule in score_module.RELIABILITY if score_module.RELIABILITY[rule] == 0.0 and rule.startswith("hv_")]
-    check("a noisy rule at reliability 0 in the shipped file adds no points even when it fires", not noisy or score_of(noisy)["score"] == 0, str(score_of(noisy)["score"] if noisy else "none"))
+    check("a noisy rule at reliability 0 in the shipped file adds no points even when it fires", not noisy or score_ledger(noisy, [], DEFAULT_CONFIG)["score"] == 0,
+          str(score_ledger(noisy, [], DEFAULT_CONFIG)["score"] if noisy else "none"))
     check("bands change at 35 and 70", [band_of(s) for s in (0, 34, 35, 69, 70, 100)] == ["Low risk", "Low risk", "Suspicious", "Suspicious", "High risk", "High risk"])
     try:
         make_config(nonsense=1)
@@ -245,7 +250,8 @@ def self_test(verbose=True):
 
     # ---- part 2: the pipeline end to end ----------------------------------------------------------------------------------
     stub = StubClassifier()
-    analyzer = Analyzer(classifier=stub)
+    analyzer = Analyzer(classifier=stub, config=make_config(reliability={}))        # wiring tests use a neutral configuration: the tuning of the shipped one must not decide them
+    frozen = Analyzer(classifier=stub)                                              # the shipped configuration, for the tests that guard it below
 
     def run(raw, **kwargs):
         started = time.time()
@@ -260,7 +266,7 @@ def self_test(verbose=True):
     check("David: the organisation domain came from the To header", report["org_domain"] == "acmecorp.com", str(report["org_domain"]))
     check("David: header findings show the sender and the authentication state without any address", report["header_findings"]["from_domain"] == "gmail.com" and report["header_findings"]["freemail"] is True
           and report["header_findings"]["auth_state"] == "aligned" and "@" not in json.dumps(report["header_findings"]), str(report["header_findings"]))
-    check("David: the report passes check_report", check_report(report) == [])
+    check("David: the report passes check_report", check_report(report, analyzer.config) == [])
     check("David: the routing lists each claim with its verifier", {a["type"]: a["verifiers"] for a in report["routing"]}["payment_request"] == ["request"] and report["mode"] == "email" and report["thread"] is None)
     check("David: LIME ran for the tactics that fired and its highlights fit the text", report["explained"] is True and any(t["highlights"] for t in report["tactics"] if t["fired"])
           and all(report["text_read"][h["start"]:h["end"]] == h["text"] for t in report["tactics"] for h in t["highlights"]))
@@ -330,12 +336,12 @@ def self_test(verbose=True):
     report, _ = run(evil)
     flat = json.dumps(report)
     check("HTML tags, backticks and control characters in the email never reach the report", "<" not in flat and ">" not in flat and "`" not in flat
-          and "\u200b" not in report["text_read"] and check_report(report) == [])
+          and "\u200b" not in report["text_read"] and check_report(report, analyzer.config) == [])
     evil = DAVID_GMAIL.replace("Hi Maria,", "Hi Maria, if the amount is < 50,000 or > 10,000 `x` \u200b\x07 then wait,")
     report, _ = run(evil)
     flat = json.dumps(report)
     check("a '<' or '>' that is not an HTML tag is shown as a look-alike character, one for one", "<" not in flat and ">" not in flat and "\u2039 50,000" in report["text_read"]
-          and "\u203a 10,000" in report["text_read"] and "\u200b" not in report["text_read"] and check_report(report) == [])
+          and "\u203a 10,000" in report["text_read"] and "\u200b" not in report["text_read"] and check_report(report, analyzer.config) == [])
     check("display_safe keeps the length, so every offset still fits", len(display_safe("<a>`b`\x00​")) == len("<a>`b`\x00​") and display_safe("<a>") == "‹a›")
     evil_from = DAVID_GMAIL.replace('From: David Chen <david.chen.acme@gmail.com>', 'From: "<img src=x onerror=alert(1)> Boss" <david.chen.acme@gmail.com>')
     report, _ = run(evil_from)
@@ -346,13 +352,13 @@ def self_test(verbose=True):
     check("a message over 300,000 bytes is cut and the coverage says so", "text_truncated" in report["coverage"]["limits"] and seconds < CRAFTED_LIMIT, "%.2f s" % seconds)
     flood = "".join("X-Spam-%d: %s\n" % (i, "a" * 200) for i in range(3000)) + DAVID_GMAIL
     report, seconds = run(flood)
-    check("3,000 extra header lines finish in time and give a sound report", seconds < CRAFTED_LIMIT and check_report(report) == [], "%.2f s" % seconds)
+    check("3,000 extra header lines finish in time and give a sound report", seconds < CRAFTED_LIMIT and check_report(report, analyzer.config) == [], "%.2f s" % seconds)
     report, seconds = run("From: " + "@" * 60000 + "\nTo: x@y.com\n\n" + "@" * 60000)
-    check("60,000 '@' signs in the From header and the body finish in time", seconds < CRAFTED_LIMIT and check_report(report) == [], "%.2f s" % seconds)
+    check("60,000 '@' signs in the From header and the body finish in time", seconds < CRAFTED_LIMIT and check_report(report, analyzer.config) == [], "%.2f s" % seconds)
     report, seconds = run("")
-    check("an empty email gives a sound Low risk report", report["verdict"] == "Low risk" and check_report(report) == [] and report["claims"] == [])
+    check("an empty email gives a sound Low risk report", report["verdict"] == "Low risk" and check_report(report, analyzer.config) == [] and report["claims"] == [])
     report, seconds = run(DAVID_GMAIL.encode("utf-8") + b"\xff\xfe\x00bad bytes")
-    check("bytes that are not valid text are decoded with replacement and analysed", check_report(report) == [])
+    check("bytes that are not valid text are decoded with replacement and analysed", check_report(report, analyzer.config) == [])
     for bad, error in ((12345, TypeError), ([], ValueError)):
         try:
             analyzer.analyze(bad)
@@ -365,6 +371,14 @@ def self_test(verbose=True):
             check("a request id with bad characters or the wrong size is refused (%r)" % rid[:12], False)
         except ValueError:
             check("a request id with bad characters or the wrong size is refused (%r)" % rid[:12], True)
+    # the shipped configuration (reliability.json) must keep the core business-email-compromise cases detectable
+    for name, raw in (("a payment request from a free mailbox to a company recipient, with no identity claim", PAYMENT_ONLY),
+                      ("a credential request from a free mailbox claiming to be IT", PHISH_GMAIL), ("the David email", DAVID_GMAIL)):
+        report = frozen.analyze(raw, explain=False)
+        check("shipped configuration: %s reaches at least Suspicious" % name, report["verdict"] in ("Suspicious", "High risk") and check_report(report, frozen.config) == [],
+              "%s %s, reliability %s" % (report["verdict"], report["score"], dict(score_module.RELIABILITY)))
+    report = frozen.analyze(HONEST, explain=False)
+    check("shipped configuration: honest internal mail stays Low risk", report["verdict"] == "Low risk", "%s %s" % (report["verdict"], report["score"]))
     # check_report catches tampering
     good_report, _ = run(DAVID_GMAIL, request_id="tamper")
     cases = {
@@ -384,14 +398,14 @@ def self_test(verbose=True):
         broken = copy.deepcopy(good_report)
         try:
             tamper(broken)
-            found = check_report(broken)
+            found = check_report(broken, analyzer.config)
         except Exception as error:      # a crash while checking a tampered report also counts as found
             found = [repr(error)]
         check("check_report finds %s" % name, bool(found), "")
     flipped = Analyzer(classifier=stub, config=make_config(reliability={"hv_int_freemail": 0.0, "rv_freemail": 0.0, "hv_reply_diverges": 0.0}))
     report = flipped.analyze(DAVID_GMAIL, explain=False)
     check("a report made with another configuration passes check_report with that configuration (and not with the frozen one)",
-          check_report(report, flipped.config) == [] and check_report(report) != [] and report["score"] < 100, str(report["score"]))
+          check_report(report, flipped.config) == [] and check_report(report, analyzer.config) != [] and report["score"] < 100, str(report["score"]))
     check("the stand-in classifier saw every message once for the tactics and the LIME copies for the rest", stub.texts_seen > 0)
 
     passed = all(ok for _, ok, _ in checks)

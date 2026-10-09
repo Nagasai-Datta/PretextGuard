@@ -274,6 +274,24 @@ def self_test(verbose=True):
             grid_bad = grid.copy()
             grid_bad["budget_ok"] = False
             check("choose() returns nothing when no point meets the budget (the finding is then 'the rules are too noisy')", build.choose(grid_bad) is None)
+            point, found = build.settle(grid_bad)
+            check("settle() keeps the initial numbers when no point meets the budget, and marks exactly that row", point == build.INITIAL and not found and int(grid_bad["chosen"].sum()) == 1
+                  and bool(grid_bad[grid_bad["chosen"]]["high_points"].iloc[0] == 60))
+            point, found = build.settle(grid.copy())
+            check("settle() takes the chosen point when one qualifies", found and point == build.INITIAL)
+            # budget verdicts on crafted units: 100 legitimate emails of which 6 are Suspicious are OVER (with a note on the interval); spam is listed but never budgeted
+            def unit(category, band_points, i):
+                rows = [{"claim_id": "c1", "claim_type": "authority", "verifier": "header", "rule": "hv_auth_freemail", "severity": "medium", "contradiction": True, "reason": ""}] if band_points else []
+                return build.make_unit("u%d" % i, "email", "somesource", category, [dict(r, claim_id="c1") for r in rows] or [{"contradiction": False}], [], {})
+            crafted = [unit("ham", i < 6, i) for i in range(100)] + [unit("spam", i < 10, 200 + i) for i in range(30)]
+            for u in crafted:
+                u["checked"] = True
+            table = build.budget_rows(crafted, build.score_module.make_config(reliability={}), "validation")
+            ham_row = table[table["kind"] == "email"].iloc[0]
+            spam_row = table[table["kind"] == "email_spam"].iloc[0]
+            check("a source with 6 of 100 legitimate emails Suspicious is OVER the 5% budget and the note says the interval still includes it", ham_row["budget"] == "OVER"
+                  and "still includes the budget" in ham_row["budget_note"], str(ham_row.to_dict()))
+            check("spam is listed for information and never judged against the budget", spam_row["budget"] == "info (spam: not budgeted)" and spam_row["suspicious_or_high_n"] == 10)
             grid_two = grid.copy()
             grid_two["budget_ok"] = ((grid_two["high_points"] == 50) & (grid_two["medium_points"] == 35) & (grid_two["pressure_step"] == 0.35)) | ((grid_two["high_points"] == 60) & (grid_two["medium_points"] == 35) & (grid_two["pressure_step"] == 0.35))
             pick = build.choose(grid_two)
