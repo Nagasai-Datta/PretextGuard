@@ -15,6 +15,7 @@ It returns plain Python values (a missing value or pandas' NA becomes None) and 
                    unknown       no verdict at all (old corpora, or no Authentication-Results header)
     external     the sender is outside the recipient's organisation (None when the organisation domain is unknown)
     reply_domain the registered domain of the Reply-To address
+    recipient_domain the registered domain of the To address (an address on it in a footer is usually the reader's own)
     name_address the display name holds an e-mail ADDRESS (with an @) on another domain than the sender's: '"service@paypal.com" <x@evil.ru>'
     name_domain  the display name holds only a bare domain name that is not the sender's ("Amazon.com" <store@mailer.net>): brands write
                  their own name like this and send through mailers, so it is a much weaker sign than an address
@@ -33,7 +34,7 @@ from src.verifiers.rows import clean_domain
 FACT_KEYS = (
     "spf", "dkim", "dmarc", "auth_source", "authenticated_domain", "auth_aligned", "from_registered_domain", "freemail",
     "name_has_address", "list_mail", "reply_to_divergence", "envelope_mismatch", "org_domain", "org_checkable",
-    "from_matches_org", "org_lookalike_score", "from_name", "from_addr", "reply_to",
+    "from_matches_org", "org_lookalike_score", "from_name", "from_addr", "reply_to", "to_domain",
 )
 VERDICTS = {"pass", "fail", "softfail", "neutral", "none", "temperror", "permerror", "policy", "other", "unknown"}
 BOOLEAN_KEYS = ("auth_aligned", "freemail", "name_has_address", "list_mail", "reply_to_divergence", "envelope_mismatch",
@@ -104,6 +105,7 @@ def prepare_facts(raw):
     f["org_checkable"] = bool(f["org_domain"] and f["from_domain"])
     f["from_matches_org"] = (f["from_domain"] == f["org_domain"]) if f["org_checkable"] else None
     f["external"] = (not f["from_matches_org"]) if f["org_checkable"] else None
+    f["recipient_domain"] = clean_domain(registered_domain(f["to_domain"])) if isinstance(f["to_domain"], str) else None
     reply = f["reply_to"] if isinstance(f["reply_to"], str) and f["reply_to"].count("@") == 1 else None
     f["reply_domain"] = clean_domain(registered_domain(reply.split("@")[1])) if reply else None
     f["auth_state"] = auth_state(f)

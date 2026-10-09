@@ -92,7 +92,8 @@ RULES = {
     "hv_reply_no_header": ("reply_direction", False, "no Reply-To header to compare"),
     "hv_sig_no_from": ("signature_contact", False, "no usable From address"),
     "hv_sig_not_contact": ("signature_contact", False, "a postal address, disclaimer, copyright line or sign-off name is not a contact address to compare"),
-    "hv_sig_no_address": ("signature_contact", False, "the signature holds no e-mail address"),
+    "hv_sig_no_address": ("signature_contact", False, "the sender's signature block holds no e-mail address (list footers, quoted headers and the reader's own address are ignored)"),
+    "hv_sig_same_freemail": ("signature_contact", False, "the signature address is on the same free mailbox provider as the sender: says nothing about who is who"),
     "hv_sig_ok": ("signature_contact", False, "a signature address belongs to the sender's domain"),
     "hv_sig_lookalike": ("signature_contact", False, "a signature address is a look-alike of the sender's domain"),
     "hv_sig_freemail_sender": ("signature_contact", False, "company address in the signature, sent from a free mailbox provider"),
@@ -109,10 +110,14 @@ MAX_WORDS = 60
 # (account, online, services, bank, inc ...) it is a name or a reference ("your PayPal account", "SharePoint Services").
 SPEAKER_CUES = frozenset(
     "team department dept security support customer helpdesk desk billing representative representatives notification notifications "
-    "division office unit staff centre center promotions promotion".split())
+    "division unit staff centre center promotions promotion".split())
 SPEAKER_PATTERNS = ("ae_sent_by_org", "ae_on_behalf", "ae_copyright")      # "message from X", "on behalf of X", "(c) 2024 X"
 # Signature rules of src/claims/patterns.py that find no contact address: a postal address, a disclaimer, a copyright line,
 # a name after a closing word. Only the contact rules (sc_contact, sc_name_contact, sc_labelled_contact) are compared with From.
+# Words that open a footer or a quoted header. Addresses after the first one belong to a mailing list or to a forwarded message,
+# not to the sender's own contact block ("To unsubscribe ... list-request@lists.example.org", "On Behalf Of", "Sent: Monday").
+FOOTER_MARKERS = ("unsubscribe", "subscription", "list maintainer", "mailing list", "mailman", "majordomo", "listserv", "yahoogroups", "egroups",
+                  "googlegroups", "additional commands", "managing the list", "on behalf of", "sent:", "x-spam", "envfrom", "original message", "wrote:")
 NON_CONTACT_PATTERNS = frozenset(("sc_street", "sc_street_zip", "sc_in_error", "sc_notify_sender", "sc_copyright", "sc_sent_by", "sc_receiving", "sc_signoff_name"))
 
 
@@ -374,11 +379,24 @@ def verify_reply(claim, f):
                          "Asks the reader to reply elsewhere, but there is no Reply-To header (or no usable sender domain) to compare, and the body's own address is redacted.", evidence)
 
 
+def sender_block(text):
+    """The part of a signature text before the first footer or quoted-header marker (the sender's own block); '' if it starts with one."""
+    if not isinstance(text, str):
+        return ""
+    lower = text.lower()
+    cuts = [lower.find(marker) for marker in FOOTER_MARKERS if marker in lower]
+    return text[:min(cuts)] if cuts else text
+
+
 def verify_signature(claim, f, contact_text):
     """signature_contact: the signature block shows contact details. Contradicted when none of its e-mail addresses is on
     the From domain. contact_text is the UNREDACTED signature block (redacted text only has the placeholder [EMAIL])."""
     pattern = claim.get("attributes", {}).get("pattern")
-    addresses = find_addresses(contact_text)
+    addresses = find_addresses(sender_block(contact_text))
+    if f["org_domain"] is None and f["recipient_domain"]:
+        # The recipient has no organisation (a collector or free mailbox, or a mailing list): an address on its domain in a footer is the
+        # reader's own ("this was sent to you@..."). With an organisation it stays, because a signature on the reader's own company is the BEC case.
+        addresses = [d for d in addresses if d != f["recipient_domain"]]
     evidence = {"from_domain": f["from_domain"], "signature_domains": addresses, "freemail": f["freemail"], "list_mail": f["list_mail"], "pattern": pattern}
     if pattern in NON_CONTACT_PATTERNS:
         return unchecked_row(HEADER, claim, "hv_sig_not_contact",
@@ -386,7 +404,10 @@ def verify_signature(claim, f, contact_text):
     if not f["from_domain"]:
         return unchecked_row(HEADER, claim, "hv_sig_no_from", "The signature shows contact details, but the message has no usable From address.", evidence)
     if not addresses:
-        return unchecked_row(HEADER, claim, "hv_sig_no_address", "The signature holds no e-mail address (phone numbers and postal addresses cannot be compared with the sender).", evidence)
+        return unchecked_row(HEADER, claim, "hv_sig_no_address", "The sender's signature block holds no e-mail address to compare (phone numbers, postal addresses, list footers, quoted headers and the reader's own address do not count).", evidence)
+    if f["from_domain"] in addresses and f["freemail"]:
+        return unchecked_row(HEADER, claim, "hv_sig_same_freemail",
+                             "A signature address is on the same free mailbox provider as the sender (%s), which says nothing about who is who." % f["from_domain"], evidence)
     if f["from_domain"] in addresses:
         return consistent_row(HEADER, claim, "hv_sig_ok", "An address in the signature belongs to the sender's domain (%s)." % f["from_domain"], evidence)
     relation, near = best_similarity(f["from_domain"], addresses)

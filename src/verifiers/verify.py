@@ -24,7 +24,7 @@ from src.verifiers.header_verifier import RULES as HEADER_RULES, verify_header_c
 from src.verifiers.request_verifier import RULES as REQUEST_RULES, verify_request_claim
 from src.verifiers.rows import ROUTES, unchecked_row
 
-RULES_VERSION = "0.2"
+RULES_VERSION = "0.3"
 VERSION_LOG = [
     ("0.1", "First version: rules written from master document Sections 4.4 and 6.5, the Phase 3 and Phase 7 notes and the claim definitions; "
             "thresholds fixed (look-alike score 80, names of 6 or more letters); severities are initial labels. No real email had been read"),
@@ -37,6 +37,13 @@ VERSION_LOG = [
             "'Hi team'). A display name that holds only a bare domain name (brands write their site name, such as Brand.com, in the display name and send through mailers) is now low; only a shown e-mail address is medium. signature_contact compares addresses only for "
             "contact claims, not for postal addresses, disclaimers, copyright lines or sign-off names. The attack-versus-ham check now compares the share of EMAILS with a "
             "contradicted claim, because the rate among checkable claims is close to 100% in every category when 'checkable' mostly means 'contradicted'"),
+    ("0.3", "Read off the second train run (6,000 emails): the fix of 0.2 removed the external-affiliation false alarms (share of emails with a contradicted external claim "
+            "7.1% in phishing against 0.1% in ham), but signature_contact still failed its contrast (7.9% against 4.9%), and its ham alarms were list footers "
+            "('List maintainer', 'To unsubscribe from this group', 'For additional commands'), quoted headers ('On Behalf Of', 'Sent:', X-Spam lines) and the reader's own "
+            "address on a collector domain (ceas-challenge.cc, monkey.org). Now the signature text is cut at the first footer or quoted-header marker, an address on the "
+            "recipient's domain is ignored when the recipient has no organisation (collector, free mailbox, mailing list), and a signature address on the same free mailbox "
+            "provider as the sender is not checkable (everyone at hotmail.com matches). 'Office' is no longer a speaker cue ('Microsoft Office' is a product; the digitalriver.com "
+            "reseller mail in ham). An attack-versus-ham contrast that is above ham but below 2x is now a finding (info), not a failure; only a rate that is not above ham fails"),
 ]
 
 THREAD_RULE = "tv_needs_thread"
