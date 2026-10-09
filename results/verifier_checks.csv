@@ -1,0 +1,41 @@
+check,item,value,expected,status
+selftest,"hand-made cases, helper checks and crafted inputs",all of 67,all pass,PASS
+brands,brand domains that are free mailbox domains,0,0,PASS
+brands,brand domains that are not a registered domain as written,0,0,PASS
+brands,KNOWN_ORGS names with neither a domain list nor a reason,0,0,PASS
+brands,organisations with domains / domains / without domains yet,51 / 88 / 1,,info
+rows_valid,"ledger rows that fail check_row (keys, severity fits contradiction, known rule, safe reason)",0,0,PASS
+three_valued,groups where contradiction + consistent + not checkable differ from the claims,0,0,PASS
+evidence_discipline,rows from a rule that reads authentication where there was no usable verdict,0,0,PASS
+evidence_discipline,"internal-affiliation rows checked without an organisation domain, or on mailing-list mail",0,0,PASS
+severity,weak-claim contradictions with severity high,0,0,PASS
+attack_vs_ham,"affiliation_external: emails with a contradicted claim, phishing against ham",7.7% vs ham 0.1%,>= 2x ham and above 0,PASS
+attack_vs_ham,"authority: emails with a contradicted claim, fraud against ham",24.4% vs ham 0.0%,>= 2x ham and above 0,PASS
+attack_vs_ham,"credential_request: emails with a contradicted claim, phishing against ham",7.3% vs ham 0.1%,>= 2x ham and above 0,PASS
+attack_vs_ham,"payment_request: emails with a contradicted claim, fraud against ham",12.3% vs ham 0.0%,>= 2x ham and above 0,PASS
+attack_vs_ham,"data_request: emails with a contradicted claim, fraud against ham",7.8% vs ham 0.1%,>= 2x ham and above 0,PASS
+attack_vs_ham,"signature_contact: emails with a contradicted claim, phishing against ham","3.2% vs ham 3.0% (1.1x, above ham but below 2x)",>= 2x ham for a pass; above ham is a finding; not above ham fails,info
+crafted_inputs,"slowest of the crafted inputs (60,000-character fields, '@' floods, IBAN-shaped words)",0.01 s,< 2 s,PASS
+leakage_guard,splits read,train,train only (--train-only) or train and validation; never test,PASS
+validation_scored,this run read the validation emails,no (--train-only),yes in the final run of a frozen version,info
+coverage,affiliation_internal,"2171 claims, 290 checkable",>= 20 claims (a finding if not),PASS
+coverage,affiliation_external,"30192 claims, 1415 checkable",>= 20 claims (a finding if not),PASS
+coverage,authority,"3128 claims, 887 checkable",>= 20 claims (a finding if not),PASS
+coverage,reply_direction,"1848 claims, 92 checkable",>= 20 claims (a finding if not),PASS
+coverage,signature_contact,"26814 claims, 3158 checkable",>= 20 claims (a finding if not),PASS
+coverage,prior_relationship,"1110 claims, 0 checkable",>= 20 claims (a finding if not),PASS
+coverage,payment_request,"1668 claims, 559 checkable",>= 20 claims (a finding if not),PASS
+coverage,payment_change,"596 claims, 51 checkable",>= 20 claims (a finding if not),PASS
+coverage,credential_request,"7520 claims, 1921 checkable",>= 20 claims (a finding if not),PASS
+coverage,gift_card,"166 claims, 36 checkable",>= 20 claims (a finding if not),PASS
+coverage,data_request,"4377 claims, 725 checkable",>= 20 claims (a finding if not),PASS
+dominant_rule,header verifier: hv_sig_other_domain,37.9% of its contradictions,<= 50% (a finding if not),PASS
+dominant_rule,request verifier: rv_freemail,34.1% of its contradictions,<= 50% (a finding if not),PASS
+coverage,rules that never fired on the train emails,7 of 63,"(a finding, not a failure)",info
+run,rules_version,0.3,,info
+run,claim pattern version,0.4,,info
+run,spaCy / model,3.8.16 / en_core_web_sm 3.8.0,,info
+run,train emails verified / claims extracted now (the rest came from the cache),69542 / 49542,,info
+run,ledger rows (all splits),79590,,info
+run,--limit (0 means every train email),0,0 in the final run,PASS
+run,seconds,290,,info
