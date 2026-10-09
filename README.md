@@ -120,6 +120,7 @@ Phase 1 gathered nine sources into one table of **99,324 unique emails** (20,313
 - `data/processed/cleaned.parquet` (Phase 2): the same rows plus clean and payload-free redacted bodies (not committed).
 - `data/processed/headers.parquet` (Phase 3): header fields and evidence, one row per email, joined on `id` (not committed).
 - `data/processed/tactic_data.parquet` (Phase 6): train and validation emails with their tactic labels, uploaded to Colab (not committed).
+- `data/processed/claims_cache/` (Phase 8): the claims the Phase 7 extractor found per email, so later runs do not repeat its 20 minutes (not committed).
 - `results/`: every count and score, written by scripts (committed).
 
 ## 8. Proof: one ablation per claim
@@ -190,7 +191,7 @@ pretextguard/
 | 5 | Tactic and claim labels (free web-chat annotators, Cohen's kappa), synthetic emails | Done |
 | 6 | DistilBERT tactic classifier on Colab | Done |
 | 7 | Claim extractor | Done |
-| 8 | Header verifier (N3) and request verifier | Not started |
+| 8 | Header verifier (N3) and request verifier | In progress |
 | 9 | Thread builder, thread-hijack benchmark, thread verifier (N2) | Not started |
 | 10 | Claim router, verdict ledger, risk score, LIME | Not started |
 | 11 | FastAPI backend with all security controls | Not started |
@@ -256,6 +257,14 @@ Phase 7 (claim extractor): `requirements.txt` installs spaCy and its English mod
 python -m src.claims.extractor            # self-test: hand-made emails and crafted inputs
 python -m src.claims.build --train-only   # train-split hit rates and train scores (validation never loaded) -> results/claim_*.csv
 python -m src.claims.build                # final run of a frozen pattern version: also scores the validation emails, once
+```
+
+Phase 8 (header verifier N3 and request verifier): no new library. Details in [`src/verifiers/README.md`](src/verifiers/README.md).
+
+```bash
+python -m src.verifiers.selftest          # hand-made emails with real header blocks and crafted input (no data needed)
+python -m src.verifiers.build --train-only   # contradiction rates on the train split (validation never loaded) -> results/verifier_*.csv
+python -m src.verifiers.build             # final run of a frozen rule version: also reads the validation emails, once
 ```
 
 ## Privacy

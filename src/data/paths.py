@@ -81,6 +81,12 @@ CLAIM_PATTERN_HITS_CSV = RESULTS_DIR / "claim_pattern_hits.csv"
 CLAIM_SCORES_CSV = RESULTS_DIR / "claim_scores.csv"
 CLAIM_CHECKS_CSV = RESULTS_DIR / "claim_checks.csv"
 
+# Files written by Phase 8 (src/verifiers): the header and request verifiers
+CLAIMS_CACHE_DIR = PROCESSED_DIR / "claims_cache"   # extracted claims per split, reused by Phases 8, 10 and 13; never committed
+VERIFIER_RATES_CSV = RESULTS_DIR / "verifier_rates.csv"
+VERIFIER_RULE_HITS_CSV = RESULTS_DIR / "verifier_rule_hits.csv"
+VERIFIER_CHECKS_CSV = RESULTS_DIR / "verifier_checks.csv"
+
 
 def relative(path):
     """Return path relative to the project root, for short printouts.

@@ -41,6 +41,9 @@ The files here hold counts and scores only, never email text, so they are safe t
 | `claim_pattern_hits.csv` | `python -m src.claims.build` | Train split: how many emails each claim pattern and rule fires on, per category (also patterns that never fired) |
 | `claim_scores.csv` | `python -m src.claims.build` | Precision, recall and F1 per claim type on the labelled real emails and on the synthetic emails (train, and validation in the final run), apart, at two confidence levels; counts only below 10 positives |
 | `claim_checks.csv` | `python -m src.claims.build` | PASS/FAIL checks on the claim extractor, plus pattern version, spaCy version and run details |
+| `verifier_rates.csv` | `python -m src.verifiers.build` | Per split, group (all, category, source, source and category) and claim type: claims contradicted, consistent and not checkable, by severity, and the contradiction rate among the checkable ones (counts only; there are no contradiction labels, so these are rates, not precision or recall) |
+| `verifier_rule_hits.csv` | `python -m src.verifiers.build` | How many ledger rows each verifier rule produced, by status and category (also rules that never fired) |
+| `verifier_checks.csv` | `python -m src.verifiers.build` | PASS/FAIL checks on the header and request verifiers, plus rule version, claim pattern version and run details |
 
 ## Still to come
 
@@ -49,4 +52,5 @@ The files here hold counts and scores only, never email text, so they are safe t
 | 4 (F1) | Keyword baseline precision, recall and F1 against the labels: Phase 13, after the Phase 5 labels |
 | 6 (test) | Tactic classifier and baseline on the test split: Phase 13, once, with the thresholds fixed on validation |
 | 7 (test) | Claim extractor on the test split: Phase 13, once, with the patterns frozen |
+| 8 (test) | Verifier contradiction rates on the test split and the N3 ablation: Phase 13, once, with the rules frozen |
 | 13 | N1, N2, N3 and architecture ablations; claim-extraction accuracy; paraphrase and style-confound tests; charts |
