@@ -1,0 +1,24 @@
+setting,value
+score_version,0.2
+points_high,60
+points_medium,35
+points_low,5
+discount_per_further_claim,0.5
+pressure_urgency,0.25
+pressure_secrecy,0.25
+tactic_points_each,4
+tactic_points_max,12
+cut_suspicious,35
+cut_high_risk,70
+rules_with_reliability_below_1,4
+budget_high_risk_share,0.01
+budget_suspicious_or_above_share,0.05
+budget_judged_from_checked_emails,20
+reliability_half_above_rate,0.05
+reliability_zero_above_rate,0.1
+reliability_judged_from_hits,20
+initial_point_high_medium_step,"(60, 35, 0.25)"
+reliability:hv_sig_freemail_sender,0.0
+reliability:hv_sig_other_domain,0.0
+reliability:rv_freemail,0.5
+reliability:tv_path_origin,0.0

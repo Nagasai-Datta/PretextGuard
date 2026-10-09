@@ -1,0 +1,27 @@
+check,item,value,expected,status
+selftest,LIME self-test,all of 33,all pass,PASS
+leakage_guard,emails read,137 real validation emails (the labelled set); never test,validation only,PASS
+lime_deletion,300 copies: explanations (email and tactic pairs),33,,info
+lime_deletion,300 copies: explanations that name at least one word,33 of 33,,info
+lime_deletion,300 copies: seconds per explanation (mean / slowest),10.6 / 22.2,,info
+lime_deletion,300 copies: mean drop of the tactic probability after removing the LIME words / the frequency-matched random words,0.269 / -0.010,LIME larger,PASS
+lime_deletion,300 copies: explanations where removing the LIME words lowers the probability more than the matched random words,97% of 33,>= 70% (a finding if not),PASS
+lime_deletion,300 copies: the tactic stops firing after removing the LIME words / the matched random words,67% / 6%,,info
+lime_deletion,300 copies: words removed (mean) and tokens removed for LIME / for the matched random words (mean),"4.1 words, 14.6 / 13.0 tokens",,info
+lime_deletion,150 copies: explanations (email and tactic pairs),33,,info
+lime_deletion,150 copies: explanations that name at least one word,33 of 33,,info
+lime_deletion,150 copies: seconds per explanation (mean / slowest),4.9 / 10.1,,info
+lime_deletion,150 copies: mean drop of the tactic probability after removing the LIME words / the frequency-matched random words,0.258 / -0.011,LIME larger,PASS
+lime_deletion,150 copies: explanations where removing the LIME words lowers the probability more than the matched random words,94% of 33,>= 70% (a finding if not),PASS
+lime_deletion,150 copies: the tactic stops firing after removing the LIME words / the matched random words,67% / 4%,,info
+lime_deletion,150 copies: words removed (mean) and tokens removed for LIME / for the matched random words (mean),"4.1 words, 11.9 / 10.7 tokens",,info
+lime_deletion,600 copies: explanations (email and tactic pairs),33,,info
+lime_deletion,600 copies: explanations that name at least one word,33 of 33,,info
+lime_deletion,600 copies: seconds per explanation (mean / slowest),20.7 / 42.3,,info
+lime_deletion,600 copies: mean drop of the tactic probability after removing the LIME words / the frequency-matched random words,0.310 / -0.012,LIME larger,PASS
+lime_deletion,600 copies: explanations where removing the LIME words lowers the probability more than the matched random words,100% of 33,>= 70% (a finding if not),PASS
+lime_deletion,600 copies: the tactic stops firing after removing the LIME words / the matched random words,67% / 6%,,info
+lime_deletion,600 copies: words removed (mean) and tokens removed for LIME / for the matched random words (mean),"4.5 words, 17.7 / 15.7 tokens",,info
+lime_stability,"300 copies: overlap of the top 3 words under two seeds (mean Jaccard, 12 explanations)",0.42,(a finding),info
+crosscheck,"300 copies: overlap of the top 3 words with the lime package (mean Jaccard, 10 explanations)",0.39,(a finding; the two use different random numbers),info
+run,seconds,1892,,info

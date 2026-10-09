@@ -108,6 +108,18 @@ HIJACK_CASE_COUNTS_CSV = RESULTS_DIR / "hijack_cases.csv"
 THREAD_SCORES_CSV = RESULTS_DIR / "thread_scores.csv"
 HIJACK_CHECKS_CSV = RESULTS_DIR / "hijack_checks.csv"
 
+# Files written by Phase 10 (src/router, src/explain): the risk score and the LIME highlights
+TACTIC_PROBS_DIR = PROCESSED_DIR / "tactic_probs"                      # tactic probabilities per email and split, cached; never committed
+RELIABILITY_JSON = PROJECT_ROOT / "src" / "router" / "reliability.json"   # the reliability factor of each noisy rule; written by build.py --weights-only --write-reliability, committed
+SCORE_RULE_WEIGHTS_CSV = RESULTS_DIR / "score_rule_weights.csv"
+SCORE_GRID_CSV = RESULTS_DIR / "score_grid.csv"
+SCORE_CONFIG_CSV = RESULTS_DIR / "score_config.csv"
+SCORE_DISTRIBUTION_CSV = RESULTS_DIR / "score_distribution.csv"
+SCORE_BUDGET_CSV = RESULTS_DIR / "score_budget.csv"
+SCORE_BENCHMARK_CHECK_CSV = RESULTS_DIR / "score_benchmark_check.csv"
+SCORE_CHECKS_CSV = RESULTS_DIR / "score_checks.csv"
+LIME_CHECKS_CSV = RESULTS_DIR / "lime_checks.csv"
+
 
 def relative(path):
     """Return path relative to the project root, for short printouts.

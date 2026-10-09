@@ -1,0 +1,304 @@
+rule,verifier,claim_type,basis,group,denominator,hits,rate_pct,judged,proposed_reliability,current_reliability
+hv_auth_dmarc_fail,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_auth_dmarc_fail,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_auth_dmarc_fail,header,authority,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_auth_dmarc_fail,header,authority,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_auth_freemail,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,1,2.27,False,1.0,1.0
+hv_auth_freemail,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,1,0.99,False,1.0,1.0
+hv_auth_freemail,header,authority,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,8,0.52,False,1.0,1.0
+hv_auth_freemail,header,authority,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,25,3.16,True,1.0,1.0
+hv_auth_lookalike,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_auth_lookalike,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_auth_lookalike,header,authority,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_auth_lookalike,header,authority,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_auth_name_address,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_auth_name_address,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_auth_name_address,header,authority,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,3,0.2,False,1.0,1.0
+hv_auth_name_address,header,authority,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_auth_no_evidence,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_auth_no_evidence,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_auth_no_evidence,header,authority,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_auth_no_evidence,header,authority,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_auth_no_from,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_auth_no_from,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_auth_no_from,header,authority,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_auth_no_from,header,authority,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_auth_no_pass,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_auth_no_pass,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_auth_no_pass,header,authority,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_auth_no_pass,header,authority,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_auth_ok,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_auth_ok,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_auth_ok,header,authority,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_auth_ok,header,authority,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_auth_spf_fail,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_auth_spf_fail,header,authority,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_auth_spf_fail,header,authority,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_auth_spf_fail,header,authority,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_brand_auth_other,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_brand_auth_other,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_brand_auth_other,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_brand_auth_other,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_brand_no_auth,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_brand_no_auth,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_brand_no_auth,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_brand_no_auth,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_brand_no_pass,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_brand_no_pass,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_brand_no_pass,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_brand_no_pass,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_brand_ok,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_brand_ok,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_brand_ok,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_brand_ok,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_brand_spf_fail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_brand_spf_fail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_brand_spf_fail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_brand_spf_fail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_brand_spoof,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_brand_spoof,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_brand_spoof,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_brand_spoof,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_freemail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,1,2.27,False,1.0,1.0
+hv_ext_freemail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_freemail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_freemail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_lookalike,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_lookalike,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_lookalike,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_lookalike,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_name_spoof,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_name_spoof,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_name_spoof,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_name_spoof,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_no_from,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_no_from,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_no_from,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_no_from,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_no_org,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_no_org,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_no_org,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_no_org,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_other_domain,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_other_domain,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_other_domain,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,10,0.66,False,1.0,1.0
+hv_ext_other_domain,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_reference,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_reference,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_reference,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_reference,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_signed_by_brand,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_signed_by_brand,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_signed_by_brand,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_signed_by_brand,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_suffix,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_suffix,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_suffix,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_suffix,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_ext_unknown_freemail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,4,9.09,False,1.0,1.0
+hv_ext_unknown_freemail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,7,6.93,False,1.0,1.0
+hv_ext_unknown_freemail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,32,2.1,True,1.0,1.0
+hv_ext_unknown_freemail,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,29,3.66,True,1.0,1.0
+hv_ext_unknown_org,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_ext_unknown_org,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_ext_unknown_org,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_ext_unknown_org,header,affiliation_external,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_int_auth_other,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_auth_other,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_auth_other,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_int_auth_other,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_int_freemail,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_freemail,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_freemail,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,2,0.13,False,1.0,1.0
+hv_int_freemail,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,1,0.13,False,1.0,1.0
+hv_int_list,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_list,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_list,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_int_list,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_int_lookalike,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_lookalike,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_lookalike,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,2,0.13,False,1.0,1.0
+hv_int_lookalike,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_int_no_auth,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_no_auth,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_no_auth,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_int_no_auth,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_int_no_from,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_no_from,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_no_from,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_int_no_from,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_int_no_org,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_no_org,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_no_org,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_int_no_org,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_int_no_pass,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_no_pass,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_no_pass,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_int_no_pass,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_int_ok_auth,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_ok_auth,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_ok_auth,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_int_ok_auth,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_int_other_domain,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_other_domain,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_other_domain,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,48,3.15,True,1.0,1.0
+hv_int_other_domain,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,7,0.88,False,1.0,1.0
+hv_int_spf_fail,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_spf_fail,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_spf_fail,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_int_spf_fail,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_int_spoof,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_spoof,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_spoof,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_int_spoof,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_int_suffix,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_int_suffix,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_int_suffix,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_int_suffix,header,affiliation_internal,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_reply_diverges,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_reply_diverges,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_reply_diverges,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_reply_diverges,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,4,0.51,False,1.0,1.0
+hv_reply_no_header,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_reply_no_header,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_reply_no_header,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_reply_no_header,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_reply_ok,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_reply_ok,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_reply_ok,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_reply_ok,header,reply_direction,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_sig_freemail_sender,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,5,11.36,False,0.0,0.0
+hv_sig_freemail_sender,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,29,28.71,True,0.0,0.0
+hv_sig_freemail_sender,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,43,2.82,True,0.0,0.0
+hv_sig_freemail_sender,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,63,7.95,True,0.0,0.0
+hv_sig_lookalike,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_sig_lookalike,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_sig_lookalike,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,6,0.39,False,1.0,1.0
+hv_sig_lookalike,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_sig_no_address,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_sig_no_address,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_sig_no_address,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_sig_no_address,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_sig_no_from,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_sig_no_from,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_sig_no_from,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_sig_no_from,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_sig_not_contact,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_sig_not_contact,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_sig_not_contact,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_sig_not_contact,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_sig_ok,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_sig_ok,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_sig_ok,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_sig_ok,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+hv_sig_other_domain,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,18,40.91,False,0.0,0.0
+hv_sig_other_domain,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,46,45.54,True,0.0,0.0
+hv_sig_other_domain,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,642,42.1,True,0.0,0.0
+hv_sig_other_domain,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,338,42.68,True,0.0,0.0
+hv_sig_same_freemail,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+hv_sig_same_freemail,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+hv_sig_same_freemail,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+hv_sig_same_freemail,header,signature_contact,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+rv_auth_fail,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+rv_auth_fail,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+rv_auth_fail,request,any request,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+rv_auth_fail,request,any request,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+rv_change_needs_thread,request,payment_change,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+rv_change_needs_thread,request,payment_change,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+rv_change_needs_thread,request,payment_change,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+rv_change_needs_thread,request,payment_change,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+rv_freemail,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,3,6.82,False,0.5,0.5
+rv_freemail,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,6,5.94,False,0.5,0.5
+rv_freemail,request,any request,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,40,2.62,True,0.5,0.5
+rv_freemail,request,any request,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,57,7.2,True,0.5,0.5
+rv_lookalike,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+rv_lookalike,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+rv_lookalike,request,any request,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+rv_lookalike,request,any request,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+rv_name_address,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+rv_name_address,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+rv_name_address,request,any request,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+rv_name_address,request,any request,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+rv_name_domain,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+rv_name_domain,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+rv_name_domain,request,any request,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,15,0.98,False,1.0,1.0
+rv_name_domain,request,any request,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+rv_no_from,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+rv_no_from,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+rv_no_from,request,any request,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+rv_no_from,request,any request,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+rv_no_pass,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+rv_no_pass,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+rv_no_pass,request,any request,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+rv_no_pass,request,any request,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+rv_no_proof,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+rv_no_proof,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+rv_no_proof,request,any request,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+rv_no_proof,request,any request,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+rv_ok,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+rv_ok,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+rv_ok,request,any request,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+rv_ok,request,any request,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+rv_reply_redirect,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+rv_reply_redirect,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+rv_reply_redirect,request,any request,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+rv_reply_redirect,request,any request,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,12,1.52,False,1.0,1.0
+rv_spf_fail,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_kafka_users,44,0,0.0,False,1.0,1.0
+rv_spf_fail,request,any request,train ordinary mail (ham and spam) with a checked claim,apache_tomcat_users,101,0,0.0,False,1.0,1.0
+rv_spf_fail,request,any request,train ordinary mail (ham and spam) with a checked claim,kaggle_ceas08,1525,0,0.0,False,1.0,1.0
+rv_spf_fail,request,any request,train ordinary mail (ham and spam) with a checked claim,spamassassin,792,0,0.0,False,1.0,1.0
+tv_bank_changed,thread,request_drift,train real thread messages with a past,enron,3034,1,0.03,False,1.0,1.0
+tv_bank_new,thread,request_drift,train real thread messages with a past,apache,1243,1,0.08,False,1.0,1.0
+tv_bank_seen,thread,request_drift,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_int_ids_ok,thread,thread_integrity,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_int_no_ids,thread,thread_integrity,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_int_parent_missing,thread,thread_integrity,train real thread messages with a past,apache,1243,15,1.21,False,1.0,1.0
+tv_onset_many,thread,tactic_onset,train real thread messages with a past,enron,3034,11,0.36,False,1.0,1.0
+tv_onset_no_history,thread,tactic_onset,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_onset_no_history,thread,tactic_onset,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_onset_one,thread,tactic_onset,train real thread messages with a past,enron,3034,11,0.36,False,1.0,1.0
+tv_onset_steady,thread,tactic_onset,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_onset_steady,thread,tactic_onset,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_path_mailer,thread,sending_path,train real thread messages with a past,apache,1243,1,0.08,False,1.0,1.0
+tv_path_no_data,thread,sending_path,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_path_origin,thread,sending_path,train real thread messages with a past,apache,1243,299,24.05,True,0.0,0.0
+tv_path_origin_mailer,thread,sending_path,train real thread messages with a past,apache,1243,1,0.08,False,1.0,1.0
+tv_path_same,thread,sending_path,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_prior_few,thread,prior_relationship,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_prior_no_thread,thread,prior_relationship,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_prior_ok,thread,prior_relationship,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_prior_ok,thread,prior_relationship,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_prior_stranger,thread,prior_relationship,train real thread messages with a past,apache,1243,2,0.16,False,1.0,1.0
+tv_prior_stranger,thread,prior_relationship,train real thread messages with a past,enron,3034,18,0.59,False,1.0,1.0
+tv_quote_forward,thread,thread_integrity,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_quote_forward,thread,thread_integrity,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_quote_mismatch,thread,thread_integrity,train real thread messages with a past,apache,1243,3,0.24,False,1.0,1.0
+tv_quote_mismatch,thread,thread_integrity,train real thread messages with a past,enron,3034,86,2.83,True,1.0,1.0
+tv_quote_none,thread,thread_integrity,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_quote_none,thread,thread_integrity,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_quote_ok,thread,thread_integrity,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_quote_ok,thread,thread_integrity,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_req_credential_new,thread,credential_request,train real thread messages with a past,apache,1243,1,0.08,False,1.0,1.0
+tv_req_credential_new,thread,credential_request,train real thread messages with a past,enron,3034,6,0.2,False,1.0,1.0
+tv_req_data_new,thread,data_request,train real thread messages with a past,apache,1243,6,0.48,False,1.0,1.0
+tv_req_data_new,thread,data_request,train real thread messages with a past,enron,3034,31,1.02,True,1.0,1.0
+tv_req_gift_card_new,thread,gift_card,train real thread messages with a past,enron,3034,1,0.03,False,1.0,1.0
+tv_req_no_history,thread,any request,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_req_no_history,thread,any request,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_req_payment_new,thread,payment_request,train real thread messages with a past,apache,1243,1,0.08,False,1.0,1.0
+tv_req_payment_new,thread,payment_request,train real thread messages with a past,enron,3034,13,0.43,False,1.0,1.0
+tv_req_seen,thread,any request,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_req_seen,thread,any request,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_single_ids_present,thread,single_email,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_single_no_quote,thread,single_email,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_single_no_quote,thread,single_email,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_single_no_reply_ids,thread,single_email,train real thread messages with a past,apache,1243,2,0.16,False,1.0,1.0
+tv_single_no_reply_ids,thread,single_email,train real thread messages with a past,enron,3034,87,2.87,True,1.0,1.0
+tv_single_not_reply,thread,single_email,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_single_not_reply,thread,single_email,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_who_new_sender,thread,sending_path,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_who_new_sender,thread,sending_path,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0
+tv_who_other_domain,thread,sending_path,train real thread messages with a past,apache,1243,6,0.48,False,1.0,1.0
+tv_who_other_domain,thread,sending_path,train real thread messages with a past,enron,3034,1,0.03,False,1.0,1.0
+tv_who_same_address,thread,sending_path,train real thread messages with a past,apache,1243,0,0.0,False,1.0,1.0
+tv_who_same_address,thread,sending_path,train real thread messages with a past,enron,3034,0,0.0,False,1.0,1.0

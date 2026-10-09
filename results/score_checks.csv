@@ -1,0 +1,30 @@
+check,item,value,expected,status
+selftest,"router, ledger, score and pipeline self-test",NOT all of 99,all pass,FAIL
+selftest,LIME self-test,all of 33,all pass,PASS
+rows_valid,verifier rows that fail check_row,0,0,PASS
+score_range,units whose score is not a whole number from 0 to 100,0,0,PASS
+bands,units whose band does not fit their score,0,0,PASS
+evidence_discipline,emails with a contradiction but no checked claim,0,0,PASS
+leakage_guard,splits read,train+validation,train only (--train-only) or train and validation; never test,PASS
+validation_read,this run read the validation emails,yes,yes in --calibrate and the final run,PASS
+budget,validation apache_kafka_users (email),"15 checked; High risk 0.0%, Suspicious or above 0.0%","High risk <= 1%, Suspicious or above <= 5%",info
+budget,validation apache_tomcat_users (email),"24 checked; High risk 0.0%, Suspicious or above 0.0%","High risk <= 1%, Suspicious or above <= 5%",PASS
+budget,validation kaggle_ceas08 (email),"279 checked; High risk 0.0%, Suspicious or above 2.15%","High risk <= 1%, Suspicious or above <= 5%",PASS
+budget,validation spamassassin (email),"172 checked; High risk 1.16%, Suspicious or above 2.91%","High risk <= 1%, Suspicious or above <= 5%",FAIL
+budget,validation apache_kafka_users (thread),"85 checked; High risk 0.0%, Suspicious or above 1.18%","High risk <= 1%, Suspicious or above <= 5%",PASS
+budget,validation apache_tomcat_users (thread),"294 checked; High risk 0.0%, Suspicious or above 1.02%","High risk <= 1%, Suspicious or above <= 5%",PASS
+budget,validation enron (thread),"483 checked; High risk 0.41%, Suspicious or above 5.38%","High risk <= 1%, Suspicious or above <= 5%",FAIL
+budget,groups with enough checked emails to be judged,6,>= 1,PASS
+calibration,a grid point that keeps the meaning and meets the budget,none,one,FAIL
+calibration,reliability.json equals the factors computed from every train email,same,same,PASS
+parity,validation emails scored by analyze() and by the batch code: same band / same score,100.0% / 91.7% of 300,>= 95% same band,PASS
+benchmark,validation apache: real next reply reaching Suspicious or above (a false alarm),0.0% of 40,<= 5% (a finding if not),PASS
+benchmark,validation enron: real next reply reaching Suspicious or above (a false alarm),6.9% of 29,<= 5% (a finding if not),info
+run,score version / rules version / thread rules version / claim patterns,0.2 / 0.3 / 0.2 / 0.4,,info
+run,tactic model run,2026-10-08 14:38:30,,info
+run,train emails scored / claims extracted now,69542 / 0,,info
+run,validation emails scored / claims extracted now,14879 / 0,,info
+run,validation real thread messages with a past scored,918,,info
+run,validation hijack benchmark cases scored,302,,info
+run,--limit (0 means every train email),0,0 in the final run,PASS
+run,seconds,28,,info
