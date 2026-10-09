@@ -1,0 +1,101 @@
+check,item,value,expected,status
+serve,the interface answers at http://127.0.0.1:4173/,200,200,PASS
+serve,"it sends a Content-Security-Policy (so this is `npm run preview`, not the dev server)",default-src 'none'; script-src 'self'; style-src 'self'; img,script-src 'self',PASS
+serve,header x-content-type-options,nosniff,nosniff,PASS
+serve,header x-frame-options,DENY,DENY,PASS
+serve,header referrer-policy,no-referrer,no-referrer,PASS
+serve,header cross-origin-resource-policy,same-origin,same-origin,PASS
+serve,GET /api/health through the interface server: API up and model loaded,"{""status"":""ok"",""model_loaded"":true}",model_loaded true,PASS
+serve,POST /api/analyze through the interface server with no key of our own: accepted (the server adds it),200,200,PASS
+serve,the same call straight to the API with no key: refused,401,401,PASS
+david,the explained report keeps the score and the verdict,100 High risk,100 High risk,PASS
+david,contradiction rows drawn equal contradictions answered,3,3,PASS
+david,claim rows drawn equal claims answered,3,3,PASS
+david,seven tactics drawn,7,7,PASS
+david,detected tactics drawn equal tactics that fired,1,1,PASS
+david,"the text drawn is exactly the text the API read (no piece lost, doubled or changed)",252 characters,252 characters,PASS
+david,"no script, frame, image, link or object in the result",0,0,PASS
+david,every highlighted piece is a piece of the text read,6 marks,all inside the text,PASS
+david,what the model made of this example (not asserted),High risk 100; fired: urgency; contradictions 3,,info
+xss,the explained report keeps the score and the verdict,99 High risk,99 High risk,PASS
+xss,contradiction rows drawn equal contradictions answered,3,3,PASS
+xss,claim rows drawn equal claims answered,3,3,PASS
+xss,seven tactics drawn,7,7,PASS
+xss,detected tactics drawn equal tactics that fired,0,0,PASS
+xss,"the text drawn is exactly the text the API read (no piece lost, doubled or changed)",551 characters,551 characters,PASS
+xss,"no script, frame, image, link or object in the result",0,0,PASS
+xss,every highlighted piece is a piece of the text read,0 marks,all inside the text,PASS
+xss,what the model made of this example (not asserted),High risk 99; fired: none; contradictions 3,,info
+xss,no alert box opened,0,0,PASS
+xss,the result holds no angle brackets (the API already replaced them) and the page added none,no < in the text block,no <,PASS
+xss,nothing the payloads name was created in the page,0 elements,0,PASS
+honest,score drawn equals score answered,0,0,PASS
+honest,verdict drawn equals verdict answered,Low risk,Low risk,PASS
+honest,contradiction rows drawn equal contradictions answered,0,0,PASS
+honest,claim rows drawn equal claims answered,2,2,PASS
+honest,seven tactics drawn,7,7,PASS
+honest,detected tactics drawn equal tactics that fired,0,0,PASS
+honest,"the text drawn is exactly the text the API read (no piece lost, doubled or changed)",120 characters,120 characters,PASS
+honest,"no script, frame, image, link or object in the result",0,0,PASS
+honest,what the model made of this example (not asserted),Low risk 0; fired: none; contradictions 0,,info
+body,score drawn equals score answered,0,0,PASS
+body,verdict drawn equals verdict answered,Low risk,Low risk,PASS
+body,contradiction rows drawn equal contradictions answered,0,0,PASS
+body,claim rows drawn equal claims answered,3,3,PASS
+body,seven tactics drawn,7,7,PASS
+body,detected tactics drawn equal tactics that fired,0,0,PASS
+body,"the text drawn is exactly the text the API read (no piece lost, doubled or changed)",171 characters,171 characters,PASS
+body,"no script, frame, image, link or object in the result",0,0,PASS
+body,what the model made of this example (not asserted),Low risk 0; fired: none; contradictions 0,,info
+takeover,score drawn equals score answered,100,100,PASS
+takeover,verdict drawn equals verdict answered,High risk,High risk,PASS
+takeover,contradiction rows drawn equal contradictions answered,3,3,PASS
+takeover,claim rows drawn equal claims answered,1,1,PASS
+takeover,seven tactics drawn,7,7,PASS
+takeover,detected tactics drawn equal tactics that fired,3,3,PASS
+takeover,"the text drawn is exactly the text the API read (no piece lost, doubled or changed)",197 characters,197 characters,PASS
+takeover,"no script, frame, image, link or object in the result",0,0,PASS
+takeover,one timeline card per message,5,5,PASS
+takeover,what the model made of this example (not asserted),"High risk 100; fired: authority, urgency, scarcity; contradictions 3",,info
+explain,no highlights before the second call,ok,ok,PASS
+explain,"""Find the words"" completes the report",ok,ok,PASS
+explain,explanation done with no tactic fired: the page says so,ok,ok,PASS
+explain,and does not offer to ask again,ok,ok,PASS
+errors,"429: banner with detail, code and request id",The analysis did not runToo many requests. Try again later.Too many requests in a minute. ,rate_limited + req-429 + Too many requests,PASS
+errors,429: the button counts down and is disabled,Try again in 3 s,Try again in N s,PASS
+errors,429: the button works again after Retry-After,Analyze,Analyze,PASS
+errors,422: the field that was refused is listed,The analysis did not runThe request is not valid.The API refused the request. The fields i,org_domain + String pattern mismatch,PASS
+errors,503: busy,The analysis did not runThe classifier is busy. Try again in a moment.The classifier is bu,busy + classifier is busy,PASS
+errors,413: too large,The analysis did not runThe request is too large.The text is over the size limit. Cut it d,too_large + size limit,PASS
+errors,401: tells the reader where the key is set,The analysis did not runA valid API key is required.The API did not accept the key this pa,unauthorized + PRETEXTGUARD_API_KEY,PASS
+errors,"502 with no JSON reads as ""cannot reach the API"" and says how to start it",The analysis did not runThe interface could not reach the API.The interface could not reac,unreachable + start command,PASS
+errors,when the explanation fails the score and findings stay,100,a score,PASS
+errors,the retry button counts down,Try again in 3 s,Try again in N s,PASS
+errors,retrying after the wait fills in the words,ok,ok,PASS
+limits,"an email over 300,000 bytes: message names both sizes","The email is 300,001 bytes; the limit is 300,000 bytes.","300,001 bytes and 300,000 bytes",PASS
+limits,and the Analyze button is disabled,ok,ok,PASS
+limits,a malformed organisation domain disables Analyze,ok,ok,PASS
+limits,nothing was sent,0,0,PASS
+input,a .eml file is read into the text box,ok,ok,PASS
+input,thread: add a message,ok,ok,PASS
+input,thread: remove a message,ok,ok,PASS
+input,thread: two files fill two messages (the empty first box is replaced),ok,ok,PASS
+input,the button is disabled while a request is running,ok,ok,PASS
+input,"one request, one result",1,1,PASS
+dashboard,"chart ""tactics"" is drawn",ok,ok,PASS
+dashboard,"chart ""distribution"" is drawn",ok,ok,PASS
+dashboard,"chart ""hijack"" is drawn",ok,ok,PASS
+dashboard,"chart ""budget"" is drawn",ok,ok,PASS
+dashboard,F1 of DistilBERT for authority in the chart table equals the API table,0.593,0.593,PASS
+dashboard,rows of the budget chart table equal the API table (ham and thread groups),7,7,PASS
+dashboard,one block per result file listed by the API,41,41,PASS
+dashboard,opening a block loads its rows,9,9,PASS
+phone,analyzer result at 375 px wide: no sideways scroll,0 px,0 px,PASS
+phone,dashboard at 375 px wide: no sideways scroll,0 px,0 px,PASS
+dark,dark colour scheme gives a dark page,"rgb(13, 13, 13)",a dark background,PASS
+whole run,no content-security-policy violation in any page,0,0,PASS
+whole run,no script error in any page,0,0,PASS
+whole run,no console error in any page (apart from the refused requests this script made up),0,0,PASS
+whole run,"no alert, confirm or prompt box opened",0,0,PASS
+whole run,browser,154.0.8037.98,,info
+whole run,seconds,24,,info

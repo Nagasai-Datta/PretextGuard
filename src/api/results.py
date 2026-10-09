@@ -69,6 +69,10 @@ RESULT_FILES = {
     "api_checks": "Checks on the API's security controls (Phase 11)",
     "api_mutations": "Controls of the API broken on purpose, and whether the self-test noticed each (Phase 11)",
     "api_smoke": "Real-server run of the API with the trained model: timings and checks (Phase 11)",
+    # interface
+    "frontend_checks": "Checks on the interface source, its built bundle and its offset and size logic (Phase 12)",
+    "frontend_browser_checks": "The interface driven in a real browser: what is drawn against what the API answered, error states and the security headers (Phase 12)",
+    "frontend_mutations": "Parts of the interface and its bundle broken on purpose, and whether the static checks noticed each (Phase 12)",
 }
 
 

@@ -62,6 +62,9 @@ The files here hold counts and scores only, never email text, so they are safe t
 | `api_checks.csv` | `python -m src.api.selftest` | PASS/FAIL checks on the API's security controls (key, rate limits, size caps, validation, headers, errors, audit log, XSS), run with a stand-in classifier, plus library versions |
 | `api_mutations.csv` | `python -m src.api.mutation_check` | For each of 37 controls broken on purpose in a scratch copy of the code: whether the self-test noticed (CAUGHT) and the first check that failed |
 | `api_smoke.csv` | `python -m src.api.smoke` | PASS/FAIL checks and timings from a real session with the running server and the trained model (oversize bodies, the canary in the server log, real corpus emails with script payloads) |
+| `frontend_checks.csv` | `npm run check` (in `frontend/`) | PASS/FAIL checks on the interface: its source (no HTML injection, links, storage or outside addresses), its package pins and `npm audit`, its built bundle (no API key, no outside host, no inline script) and the offset and size logic on hand-made cases; the node version and bundle size as info |
+| `frontend_mutations.csv` | `npm run mutation-check` (in `frontend/`) | For each of 26 things broken on purpose in a scratch copy of the interface: whether the static checks noticed (CAUGHT) and the first check that failed |
+| `frontend_browser_checks.csv` | `npm run browser-check` (in `frontend/`) | PASS/FAIL checks from the built app driven in a real browser against the running API: what is drawn against what the API answered, error states, size limits, the dashboard against the API's tables, phone width, dark mode, and no Content-Security-Policy violation, script error or alert box |
 
 ## Still to come
 

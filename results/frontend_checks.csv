@@ -1,0 +1,108 @@
+check,item,value,expected,status
+source,dangerouslySetInnerHTML,0,0,PASS
+source,innerHTML or outerHTML,0,0,PASS
+source,insertAdjacentHTML,0,0,PASS
+source,document.write,0,0,PASS
+source,eval(,0,0,PASS
+source,new Function,0,0,PASS
+source,inline event attribute set from code,0,0,PASS
+source,javascript: URL,0,0,PASS
+source,a link element (<a ),0,0,PASS
+source,an iframe,0,0,PASS
+source,"localStorage, sessionStorage, cookie or IndexedDB",0,0,PASS
+source,console output,0,0,PASS
+source,a web socket or event source,0,0,PASS
+source,sendBeacon,0,0,PASS
+source,files with an http(s) URL,0,0,PASS
+source,source files read (code and CSS),30,,info
+source,non-ASCII characters in examples.js,0,0,PASS
+pins,package-lock.json exists,yes,yes,PASS
+pins,react is pinned exactly,19.3.0,x.y.z,PASS
+pins,react in the lock file,19.3.0,19.3.0,PASS
+pins,react-dom is pinned exactly,19.3.0,x.y.z,PASS
+pins,react-dom in the lock file,19.3.0,19.3.0,PASS
+pins,react-is is pinned exactly,19.3.0,x.y.z,PASS
+pins,react-is in the lock file,19.3.0,19.3.0,PASS
+pins,recharts is pinned exactly,3.10.1,x.y.z,PASS
+pins,recharts in the lock file,3.10.1,3.10.1,PASS
+pins,@tailwindcss/vite is pinned exactly,4.3.3,x.y.z,PASS
+pins,@tailwindcss/vite in the lock file,4.3.3,4.3.3,PASS
+pins,@vitejs/plugin-react is pinned exactly,4.7.0,x.y.z,PASS
+pins,@vitejs/plugin-react in the lock file,4.7.0,4.7.0,PASS
+pins,playwright-core is pinned exactly,1.63.0,x.y.z,PASS
+pins,playwright-core in the lock file,1.63.0,1.63.0,PASS
+pins,tailwindcss is pinned exactly,4.3.3,x.y.z,PASS
+pins,tailwindcss in the lock file,4.3.3,4.3.3,PASS
+pins,vite is pinned exactly,6.4.4,x.y.z,PASS
+pins,vite in the lock file,6.4.4,6.4.4,PASS
+environment,node,v22.14.0,,info
+pins,npm audit: known vulnerabilities in the locked packages,0,0,PASS
+pins,packages npm audit looked at,189,,info
+bundle,dist/index.html exists (run npm run build first),yes,yes,PASS
+bundle,PRETEXTGUARD_API_KEY (9 characters) appears in dist/,no,no,PASS
+bundle,PRETEXTGUARD_API_KEY (43 characters) appears in dist/,no,no,PASS
+bundle,the header name X-API-Key appears in dist/,no,no,PASS
+bundle,files that name a PRETEXTGUARD_ setting (help text only),dist/assets/index-DE7hb4Y7.js,names are not secrets; values were checked above,info
+bundle,source maps shipped,0,0,PASS
+bundle,inline <script> in index.html,0,0,PASS
+bundle,style attributes or <style> in index.html,0,0,PASS
+bundle,on... event attributes in index.html,0,0,PASS
+bundle,script or style sheet loaded from another host (index.html),0,0,PASS
+bundle,CSS that fetches from another host,0,0,PASS
+bundle,JS with fetch() to an absolute address,0,0,PASS
+bundle,JS with import() of an absolute address,0,0,PASS
+bundle,JS with sendBeacon,0,0,PASS
+bundle,JS with new WebSocket,0,0,PASS
+bundle,JS with new EventSource,0,0,PASS
+bundle,JS with importScripts,0,0,PASS
+bundle,host named as text in the JS: bit.ly,1 times,"text only, never fetched",info
+bundle,host named as text in the JS: react.dev,2 times,"text only, never fetched",info
+bundle,host named as text in the JS: redux-toolkit.js.org,1 times,"text only, never fetched",info
+bundle,host named as text in the JS: redux.js.org,1 times,"text only, never fetched",info
+bundle,host named as text in the JS: www.w3.org,19 times,"text only, never fetched",info
+bundle,files in dist/,4,,info
+bundle,total size of dist/ (KB),709,,info
+logic,no spans: the whole text is one piece,"[""hello world""]","[""hello world""]",PASS
+logic,empty text gives no pieces,[],[],PASS
+logic,one span cuts three pieces,"[""hello "",""big"","" world""]","[""hello "",""big"","" world""]",PASS
+logic,JavaScript slice at Python offsets is wrong with an emoji (why code points are used),false,false,PASS
+logic,emoji before the span: offsets count code points,"[""a😀b "",""cat""]","[""a😀b "",""cat""]",PASS
+logic,a span covering the emoji is not cut in half,"[""a"",""😀"",""b cat""]","[""a"",""😀"",""b cat""]",PASS
+logic,overlap: pieces,"[""012"",""34"",""567"",""89""]","[""012"",""34"",""567"",""89""]",PASS
+logic,overlap: the middle piece carries both spans,"[[""x""],[""x"",""y""],[""y""],[]]","[[""x""],[""x"",""y""],[""y""],[]]",PASS
+logic,crooked span skipped and counted: start equal to end,"skipped 1, pieces 1","skipped 1, pieces 1",PASS
+logic,crooked span skipped and counted: start after end,"skipped 1, pieces 1","skipped 1, pieces 1",PASS
+logic,crooked span skipped and counted: negative start,"skipped 1, pieces 1","skipped 1, pieces 1",PASS
+logic,crooked span skipped and counted: end past the text,"skipped 1, pieces 1","skipped 1, pieces 1",PASS
+logic,crooked span skipped and counted: a fraction,"skipped 1, pieces 1","skipped 1, pieces 1",PASS
+logic,crooked span skipped and counted: text instead of numbers,"skipped 1, pieces 1","skipped 1, pieces 1",PASS
+logic,crooked span skipped and counted: missing numbers,"skipped 1, pieces 1","skipped 1, pieces 1",PASS
+logic,a non-string text is read as empty,[],[],PASS
+logic,fuzz: 300 random texts and spans rebuild the text exactly,0 failures,0 failures,PASS
+logic,strongestTactic picks the heaviest tactic span,2,2,PASS
+logic,strongestTactic is null without a tactic span,null,null,PASS
+logic,topWords merges case and sorts by weight,"[[""urgent"",0.5,2],[""today"",0.4,1]]","[[""urgent"",0.5,2],[""today"",0.4,1]]",PASS
+logic,an email of exactly the limit is accepted,null,null,PASS
+logic,an email one byte over the limit is refused,"The email is 300,001 bytes; the limit is 300,000 bytes.",a message,PASS
+logic,the refusal names both sizes exactly,"The email is 300,001 bytes; the limit is 300,000 bytes.","300,001 and 300,000 bytes",PASS
+logic,"bytes are counted, not characters (a euro sign is 3 bytes)",true,true,PASS
+logic,an empty email is refused,true,true,PASS
+logic,a thread of 0 messages is refused,true,true,PASS
+logic,a thread of 51 messages is refused,true,true,PASS
+logic,a thread of 50 short messages is accepted,null,null,PASS
+logic,a thread over the total size is refused,true,true,PASS
+logic,"domain """" accepted",true,true,PASS
+logic,"domain ""acmecorp.com"" accepted",true,true,PASS
+logic,"domain ""Acme-Corp.co.uk."" accepted",true,true,PASS
+logic,"domain ""bad domain!"" refused",false,false,PASS
+logic,"domain ""-bad.com"" refused",false,false,PASS
+logic,"domain ""a..b.com"" refused",false,false,PASS
+logic,"domain ""xxxxxxxxxxxx..."" refused",false,false,PASS
+logic,"domain ""a.a.a.a.a.a...."" refused",false,false,PASS
+logic,formatCell: null is empty,"""""","""""",PASS
+logic,formatCell: floating-point noise is removed,"""0.3""","""0.3""",PASS
+logic,formatCell: whole numbers get separators,"""14,879""","""14,879""",PASS
+logic,formatCell: booleans are words,"""yes""","""yes""",PASS
+logic,humanize,"""Affiliation internal""","""Affiliation internal""",PASS
+logic,tacticClass refuses a name it does not know,"""""","""""",PASS
+logic,tacticLabel falls back to readable text,"""New thing""","""New thing""",PASS

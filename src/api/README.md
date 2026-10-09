@@ -138,10 +138,12 @@ One line per event on standard output, for example `{"time":"2026-10-09T12:00:00
 - **No TLS.** The server speaks plain HTTP on the loopback address. A deployment terminates TLS in a reverse proxy and then also sets `--forwarded-allow-ips` deliberately.
 - **Starlette's `TestClient`** prints a deprecation notice about `httpx` (it prefers `httpx2`); the self-test hides it. `httpx` 0.28.1 is pinned because it is the established package.
 
-## For Phase 12 (the interface)
+## The interface (Phase 12)
 
-- Call the API through the Vite dev proxy: a rule such as `'/api'` forwarding to `http://127.0.0.1:8000` with the `X-API-Key` header added from the environment in `vite.config.js`. The browser then never holds the key and CORS is not needed (so the switch can be `False`).
-- Show `verdict`, `score`, `action` and `coverage.note` first (from `/analyze`); the "Low risk" band means no contradiction was found among the claims that could be checked, and a pasted body with no headers can only add tactic points, so explain `coverage` next to the band.
-- Then call `/explain` for the highlights. `text_read`, claim texts and highlight texts are display-safe, but render every string as text (no `dangerouslySetInnerHTML`).
-- Handle 429 (wait `Retry-After`), 503 `busy` (try again after `Retry-After`) and 503 `model_unavailable`.
-- Draw the dashboard from `GET /results` (the list) and `GET /results?name=...`; add a result file to `RESULT_FILES` in `results.py` before the dashboard can read it.
+The React interface in [`frontend/`](../../frontend/README.md) is the first client of this API. How it uses it:
+
+- It calls the API through its own server: a proxy rule forwards `/api` to `http://127.0.0.1:8000` and adds the `X-API-Key` header, read from `.env` inside `vite.config.js`. The browser never holds the key and never makes a cross-origin request, so CORS is not needed (the switch can be `False`).
+- `POST /analyze` first (the score, band, action and `coverage.note` are shown at once), then `POST /explain` for the highlights; one request at a time, because the server runs one analysis at a time.
+- It handles 401, 413, 422 (the refused fields are listed from `errors[].loc`), 429 and 503 `busy` (a counter on the button for `Retry-After`), 503 `model_unavailable` and an unreachable API; every error body is `{"detail", "code", "request_id", "errors"?}`.
+- Every string of a report is drawn as a text node. Highlights and claims are offsets in Python characters (code points) into `text_read` or `signature_read` and are cut with `Array.from`, not with a JavaScript string slice.
+- The dashboard draws from `GET /results` and `GET /results?name=...`. A result file is served only after its name is in `RESULT_FILES` in `results.py`; Phase 12 added `frontend_checks`, `frontend_mutations` and `frontend_browser_checks`.

@@ -1,0 +1,315 @@
+@import "tailwindcss";
+
+/* PretextGuard theme. Colours are tokens (CSS variables) so light and dark swap in one place; Tailwind utilities such as bg-surface and text-ink read them.
+   The categorical slots s1 to s8 are the validated data palette (fixed order, dark steps chosen for the dark surface); the status colours are reserved for
+   states (a band, a severity) and always travel with a text label. Nothing here loads from the network: system fonts only. */
+
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink2: #52514e;
+  --muted: #898781;
+  --line: #e1e0d9;
+  --axis: #c3c2b7;
+  --ring: rgba(11, 11, 11, 0.1);
+  --accent: #1c5cab;
+  --accent-ink: #ffffff;
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --s4: #eda100;
+  --s5: #e87ba4;
+  --s6: #008300;
+  --s7: #4a3aa7;
+  --s8: #e34948;
+  --good: #0ca30c;
+  --warning: #fab219;
+  --serious: #ec835a;
+  --critical: #d03b3b;
+  --band-low: #1c5cab;
+  --band-low-ink: #ffffff;
+  --band-sus: #fab219;
+  --band-sus-ink: #0b0b0b;
+  --band-high: #d03b3b;
+  --band-high-ink: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #ffffff;
+    --ink2: #c3c2b7;
+    --muted: #898781;
+    --line: #2c2c2a;
+    --axis: #383835;
+    --ring: rgba(255, 255, 255, 0.1);
+    --accent: #86b6ef;
+    --accent-ink: #0b0b0b;
+    --s1: #3987e5;
+    --s2: #d95926;
+    --s3: #199e70;
+    --s4: #c98500;
+    --s5: #d55181;
+    --s6: #008300;
+    --s7: #9085e9;
+    --s8: #e66767;
+    --band-low: #3987e5;
+    --band-low-ink: #0b0b0b;
+  }
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink2: var(--ink2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-axis: var(--axis);
+  --color-accent: var(--accent);
+  --color-critical: var(--critical);
+  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+html {
+  background: var(--page);
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@layer components {
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+  .card h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+  }
+  .hint {
+    color: var(--ink2);
+    font-size: 0.875rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+  .btn:hover:not(:disabled) {
+    border-color: var(--ink2);
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .input {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--axis);
+    background: var(--surface);
+    color: var(--ink);
+    padding: 0.5rem 0.65rem;
+    font-size: 0.875rem;
+  }
+  .mono {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+  .chip {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 0.05rem 0.55rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid var(--ring);
+    white-space: nowrap;
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+  }
+  .table th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--ink2);
+    border-bottom: 1px solid var(--axis);
+    padding: 0.35rem 0.6rem;
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+  }
+  .table td {
+    border-bottom: 1px solid var(--line);
+    padding: 0.35rem 0.6rem;
+    vertical-align: top;
+  }
+  .num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .tab {
+    border-radius: 8px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.9rem;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink2);
+    cursor: pointer;
+  }
+  .tab[aria-current="page"] {
+    background: var(--surface);
+    border-color: var(--line);
+    color: var(--ink);
+    font-weight: 600;
+  }
+}
+
+/* Highlights in the redacted text: a wash of the tactic's colour plus an underline in the same colour, so the mark is not colour alone (the legend and the
+   tooltip name the tactic). Claims get a dashed underline in ink. */
+.hl {
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+  border-bottom: 2px solid var(--hl, var(--s1));
+  background: color-mix(in srgb, var(--hl, var(--s1)) 28%, transparent);
+}
+.claim {
+  text-decoration: underline dashed;
+  text-decoration-color: var(--ink2);
+  text-underline-offset: 4px;
+}
+
+.t-authority { --hl: var(--s1); }
+.t-urgency { --hl: var(--s2); }
+.t-scarcity { --hl: var(--s3); }
+.t-reciprocity { --hl: var(--s4); }
+.t-social_proof { --hl: var(--s5); }
+.t-liking { --hl: var(--s6); }
+.t-secrecy { --hl: var(--s7); }
+
+.swatch {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 3px;
+  background: var(--hl, var(--s1));
+  vertical-align: -1px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spinner {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  border: 2px solid var(--axis);
+  border-top-color: var(--accent);
+  animation: spin 0.8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}
+
+details > summary {
+  cursor: pointer;
+}
+
+/* Severity of one ledger row. Always shown with a word; the colour is the reserved status colour of that severity. */
+.sev-high { background: var(--critical); color: #ffffff; }
+.sev-medium { background: var(--serious); color: #0b0b0b; }
+.sev-low { background: var(--warning); color: #0b0b0b; }
+.sev-ok { background: transparent; color: var(--ink2); }
+.sev-na { background: transparent; color: var(--ink2); border-style: dashed; }
+
+/* The risk meter: a bar from 0 to 100 with ticks where the bands change (35 and 70). */
+.meter {
+  position: relative;
+  height: 0.75rem;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+.meter > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+.meter-ticks {
+  position: relative;
+  height: 1.25rem;
+  font-size: 0.75rem;
+  color: var(--ink2);
+}
+.meter-ticks > span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+.meter-ticks > span::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -0.9rem;
+  height: 0.9rem;
+  border-left: 1px solid var(--axis);
+}
+
+/* A probability bar with a tick at the tactic's threshold. */
+.pbar {
+  position: relative;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: var(--line);
+}
+.pbar > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--hl, var(--s1));
+}
+.pbar > i {
+  position: absolute;
+  top: -3px;
+  height: calc(100% + 6px);
+  border-left: 2px solid var(--ink);
+}

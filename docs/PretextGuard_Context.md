@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: October 2026, written at the end of Phase 11, to go with master document v3.13.
+Version: October 2026, written at the end of Phase 12, to go with master document v3.14.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -197,13 +197,15 @@ propose them again as novelty. Stack choices are never novelty (faculty rule).
 | Phase 9 libraries | none; the thread code uses the standard library, pandas, numpy (for the bootstrap, already installed with pandas) and the Phase 3 to 8 code. `requirements.txt` is unchanged |
 | Phase 10 libraries | none; LIME is written by hand with numpy (already installed with pandas); the router, ledger and score use the standard library, and `build.py` uses pandas. `requirements.txt` is unchanged |
 | Phase 11 libraries | FastAPI 0.141.1 (Starlette 1.7.0), Pydantic 2.13.5, slowapi 0.1.10, uvicorn 0.53.0, limits 5.8.0, httpx 0.28.1 (FastAPI's TestClient only); pinned one release behind the newest, pip-audit found nothing; python-multipart is not needed (JSON only). The sandbox of Claude Code on the web has no venv: the API can be tested there with a scratch virtual environment outside the repository |
+| Phase 12 libraries | Node packages in `frontend/` (npm, not pip; `requirements.txt` is unchanged): react 19.3.0, react-dom 19.3.0, react-is 19.3.0, recharts 3.10.1, vite 6.4.4, @vitejs/plugin-react 4.7.0, tailwindcss 4.3.3, @tailwindcss/vite 4.3.3 and, for the browser check only, playwright-core 1.63.0; exact versions in `frontend/package.json`, the lock file is committed, `npm audit` was clean. Node v22.14.0 on the Mac. The browser check uses Google Chrome or Edge if installed (or `npx playwright-core install chromium`, or `CHROMIUM_PATH`) |
+| Node and npm | `node -v` must be 18 or newer (Vite 6); `brew install node` if it is missing. Run npm commands from `frontend/`, Python commands from the project root |
 | Secrets in `.env` (names only here) | `PRETEXTGUARD_API_KEY` (at least 24 characters, not the placeholder; `python -m src.api.settings --new-key` makes one) and the optional `PRETEXTGUARD_RATE_ANALYZE`, `_RATE_EXPLAIN`, `_RATE_GLOBAL`, `_EXPLAIN_SAMPLES`, `_WAIT_SECONDS`, `_ALLOWED_HOSTS`, `_ENABLE_DOCS`, `_HOST`, `_PORT` (Phase 11); `GEMINI_API_KEY`, `ANNOTATOR_1_MODEL`, `ANNOTATOR_2_MODEL`, `TIEBREAKER_MODEL` (Phase 5). `.env` is ignored; `.env.example` lists the names |
 | Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2); `data/processed/tactic_data.parquet` (Phase 6, train and validation text for Colab); `data/processed/claims_cache/` (Phase 8, the extracted claims per split, ignored by Git, Mac only); `data/processed/enron_index.parquet`, `threads.parquet` and `thread_features/` (Phase 9, the rebuilt threads and their cached tactic probabilities and claims, ignored by Git, Mac only); `data/processed/tactic_probs/` (Phase 10, the tactic probabilities of every train and validation email, ignored by Git, Mac only); `artifacts/tactic_model/` (Phase 6, about 270 MB, ignored by Git, exists only on the Mac) |
 | Rule | Always work from the project root, never from `src/` |
 
 ---
 
-## 4. Current state of the repository (end of Phase 11)
+## 4. Current state of the repository (end of Phase 12)
 
 ```
 pretextguard/
@@ -233,8 +235,14 @@ pretextguard/
                      thread_counts.csv  thread_signal_rates.csv  thread_checks.csv  hijack_generation.csv  hijack_cases.csv  thread_scores.csv  hijack_checks.csv
                      score_rule_weights.csv  score_grid.csv  score_config.csv  score_distribution.csv  score_budget.csv  score_benchmark_check.csv  score_checks.csv  lime_checks.csv
                      api_checks.csv  api_mutations.csv  api_smoke.csv
-  notebooks/README.md  phase6_tactic_classifier.ipynb  frontend/.gitkeep
-  docs/README.md  master_document.md (v3.12)  PretextGuard_Master_Document_v3.2.docx (snapshot)
+                     frontend_checks.csv  frontend_mutations.csv  frontend_browser_checks.csv
+  notebooks/README.md  phase6_tactic_classifier.ipynb
+  frontend/                  README.md  package.json  package-lock.json  vite.config.js  index.html  (node_modules/ and dist/ ignored)
+    src/                     main.jsx  App.jsx  api.js  index.css  pages/ (AnalyzerPage, DashboardPage)  lib/ (segments, limits, format, useAnalysis, useResult, examples)
+                             components/ (EmailInput, ErrorBanner, Results, RiskBadge, CoverageNote, FindingsTable, ThreadTimeline, HighlightedBody, TacticList,
+                             ScoreBreakdown, ClaimsTable, HeaderFindings, ResultTable, charts/)
+    scripts/                 check.mjs  mutation_check.mjs  browser_check.mjs  make_examples.py
+  docs/README.md  master_document.md (v3.14)  PretextGuard_Master_Document_v3.2.docx (snapshot)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
@@ -525,6 +533,15 @@ Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). 
 - **Where things live:** the results above are committed; the model weights and the data exist only on Nagasai's Mac, so Claude Code on the web tests API code with `create_app(settings, analyzer=Analyzer(classifier=StubClassifier()))` (as `selftest.py` does) and a real uvicorn server on a spare port for real-HTTP checks (the web sandbox cannot load the model).
 - **Docs:** `update_docs_phase11.py` (a download, run from `~/Downloads` inside the venv; it reads `results/` and stops if a check failed, a broken control was not caught or the smoke test did not search the server log for the canary) made master document v3.13 and rewrote this file's Sections 4 to 6.
 
+**Phase 12 in brief** (master document Section 8.20, `frontend/README.md`):
+- **Code:** `frontend/`: `package.json` and `package-lock.json` (exact pins: react 19.3.0, react-dom 19.3.0, react-is 19.3.0, recharts 3.10.1, vite 6.4.4, @vitejs/plugin-react 4.7.0, tailwindcss 4.3.3, @tailwindcss/vite 4.3.3, playwright-core 1.63.0 for the browser check only; 189 packages in the lock file; Node v22.14.0), `vite.config.js` (the proxy that forwards `/api` to 127.0.0.1:8000 and adds `X-API-Key` read with `loadEnv` from `../.env`; the CSP and four more headers on `npm run preview`), `index.html`, `src/main.jsx`, `src/App.jsx` (header, two pages, API-not-ready banner, the dashboard loaded lazily), `src/api.js` (the only network code; one `ApiError`; timeout and cancellation), `src/pages/AnalyzerPage.jsx` and `DashboardPage.jsx`, `src/components/` (`EmailInput`, `ErrorBanner`, `Results`, `RiskBadge`, `CoverageNote`, `FindingsTable`, `ThreadTimeline`, `HighlightedBody`, `TacticList`, `ScoreBreakdown`, `ClaimsTable`, `HeaderFindings`, `ResultTable`, `charts/` with `TacticF1Chart`, `BenchmarkChart`, `DistributionChart`, `BudgetChart` and `parts.jsx`), `src/lib/` (`segments.js`, `limits.js`, `format.js`, `useAnalysis.js`, `useResult.js`, `examples.js` generated by `scripts/make_examples.py`), `scripts/check.mjs`, `mutation_check.mjs`, `browser_check.mjs`. One change outside `frontend/`: `src/api/results.py` gained `frontend_checks`, `frontend_mutations` and `frontend_browser_checks`.
+- **Run:** terminal 1 (project root, venv) `python -m src.api.main`; terminal 2 (`frontend/`) `npm install`, `npm run build`, `npm run preview`, then open http://127.0.0.1:4173; `npm run dev` (port 5173) is for development and cannot send the CSP. The key is the project's `PRETEXTGUARD_API_KEY`; the interface server refuses to start without a good one.
+- **What it does:** the analyzer posts to `/analyze` (score, band, action, coverage, findings, claims, tactics, header facts, thread timeline), then to `/explain` for the highlights (a failed second call keeps the score and offers a retry); the dashboard draws four charts from `GET /results` (tactic F1 on real validation, where the validation emails land, hijack detection with intervals, the false-alarm budget), each with a table view, then every allow-listed result file on demand. Every string is a React text node; highlights are cut by code points (`Array.from`); 'Low risk' is blue and carries the coverage note.
+- **Results:** `results/frontend_checks.csv` 96 PASS and 0 FAIL (source scan, pins and `npm audit`, bundle scan, offset and size logic; Node v22.14.0); `results/frontend_mutations.csv` 26 of 26 things broken on purpose were caught; `results/frontend_browser_checks.csv` 93 PASS and 0 FAIL (the built app in a real browser, 154.0.8037.98, 24 seconds; what is drawn equals what the API answered, error states with made-up responses, size limits, files and threads, the dashboard against the API's tables, a 375 px screen, dark mode, no CSP violation, script error, console error or alert box).
+- **Findings to carry forward:** (1) a new result file must be added to `RESULT_FILES` and its prefix to `GROUPS` in `DashboardPage.jsx` (Section 15 item 24); (2) the four charts read validation tables, so test-split charts need new tables and components; (3) `limits.js` copies the API's size limits and `examples.js` is generated from `src/router/selftest.py`; (4) the CSP exists only under `npm run preview`; (5) only a Chromium-based browser was driven, and no screen reader or accessibility audit was run; (6) the browser check waits for the API's explanation allowance (6 a minute), so two runs need a minute between them; (7) CORS is still True (open for testing) in `src/api/main.py` (Section 15 item 23) and the interface does not depend on it.
+- **Where things live:** results above are committed; `frontend/node_modules/` and `frontend/dist/` are ignored by Git (`npm install` and `npm run build` recreate them). Claude Code on the web can build and check the interface and drive it with its preinstalled Chromium against a stand-in-classifier server (`create_app(settings, analyzer=Analyzer(classifier=StubClassifier()))` on port 8000), but the real numbers come from Nagasai's runs. Files are delivered as one tar.gz for the whole `frontend/` folder plus the few changed files outside it.
+- **Docs:** `update_docs_phase12.py` (a download, run from `~/Downloads` inside the venv; it reads `results/` and `frontend/package.json` and stops if a check failed, a mutation was not caught, `npm audit` did not run or the browser check was not run against `npm run preview`) made master document v3.14 and rewrote this file's Sections 4 to 6.
+
 Current `.gitignore`:
 ```
 # Python
@@ -600,26 +617,32 @@ Phase 11 added to `requirements.txt` (after the spaCy lines): fastapi==0.141.1, 
 
 ---
 
-## 5. Next task: Phase 12, React frontend: analyzer and dashboard (plan not yet approved)
+## 5. Next task: Phase 13, all experiments and charts (plan not yet approved)
 
-Full detail: master document Sections 2 (what gets built), 6.2 (UI row), 6.3 (the report), 6.8 (the eight steps), 8.19 (the API), 10 (output encoding, response hardening), 12.4 (the dashboard is the first thing to drop if time runs short), 12.6 (planned files) and Section 15 items 3 and 21. Start by proposing the plan and the background concepts, then wait for "go". Fold the phase into as few steps as you can (two at most), deliver every file as a download, and verify his push by reading the repository.
+Full detail: master document Sections 4.1 to 4.5 (what each novelty claim must show), 11 (the experiments), 12.4, 12.6 (planned `src/eval` files) and Section 15 items 6, 10, 11, 12, 14, 16, 18, 20, 22 and 24. Start by proposing the plan and the background concepts, then wait for "go". Fold the phase into as few steps as you can (two at most), deliver every file as a download, verify his push by reading the repository, and end with the commit commands.
 
-**Goal.** A React + Vite + Tailwind app in `frontend/` with two pages. **Analyzer:** paste a raw email or upload a .eml (read in the browser as text and sent in JSON), or give several emails as a thread; an optional organisation domain; then the score, band and recommended action, the coverage note, the redacted text with the manipulation phrases highlighted, a findings table (the ledger: contradictions first, with the rules and reasons, not-checkable rows shown as such), the header findings, the thread timeline with the flip point, and the claims. **Dashboard:** the evaluation numbers from `GET /results` as tables and charts. The interface calls the API only through a same-origin proxy; it never holds the key.
+**Goal.** One script per experiment in `src/eval`, each reading frozen code and writing CSV files (and PNG charts for the report) to `results/`. This is the first phase that reads the **test split**: once per frozen component, with every threshold, rule version and score number fixed beforehand and never changed after the test numbers are seen. Every number in the report and the slides must come from these scripts (a fake or manipulated result costs 20 marks).
+
+**The experiments (Section 11)**
+- **N1 ablation (`ablation_n1.py`).** Binary attack against benign. Model A is trained on raw bodies, model B on redacted bodies, both DistilBERT (Colab again: a notebook that reads train and validation rows only) and a TF-IDF plus logistic regression pair as a cheap second check (scikit-learn is installed). Test both on three views of the same held-out set: raw, redacted and the naturally link-free subset (696 attacks and 5,880 benign emails in test, `results/preprocess_checks.csv`). Report attack-class F1 and false-positive rate; report whatever the numbers are.
+- **N2 ablation (`ablation_n2.py`).** The test cases of `data/threads/cases.csv` scored once with and without the thread verifier inside the full score; hijack-index (flip point) accuracy; content signals on Enron, all four signals on Apache; false alarms on real test threads; bootstrap intervals over threads. The test features need their own caches (`attach_features(messages, 'test')`).
+- **N3 ablation (`ablation_n3.py`).** Full system against text-only, headers-only and parallel score fusion (BEC-Guard style), per source; real affiliation positives apart from synthetic BEC, whose clearly synthetic header blocks are generated for this ablation only and reported apart (item 16).
+- **Architecture ablation (`ablation_arch.py`).** A flat classifier on `flat_features` (`src/router/ledger.py`) against the routed score: F1, false-positive rate and the share of findings with a traceable reason.
+- **Test scores once:** the tactic classifier and the keyword baseline with thresholds fixed on validation (item 12); the claim extractor (`claim_extraction.py`, item 14, operating point per type chosen on validation); the risk score per source with both denominators, the budget on the test split (the clean measurement, item 20) and the hijack benchmark test cases. Real and synthetic apart, counts only below 10 positives, a bootstrap interval for every F1, and 'labels from language models of one family' stated wherever an F1 appears.
+- **Supporting:** the style-confound test (source-classifier AUC), the adversarial paraphrase test (calls `analyze()` directly; includes the claim extractor), the co-occurrence and confusion analysis (analysis only, never novelty), the header-coverage and annotator-agreement charts from the existing CSV files; SemEval pretraining only if time allows.
+- **Charts and the dashboard.** `charts.py` draws the PNGs of the report (matplotlib would be a new pinned library: check it first); the interface dashboard stays Recharts and reads the same CSV files, so each new result file needs its name in `RESULT_FILES` (`src/api/results.py`) and its prefix in `GROUPS` (`frontend/src/pages/DashboardPage.jsx`), and a new chart a component in `frontend/src/components/charts` (item 24).
 
 **Notes the plan must handle**
-- **Proxy and key.** The Vite dev server forwards `/api` to `http://127.0.0.1:8000` and adds `X-API-Key`, read with `loadEnv` inside `vite.config.js` from the project's `.env` (never an environment variable that starts with `VITE_`, which would be exposed to the browser). The API serves no static files, so the demo runs the Vite dev server (or `vite preview` with the same proxy). The Host header the proxy forwards must stay `localhost` or `127.0.0.1` (the API refuses others).
-- **The flow.** `POST /analyze` first (about 0.05 s) and show the result; then `POST /explain` (about 5 s) for the highlights, with a spinner; one request at a time (the server runs one analysis at a time; a second `/explain` is refused at once with 503 busy). Statuses: 401, 413, 422 (show `errors[].loc`), 429 and 503 busy (wait `Retry-After`), 503 model_unavailable, 500 (show `request_id`).
-- **Rendering untrusted text.** Every string is rendered as a text node: no `dangerouslySetInnerHTML`, no `innerHTML`, no markdown or automatic links. Highlights are character offsets into `text_read` (claims point into `text_read` or `signature_read` by `attributes.zone`): cut the text at the offsets, merge overlapping spans from different tactics, and show which tactic each span belongs to. Test with the XSS payloads in `src/api/selftest.py` (`XSS_PAYLOADS`) and real corpus emails, in the browser.
-- **Honesty of the band.** 'Low risk' means that no contradiction was found among the claims that could be checked. Show `coverage.note` beside the band; a pasted body with no headers can only add tactic points (at most 12), so explain that case in the interface. Reciprocity, social proof and liking are shown but not scored.
-- **The dashboard.** Draw from `GET /results`: tactic F1 (DistilBERT against the keyword baseline), claim F1, verifier contradiction rates, hijack benchmark detection with and without the thread verifier, the false-alarm budget, the LIME check, the API checks. Cells that are counts only (fewer than 10 positives) are shown as counts, not rates. A chart library must be pinned and audited.
-- **Testing.** No unit tests per phase: `npm run build`, run the app against the real API, try the crafted inputs by hand, and (Claude Code on the web) drive the built app with the preinstalled Chromium and a stand-in-classifier server (`create_app(settings, analyzer=Analyzer(classifier=StubClassifier()))`) to check the XSS payloads and the states (loading, errors, 429).
-- **New tooling.** Node and npm (check `node -v` on the Mac first), pinned `package.json` with exact versions, `npm audit`, `frontend/.gitignore` (node_modules, dist; the root `.gitignore` already lists them), `frontend/README.md`.
+- **The test split is used once.** Build the missing test caches (claims, tactic probabilities, thread features) first and say so; if a script is rerun, the numbers must not change; if something is found wrong after seeing test numbers, report it as a finding and do not fix the frozen components.
+- **Honesty rules carried from earlier phases:** the validation scores are slightly optimistic (validation chose the epoch, seed, thresholds and rule versions); the Phase 10 ham-only definition was corrected after validation was read; attacks and ordinary mail come from different collections with different header evidence, so every contrast is reported per source; the hijack cases are synthetic; the claim and tactic labels are LLM labels from one family; no experiment may be described as better than it measured.
+- **What runs where.** The model weights, the data and the caches exist only on Nagasai's Mac, and DistilBERT training for the N1 models needs Colab; Claude Code on the web tests new code on hand-made samples and a stand-in classifier, never on real numbers.
+- **Testing.** No unit tests per phase: each script prints PASS/FAIL checks and saves them (`*_checks.csv`), cross-checked against scikit-learn where a metric is hand-written, and `src/api/selftest.py` still passes after the allow-list grows.
 
-**Decisions for the plan to recommend:** the pages and layout; whether the thread input is several text boxes or several files; the chart library; state management (plain `useState` is enough); the file layout of Section 12.6 (`main.jsx`, `App.jsx`, `api.js`, `pages/AnalyzerPage.jsx`, `pages/DashboardPage.jsx`, `components/EmailInput.jsx`, `RiskBadge.jsx`, `HighlightedBody.jsx`, `FindingsTable.jsx`, `HeaderFindings.jsx`, `ThreadTimeline.jsx`); how the key reaches the proxy; the test plan; what Phase 12 saves in `results/` (nothing numeric is expected; screenshots may go in `docs/figures/`); the step plan.
+**Decisions for the plan to recommend:** the order of the experiments and which ones to fold into one script; the file names and result prefixes; the bootstrap settings (resamples, seed, resampling unit: threads for N2, emails elsewhere); the operating points; whether matplotlib is added; what Colab does and what the Mac does; what each step prints and saves; the step plan.
 
-**Background to teach in Phase 12 (he knows React; the new parts are the proxy, the offsets and Tailwind):** the Vite dev proxy against CORS and why the key must not be in the browser; why rendering untrusted text as text is the XSS defence; turning character offsets into highlighted segments; `fetch` with `AbortController` and status handling; Tailwind utility classes for someone who has written CSS by hand; one chart library; `npm audit`.
+**Background to teach in Phase 13:** an ablation in plain words; why the test split is used once and what leaks if it is not; bootstrap intervals; TF-IDF and logistic regression against DistilBERT; the confusion matrix and the false-positive rate; AUC for the style-confound test; what a paraphrase attack is; drawing report charts with matplotlib against the dashboard's Recharts.
 
-## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 11 are done)
+## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 12 are done)
 
 | Phase | Deliverable |
 |---|---|
@@ -628,8 +651,8 @@ Full detail: master document Sections 2 (what gets built), 6.2 (UI row), 6.3 (th
 | 9 | Thread builder, hijack benchmark, thread verifier N2 (`src/thread`, `src/verifiers`, `src/data`): done |
 | 10 | Router, ledger, risk score, LIME (`src/router`, `src/explain`): done |
 | 11 | FastAPI backend with all security controls (`src/api`): done |
-| 12 | React frontend: analyzer and dashboard (`frontend/`): next |
-| 13 | All experiments and charts (`src/eval`, `results/`) |
+| 12 | React frontend: analyzer and dashboard (`frontend/`): done |
+| 13 | All experiments and charts (`src/eval`, `results/`): next |
 | 14 | Report, viva preparation, Review deck update (`docs/`) |
 
 No paid APIs anywhere (annotation and synthetic data use free API tiers); no LLM at run time.

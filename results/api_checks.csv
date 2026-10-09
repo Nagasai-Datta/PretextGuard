@@ -11,7 +11,7 @@ settings,the summary and repr of Settings do not contain the key,,,PASS
 settings,"uvicorn is started on the loopback address, with a concurrency limit, no server header and no trust in X-Forwarded-For","{'host': '127.0.0.1', 'port': 8000, 'limit_concurrency': 20, 'timeout_keep_alive': 5, 'server_header': False, 'proxy_headers': False, 'log_level': 'info'}",,PASS
 settings,"the size caps are the planned ones and are constants (4 MB request, 300,000 bytes per email, 50 messages, 1.5 MB per thread)",,,PASS
 settings,"the routes are exactly /analyze, /analyze/thread, /explain, /results and /health (no docs, no openapi)","['/analyze', '/analyze/thread', '/explain', '/health', '/results']",,PASS
-functional,GET /health needs no key and reports the model loaded and the versions,"{'status': 'ok', 'model_loaded': True, 'explain_samples': 150, 'versions': {'score': '0.2', 'rules': '0.3', 'thread_rules': '0.2', 'claim_patterns': '0.4'}, 'results_files': 37}",,PASS
+functional,GET /health needs no key and reports the model loaded and the versions,"{'status': 'ok', 'model_loaded': True, 'explain_samples': 150, 'versions': {'score': '0.2', 'rules': '0.3', 'thread_rules': '0.2', 'claim_patterns': '0.4'}, 'results_files': 38}",,PASS
 functional,"POST /analyze returns the pipeline's report unchanged (High risk for the David email, no LIME)",200 High risk,,PASS
 functional,"the report passes the pipeline's own check and the typed Report model, and the model gives the same dictionary back",,,PASS
 functional,"the response is JSON, never cached, and its request id is the one in the header",,,PASS
@@ -21,7 +21,7 @@ functional,a thread of one message is analysed as a single email,,,PASS
 functional,"POST /explain adds LIME highlights that fit the text, uses about 150 copies, and the score is the same as without LIME",copies 152,,PASS
 functional,POST /explain also takes a thread,,,PASS
 functional,"/explain needs exactly one of email or messages (both, neither and only a domain are 422)","[422, 422, 422]",,PASS
-functional,"GET /results needs no key and lists the allow-listed files that exist, with columns and row counts",37 files,,PASS
+functional,"GET /results needs no key and lists the allow-listed files that exist, with columns and row counts",38 files,,PASS
 functional,every allow-listed table is served with the rows of its CSV file and contains no NaN or Infinity,,,PASS
 functional,"a file in results/ that is not on the allow-list, a path, an extension, another case, a NUL byte, an empty or an unknown name all give 404 and nothing else","unlisted files: ['hijack_generation', 'tactic_val_probs', 'tactic_data_counts', 'dedup_pairs', 'label_validation', 'claim_pattern_hits', 'header_top_domains', 'header_auth_formats', 'sample_counts', 'semeval_mapping', 'keyword_phrase_hits']; statuses [404]",,PASS
 functional,"a name longer than 64 characters is a 422 (validation of the query), also with no echo",,,PASS
@@ -40,7 +40,7 @@ validation,"a body that is not application/json (text/plain, a form, jsonp, text
 validation,application/json with parameters or in other letter case is accepted,"[200, 200, 200]",,PASS
 validation,"bad JSON in ten forms (broken, empty, UTF-16, invalid UTF-8, a list, null, a number, NaN, 100,000-deep nesting, a lone surrogate) is 422 each, never 500",{},,PASS
 validation,"wrong types (number, list, null, object, boolean), an empty email and an empty object are 422 and name only the field and the kind of error","[422, 422, 422, 422, 422, 422, 422, 422]",,PASS
-validation,an unknown field is 422 and its (attacker-chosen) name is not echoed,"{""detail"":""The request did not match the expected shape."",""code"":""invalid_request"",""request_id"":""593b32a31b7543749772ee5ecaa93b90"",""errors"":[{""loc"":[""?""],""type"":""extra_forbidden""}]}",,PASS
+validation,an unknown field is 422 and its (attacker-chosen) name is not echoed,"{""detail"":""The request did not match the expected shape."",""code"":""invalid_request"",""request_id"":""7c964d6babd5437cb511cebe511b5ba9"",""errors"":[{""loc"":[""?""],""type"":""extra_forbidden""}]}",,PASS
 validation,"a thread must be 1 to 50 non-empty text messages: empty list, a string, numbers, 51 messages and an empty message are 422","[422, 422, 422, 422, 422]",,PASS
 validation,"an email over 300,000 bytes is 422, in characters and in UTF-8 bytes (100,001 euro signs), and exactly 300,000 bytes is analysed","[422, 422] 200",,PASS
 validation,"a thread over 1.5 MB in total is 422 (6 x 299,000 bytes), and a thread of exactly 50 messages is analysed","[422, 422] 200",,PASS
@@ -65,9 +65,9 @@ concurrency,when the classifier is free again the next request works (nothing wa
 concurrency,"8 requests at once are all answered 200 one after the other, each with its own report (no mixing of results between requests)","[200, 200, 200, 200, 200, 200, 200, 200]",,PASS
 errors,"ReportError inside the analysis: 500 internal_error with a fixed message and the request id, the exception's message (with the canary) is nowhere in the answer, and the lock is free","500 {""detail"":""The server could not complete the request. This is a bug, not a problem with your input. Quote the request id",,PASS
 errors,"an unexpected RuntimeError inside the analysis: 500 internal_error with a fixed message and the request id, the exception's message (with the canary) is nowhere in the answer, and the lock is free","500 {""detail"":""The server could not complete the request. This is a bug, not a problem with your input. Quote the request id",,PASS
-errors,"a ValueError inside the analysis: 400 analysis_rejected with a fixed message and the request id, the exception's message (with the canary) is nowhere in the answer, and the lock is free","400 {""detail"":""The input could not be analysed."",""code"":""analysis_rejected"",""request_id"":""96e39cab49f64ee699b15c8127f8391a""}",,PASS
-errors,"a TypeError inside the analysis: 400 analysis_rejected with a fixed message and the request id, the exception's message (with the canary) is nowhere in the answer, and the lock is free","400 {""detail"":""The input could not be analysed."",""code"":""analysis_rejected"",""request_id"":""aa854f87c34e4cf5873c509a3a5a6405""}",,PASS
-errors,"the audit log names the class of each error and where it was raised, never its message (a ValueError or TypeError from the pipeline is a bug and is logged too)","[{'time': '2026-10-09T18:40:03.446+00:00', 'event': 'error', 'request_id': '9945796bc25e43f9be03e1bfabd9edf4', 'status': 500, 'path': '/analyze', 'error_class': 'ReportError', 'where': 'selftest.py:483 analyze'}]",,PASS
+errors,"a ValueError inside the analysis: 400 analysis_rejected with a fixed message and the request id, the exception's message (with the canary) is nowhere in the answer, and the lock is free","400 {""detail"":""The input could not be analysed."",""code"":""analysis_rejected"",""request_id"":""8a29551c16d64fb2b287cccb24d5969b""}",,PASS
+errors,"a TypeError inside the analysis: 400 analysis_rejected with a fixed message and the request id, the exception's message (with the canary) is nowhere in the answer, and the lock is free","400 {""detail"":""The input could not be analysed."",""code"":""analysis_rejected"",""request_id"":""aaaec5f038bf4d67907b2f3a60fc38f8""}",,PASS
+errors,"the audit log names the class of each error and where it was raised, never its message (a ValueError or TypeError from the pipeline is a bug and is logged too)","[{'time': '2026-10-09T21:45:29.825+00:00', 'event': 'error', 'request_id': 'fe8404674fec4199b4fec0dd24eb1345', 'status': 500, 'path': '/analyze', 'error_class': 'ReportError', 'where': 'selftest.py:483 analyze'}]",,PASS
 errors,"if the model cannot be loaded the server still starts: /health is 503 'unavailable' and the analysis routes are 503 model_unavailable, and the audit log says why",,,PASS
 errors,the loader runs at start-up (the lifespan) and the model is dropped at shutdown,,,PASS
 headers,"the security headers and a request id are on every kind of answer: 200, 400 (bad host), 401, 404, 405, 413, 415, 422, 429, 500 and 503","[] statuses {'200': 200, '401': 401, '404': 404, '405': 405, '415': 415, '422': 422, '429': 429, '400 host': 400, '413': 413, '503': 503, '500': 500}",,PASS
@@ -79,7 +79,7 @@ headers,"the Host header must be one of the allowed names (a defence against DNS
 headers,every request gets its own random 32-hex request id; a request id sent by the client is ignored,,,PASS
 xss,"13 markup, script and template payloads in the body, the From name, the Subject and a thread message never reach a response as '<', '>' or a backtick, on all three analysis routes",[] statuses [200],,PASS
 xss,"no error response in this whole run contains '<', '>' or a backtick, whatever the request held",[],,PASS
-audit,"one analysis writes exactly one JSON line with the request id, mode, score, verdict, tactics that fired, contradictions, duration and sizes","{'time': '2026-10-09T18:40:04.118+00:00', 'event': 'analysis', 'request_id': 'dec707e884c94c56bf9a8f8f27cddd16', 'mode': 'email', 'explain': True, 'explained': True, 'score': 100, 'verdict': 'High risk', 'tactics': ['urgency', 'secrecy'], 'contradictions': 3, 'duration_ms': 11, 'bytes': 606, 'messag",,PASS
+audit,"one analysis writes exactly one JSON line with the request id, mode, score, verdict, tactics that fired, contradictions, duration and sizes","{'time': '2026-10-09T21:45:30.529+00:00', 'event': 'analysis', 'request_id': '0e06b60d2eb04f8aacef7af6bc7c5554', 'mode': 'email', 'explain': True, 'explained': True, 'score': 100, 'verdict': 'High risk', 'tactics': ['urgency', 'secrecy'], 'contradictions': 3, 'duration_ms': 11, 'bytes': 606, 'messag",,PASS
 audit,every field of every audit line of the run is on the fixed list,,,PASS
 audit,"AuditLog refuses a field that is not on the list; clean_value removes newlines, quotes, markup and '@' and cuts at 80 characters; objects become '?', NaN becomes null",line1_line2 _quoted_ _script_alert_1__/script_ a_b.com _x_ zzzzzzzzzzzzzzzzzzzzz,,PASS
 audit,"the canary string, sent in the email text, a header name and value, the Host, the URL path and query, the content type, a field name, a domain and as a wrong key, appears in no audit line, no other log record and no error response (it did reach the pipeline: it is in the successful reports)",reached the pipeline: True; echoed in []; in the logs: False,,PASS
@@ -92,4 +92,4 @@ run,python,3.12.14,,info
 run,CORS_ALLOW_ANY_ORIGIN in src/api/main.py,"TRUE: CORS IS WIDE OPEN, TESTING ONLY. Set it to False before any deployment.",,info
 run,classifier,stand-in (src/router/selftest.py StubClassifier); the real model is src/api/smoke.py,,info
 run,limits tested with,"analysis 3/minute, explain 2/minute, global 4/minute (the shipped defaults are 30, 6 and 120)",,info
-run,run at,2026-10-10 00:10:04,,info
+run,run at,2026-10-10 03:15:30,,info

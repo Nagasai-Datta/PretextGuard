@@ -139,7 +139,7 @@ An ablation removes one part and measures again; the drop is what that part cont
 | NLP extras | spaCy for names and organisations |
 | Explanations | LIME |
 | Backend | FastAPI, Pydantic, slowapi |
-| Frontend | React, Vite, Tailwind |
+| Frontend | React 19, Vite 6, Tailwind 4, Recharts (plain JavaScript; Node 18 or newer); every request goes through the interface server's own proxy, which adds the API key |
 | Database | None, deliberately: email content is never stored |
 | Checks | pytest (one environment check), pip-audit |
 
@@ -152,7 +152,7 @@ No paid APIs and no LLM at run time.
 | No persistence | Email content lives in memory for one request; never logged or written to disk |
 | Input validation | Size caps counted as the bytes arrive (4 MB a request, 300,000 bytes an email, 50 messages a thread), content type, Pydantic schemas that refuse unknown fields |
 | Safe parsing | Attachments are never opened or run; limits on MIME depth and thread length |
-| Output encoding | Email text is rendered as text, never as HTML (XSS) |
+| Output encoding | Email text, claims, reasons and highlights are drawn as text nodes: no `dangerouslySetInnerHTML`, no `innerHTML`, no markdown, no links, nothing stored in the browser; the built app is served with a strict Content-Security-Policy (own scripts only, connections to itself only); the API key is added by the interface server and is never in the bundle (`npm run check` searches for it) |
 | PII redaction | Addresses, phone and account numbers removed before any logging |
 | Rate limiting and API key | slowapi limits per client address (wrong keys count too); the key in a header, compared in constant time and checked before the body is read; the server refuses to start with a weak key |
 | Audit logging | One JSON line per event from a fixed list of fields: time, request ID, score, tactics, never content; a canary string sent everywhere must appear in no log line |
@@ -196,7 +196,7 @@ pretextguard/
 | 9 | Thread builder, thread-hijack benchmark, thread verifier (N2) | Done |
 | 10 | Claim router, verdict ledger, risk score, LIME | Done |
 | 11 | FastAPI backend with all security controls | Done |
-| 12 | React frontend | Not started |
+| 12 | React frontend: analyzer and dashboard | Done |
 | 13 | All experiments and charts | Not started |
 | 14 | Report, viva preparation, slides | Not started |
 
@@ -277,6 +277,21 @@ python -m src.api.mutation_check
 python -m src.api.main
 python -m src.api.smoke
 ```
+
+Phase 12 (the interface): needs Node 18 or newer. The interface server forwards `/api` to the API and adds the key from `.env`, so start the API first. `npm run check` writes `results/frontend_checks.csv`, `npm run mutation-check` writes `results/frontend_mutations.csv` (26 things broken on purpose, all must be noticed), and `npm run browser-check` drives the built app in Chrome against the running API and writes `results/frontend_browser_checks.csv`. Details in [`frontend/README.md`](frontend/README.md).
+
+```bash
+python -m src.api.main
+cd frontend
+npm install
+npm run build
+npm run check
+npm run mutation-check
+npm run preview
+npm run browser-check
+```
+
+`npm run preview` and `npm run browser-check` each need their own terminal (the first keeps running); open <http://127.0.0.1:4173> to use the interface.
 
 ## Privacy
 
