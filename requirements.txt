@@ -28,3 +28,13 @@ transformers==5.19.0
 # Phase 7: claim extractor (spaCy). The English model is not on PyPI, so it is pinned by URL and SHA-256.
 spacy==3.8.16
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl#sha256=1932429db727d4bff3deed6b34cfc05df17794f4a52eeb26cf8928f7c1a0fb85
+
+# Phase 11: the API. FastAPI sits on Starlette and Pydantic; slowapi rate-limits (it uses the limits package); uvicorn is the server; httpx is only for
+# FastAPI's TestClient in the self-test. Pinned one release behind the newest (fastapi 0.143.0 and pydantic 2.14.0 are days old); pip-audit found nothing.
+fastapi==0.141.1
+starlette==1.7.0
+pydantic==2.13.5
+uvicorn==0.53.0
+slowapi==0.1.10
+limits==5.8.0
+httpx==0.28.1

@@ -59,6 +59,9 @@ The files here hold counts and scores only, never email text, so they are safe t
 | `score_benchmark_check.csv` | `python -m src.router.build` | The hijack benchmark's validation cases scored with the frozen numbers, with and without the thread verifier (counts only below 10 cases) |
 | `score_checks.csv` | `python -m src.router.build` | PASS/FAIL checks on the router, ledger, score and calibration, plus versions and run details (OVER and other findings are info, not failures) |
 | `lime_checks.csv` | `python -m src.explain.check` | The LIME faithfulness check on real validation emails: deletion test against frequency-matched random words at three sizes, seconds per explanation, stability under another seed, overlap with the lime package |
+| `api_checks.csv` | `python -m src.api.selftest` | PASS/FAIL checks on the API's security controls (key, rate limits, size caps, validation, headers, errors, audit log, XSS), run with a stand-in classifier, plus library versions |
+| `api_mutations.csv` | `python -m src.api.mutation_check` | For each of 37 controls broken on purpose in a scratch copy of the code: whether the self-test noticed (CAUGHT) and the first check that failed |
+| `api_smoke.csv` | `python -m src.api.smoke` | PASS/FAIL checks and timings from a real session with the running server and the trained model (oversize bodies, the canary in the server log, real corpus emails with script payloads) |
 
 ## Still to come
 

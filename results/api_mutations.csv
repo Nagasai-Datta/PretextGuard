@@ -1,0 +1,38 @@
+control_broken,file,status,first_failing_check
+the key check accepts every request,src/api/security.py,CAUGHT,"[auth] no key, a wrong key, a key one character short or long, an empty key and an upper-cased key are all 401 with WWW-Authenticate and the same fixed body  ->"
+the key is compared with == instead of hmac.compare_digest,src/api/security.py,CAUGHT,[auth] the key comparison hashes both sides and uses hmac.compare_digest (constant time); equal and different keys of equal and unequal length give the right an
+a repeated X-API-Key header is accepted,src/api/security.py,CAUGHT,"[auth] a repeated X-API-Key header is refused, even when one of the values is right"
+the key is checked before the strict rate limit (wrong keys not counted),src/api/main.py,CAUGHT,"[limits] requests with a wrong key use up the strict allowance (3 wrong keys, then the right key is 429): guessing keys is limited  -> [401, 401, 401, 200]"
+/explain needs no key,src/api/main.py,CAUGHT,[auth] all three POST routes need the key
+/explain has the same limit as /analyze,src/api/security.py,CAUGHT,"[limits] /explain has its own, stricter allowance: the third is 429 while /analyze still works  -> [200, 200, 200] 200"
+the global limit is removed,src/api/security.py,CAUGHT,"[limits] the global limit counts every route together, and counts a request with no key (4 allowed, the fifth is 429)  -> [200, 200, 401, 200, 200]"
+the limiter can be switched off from the environment,src/api/security.py,CAUGHT,"[limits] a stray RATELIMIT_ENABLED=False in the environment does not switch the limits off  -> [200, 200, 200]"
+the client address is taken from X-Forwarded-For,src/api/security.py,CAUGHT,"[functional] GET /health needs no key and reports the model loaded and the versions  -> {'detail': 'The server could not complete the request. This is a bug, no"
+uvicorn trusts proxy headers,src/api/main.py,CAUGHT,"[settings] uvicorn is started on the loopback address, with a concurrency limit, no server header and no trust in X-Forwarded-For  -> {'host': '127.0.0.1', 'por"
+the body is not counted while it streams in,src/api/security.py,CAUGHT,"[size] 5 MB sent in chunks with no Content-Length: 413 as soon as the count passes 4 MB, the route never ran  -> 422"
+Content-Length is not compared with the limit,src/api/security.py,CAUGHT,"[size] a declared Content-Length over 4,000,000 is 413 before a byte is read, and the answer closes the connection  -> {'content-length': '177', 'content-type':"
+a Content-Length that is not a plain number is accepted,src/api/security.py,CAUGHT,"[size] a Content-Length that is not one plain number (letters, a sign, an exponent, a superscript digit, a list, empty, 14 digits, repeated) is 400 or 413, neve"
+the content type is not checked,src/api/security.py,CAUGHT,"[validation] a body that is not application/json (text/plain, a form, jsonp, text/json, no type at all) is 415  -> [200, 200, 200, 200, 200, 200]"
+CORS is open although the switch is off,src/api/main.py,CAUGHT,[headers] with the CORS switch off (the secure design) a preflight is 405 and no answer carries an Access-Control header
+the Host header is not checked,src/api/main.py,CAUGHT,[headers] the Host check still applies with CORS open (a rebinding host is 400)
+no Content-Security-Policy header,src/api/security.py,CAUGHT,"[errors] ReportError inside the analysis: 500 internal_error with a fixed message and the request id, the exception's message (with the canary) is nowhere in th"
+no Cache-Control: no-store header,src/api/security.py,CAUGHT,"[functional] the response is JSON, never cached, and its request id is the one in the header"
+no request id header,src/api/security.py,CAUGHT,"[functional] the response is JSON, never cached, and its request id is the one in the header"
+the interactive docs are on,src/api/main.py,CAUGHT,"[settings] the routes are exactly /analyze, /analyze/thread, /explain, /results and /health (no docs, no openapi)  -> ['/analyze', '/analyze/thread', '/docs', '"
+unexpected errors are not caught by the outer layer,src/api/security.py,CAUGHT,"[errors] an unexpected RuntimeError inside the analysis: 500 internal_error with a fixed message and the request id, the exception's message (with the canary) i"
+the message of a ReportError is logged,src/api/main.py,CAUGHT,"[errors] the audit log names the class of each error and where it was raised, never its message (a ValueError or TypeError from the pipeline is a bug and is log"
+there is no lock around the classifier,src/api/main.py,CAUGHT,"[functional] POST /analyze returns the pipeline's report unchanged (High risk for the David email, no LIME)  -> 500 None"
+the lock is not released after an analysis,src/api/main.py,CAUGHT,[functional] org_domain is lower-cased and used; a free mailbox provider is accepted and noted as ignored
+the names of unknown fields are echoed in 422 answers,src/api/schemas.py,CAUGHT,"[validation] an unknown field is 422 and its (attacker-chosen) name is not echoed  -> {""detail"":""The request did not match the expected shape."",""code"":""invalid_"
+unknown fields are allowed in a request,src/api/schemas.py,CAUGHT,"[validation] an unknown field is 422 and its (attacker-chosen) name is not echoed  -> {""request_id"":""6e7fa9dfb8654fa5bf6a4f063a4203d5"",""mode"":""email"",""score"":0,"
+the number of top-level fields is not limited,src/api/schemas.py,CAUGHT,"[validation] 3.5 MB of made-up field names is refused by the field count alone, in well under a second (describing 300,000 errors cost Pydantic 2.3 s)  -> 0.30 "
+org_domain is not checked,src/api/schemas.py,CAUGHT,"[validation] org_domain: spaces, markup, empty labels, hyphens at the edges, labels over 63, non-ASCII, paths, ports, 400 characters and a newline are 422; ordi"
+the size of an email in bytes is not checked,src/api/schemas.py,CAUGHT,"[validation] an email over 300,000 bytes is 422, in characters and in UTF-8 bytes (100,001 euro signs), and exactly 300,000 bytes is analysed  -> [422, 200] 200"
+the total size of a thread is not checked,src/api/schemas.py,CAUGHT,"[validation] a thread over 1.5 MB in total is 422 (6 x 299,000 bytes), and a thread of exactly 50 messages is analysed  -> [200, 422] 200"
+audit values are not cleaned,src/api/security.py,CAUGHT,"[audit] AuditLog refuses a field that is not on the list; clean_value removes newlines, quotes, markup and '@' and cuts at 80 characters; objects become '?', Na"
+the audit log accepts any field,src/api/security.py,CAUGHT,"[audit] AuditLog refuses a field that is not on the list; clean_value removes newlines, quotes, markup and '@' and cuts at 80 characters; objects become '?', Na"
+the results name is used as a file name,src/api/results.py,CAUGHT,[functional] every allow-listed table is served with the rows of its CSV file and contains no NaN or Infinity  -> staged_counts
+result cells are not made display-safe,src/api/results.py,CAUGHT,"[functional] the results reader: NaN, infinity and 1_000 stay text, '007' stays text, markup is made display-safe, empty is null, ints and floats are numbers  -"
+the placeholder key is accepted,src/api/settings.py,CAUGHT,[settings] the placeholder key in .env.example is refused  -> PRETEXTGUARD_API_KEY is 9 characters; at least 24 are needed
+a short key is accepted,src/api/settings.py,CAUGHT,[settings] Settings refuses a bad key and its message never repeats the key
+the server listens on all interfaces by default,src/api/settings.py,CAUGHT,"[settings] .env is read (comments, blank lines, quotes), the real environment wins over the file, and defaults fill the rest  -> 7/minute"

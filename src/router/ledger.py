@@ -54,6 +54,7 @@ LIMITS = {
     "thread_truncated": "The thread was longer than 50 messages; only the last 50 were examined.",
     "thread_unordered": "Not every message has a usable Date, so the messages were taken in the order given.",
     "text_truncated": "The text was cut at the size limit before it was analysed.",
+    "mime_too_deep": "The parts of the email were nested too deeply to read safely, so its text was analysed as plain text without separating the parts.",
 }
 
 

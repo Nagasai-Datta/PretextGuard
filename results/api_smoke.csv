@@ -1,0 +1,27 @@
+check,item,value,expected,status
+health,"GET /health: 200, model loaded, versions listed","200, model_loaded True",,PASS
+results,GET /results lists the tables and GET /results?name=score_budget returns one,37 tables,,PASS
+auth,no key and a wrong key are 401,"[401, 401]",,PASS
+analyze,"POST /analyze with the real model: 200, the report passes check_report and the typed Report model",200,,PASS
+analyze,"the David email: verdict, score and tactics that fired (what the real model made of the stand-in test email)",High risk 100 ['urgency'],,info
+timing,"5 analyses of the David email, no LIME: mean and slowest seconds (the server was warm)","mean 0.026, slowest 0.027",slowest under 5 s,PASS
+explain,"POST /explain: 200, LIME ran when a tactic fired, highlights fit the text, the score equals the one without LIME",200 fired 1,,PASS
+timing,"one explanation (150 LIME copies), seconds (the Phase 10 figure on the Mac was 4.9)",1.0,under 15 s,PASS
+thread,"POST /analyze/thread: 200, thread mode, 5 messages",,,PASS
+thread,"the account-takeover thread: verdict, score and the message where it flipped (with the real model)",High risk 100 flip 4 in 0.06 s,,info
+robust,"3,000 nested MIME levels (the email that crashed the Phase 10 parser): 200 with the depth limit noted, in time",200 0.43 s,,PASS
+size,a 5 MB body with a Content-Length: 413,413,,PASS
+size,a streamed 4.3 MB body with no Content-Length: refused with 413 (or the connection is closed once the limit is passed),413,,PASS
+size,a streamed 6 MB body with no key: refused with 401 without being read (or the connection is closed),401,,PASS
+size,the server still answers after the oversize bodies,,,PASS
+concurrency,"4 analyses at once: each answered 200 (queued behind the lock) or 503 busy, nothing else","[200, 200, 200, 200] in 0.10 s",,PASS
+concurrency,"the explanation finished too quickly to overlap with a second request, so the busy answer was not tested",first 200 in 0.9 s; second 503 in 0.00 s; analyze 200 in 0.25 s,,info
+audit,"the canary SMOKECANARY7788 (sent in an email body, a Subject, a header, a field name, a domain and a wrong key) is in the successful report but not in the server log /tmp/pg_server.log","log 9129 characters, canary in log: False, key in log: False",,PASS
+audit,the log holds JSON audit lines for the analyses of this run,"27 audit lines, 16 analyses",,PASS
+xss,"3 real emails from the corpus that contain script-like payloads: all analysed, and no response holds '<', '>' or a backtick","statuses [200], markup in responses: 0",,PASS
+limits,wrong keys on /explain are counted: 429 appears within 8 tries (the allowance is 6 a minute and earlier explanations used some),"[401, 401, 401, 429, 429, 429, 429, 429]",,PASS
+limits,the 429 carries Retry-After (seconds) and the fixed message,retry-after 60,,PASS
+run,server,http://127.0.0.1:8000,,info
+run,python,3.12.14,,info
+run,requests,2.34.2,,info
+run,run at,2026-10-10 00:13:54,,info

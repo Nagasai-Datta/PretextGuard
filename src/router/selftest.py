@@ -13,6 +13,7 @@ Three parts, none of which reads a real email or needs the trained model:
 The LIME part has its own self-test (python -m src.explain.lime_explain); here it is checked only as wired into the report.
 """
 
+import email
 import json
 import random
 import sys
@@ -24,7 +25,7 @@ from src.data.label_schema import TACTICS
 from src.explain.lime_explain import find_words
 from src.router import ledger as ledger_module
 from src.router import score as score_module
-from src.router.pipeline import Analyzer, check_report, display_safe, looks_like_headers, usable_org
+from src.router.pipeline import MAX_MIME_DEPTH, Analyzer, check_report, display_safe, looks_like_headers, mime_depth, usable_org
 from src.router.router import assign, check_routing
 from src.router.score import ACTIONS, ADDENDA, DEFAULT_CONFIG, action_for, band_of, fired_tactics, make_config, score_ledger
 from src.thread.selftest import PARAGRAPHS, wrap
@@ -99,6 +100,27 @@ def eml(i, sender, subject, text, previous=None, ids=True, ip="52.10.20.30", mai
     elif previous:
         body += "\n\nOn Monday, someone wrote:\n" + wrap(previous)
     return "\n".join(lines) + "\n\n" + body + "\n"
+
+
+def nested_mime(levels, closed=False):
+    """A raw email whose multipart parts are nested `levels` deep, with a short text/plain part at the bottom (the boundaries are closed only if asked)."""
+    lines = ["From: Dana Smith <dana.smith.finance@gmail.com>", "To: Maria Lopez <maria@acmecorp.com>", "Subject: Nested", "MIME-Version: 1.0"]
+    for i in range(levels):
+        lines += ["Content-Type: multipart/mixed; boundary=b%d" % i, "", "--b%d" % i]
+    lines += ["Content-Type: text/plain", "", "Please process the wire transfer today."]
+    if closed:
+        lines += ["--b%d--" % i for i in reversed(range(levels))]
+    return "\n".join(lines) + "\n"
+
+
+def flat_mime(parts):
+    """A raw email with `parts` text parts side by side in one multipart/mixed."""
+    head = ["From: Dana Smith <dana.smith.finance@gmail.com>", "To: Maria Lopez <maria@acmecorp.com>", "Subject: Flat", "MIME-Version: 1.0",
+            "Content-Type: multipart/mixed; boundary=f", "", "--f"]
+    body = []
+    for i in range(parts):
+        body += ["Content-Type: text/plain", "", "Part %d of the message." % i, "--f"]
+    return "\n".join(head + body) + "--\n"
 
 
 JOHN, MARY = ("John Park", "john.park@acme.com"), ("Mary Lee", "mary.lee@acme.com")
@@ -355,6 +377,22 @@ def self_test(verbose=True):
     check("3,000 extra header lines finish in time and give a sound report", seconds < CRAFTED_LIMIT and check_report(report, analyzer.config) == [], "%.2f s" % seconds)
     report, seconds = run("From: " + "@" * 60000 + "\nTo: x@y.com\n\n" + "@" * 60000)
     check("60,000 '@' signs in the From header and the body finish in time", seconds < CRAFTED_LIMIT and check_report(report, analyzer.config) == [], "%.2f s" % seconds)
+    check("mime_depth counts the levels of nested parts without recursion (a single part is 1, five nested multiparts and a leaf are 6)",
+          mime_depth(email.message_from_string("Subject: x\n\nhello\n")) == 1 and mime_depth(email.message_from_string(nested_mime(5, True))) == 6)
+    report, seconds = run(nested_mime(8, True))
+    check("a legitimate nesting depth (8 levels) is read normally: the text comes out and there is no limit note",
+          "wire transfer" in report["text_read"] and "mime_too_deep" not in report["coverage"]["limits"] and check_report(report, analyzer.config) == [])
+    raw = nested_mime(3000)
+    report, seconds = run(raw)
+    check("3,000 nested multipart levels (%d KB, under the byte cap) do not crash the parser: the raw text is read (its first 2,000 characters) and the coverage says so" % (len(raw) // 1000),
+          len(raw) < 300_000 and "mime_too_deep" in report["coverage"]["limits"] and "boundary=b1" in report["text_read"] and seconds < CRAFTED_LIMIT
+          and check_report(report, analyzer.config) == [], "%.2f s" % seconds)
+    check("nesting just over the limit is refused the same way and just under it is not (limit %d)" % MAX_MIME_DEPTH,
+          "mime_too_deep" in run(nested_mime(MAX_MIME_DEPTH, True))[0]["coverage"]["limits"] and "mime_too_deep" not in run(nested_mime(MAX_MIME_DEPTH - 2, True))[0]["coverage"]["limits"])
+    raw = flat_mime(5000)
+    report, seconds = run(raw)
+    check("5,000 flat parts side by side are not nesting: read normally and in time", "mime_too_deep" not in report["coverage"]["limits"] and seconds < CRAFTED_LIMIT
+          and check_report(report, analyzer.config) == [], "%.2f s" % seconds)
     report, seconds = run("")
     check("an empty email gives a sound Low risk report", report["verdict"] == "Low risk" and check_report(report, analyzer.config) == [] and report["claims"] == [])
     report, seconds = run(DAVID_GMAIL.encode("utf-8") + b"\xff\xfe\x00bad bytes")

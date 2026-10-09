@@ -150,12 +150,13 @@ No paid APIs and no LLM at run time.
 | Control | How |
 |---|---|
 | No persistence | Email content lives in memory for one request; never logged or written to disk |
-| Input validation | Size caps, type and structure checks, Pydantic schemas |
+| Input validation | Size caps counted as the bytes arrive (4 MB a request, 300,000 bytes an email, 50 messages a thread), content type, Pydantic schemas that refuse unknown fields |
 | Safe parsing | Attachments are never opened or run; limits on MIME depth and thread length |
 | Output encoding | Email text is rendered as text, never as HTML (XSS) |
 | PII redaction | Addresses, phone and account numbers removed before any logging |
-| Rate limiting and API key | slowapi limits; key on the analysis endpoint |
-| Audit logging | Time, request ID and score only, never content |
+| Rate limiting and API key | slowapi limits per client address (wrong keys count too); the key in a header, compared in constant time and checked before the body is read; the server refuses to start with a weak key |
+| Audit logging | One JSON line per event from a fixed list of fields: time, request ID, score, tactics, never content; a canary string sent everywhere must appear in no log line |
+| API hardening | Response headers (no-store, nosniff, CSP, no framing), no CORS, Host header check, docs off, fixed error messages with a request ID, loopback address, one analysis at a time |
 | Dependency hygiene | Pinned requirements; pip-audit clean |
 | Secrets | `.env` is never committed; `.env.example` lists the variable names only |
 | Safe data handling (build time) | Archives unpacked with path-traversal and size checks; file types checked by their first bytes; raw data read-only; rebuilt headers squashed onto one line (header injection) |
@@ -194,7 +195,7 @@ pretextguard/
 | 8 | Header verifier (N3) and request verifier | Done |
 | 9 | Thread builder, thread-hijack benchmark, thread verifier (N2) | Done |
 | 10 | Claim router, verdict ledger, risk score, LIME | Done |
-| 11 | FastAPI backend with all security controls | Not started |
+| 11 | FastAPI backend with all security controls | Done |
 | 12 | React frontend | Not started |
 | 13 | All experiments and charts | Not started |
 | 14 | Report, viva preparation, slides | Not started |
@@ -265,6 +266,16 @@ Phase 8 (header verifier N3 and request verifier): no new library. Details in [`
 python -m src.verifiers.selftest          # hand-made emails with real header blocks and crafted input (no data needed)
 python -m src.verifiers.build --train-only   # contradiction rates on the train split (validation never loaded) -> results/verifier_*.csv
 python -m src.verifiers.build             # final run of a frozen rule version: also reads the validation emails, once
+```
+
+Phase 11 (the API): `requirements.txt` adds FastAPI, Pydantic, slowapi, uvicorn and httpx. Make a key (it goes in `.env` as `PRETEXTGUARD_API_KEY=...`), run the self-test (the security controls with a stand-in classifier, writes `results/api_checks.csv`), run the mutation check (breaks 37 controls one at a time and confirms the self-test notices each, writes `results/api_mutations.csv`), then start the server on `http://127.0.0.1:8000`, which loads the trained model. In a second terminal the smoke test runs a real session and writes `results/api_smoke.csv`. Details in [`src/api/README.md`](src/api/README.md).
+
+```bash
+python -m src.api.settings --new-key
+python -m src.api.selftest
+python -m src.api.mutation_check
+python -m src.api.main
+python -m src.api.smoke
 ```
 
 ## Privacy

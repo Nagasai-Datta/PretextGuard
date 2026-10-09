@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: October 2026, written at the end of Phase 10, to go with master document v3.12.
+Version: October 2026, written at the end of Phase 11, to go with master document v3.13.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -196,13 +196,14 @@ propose them again as novelty. Stack choices are never novelty (faculty rule).
 | Phase 8 libraries | none; the verifiers use the standard library, tldextract and RapidFuzz (Phase 3) and pandas in `build.py`. `requirements.txt` is unchanged |
 | Phase 9 libraries | none; the thread code uses the standard library, pandas, numpy (for the bootstrap, already installed with pandas) and the Phase 3 to 8 code. `requirements.txt` is unchanged |
 | Phase 10 libraries | none; LIME is written by hand with numpy (already installed with pandas); the router, ledger and score use the standard library, and `build.py` uses pandas. `requirements.txt` is unchanged |
-| Secrets in `.env` (names only here) | `PRETEXTGUARD_API_KEY`; `GEMINI_API_KEY`, `ANNOTATOR_1_MODEL`, `ANNOTATOR_2_MODEL`, `TIEBREAKER_MODEL` (Phase 5). `.env` is ignored; `.env.example` lists the names |
+| Phase 11 libraries | FastAPI 0.141.1 (Starlette 1.7.0), Pydantic 2.13.5, slowapi 0.1.10, uvicorn 0.53.0, limits 5.8.0, httpx 0.28.1 (FastAPI's TestClient only); pinned one release behind the newest, pip-audit found nothing; python-multipart is not needed (JSON only). The sandbox of Claude Code on the web has no venv: the API can be tested there with a scratch virtual environment outside the repository |
+| Secrets in `.env` (names only here) | `PRETEXTGUARD_API_KEY` (at least 24 characters, not the placeholder; `python -m src.api.settings --new-key` makes one) and the optional `PRETEXTGUARD_RATE_ANALYZE`, `_RATE_EXPLAIN`, `_RATE_GLOBAL`, `_EXPLAIN_SAMPLES`, `_WAIT_SECONDS`, `_ALLOWED_HOSTS`, `_ENABLE_DOCS`, `_HOST`, `_PORT` (Phase 11); `GEMINI_API_KEY`, `ANNOTATOR_1_MODEL`, `ANNOTATOR_2_MODEL`, `TIEBREAKER_MODEL` (Phase 5). `.env` is ignored; `.env.example` lists the names |
 | Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2); `data/processed/tactic_data.parquet` (Phase 6, train and validation text for Colab); `data/processed/claims_cache/` (Phase 8, the extracted claims per split, ignored by Git, Mac only); `data/processed/enron_index.parquet`, `threads.parquet` and `thread_features/` (Phase 9, the rebuilt threads and their cached tactic probabilities and claims, ignored by Git, Mac only); `data/processed/tactic_probs/` (Phase 10, the tactic probabilities of every train and validation email, ignored by Git, Mac only); `artifacts/tactic_model/` (Phase 6, about 270 MB, ignored by Git, exists only on the Mac) |
 | Rule | Always work from the project root, never from `src/` |
 
 ---
 
-## 4. Current state of the repository (end of Phase 10)
+## 4. Current state of the repository (end of Phase 11)
 
 ```
 pretextguard/
@@ -231,6 +232,7 @@ pretextguard/
                      verifier_rates.csv  verifier_rule_hits.csv  verifier_checks.csv
                      thread_counts.csv  thread_signal_rates.csv  thread_checks.csv  hijack_generation.csv  hijack_cases.csv  thread_scores.csv  hijack_checks.csv
                      score_rule_weights.csv  score_grid.csv  score_config.csv  score_distribution.csv  score_budget.csv  score_benchmark_check.csv  score_checks.csv  lime_checks.csv
+                     api_checks.csv  api_mutations.csv  api_smoke.csv
   notebooks/README.md  phase6_tactic_classifier.ipynb  frontend/.gitkeep
   docs/README.md  master_document.md (v3.12)  PretextGuard_Master_Document_v3.2.docx (snapshot)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)
@@ -250,7 +252,7 @@ pretextguard/
   src/thread/                README.md  signals.py  builder.py  features.py  build.py  selftest.py  evaluate.py
   src/router/                README.md  router.py  ledger.py  score.py  reliability.json  pipeline.py  selftest.py  build.py  build_selftest.py
   src/explain/               README.md  lime_explain.py  check.py
-  src/api/__init__.py        (empty)
+  src/api/                   README.md  settings.py  schemas.py  security.py  results.py  main.py  selftest.py  mutation_check.py  smoke.py
   tests/test_environment.py  16 checks (unchanged)
 ```
 
@@ -514,6 +516,15 @@ Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). 
 - **Where things live:** results in `results/score_*.csv` and `results/lime_checks.csv` (counts only); the tactic probabilities in `data/processed/tactic_probs/` (ignored by Git, Mac only); `src/router/reliability.json` is committed. The model weights, the caches and the data exist only on Nagasai's Mac: test API code in Claude Code on the web with a stand-in classifier, as `src/router/selftest.py` does.
 - **Docs:** `update_docs_phase10.py` (a download, run from `~/Downloads` inside the venv; it reads `results/` and stops if a check failed or the validation emails were not read) made master document v3.12 and rewrote this file.
 
+**Phase 11 in brief** (master document Section 8.19, `src/api/README.md`):
+- **Code:** `src/api`: `settings.py` (the settings and the fixed caps; `load_settings`, `check_key`, `new_key`; `python -m src.api.settings [--new-key]`), `schemas.py` (Pydantic: `AnalyzeRequest`, `ThreadRequest`, `ExplainRequest`, the typed `Report`, `parse_request`, `safe_errors`), `security.py` (`OuterGuard`, `BodyGuard`, `make_limiter`, `make_rate_dependencies`, `make_require_key`, `keys_match`, `AuditLog`, `ERRORS`), `results.py` (`RESULT_FILES`, `ResultStore`), `main.py` (`create_app(settings=None, analyzer=None, loader=None, audit=None, results=None)`, `serve_options`, `python -m src.api.main`), `selftest.py`, `mutation_check.py`, `smoke.py`. One fix in `src/router/pipeline.py` (`read_body`, `mime_depth`, `MAX_MIME_DEPTH` 20, coverage code `mime_too_deep`): 3,000 nested MIME levels raised RecursionError; router self-test 103 to 108.
+- **Routes:** POST /analyze (key; `{"email", "org_domain"?}`; no LIME), POST /analyze/thread (key; `{"messages": [1 to 50], "org_domain"?}`), POST /explain (key; exactly one of `email` or `messages`; LIME at 150 copies, about 5 s), GET /results (no key; the list, or `?name=` for one table: `columns`, `rows` as objects, numbers as numbers), GET /health (no key; 503 if the model failed to load). The report is the Section 6.3 report unchanged. The key goes in `X-API-Key` (never in the URL), bodies must be `application/json`, CORS headers only while the marked temporary switch `CORS_ALLOW_ANY_ORIGIN` at the top of `main.py` is True (it was True at the end of Phase 11; it must be False before any deployment) and no docs (`PRETEXTGUARD_ENABLE_DOCS=1` for development). Every error is `{"detail", "code", "request_id", "errors"?}` with a fixed sentence.
+- **Controls:** the key is checked before the body is read (SHA-256 digests with `hmac.compare_digest`; the server refuses to start with a missing, placeholder, short or low-variety key); rate limits per socket peer address (120 a minute for all routes, 30 for analysis, 6 for /explain, wrong keys counted, moving window); 4,000,000 bytes per request counted as the bytes arrive, 300,000 per email, 50 messages and 1,500,000 bytes per thread; Pydantic with no unknown fields and no type conversion; Host header allow-list; no-store, nosniff, CSP and the other headers on every answer; one analysis at a time behind a lock (`/analyze` waits 2 s then 503, `/explain` never waits); an audit log of fixed fields; fixed error messages. Details and the OWASP mapping: Section 10 and `src/api/README.md`.
+- **Results:** `results/api_checks.csv` 88 PASS and 0 FAIL (the stand-in classifier; fastapi 0.141.1, starlette 1.7.0, pydantic 2.13.5, slowapi 0.1.10, uvicorn 0.53.0, httpx 0.28.1, limits 5.8.0); `results/api_mutations.csv` 37 of 37 controls broken on purpose were caught by the self-test; `results/api_smoke.csv` 19 PASS and 0 FAIL with the trained model over real HTTP (timings: 5 analyses of the David email, no LIME: mean 0.026, slowest 0.027; one explanation: 1.0).
+- **Findings to carry forward:** (1) the interface must go through a same-origin proxy that adds the key (Section 15 item 21); (2) a pasted body with no headers can only add tactic points, so the band 'Low risk' must be shown with the coverage note; (3) uvicorn has no timeout for a request whose headers never finish (25 half-open connections made everything else 503), so the server stays on the loopback address and an exposed deployment needs a reverse proxy; (4) the rate limits and the lock live in memory, so run one worker; (5) the lock is not first come, first served; (6) the self-test uses a stand-in classifier and the smoke test sends only a handful of requests with the real model.
+- **Where things live:** the results above are committed; the model weights and the data exist only on Nagasai's Mac, so Claude Code on the web tests API code with `create_app(settings, analyzer=Analyzer(classifier=StubClassifier()))` (as `selftest.py` does) and a real uvicorn server on a spare port for real-HTTP checks (the web sandbox cannot load the model).
+- **Docs:** `update_docs_phase11.py` (a download, run from `~/Downloads` inside the venv; it reads `results/` and stops if a check failed, a broken control was not caught or the smoke test did not search the server log for the canary) made master document v3.13 and rewrote this file's Sections 4 to 6.
+
 Current `.gitignore`:
 ```
 # Python
@@ -585,33 +596,30 @@ spacy==3.8.16
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl#sha256=1932429db727d4bff3deed6b34cfc05df17794f4a52eeb26cf8928f7c1a0fb85
 ```
 
-`.env.example` and `pytest.ini` are unchanged from Phase 0.
+Phase 11 added to `requirements.txt` (after the spaCy lines): fastapi==0.141.1, starlette==1.7.0, pydantic==2.13.5, uvicorn==0.53.0, slowapi==0.1.10, limits==5.8.0, httpx==0.28.1. `.env.example` gained the optional PRETEXTGUARD_* names; `pytest.ini` is unchanged from Phase 0.
 
 ---
 
-## 5. Next task: Phase 11, FastAPI backend with all security controls (plan not yet approved)
+## 5. Next task: Phase 12, React frontend: analyzer and dashboard (plan not yet approved)
 
-Full detail: master document Sections 6.2 (the API in the component list), 6.3 (the report), 6.8 and 6.10 (the eight runtime steps and the endpoints), 8.18 (what `analyze` returns and costs), 10 (the security table: input validation, safe parsing, rate limiting, authentication, audit logging, PII redaction, secrets, output encoding), 11, 12.6 (planned files `src/api/main.py`, `schemas.py`, `security.py`) and Section 15, items 19 and 20. Start by proposing the plan and the background concepts, then wait for "go". Fold the phase into as few steps as you can (two at most), deliver every file as a download, and verify his push by reading the repository.
+Full detail: master document Sections 2 (what gets built), 6.2 (UI row), 6.3 (the report), 6.8 (the eight steps), 8.19 (the API), 10 (output encoding, response hardening), 12.4 (the dashboard is the first thing to drop if time runs short), 12.6 (planned files) and Section 15 items 3 and 21. Start by proposing the plan and the background concepts, then wait for "go". Fold the phase into as few steps as you can (two at most), deliver every file as a download, and verify his push by reading the repository.
 
-**Goal.** A FastAPI app (`src/api`) that exposes the pipeline and nothing else: `POST /analyze` (one email as text, optional `org_domain`, optional `explain`), `POST /analyze/thread` (several emails), `GET /results` (evaluation numbers for the dashboard, from an allow-list of `results/*.csv`) and `GET /health`. Each analysis calls `Analyzer.analyze` of `src/router/pipeline.py` and returns its report unchanged. Every control of Section 10 that belongs to the API is built here and tested with crafted requests.
+**Goal.** A React + Vite + Tailwind app in `frontend/` with two pages. **Analyzer:** paste a raw email or upload a .eml (read in the browser as text and sent in JSON), or give several emails as a thread; an optional organisation domain; then the score, band and recommended action, the coverage note, the redacted text with the manipulation phrases highlighted, a findings table (the ledger: contradictions first, with the rules and reasons, not-checkable rows shown as such), the header findings, the thread timeline with the flip point, and the claims. **Dashboard:** the evaluation numbers from `GET /results` as tables and charts. The interface calls the API only through a same-origin proxy; it never holds the key.
 
 **Notes the plan must handle**
-- **Loading.** Create the `Analyzer` once at startup (lifespan): it loads DistilBERT (about 270 MB) and spaCy. `GET /health` says whether it is loaded. The weights and `src/router/reliability.json` must be on the machine that runs the API (the weights exist only on the Mac).
-- **What `analyze` raises.** TypeError (not text, bytes or a list), ValueError (empty thread, request id not 1 to 64 letters, digits, - or _) and ReportError (the report failed its own checks: a bug). Answer 422 or 400 with a fixed message for the first two; 500 with the request id and a fixed message for ReportError; never echo email content in an error or a log line.
-- **Cost.** The classifier is CPU-bound (about 20 emails a second). LIME costs the work of about 300 emails: 10.6 seconds per explanation at 300 copies and 4.9 at 150 (`Analyzer(explain_samples=150)`), and the score does not depend on it. Recommend `explain` off by default or a second call after the score is shown, a stricter rate limit for it, and a thread pool behind a small semaphore (answer 429 or 503 when busy rather than queue without limit).
-- **Limits.** The API's own size cap (Section 10 suggests 100 KB per email) and a cap on messages per thread come first; the pipeline's 300,000 bytes per message and 50 messages are a backstop. Pydantic schemas with maximum lengths; `org_domain` length and shape; content-type and `.eml` structure checks for uploads; attachments are never opened.
-- **Authentication and rate limiting.** API key in `.env` (`PRETEXTGUARD_API_KEY`), compared in constant time; `slowapi` per-IP limits; CORS only for the frontend origin; no-store cache headers.
-- **Logging.** Request id, time, mode, score, verdict, tactics fired and duration, never content or addresses. Nothing is stored.
-- **Output.** `text_read`, claim texts and highlight texts are display-safe, but the interface must render them as text (Phase 12).
-- **`GET /results`.** Serve a fixed allow-list of result files as JSON; no path parameter.
-- **Testing.** No unit tests per phase: `python -m src.api.selftest` with the FastAPI `TestClient` and a stand-in classifier (as `src/router/selftest.py`), crafted requests (oversize, wrong types, no key, wrong key, rate limit, markup and XSS payloads from the corpus, concurrent requests), then a real session with `curl` on the Mac.
-- **New libraries.** fastapi, uvicorn, slowapi, python-multipart (uploads) and httpx (for `TestClient`); pin them, run `pip-audit`.
+- **Proxy and key.** The Vite dev server forwards `/api` to `http://127.0.0.1:8000` and adds `X-API-Key`, read with `loadEnv` inside `vite.config.js` from the project's `.env` (never an environment variable that starts with `VITE_`, which would be exposed to the browser). The API serves no static files, so the demo runs the Vite dev server (or `vite preview` with the same proxy). The Host header the proxy forwards must stay `localhost` or `127.0.0.1` (the API refuses others).
+- **The flow.** `POST /analyze` first (about 0.05 s) and show the result; then `POST /explain` (about 5 s) for the highlights, with a spinner; one request at a time (the server runs one analysis at a time; a second `/explain` is refused at once with 503 busy). Statuses: 401, 413, 422 (show `errors[].loc`), 429 and 503 busy (wait `Retry-After`), 503 model_unavailable, 500 (show `request_id`).
+- **Rendering untrusted text.** Every string is rendered as a text node: no `dangerouslySetInnerHTML`, no `innerHTML`, no markdown or automatic links. Highlights are character offsets into `text_read` (claims point into `text_read` or `signature_read` by `attributes.zone`): cut the text at the offsets, merge overlapping spans from different tactics, and show which tactic each span belongs to. Test with the XSS payloads in `src/api/selftest.py` (`XSS_PAYLOADS`) and real corpus emails, in the browser.
+- **Honesty of the band.** 'Low risk' means that no contradiction was found among the claims that could be checked. Show `coverage.note` beside the band; a pasted body with no headers can only add tactic points (at most 12), so explain that case in the interface. Reciprocity, social proof and liking are shown but not scored.
+- **The dashboard.** Draw from `GET /results`: tactic F1 (DistilBERT against the keyword baseline), claim F1, verifier contradiction rates, hijack benchmark detection with and without the thread verifier, the false-alarm budget, the LIME check, the API checks. Cells that are counts only (fewer than 10 positives) are shown as counts, not rates. A chart library must be pinned and audited.
+- **Testing.** No unit tests per phase: `npm run build`, run the app against the real API, try the crafted inputs by hand, and (Claude Code on the web) drive the built app with the preinstalled Chromium and a stand-in-classifier server (`create_app(settings, analyzer=Analyzer(classifier=StubClassifier()))`) to check the XSS payloads and the states (loading, errors, 429).
+- **New tooling.** Node and npm (check `node -v` on the Mac first), pinned `package.json` with exact versions, `npm audit`, `frontend/.gitignore` (node_modules, dist; the root `.gitignore` already lists them), `frontend/README.md`.
 
-**Decisions for the plan to recommend:** the file layout; whether `explain` is off by default or a second call; the concurrency model; the size caps; the key and error formats; what `GET /results` serves; the self-test; what Phase 11 prints and saves in `results/`; the step plan.
+**Decisions for the plan to recommend:** the pages and layout; whether the thread input is several text boxes or several files; the chart library; state management (plain `useState` is enough); the file layout of Section 12.6 (`main.jsx`, `App.jsx`, `api.js`, `pages/AnalyzerPage.jsx`, `pages/DashboardPage.jsx`, `components/EmailInput.jsx`, `RiskBadge.jsx`, `HighlightedBody.jsx`, `FindingsTable.jsx`, `HeaderFindings.jsx`, `ThreadTimeline.jsx`); how the key reaches the proxy; the test plan; what Phase 12 saves in `results/` (nothing numeric is expected; screenshots may go in `docs/figures/`); the step plan.
 
-**Background to teach in Phase 11:** FastAPI against Express (routes, middleware, dependencies); Pydantic models as schema validation (compared with Joi or Zod); the lifespan event and why the model loads once; synchronous against asynchronous handlers and CPU-bound work; uvicorn; slowapi and rate-limit keys; API-key authentication and constant-time comparison; CORS; request-size limits; logging without content; the `TestClient`.
+**Background to teach in Phase 12 (he knows React; the new parts are the proxy, the offsets and Tailwind):** the Vite dev proxy against CORS and why the key must not be in the browser; why rendering untrusted text as text is the XSS defence; turning character offsets into highlighted segments; `fetch` with `AbortController` and status handling; Tailwind utility classes for someone who has written CSS by hand; one chart library; `npm audit`.
 
-## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 10 are done)
+## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 11 are done)
 
 | Phase | Deliverable |
 |---|---|
@@ -619,8 +627,8 @@ Full detail: master document Sections 6.2 (the API in the component list), 6.3 (
 | 8 | Header verifier N3 and request verifier (`src/verifiers`): done |
 | 9 | Thread builder, hijack benchmark, thread verifier N2 (`src/thread`, `src/verifiers`, `src/data`): done |
 | 10 | Router, ledger, risk score, LIME (`src/router`, `src/explain`): done |
-| 11 | FastAPI backend with all security controls (`src/api`): next |
-| 12 | React frontend: analyzer and dashboard (`frontend/`) |
+| 11 | FastAPI backend with all security controls (`src/api`): done |
+| 12 | React frontend: analyzer and dashboard (`frontend/`): next |
 | 13 | All experiments and charts (`src/eval`, `results/`) |
 | 14 | Report, viva preparation, Review deck update (`docs/`) |
 

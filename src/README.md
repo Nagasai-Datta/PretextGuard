@@ -26,7 +26,7 @@ Never `cd src` and never `python src/data/stage.py`. With `-m`, Python treats th
 | `thread/` | Thread builder, the four thread signals, features, scoring and self-test | 9 | Done (see `thread/README.md`) |
 | `router/` | Claim router, verdict ledger, risk score, `analyze()` end to end, calibration and its results | 10 | Done (see `router/README.md`) |
 | `explain/` | LIME word highlights (written by hand) and their faithfulness check | 10 | Done (see `explain/README.md`) |
-| `api/` | FastAPI app with the security controls | 11 | Not started |
+| `api/` | FastAPI app with the security controls: settings, schemas, key check, rate limits, size caps, audit log, the five routes, a self-test and a real-server smoke test | 11 | Done (see `api/README.md`) |
 | `eval/` | Metrics, ablations and charts; writes to `results/` | 6 (metrics), 13 | `metrics.py` done (see `eval/README.md`); the experiments are Phase 13 |
 
 Each package gets its own README in the phase that builds it.

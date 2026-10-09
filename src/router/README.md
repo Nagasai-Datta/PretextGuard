@@ -3,7 +3,7 @@
 Phase 10: the **claim router**, the **verdict ledger**, the **0 to 100 risk score** and **`analyze()`**, the one function that runs the whole pipeline of Figure 3 for one request and returns the report of master document Section 6.3. The API (Phase 11) calls `analyze` and nothing else.
 
 ```bash
-python -m src.router.selftest                          # score, router, ledger and the whole pipeline on hand-made emails and threads (103 PASS lines; needs spaCy, not the model)
+python -m src.router.selftest                          # score, router, ledger and the whole pipeline on hand-made emails and threads (108 PASS lines; needs spaCy, not the model)
 python -m src.router.build_selftest                    # build.py on a tiny made-up dataset: all the modes, every results file (38 PASS lines)
 python -m src.router.pipeline email.eml --org acmecorp.com    # try analyze() on a file (needs the model); add --no-explain to skip LIME, --json for the raw report
 python -m src.router.pipeline --thread a.eml b.eml c.eml     # a thread of files: the newest message (by its Date header) is judged against the ones before it
@@ -33,7 +33,7 @@ report["action"]                                              # fixed text, neve
 | `score.py` | The score: points per severity, the strongest row of each claim, the half-weight sum, the pressure multiplier, tactic points, the cap, the three bands and the fixed action texts. Holds `SCORE_VERSION`, `SCORE_LOG` and loads the reliability factors from `reliability.json` |
 | `reliability.json` | Data: the reliability factor (0 or 0.5) of each rule that cries wolf on legitimate real mail (ham), and the score version it was written for. Written by `build.py --weights-only --write-reliability` and committed, like `thresholds.json` next to the model weights; a file for another score version is refused |
 | `pipeline.py` | `analyze`, the `Analyzer` class (loads the model once), `check_report` (runs on every report), and the command-line try-out |
-| `selftest.py` | 103 checks: the worked values of Section 6.6, the router and ledger checks, the David email and its variants, five hijack threads, crafted input, tampered reports |
+| `selftest.py` | 108 checks: the worked values of Section 6.6, the router and ledger checks, the David email and its variants, five hijack threads, crafted input (including 3,000 nested MIME levels, found in Phase 11), tampered reports |
 | `build.py` | The calibration and the results: rule reliability from train, the grid on validation, the false-alarm budget, the distribution of bands, the hijack benchmark check, parity with `analyze` |
 | `build_selftest.py` | Runs `build.py` on a made-up dataset in a temporary folder, so the long runs are not the first time it runs |
 
@@ -106,7 +106,8 @@ Tactic probabilities are cached in `data/processed/tactic_probs/` (never committ
 
 ## Security
 
-- **Sizes:** 300,000 bytes per message, 50 messages per thread, 2,000 characters of body and 1,000 of signature read. The API enforces its own limits first.
+- **Sizes:** 300,000 bytes per message, 50 messages per thread, 2,000 characters of body and 1,000 of signature read, 20 levels of nested MIME parts. The API enforces its own limits first (`src/api/README.md`).
+- **Nested MIME.** Python's email parser recurses once per nesting level, so 3,000 nested `multipart` parts (150 KB, under the byte cap) ended in `RecursionError`, although `parse_message` is documented never to raise. Found while planning Phase 11. `read_body` now counts the depth without recursion (`mime_depth`) and, over `MAX_MIME_DEPTH` (20) or on `RecursionError`, reads the text after the header block as plain text; the coverage says `mime_too_deep`.
 - **Nothing runs in a browser.** `text_read`, `signature_read`, claim texts and highlight texts are display-safe: `<` and `>` are shown as the look-alike characters U+2039 and U+203A, backticks as apostrophes and control or invisible characters as spaces, one for one, so every offset still fits. Other strings from an email (display name, subject, claimed organisation) go through `clean_text` or `clean_domain`; reasons are built from validated values; action texts are fixed. `check_report` verifies all of it, and that no string of the report holds `<`, `>` or a backtick, on every report before it is returned.
 - **The report must equal its own ledger.** `check_report` recomputes the score from the ledger and the tactics and the coverage from the claims and rows; a mismatch raises `ReportError`, which the API answers with a server error.
 - **Nothing is stored or logged here.** The API logs the request id, score and band, never content.

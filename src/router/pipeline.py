@@ -37,7 +37,7 @@ Security. The report is built for a browser that must never run anything from an
     - strings that came from the email in other places (display name, subject, claimed organisation) go through clean_text or clean_domain
       (letters, digits, spaces and . , - _ ' & ( ) only); reasons are built from validated values (src/verifiers/rows.py);
     - check_report verifies all of this on every report before it is returned, and no string of the report holds '<', '>' or a backtick;
-    - sizes are capped: 300,000 bytes per message, 50 messages per thread, 2,000 characters read per body, 1,000 per signature;
+    - sizes are capped: 300,000 bytes per message, 50 messages per thread, 2,000 characters read per body, 1,000 per signature, 20 levels of nested MIME parts;
     - nothing is written to disk and nothing is logged here (the API logs the request id, score and band, never content).
 """
 
@@ -69,6 +69,7 @@ from src.verifiers.verify import RULES_VERSION, verify_claims
 
 MAX_RAW_BYTES = 300_000          # bytes read from one message (the thread code reads no more)
 MAX_REQUEST_ID = 64
+MAX_MIME_DEPTH = 20              # nested multipart levels read (a real email has fewer than ten); a deeper one is read as plain text
 HEADER_SCAN_BYTES = 8192
 HEADER_NAMES = frozenset((b"from", b"to", b"subject", b"date", b"received", b"message-id", b"return-path", b"mime-version", b"delivered-to", b"reply-to",
                           b"content-type", b"authentication-results", b"dkim-signature", b"list-id", b"in-reply-to", b"references", b"sender", b"cc", b"bcc"))
@@ -124,22 +125,56 @@ def usable_org(org_domain):
     return domain, False
 
 
+def mime_depth(message):
+    """How deeply the parts of a parsed message are nested (1 for a single part). Counted with a list, not recursion, and it stops once the depth is over the limit."""
+    deepest, stack = 1, [(message, 1)]
+    while stack:
+        part, depth = stack.pop()
+        deepest = max(deepest, depth)
+        if depth > MAX_MIME_DEPTH:
+            break
+        if part.is_multipart():
+            stack.extend((child, depth + 1) for child in part.get_payload())
+    return deepest
+
+
+def text_after_headers(data):
+    """Everything after the first blank line, decoded as text (the whole data when there is no blank line)."""
+    data = data.replace(b"\r\n", b"\n")
+    end = data.find(b"\n\n")
+    return (data if end == -1 else data[end + 2:]).decode("utf-8", errors="replace")
+
+
+def read_body(data):
+    """(body text, True when the parts were nested too deeply to read). Python's own parser and walker recurse once per level, so 3,000 nested
+    parts in 150 KB end in RecursionError. Too deep (over MAX_MIME_DEPTH, or the parser gave up) means the text after the header block is read as
+    it is, and the coverage says so. Attachments are never opened either way (body_text skips them)."""
+    try:
+        message = email.message_from_bytes(data)
+        if mime_depth(message) <= MAX_MIME_DEPTH:
+            return body_text(message), False
+    except RecursionError:
+        pass
+    return text_after_headers(data), True
+
+
 def parse_message(raw, org, key):
-    """One message parsed: record (the thread message dictionary), headers_found, truncated. Never raises on odd input; a broken header costs only its own field."""
+    """One message parsed: record (the thread message dictionary), headers_found, truncated, mime_too_deep. Never raises on odd input; a broken header costs only its own field."""
     data = to_bytes(raw)
     truncated = len(data) > MAX_RAW_BYTES
     data = data[:MAX_RAW_BYTES]
     found = looks_like_headers(data)
+    too_deep = False
     if found:
         fields, _ = parse_header_fields(split_headers(data))
-        body = body_text(email.message_from_bytes(data))
+        body, too_deep = read_body(data)
     else:
         fields, _ = parse_header_fields("")
         body = data.decode("utf-8", errors="replace")
     used = org or organisation_domain(fields.get("to_domain"))
     evidence = header_evidence(fields, used)
     record = builder.message_record(key, "analyze", fields, evidence, body)
-    return {"record": record, "headers_found": found, "truncated": truncated, "body": body}
+    return {"record": record, "headers_found": found, "truncated": truncated, "mime_too_deep": too_deep, "body": body}
 
 
 def read_texts(redacted, signature):
@@ -208,6 +243,8 @@ class Analyzer:
         if len(parsed) > MAX_MESSAGES:
             parsed = parsed[-MAX_MESSAGES:]
             limits.append("thread_truncated")
+        if any(p["mime_too_deep"] for p in parsed):
+            limits.append("mime_too_deep")
         if thread and len(parsed) > 1:
             stamps = [builder.timestamp(p["record"]["date"]) for p in parsed]
             if all(s is not None for s in stamps):
