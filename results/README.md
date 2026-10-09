@@ -51,6 +51,14 @@ The files here hold counts and scores only, never email text, so they are safe t
 | `hijack_cases.csv` | `python -m src.data.hijack_benchmark collect` | Benchmark cases and threads per split, source and variant |
 | `thread_scores.csv` | `python -m src.thread.evaluate` | Per split, source and variant: detection by the thread verifier, by the Phase 8 verifiers and by either, which signal caught each case, whether the scan flips at the injected message, and false alarms on the negatives; rates with 95% intervals over threads, counts only below 10 cases |
 | `hijack_checks.csv` | `python -m src.thread.evaluate` | PASS/FAIL checks on the benchmark (labels, structure, no thread in two splits, the construction invariants), plus rule versions and run details |
+| `score_rule_weights.csv` | `python -m src.router.build` | Per rule and source of legitimate mail (ham) or real thread messages: denominator, hits, rate, whether it was judged, the proposed and the current reliability factor |
+| `score_grid.csv` | `python -m src.router.build` | The 27 grid points of the score calibration on validation: meaning, budget, worst source, distance from the initial numbers, the chosen one |
+| `score_config.csv` | `python -m src.router.build` | The frozen score numbers, the false-alarm budget and the reliability settings |
+| `score_distribution.csv` | `python -m src.router.build` | Validation emails per band for all, per category, per source and per source and category, among all emails and among emails with a checked claim |
+| `score_budget.csv` | `python -m src.router.build` | The false-alarm budget per source of legitimate mail and of real thread messages (spam listed, not budgeted), with Wilson intervals, an OVER note and the rules behind each verdict |
+| `score_benchmark_check.csv` | `python -m src.router.build` | The hijack benchmark's validation cases scored with the frozen numbers, with and without the thread verifier (counts only below 10 cases) |
+| `score_checks.csv` | `python -m src.router.build` | PASS/FAIL checks on the router, ledger, score and calibration, plus versions and run details (OVER and other findings are info, not failures) |
+| `lime_checks.csv` | `python -m src.explain.check` | The LIME faithfulness check on real validation emails: deletion test against frequency-matched random words at three sizes, seconds per explanation, stability under another seed, overlap with the lime package |
 
 ## Still to come
 
@@ -61,4 +69,5 @@ The files here hold counts and scores only, never email text, so they are safe t
 | 7 (test) | Claim extractor on the test split: Phase 13, once, with the patterns frozen |
 | 8 (test) | Verifier contradiction rates on the test split and the N3 ablation: Phase 13, once, with the rules frozen |
 | 9 (test) | Thread verifier on the test threads and the N2 ablation with the risk score: Phase 13, once, with the rules frozen |
+| 10 (test) | The risk score, the router and `analyze()` on the test split and the architecture ablation: Phase 13, once, with score version 0.2 frozen |
 | 13 | N1, N2, N3 and architecture ablations; claim-extraction accuracy; paraphrase and style-confound tests; charts |

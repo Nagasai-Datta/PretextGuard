@@ -193,7 +193,7 @@ pretextguard/
 | 7 | Claim extractor | Done |
 | 8 | Header verifier (N3) and request verifier | Done |
 | 9 | Thread builder, thread-hijack benchmark, thread verifier (N2) | Done |
-| 10 | Claim router, verdict ledger, risk score, LIME | Not started |
+| 10 | Claim router, verdict ledger, risk score, LIME | Done |
 | 11 | FastAPI backend with all security controls | Not started |
 | 12 | React frontend | Not started |
 | 13 | All experiments and charts | Not started |

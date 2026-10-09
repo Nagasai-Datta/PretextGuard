@@ -33,7 +33,7 @@ report["action"]                                              # fixed text, neve
 | `score.py` | The score: points per severity, the strongest row of each claim, the half-weight sum, the pressure multiplier, tactic points, the cap, the three bands and the fixed action texts. Holds `SCORE_VERSION`, `SCORE_LOG` and loads the reliability factors from `reliability.json` |
 | `reliability.json` | Data: the reliability factor (0 or 0.5) of each rule that cries wolf on legitimate real mail (ham), and the score version it was written for. Written by `build.py --weights-only --write-reliability` and committed, like `thresholds.json` next to the model weights; a file for another score version is refused |
 | `pipeline.py` | `analyze`, the `Analyzer` class (loads the model once), `check_report` (runs on every report), and the command-line try-out |
-| `selftest.py` | 99 checks: the worked values of Section 6.6, the router and ledger checks, the David email and its variants, five hijack threads, crafted input, tampered reports |
+| `selftest.py` | 103 checks: the worked values of Section 6.6, the router and ledger checks, the David email and its variants, five hijack threads, crafted input, tampered reports |
 | `build.py` | The calibration and the results: rule reliability from train, the grid on validation, the false-alarm budget, the distribution of bands, the hijack benchmark check, parity with `analyze` |
 | `build_selftest.py` | Runs `build.py` on a made-up dataset in a temporary folder, so the long runs are not the first time it runs |
 

@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: October 2026, written at the end of Phase 9 and corrected on 9 October 2026 before Phase 10 started (see the start of Section 5), to go with master document v3.11.1.
+Version: October 2026, written at the end of Phase 10, to go with master document v3.12.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -195,13 +195,14 @@ propose them again as novelty. Stack choices are never novelty (faculty rule).
 | Phase 7 libraries | spaCy 3.8.16 and its English model `en_core_web_sm` 3.8.0, installed from `requirements.txt` (the model is not on PyPI, so it is pinned by URL and SHA-256 and `pip-audit` lists it as not auditable; it found nothing in spaCy or its dependencies). The extractor loads the model from disk and never downloads it at run time |
 | Phase 8 libraries | none; the verifiers use the standard library, tldextract and RapidFuzz (Phase 3) and pandas in `build.py`. `requirements.txt` is unchanged |
 | Phase 9 libraries | none; the thread code uses the standard library, pandas, numpy (for the bootstrap, already installed with pandas) and the Phase 3 to 8 code. `requirements.txt` is unchanged |
+| Phase 10 libraries | none; LIME is written by hand with numpy (already installed with pandas); the router, ledger and score use the standard library, and `build.py` uses pandas. `requirements.txt` is unchanged |
 | Secrets in `.env` (names only here) | `PRETEXTGUARD_API_KEY`; `GEMINI_API_KEY`, `ANNOTATOR_1_MODEL`, `ANNOTATOR_2_MODEL`, `TIEBREAKER_MODEL` (Phase 5). `.env` is ignored; `.env.example` lists the names |
-| Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2); `data/processed/tactic_data.parquet` (Phase 6, train and validation text for Colab); `data/processed/claims_cache/` (Phase 8, the extracted claims per split, ignored by Git, Mac only); `data/processed/enron_index.parquet`, `threads.parquet` and `thread_features/` (Phase 9, the rebuilt threads and their cached tactic probabilities and claims, ignored by Git, Mac only); `artifacts/tactic_model/` (Phase 6, about 270 MB, ignored by Git, exists only on the Mac) |
+| Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2); `data/processed/tactic_data.parquet` (Phase 6, train and validation text for Colab); `data/processed/claims_cache/` (Phase 8, the extracted claims per split, ignored by Git, Mac only); `data/processed/enron_index.parquet`, `threads.parquet` and `thread_features/` (Phase 9, the rebuilt threads and their cached tactic probabilities and claims, ignored by Git, Mac only); `data/processed/tactic_probs/` (Phase 10, the tactic probabilities of every train and validation email, ignored by Git, Mac only); `artifacts/tactic_model/` (Phase 6, about 270 MB, ignored by Git, exists only on the Mac) |
 | Rule | Always work from the project root, never from `src/` |
 
 ---
 
-## 4. Current state of the repository (end of Phase 9)
+## 4. Current state of the repository (end of Phase 10)
 
 ```
 pretextguard/
@@ -212,7 +213,7 @@ pretextguard/
   venv/                      Python 3.12.14 (ignored)
   data/README.md             every source, licence, stage and how to rebuild
   data/raw/                  downloads and unpacked archives, read-only (ignored)
-  data/processed/            staged.parquet (1), cleaned.parquet (2), headers.parquet (3), tactic_data.parquet (6), claims_cache/ (8) (ignored)
+  data/processed/            staged.parquet (1), cleaned.parquet (2), headers.parquet (3), tactic_data.parquet (6), claims_cache/ (8), tactic_probs/ (10) (ignored)
   data/labelled/             README.md  sample.csv  annotators.csv  replies_log.csv  labels.csv
                              annotator_1/ annotator_2/ tiebreaker/ (raw replies)  batches/ (ignored)
   data/synthetic/            README.md  plan.csv  generator.csv  synthetic.csv  prompts/  replies/
@@ -229,8 +230,9 @@ pretextguard/
                      claim_hit_rates.csv  claim_pattern_hits.csv  claim_scores.csv  claim_checks.csv
                      verifier_rates.csv  verifier_rule_hits.csv  verifier_checks.csv
                      thread_counts.csv  thread_signal_rates.csv  thread_checks.csv  hijack_generation.csv  hijack_cases.csv  thread_scores.csv  hijack_checks.csv
+                     score_rule_weights.csv  score_grid.csv  score_config.csv  score_distribution.csv  score_budget.csv  score_benchmark_check.csv  score_checks.csv  lime_checks.csv
   notebooks/README.md  phase6_tactic_classifier.ipynb  frontend/.gitkeep
-  docs/README.md  master_document.md (v3.11.1)  PretextGuard_Master_Document_v3.2.docx (snapshot)
+  docs/README.md  master_document.md (v3.12)  PretextGuard_Master_Document_v3.2.docx (snapshot)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
@@ -246,7 +248,9 @@ pretextguard/
   src/verifiers/             README.md  rows.py  facts.py  brands.py  bank.py  header_verifier.py  request_verifier.py  verify.py  selftest.py  build.py
                              thread_verifier.py
   src/thread/                README.md  signals.py  builder.py  features.py  build.py  selftest.py  evaluate.py
-  src/{router,explain,api}/__init__.py  (all empty)
+  src/router/                README.md  router.py  ledger.py  score.py  reliability.json  pipeline.py  selftest.py  build.py  build_selftest.py
+  src/explain/               README.md  lime_explain.py  check.py
+  src/api/__init__.py        (empty)
   tests/test_environment.py  16 checks (unchanged)
 ```
 
@@ -499,6 +503,17 @@ Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). 
 - **Where things live:** results in `results/thread_*.csv` and `results/hijack_*.csv` (counts only); the threads, features and the Enron index in `data/processed/` (ignored by Git, exist only on the Mac); the benchmark plan, injected synthetic texts, raw API replies and manifest in `data/threads/` (committed; the prompts are not). Claude Code on the web cannot load the model or the data: test code on hand-made threads, as `selftest.py` does.
 - **Docs:** `update_docs_phase9.py` (a download, run from `~/Downloads` inside the venv; it reads `results/` and stops if a check failed or the validation threads were not scored) made master document v3.11 and rewrote this file.
 
+**Phase 10 in brief** (master document Section 8.18, `src/router/README.md`, `src/explain/README.md`):
+- **Code:** `src/router`: `router.py` (`assign`, `check_routing`), `ledger.py` (`build_ledger`, `coverage`, `flat_features`, `FEATURE_NAMES`), `score.py` (`SCORE_VERSION` "0.2", `SCORE_LOG`, `DEFAULT_CONFIG`, `score_ledger`, `band_of`, `fired_tactics`, `load_reliability`), `reliability.json` (data), `pipeline.py` (`Analyzer`, `analyze`, `check_report`, `ReportError`, a command-line try-out), `selftest.py` (103 PASS), `build.py` and `build_selftest.py` (38 PASS); `src/explain`: `lime_explain.py` (`explain_text`, 33 PASS) and `check.py` (the faithfulness check). No new library (LIME is written by hand; `requirements.txt` is unchanged).
+- **analyze:** `Analyzer(classifier=None, extractor=None, config=None, explain_samples=300).analyze(raw, org_domain=None, explain=True, request_id=None)`; the module function `analyze` keeps one shared `Analyzer` (it loads DistilBERT and spaCy on first use). `raw` is text or bytes, or a list for a thread (newest by Date judged, at most 50 messages, 300,000 bytes each). It raises TypeError (wrong input type), ValueError (empty thread, bad request id) and ReportError (the report failed its own checks: a bug). The report has the fields of Section 6.3 (`request_id, mode, score, verdict, action, org_domain, versions, text_read, signature_read, tactics, explained, claims, routing, ledger, score_detail, coverage, header_findings, thread`) and `check_report` runs on every one. `python -m src.router.pipeline FILE --org DOMAIN` tries it on a file.
+- **Score 0.2:** only contradictions add points; high 60, medium 35, low 5 times a reliability factor (1, 0.5 or 0 per rule); the strongest row of each claim counts and the k-th claim group counts 0.5^k; urgency and secrecy multiply by 1 plus 0.25 each (only when there is a contradiction); authority, urgency, scarcity and secrecy that fired add 4 each (at most 12); reciprocity, social proof and liking are shown, not scored; round, cap at 100; bands 0-34 Low risk, 35-69 Suspicious, 70-100 High risk. Worked values: lone medium 35, lone high 60, lone high with urgency 75, two highs 90, twelve lows 10. Reliability factors (`reliability.json`, from every train email): hv_sig_freemail_sender (0), hv_sig_other_domain (0), tv_path_origin (0).
+- **Calibration without labels:** a false-alarm budget declared before validation was read (per source of legitimate mail, ham only, and of real thread messages, at least 20 checked: High risk at most 1%, Suspicious or above at most 5%), a grid of 27 points, a meaning that must hold, the nearest point to the initial numbers. Attacks, the hijack benchmark and the labelled tactics are reported, never fitted. Spam is listed, not budgeted. **The ham-only definition was corrected after the validation emails had been read** (the first run counted spam as ordinary mail): the validation figures are a check, the test split is the clean measurement.
+- **Results** (final run, validation; `results/score_*.csv`, 19 PASS, 0 FAIL, 13 info): 8 of 27 grid points keep the meaning, 0 meet the budget, so the initial numbers (60, 35, 0.25) are kept. The budget held in 5 of 6 judged groups; over: enron (real thread messages): Suspicious or above 5.38% of 483, 23 of 26 alarms are tv_quote_mismatch. Among validation emails with a checked claim, Suspicious or above: ham 2.23% (High risk 0.25%), spam 8.05% (High risk 1.15%), phishing 47.09% (High risk 16.18%), fraud 45.15% (High risk 10.19%). Hijack benchmark (Suspicious or above, full against the Phase 8 verifiers alone): apache A 82.5% / 17.5%, B 100.0% / 0.0%, C 100.0% / 0.0%; enron A 100.0% / 0.0%, C 82.8% / 0.0%; High risk only for the takeover cases (apache 25.0%, enron 37.9%). Parity of `analyze()` with the batch code: same band 100.0%, same score 91.7%, 0 of 300 unexplained (the rest is `tv_single_no_reply_ids`).
+- **LIME:** 300 copies take 10.6 seconds per explanation on the Mac's CPU (150 copies 4.9); the deletion test against frequency-matched random words passes (results/lime_checks.csv); the top-3 words overlap 0.42 under another seed and 0.39 with the `lime` package, so the exact words are not stable; many highlights are function words. It explains the classifier only.
+- **Findings to carry forward:** (1) the Enron thread group is over the Suspicious budget because of the quote check (`tv_quote_mismatch`), which is also the only rule that finds forged Enron threads: keep it and report it; (2) hijack variants B and C reach Suspicious, never High risk (one claim group, calm text); (3) most emails have no checked claim (the Kaggle Enron and Ling emails carry no header evidence), so every share is reported with both denominators and per source; (4) a pasted body with no headers can only add tactic points (at most 12), so a classic BEC body without headers is Low risk with a coverage note, and the interface must explain that; (5) the score depends on the Phase 6 thresholds and the Phase 7 extractor (LLM labels from one model family) and the hijack cases are synthetic.
+- **Where things live:** results in `results/score_*.csv` and `results/lime_checks.csv` (counts only); the tactic probabilities in `data/processed/tactic_probs/` (ignored by Git, Mac only); `src/router/reliability.json` is committed. The model weights, the caches and the data exist only on Nagasai's Mac: test API code in Claude Code on the web with a stand-in classifier, as `src/router/selftest.py` does.
+- **Docs:** `update_docs_phase10.py` (a download, run from `~/Downloads` inside the venv; it reads `results/` and stops if a check failed or the validation emails were not read) made master document v3.12 and rewrote this file.
+
 Current `.gitignore`:
 ```
 # Python
@@ -574,37 +589,37 @@ en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_
 
 ---
 
-## 5. Next task: Phase 10, claim router, verdict ledger, risk score and LIME highlights (plan not yet approved)
+## 5. Next task: Phase 11, FastAPI backend with all security controls (plan not yet approved)
 
-**Already decided on 9 October 2026 (first Phase 10 chat; master document 3.11.1 records it; do not reopen):** (1) LIME for text is written by hand (random word removal, kernel weights, weighted ridge fit, fixed seed) and cross-checked once against the `lime` package; the package is not added to `requirements.txt` (it would install matplotlib and scikit-image). (2) The score takes points from the severity of a row, not from the claim type: the strongest row of each claim counts, each further claim counts half as much as the one before, consistent and not-checkable rows add nothing, urgency and secrecy multiply, a reliability factor per rule lowers a noisy rule, the result is capped at 100 (Section 6.6). (3) The first band is named Low risk, and the report carries a `coverage` block. (4) `header_findings` is the cleaned header evidence, not rows; the whole report shape is in Section 6.3. Still open for the plan: the exact initial numbers, the false-alarm budget, the LIME settings and the step plan.
+Full detail: master document Sections 6.2 (the API in the component list), 6.3 (the report), 6.8 and 6.10 (the eight runtime steps and the endpoints), 8.18 (what `analyze` returns and costs), 10 (the security table: input validation, safe parsing, rate limiting, authentication, audit logging, PII redaction, secrets, output encoding), 11, 12.6 (planned files `src/api/main.py`, `schemas.py`, `security.py`) and Section 15, items 19 and 20. Start by proposing the plan and the background concepts, then wait for "go". Fold the phase into as few steps as you can (two at most), deliver every file as a download, and verify his push by reading the repository.
 
-Full detail: master document Sections 4.5 (the architecture contribution), 6.2 (claim router, ledger and risk score, LIME), 6.3 (the ledger row and the report shape), 6.4 (routing table), 6.6 (the score and the verdict bands), 6.7 (the worked example), 6.8 and 6.10 (the runtime steps), 6.11, 8.14 (the tactic classifier), 8.15 (claims), 8.16 and 8.17 (the rows the verifiers produce), 10, 11 (the architecture ablation), 12.6 (planned files `src/router/router.py`, `ledger.py`, `score.py`, `pipeline.py` and `src/explain/lime_explain.py`) and Section 15, items 4, 7, 10 to 14 and 15 to 18. Start by proposing the plan and the background concepts, then wait for "go". Fold the phase into as few steps as you can (two at most; Nagasai asked for as much as possible per step), deliver every file as a download, and verify his push by reading the repository.
-
-**Goal.** One function, `analyze(raw_email_or_thread, org_domain=None)`, that runs the whole pipeline of Figure 3 for one request and returns the report of Section 6.3: parse (Phase 3), redact (Phase 2), tactic probabilities (Phase 6), claims (Phase 7), route every claim to its verifier (Phase 8, plus Phase 9 when a thread is given), collect the rows into the verdict ledger, turn the ledger and the tactic probabilities into a 0 to 100 score, a band and a recommended action, and add LIME highlights for the tactics. The API (Phase 11) calls `analyze` and nothing else.
+**Goal.** A FastAPI app (`src/api`) that exposes the pipeline and nothing else: `POST /analyze` (one email as text, optional `org_domain`, optional `explain`), `POST /analyze/thread` (several emails), `GET /results` (evaluation numbers for the dashboard, from an allow-list of `results/*.csv`) and `GET /health`. Each analysis calls `Analyzer.analyze` of `src/router/pipeline.py` and returns its report unchanged. Every control of Section 10 that belongs to the API is built here and tested with crafted requests.
 
 **Notes the plan must handle**
-- **Router and ledger.** `ROUTES` in `src/verifiers/rows.py` is the routing table of Section 6.4. `verify_claims(claims, facts, contact_text, body_text, thread=None)` returns the claim rows (with a thread, prior_relationship goes to the thread verifier and every request claim gets a second, thread row); `verify_thread_message(messages, index)` returns the thread signal rows (claim_id 'thread'; claim_type tactic_onset, request_drift, sending_path, thread_integrity or single_email) and `scan_thread(messages)` the flip index. A row has `contradiction` true/false/null and `severity` high/medium/low/none/not_checkable; a weak claim already lowers a severity one step; `check_row` validates a row.
-- **Thread input.** A thread is a list of message dictionaries (`src/thread/signals.py`) built as `src/thread/builder.py` builds them (`split_message` for the new text and the quoted history, `record_from_table`/`message_record` for the fields); tactic probabilities come from `TacticClassifier.probabilities`, claims from `extract_many`, thresholds from `src/thread/features.py:load_thresholds`. At most 50 messages are examined. Single-email mode runs only the `tv_single_*` rule.
-- **Score.** Severities are rule strengths, not probabilities. Points per severity, the modifiers (urgency, secrecy and the other tactics raise the weight of a contradiction found with them, Section 6.6), the cap at 100 and the bands (0-34, 35-69, 70-100) are initial and are calibrated on the validation split only, never on test. There are no contradiction labels: say what each calibration target can and cannot support (attack against ham on the validation emails, where the corpus confound of Section 8.16 means per-source reporting; the hijack benchmark's validation cases, Section 8.17; the labelled tactic data) and do not tune on the benchmark cases that Phase 13 will not see again. Rules that are noisy on real threads (see `results/thread_signal_rates.csv`) and rows that are 'not checkable' must not add points; 'consistent' is never a reason to lower the score of another row.
-- **Tactics.** `TacticClassifier.thresholds` and `.predict`; reciprocity, social proof and liking have under 10 real positives in Phase 6 (counts only), so decide whether they modify the score at all.
-- **LIME.** Written by hand, no new library (decided above); it needs a batch prediction function (`TacticClassifier.probabilities` over 2,000-character texts, about 20 emails a second on the Mac's CPU); one explanation per tactic that fired; cap the number of perturbation samples and the text length; the highlights are built from escaped text (Section 10, XSS) and the weights exist only for the tactic classifier, not for the verifiers (their explanation is the row's reason).
-- **Architecture ablation (Phase 13).** The claim-routed pipeline is compared with a flat classifier on the same signals: keep the ledger rows and a flat feature vector of the same signals available so Phase 13 can build both.
-- **Security.** Size caps (the API enforces them), nothing stored, reasons built from validated values only, output escaped. The report shape of Section 6.3 includes `thread` (flip index and signals, or null) and `request_id`.
-- **Environment.** The model weights, the caches and the data exist only on Nagasai's Mac. Test the router, ledger and score code in Claude Code on the web on hand-made rows and thread messages (the Phase 8 and Phase 9 self-tests show how); LIME and the model need his run.
+- **Loading.** Create the `Analyzer` once at startup (lifespan): it loads DistilBERT (about 270 MB) and spaCy. `GET /health` says whether it is loaded. The weights and `src/router/reliability.json` must be on the machine that runs the API (the weights exist only on the Mac).
+- **What `analyze` raises.** TypeError (not text, bytes or a list), ValueError (empty thread, request id not 1 to 64 letters, digits, - or _) and ReportError (the report failed its own checks: a bug). Answer 422 or 400 with a fixed message for the first two; 500 with the request id and a fixed message for ReportError; never echo email content in an error or a log line.
+- **Cost.** The classifier is CPU-bound (about 20 emails a second). LIME costs the work of about 300 emails: 10.6 seconds per explanation at 300 copies and 4.9 at 150 (`Analyzer(explain_samples=150)`), and the score does not depend on it. Recommend `explain` off by default or a second call after the score is shown, a stricter rate limit for it, and a thread pool behind a small semaphore (answer 429 or 503 when busy rather than queue without limit).
+- **Limits.** The API's own size cap (Section 10 suggests 100 KB per email) and a cap on messages per thread come first; the pipeline's 300,000 bytes per message and 50 messages are a backstop. Pydantic schemas with maximum lengths; `org_domain` length and shape; content-type and `.eml` structure checks for uploads; attachments are never opened.
+- **Authentication and rate limiting.** API key in `.env` (`PRETEXTGUARD_API_KEY`), compared in constant time; `slowapi` per-IP limits; CORS only for the frontend origin; no-store cache headers.
+- **Logging.** Request id, time, mode, score, verdict, tactics fired and duration, never content or addresses. Nothing is stored.
+- **Output.** `text_read`, claim texts and highlight texts are display-safe, but the interface must render them as text (Phase 12).
+- **`GET /results`.** Serve a fixed allow-list of result files as JSON; no path parameter.
+- **Testing.** No unit tests per phase: `python -m src.api.selftest` with the FastAPI `TestClient` and a stand-in classifier (as `src/router/selftest.py`), crafted requests (oversize, wrong types, no key, wrong key, rate limit, markup and XSS payloads from the corpus, concurrent requests), then a real session with `curl` on the Mac.
+- **New libraries.** fastapi, uvicorn, slowapi, python-multipart (uploads) and httpx (for `TestClient`); pin them, run `pip-audit`.
 
-**Decisions for the plan to recommend:** the ledger format returned by `analyze` and where each row type comes from; the score formula (points per severity, tactic modifiers, caps, how not-checkable and noisy rules count); what is calibrated on validation and with what measure; the verdict bands and actions; the LIME settings and what is highlighted; the `analyze` signature for a single email and for a thread; what Phase 10 prints and saves in `results/`; the step plan.
+**Decisions for the plan to recommend:** the file layout; whether `explain` is off by default or a second call; the concurrency model; the size caps; the key and error formats; what `GET /results` serves; the self-test; what Phase 11 prints and saves in `results/`; the step plan.
 
-**Background to teach in Phase 10:** the verdict ledger as a fact-checking record (claim, evidence, verdict, reason) and why the output is the explanation; routing as a lookup table; turning categorical severities into a score, saturating sums and why a cap; calibration without labels (what a surrogate target can and cannot say); the corpus confound in attack-versus-ham comparisons; LIME in plain words (remove words, watch the probability, fit a small linear model locally); why explanations of a classifier are not explanations of rules.
+**Background to teach in Phase 11:** FastAPI against Express (routes, middleware, dependencies); Pydantic models as schema validation (compared with Joi or Zod); the lifespan event and why the model loads once; synchronous against asynchronous handlers and CPU-bound work; uvicorn; slowapi and rate-limit keys; API-key authentication and constant-time comparison; CORS; request-size limits; logging without content; the `TestClient`.
 
-## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 9 are done)
+## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 10 are done)
 
 | Phase | Deliverable |
 |---|---|
 | 7 | Claim extractor (`src/claims`): done |
 | 8 | Header verifier N3 and request verifier (`src/verifiers`): done |
 | 9 | Thread builder, hijack benchmark, thread verifier N2 (`src/thread`, `src/verifiers`, `src/data`): done |
-| 10 | Router, ledger, risk score, LIME (`src/router`, `src/explain`): next |
-| 11 | FastAPI backend with all security controls (`src/api`) |
+| 10 | Router, ledger, risk score, LIME (`src/router`, `src/explain`): done |
+| 11 | FastAPI backend with all security controls (`src/api`): next |
 | 12 | React frontend: analyzer and dashboard (`frontend/`) |
 | 13 | All experiments and charts (`src/eval`, `results/`) |
 | 14 | Report, viva preparation, Review deck update (`docs/`) |

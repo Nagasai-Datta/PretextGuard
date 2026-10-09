@@ -24,8 +24,8 @@ Never `cd src` and never `python src/data/stage.py`. With `-m`, Python treats th
 | `claims/` | Claim extractor: typed claims with text spans | 7 | Done (see `claims/README.md`) |
 | `verifiers/` | Header verifier (N3), request verifier, thread verifier (N2) | 8, 9 | Phases 8 and 9 done (see `verifiers/README.md`) |
 | `thread/` | Thread builder, the four thread signals, features, scoring and self-test | 9 | Done (see `thread/README.md`) |
-| `router/` | Claim router, verdict ledger, risk score, end-to-end pipeline | 10 | Not started |
-| `explain/` | LIME word highlights | 10 | Not started |
+| `router/` | Claim router, verdict ledger, risk score, `analyze()` end to end, calibration and its results | 10 | Done (see `router/README.md`) |
+| `explain/` | LIME word highlights (written by hand) and their faithfulness check | 10 | Done (see `explain/README.md`) |
 | `api/` | FastAPI app with the security controls | 11 | Not started |
 | `eval/` | Metrics, ablations and charts; writes to `results/` | 6 (metrics), 13 | `metrics.py` done (see `eval/README.md`); the experiments are Phase 13 |
 

@@ -38,6 +38,7 @@ None of these files is committed or redistributed in this repository.
 | Synthetic emails (attack and benign twin pairs) and their prompts and replies | `data/synthetic/` | Yes | `src/data/synthetic.py` | 5 |
 | The Enron index (one row per distinct message) | `data/processed/enron_index.parquet` | No | `src/thread/build.py` | 9 |
 | Rebuilt threads (one row per message, with the quoted history and header facts) and their cached tactic probabilities and claims | `data/processed/threads.parquet`, `data/processed/thread_features/` | No (full email text) | `src/thread/build.py`, `src/thread/features.py` | 9 |
+| The tactic classifier's probabilities for every train and validation email, so later runs do not repeat about an hour of CPU work | `data/processed/tactic_probs/` | No (derived from email text) | `src/router/build.py` | 10 |
 | The thread-hijack benchmark: plan, injected synthetic texts, raw API replies, manifest | `data/threads/` | Yes (synthetic text and ids only); the prompts are not | `src/data/hijack_benchmark.py` | 9 |
 
 `data/raw/` and `data/processed/` are listed in `.gitignore`: they are large, separately licensed and full of real email text. Anything in `data/processed/` can be rebuilt from `data/raw/` by rerunning the scripts.
