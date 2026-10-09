@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_a979533fdaf7",
+    "attack": {
+      "body": "Patti, I have updated the access list for the traders and the logistics team as requested. Regarding the vendor invoicing for these new accounts, our billing department has transitioned to a new provider. Please update your records immediately as this is our last chance to migrate before the old system closes. Please send all future payments to {{BANK}}.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "Please send all future payments to {{BANK}}."
+    },
+    "benign": {
+      "body": "Patti, thank you for sending over those names. I have passed the list along to the IT team so they can begin provisioning the Sitara access for everyone on your team. It should be ready by the end of the day."
+    },
+    "fake_quote": "I have been checking with the technical support team regarding the Sitara permissions for the new hires. It appears that the server migration is still in progress, but we should have the regional access levels sorted out by next week. Let me know if you need me to pull any additional reports for the traders in the meantime."
+  },
+  {
+    "thread": "enron_c58d8b595347",
+    "attack": {
+      "body": "Tony, if you did not request this, then it is likely an error in the ticketing system. However, we have a critical supply shortage for the upcoming conference and need assistance. Please buy gift cards and send the codes to me immediately. This is your last chance to participate in the company reward program before the window closes.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "Please buy gift cards and send the codes to me"
+    },
+    "benign": {
+      "body": "Tony, thanks for letting me know. I will look into the logs to see why that automated message was triggered and sent to your account. I will make sure to correct the distribution list so you do not receive any more notifications in error."
+    },
+    "fake_quote": "I checked the desk logs and it seems there was a minor glitch with the building access pass system this morning. Most of the eTickets have been relocated to the main lobby kiosk for easier pickup. If you are still planning to head over there today, you might want to bring your employee badge to verify the request at the front desk."
+  },
+  {
+    "thread": "enron_6950640db75f",
+    "attack": {
+      "body": "Aiysha, that timeline for COH 5-2 is acceptable for our current planning. As the lead analyst, IT Security requires that all external contractors verify their identity through a secure verification process. You must buy gift cards and send the codes to me immediately to confirm your firm supply status for the quarter.",
+      "tactic_cues": {
+        "authority": "IT Security requires",
+        "urgency": "immediately"
+      },
+      "request_cue": "buy gift cards and send the codes to me"
+    },
+    "benign": {
+      "body": "Aiysha, that works for us. I will draft the formal quote for the COH 5-2 volumes through March and send it over for your review by this afternoon. If you have any further questions about the load profiles, feel free to give me a call."
+    },
+    "fake_quote": "I have been reviewing the load profile data you sent over earlier today. The fluctuations in the COH 7-3 facility seem to be consistent with the seasonal trends we observed last year. I will run a quick simulation on these numbers to see how they align with our current supply strategy before I put together the final documentation for the internal review board."
+  },
+  {
+    "thread": "enron_f7f15aa9eb90",
+    "attack": {
+      "body": "Jeff, the presentation is definitely happening. As the Director of Finance, I have authority over these settlement processes and need to inform you that our payment details have changed. Keep this between us and do not loop in your manager. Please use the new account {{BANK}} for all future transactions.",
+      "tactic_cues": {
+        "authority": "As the Director of Finance, I have authority",
+        "secrecy": "Keep this between us"
+      },
+      "request_cue": "Please use the new account {{BANK}} for all future transactions."
+    },
+    "benign": {
+      "body": "Jeff, I am not sure exactly where the public notice was posted, but I believe it is listed on the PUC website under the upcoming hearings section. I will keep an eye out for any further updates and let you know if I find the specific time for the presentation."
+    },
+    "fake_quote": "It is interesting to see how the regulatory landscape is shifting regarding the undercollection issues. Many of my contacts are concerned about the long-term impact on the distributed generation projects currently in the pipeline. I plan to attend the upcoming session to get a better sense of how the commissioners are reacting to the current proposals from the major utilities."
+  }
+]

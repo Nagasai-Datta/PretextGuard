@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_dde76076e543",
+    "attack": {
+      "body": "Gayle, thanks for the update on the Chase Center location. I will be ready with the presentation. As the department head, I am authorizing a special recognition project. Please purchase five hundred dollars in gift cards for the team and send the codes to me directly. This is between us to maintain the surprise, so keep this between us and do not loop in your manager.",
+      "tactic_cues": {
+        "authority": "As the department head, I am authorizing",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "purchase five hundred dollars in gift cards for the team and send the codes to me"
+    },
+    "benign": {
+      "body": "Gayle, thank you for the update regarding the room change. I have noted the 18th floor at the Chase Center on my calendar. I will make sure to bring my own laptop and a backup of the slides on a USB drive. If you could confirm the availability of a projector and a whiteboard in that room, that would be helpful. See you on the 14th."
+    },
+    "fake_quote": "I have reviewed the draft of your presentation slides for the upcoming event. The data on market volatility is quite compelling and should resonate well with the audience. I suggest adding one more chart to illustrate the long-term trends we discussed during the budget meeting last week. Let me know if you need help pulling those specific numbers from the archive."
+  },
+  {
+    "thread": "enron_0c53647632ea",
+    "attack": {
+      "body": "Cynthia, thanks for the clarification regarding the legislation monitoring. I understand the situation perfectly. We need to process an immediate wire transfer for the lobbying fees before 5 PM today to ensure our position is secured. Please bypass the standard approval queue as this is time sensitive. I need you to handle this immediately and keep this between us to avoid unnecessary internal inquiries.",
+      "tactic_cues": {
+        "urgency": "before 5 PM today",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process an immediate wire transfer for the lobbying fees"
+    },
+    "benign": {
+      "body": "Cynthia, thank you for the update on the status of the bill. It is helpful to know that we do not need to take any additional steps at this time. I will keep an eye on the schedule for the next Congress and reach out if anything changes. Your guidance on the relationship with the senator's office has been very valuable for our ongoing efforts."
+    },
+    "fake_quote": "I spoke with the team in Washington regarding the recent committee appointments. It seems there is a consensus forming about the potential impact of the new energy policy. I would appreciate your perspective on how this might align with our internal reporting standards for the next quarter. We should find time next week to compare notes on the latest developments."
+  },
+  {
+    "thread": "apache_c177bbe9f34f",
+    "attack": {
+      "body": "Darryl, the configuration changes look correct for migrating to Tomcat 10. As the Lead Infrastructure Architect, I require you to verify your credentials for the server management portal. Please log in to the shared document at the link below and enter your verification code immediately. This is required by IT Security to maintain compliance before 5 PM today.",
+      "tactic_cues": {
+        "authority": "As the Lead Infrastructure Architect, I require",
+        "urgency": "immediately"
+      },
+      "request_cue": "verify your credentials for the server management portal"
+    },
+    "benign": {
+      "body": "Darryl, the provided connector configuration should work fine for your Tomcat 10 migration. Make sure you also check the server.xml for any legacy valve configurations that might conflict with the new version. If you run into any specific class loading errors after the update, feel free to share the logs here so we can take a closer look at the stack trace."
+    },
+    "fake_quote": "I noticed that the performance metrics on our staging server fluctuated quite a bit after the last patch. It appears that the memory allocation settings might need a slight adjustment before we move the application into the production environment. Has anyone else noticed similar behavior when running the latest build under a heavy load during the testing phase?"
+  },
+  {
+    "thread": "apache_61f8217757ee",
+    "attack": {
+      "body": "David, I see the issues you are encountering with the email notifications on your new VM. As the project lead, I am ordering an emergency payment to our support vendor to expedite a patch for this compatibility issue. Please initiate the wire transfer immediately to avoid a total system failure. This is authorized by the executive board, so do it immediately.",
+      "tactic_cues": {
+        "authority": "As the project lead, I am ordering",
+        "urgency": "immediately"
+      },
+      "request_cue": "initiate the wire transfer"
+    },
+    "benign": {
+      "body": "David, the configuration differences between your environments are quite significant, especially moving from JDK 8 to 11. The issue with email notifications might be related to changes in the JavaMail API or how the container handles the JNDI lookups in Tomcat 10. You might want to check if the mail resource is correctly defined in your context.xml file."
+    },
+    "fake_quote": "The migration process for our internal web applications has been mostly smooth, although we did encounter a few minor issues with the servlet mapping. It seems that adjusting the configuration files manually was the most effective way to resolve those discrepancies. I am planning to document these steps in our internal wiki so that the rest of the team can follow the same procedure."
+  }
+]

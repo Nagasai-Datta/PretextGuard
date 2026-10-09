@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_e05e227830ba",
+    "attack": {
+      "body": "Marie, thank you for checking those files. The chief executive office addresses will work perfectly for now. I have uploaded the updated summary to the portal for your review. Please confirm your email login immediately as this is your last chance to access the shared folder before the system archives the data for security maintenance.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Marie, thank you for the clarification. A listing of the chief executive offices will be sufficient for our current reporting needs. Please go ahead and send over those address details when you have a moment, as that will save me quite a bit of research time. I appreciate your help with this."
+    },
+    "fake_quote": "I have been reviewing the contract files regarding the BP entities. Some of the older records are missing the specific notice provisions we need for the audit. Could you check if there are any archived supplementary documents that might contain these contact details?"
+  },
+  {
+    "thread": "enron_e148508d49cf",
+    "attack": {
+      "body": "I understand the timeline is tight. As the department lead, I am instructing you to process the outstanding invoice payment for the Omaha site immediately. This is an urgent priority and I need you to bypass the standard approval workflow to ensure the funds are cleared by end of day today.",
+      "tactic_cues": {
+        "authority": "As the department lead, I am instructing you",
+        "urgency": "immediately"
+      },
+      "request_cue": "process the outstanding invoice payment"
+    },
+    "benign": {
+      "body": "I have received the update regarding the Omaha records. I will reach out to Steve to see if we can expedite the compilation process to meet your deadline for tomorrow. I will let you know as soon as I have a clearer picture of the status."
+    },
+    "fake_quote": "The data from Omaha seems to be arriving in several separate batches. I am waiting for the final verification from the regional office before we can consolidate everything into the master spreadsheet. I will update the tracker once the files are fully integrated."
+  },
+  {
+    "thread": "enron_c17a95d186f5",
+    "attack": {
+      "body": "Thanks for the update on the contract terms. I am looking over the assignment details now to ensure we remain compliant. Because the window for this transfer is closing, this is your last chance to complete the verification. Please purchase gift cards for the processing fee and send the codes immediately so we can finalize the agreement.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "purchase gift cards"
+    },
+    "benign": {
+      "body": "Thank you for forwarding the information regarding the SWPC transfer and the Gleason units. It is helpful to have the updated power levels and control curve adjustments documented clearly. I will share these details with the rest of the team to ensure we are all aligned on the contract warranties."
+    },
+    "fake_quote": "The adjustments to the power levels at the Gleason facility should be straightforward, provided the control curves are updated correctly. I have reviewed the technical specifications provided by the manufacturer and they seem to align with our current operational goals for the site."
+  },
+  {
+    "thread": "enron_24425422ad34",
+    "attack": {
+      "body": "I have the excel file ready for the credit committee. Regarding the payment process, the finance office has authorized a shift in our procedures. As your supervisor, I am directing you to use the new payment details at {{BANK}} for all future transactions immediately to avoid any disruption in our records.",
+      "tactic_cues": {
+        "authority": "As your supervisor, I am directing you",
+        "urgency": "immediately"
+      },
+      "request_cue": "use the new payment details"
+    },
+    "benign": {
+      "body": "I can certainly pull the gas deal data for you. I will filter the non-terminated deals and include the counterparty names, cash flows, and positions as requested. I should have the excel file ready and sent over to you well before the 11:00 deadline this morning."
+    },
+    "fake_quote": "I have been working on the summary of our active counterparty positions to assist with the upcoming credit committee review. I have verified that the current data set includes all the relevant gas transactions from this quarter, so the figures should be consistent with our internal reporting."
+  }
+]

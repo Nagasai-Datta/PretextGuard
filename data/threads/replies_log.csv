@@ -124,3 +124,16 @@ time_utc,model,prompt,threads,valid
 2026-10-09T12:52:57Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_123,4,4
 2026-10-09T12:53:06Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_124,4,3
 2026-10-09T12:53:14Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_125,4,4
+2026-10-09T12:57:43Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_001,4,3
+2026-10-09T12:57:58Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_002,4,4
+2026-10-09T12:58:17Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_003,4,3
+2026-10-09T12:58:25Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_004,4,4
+2026-10-09T12:58:34Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_005,4,4
+2026-10-09T12:58:41Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_006,4,4
+2026-10-09T12:58:57Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_007,4,1
+2026-10-09T12:59:09Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_008,4,3
+2026-10-09T12:59:24Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_009,4,4
+2026-10-09T12:59:41Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_010,4,4
+2026-10-09T12:59:56Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_011,4,3
+2026-10-09T13:00:06Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_012,4,4
+2026-10-09T13:00:17Z,"gemini-3.1-flash-lite (API, temperature 0.8)",hijack_reask_013,1,0

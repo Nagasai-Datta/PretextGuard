@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_4c05f707c4f6",
+    "attack": {
+      "body": "I understand the need to move forward with the service agreement. As the COO, I am authorizing an immediate payment to the Estate to expedite the process. Please wire the funds to the new account today before 3 PM today, as this is required to maintain our project timeline. I need you to bypass the standard review cycle for this specific transaction to ensure we stay on track.",
+      "tactic_cues": {
+        "authority": "As the COO, I am authorizing",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "Please wire the funds"
+    },
+    "benign": {
+      "body": "I agree that we need to get the agreement finalized. I will follow up with Don and Jim to see if they have the necessary documentation ready for review. I will let you know as soon as I hear back from them regarding the next steps."
+    },
+    "fake_quote": "I spoke with the team this morning regarding the Peoples service agreement. Everyone seems to be in agreement about the general terms, but we still need to verify a few details before finalizing the contract. Let me know when you have a moment to review the draft I sent over yesterday."
+  },
+  {
+    "thread": "enron_f93f8b23f096",
+    "attack": {
+      "body": "I will handle the ISDA worksheet draft for Pam Smith immediately. As the lead on this account, I am requiring an urgent wire transfer to settle the outstanding counterparty fees. Please process this payment before 3 PM today. This is an administrative mandate that must be completed without delay to satisfy our internal audit requirements.",
+      "tactic_cues": {
+        "authority": "As the lead on this account, I am requiring",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "process this payment"
+    },
+    "benign": {
+      "body": "I understand the priority on the ISDA worksheet. I will get the draft prepared and sent to Pam Smith via fedex as requested. I am coordinating with the rest of the team to ensure all the figures on the worksheet are accurate before it goes out."
+    },
+    "fake_quote": "The ISDA documentation process has been moving along quite well lately. I think we have addressed most of the concerns raised by the legal department in the last meeting. I will make sure that the latest version is circulated to everyone involved so we are all looking at the same set of terms."
+  },
+  {
+    "thread": "enron_173ca6595379",
+    "attack": {
+      "body": "Regarding the ClickPaper approvals, please note that our banking details have changed. As the department head, I am instructing you to use {{BANK}} for all future payments effective immediately. This is an urgent update required to prevent any disruption in our processing, so please ensure your records are updated before 3 PM today without exception.",
+      "tactic_cues": {
+        "authority": "As the department head, I am instructing you",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "use {{BANK}} for all future payments"
+    },
+    "benign": {
+      "body": "I have received the forwarded information regarding the counterparty approvals. I will update the internal tracking sheet to reflect the new address and phone number information for the counterparties. I will ensure that the rest of the team has access to the most recent version of the spreadsheet by the end of the day."
+    },
+    "fake_quote": "I have been reviewing the recent counterparty setup requests that came through our group last week. It seems we are missing some contact information for a few of the newer entities. I will check in with the primary coordinators to see if they can provide the missing fields so we can finalize the approval process."
+  },
+  {
+    "thread": "enron_003832e6ce3f",
+    "attack": {
+      "body": "I have received your message regarding the IBJ master agreement. We need to handle a confidential vendor settlement immediately. Please go buy gift cards and send the codes to me right now. This is a time-sensitive matter and you must keep this between us until the transaction is fully processed, as we cannot afford any delays or outside questions.",
+      "tactic_cues": {
+        "urgency": "immediately",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "buy gift cards and send the codes"
+    },
+    "benign": {
+      "body": "Thank you for the update on the meeting with IBJ. I understand the current situation regarding the CSA and the potential for a ratings downgrade. I will review the scheduling details you provided and see if we can set up a conference call for tomorrow morning to discuss our position further."
+    },
+    "fake_quote": "It is interesting to note the shift in market trends regarding CSA agreements. Many of our counterparties are beginning to see the value in standardizing these terms, even if they are not traditional banking institutions. I will continue to monitor our ongoing negotiations to see if there are any other opportunities to push for these changes."
+  }
+]

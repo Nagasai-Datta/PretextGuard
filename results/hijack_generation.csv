@@ -1,0 +1,28 @@
+source,what,value
+enron,planned,300
+enron,valid,294
+enron,dropped_after_reask,6
+enron,awaiting_reask,0
+enron,not_answered,0
+apache,planned,200
+apache,valid,198
+apache,dropped_after_reask,2
+apache,awaiting_reask,0
+apache,not_answered,0
+all,problem: fake_quote contains manipulation wording (keyword baseline fired: authority),2
+all,problem: request_cue is not in the attack body,18
+all,problem: benign contains manipulation wording (keyword baseline fired: authority),2
+all,problem: the cue for urgency is not in the attack body,8
+all,problem: fake_quote contains manipulation wording (keyword baseline fired: scarcity),1
+all,problem: tactic_cues must have exactly the required tactics,13
+all,problem: fake_quote contains manipulation wording (keyword baseline fired: liking),1
+all,problem: the attack uses the bank token although the goal is payment,2
+all,problem: benign contains manipulation wording (keyword baseline fired: urgency),1
+all,problem: fake_quote contains manipulation wording (keyword baseline fired: urgency),1
+all,problem: reply unreadable: no JSON array found in the reply,4
+all,problem: the cue for authority is not in the attack body,1
+all,problem: benign contains manipulation wording (keyword baseline fired: scarcity),1
+all,problem: missing from the reply,1
+all,problem: benign contains manipulation wording (keyword baseline fired: social_proof),1
+all,problem: the cue for secrecy is not in the attack body,1
+all,problem: fake_quote must be text,1

@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_86a2ed08e00b",
+    "attack": {
+      "body": "Vladi, I have verified that Coral Canada US, Inc. is the correct entity for these deals. I will initiate the GCP request now, but you must confirm your email login immediately to verify the update. Please click the link to the shared document and enter your credentials. This is your last chance to resolve the billing error before the system locks the account permanently.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "confirm your email login"
+    },
+    "benign": {
+      "body": "Vladi, I think Coral Canada US, Inc. is indeed the intended entity. I will go ahead and start the paperwork to get them properly set up in our system so we can avoid these billing delays. Once the Global Counterparty team gives me the green light, I will make sure to pass the updated deal numbers over to Sean for the final processing."
+    },
+    "fake_quote": "I spoke with the representative from Coral Energy today regarding the outstanding invoices. They are quite adamant about the entity name change. If we can get the system updated, we should be able to clear these payments within the next few days. Let me know if you need any additional details from my notes on the call."
+  },
+  {
+    "thread": "enron_ac15330e57cc",
+    "attack": {
+      "body": "Dot, that is such wonderful news. I am so relieved your items were recovered before the holiday. Since we are finalizing the year-end audits, I need you to process an urgent wire transfer for the recovery service fee immediately. Please keep this between us and do not loop in your manager as we need to expedite this before the office closes today.",
+      "tactic_cues": {
+        "urgency": "urgent",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "process an urgent wire transfer"
+    },
+    "benign": {
+      "body": "Dot, I am so glad to hear that you got your things back. That really is a huge relief and definitely makes for a much better Thanksgiving weekend. It is funny how these things go missing on the floor, but I am happy it all worked out in the end. Enjoy your holiday break and have a great time with your family."
+    },
+    "fake_quote": "I remember when I misplaced my own briefcase last year. I searched the entire floor for three hours before someone finally walked it over to my desk. It is a stressful experience, but it really highlights how helpful the people in our building can be when someone is in a bind."
+  },
+  {
+    "thread": "enron_c1f87014f2c6",
+    "attack": {
+      "body": "That sounds like a solid plan for handling the printing coordination. As the Director, I am authorizing an immediate payment to the temporary printing service to ensure they stay on schedule. You must complete this wire transfer before 3 PM today to bypass the standard procurement delay. IT Security requires that we settle these outstanding project invoices before the end of the fiscal quarter.",
+      "tactic_cues": {
+        "authority": "As the Director, I am authorizing",
+        "urgency": "before 3 PM today"
+      },
+      "request_cue": "complete this wire transfer"
+    },
+    "benign": {
+      "body": "That works for me. Heather is very organized, so having her assist should make the process much smoother between the three of you. Just make sure the live-link access is working correctly before you get started tomorrow morning. If you run into any technical issues with the system or the master list, let me know and I will try to assist."
+    },
+    "fake_quote": "I have been reviewing the contracts that were already pulled from the system. It seems like a significant amount of data, but with the additional help, it should be manageable to finish by the end of the week. I will check in with you tomorrow to see how the progress is coming along."
+  },
+  {
+    "thread": "enron_6d0f3b789596",
+    "attack": {
+      "body": "I will reach out to Anita regarding those documents for you. However, we have an urgent issue regarding the payment for the Green Mountain project. Please process the wire transfer immediately to avoid a breach of contract. This is your last chance to secure the funds before the audit team closes the project account permanently.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "process the wire transfer"
+    },
+    "benign": {
+      "body": "I will get in touch with Doug and clarify the situation regarding the Green Mountain documentation. I will also check in with Anita Luong to see if we have the specific Schedule C records we sent over previously. I will let you know as soon as I have those files ready for your review."
+    },
+    "fake_quote": "The rules for the pool have certainly been complex lately. I spent some time looking over the latest updates from the project team this morning. It is interesting to see how the risk mitigation strategies are evolving as we move forward with the current phase of the project."
+  }
+]

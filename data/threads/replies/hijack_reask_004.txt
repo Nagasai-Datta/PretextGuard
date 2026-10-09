@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "enron_5cd6122badca",
+    "attack": {
+      "body": "That sounds like a solid result for the team. Regarding the settlement funds, there has been a sudden shift in our routing process. You must update our records immediately as this is your last chance to ensure the credit is processed correctly to {{BANK}} before 5 PM today. Failure to update this now will result in a lost transfer, so please prioritize this change.",
+      "tactic_cues": {
+        "scarcity": "this is your last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "you must update our records"
+    },
+    "benign": {
+      "body": "That is great news about the settlement. I will keep an eye out for the ISO check and verify with the accounting department as soon as it arrives. Please let me know if you need any additional documentation from my side to help get the origination credit finalized for the legal team."
+    },
+    "fake_quote": "I have been reviewing the latest figures from the ISO report. It seems the reconciliation process is taking longer than anticipated due to the volume of transactions involved. I will follow up with the settlements group tomorrow to see if they have a better estimate on when the final paperwork will be signed and ready for our review."
+  },
+  {
+    "thread": "enron_96114f20f9e2",
+    "attack": {
+      "body": "I have looked over the NextSet document and it appears standard. As the lead project director, I am authorizing an immediate wire transfer to their account to secure the contract. This request skips the usual approval process because I need this handled immediately. Please process the payment now so we can move forward with the next phase of the project.",
+      "tactic_cues": {
+        "authority": "As the lead project director, I am authorizing",
+        "urgency": "immediate wire transfer"
+      },
+      "request_cue": "process the payment now"
+    },
+    "benign": {
+      "body": "I have received the forwarded information and will begin the review process on the confidentiality agreement today. If I find any language that seems inconsistent with our standard terms or if I have any questions regarding the scope of the agreement, I will reach out to you directly for clarification."
+    },
+    "fake_quote": "The meeting with the external counsel went well this morning. We discussed the primary goals for the upcoming quarter and identified a few areas where we might need additional support. I am currently drafting a summary of our conversation and will circulate it to the rest of the team for feedback before the end of the day."
+  },
+  {
+    "thread": "enron_570a470bd3fe",
+    "attack": {
+      "body": "That sounds like a wonderful time with your sons on the golf course. Regarding our group funds for the upcoming event, I am writing as the chapter treasurer to inform you that our routing information has changed. Please direct all future deposits to {{BANK}} and keep this between us so we do not cause any confusion among the other members.",
+      "tactic_cues": {
+        "authority": "I am writing as the chapter treasurer",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "direct all future deposits to"
+    },
+    "benign": {
+      "body": "Golfing with your sons sounds like a fantastic way to spend the week. I am looking forward to seeing everyone on the 24th in OKC for the unveiling party. It should be a great opportunity to catch up with the group and hear more about the new book."
+    },
+    "fake_quote": "I just finished reading the latest updates on the upcoming reunion. It looks like the committee has put together a great itinerary for the weekend. I am planning to arrive early on Friday so I have some extra time to catch up with old friends before the main festivities begin on Saturday evening."
+  },
+  {
+    "thread": "enron_7400b8f2376c",
+    "attack": {
+      "body": "I agree that having them across the table is preferable to the alternatives. Since we are approaching the deadline, I need you to authorize an urgent wire transfer for the retainer fee immediately. This is our last chance to lock in their services for this month, and the window closes before 5 PM today. Please handle this transfer now.",
+      "tactic_cues": {
+        "scarcity": "This is our last chance",
+        "urgency": "urgent wire transfer"
+      },
+      "request_cue": "authorize an urgent wire transfer"
+    },
+    "benign": {
+      "body": "I agree with your assessment regarding their approach. If Teresa is comfortable with the terms and the future litigation issues are addressed, I see no reason to hold up the decision. I will wait to hear from you if any further adjustments are requested by the team."
+    },
+    "fake_quote": "I spent some time looking through the recent correspondence regarding the A&K file. It seems there are a few lingering questions about the scope of representation that we might want to clarify. I will send a note to the partners to ensure we are all aligned before we finalize our position on the matter."
+  }
+]

@@ -1,0 +1,18 @@
+check,item,value,expected,status
+selftest,thread self-test,all of 87,all pass,PASS
+rows_valid,thread-verifier rows that fail check_row,0,0,PASS
+leakage_guard,threads in more than one split,0,0,PASS
+leakage_guard,splits scored in this run,train,train only (--train-only) or train and validation; never test,PASS
+labels,cases whose label does not fit their variant,0,0,PASS
+structure,"threads missing one of neg_real, neg_synth, A, C",0,0,PASS
+isolation,variant A cases where a integrity/path signal fires (the injection copies those details),0,0,PASS
+isolation,variant B cases where a integrity signal fires (the injection copies those details),0,0,PASS
+isolation,variant C cases where a path signal fires (the injection copies those details),0,0,PASS
+isolation,variant neg_synth cases where a integrity/path signal fires (the injection copies those details),0,0,PASS
+false_alarms,train apache: N2 false-alarm rate on the real next reply (neg_real),1.5%,<= 20% (a finding if not),PASS
+false_alarms,train enron: N2 false-alarm rate on the real next reply (neg_real),1.4%,<= 20% (a finding if not),PASS
+run,thread rules version / header and request rules version,0.2 / 0.3,,info
+run,tactic thresholds from,artifacts/tactic_model/thresholds.json,,info
+run,cases scored,1479,,info
+run,validation cases scored in this run,no (--train-only),yes in the final run of a frozen version,info
+run,seconds,20,,info

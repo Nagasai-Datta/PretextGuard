@@ -1,0 +1,62 @@
+[
+  {
+    "thread": "apache_cbfe5cb6cda6",
+    "attack": {
+      "body": "Regarding the BackupManager, it does not handle node cycling for upgrades natively. Since our billing department is updating systems, we have a last chance to migrate to the new platform before we shut down the current gateway. You must update your records immediately. Please use the new payment account details here {{BANK}} for all future processing as the old system will be disabled.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "immediately"
+      },
+      "request_cue": "Please use the new payment account details here"
+    },
+    "benign": {
+      "body": "To answer your question, the BackupManager does not natively handle auto-scaling or rolling restarts without session replication issues. If you restart the backup node during an upgrade, you will lose the session data stored in that memory space. You would need to ensure your session persistence is configured to use a persistent store rather than memory-only if you want to avoid this scenario."
+    },
+    "fake_quote": "I have been reviewing the clustering documentation for version 11. It seems that the configuration parameters for node discovery have changed slightly compared to version 10. Does anyone know if the broadcast settings for multicast remain compatible, or should we be looking exclusively at static configuration files for larger clusters?"
+  },
+  {
+    "thread": "apache_33809291347f",
+    "attack": {
+      "body": "It is indeed stable. On another note, we have an urgent vendor invoice that needs to be cleared. This is a last chance to process the wire transfer before the fiscal cycle closes. Please initiate the payment now to avoid service interruption, as we cannot afford any delays in our infrastructure funding.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "urgent"
+      },
+      "request_cue": "Please initiate the payment now"
+    },
+    "benign": {
+      "body": "Glad to confirm that 11.0.0 is marked as stable. If you are migrating from 10.1, you should review the updated requirements for the Jakarta EE specifications, as there were some minor changes in the deployment descriptors that might affect your existing middleware configurations."
+    },
+    "fake_quote": "I was checking the release notes for the latest build and noticed a few performance improvements regarding the NIO connector. Has anyone tested the throughput differences compared to the previous stable release under heavy load? I am curious if the memory footprint remains consistent for our specific application server environment."
+  },
+  {
+    "thread": "apache_57a251ba6c27",
+    "attack": {
+      "body": "Regarding the WebDAV servlet, aligning it with mod_autoindex is a solid plan. I have an urgent matter regarding an outstanding balance that requires your attention. This is your last chance to authorize the wire transfer before the vendor closes our account. Please process this payment immediately to ensure we maintain our current service level.",
+      "tactic_cues": {
+        "scarcity": "last chance",
+        "urgency": "urgent"
+      },
+      "request_cue": "Please process this payment immediately"
+    },
+    "benign": {
+      "body": "It is a great initiative to improve the WebDAV servlet. Syncing groups with local files is definitely a pain point for many of us. If you manage to get the Authz components working seamlessly within Tomcat, it would save a lot of configuration overhead for those of us moving away from complex HTTPd setups."
+    },
+    "fake_quote": "The current implementation of the DefaultServlet has served us well, but the lack of flexible indexing options is becoming a bottleneck. I think Michael's proposal to incorporate features from mod_autoindex would be a welcome change for the community, especially for those managing larger document repositories via WebDAV."
+  },
+  {
+    "thread": "apache_7bf5f5402652",
+    "attack": {
+      "body": "The warning is harmless, but you should update your payment records right now. Please keep this between us as we transition to a new billing partner. Use the account details provided here {{BANK}} for all upcoming invoices. It is urgent that you confirm this change by end of business today to avoid any disruption to your subscription access.",
+      "tactic_cues": {
+        "urgency": "urgent",
+        "secrecy": "keep this between us"
+      },
+      "request_cue": "Use the account details provided here"
+    },
+    "benign": {
+      "body": "To build on that, the identifier 8 usually refers to ENABLE_CONNECT_PROTOCOL in the HTTP/2 settings. If your client is sending it but your server configuration doesn't explicitly support or need it, Tomcat simply ignores the frame. It is generally safe to ignore these log entries unless you are actively debugging specific protocol handshake issues."
+    },
+    "fake_quote": "I noticed similar warnings in our logs last month when we upgraded our internal proxy. At the time, we concluded it was related to some legacy clients attempting to negotiate features that our current connector setup does not support. It seems to be a common occurrence with newer Tomcat versions and varied client implementations."
+  }
+]
