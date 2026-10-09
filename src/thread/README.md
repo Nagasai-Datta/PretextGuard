@@ -5,7 +5,7 @@ Phase 9: **thread consistency verification (N2)**. This folder rebuilds real con
 Why it exists: a hijacked account sends through the real provider with the real credentials, so SPF, DKIM and DMARC pass for the real domain and every Phase 8 rule says "consistent". What gives the attacker away is not the message but the **change**: the thread was about a project and now asks for a new bank account; the same address suddenly writes from another server; the "earlier conversation" it quotes never happened. N3 catches the impersonator; N2 catches the attacker who is already inside the account.
 
 ```bash
-python -m src.thread.selftest                     # hand-made threads and crafted input, no data and no model needed (73 PASS lines)
+python -m src.thread.selftest                     # hand-made threads and crafted input, no data and no model needed (78 PASS lines)
 python -m src.thread.build --count                # find the threads (Apache from Message-IDs, Enron from subjects) and print what was found
 python -m src.thread.build --train-only            # also compute tactic probabilities and claims and score the TRAIN threads: false alarms on real threads
 python -m src.thread.build --train-only --show-rules tv_quote_mismatch,tv_who_other_domain
@@ -35,7 +35,7 @@ result = scan_thread(messages)                    # {"flip_index": 3, "messages"
 | `builder.py` | Rebuilds threads: `apache_threads` (Message-ID, In-Reply-To, References), `enron_candidates` and `enron_threads` (normalised subject, time runs, shared participants), `split_message` (new text and quoted history), `split_of_thread` |
 | `features.py` | Computes and caches the tactic probabilities (Phase 6 classifier) and claims (Phase 7 extractor) of every thread message |
 | `build.py` | Finds the threads, writes `data/processed/threads.parquet`, scores real threads for false alarms, writes `results/thread_*.csv` |
-| `selftest.py` | 73 checks: hand-made threads and the rules they must give, scan and API checks, 9 crafted hostile inputs |
+| `selftest.py` | 78 checks: hand-made threads and the rules they must give, scan, builder and API checks (five guard mistakes the first real run showed), 9 crafted hostile inputs |
 | `evaluate.py` | Scores N2 and the Phase 8 verifiers on the benchmark; bootstrap intervals over threads; `results/thread_scores.csv`, `results/hijack_checks.csv` |
 
 ## The four signals (master document Section 4.3)
@@ -56,8 +56,8 @@ Three values, as in Phase 8: contradiction (high, medium or low), consistent, or
 
 ## How a thread is found
 
-- **Apache** keeps the headers mail programs use: two messages join a group when one names the other's Message-ID in In-Reply-To or References (union-find, so cycles and missing parents are harmless). Messages are ordered by date.
-- **Raw Enron** has no In-Reply-To, References, Received or X-Mailer (0%, `results/header_coverage.csv`), so threads are guessed the way old mail clients did: the subject without "Re:"/"Fw:" prefixes, split into runs (a gap of more than 14 days starts a new run), messages in a run join when they share a participant. Copies of one message in several folders are removed by Message-ID.
+- **Apache** keeps the headers mail programs use: two messages join a group when one names the other's Message-ID in In-Reply-To or References (Phase 3 stores References as one space-separated string, which `decode_references` reads) (union-find, so cycles and missing parents are harmless). Messages are ordered by date.
+- **Raw Enron** has no In-Reply-To, References, Received or X-Mailer (0%, `results/header_coverage.csv`), so threads are guessed the way old mail clients did: the subject without "Re:"/"Fw:" prefixes, split into runs (a gap of more than 14 days starts a new run), messages in a run join when they share a participant. The same message sits in several folders (inbox, sent, all_documents) and the copies carry different Message-IDs in this dump, so a copy is recognised by the same date, sender and subject and removed. Candidates are read in hash order, 1,000 at a time, until the wanted number of threads (default 1,200) pass the rules.
 - A thread needs 3 to 50 messages and at least two senders (Enron: at least two "Re:" subjects too). `results/thread_counts.csv` says how many groups were dropped and why.
 - The thread split is by thread (70/15/15 from the SHA-256 of seed 42 and the thread id), so no thread stands in two splits.
 

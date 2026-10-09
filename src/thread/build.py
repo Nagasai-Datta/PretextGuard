@@ -8,7 +8,7 @@ Run from the project root (after Phases 1 to 8; the tactic model and spaCy are n
                                                        # also print up to 25 examples of each named rule (never saved)
     python -m src.thread.build                         # the final run of a frozen version: also scores the VALIDATION threads, once
 
---enron-threads N        how many Enron threads to keep (default 1200, chosen by the SHA-256 order of their ids)
+--enron-threads N        how many Enron threads to keep (default 1200; candidates are read in hash order, 1,000 at a time, until that many pass the rules)
 --enron-files N          read only the first N files of the Enron maildir (a quick test; neither the index nor the threads are saved)
 --reuse                  use data/processed/threads.parquet if it exists instead of rebuilding the threads (the scoring runs after a rule change)
 
@@ -31,9 +31,11 @@ the test threads are built but never scored here (Phase 13). The thread split is
 import argparse
 import json
 import time
+import warnings
 from collections import Counter, defaultdict
 
 import pandas as pd
+from bs4 import XMLParsedAsHTMLWarning
 from tqdm import tqdm
 
 from src.data.paths import (
@@ -46,6 +48,8 @@ from src.thread.selftest import run_crafted, self_test
 from src.thread.signals import MAX_MESSAGES
 from src.verifiers.rows import check_row
 from src.verifiers.thread_verifier import CONTRADICTION_RULES, RULES, THREAD_RULES_VERSION, scan_thread
+
+warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)   # a few Apache bodies are XML; Phase 2 reads them as HTML on purpose
 
 APACHE_SOURCES = ["apache_tomcat_users", "apache_kafka_users"]
 SPLITS = ["train", "validation", "test"]
@@ -96,16 +100,29 @@ def read_enron_index(limit_files):
     return rows
 
 
+READ_CHUNK = 1000            # Enron candidate threads read per round
+READ_LIMIT = 20_000          # at most this many candidates are read in all (most candidates fail the sender and reply rules)
+
+
 def build_enron(limit_files, keep):
-    """Enron threads: candidates from the index, the best `keep` by hash order, then the full text of those only."""
+    """Enron threads: candidates from the index, read in rounds of 1,000 in hash order until `keep` threads pass the rules (or READ_LIMIT is reached)."""
     candidates, counts = builder.enron_candidates(read_enron_index(limit_files))
-    print("  Enron: %d distinct messages, %d candidate threads before reading any text" % (counts["distinct_messages"], len(candidates)))
+    print("  Enron: %d files, %d distinct messages after removing copies, %d candidate threads before reading any text" % (
+        counts["files"], counts["distinct_messages"], len(candidates)))
     # An order that does not depend on the data's own order (the SHA-256 of the seed and the first message's key), so a rerun picks the same threads.
     ordered = sorted(candidates, key=lambda c: builder.hash_order(c[0]["key"]))
-    chosen = ordered[:keep * 2]            # read twice as many as wanted: some fail the sender and reply rules once their text is read
-    threads, more = builder.enron_threads(chosen, ENRON_MAILDIR, require_replies=True)
+    threads, totals = [], {}
+    read = 0
+    while len(threads) < keep and read < min(len(ordered), READ_LIMIT):
+        chunk = ordered[read:read + READ_CHUNK]
+        found, more = builder.enron_threads(chunk, ENRON_MAILDIR, require_replies=True)
+        threads += found
+        for key, value in more.items():
+            totals[key] = totals.get(key, 0) + value
+        read += len(chunk)
+        print("    read %d candidates, %d threads kept so far" % (read, len(threads)))
     threads = threads[:keep]
-    counts.update({**{k: v for k, v in more.items() if k != "kept"}, "read": len(chosen), "kept": len(threads)})
+    counts.update({**{k: v for k, v in totals.items() if k != "kept"}, "read": read, "kept": len(threads)})
     return threads, counts
 
 
@@ -325,9 +342,10 @@ def main():
         if not args.enron_files:
             table.to_parquet(THREADS_PARQUET, index=False)
         print("\nThreads kept")
-        print(counts[counts["what"].isin(["threads", "messages"])].pivot_table(index=["source", "split"], columns="what", values="value").to_string())
+        shown = counts[counts["what"].isin(["threads", "messages"]) & counts["split"].isin(SPLITS)]
+        print(shown.pivot_table(index=["source", "split"], columns="what", values="value", aggfunc="sum").astype(int).to_string())
         print("\nGroups dropped, and why (all splits)")
-        print(counts[(counts["split"] == "all")].pivot_table(index="what", columns="source", values="value", fill_value=0).to_string())
+        print(counts[(counts["split"] == "all")].pivot_table(index="what", columns="source", values="value", aggfunc="sum", fill_value=0).astype(int).to_string())
         print("\nSaved %s%s and %s" % (relative(THREADS_PARQUET) if not args.enron_files else "(not saved: --enron-files)", "", relative(THREAD_COUNTS_CSV)))
     if args.count:
         return

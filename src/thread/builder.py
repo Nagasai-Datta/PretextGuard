@@ -21,7 +21,8 @@ threads are guessed from what is left, the way old mail clients did:
     3. inside a run, two messages join when they share a participant (the sender or a To address);
     4. a thread needs at least 3 distinct messages, at least 2 senders, at least 2 reply-prefixed subjects, and at most
        50 messages (a bigger group is an announcement list, not a conversation).
-Every message of Enron also exists in several folders (inbox, all_documents, sent ...): copies are removed by Message-ID.
+Every message of Enron also exists in several folders (inbox, all_documents, sent ...) and the copies carry different Message-IDs, so a copy is
+recognised by the same date, sender and subject.
 
 THE TEXT OF A MESSAGE. split_message cuts a body exactly as Phase 2 does (HTML to text, list footer off, quoted history off)
 and keeps BOTH halves: `text` is what the sender wrote new, `quoted` is the history the message quotes. The thread
@@ -158,10 +159,10 @@ def message_record(key, source, fields, evidence, body_raw):
     parts = split_message(body_raw)
     merged = {**fields, **evidence}
     date = fields.get("date")
-    references = [r for r in (fields.get("references") or [])][:100]
+    references = decode_references(fields.get("references"))
     return {
         "key": key, "source": source,
-        "message_id": fields.get("message_id"), "in_reply_to": fields.get("in_reply_to"), "references": [str(r) for r in references],
+        "message_id": fields.get("message_id"), "in_reply_to": fields.get("in_reply_to"), "references": references,
         "from_addr": fields.get("from_addr"), "from_name": fields.get("from_name"), "from_domain": evidence.get("from_registered_domain"),
         "subject": fields.get("subject") or "", "date": date.isoformat() if hasattr(date, "isoformat") else (date or None),
         "origin_ip": evidence.get("origin_ip"), "mailer": fields.get("mailer"), "received_hops": json_safe(evidence.get("received_hops")),
@@ -192,12 +193,19 @@ def record_from_table(key, source, header, body_raw):
 
 
 def decode_references(value):
-    """The list of Message-IDs from a table cell: a JSON string (how threads.parquet stores it), a list or array, or nothing."""
+    """The list of Message-IDs from a table cell, at most 100.
+
+    Three forms occur: the space-separated string Phase 3 writes to headers.parquet ("<a@x> <b@y>"; a Message-ID holds no space), the
+    JSON list that threads.parquet uses, and nothing at all (None or NaN). A list or array is accepted as it is."""
     if isinstance(value, str):
-        try:
-            value = json.loads(value)
-        except ValueError:
-            return []
+        text = value.strip()
+        if text.startswith("["):
+            try:
+                value = json.loads(text)
+            except ValueError:
+                return []
+        else:
+            value = text.split()
     if value is None or isinstance(value, (str, dict)) or not hasattr(value, "__len__"):
         return []
     return [str(r) for r in value][:100]
@@ -312,15 +320,19 @@ def enron_index_row(path, relative_key):
 
 
 def enron_candidates(index_rows):
-    """Candidate Enron threads from index rows: lists of row dictionaries (Message-ID duplicates removed first).
+    """Candidate Enron threads from index rows: lists of row dictionaries (copies of one message removed first).
 
     Returns (candidates, counts)."""
     seen, rows = set(), []
     for row in index_rows:
-        if row["message_id"]:
-            if row["message_id"] in seen:
+        # The same message sits in several folders (inbox, sent, all_documents ...). In this dump the copies carry DIFFERENT Message-IDs
+        # (the first real run found 517,432 files and 517,432 distinct IDs), so a copy is recognised by what one message cannot have twice:
+        # the same second, the same sender and the same subject.
+        copy = (row["date"], row["from_addr"], row["subject"]) if row["date"] and row["from_addr"] else None
+        if copy is not None:
+            if copy in seen:
                 continue
-            seen.add(row["message_id"])
+            seen.add(copy)
         rows.append(row)
     counts = {"files": len(index_rows), "distinct_messages": len(rows), "subject_groups": 0, "runs": 0, "candidates": 0}
     by_subject = {}

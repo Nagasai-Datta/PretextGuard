@@ -18,6 +18,7 @@ import sys
 import time
 
 from src.thread import signals as sig
+from src.thread import builder
 from src.thread.builder import normalise_subject
 from src.verifiers.rows import check_row
 from src.verifiers.thread_verifier import CONTRADICTION_RULES, RULES, scan_thread, verify_thread_message
@@ -224,6 +225,30 @@ def helper_checks():
     ]
 
 
+def builder_checks():
+    """Regression checks for two mistakes the first real run showed: References is ONE space-separated string in headers.parquet (Phase 3),
+    and the copies of an Enron message carry different Message-IDs."""
+    two = "<a@x.example> <b@y.example>"
+    header = {"message_id": "<m3@l>", "in_reply_to": None, "references": "<m1@l> <m2@l>", "from_addr": "c@z.org", "subject": "Kafka", "date": "2025-03-04T10:00:00+00:00"}
+    records = [builder.record_from_table("m%d" % i, "apache_x", dict(header, message_id="<m%d@l>" % i, in_reply_to=("<m%d@l>" % (i - 1)) if i == 2 else None,
+                                                                    references={1: None, 2: "<m1@l>", 3: "<m1@l> <m2@l>"}[i],
+                                                                    from_addr="p%d@z.org" % (i % 2), date="2025-03-0%dT10:00:00+00:00" % i), "Hello thread body %d" % i)
+               for i in (1, 2, 3)]
+    threads, _ = builder.apache_threads(records)
+    index = [{"key": "k%d" % i, "message_id": "<id%d>" % i, "date": "2001-05-1%dT10:00:00-07:00" % (i % 3), "from_addr": ("a" if i % 2 == 0 else "b") + "@enron.com",
+              "subject": ("RE: " if i else "") + "Budget plan", "people": ["a@enron.com", "b@enron.com"]} for i in range(3)]
+    copies = [dict(row, key=row["key"] + "_copy", message_id=row["message_id"] + "_copy") for row in index]      # same second, sender and subject, new Message-ID
+    candidates, counts = builder.enron_candidates(index + copies)
+    return [
+        ("decode_references reads the space-separated string of headers.parquet", builder.decode_references(two) == ["<a@x.example>", "<b@y.example>"]),
+        ("decode_references reads the JSON list of threads.parquet, None and NaN", builder.decode_references('["<a@x>"]') == ["<a@x>"] and builder.decode_references(None) == []
+         and builder.decode_references(float("nan")) == []),
+        ("a message with References but no In-Reply-To still joins its thread", len(threads) == 1 and len(threads[0]) == 3),
+        ("record_from_table turns the References string into a list", records[2]["references"] == ["<m1@l>", "<m2@l>"]),
+        ("copies of an Enron message with other Message-IDs are removed", counts["distinct_messages"] == 3 and len(candidates) == 1 and len(candidates[0]) == 3),
+    ]
+
+
 def api_checks():
     """verify_claims: unchanged without a thread, thread-aware with one."""
     calm = thread(4)
@@ -290,6 +315,8 @@ def self_test(verbose=True):
     for name, passed, detail in scan_cases():
         check(name, passed, detail)
     for name, passed in helper_checks():
+        check(name, passed)
+    for name, passed in builder_checks():
         check(name, passed)
     for name, passed in api_checks():
         check(name, passed)
