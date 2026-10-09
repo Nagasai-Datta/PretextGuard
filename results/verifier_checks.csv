@@ -16,8 +16,8 @@ attack_vs_ham,"payment_request: emails with a contradicted claim, fraud against 
 attack_vs_ham,"data_request: emails with a contradicted claim, fraud against ham",7.8% vs ham 0.1%,>= 2x ham and above 0,PASS
 attack_vs_ham,"signature_contact: emails with a contradicted claim, phishing against ham","3.2% vs ham 3.0% (1.1x, above ham but below 2x)",>= 2x ham for a pass; above ham is a finding; not above ham fails,info
 crafted_inputs,"slowest of the crafted inputs (60,000-character fields, '@' floods, IBAN-shaped words)",0.01 s,< 2 s,PASS
-leakage_guard,splits read,train,train only (--train-only) or train and validation; never test,PASS
-validation_scored,this run read the validation emails,no (--train-only),yes in the final run of a frozen version,info
+leakage_guard,splits read,train+validation,train only (--train-only) or train and validation; never test,PASS
+validation_scored,this run read the validation emails,yes,yes in the final run of a frozen version,PASS
 coverage,affiliation_internal,"2171 claims, 290 checkable",>= 20 claims (a finding if not),PASS
 coverage,affiliation_external,"30192 claims, 1415 checkable",>= 20 claims (a finding if not),PASS
 coverage,authority,"3128 claims, 887 checkable",>= 20 claims (a finding if not),PASS
@@ -35,7 +35,8 @@ coverage,rules that never fired on the train emails,7 of 63,"(a finding, not a f
 run,rules_version,0.3,,info
 run,claim pattern version,0.4,,info
 run,spaCy / model,3.8.16 / en_core_web_sm 3.8.0,,info
-run,train emails verified / claims extracted now (the rest came from the cache),69542 / 49542,,info
-run,ledger rows (all splits),79590,,info
+run,train emails verified / claims extracted now (the rest came from the cache),69542 / 0,,info
+run,validation emails verified / claims extracted now (the rest came from the cache),14879 / 14879,,info
+run,ledger rows (all splits),96141,,info
 run,--limit (0 means every train email),0,0 in the final run,PASS
-run,seconds,290,,info
+run,seconds,90,,info

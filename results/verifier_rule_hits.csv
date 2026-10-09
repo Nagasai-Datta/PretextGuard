@@ -62,3 +62,66 @@ train,rv_spf_fail,request,any request,True,strongest signal: spf fail,202,88,202
 train,rv_no_pass,request,any request,True,strongest signal: no pass,449,229,449,0,0,0,0,449,0,3.13
 train,rv_name_domain,request,any request,False,strongest signal: name domain,228,139,228,0,0,17,0,210,1,1.59
 train,tv_needs_thread,thread,prior_relationship,False,claims an earlier conversation; only the thread verifier (Phase 9) can check it,1110,1060,0,0,1110,642,107,280,81,100.0
+validation,hv_int_list,header,affiliation_internal,False,"mailing-list mail: the recipient domain is the list's, not an employer's",21,19,0,0,21,21,0,0,0,0.16
+validation,hv_int_no_org,header,affiliation_internal,False,no organisation domain is known for the recipient,362,302,0,0,362,81,9,249,23,2.71
+validation,hv_int_no_from,header,affiliation_internal,False,no usable From address,0,0,0,0,0,0,0,0,0,0.0
+validation,hv_int_freemail,header,affiliation_internal,False,"claims to be internal, sent from a free mailbox provider",4,2,4,0,0,0,0,3,1,0.03
+validation,hv_int_lookalike,header,affiliation_internal,False,"claims to be internal, sent from a look-alike of the organisation's domain",0,0,0,0,0,0,0,0,0,0.0
+validation,hv_int_suffix,header,affiliation_internal,False,"claims to be internal, sent from the organisation's name under another suffix",0,0,0,0,0,0,0,0,0,0.0
+validation,hv_int_other_domain,header,affiliation_internal,False,"claims to be internal, sent from an unrelated domain (weak: the recipient domain may be a list or a partner)",50,45,50,0,0,8,1,40,1,0.37
+validation,hv_int_spoof,header,affiliation_internal,True,From shows the organisation's own domain but DMARC failed (exact-domain spoof),0,0,0,0,0,0,0,0,0,0.0
+validation,hv_int_auth_other,header,affiliation_internal,True,"From shows the organisation's domain, authentication vouched for another domain",0,0,0,0,0,0,0,0,0,0.0
+validation,hv_int_spf_fail,header,affiliation_internal,True,"From shows the organisation's domain, SPF failed",0,0,0,0,0,0,0,0,0,0.0
+validation,hv_int_no_pass,header,affiliation_internal,True,"From shows the organisation's domain, no check passed",5,4,5,0,0,0,0,5,0,0.04
+validation,hv_int_ok_auth,header,affiliation_internal,True,From shows the organisation's domain and authentication passed for it,2,1,0,2,0,0,0,2,0,0.01
+validation,hv_int_no_auth,header,affiliation_internal,False,"From shows the organisation's domain, but no authentication verdict exists",14,11,0,0,14,4,0,10,0,0.1
+validation,hv_ext_no_from,header,affiliation_external,False,no usable From address,840,558,0,0,840,331,400,37,72,6.28
+validation,hv_ext_no_org,header,affiliation_external,False,the claim names no organisation,1096,782,0,0,1096,196,435,351,114,8.19
+validation,hv_ext_reference,header,affiliation_external,False,names an organisation without saying the sender is that organisation (your PayPal account),2726,1887,0,0,2726,431,537,1503,255,20.37
+validation,hv_ext_brand_spoof,header,affiliation_external,True,From shows the brand's domain but DMARC failed,0,0,0,0,0,0,0,0,0,0.0
+validation,hv_ext_brand_auth_other,header,affiliation_external,True,"From shows the brand's domain, authentication vouched for another domain",0,0,0,0,0,0,0,0,0,0.0
+validation,hv_ext_brand_spf_fail,header,affiliation_external,True,"From shows the brand's domain, SPF failed",0,0,0,0,0,0,0,0,0,0.0
+validation,hv_ext_brand_no_pass,header,affiliation_external,True,"From shows the brand's domain, no check passed",1,1,1,0,0,0,0,1,0,0.01
+validation,hv_ext_brand_ok,header,affiliation_external,True,From shows the brand's domain and authentication passed for it,1,1,0,1,0,0,0,1,0,0.01
+validation,hv_ext_brand_no_auth,header,affiliation_external,False,"From shows the brand's domain, but no authentication verdict exists",353,247,0,0,353,0,0,353,0,2.64
+validation,hv_ext_signed_by_brand,header,affiliation_external,True,the brand's own domain authenticated the message,0,0,0,0,0,0,0,0,0,0.0
+validation,hv_ext_freemail,header,affiliation_external,False,"claims a known organisation, sent from a free mailbox provider",21,16,21,0,0,1,0,20,0,0.16
+validation,hv_ext_lookalike,header,affiliation_external,False,"claims a known organisation, sent from a look-alike of its domain",13,8,13,0,0,0,0,13,0,0.1
+validation,hv_ext_name_spoof,header,affiliation_external,False,"claims a known organisation, display name shows another address",0,0,0,0,0,0,0,0,0,0.0
+validation,hv_ext_suffix,header,affiliation_external,False,"claims a known organisation, sent from its name under another suffix",7,6,7,0,0,0,0,7,0,0.05
+validation,hv_ext_other_domain,header,affiliation_external,False,"claims a known organisation, sent from an unrelated domain",167,141,167,0,0,3,1,163,0,1.25
+validation,hv_ext_unknown_freemail,header,affiliation_external,False,"claims an organisation with no known domain, sent from a free mailbox provider (weak: the name comes from a name recogniser)",57,54,57,0,0,7,5,13,32,0.43
+validation,hv_ext_unknown_org,header,affiliation_external,False,the claimed organisation has no known domain,930,863,0,0,930,101,445,365,19,6.95
+validation,hv_auth_no_from,header,authority,False,no usable From address,269,197,0,0,269,113,115,3,38,2.01
+validation,hv_auth_name_address,header,authority,False,"rank claimed, display name shows another address",2,1,2,0,0,0,0,0,2,0.01
+validation,hv_auth_lookalike,header,authority,False,rank claimed from a look-alike of the organisation's domain,0,0,0,0,0,0,0,0,0,0.0
+validation,hv_auth_dmarc_fail,header,authority,True,"rank claimed, DMARC failed",0,0,0,0,0,0,0,0,0,0.0
+validation,hv_auth_freemail,header,authority,False,rank claimed from a free mailbox provider,165,133,165,0,0,4,3,6,152,1.23
+validation,hv_auth_spf_fail,header,authority,True,"rank claimed, SPF failed",1,1,1,0,0,0,0,1,0,0.01
+validation,hv_auth_no_pass,header,authority,True,"rank claimed, no authentication check passed",3,3,3,0,0,0,0,3,0,0.02
+validation,hv_auth_ok,header,authority,True,rank claimed from a domain that authenticated as itself,20,19,0,20,0,10,0,10,0,0.15
+validation,hv_auth_no_evidence,header,authority,False,"rank claimed, nothing to compare it with",231,183,0,0,231,42,12,37,140,1.73
+validation,hv_reply_diverges,header,reply_direction,False,Reply-To points to another domain,8,8,8,0,0,0,0,8,0,0.06
+validation,hv_reply_ok,header,reply_direction,False,Reply-To is the sender's own domain or was set by a mailing list,13,13,0,13,0,0,4,9,0,0.1
+validation,hv_reply_no_header,header,reply_direction,False,no Reply-To header to compare,324,296,0,0,324,119,77,7,121,2.42
+validation,hv_sig_no_from,header,signature_contact,False,no usable From address,1021,965,0,0,1021,634,345,24,18,7.63
+validation,hv_sig_not_contact,header,signature_contact,False,"a postal address, disclaimer, copyright line or sign-off name is not a contact address to compare",2913,2601,0,0,2913,985,655,1015,258,21.77
+validation,hv_sig_no_address,header,signature_contact,False,"the sender's signature block holds no e-mail address (list footers, quoted headers and the reader's own address are ignored)",1051,988,0,0,1051,402,106,437,106,7.86
+validation,hv_sig_same_freemail,header,signature_contact,False,the signature address is on the same free mailbox provider as the sender: says nothing about who is who,50,47,0,0,50,22,2,11,15,0.37
+validation,hv_sig_ok,header,signature_contact,False,a signature address belongs to the sender's domain,260,249,0,260,0,203,10,36,11,1.94
+validation,hv_sig_lookalike,header,signature_contact,False,a signature address is a look-alike of the sender's domain,8,6,8,0,0,3,0,5,0,0.06
+validation,hv_sig_freemail_sender,header,signature_contact,False,"company address in the signature, sent from a free mailbox provider",52,50,52,0,0,27,15,3,7,0.39
+validation,hv_sig_other_domain,header,signature_contact,False,no signature address belongs to the sender's domain,319,299,319,0,0,150,47,76,46,2.38
+validation,rv_no_from,request,any request,False,no usable From address,457,339,0,0,457,147,247,28,35,15.45
+validation,rv_ok,request,any request,True,"the asker authenticated as its own domain, is no free mailbox and redirects nothing",97,61,0,97,0,0,0,97,0,3.28
+validation,rv_no_proof,request,any request,False,"nothing contradicts the asker, but nothing proves who they are",1739,853,0,0,1739,97,67,1453,122,58.79
+validation,rv_change_needs_thread,request,payment_change,False,a bank-detail change cannot be confirmed from headers,96,82,0,0,96,0,2,93,1,3.25
+validation,rv_lookalike,request,any request,False,strongest signal: lookalike,3,3,3,0,0,0,0,3,0,0.1
+validation,rv_auth_fail,request,any request,True,strongest signal: auth fail,10,7,10,0,0,0,0,10,0,0.34
+validation,rv_freemail,request,any request,False,strongest signal: freemail,210,151,210,0,0,9,20,58,123,7.1
+validation,rv_reply_redirect,request,any request,False,strongest signal: reply redirect,128,60,128,0,0,0,2,126,0,4.33
+validation,rv_name_address,request,any request,False,strongest signal: name address,1,1,1,0,0,0,0,1,0,0.03
+validation,rv_spf_fail,request,any request,True,strongest signal: spf fail,29,14,29,0,0,0,0,29,0,0.98
+validation,rv_no_pass,request,any request,True,strongest signal: no pass,130,59,130,0,0,0,0,130,0,4.39
+validation,rv_name_domain,request,any request,False,strongest signal: name domain,58,37,58,0,0,7,0,51,0,1.96
+validation,tv_needs_thread,thread,prior_relationship,False,claims an earlier conversation; only the thread verifier (Phase 9) can check it,213,204,0,0,213,114,13,68,18,100.0
