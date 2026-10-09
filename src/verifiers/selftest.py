@@ -31,10 +31,10 @@ GOOD_IBAN = "DE89 3704 0044 0532 0130 00"
 CRAFTED_LIMIT = 2.0          # seconds one crafted input may take
 
 
-def claim(claim_type, text, organisation=None, department=None, confidence=0.9):
+def claim(claim_type, text, organisation=None, department=None, confidence=0.9, pattern="selftest"):
     """A claim dictionary in the form of src/claims/schema.py (the claim id is set by `claims`)."""
     return {"claim_id": "", "type": claim_type, "text": text, "span": [0, len(text)], "confidence": confidence,
-            "attributes": {"person": None, "organisation": organisation, "department": department, "pattern": "selftest", "zone": "body"}}
+            "attributes": {"person": None, "organisation": organisation, "department": department, "pattern": pattern, "zone": "body"}}
 
 
 def claims(*items):
@@ -82,6 +82,8 @@ GMAIL_SENDER = "From: Accounts <accounts.team@gmail.com>\nTo: Maria Lopez <maria
 COLLECTOR = "From: Alex <alex@gmail.com>\nTo: jose@monkey.org\nSubject: Hello\n"
 NO_FROM = "To: Maria Lopez <maria@acmecorp.com>\nSubject: Hello\n"
 NO_AUTH = "From: David Chen <david@acmecorp.com>\nTo: Maria Lopez <maria@acmecorp.com>\nSubject: Budget\n"
+UNRELATED = "From: Sam Rivera <sam@partner-example.org>\nTo: Maria Lopez <maria@acmecorp.com>\nSubject: Ticket\n"
+BARE_NAME = 'From: "Amazon.com" <store@mailer-example.net>\nTo: Maria Lopez <maria@acmecorp.com>\nSubject: Your order\n'
 TENANT = "From: Payroll <payroll@acme-payroll.onmicrosoft.com>\nTo: Maria Lopez <maria@acmecorp.com>\nSubject: Payroll\n"
 
 # (name, header block, claims, contact_text, body_text, expected [(rule, severity), ...] in claim order)
@@ -158,6 +160,20 @@ CASES = [
      claims(claim("payment_change", "new bank details")), "", "IBAN " + GOOD_IBAN, [("rv_change_needs_thread", "not_checkable")]),
     ("open-platform tenant acme-payroll.onmicrosoft.com counts as a free mailbox", TENANT,
      claims(claim("affiliation_internal", "this is Payroll", department="Payroll")), "", "", [("hv_int_freemail", "high")]),
+    ("a reference to a brand ('your Microsoft account') is not a claim of identity", AMAZON_OTHER,
+     claims(claim("affiliation_external", "Microsoft account", organisation="Microsoft", pattern="ae_org_cue")), "", "", [("hv_ext_reference", "not_checkable")]),
+    ("the nearest organisation is not the claim's organisation: nothing to compare", AMAZON_OTHER,
+     claims(claim("affiliation_external", "the Financial Services Authority", organisation="Lloyds TSB", pattern="ae_org_cue")), "", "", [("hv_ext_no_org", "not_checkable")]),
+    ("a footer 'copyright Amazon' counts as the sender speaking", AMAZON_OTHER,
+     claims(claim("affiliation_external", "Amazon", organisation="Amazon", pattern="ae_copyright")), "", "", [("hv_ext_other_domain", "medium")]),
+    ("an unknown organisation from a free mailbox is only low", GMAIL_SENDER,
+     claims(claim("affiliation_external", "Standard Bank Customer Service", organisation="Standard Bank")), "", "", [("hv_ext_unknown_freemail", "low")]),
+    ("an internal claim from an unrelated domain is only low (the recipient domain may be a list)", UNRELATED,
+     claims(claim("affiliation_internal", "IT help desk", department="IT")), "", "", [("hv_int_other_domain", "low")]),
+    ("a bare domain in the display name (Amazon.com) is only a low signal under a request", BARE_NAME,
+     claims(claim("credential_request", "log in to your account")), "", "", [("rv_name_domain", "low")]),
+    ("a copyright line is no contact address to compare, even when the footer holds one", GMAIL_SENDER,
+     claims(claim("signature_contact", "(c) 2008", pattern="sc_copyright")), "Acme Corp\nsales@acmecorp.com", "", [("hv_sig_not_contact", "not_checkable")]),
     ("prior_relationship goes to the thread verifier, tactics have no verifier", HONEST,
      claims(claim("prior_relationship", "as we discussed on the call"), claim("urgency", "right now")), "", "", [("tv_needs_thread", "not_checkable")]),
 ]

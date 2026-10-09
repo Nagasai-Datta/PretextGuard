@@ -5,6 +5,9 @@ Run from the project root (after Phases 2, 3 and 7; needs the spaCy model of req
     python -m src.verifiers.build --train-only --limit 6000   # a quick development run (about 4 minutes the first time)
     python -m src.verifiers.build --train-only --limit 6000 --diagnose affiliation_external,authority
                                                 # also print up to 25 contradictions found in ham and what passes in attacks (never saved)
+    python -m src.verifiers.build --train-only --limit 6000 --show-rules hv_ext_unknown_freemail,hv_sig_other_domain
+                                                # also print up to 25 examples of each named rule, from any category (never saved)
+    python -m src.verifiers.build --train-only --workers 4    # every train email; --workers makes the claim extraction (the slow part, first time only) run in 4 processes
     python -m src.verifiers.build --train-only                # every train email (about 20 minutes the first time, 1 minute with the cache)
     python -m src.verifiers.build                             # the final run of a frozen rule version: also reads the validation emails, once
 
@@ -36,7 +39,9 @@ affiliation_internal: a missing claim is never evidence of honesty.
 """
 
 import argparse
+import concurrent.futures
 import json
+import multiprocessing
 import time
 from collections import defaultdict
 
@@ -60,7 +65,7 @@ from src.verifiers.verify import ALL_RULES, RULES_VERSION, VERSION_LOG, verify_c
 CATEGORIES = ["ham", "spam", "phishing", "fraud"]
 TYPES = list(ROUTES)
 CHUNK = 2000
-FLUSH_EVERY = 5                       # chunks between saves of the claims cache
+FLUSH_EVERY = 1                       # chunks between saves of the claims cache (a slow run must not lose its work)
 FACT_COLUMNS = [
     "from_name", "from_addr", "from_registered_domain", "reply_to", "spf", "dkim", "dmarc", "auth_source", "authenticated_domain",
     "auth_aligned", "freemail", "name_has_address", "list_mail", "reply_to_divergence", "envelope_mismatch", "org_domain",
@@ -72,6 +77,7 @@ MIN_FIRED = 20
 DOMINANT_SHARE = 0.5
 EXAMPLES = 3                          # examples printed per type and kind
 DIAGNOSE_LINES = 25
+SHOW_RULE_LINES = 25                  # examples printed per rule named with --show-rules
 SNIPPET = 70
 # Where a claim type is expected to be contradicted clearly more often than in ordinary mail (rates of checkable claims).
 EXPECTED_HIGHER = [
@@ -126,20 +132,38 @@ def write_cache(split, model_version, store):
     temp.replace(path)                                  # the finished file appears in one step
 
 
-def get_claims(table, split):
-    """The claims of every email in table (a list of lists), from the cache where possible. Returns (claims, extracted now)."""
+def extract_chunk(job):
+    """The claims of one chunk of emails as JSON texts. Runs in the main process or in a worker (each loads the spaCy model once)."""
+    bodies, signatures = job
+    found, _ = extract_many(bodies, signatures)
+    return [json.dumps(claims) for claims in found]
+
+
+def get_claims(table, split, workers=1):
+    """The claims of every email in table (a list of lists), from the cache where possible. Returns (claims, extracted now).
+
+    With workers above 1 the missing emails are cut into chunks of 2,000 and extracted by that many processes at once; the
+    claims are the same, only the waiting is shorter. The cache is saved after every chunk, so an interrupted run loses nothing.
+    """
     model_version = load_nlp().meta["version"]
     store = read_cache(split, model_version)
     missing = table.index[~table["id"].isin(store)]
     if len(missing):
-        print("  extracting claims for %d of %d %s emails (%d are in the cache)" % (len(missing), len(table), split, len(table) - len(missing)))
-        for number, start in enumerate(tqdm(range(0, len(missing), CHUNK), desc="  extracting", unit=" x%d emails" % CHUNK), start=1):
-            part = table.loc[missing[start:start + CHUNK]]
-            found, _ = extract_many(part["body_redacted"].tolist(), [s if isinstance(s, str) else "" for s in part["signature"]])
-            for row_id, claims in zip(part["id"], found):
-                store[row_id] = json.dumps(claims)
+        print("  extracting claims for %d of %d %s emails (%d are in the cache), %d worker(s)" % (len(missing), len(table), split, len(table) - len(missing), workers))
+        parts = [table.loc[missing[start:start + CHUNK]] for start in range(0, len(missing), CHUNK)]
+        jobs = [(part["body_redacted"].tolist(), [s if isinstance(s, str) else "" for s in part["signature"]]) for part in parts]
+        if workers > 1:
+            pool = concurrent.futures.ProcessPoolExecutor(max_workers=workers, mp_context=multiprocessing.get_context("spawn"))
+            results = pool.map(extract_chunk, jobs)
+        else:
+            pool, results = None, map(extract_chunk, jobs)
+        for number, (part, texts) in enumerate(zip(parts, tqdm(results, total=len(jobs), desc="  extracting", unit=" x%d emails" % CHUNK)), start=1):
+            for row_id, text in zip(part["id"], texts):
+                store[row_id] = text
             if number % FLUSH_EVERY == 0:
                 write_cache(split, model_version, store)
+        if pool is not None:
+            pool.shutdown()
         write_cache(split, model_version, store)
     return [json.loads(store[row_id]) for row_id in table["id"]], len(missing)
 
@@ -151,9 +175,16 @@ def get_claims(table, split):
 class Examples:
     """Rows to read: contradictions found in ordinary mail, and (with --diagnose) what attacks pass. Printed, never saved."""
 
-    def __init__(self, diagnose_types):
+    def __init__(self, diagnose_types, show_rules=()):
         self.diagnose = set(diagnose_types)
         self.items = defaultdict(list)
+        self.show_rules = set(show_rules)
+        self.by_rule = defaultdict(list)
+
+    def add_rule(self, category, text, row, source):
+        """Up to 25 examples, any category, of each rule named with --show-rules."""
+        if row["rule"] in self.show_rules and len(self.by_rule[row["rule"]]) < SHOW_RULE_LINES:
+            self.by_rule[row["rule"]].append((category, row["claim_type"], row["severity"], text[:SNIPPET], source, row["evidence"].get("from_domain"), row["reason"][:170]))
 
     def add(self, kind, claim_type, text, row, source):
         limit = DIAGNOSE_LINES if claim_type in self.diagnose else EXAMPLES
@@ -178,6 +209,7 @@ def verify_table(table, claim_lists, split, examples):
             problems += check_row(row, ALL_RULES)
             status = {True: "contradiction", False: "consistent", None: "not_checkable"}[row["contradiction"]]
             evidence = row["evidence"]
+            examples.add_rule(category, texts.get(row["claim_id"], ""), row, source)
             records.append({"id": row_id, "split": split, "source": source, "category": category, "claim_type": row["claim_type"],
                             "verifier": row["verifier"], "rule": row["rule"], "status": status, "severity": row["severity"],
                             "weak": evidence.get("claim_strength") == "weak", "auth_state": evidence.get("auth_state"),
@@ -267,6 +299,29 @@ def print_matrix(rates, split, group_by, groups, title):
             print("%-22s" % claim_type + "".join("%-22s" % c for c in cells))
 
 
+def print_email_matrix(rates, split, group_by, groups, title):
+    """Share of the group's emails that hold at least one contradicted claim of the type (the number in brackets is how many emails)."""
+    part = rates[(rates["split"] == split) & (rates["group_by"] == group_by)]
+    lookup = {(r.group, r.claim_type): r for r in part.itertuples()}
+    print("\n%s (%s)" % (title, split))
+    print("%-22s" % "claim type" + "".join("%-22s" % g[:21] for g in groups))
+    for claim_type in ["any"] + TYPES:
+        cells = []
+        for g in groups:
+            r = lookup.get((g, claim_type))
+            cells.append("-" if r is None else "%5.1f%% (%d)" % (r.contradiction_email_pct, r.emails_with_contradiction))
+        if any(c != "-" for c in cells):
+            print("%-22s" % claim_type + "".join("%-22s" % c for c in cells))
+
+
+def print_rule_examples(examples):
+    for rule, items in sorted(examples.by_rule.items()):
+        print("\nExamples of rule %s (printed to read, never saved):" % rule)
+        for category, claim_type, severity, text, source, from_domain, reason in items:
+            print("  %-9s %-20s %-7s %-14s from %-24s %r" % (category, claim_type, severity, source[:14], str(from_domain)[:24], text))
+            print("      %s" % reason)
+
+
 def print_not_checkable(ledger, split):
     """Why claims could not be checked: the most common not-checkable rules per claim type."""
     part = ledger[(ledger["status"] == "not_checkable")]
@@ -333,11 +388,14 @@ def make_checks(ledger, rates, rules, problems, splits, args, started, counts):
     for claim_type, group in EXPECTED_HIGHER:
         ham = train[(train["group"] == "ham") & (train["claim_type"] == claim_type)]
         attack = train[(train["group"] == group) & (train["claim_type"] == claim_type)]
-        item = "%s contradicted on %s against ham" % (claim_type, group)
-        if ham.empty or attack.empty or (ham.iloc[0]["contradiction"] + ham.iloc[0]["consistent"]) < MIN_CHECKABLE or (attack.iloc[0]["contradiction"] + attack.iloc[0]["consistent"]) < MIN_CHECKABLE:
-            add("attack_vs_ham", item, "fewer than %d checkable claims in one of the two" % MIN_CHECKABLE, "judged only with enough checkable claims", "info")
+        item = "%s: emails with a contradicted claim, %s against ham" % (claim_type, group)
+        # The rate among CHECKABLE claims is no fair measure: where the only way to be checkable is to be contradicted it is near 100%
+        # in every category (first train run). The share of EMAILS is what a detector would see; the confound with the corpus remains.
+        if attack.empty or (attack.iloc[0]["contradiction"] + attack.iloc[0]["consistent"]) < MIN_CHECKABLE:
+            add("attack_vs_ham", item, "fewer than %d checkable claims on %s" % (MIN_CHECKABLE, group), "judged only with enough checkable claims", "info")
             continue
-        ham_rate, attack_rate = ham.iloc[0]["contradiction_pct_of_checkable"], attack.iloc[0]["contradiction_pct_of_checkable"]
+        ham_rate = float(ham.iloc[0]["contradiction_email_pct"]) if not ham.empty else 0.0
+        attack_rate = float(attack.iloc[0]["contradiction_email_pct"])
         add("attack_vs_ham", item, "%.1f%% vs ham %.1f%%" % (attack_rate, ham_rate), ">= %gx ham and above 0" % MIN_RATIO,
             "PASS" if attack_rate > 0 and attack_rate >= MIN_RATIO * ham_rate else "FAIL")
     slowest = max(seconds for _, seconds, _, _, _ in run_crafted())
@@ -377,6 +435,8 @@ def main():
     parser.add_argument("--train-only", action="store_true", help="never load validation emails (use while writing rules)")
     parser.add_argument("--limit", type=int, default=0, help="a random sample of N train emails (a quick run; needs --train-only)")
     parser.add_argument("--diagnose", default="", help="comma-separated claim types: print up to 25 contradictions found in ham and what passes in attacks")
+    parser.add_argument("--workers", type=int, default=1, help="processes for the claim extraction (the first run over all train emails: try 4); the claims are the same")
+    parser.add_argument("--show-rules", default="", help="comma-separated rule ids: print up to 25 examples of each, from any category (never saved)")
     args = parser.parse_args()
     if args.limit and not args.train_only:
         raise SystemExit("--limit is for development runs: use it with --train-only. The final run uses every email.")
@@ -390,12 +450,16 @@ def main():
     print("Rules version %s, claim pattern version %s, spaCy %s, model %s %s" % (RULES_VERSION, PATTERN_VERSION, spacy.__version__, MODEL_NAME, nlp.meta["version"]))
 
     splits = ["train"] if args.train_only else ["train", "validation"]
-    examples = Examples(diagnose_types)
+    show_rules = [r for r in args.show_rules.split(",") if r]
+    bad_rules = [r for r in show_rules if r not in ALL_RULES]
+    if bad_rules:
+        raise SystemExit("--show-rules: unknown rules %s" % bad_rules)
+    examples = Examples(diagnose_types, show_rules)
     ledgers, rate_frames, rule_frames, problems, counts = [], [], [], [], {}
     for split in splits:
         table = load_split(split, args.limit if split == "train" else 0)
         print("\n%s: %d emails (%s)" % (split, len(table), ", ".join("%s %d" % (c, n) for c, n in table["category"].value_counts().items())))
-        claim_lists, extracted = get_claims(table, split)
+        claim_lists, extracted = get_claims(table, split, max(1, args.workers))
         counts[split] = (len(table), extracted)
         ledger, found_problems = verify_table(table, claim_lists, split, examples)
         problems += found_problems
@@ -407,6 +471,8 @@ def main():
         print("\n%s: %d claims routed to a verifier in %d emails" % (split, len(ledger), ledger["id"].nunique()))
         print_matrix(rates_now, split, "category", CATEGORIES, "Contradicted among CHECKABLE claims, per category")
         print_matrix(rates_now, split, "source", sources, "Contradicted among CHECKABLE claims, per source (a source without the evidence shows 'none checkable')")
+        print_email_matrix(rates_now, split, "category", CATEGORIES, "Share of EMAILS with a contradicted claim of the type, per category")
+        print_email_matrix(rates_now, split, "source", sources, "Share of EMAILS with a contradicted claim of the type, per source")
         print_not_checkable(ledger, split)
     all_ledger = pd.concat(ledgers, ignore_index=True)
     rates = pd.concat(rate_frames, ignore_index=True)
@@ -416,9 +482,10 @@ def main():
                               ("attack_contradiction", "Contradictions found in attacks (phishing, fraud)"),
                               ("attack_consistent", "Claims in attacks the verifiers found consistent (--diagnose only): what slips through")])
     train_rules = rules[(rules["split"] == "train") & (rules["rows"] > 0)].sort_values("rows", ascending=False)
-    print("\nMost frequent rules on the train emails (rows: contradiction / consistent / not checkable):")
-    for r in train_rules.head(14).itertuples():
-        print("  %-26s %7d  %6d / %6d / %6d   %s" % (r.rule, r.rows, r.contradiction, r.consistent, r.not_checkable, r.meaning[:70]))
+    print_rule_examples(examples)
+    print("\nMost frequent rules on the train emails (rows: contradiction / consistent / not checkable; then rows in ham / spam / phishing / fraud):")
+    for r in train_rules.head(24).itertuples():
+        print("  %-26s %7d  %6d / %6d / %6d   %6d / %5d / %6d / %5d   %s" % (r.rule, r.rows, r.contradiction, r.consistent, r.not_checkable, r.ham, r.spam, r.phishing, r.fraud, r.meaning[:60]))
 
     checks = make_checks(all_ledger, rates, rules, problems, splits, args, started, counts)
     print("\nChecks:")

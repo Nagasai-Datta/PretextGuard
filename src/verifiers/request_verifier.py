@@ -18,7 +18,8 @@ Section 6.5:
     freemail        a free mailbox provider anyone can use                                      medium (high when the
                     sender is outside the recipient's organisation: the asker is a stranger)
     reply_redirect  the Reply-To header sends the answer to another domain                      medium
-    name_address    the display name shows a different address from the one that sent it        medium
+    name_address    the display name shows a different e-mail ADDRESS from the one that sent it medium
+    name_domain     the display name shows only a bare domain ("Amazon.com"), which brands write   low
     spf_fail        SPF failed and nothing passed                                               medium
     no_pass         verdicts exist but none passed                                              low
 
@@ -57,7 +58,7 @@ RULES = {
 # The signal names, with their base severity, are rule ids too, so build.py can count each one.
 SIGNALS = {
     "lookalike": ("high", False), "auth_fail": ("high", True), "freemail": ("medium", False), "reply_redirect": ("medium", False),
-    "name_address": ("medium", False), "spf_fail": ("medium", True), "no_pass": ("low", True),
+    "name_address": ("medium", False), "spf_fail": ("medium", True), "no_pass": ("low", True), "name_domain": ("low", False),
 }
 for _name, (_severity, _reads_auth) in SIGNALS.items():
     RULES["rv_" + _name] = ("any request", _reads_auth, "strongest signal: " + _name.replace("_", " "))
@@ -74,6 +75,7 @@ SIGNAL_TEXT = {
     "freemail": "it was sent from %(from_domain)s, a free mailbox provider anyone can use",
     "reply_redirect": "the Reply-To header sends replies to %(reply_domain)s",
     "name_address": "the display name shows a different address from the one that sent it",
+    "name_domain": "the display name shows a domain name that is not the sender's",
     "spf_fail": "SPF failed",
     "no_pass": "no authentication check passed",
 }
@@ -97,8 +99,10 @@ def asker_signals(claim, f):
         found.append(("freemail", "high" if f["external"] else "medium", None))
     if f["reply_to_divergence"] is True:
         found.append(("reply_redirect", "medium", None))
-    if f["name_has_address"]:
+    if f["name_address"]:
         found.append(("name_address", "medium", None))
+    elif f["name_domain"]:
+        found.append(("name_domain", "low", None))
     if f["auth_state"] == "spf_failed":
         found.append(("spf_fail", "medium", None))
     if f["auth_state"] == "no_pass":

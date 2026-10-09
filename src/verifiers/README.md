@@ -3,11 +3,15 @@
 Phase 8: the **header verifier** (N3, the core novelty) and the **request verifier**. They take the claims that `src/claims` found in an email and the evidence that `src/headers` read from its headers, and return **ledger rows**: one verdict per claim, with the evidence and the reason. The thread verifier (N2) joins them in Phase 9; Phase 10 turns the rows into the risk score.
 
 ```bash
-python -m src.verifiers.selftest                          # hand-made emails and crafted input, no data needed (55 PASS lines)
+python -m src.verifiers.selftest                          # hand-made emails and crafted input, no data needed (62 PASS lines)
 python -m src.verifiers.build --train-only --limit 6000   # a quick development run on a random 6,000 train emails
 python -m src.verifiers.build --train-only --limit 6000 --diagnose affiliation_external,authority
                                                           # also prints up to 25 contradictions found in ham, and what passes in attacks (never saved)
-python -m src.verifiers.build --train-only                # every train email; validation is never loaded
+python -m src.verifiers.build --train-only --limit 6000 --show-rules hv_ext_unknown_freemail,hv_sig_other_domain
+                                                          # also prints up to 25 examples of each named rule, from any category (never saved)
+python -m src.verifiers.build --train-only --workers 4    # every train email; validation is never loaded. --workers runs the claim extraction (the slow part,
+                                                          # first time only) in 4 processes; the claims are the same
+python -m src.verifiers.build --train-only                # the same with one process
 python -m src.verifiers.build                             # the final run of a frozen rule version: also reads the validation emails, once
 ```
 
@@ -39,7 +43,7 @@ rows[0]   # {"claim_id": "c1", "claim_type": "affiliation_internal", "verifier":
 | `header_verifier.py` | N3: `affiliation_internal`, `affiliation_external`, `authority`, `reply_direction`, `signature_contact` |
 | `request_verifier.py` | Who is asking: `payment_request`, `payment_change`, `credential_request`, `gift_card`, `data_request` |
 | `verify.py` | `verify_claims`: routes each claim to its verifier (Section 6.4), holds `RULES_VERSION`, `VERSION_LOG` and the list of all rules |
-| `selftest.py` | 29 hand-made emails with real header blocks and the rows they must give, 16 helper checks, 8 crafted inputs |
+| `selftest.py` | 36 hand-made emails with real header blocks and the rows they must give, 16 helper checks, 8 crafted inputs |
 | `build.py` | Runs the verifiers over the train split (and validation in the final run), caches the extracted claims, writes `results/verifier_*.csv` |
 
 ## What a row says: three values, never two
@@ -71,28 +75,32 @@ Authentication enters **only** through rules like these, never as a learned feat
 
 ## The rules
 
-Every row names its rule (`rule`), the way every claim names its pattern. `verify.py` lists all 59; `results/verifier_rule_hits.csv` counts them. The main ones:
+Every row names its rule (`rule`), the way every claim names its pattern. `verify.py` lists all 62; `results/verifier_rule_hits.csv` counts them. The main ones:
 
 | Claim | Contradiction when | Severity |
 |---|---|---|
 | `affiliation_internal` | sender is a free mailbox, or a look-alike of the organisation domain | high |
-| | sender uses the organisation's name under another suffix, or an unrelated domain | medium |
+| | sender uses the organisation's name under another suffix | medium |
+| | sender is an unrelated domain (weak: without a List-Id the recipient domain is often a mailing list, or a partner) | low |
 | | From shows the organisation's own domain, but DMARC failed | high |
 | | ... SPF failed, or authentication vouched for another domain | medium |
 | | not checkable: no organisation domain, mailing-list mail (the recipient domain is the list's), no From, or From shows the organisation's domain but there is no verdict | |
-| `affiliation_external` | the named organisation is in `brands.py` and the sender is a free mailbox, a look-alike, or the display name shows another address | high |
+| `affiliation_external` | checked only if the claim's own words name the organisation **and** say the sender is that organisation: a team, department, support, security, customer, billing ... (or a footer, or "on behalf of"). "your Microsoft account" or "SharePoint Services" is a reference, not a claim of identity, and is not checkable. The organisation is read from the claim text, not from the nearest organisation in the email | |
+| | the named organisation is in `brands.py` and the sender is a free mailbox, a look-alike, or the display name shows another e-mail address | high |
 | | ... the sender is an unrelated domain (brand mail sometimes goes through a third-party mailer) | medium |
 | | consistent: the brand's own domain sent it and authentication passed, or the brand's domain authenticated the message | |
-| | the organisation has no domain on file: medium for a free mailbox, otherwise not checkable; a claim that names no organisation is not checkable | |
+| | the organisation has no domain on file: low for a free mailbox (the name comes from a name recogniser), otherwise not checkable; a claim that names no organisation is not checkable | |
 | `authority` | display name shows another address, look-alike of the organisation domain, DMARC failed | high |
 | | free mailbox, SPF failed | medium |
 | `reply_direction` | the Reply-To header points to another domain; to a free mailbox while the sender is not one, or to a look-alike | medium; high |
 | | list-set Reply-To is excluded; no Reply-To header is not checkable (the body's own address is redacted) | |
-| `signature_contact` | no e-mail address in the **unredacted** signature is on the From domain | low |
+| `signature_contact` | checked only for contact claims (a name with a phone or address, a labelled contact, a bare contact in the signature); a postal address, disclaimer, copyright line or sign-off name is not checkable | |
+| | no e-mail address in the **unredacted** signature is on the From domain | low |
 | | the sender is a free mailbox and the signature shows a company address | medium |
 | | an address that looks like the sender's own domain | high |
 | Request claims | the asker is a look-alike (of the organisation, or of the brand the request names), DMARC failed | high |
-| | free mailbox (**high** when the sender is outside the recipient's organisation), Reply-To to another domain, display name shows another address, SPF failed | medium |
+| | free mailbox (**high** when the sender is outside the recipient's organisation), Reply-To to another domain, display name shows another e-mail address, SPF failed | medium |
+| | the display name shows only a bare domain ("Amazon.com"); brands write their site name like this, so it is weak | low |
 | | adjustments: `payment_change` and `gift_card` +1 step, `data_request` -1, valid bank details in a payment message +1 | |
 | | consistent only if authentication passed for the sender's own domain; a bank-detail change is always "needs the thread" | |
 
@@ -127,7 +135,7 @@ Nobody marked which emails contain a contradicted claim, so there is no precisio
 2. **Contradiction rates** (`results/verifier_rates.csv`): per category, per source and per source and category, for every claim type and for all together, among the claims that could be checked. An attack should show more contradictions than ordinary mail. **Caution:** attacks and ham come from different corpora with different header evidence (master document Section 8.11): phishing_pot has verdicts for 99%, Nazario for 21%, Apache for DKIM only, SpamAssassin, CEAS-08 and Kaggle for none. A difference between categories is partly a difference between corpora; the per-source rows show it, and "not checkable" is never counted as "no contradiction".
 3. **The false alarms are read:** the contradictions found in ham are printed (three per type, 25 with `--diagnose`), the way Phase 7 printed false positives. They are never saved.
 4. **Freeze, then one read of validation.** Rules are written from definitions and revised only after reading **train** results (`--train-only` never loads a validation email). The final run reads the validation emails once. The test split is used in Phase 13.
-5. **Checks** (`results/verifier_checks.csv`): the self-test; the brand file (no free-mailbox domain, every `KNOWN_ORGS` name covered); every row passes `check_row`; contradiction + consistent + not checkable add up to the claims in every group; no rule that reads authentication fires without a verdict; no internal-affiliation row is decided without an organisation domain or on mailing-list mail; no weak claim has severity high; six attack-versus-ham contrasts (each at least twice the ham rate, judged only with 20 or more checkable claims on both sides); crafted inputs under 2 seconds; coverage and dominant-rule findings (`info`, not failures).
+5. **Checks** (`results/verifier_checks.csv`): the self-test; the brand file (no free-mailbox domain, every `KNOWN_ORGS` name covered); every row passes `check_row`; contradiction + consistent + not checkable add up to the claims in every group; no rule that reads authentication fires without a verdict; no internal-affiliation row is decided without an organisation domain or on mailing-list mail; no weak claim has severity high; six attack-versus-ham contrasts (the share of *emails* with a contradicted claim of the type must be at least twice the ham share; judged only with 20 or more checkable claims in the attack category. The rate among checkable claims is no fair measure: it was close to 100% in every category in the first run, because "checkable" mostly meant "contradicted"); crafted inputs under 2 seconds; coverage and dominant-rule findings (`info`, not failures).
 
 How much contradictions add to detection is the N3 ablation of Phase 13, with real affiliation positives and synthetic BEC apart. The synthetic emails have no headers; Phase 13 will generate clearly synthetic header blocks for them for that ablation only (generating them now would mean tuning the rules on headers written by the same person, which is circular).
 
@@ -159,3 +167,4 @@ The extracted claims are cached in `data/processed/claims_cache/` (ignored by Gi
 | Version | Change |
 |---|---|
 | 0.1 | First version: rules written from master document Sections 4.4 and 6.5, the Phase 3 and Phase 7 notes and the claim definitions; thresholds fixed (look-alike score 80, names of 6 or more letters); severities are initial labels. No real email had been read |
+| 0.2 | Read off the first train run (6,000 emails): affiliation_external was contradicted in 98% to 100% of its checkable claims in every category, because claims that only MENTION a brand (your Microsoft account, SharePoint Services) were treated as claims of identity, and the claimed organisation was taken from the nearest organisation in the text (Lloyds next to the Financial Services Authority). Now an external claim is checked only if the claim's own words name the organisation and say the sender is that organisation (a team, department, support, security ... or a footer or 'on behalf of'); a mere reference is not checkable. An unrelated domain under an internal claim is low (in sources without a List-Id the recipient domain is often a mailing list, as in the opensuse.org and linux.ie ham examples); an unknown organisation from a free mailbox is low (the name comes from a name recogniser: 'Hi team'). A display name that holds only a bare domain name (brands write their site name, such as Brand.com, in the display name and send through mailers) is now low; only a shown e-mail address is medium. signature_contact compares addresses only for contact claims, not for postal addresses, disclaimers, copyright lines or sign-off names. The attack-versus-ham check now compares the share of EMAILS with a contradicted claim, because the rate among checkable claims is close to 100% in every category when 'checkable' mostly means 'contradicted' |

@@ -54,7 +54,7 @@ RULES = {
     "hv_int_freemail": ("affiliation_internal", False, "claims to be internal, sent from a free mailbox provider"),
     "hv_int_lookalike": ("affiliation_internal", False, "claims to be internal, sent from a look-alike of the organisation's domain"),
     "hv_int_suffix": ("affiliation_internal", False, "claims to be internal, sent from the organisation's name under another suffix"),
-    "hv_int_other_domain": ("affiliation_internal", False, "claims to be internal, sent from an unrelated domain"),
+    "hv_int_other_domain": ("affiliation_internal", False, "claims to be internal, sent from an unrelated domain (weak: the recipient domain may be a list or a partner)"),
     "hv_int_spoof": ("affiliation_internal", True, "From shows the organisation's own domain but DMARC failed (exact-domain spoof)"),
     "hv_int_auth_other": ("affiliation_internal", True, "From shows the organisation's domain, authentication vouched for another domain"),
     "hv_int_spf_fail": ("affiliation_internal", True, "From shows the organisation's domain, SPF failed"),
@@ -63,6 +63,7 @@ RULES = {
     "hv_int_no_auth": ("affiliation_internal", False, "From shows the organisation's domain, but no authentication verdict exists"),
     "hv_ext_no_from": ("affiliation_external", False, "no usable From address"),
     "hv_ext_no_org": ("affiliation_external", False, "the claim names no organisation"),
+    "hv_ext_reference": ("affiliation_external", False, "names an organisation without saying the sender is that organisation (your PayPal account)"),
     "hv_ext_brand_spoof": ("affiliation_external", True, "From shows the brand's domain but DMARC failed"),
     "hv_ext_brand_auth_other": ("affiliation_external", True, "From shows the brand's domain, authentication vouched for another domain"),
     "hv_ext_brand_spf_fail": ("affiliation_external", True, "From shows the brand's domain, SPF failed"),
@@ -75,7 +76,7 @@ RULES = {
     "hv_ext_name_spoof": ("affiliation_external", False, "claims a known organisation, display name shows another address"),
     "hv_ext_suffix": ("affiliation_external", False, "claims a known organisation, sent from its name under another suffix"),
     "hv_ext_other_domain": ("affiliation_external", False, "claims a known organisation, sent from an unrelated domain"),
-    "hv_ext_unknown_freemail": ("affiliation_external", False, "claims an organisation with no known domain, sent from a free mailbox provider"),
+    "hv_ext_unknown_freemail": ("affiliation_external", False, "claims an organisation with no known domain, sent from a free mailbox provider (weak: the name comes from a name recogniser)"),
     "hv_ext_unknown_org": ("affiliation_external", False, "the claimed organisation has no known domain"),
     "hv_auth_no_from": ("authority", False, "no usable From address"),
     "hv_auth_name_address": ("authority", False, "rank claimed, display name shows another address"),
@@ -90,6 +91,7 @@ RULES = {
     "hv_reply_ok": ("reply_direction", False, "Reply-To is the sender's own domain or was set by a mailing list"),
     "hv_reply_no_header": ("reply_direction", False, "no Reply-To header to compare"),
     "hv_sig_no_from": ("signature_contact", False, "no usable From address"),
+    "hv_sig_not_contact": ("signature_contact", False, "a postal address, disclaimer, copyright line or sign-off name is not a contact address to compare"),
     "hv_sig_no_address": ("signature_contact", False, "the signature holds no e-mail address"),
     "hv_sig_ok": ("signature_contact", False, "a signature address belongs to the sender's domain"),
     "hv_sig_lookalike": ("signature_contact", False, "a signature address is a look-alike of the sender's domain"),
@@ -102,6 +104,16 @@ RULES = {
 # ---------------------------------------------------------------------------------------------------------------
 
 MAX_WORDS = 60
+
+# An organisation name next to one of these words is a SPEAKER ("PayPal Security Team writes to you"). Next to the others
+# (account, online, services, bank, inc ...) it is a name or a reference ("your PayPal account", "SharePoint Services").
+SPEAKER_CUES = frozenset(
+    "team department dept security support customer helpdesk desk billing representative representatives notification notifications "
+    "division office unit staff centre center promotions promotion".split())
+SPEAKER_PATTERNS = ("ae_sent_by_org", "ae_on_behalf", "ae_copyright")      # "message from X", "on behalf of X", "(c) 2024 X"
+# Signature rules of src/claims/patterns.py that find no contact address: a postal address, a disclaimer, a copyright line,
+# a name after a closing word. Only the contact rules (sc_contact, sc_name_contact, sc_labelled_contact) are compared with From.
+NON_CONTACT_PATTERNS = frozenset(("sc_street", "sc_street_zip", "sc_in_error", "sc_notify_sender", "sc_copyright", "sc_sent_by", "sc_receiving", "sc_signoff_name"))
 
 
 def words_of(text):
@@ -141,6 +153,33 @@ def find_brand(*texts):
                 if brand:
                     return brand
     return None
+
+
+def lies_within(name, text):
+    """True if the words of name appear in a row in text (both cleaned to lower-case words)."""
+    inner, outer = words_of(name), words_of(text)
+    return bool(inner) and any(outer[i:i + len(inner)] == inner for i in range(len(outer) - len(inner) + 1))
+
+
+def claimed_organisation(claim):
+    """(brand key or None, organisation name or ''): the organisation the claim's OWN words name.
+
+    attributes.organisation is the nearest organisation within six tokens of the claim, which can be another one
+    ("the Financial Services Authority" next to "Lloyds TSB"), so it counts only if it lies inside the claim text.
+    """
+    text = claim.get("text") or ""
+    named = clean_text(claim.get("attributes", {}).get("organisation") or "", 40)
+    if named and not lies_within(named, text):
+        named = ""
+    brand = find_brand(text) or (find_brand(named) if named else None)
+    return brand, named
+
+
+def speaks_as_organisation(claim):
+    """True if the claim says the sender IS the organisation (a team, a department, a footer, 'on behalf of'), not that it is mentioned."""
+    if claim.get("attributes", {}).get("pattern") in SPEAKER_PATTERNS:
+        return True
+    return any(word in SPEAKER_CUES for word in words_of(claim.get("text") or ""))
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -231,24 +270,26 @@ def verify_internal(claim, f):
         return contradiction_row(HEADER, claim, "hv_int_lookalike", "high", "%s, a look-alike of %s.%s" % (start, f["org_domain"], tail), evidence)
     if relation == "suffix":
         return contradiction_row(HEADER, claim, "hv_int_suffix", "medium", "%s, the same name as %s under another suffix.%s" % (start, f["org_domain"], tail), evidence)
-    return contradiction_row(HEADER, claim, "hv_int_other_domain", "medium", "%s, an unrelated domain.%s" % (start, tail), evidence)
+    return contradiction_row(HEADER, claim, "hv_int_other_domain", "low",
+                             "%s, an unrelated domain (the recipient domain may be a list or a partner, so this is weak).%s" % (start, tail), evidence)
 
 
 def verify_external(claim, f):
     """affiliation_external: does the sender belong to the outside organisation the email says it represents?"""
-    attributes = claim.get("attributes", {})
-    named = clean_text(attributes.get("organisation") or "", 40)
-    brand = find_brand(claim.get("text"), attributes.get("organisation"))
+    brand, named = claimed_organisation(claim)
     evidence = {"from_domain": f["from_domain"], "claimed_organisation": brand or named or None, "freemail": f["freemail"],
-                "name_has_address": f["name_has_address"], **auth_evidence(f)}
+                "name_address": f["name_address"], **auth_evidence(f)}
     if not f["from_domain"]:
         return unchecked_row(HEADER, claim, "hv_ext_no_from", "Claims to represent an outside organisation, but the message has no usable From address.", evidence)
     if not (brand or named):
         return unchecked_row(HEADER, claim, "hv_ext_no_org",
                              "The claim names no organisation (a cue such as Security Team on its own), so there is no domain to compare the sender with.", evidence)
+    if not speaks_as_organisation(claim):
+        return unchecked_row(HEADER, claim, "hv_ext_reference",
+                             "Names %s, but does not say the sender is %s (a reference such as 'your account' or a service name), so it is not a claim of identity." % (brand or named, brand or named), evidence)
     if not brand:
         if f["freemail"]:
-            return contradiction_row(HEADER, claim, "hv_ext_unknown_freemail", "medium",
+            return contradiction_row(HEADER, claim, "hv_ext_unknown_freemail", "low",
                                      "Claims to represent %s, but the message comes from %s, a free mailbox provider anyone can use." % (named, f["from_domain"]), evidence)
         return unchecked_row(HEADER, claim, "hv_ext_unknown_org",
                              "Claims to represent %s, which has no domain on file, so the sender domain %s cannot be compared with it." % (named, f["from_domain"]), evidence)
@@ -268,7 +309,7 @@ def verify_external(claim, f):
         return contradiction_row(HEADER, claim, "hv_ext_freemail", "high", "%s, a free mailbox provider anyone can use.%s" % (start, tail), evidence)
     if relation == "lookalike":
         return contradiction_row(HEADER, claim, "hv_ext_lookalike", "high", "%s, a look-alike of %s.%s" % (start, near, tail), evidence)
-    if f["name_has_address"]:
+    if f["name_address"]:
         return contradiction_row(HEADER, claim, "hv_ext_name_spoof", "high",
                                  "%s, and the display name shows a different address from the one that sent it.%s" % (start, tail), evidence)
     if relation == "suffix":
@@ -282,11 +323,11 @@ def verify_authority(claim, f):
     address, or failed authentication. The rank itself can never be verified from headers; an authenticated sender is
     'consistent' only in the sense that nothing contradicts it."""
     evidence = {"from_domain": f["from_domain"], "org_domain": f["org_domain"], "freemail": f["freemail"],
-                "name_has_address": f["name_has_address"], **auth_evidence(f)}
+                "name_address": f["name_address"], **auth_evidence(f)}
     if not f["from_domain"]:
         return unchecked_row(HEADER, claim, "hv_auth_no_from", "Claims a rank, but the message has no usable From address.", evidence)
     signals = []       # (severity rank, rule, text); the strongest decides the row, all go into the reason
-    if f["name_has_address"]:
+    if f["name_address"]:
         signals.append((3, "high", "hv_auth_name_address", "the display name shows a different address from the one that sent it"))
     relation, _ = best_similarity(f["from_domain"], [f["org_domain"]]) if f["org_domain"] else (None, None)
     if relation == "lookalike" and not f["from_matches_org"]:
@@ -336,8 +377,12 @@ def verify_reply(claim, f):
 def verify_signature(claim, f, contact_text):
     """signature_contact: the signature block shows contact details. Contradicted when none of its e-mail addresses is on
     the From domain. contact_text is the UNREDACTED signature block (redacted text only has the placeholder [EMAIL])."""
+    pattern = claim.get("attributes", {}).get("pattern")
     addresses = find_addresses(contact_text)
-    evidence = {"from_domain": f["from_domain"], "signature_domains": addresses, "freemail": f["freemail"], "list_mail": f["list_mail"]}
+    evidence = {"from_domain": f["from_domain"], "signature_domains": addresses, "freemail": f["freemail"], "list_mail": f["list_mail"], "pattern": pattern}
+    if pattern in NON_CONTACT_PATTERNS:
+        return unchecked_row(HEADER, claim, "hv_sig_not_contact",
+                             "The claim is a postal address, disclaimer, copyright line or sign-off name; it holds no contact address, and addresses elsewhere in the footer say nothing about it.", evidence)
     if not f["from_domain"]:
         return unchecked_row(HEADER, claim, "hv_sig_no_from", "The signature shows contact details, but the message has no usable From address.", evidence)
     if not addresses:

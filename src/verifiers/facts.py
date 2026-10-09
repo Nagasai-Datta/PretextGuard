@@ -15,6 +15,9 @@ It returns plain Python values (a missing value or pandas' NA becomes None) and 
                    unknown       no verdict at all (old corpora, or no Authentication-Results header)
     external     the sender is outside the recipient's organisation (None when the organisation domain is unknown)
     reply_domain the registered domain of the Reply-To address
+    name_address the display name holds an e-mail ADDRESS (with an @) on another domain than the sender's: '"service@paypal.com" <x@evil.ru>'
+    name_domain  the display name holds only a bare domain name that is not the sender's ("Amazon.com" <store@mailer.net>): brands write
+                 their own name like this and send through mailers, so it is a much weaker sign than an address
 
 Authentication tells a verifier WHICH DOMAIN sent the message, never WHO the person is. That is why the verifiers
 read it only against a claim: "authenticated for gmail.com" is normal for a Gmail user and a contradiction for
@@ -104,6 +107,11 @@ def prepare_facts(raw):
     reply = f["reply_to"] if isinstance(f["reply_to"], str) and f["reply_to"].count("@") == 1 else None
     f["reply_domain"] = clean_domain(registered_domain(reply.split("@")[1])) if reply else None
     f["auth_state"] = auth_state(f)
+    # Phase 3's name_has_address also fires on bare domains ("eBay.com"), which brands write in their display names. The
+    # verifiers separate a shown ADDRESS (strong) from a shown bare domain (weak) by reading the display name itself.
+    shown = find_addresses(f["from_name"]) if isinstance(f["from_name"], str) else []
+    f["name_address"] = bool(f["from_domain"] and any(d != f["from_domain"] for d in shown))
+    f["name_domain"] = bool(f["name_has_address"] and not f["name_address"])
     return f
 
 
