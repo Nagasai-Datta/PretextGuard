@@ -44,6 +44,13 @@ The files here hold counts and scores only, never email text, so they are safe t
 | `verifier_rates.csv` | `python -m src.verifiers.build` | Per split, group (all, category, source, source and category) and claim type: claims contradicted, consistent and not checkable, by severity, and the contradiction rate among the checkable ones (counts only; there are no contradiction labels, so these are rates, not precision or recall) |
 | `verifier_rule_hits.csv` | `python -m src.verifiers.build` | How many ledger rows each verifier rule produced, by status and category (also rules that never fired) |
 | `verifier_checks.csv` | `python -m src.verifiers.build` | PASS/FAIL checks on the header and request verifiers, plus rule version, claim pattern version and run details |
+| `thread_counts.csv` | `python -m src.thread.build` | Threads and messages found per source and split, thread sizes, and how many candidate groups were dropped and why |
+| `thread_signal_rates.csv` | `python -m src.thread.build` | Per split, source and thread rule: how many rows were contradictions, consistent or not checkable on REAL unmodified threads (every medium or high contradiction there is a false alarm); the `(all rules)` rows count messages and threads |
+| `thread_checks.csv` | `python -m src.thread.build` | PASS/FAIL checks on the thread builder and verifier (self-test, structure, splits, false alarms), plus rule version and run details |
+| `hijack_generation.csv` | `python -m src.data.hijack_benchmark collect` | Base threads planned, valid, dropped after a re-ask, and the problems the replies had |
+| `hijack_cases.csv` | `python -m src.data.hijack_benchmark collect` | Benchmark cases and threads per split, source and variant |
+| `thread_scores.csv` | `python -m src.thread.evaluate` | Per split, source and variant: detection by the thread verifier, by the Phase 8 verifiers and by either, which signal caught each case, whether the scan flips at the injected message, and false alarms on the negatives; rates with 95% intervals over threads, counts only below 10 cases |
+| `hijack_checks.csv` | `python -m src.thread.evaluate` | PASS/FAIL checks on the benchmark (labels, structure, no thread in two splits, the construction invariants), plus rule versions and run details |
 
 ## Still to come
 
@@ -53,4 +60,5 @@ The files here hold counts and scores only, never email text, so they are safe t
 | 6 (test) | Tactic classifier and baseline on the test split: Phase 13, once, with the thresholds fixed on validation |
 | 7 (test) | Claim extractor on the test split: Phase 13, once, with the patterns frozen |
 | 8 (test) | Verifier contradiction rates on the test split and the N3 ablation: Phase 13, once, with the rules frozen |
+| 9 (test) | Thread verifier on the test threads and the N2 ablation with the risk score: Phase 13, once, with the rules frozen |
 | 13 | N1, N2, N3 and architecture ablations; claim-extraction accuracy; paraphrase and style-confound tests; charts |

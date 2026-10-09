@@ -113,7 +113,7 @@ Phase 1 gathered nine sources into one table of **99,324 unique emails** (20,313
 | phishing_pot (honeypot .eml files) | 7,491 | Modern phishing with real authentication headers |
 | SpamAssassin public corpus (raw) | 5,775 | Ham and spam with full headers (2002 to 2005) |
 | Apache user lists: tomcat and kafka (24 months) | 3,190 | Modern legitimate mail and real threads with full headers |
-| Raw Enron (CMU maildir, 517,401 messages) | not in the table | Header check now; real threads in Phase 9 |
+| Raw Enron (CMU maildir, 517,401 messages) | not in the table | Header check; real threads for N2 (Phase 9) |
 
 - `data/raw/`: downloads, never modified (not committed).
 - `data/processed/staged.parquet`: the one table, with a fixed 70/15/15 train/validation/test split (not committed).
@@ -192,7 +192,7 @@ pretextguard/
 | 6 | DistilBERT tactic classifier on Colab | Done |
 | 7 | Claim extractor | Done |
 | 8 | Header verifier (N3) and request verifier | Done |
-| 9 | Thread builder, thread-hijack benchmark, thread verifier (N2) | Not started |
+| 9 | Thread builder, thread-hijack benchmark, thread verifier (N2) | Done |
 | 10 | Claim router, verdict ledger, risk score, LIME | Not started |
 | 11 | FastAPI backend with all security controls | Not started |
 | 12 | React frontend | Not started |

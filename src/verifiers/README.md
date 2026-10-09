@@ -1,6 +1,6 @@
 # src/verifiers/
 
-Phase 8: the **header verifier** (N3, the core novelty) and the **request verifier**. They take the claims that `src/claims` found in an email and the evidence that `src/headers` read from its headers, and return **ledger rows**: one verdict per claim, with the evidence and the reason. The thread verifier (N2) joins them in Phase 9; Phase 10 turns the rows into the risk score.
+Phase 8: the **header verifier** (N3, the core novelty) and the **request verifier**. They take the claims that `src/claims` found in an email and the evidence that `src/headers` read from its headers, and return **ledger rows**: one verdict per claim, with the evidence and the reason. The thread verifier (N2, Phase 9, `thread_verifier.py`, described in `src/thread/README.md`) adds a third kind of row; Phase 10 turns the rows into the risk score.
 
 ```bash
 python -m src.verifiers.selftest                          # hand-made emails and crafted input, no data needed (67 PASS lines)
@@ -43,6 +43,7 @@ rows[0]   # {"claim_id": "c1", "claim_type": "affiliation_internal", "verifier":
 | `header_verifier.py` | N3: `affiliation_internal`, `affiliation_external`, `authority`, `reply_direction`, `signature_contact` |
 | `request_verifier.py` | Who is asking: `payment_request`, `payment_change`, `credential_request`, `gift_card`, `data_request` |
 | `verify.py` | `verify_claims`: routes each claim to its verifier (Section 6.4), holds `RULES_VERSION`, `VERSION_LOG` and the list of all rules |
+| `thread_verifier.py` | Phase 9: N2. `verify_thread_message`, `scan_thread` (the flip point), the `tv_` rules; `verify_claims` calls it for `prior_relationship` and request claims when it is given `thread=(messages, index)` |
 | `selftest.py` | 41 hand-made emails with real header blocks and the rows they must give, 16 helper checks, 8 crafted inputs |
 | `build.py` | Runs the verifiers over the train split (and validation in the final run), caches the extracted claims, writes `results/verifier_*.csv` |
 
@@ -158,8 +159,8 @@ The extracted claims are cached in `data/processed/claims_cache/` (ignored by Gi
 
 - Rules are written from definitions and a short list of organisations; a brand that is not in `brands.py` can only be compared when it is a free mailbox (medium) and is otherwise not checkable.
 - `affiliation_internal` needs the recipient's organisation domain, which exists for only 3.6% of phishing_pot and 9.8% of Nazario emails (Section 8.11); the claim extractor also finds only 13% of the labelled internal claims. Real internal-affiliation evidence is therefore thin, and a missing claim is never evidence of honesty.
-- A sender that authenticates as its own domain is "consistent" only in the sense that nothing contradicts it: a compromised real account passes every check here. That is what the thread verifier (N2, Phase 9) is for.
-- `prior_relationship` is routed to the thread verifier, which does not exist yet; its rows say "not checkable: needs a thread".
+- A sender that authenticates as its own domain is "consistent" only in the sense that nothing contradicts it: a compromised real account passes every check here. That is what the thread verifier (N2, Phase 9) is for: it compares the message with its own thread.
+- `prior_relationship` is routed to the thread verifier (Phase 9). Without a thread (`verify_claims(..., thread=None)`, the Phase 8 behaviour) its row says "not checkable: needs a thread"; with one, the `tv_prior_*` rules answer.
 - Severities are initial labels. The claim labels behind Phase 7's scores are LLM labels from one model family; the contradiction rates here use claims found by the Phase 7 extractor, not the labels.
 
 ## Versions of the rules

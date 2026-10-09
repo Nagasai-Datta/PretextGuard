@@ -18,7 +18,7 @@ Every dataset PretextGuard uses, where it came from, and how each stage is built
 Files we deliberately do not use:
 - Kaggle `phishing_email.csv`: a pre-merged copy of the other Kaggle files (text and label only); reading it would count every email twice.
 - Kaggle `Nazario.csv` and `SpamAssasin.csv`: reprocessed copies of the raw Nazario and SpamAssassin corpora (line breaks collapsed, `<...>` stripped, some Nazario rows run into the next message). We use the originals, which keep their headers.
-- Raw Enron is not in the single-email table: the Kaggle merge already holds Enron bodies. Raw Enron is used for the header coverage table and, in Phase 9, for real threads.
+- Raw Enron is not in the single-email table: the Kaggle merge already holds Enron bodies. Raw Enron is used for the header coverage table and, in Phase 9, for real threads (guessed from subjects and participants; see `src/thread/README.md`).
 
 None of these files is committed or redistributed in this repository.
 
@@ -35,8 +35,10 @@ None of these files is committed or redistributed in this repository.
 | The claims the Phase 7 extractor found per email, one file per split (train, validation), so later runs do not repeat its 20 minutes | `data/processed/claims_cache/` | No (claim text is email text) | `src/verifiers/build.py` | 8 |
 | Annotation batch prompts (full email text) | `data/labelled/batches/` | No (phishing_pot's licence forbids redistribution) | `src/data/batches.py` | 5 |
 | Sample list (ids only), raw chatbot replies, reply log, final labels | `data/labelled/` | Yes (small; proof of method) | `src/data/annotate.py`, `labels.py` | 5 |
-| Synthetic emails (attack and benign twin pairs) and their prompts and replies | `data/synthetic/` | Yes | `src/data/synthetic.py` (Phase 9 adds thread injections) | 5, 9 |
-| Rebuilt threads and the thread-hijack benchmark | `data/threads/` | Decided in Phase 9 by size | Phase 9 scripts | 9 |
+| Synthetic emails (attack and benign twin pairs) and their prompts and replies | `data/synthetic/` | Yes | `src/data/synthetic.py` | 5 |
+| The Enron index (one row per distinct message) | `data/processed/enron_index.parquet` | No | `src/thread/build.py` | 9 |
+| Rebuilt threads (one row per message, with the quoted history and header facts) and their cached tactic probabilities and claims | `data/processed/threads.parquet`, `data/processed/thread_features/` | No (full email text) | `src/thread/build.py`, `src/thread/features.py` | 9 |
+| The thread-hijack benchmark: plan, injected synthetic texts, raw API replies, manifest | `data/threads/` | Yes (synthetic text and ids only); the prompts are not | `src/data/hijack_benchmark.py` | 9 |
 
 `data/raw/` and `data/processed/` are listed in `.gitignore`: they are large, separately licensed and full of real email text. Anything in `data/processed/` can be rebuilt from `data/raw/` by rerunning the scripts.
 

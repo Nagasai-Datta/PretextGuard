@@ -14,9 +14,9 @@ Project Master Document
 
 **Faculty:** Dr. Arun Prasath G
 
-**Version:** 3.10, 9 October 2026
+**Version:** 3.11, 9 October 2026
 
-> **This is the single source of truth for the project.** Version 3.10 supersedes version 3.9 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
+> **This is the single source of truth for the project.** Version 3.11 supersedes version 3.10 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
 
 **Contents**
 
@@ -147,7 +147,7 @@ This document is written so that a person or an AI assistant can pick up Pretext
 </tr>
 <tr class="even">
 <td>Current status</td>
-<td>Phases 0 to 8 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 labelled 690 real emails for the seven tactics and eleven claim types with two LLM annotators and a tie-breaker (results/label_*.csv), wrote 222 synthetic attack-and-twin pairs for the rare tactics, and recorded the SemEval 23-to-7 mapping. Phase 6 fine-tuned DistilBERT on the seven tactics on Colab (real and synthetic training emails, three seeds, thresholds tuned on validation) and scored it against the keyword baseline on the validation emails, real and synthetic apart (results/tactic_*.csv, Section 8.14). Phase 7 built the claim extractor: spaCy name detection, 85 token patterns and organisation and signature rules turn an email into typed claims of the eleven types of Section 6.4; the patterns were written from the train split only, frozen at version 0.4 and scored once on the validation emails (results/claim_*.csv, Section 8.15). Phase 8 built the header verifier (N3) and the request verifier: 63 rules turn each claim and the header evidence of its email into a ledger row (contradiction, consistent or not checkable, with the evidence, the rule and a reason); the rules were frozen at version 0.3 before the validation emails were read once, 9134 of the 79590 train claims routed to a verifier could be checked, and the contradiction rates and checks are in results/verifier_*.csv (Section 8.16). Phase 9 (thread builder, thread-hijack benchmark and thread verifier) is next.</td>
+<td>Phases 0 to 9 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 labelled 690 real emails for the seven tactics and eleven claim types with two LLM annotators and a tie-breaker (results/label_*.csv), wrote 222 synthetic attack-and-twin pairs for the rare tactics, and recorded the SemEval 23-to-7 mapping. Phase 6 fine-tuned DistilBERT on the seven tactics on Colab (real and synthetic training emails, three seeds, thresholds tuned on validation) and scored it against the keyword baseline on the validation emails, real and synthetic apart (results/tactic_*.csv, Section 8.14). Phase 7 built the claim extractor: spaCy name detection, 85 token patterns and organisation and signature rules turn an email into typed claims of the eleven types of Section 6.4; the patterns were written from the train split only, frozen at version 0.4 and scored once on the validation emails (results/claim_*.csv, Section 8.15). Phase 8 built the header verifier (N3) and the request verifier: 63 rules turn each claim and the header evidence of its email into a ledger row (contradiction, consistent or not checkable, with the evidence, the rule and a reason); the rules were frozen at version 0.3 before the validation emails were read once, 9134 of the 79590 train claims routed to a verifier could be checked, and the contradiction rates and checks are in results/verifier_*.csv (Section 8.16). Phase 9 built the thread verifier (N2): real threads rebuilt from raw Enron (subjects and participants) and the Apache lists (Message-ID, In-Reply-To, References); 44 rules measure tactic onset, request drift, sending-path drift and thread integrity of each message against its own thread and find the message where it flipped; a thread-hijack benchmark of five cases per base thread (real and synthetic negatives, account takeover, look-alike swap, forged thread) tests each signal in its own variant; the rules were frozen at version 0.2 before the validation threads were scored once (results/thread_*.csv and hijack_*.csv, Section 8.17). Phase 10 (claim router, verdict ledger, risk score and LIME highlights) is next.</td>
 </tr>
 <tr class="odd">
 <td>Repository</td>
@@ -290,7 +290,7 @@ An email is a plain text file: headers (the envelope: who sent it, to whom, how 
 
 **Input modes:** thread mode needs the earlier messages (several .eml files or one .mbox). In single-email mode N2's history checks are skipped, but In-Reply-To and quoted-text integrity checks still run when that data is present.
 
-**Evaluation data:** raw Enron has no In-Reply-To, References, Received or X-Mailer headers (0% of 517,401 messages, Phase 1 header coverage table), so its threads can only test the content signals (tactic onset, request drift). The header signals (sending-path drift, thread integrity) are tested on public Apache project mailing-list archives, which keep those headers. Both are real threads, and the report states the split.
+**Evaluation data:** raw Enron has no In-Reply-To, References, Received or X-Mailer headers (0% of 517,401 messages, Phase 1 header coverage table), so its threads can only test the content signals (tactic onset, request drift). The header signals (sending-path drift, thread integrity) are tested on public Apache project mailing-list archives, which keep those headers. Both are real threads, and the report states the split. Phase 9 refined it: raw Enron has no reply IDs or sending-path data but its quoted history exists, so Enron threads test tactic onset, request drift and the quote check, while Apache threads test all four signals (Section 8.17).
 
 **Why it is novel:** academic detectors classify single emails. The closest work on compromised accounts (Ho et al., USENIX Security 2019) is URL-based and needs organisation-wide mailbox data. Conversation-level social-engineering detection exists for chat (ConvoSentinel) but uses no email headers. Commercial tools (Abnormal AI, IRONSCALES) do behavioural thread analysis but are closed and depend on login telemetry. An open, explainable, payload-free detector that works at email-thread level with thread headers was not found.
 
@@ -391,11 +391,11 @@ It is presented on the architecture slide as the system design the three claims 
 | Parser | Raw .eml bytes, pasted text, or a thread | Headers, body, thread links | Python email stdlib with its default legacy parser (the most forgiving with malformed spam headers), each header field parsed on its own; a fallback for From values the strict address parser rejects; mailbox for .mbox files (Section 8.11) | src/headers |
 | Header evidence extractor | Headers + organisation domain(s) | Evidence dict: SPF, DKIM and DMARC verdicts (or unknown) from trusted Authentication-Results headers, the authenticated domain and its alignment with From, From name/address/domain, Reply-To divergence, envelope mismatch, Received hops and origin IP, send hour, freemail and open-platform flag, name-shows-address flag, list mail, lookalike score vs the organisation domain (vs claimed domains in Phase 8, same function) | email.utils, tldextract (offline), rapidfuzz, hand-written freemail list (Section 8.11) | src/headers |
 | Body preprocessor | Body | Clean text (links kept), redacted text (N1), signature | BeautifulSoup HTML to text; list footer and quoted history removed; ReDoS-safe regular expressions; tldextract with its offline public suffix list (Section 8.10) | src/preprocess |
-| Thread builder | Several messages | Ordered thread, per-message evidence, quoted history | Message-ID, In-Reply-To, References; fallback for Enron: normalised subject, participants and quote matching | src/thread |
+| Thread builder | Several messages | Ordered thread, per-message evidence, quoted history | Apache: union-find over Message-ID, In-Reply-To and References; Enron: normalised subject, 14-day runs and shared participants, copies removed by date, sender and subject; the new text and the quoted history of a message are cut as in Phase 2 and both kept; 3 to 50 messages, at least two senders (Section 8.17) | src/thread |
 | Claim extractor | Redacted body and signature block | Typed claims (the eleven types of Section 6.4) with text span, attributes (person, organisation, department, rule, zone) and confidence | spaCy tokenizer and named-entity recogniser + 85 token patterns and organisation and signature rules (Section 8.15); nothing is trained, and no regular expression runs over email text; the tactic classifier (Section 8.14) runs beside the extractor, not inside it | src/claims |
 | Claim router | Claims | Claim-to-verifier assignments | Rule table (Section 6.4) | src/router |
 | Header verifier (N3) | Affiliation, authority, reply and signature claims + header evidence + organisation domain + the unredacted signature | Ledger rows | 50 Python rules, each row naming its rule; severities high, medium, low (initial labels, weights in Phase 10); brand domains in a data file (brands.py); no regular expression over email text (Section 8.16) | src/verifiers |
-| Thread verifier (N2) | Relationship and request claims + thread | Ledger rows + hijack index | Tactic deltas, request drift (set differences on payment details), sending-path comparison, Message-ID and quote matching | src/verifiers |
+| Thread verifier (N2) | Relationship and request claims + thread | Ledger rows + hijack index | 44 Python rules over four measurements (src/thread/signals.py): tactic onset against the Phase 6 thresholds, request drift (set differences on bank details with bank_detail_keys), sending-path comparison (sender name at a look-alike domain, new server and mail program), Message-ID and quotation matching (5-word shingles); the flip point is the first message with a medium or high contradiction (Section 8.17) | src/verifiers |
 | Request verifier | Request claims + sender evidence + the text the extractor read | Ledger rows | 12 rules; seven signals about the asker (look-alike, DMARC fail, free mailbox, Reply-To, display name, SPF fail, no check passed); IBAN checksum and labelled-number finder written without regular expressions (bank.py), values shown masked. Request drift against the thread belongs to the thread verifier (N2) | src/verifiers |
 | Ledger + risk score | Ledger rows + tactic probabilities | Score 0-100, verdict band, recommended action | Weighted formula calibrated on validation data | src/router |
 | LIME highlights | Body + classifier | Word weights per tactic | lime library | src/explain |
@@ -651,7 +651,7 @@ tactic_authority, tactic_urgency, tactic_scarcity,
 tactic_reciprocity, tactic_social_proof, tactic_liking,
 tactic_secrecy, claims (type, span, organisation),
 label_source (semeval | synthetic | llm_annotated | none)  (Phase 5)
-thread_id, thread_position                                 (Phase 9)
+thread_id, thread_position, split (per thread)             (Phase 9, data/processed/threads.parquet)
 ```
 
 ## 8.8 Phase 1 staging decisions
@@ -705,7 +705,11 @@ thread_id, thread_position                                 (Phase 9)
 | Phase 7 results (train-split hit rates, hits per pattern, scores against the labels, checks and run details) | results/claim_hit_rates.csv, claim_pattern_hits.csv, claim_scores.csv, claim_checks.csv | Yes | 7 |
 | The claims the extractor found per email, one file per split (train, validation), reused by Phases 8, 10 and 13 | data/processed/claims_cache/ | No (claim text is email text) | 8 |
 | Phase 8 results (contradiction rates per split, category and source, hits per rule, checks and run details) | results/verifier_rates.csv, verifier_rule_hits.csv, verifier_checks.csv | Yes | 8 |
-| Rebuilt threads and hijack benchmark | data/threads/ | Decided in Phase 9 by size | 9 |
+| The Enron index (one row per distinct message), cached | data/processed/enron_index.parquet | No (email headers and subjects) | 9 |
+| Rebuilt threads, one row per message with text, quoted history, header fields and facts | data/processed/threads.parquet | No (full email text) | 9 |
+| Tactic probabilities and claims of thread messages, cached | data/processed/thread_features/ | No (claim text is email text) | 9 |
+| Benchmark plan, injected texts, raw API replies, manifest | data/threads/ | Yes (synthetic text and ids only); the prompts (excerpts of real emails) are not committed | 9 |
+| Phase 9 results (threads found, false alarms on real threads, benchmark cases, detection scores, checks) | results/thread_counts.csv, thread_signal_rates.csv, thread_checks.csv, hijack_generation.csv, hijack_cases.csv, thread_scores.csv, hijack_checks.csv | Yes | 9 |
 | Every experiment number and chart | results/ | Yes (rubric requirement) | 13 |
 | Report and slides | docs/ | Yes | 14 |
 
@@ -1189,6 +1193,193 @@ Validation, the five types with enough positives; span precision and recall use 
 
 - **Security:** see Section 10 (verifiers).
 
+## 8.17 Phase 9 thread builder, thread-hijack benchmark and thread verifier
+
+- **Output:** src/thread (signals.py, builder.py, features.py, build.py, selftest.py, evaluate.py, README.md), src/verifiers/thread_verifier.py, src/data/hijack_benchmark.py and data/threads/ (plan, injected texts, raw replies, manifest, README). `verify_claims` gained an optional `thread=(messages, index)` argument (default None: the Phase 8 behaviour is unchanged, RULES_VERSION stays 0.3); `verify_thread_message(messages, index)` and `scan_thread(messages)` return the thread verifier's rows and the flip index. Results in results/thread_counts.csv, thread_signal_rates.csv, thread_checks.csv, hijack_generation.csv, hijack_cases.csv, thread_scores.csv and hijack_checks.csv. No new library. The thread rules are version 0.2 (44 rules).
+
+- **Finding the threads.** Apache list mail keeps Message-ID, In-Reply-To and References, so two messages join a thread when one names the other (union-find; cycles and missing parents are harmless) and messages are ordered by date. Raw Enron has none of these (0%, Section 8.1), so its threads are guessed as old mail clients did: the subject without Re:/Fw: prefixes, cut into runs (a gap of more than 14 days starts a new run), and messages in a run join when they share a participant; copies of one message in several folders (they carry different Message-IDs in this dump) are removed by date, sender and subject. A thread needs 3 to 50 messages and at least two senders; an Enron thread also needs two reply subjects. The Enron index covered 517432 files (251755 distinct messages after removing copies, 125659 subject groups, 140391 runs, 15444 candidate threads; the full text of 2000 candidates was read, in hash order, until 1200 threads were kept). The new text of a message is cut exactly as Phase 2 cuts a body; the quotation (the lines marked > and, after an Outlook-style marker, everything that follows) and the whole text are kept as well, because the thread verifier compares a quotation with the whole text of the earlier messages (an inline answer is quoted back by the next reply). A thread is the unit of the split (70/15/15 from the SHA-256 of seed 42 and the thread id), so no thread stands in two splits.
+
+| **Source** | **Train threads** | **Validation threads** | **Test threads** | **Messages (all splits)** |
+|---|---|---|---|---|
+| apache | 253 | 72 | 66 | 2309 |
+| enron | 851 | 161 | 188 | 5471 |
+
+Groups dropped, and why (all splits; results/thread_counts.csv):
+
+| **Source** | **Candidate groups** | **One message** | **Under 3 messages** | **Over 50 messages** | **One sender only** | **Under 2 reply subjects** | **Messages without a date** | **Kept** |
+|---|---|---|---|---|---|---|---|---|
+| apache | 937 | 362 | 179 | 1 | 4 | 0 | 0 | 391 |
+| enron | 2000 | 0 | 0 | 0 | 507 | 241 | 0 | 1200 |
+
+- **The thread verifier (N2).** src/thread/signals.py measures; src/verifiers/thread_verifier.py judges. Four signals (Section 4.3), each message judged against the messages before it:
+
+| **Signal** | **What is compared** | **Rules (initial severity)** |
+|---|---|---|
+| Tactic onset | the tactic probabilities of the message against every earlier message, for authority, urgency, scarcity and secrecy (the only tactics with enough real positives in Phase 6); needs two earlier messages | a tactic reaches its Phase 6 threshold here, in no earlier message, and is at least 0.40 above the average of the earlier messages: tv_onset_one (medium); two or more at once: tv_onset_many (high) |
+| Request drift | the bank details of the message against all earlier text of the thread (a set difference, bank_detail_keys), and request types against earlier requests | tv_bank_changed (high: a different detail of the same kind), tv_bank_new (medium); first credential, gift-card or payment-change request tv_req_*_new (medium); first payment or data request (low) |
+| Sending-path drift | the sender against the earlier senders (same address, or the name or local part of an earlier sender at another domain); for the same address, the network of the first public IP of the Received chain (the first three numbers) and the mail program with its version dropped | tv_who_lookalike (high), tv_who_suffix (medium), tv_who_other_domain (low); tv_path_origin_mailer (medium), tv_path_origin and tv_path_mailer (low) |
+| Thread integrity | In-Reply-To and References against the Message-IDs of the thread; the quotation (lines marked >, or everything after an Outlook-style marker) against the whole text of the earlier messages (5-word shingles); forwards are not checked | tv_int_ids_unknown (medium), tv_int_parent_missing (low); tv_quote_mismatch (high: a quotation of 20 words or more of which under 30% of the shingles occur in the earlier messages) |
+| prior_relationship claim | did this sender take part earlier in the thread? (a call outside the thread cannot be disproved) | tv_prior_other_address, tv_prior_stranger (low); tv_prior_ok consistent |
+| Single-email mode | a Re: subject with quoted history but no In-Reply-To or References | tv_single_no_reply_ids (low) |
+
+Rows have three values as in Phase 8 (contradiction, consistent, not checkable); missing evidence is never 'no contradiction' (raw Enron replies carry no IDs, so tv_int_no_ids says not checkable there and the quote rule still runs). The flip point is the first message with a medium or high contradiction, judged message by message against its own past (change-point detection in its simplest form). Style drift, the optional fifth signal of Section 4.3, was not built (first to drop, Section 12.4). Fixed numbers: the Phase 6 thresholds, a rise of 0.40 over the earlier average for a tactic onset (added in version 0.2), a quotation of 20 words matched by 30% of its 5-word shingles, a person identified by 5 letters of name or local part, the /24 network of an IP address (version 0.2). Severities are initial labels; Phase 10 turns them into points.
+
+- **The benchmark.** Nobody has labelled real hijacks, so they are made: a real thread is cut before message k (k at least 2) and an attacker's message takes its place. The base threads are real; the injected texts are synthetic (the free Gemini API, as in Phase 5; one call per four threads gives an attack reply, a benign reply and a fabricated quotation, checked word by word; bank details are inserted by code as a valid fictional IBAN). Five cases per thread: **neg_real** (the real next reply), **neg_synth** (the benign text with the sender's real details, genuine IDs and quotation: the style control), **A takeover** (the attack text from the real sender with the same server, mail program and IDs: only the content signals can see it, and N3 sees the same headers as for the real reply), **B swap** (the benign text from a look-alike of the sender's domain with a new server and mail program; Apache only) and **C forged** (the benign text with a fabricated quotation and, on Apache, Message-IDs that do not exist). B and C use the benign text, so the same words appear as a negative and as a positive and a detector cannot win by recognising the generator's style (Section 8.5); each signal is tested in its own variant, and an attacker who changes everything at once is easier to catch. The injected message ends the thread (the later real messages quote the real reply, not the injected one). Of 300 planned Enron threads 294 were valid and of 200 planned Apache threads 198 (results/hijack_generation.csv).
+
+| **Split** | **Source** | **Threads** | **A takeover** | **B swap** | **C forged** | **neg_real** | **neg_synth** |
+|---|---|---|---|---|---|---|---|
+| test | apache | 25 | 25 | 17 | 25 | 25 | 25 |
+| test | enron | 51 | 51 | 0 | 51 | 51 | 51 |
+| train | apache | 133 | 133 | 91 | 133 | 133 | 133 |
+| train | enron | 214 | 214 | 0 | 214 | 214 | 214 |
+| validation | apache | 40 | 40 | 26 | 40 | 40 | 40 |
+| validation | enron | 29 | 29 | 0 | 29 | 29 | 29 |
+
+- **Protocol (no leakage).** The rules were written from Sections 4.3 and 6.4 and the Phase 3, 7 and 8 notes, and revised only after reading TRAIN results; `build.py --train-only` and `evaluate.py --train-only` never score a validation thread; the final runs score the validation threads once for the frozen version; the test threads are built but never scored (Phase 13). Threads containing a message the tactic classifier trained on are kept out of validation and test (Apache by id; raw Enron cannot be matched to the Kaggle copy, and only 80 of the 29,119 Kaggle Enron emails were labelled). The train numbers are development numbers. Rule versions:
+
+| **Version** | **What the train results showed, and the change** |
+|---|---|
+| 0.1 | First version: rules written from master document Sections 4.3 and 6.4 and the Phase 3, 7 and 8 notes. Fixed numbers: the Phase 6 thresholds, a quotation of 20 words matched by 30% of its 5-word shingles, a person identified by 5 letters of name or local part. Severities are initial labels. No real thread had been read |
+| 0.2 | Read off the first train run (1,104 threads, no benchmark yet; false alarms on real threads: Apache 29 of 1,243 messages, Enron 158 of 3,034). (1) tv_quote_mismatch fired 27 times on Apache and 98 on Enron, and the examples were Apache replies that answer INLINE: the code counted the sender's own answers between the quoted paragraphs as 'quoted history', and compared the quotation only with the earlier messages' new text, so the earlier inline answers a reply quotes back were missing. Now the quotation is only the lines marked '>' (plus everything after an Outlook-style marker, which has no '>' marks), it is compared with the WHOLE text of every earlier message, and a forward (a Fw: subject) is not checked, because it quotes a message from outside the thread (new rule tv_quote_forward, not checkable). (2) tv_onset_one fired 45 times and tv_onset_many 15 times on Enron, mostly urgency crossing its threshold of 0.45 by a hair (0.46 after 0.45, 0.47 after 0.27); now a tactic also has to be at least 0.40 above the AVERAGE of the earlier messages (the wording of master document Section 4.3), because an attack jumps (0.1 to 0.9). (3) tv_path_origin fired on 402 of 1,243 Apache messages because IP addresses rotate; now the network (the first three numbers of an IPv4 address) is compared, not the exact address. Not changed: tv_path_origin_mailer fired once, tv_who_lookalike and tv_int_ids_unknown never on real threads |
+
+- **How it is verified.** (1) A self-test of hand-made threads, one for every rule, with the rules each must fire and must not fire, the scan and API checks and nine crafted hostile inputs (src/thread/selftest.py). (2) False alarms on real, unmodified threads: every medium or high contradiction there is a false alarm, and the contradictions were printed and read. (3) The benchmark: detection per variant and source against the header and request verifiers alone, the signal that caught each case, false alarms on the real and the synthetic negatives, and whether the scan flips at the injected message. Rates carry a 95% bootstrap interval that resamples threads, not cases (the cases of one thread share its history), and a cell with fewer than 10 cases is reported as a count only.
+
+- **Results: false alarms on real threads** (messages with a past; nobody hijacked these; results/thread_signal_rates.csv):
+
+| **Split** | **Source** | **Threads** | **Messages with a past** | **With a medium or high contradiction** | **Share** | **With a high one** |
+|---|---|---|---|---|---|---|
+| train | apache | 253 | 1243 | 5 | 0.4% | 3 |
+| train | enron | 851 | 3034 | 108 | 3.6% | 98 |
+| validation | apache | 72 | 379 | 4 | 1.1% | 3 |
+| validation | enron | 161 | 539 | 26 | 4.8% | 25 |
+
+- **Results: the rules that fire most often on real train threads** (results/thread_signal_rates.csv):
+
+| **Rule** | **Signal** | **Rows** | **Contradiction** | **Consistent** | **Not checkable** | **Meaning** |
+|---|---|---|---|---|---|---|
+| tv_path_origin | sending_path | 299 | 299 | 0 | 0 | the same address from a new server |
+| tv_quote_mismatch | thread_integrity | 89 | 89 | 0 | 0 | the quoted history is not what the earlier messages said |
+| tv_single_no_reply_ids | single_email | 89 | 89 | 0 | 0 | a reply with quoted history but no In-Reply-To or References |
+| tv_req_data_new | data_request | 37 | 37 | 0 | 0 | the first request for personal or company data in the thread |
+| tv_prior_stranger | prior_relationship | 20 | 20 | 0 | 0 | this sender wrote none of the earlier messages of a longer thread |
+| tv_int_parent_missing | thread_integrity | 15 | 15 | 0 | 0 | In-Reply-To names a message not in the thread, References name known ones |
+| tv_req_payment_new | payment_request | 14 | 14 | 0 | 0 | the first payment request in the thread |
+| tv_onset_many | tactic_onset | 11 | 11 | 0 | 0 | two or more tactics jump above their thresholds together in this message |
+| tv_onset_one | tactic_onset | 11 | 11 | 0 | 0 | one tactic jumps above its threshold here and in no earlier message |
+| tv_req_credential_new | credential_request | 7 | 7 | 0 | 0 | the first request for login details in the thread |
+
+- **Results: detection on hijacked cases** (rate with a 95% interval over threads, then hits of n; results/thread_scores.csv):
+
+train, apache threads:
+
+| **Hijacked case** | **N2 (thread verifier)** | **Header and request verifiers (Phase 8)** | **Either** | **Found by N2 only** |
+|---|---|---|---|---|
+| A | 79.7% [72.2, 86.5] (106 of 133) | 25.6% [18.0, 33.1] (34 of 133) | 86.5% [80.5, 91.7] (115 of 133) | 60.9% [52.6, 69.2] (81 of 133) |
+| B | 100.0% [100.0, 100.0] (91 of 91) | 0.0% [0.0, 0.0] (0 of 91) | 100.0% [100.0, 100.0] (91 of 91) | 100.0% [100.0, 100.0] (91 of 91) |
+| C | 100.0% [100.0, 100.0] (133 of 133) | 0.0% [0.0, 0.0] (0 of 133) | 100.0% [100.0, 100.0] (133 of 133) | 100.0% [100.0, 100.0] (133 of 133) |
+| attacks (A+B+C) | 92.4% [89.7, 94.7] (330 of 357) | 9.5% [7.0, 12.2] (34 of 357) | 95.0% [92.6, 97.0] (339 of 357) | 85.4% [82.4, 88.4] (305 of 357) |
+
+train, enron threads:
+
+| **Hijacked case** | **N2 (thread verifier)** | **Header and request verifiers (Phase 8)** | **Either** | **Found by N2 only** |
+|---|---|---|---|---|
+| A | 89.7% [85.5, 93.5] (192 of 214) | 4.7% [2.3, 7.5] (10 of 214) | 90.2% [86.0, 93.9] (193 of 214) | 85.5% [80.8, 90.2] (183 of 214) |
+| C | 88.3% [84.1, 92.5] (189 of 214) | 0.5% [0.0, 1.4] (1 of 214) | 88.3% [83.6, 92.5] (189 of 214) | 87.9% [83.2, 92.5] (188 of 214) |
+| attacks (A+B+C) | 89.0% [85.5, 91.8] (381 of 428) | 2.6% [1.2, 4.2] (11 of 428) | 89.3% [86.0, 92.1] (382 of 428) | 86.7% [83.4, 89.7] (371 of 428) |
+
+validation, apache threads:
+
+| **Hijacked case** | **N2 (thread verifier)** | **Header and request verifiers (Phase 8)** | **Either** | **Found by N2 only** |
+|---|---|---|---|---|
+| A | 80.0% [67.5, 90.0] (32 of 40) | 17.5% [7.5, 30.0] (7 of 40) | 82.5% [70.0, 92.5] (33 of 40) | 65.0% [50.0, 80.0] (26 of 40) |
+| B | 100.0% [100.0, 100.0] (26 of 26) | 0.0% [0.0, 0.0] (0 of 26) | 100.0% [100.0, 100.0] (26 of 26) | 100.0% [100.0, 100.0] (26 of 26) |
+| C | 100.0% [100.0, 100.0] (40 of 40) | 0.0% [0.0, 0.0] (0 of 40) | 100.0% [100.0, 100.0] (40 of 40) | 100.0% [100.0, 100.0] (40 of 40) |
+| attacks (A+B+C) | 92.5% [87.5, 96.4] (98 of 106) | 6.6% [2.8, 11.1] (7 of 106) | 93.4% [88.7, 97.2] (99 of 106) | 86.8% [81.5, 91.7] (92 of 106) |
+
+validation, enron threads:
+
+| **Hijacked case** | **N2 (thread verifier)** | **Header and request verifiers (Phase 8)** | **Either** | **Found by N2 only** |
+|---|---|---|---|---|
+| A | 100.0% [100.0, 100.0] (29 of 29) | 0.0% [0.0, 0.0] (0 of 29) | 100.0% [100.0, 100.0] (29 of 29) | 100.0% [100.0, 100.0] (29 of 29) |
+| C | 82.8% [69.0, 96.6] (24 of 29) | 0.0% [0.0, 0.0] (0 of 29) | 82.8% [69.0, 96.6] (24 of 29) | 82.8% [69.0, 96.6] (24 of 29) |
+| attacks (A+B+C) | 91.4% [84.5, 98.3] (53 of 58) | 0.0% [0.0, 0.0] (0 of 58) | 91.4% [84.4, 98.3] (53 of 58) | 91.4% [84.5, 98.3] (53 of 58) |
+
+- **Results: which signal caught the hijacked cases, and where the scan flips** (validation):
+
+validation, apache threads:
+
+| **Variant** | **Tactic onset** | **Request drift** | **Sending path** | **Thread integrity** | **Scan flips at the injected message** | **Scan flips earlier** |
+|---|---|---|---|---|---|---|
+| A | 30.0% (12 of 40) | 67.5% (27 of 40) | 0.0% (0 of 40) | 0.0% (0 of 40) | 77.5% (31 of 40) | 2.5% (1 of 40) |
+| B | 0.0% (0 of 26) | 0.0% (0 of 26) | 100.0% (26 of 26) | 0.0% (0 of 26) | 100.0% (26 of 26) | 0.0% (0 of 26) |
+| C | 0.0% (0 of 40) | 0.0% (0 of 40) | 0.0% (0 of 40) | 100.0% (40 of 40) | 97.5% (39 of 40) | 2.5% (1 of 40) |
+
+validation, enron threads:
+
+| **Variant** | **Tactic onset** | **Request drift** | **Sending path** | **Thread integrity** | **Scan flips at the injected message** | **Scan flips earlier** |
+|---|---|---|---|---|---|---|
+| A | 37.9% (11 of 29) | 82.8% (24 of 29) | 0.0% (0 of 29) | 0.0% (0 of 29) | 93.1% (27 of 29) | 6.9% (2 of 29) |
+| C | 0.0% (0 of 29) | 0.0% (0 of 29) | 0.0% (0 of 29) | 82.8% (24 of 29) | 79.3% (23 of 29) | 6.9% (2 of 29) |
+
+- **Results: false alarms on the negative cases:**
+
+train, apache threads:
+
+| **Negative case** | **N2** | **Header and request verifiers** | **Either** | **Scan flags some message** |
+|---|---|---|---|---|
+| neg_real | 1.5% [0.0, 3.8] (2 of 133) | 0.0% [0.0, 0.0] (0 of 133) | 1.5% [0.0, 3.8] (2 of 133) | 3.0% [0.8, 6.0] (4 of 133) |
+| neg_synth | 0.0% [0.0, 0.0] (0 of 133) | 0.0% [0.0, 0.0] (0 of 133) | 0.0% [0.0, 0.0] (0 of 133) | 1.5% [0.0, 3.8] (2 of 133) |
+
+train, enron threads:
+
+| **Negative case** | **N2** | **Header and request verifiers** | **Either** | **Scan flags some message** |
+|---|---|---|---|---|
+| neg_real | 1.4% [0.0, 3.3] (3 of 214) | 0.0% [0.0, 0.0] (0 of 214) | 1.4% [0.0, 3.3] (3 of 214) | 7.9% [4.7, 11.7] (17 of 214) |
+| neg_synth | 0.0% [0.0, 0.0] (0 of 214) | 0.5% [0.0, 1.4] (1 of 214) | 0.5% [0.0, 1.4] (1 of 214) | 6.5% [3.3, 10.3] (14 of 214) |
+
+validation, apache threads:
+
+| **Negative case** | **N2** | **Header and request verifiers** | **Either** | **Scan flags some message** |
+|---|---|---|---|---|
+| neg_real | 0.0% [0.0, 0.0] (0 of 40) | 0.0% [0.0, 0.0] (0 of 40) | 0.0% [0.0, 0.0] (0 of 40) | 2.5% [0.0, 7.5] (1 of 40) |
+| neg_synth | 0.0% [0.0, 0.0] (0 of 40) | 0.0% [0.0, 0.0] (0 of 40) | 0.0% [0.0, 0.0] (0 of 40) | 2.5% [0.0, 7.5] (1 of 40) |
+
+validation, enron threads:
+
+| **Negative case** | **N2** | **Header and request verifiers** | **Either** | **Scan flags some message** |
+|---|---|---|---|---|
+| neg_real | 6.9% [0.0, 17.2] (2 of 29) | 0.0% [0.0, 0.0] (0 of 29) | 6.9% [0.0, 17.2] (2 of 29) | 13.8% [3.4, 27.6] (4 of 29) |
+| neg_synth | 0.0% [0.0, 0.0] (0 of 29) | 0.0% [0.0, 0.0] (0 of 29) | 0.0% [0.0, 0.0] (0 of 29) | 6.9% [0.0, 17.2] (2 of 29) |
+
+- **Reading of the tables** (every number and comparison below is computed from the results files by the script that wrote this section):
+
+    - 1591 threads were rebuilt (391 apache, 1200 enron); the thread split puts 1104 in train, 233 in validation and 254 in test.
+    - false alarms on real, unmodified apache threads (train): 5 of 1243 messages with a past got a medium or high contradiction (0.4%).
+    - false alarms on real, unmodified enron threads (train): 108 of 3034 messages with a past got a medium or high contradiction (3.6%).
+    - false alarms on real, unmodified apache threads (validation): 4 of 379 messages with a past got a medium or high contradiction (1.1%).
+    - false alarms on real, unmodified enron threads (validation): 26 of 539 messages with a past got a medium or high contradiction (4.8%).
+    - the contradiction that fires most often on real train threads is tv_path_origin (299 rows), followed by tv_quote_mismatch (89), tv_single_no_reply_ids (89), tv_req_data_new (37).
+    - validation, apache, account takeover (A): N2 found 80.0% (32 of 40); the Phase 8 verifiers alone found 17.5% (7 of 40); N2 found 65.0% (26 of 40) that they missed.
+    - validation, apache, look-alike swap (B): N2 found 100.0% (26 of 26); the Phase 8 verifiers alone found 0.0% (0 of 26); N2 found 100.0% (26 of 26) that they missed.
+    - validation, apache, forged thread (C): N2 found 100.0% (40 of 40); the Phase 8 verifiers alone found 0.0% (0 of 40); N2 found 100.0% (40 of 40) that they missed.
+    - validation, enron, account takeover (A): N2 found 100.0% (29 of 29); the Phase 8 verifiers alone found 0.0% (0 of 29); N2 found 100.0% (29 of 29) that they missed.
+    - validation, enron, forged thread (C): N2 found 82.8% (24 of 29); the Phase 8 verifiers alone found 0.0% (0 of 29); N2 found 82.8% (24 of 29) that they missed.
+    - validation, apache, the real next reply (neg_real): N2 flagged 0.0% (0 of 40); the Phase 8 verifiers flagged 0.0% (0 of 40).
+    - validation, enron, the real next reply (neg_real): N2 flagged 6.9% (2 of 29); the Phase 8 verifiers flagged 0.0% (0 of 29).
+    - from train to validation (apache, variant A) the N2 detection rate moved by +0.3 percentage points; the rules were frozen before validation was read, so this is the first unbiased reading.
+    - from train to validation (apache, variant B) the N2 detection rate moved by +0.0 percentage points; the rules were frozen before validation was read, so this is the first unbiased reading.
+    - from train to validation (apache, variant C) the N2 detection rate moved by +0.0 percentage points; the rules were frozen before validation was read, so this is the first unbiased reading.
+    - from train to validation (enron, variant A) the N2 detection rate moved by +10.3 percentage points; the rules were frozen before validation was read, so this is the first unbiased reading.
+    - from train to validation (enron, variant C) the N2 detection rate moved by -5.5 percentage points; the rules were frozen before validation was read, so this is the first unbiased reading.
+    - each signal is tested in its own variant by construction: variant A copies the sender's server, mail program and IDs, B changes the domain and path only and C the IDs and the quotation only; the isolation checks of results/hijack_checks.csv confirm that no signal fired where the injection copied its details.
+    - a detection rate here says the rules do what they are defined to do against this construction; it does not say how often real attackers behave this way, and every number depends on the threshold choices of Section 8.14 and the claim extractor of Section 8.15.
+
+- **Checks** (results/thread_checks.csv and results/hijack_checks.csv): thread_checks.csv: 16 PASS, 0 FAIL, 7 info; hijack_checks.csv: 15 PASS, 0 FAIL, 4 info. They cover the self-test, every ledger row (keys, severity fits contradiction, known rule, safe reason), the thread structure (positions, sizes, no thread in two splits), the splits scored (train, and validation in the final run; never test), the construction invariants (no sending-path or integrity signal fires on variant A or on the genuine synthetic negatives, no integrity signal on B, no sending-path signal on C), the false-alarm rate of N2 on the real next reply and the crafted inputs.
+
+- **Known limits:** the injected texts and headers are synthetic and written from the same fields the signals read, so the detection rates test the rules against the construction, not real attackers; the false alarms on real threads are the honest measure of noise. A hijacker who has read the mailbox can copy real Message-IDs, sending details and wording; then only the content signals can catch the message (variant A), and an attacker who also keeps the content calm cannot be caught by this verifier at all. Enron threads are guessed from subjects and participants and carry no sending-path data or reply IDs, so they test the content signals and the quote check; Apache threads test all four, but the list's own relay hops are not the author's, and the origin IP and mail program change for harmless reasons (a new phone, a trip), so one change alone is low. Tactic probabilities come from a model trained on LLM labels from one model family and claims from a rule-based extractor (recall 0.13 on affiliation_internal), so a missing claim is never evidence of honesty; request drift also depends on that extractor finding the earlier requests. The prompts leave the machine as redacted excerpts of public corpora and a free API tier may keep them; one model family wrote all injected texts; the benchmark threads are those with an eligible injection point. The single-email rule (tv_single_no_reply_ids) is low severity because many real replies lack reply headers (the rate on Apache is in results/thread_checks.csv). Severities are initial labels, calibrated in Phase 10 on validation, never on test. The N2 ablation with the risk score is Phase 13.
+
+- **Security:** see Section 10 (thread verifier).
+
 # 9. Technology stack
 
 | **Layer** | **Choice** | **Why** |
@@ -1236,6 +1427,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | Model files and offline inference (Phase 6) | Weights are stored and loaded as safetensors (plain numbers; the older pickle format can run code when loaded); loading is offline (local_files_only), trust_remote_code is never set, and the model's output order is checked against the tactic order; input is cut at 2,000 characters and 512 tokens; the Colab upload file holds train and validation rows only, so test emails and labels never reach training; the check suite fails if a pickle-style file sits in the model folder | A08 Software and Data Integrity Failures; A06 Vulnerable Components |
 | Claim extraction (Phase 7) | Input is cut before matching (2,000 characters of body, 1,000 of signature); phrase patterns match spaCy tokens, so cost grows with the number of tokens and cannot backtrack, and the only regular expressions are two short bounded ones (a phone number and the [EMAIL] placeholder); eight crafted 200,000-character inputs each finish in 0.54 s; the signature column is redacted before it is read; the spaCy model is loaded from disk, never downloaded at run time, and pinned by URL and SHA-256; every claim's text is checked to be exactly the slice of its span, so a highlight cannot point at the wrong words; results files hold counts only | A04 Insecure Design (denial of service); A08 Software and Data Integrity Failures; A06 Vulnerable Components |
 | Verifiers (Phase 8) | Headers and signatures are attacker-written, so the verifiers read only values the Phase 3 code has capped and parsed per field; a signature is cut at 1,000 characters and scanned for addresses with fixed limits (40 '@' signs, 64 characters left, 255 right); bank details are found by word lookup on the first 5,000 characters with no regular expression; crafted inputs (60,000-character display names and Reply-To values, floods of '@', IBAN-shaped words, markup in a claimed organisation) each finish in 0.01 s at most; every string from an email goes through clean_text or clean_domain before it reaches a reason, and check_row rejects a reason with markup; account numbers and IBANs are shown masked (country and last four characters) and the self-test checks that a full IBAN never appears in a row; authentication is read only from the trusted headers of Phase 3 and domains are compared through the offline tldextract; results files hold counts only | A04 Insecure Design (denial of service); A03 Injection (XSS); A09 Logging Failures (PII) |
+| Thread verifier (Phase 9) | A thread is attacker-written input: at most 50 messages are examined, each text is cut at 60,000 characters and 5,000 words, at most 100 Message-IDs are read per message, a Subject is cut at 300 characters before its prefixes are removed, raw files are read up to 300,000 bytes; no regular expression runs over email text (words are found in one pass over the characters and a quotation is compared as a set of 5-word runs); IDs are only looked up in a set and never followed, so a cyclic In-Reply-To chain cannot loop; reasons are built from fixed templates, domains through clean_domain and masked bank details, and check_row rejects markup; crafted inputs (50 messages of 200,000 characters, 100 References, 10,000 lines of '>', 100,000 'Re:' prefixes, a cyclic chain, floods of '@', a 200-message thread) each finish in under two seconds; benchmark prompts hold redacted excerpts inside <email> blocks with angle brackets replaced, the prompt says they are data, a reply must be a JSON array whose quoted cues appear in the text, and the prompt files are never committed | A04 Insecure Design (denial of service); A03 Injection; LLM01 Prompt injection |
 | Output encoding (XSS) | Email bodies are attacker-controlled. Render as text; highlights are built from escaped text; no dangerouslySetInnerHTML; DOMPurify if HTML is ever shown. Test with real XSS payloads from the corpus. | A03 Injection (XSS) |
 | PII redaction | Email addresses, phone numbers and account numbers redacted before any logging | A09 Logging Failures |
 | Rate limiting | slowapi per-IP limits on the analysis endpoint | A04 Insecure Design |
@@ -1255,6 +1447,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 | Verifier contradiction rates | Do contradictions appear more in attacks than in ordinary mail, and where can claims be checked at all? | Contradicted share of the checkable claims per category and per source; claims that could not be checked reported apart, never as 'no contradiction'; train and validation; no precision or recall (nobody labelled contradictions), the effect on detection is the N3 ablation | N3 |
 | N1 ablation | How much of a phishing detector's accuracy is link-reading? | Attack-class F1 and false-positive rate for models A and B on raw, redacted and naturally link-free test views | N1 |
 | N2 ablation | Does thread verification catch hijacks N3 misses? | Detection rate with vs without the thread verifier; hijack-index accuracy; content signals on Enron threads, header signals on Apache threads | N2 |
+| Thread verifier rates (Phase 9) | How noisy is N2 on real threads, and what does it find that the Phase 8 verifiers miss? | False alarms on real unmodified threads per source; detection of five-case hijack benchmark per variant and source for N2, the header and request verifiers and both; which signal caught each case; whether the scan flips at the injected message; bootstrap intervals over threads; counts only below 10 cases; train, and validation once in Phase 9 | N2 |
 | N3 ablation | Does conditioning beat the alternatives? | F1 and false-positive rate: full vs text-only vs headers-only vs parallel fusion; real affiliation positives and synthetic BEC reported separately | N3 |
 | Architecture ablation | Does routing beat a flat classifier on the same signals? | F1, false-positive rate, share of findings with a traceable reason | Architecture |
 | SemEval pretraining (optional) | Does pretraining help with little data? | Macro-F1 across training sizes | Plain |
@@ -1287,7 +1480,7 @@ For each phase, the assistant explains the background, then provides every file 
 | 6 | DistilBERT tactic classifier on Colab (SemEval pretraining skipped), validation scores and checks | src/models, src/eval | Done (8 Oct 2026) |
 | 7 | Claim extractor and claim schema (spaCy, token patterns, organisation and signature rules; train-only development, frozen version scored once on validation) | src/claims | Done (8 Oct 2026) |
 | 8 | Header verifier (N3: internal and external affiliation, authority, reply, signature) and request verifier; rules written from definitions and train results, frozen at version 0.3, validation read once | src/verifiers | Done (9 October 2026) |
-| 9 | Thread builder (Enron and Apache), thread-hijack benchmark, thread verifier (N2, including request drift) | src/thread, src/verifiers, src/data | Not started |
+| 9 | Thread builder (Enron and Apache), thread-hijack benchmark, thread verifier (N2, including request drift); rules frozen at version 0.2, validation threads scored once | src/thread, src/verifiers, src/data | Done (9 October 2026) |
 | 10 | Claim router, verdict ledger, risk score, LIME highlights | src/router, src/explain | Not started |
 | 11 | FastAPI backend with all security controls | src/api | Not started |
 | 12 | React frontend: analyzer (single email and thread) and evaluation dashboard; frontend README | frontend | Not started |
@@ -1364,7 +1557,7 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | src/models | dataset.py, train.py, predict.py, validate.py | Training table (train and validation rows only) and its checks; fine-tuning on Colab; loading weights and predicting 7 tactic probabilities; validation scores and PASS/FAIL checks on the Mac | 6 (done) |
 | src/claims | schema.py, patterns.py, extractor.py, build.py | Claim object and limits; phrase patterns and word lists (data only); spaCy and token patterns to typed claims; train hit rates, scores against the labels and checks | 7 (done) |
 | src/verifiers | rows.py, facts.py, brands.py, bank.py, header_verifier.py, request_verifier.py, verify.py, selftest.py, build.py | Ledger row and its checks; cleaned facts, domain similarity and signature addresses; brand domains (data only); IBAN and bank-detail finder; N3 checks; who is asking for money or credentials; routing of claims to verifiers; self-test; contradiction rates and checks | 8 (done) |
-| src/thread, src/verifiers, src/data | builder.py, signals.py, thread_verifier.py, hijack_benchmark.py | Thread rebuilding; N2 signal helpers; N2 verifier and flip point; hijack benchmark | 9 |
+| src/thread, src/verifiers, src/data | signals.py, builder.py, features.py, build.py, selftest.py, evaluate.py, thread_verifier.py, hijack_benchmark.py | The four N2 measurements; Enron and Apache thread rebuilding; cached tactic probabilities and claims of thread messages; thread build, false-alarm rates and checks; self-test; benchmark scoring; N2 rules, rows and flip point; the hijack benchmark (plan, prompts, API replies, cases) | 9 (done) |
 | src/router, src/explain | router.py, ledger.py, score.py, pipeline.py, lime_explain.py | Routing table; ledger rows; 0-100 score and bands; analyze(email) end to end; LIME highlights | 10 |
 | src/api | main.py, schemas.py, security.py | FastAPI app and routes; Pydantic request and response shapes; API key, rate limit, size caps, safe logging | 11 |
 | frontend/src | main.jsx, App.jsx, api.js, pages/AnalyzerPage.jsx, pages/DashboardPage.jsx, components/EmailInput.jsx, RiskBadge.jsx, HighlightedBody.jsx, FindingsTable.jsx, HeaderFindings.jsx, ThreadTimeline.jsx | Entry and layout; API calls; analyzer and dashboard pages; input, score, highlighted body, ledger table, header results, thread timeline | 12 |
@@ -1440,7 +1633,9 @@ Planned file names; each phase may adjust them. The root and major-folder README
 
 - Claim-conditioned rules versus learned features (a route guard that reads the request body, not a global middleware); the three domains (From, authenticated, claimed) and what each header proves; a three-valued result (contradiction, consistent, not checkable; true, false, null) and why 'not checkable' is never 'no contradiction'; severity as rule strength, not probability; display-name spoofing, Reply-To hijacking and look-alike domains as rules; brand domains and third-party mailers; the IBAN mod 97 checksum; testing a rule engine without labels (hand-made cases, rates by category and source, reading the false alarms, then a freeze) (Phase 8).
 
-To be taught during the build: the thread builder and the thread-hijack benchmark, LIME, FastAPI basics, the claim router.
+- Message-ID, In-Reply-To and References and how mail programs thread a conversation; rebuilding threads without them (normalised subjects, time runs, shared participants, duplicates across folders); union-find; quoted history and word-run shingles as a way to compare re-wrapped text; why a hijacked account still passes SPF, DKIM and DMARC; change-point detection in plain words (the flip point); request drift as a set difference; sending-path fingerprints (the first Received hop, the mail program without its version) and why one change alone is weak; building a benchmark by injection and why it can be circular (the benign twin as the style control, each signal in its own variant); grouped splits for threads; bootstrap intervals that resample threads rather than cases (Phase 9).
+
+To be taught during the build: LIME, FastAPI basics, the claim router.
 
 # 14. Decisions log
 
@@ -1562,12 +1757,29 @@ To be taught during the build: the thread builder and the thread-hijack benchmar
 | 9 Oct 2026 | A caveat is added to Section 8.15: the synthetic validation macro-F1 averages five types, one of which (credential_request) has a single positive there; no re-run, and the scorer of Phase 13 applies the 10-positive rule to macros too | The table showed the type as counts while the macro still included its F1 |
 | 9 Oct 2026 | Phase 8 complete: contradiction rates, rule hits and checks in results/verifier_*.csv | Phase 9 can start |
 | 9 Oct 2026 | Version 3.10: Phase 8 folded into Sections 2, 6.2, 6.3, 8.9, 8.15, 8.16 (new), 9, 10, 11, 12, 13, 14, 15 and 16 | End of Phase 8 |
+| 9 Oct 2026 | The thread verifier is built from four measurements that return plain numbers and sets (src/thread/signals.py) and one file of rules that turns them into ledger rows (src/verifiers/thread_verifier.py); `verify_claims` gets an optional `thread` argument and its default behaviour is unchanged | A measurement can be tested with a hand-made thread and no model; the Phase 8 results stay reproducible (RULES_VERSION unchanged) |
+| 9 Oct 2026 | Apache threads are rebuilt from Message-ID, In-Reply-To and References (union-find); Enron threads from the normalised subject, 14-day runs and shared participants, with copies removed by date, sender and subject (the copies carry different Message-IDs); a thread needs 3 to 50 messages and at least two senders | Raw Enron has no reply headers; a bigger group is an announcement list, not a conversation; one sender is a monologue |
+| 9 Oct 2026 | The new text of a message is cut as in Phase 2; its quotation (lines marked >, or everything after an Outlook-style marker) and its whole text are kept too, and a quotation is compared with the WHOLE text of the earlier messages; forwards are not checked (version 0.2) | The first real train run showed inline replies: the sender's own answers between quoted paragraphs were counted as history, and the earlier inline answers a reply quotes back were missing from the comparison |
+| 9 Oct 2026 | The quotation check compares 5-word shingles (a quotation of 20 words or more with under 30% matching shingles is high), not lines | Mail programs re-wrap and prefix quoted text; shingles survive that; fixed from the definition, not tuned |
+| 9 Oct 2026 | Tactic onset uses only authority, urgency, scarcity and secrecy and the Phase 6 thresholds: it fires when a tactic reaches its threshold in a message and in no earlier one and is at least 0.40 above the average of the earlier messages (the 0.40 was added in version 0.2), with at least two earlier messages | The other three tactics have under 10 real positives; the first real train run showed urgency crossing its threshold of 0.45 by a hair in ordinary business mail, while an attack jumps |
+| 9 Oct 2026 | Request drift is a set difference on bank_detail_keys plus the first request of each type in the thread; a different detail of the same kind is high, a first detail medium | A change of bank details in a running thread is the classic hijack; the sets come from the Phase 8 bank finder |
+| 9 Oct 2026 | One change of server or mail program alone is low and both together medium; the server is compared by its network (the first three numbers of the IP address, version 0.2) and the mail program without its version; a look-alike domain under an earlier sender's name is high | Servers and programs change for harmless reasons (a new phone, a trip, an upgrade) and a provider rotates its addresses: a new exact address alone fired on 402 of 1,243 real Apache messages |
+| 9 Oct 2026 | prior_relationship is judged by whether the sender took part earlier in the thread; the strongest answer is a low contradiction | A call outside the thread cannot be disproved |
+| 9 Oct 2026 | The flip point is the first message with a medium or high contradiction, judged message by message against its own past | Change-point detection in its simplest form; the index is the explanation |
+| 9 Oct 2026 | The benchmark has five cases per base thread (neg_real, neg_synth, A takeover, B look-alike swap on Apache, C forged) and the benign text is the body of B and C and of neg_synth | Each signal is tested in its own variant; the same words as a negative and as a positive remove the style confound |
+| 9 Oct 2026 | Bank details in injected texts are inserted by code as a valid fictional IBAN (the model writes a token) | An invented IBAN almost never passes the check digits, so the signal could not fire |
+| 9 Oct 2026 | The injected message ends the thread (the later real messages are dropped), and the scan must flip at the injected message | The later real messages quote the real reply, not the injected one |
+| 9 Oct 2026 | Rates are bootstrapped over threads, not cases, and a cell under 10 cases is a count only | The cases of one thread share its history; one case moves a rate by many points below 10 |
+| 9 Oct 2026 | Rules were written from definitions and revised only after reading train results; the validation threads were scored once for the frozen version; the test threads wait for Phase 13 | The same leakage discipline as Phases 4, 7 and 8 |
+| 9 Oct 2026 | Threads with a message the tactic classifier trained on are kept out of validation and test | The classifier must not have seen the messages whose onset it is asked to find |
+| 9 Oct 2026 | Phase 9 complete: thread counts, false-alarm rates, benchmark counts, detection scores and checks in results/thread_*.csv and hijack_*.csv | Phase 10 can start |
+| 9 Oct 2026 | Version 3.11: Phase 9 folded into Sections 2, 4.3, 6.2, 8.7, 8.9, 8.17 (new), 10, 11, 12, 13, 14, 15 and 16 | End of Phase 9 |
 
 # 15. Open items and next actions
 
-1.  **Start Phase 9** (thread builder, thread-hijack benchmark and thread verifier N2) in a new chat with docs/PretextGuard_Context.md and this document.
+1.  **Start Phase 10** (claim router, verdict ledger, risk score and LIME highlights) in a new chat with docs/PretextGuard_Context.md and this document.
 
-2.  **Replace the project-file copy** with v3.10 (remove older copies) and keep docs/ in the repo current.
+2.  **Replace the project-file copy** with v3.11 (remove older copies) and keep docs/ in the repo current.
 
 3.  **Update the Review deck** when needed: novelty slide (N1, N2, N3 and the architecture contribution), the architecture diagram (Figure 2), the corrected running example (authentication passes for gmail.com), and the literature table (add Mithun et al. 2024, Ho et al. 2019, Valecha et al. 2022, ConvoSentinel, Aggarwal et al. 2014).
 
@@ -1593,9 +1805,13 @@ To be taught during the build: the thread builder and the thread-hijack benchmar
 
 14. **Phase 13 notes from Phase 7:** the frozen patterns are in src/claims/patterns.py (PATTERN_VERSION is saved in results/claim_checks.csv); build.py never loads the test split, so Phase 13 adds src/eval/claim_extraction.py, which scores the frozen patterns on the test labels once. Choose the operating point (all claims or strong only) per type on validation and apply it once to test. Report the five types with enough positives as F1 with a bootstrap confidence interval and the other six as counts; real and synthetic apart; say that every score is agreement with LLM labels from one model family. Report affiliation_internal, signature_contact precision and reply_direction recall as the weak spots, with the annotator-agreement F1 beside them (results/label_agreement.csv). Include the claim extractor in the adversarial paraphrase test.
 
-15. **Phase 9 notes from Phase 8:** `verify_claims` (src/verifiers/verify.py) routes prior_relationship to the thread verifier and, until Phase 9 exists, returns the placeholder row `tv_needs_thread` (not checkable); the thread verifier returns rows of the same shape (verifier 'thread', rule ids starting tv_, built with `contradiction_row`, `consistent_row` and `unchecked_row` of src/verifiers/rows.py and checked with `check_row`) and replaces the placeholder. Request drift: `bank_detail_keys(text)` (src/verifiers/bank.py) returns the set of (kind, value) bank details of a message; compare the sets between messages; the request verifier already marks a bank-detail change 'not checkable: needs the thread' (rule rv_change_needs_thread). Sending-path drift reads origin_ip, received_hops, mailer and from_registered_domain from headers.parquet; on mailing-list mail the authenticated domain and the DKIM signature belong to the list, not the author (auth_state 'list_relayed'), and the Apache Reply-To is set by the list. The claims of every message in headers.parquet are already in data/processed/claims_cache/ (train and validation); raw Enron messages are not in cleaned.parquet, so their claims need `extract_many`. Tactic onset needs the tactic probabilities of every message from TacticClassifier (the weights exist only on the Mac). Use the 10-positive rule and bootstrap confidence intervals for the N2 results.
+15. **Phase 9 notes from Phase 8 (applied in Phase 9, Section 8.17):** `verify_claims` (src/verifiers/verify.py) routes prior_relationship to the thread verifier and, until Phase 9 exists, returns the placeholder row `tv_needs_thread` (not checkable); the thread verifier returns rows of the same shape (verifier 'thread', rule ids starting tv_, built with `contradiction_row`, `consistent_row` and `unchecked_row` of src/verifiers/rows.py and checked with `check_row`) and replaces the placeholder. Request drift: `bank_detail_keys(text)` (src/verifiers/bank.py) returns the set of (kind, value) bank details of a message; compare the sets between messages; the request verifier already marks a bank-detail change 'not checkable: needs the thread' (rule rv_change_needs_thread). Sending-path drift reads origin_ip, received_hops, mailer and from_registered_domain from headers.parquet; on mailing-list mail the authenticated domain and the DKIM signature belong to the list, not the author (auth_state 'list_relayed'), and the Apache Reply-To is set by the list. The claims of every message in headers.parquet are already in data/processed/claims_cache/ (train and validation); raw Enron messages are not in cleaned.parquet, so their claims need `extract_many`. Tactic onset needs the tactic probabilities of every message from TacticClassifier (the weights exist only on the Mac). Use the 10-positive rule and bootstrap confidence intervals for the N2 results.
 
 16. **Phase 13 notes from Phase 8:** the rules are frozen at version 0.3 (RULES_VERSION in src/verifiers/verify.py, saved in results/verifier_checks.csv); the test split is read once with them. The N3 ablation (full against text-only, headers-only and parallel fusion) needs per-source results because authentication evidence differs by source (Section 8.11) and real affiliation positives apart from synthetic BEC; the synthetic emails have no headers, so generate clearly synthetic header blocks (a BEC attack from a freemail sender with a matched benign twin from the organisation's own domain) for that ablation only and report them apart. Choose the claim operating point (all claims or strong claims only) per type on validation and apply it once to test; severities become points in Phase 10 and are calibrated on validation. Say wherever a number appears that the claims come from a rule-based extractor scored against LLM labels from one model family, and that the contradiction rates are not precision or recall. Use the cached claims (data/processed/claims_cache/) for the train and validation splits; the test split needs its own cache.
+
+17. **Phase 10 notes from Phase 9:** the thread verifier is `verify_thread_message(messages, index)` and `scan_thread(messages)` (src/verifiers/thread_verifier.py); `verify_claims(claims, facts, contact_text, body_text, thread=(messages, index))` routes prior_relationship to it and gives each request claim a second, thread row. The rows about the thread itself (tactic onset, bank details, sending path, integrity) have claim_id 'thread' and claim_type set to the signal name (tactic_onset, request_drift, sending_path, thread_integrity, single_email). A message dictionary is described in src/thread/signals.py and built by src/thread/builder.py (record_from_table, message_record); the new text and the quoted history come from split_message; tactics come from TacticClassifier.probabilities and claims from extract_many (src/thread/features.py shows both with a cache). Thresholds come from artifacts/tactic_model/thresholds.json (load_thresholds). Severities are initial labels (rule strength) and are calibrated in Phase 10 on validation only; the N2 results of Phase 9 (results/thread_scores.csv) are the validation evidence for the thread rules, and results/thread_signal_rates.csv shows which thread rules are noisy on real threads (give a noisy low rule little or no weight). The single-email rule tv_single_no_reply_ids is low severity because many real replies lack reply headers.
+
+18. **Phase 13 notes from Phase 9:** the frozen thread rules are in src/verifiers/thread_verifier.py (THREAD_RULES_VERSION and the version log are saved in results/thread_checks.csv); the test threads are built (data/processed/threads.parquet has a `split` column) but were never scored, so Phase 13 adds src/eval/ablation_n2.py, which scores the test cases of data/threads/cases.csv once (features for the test messages need their own cache: attach_features(messages, 'test')). Report N2 with and without the thread verifier inside the full risk score, per variant and source, the 10-positive rule and bootstrap intervals over threads (as src/thread/evaluate.py does), content signals on Enron threads and all four signals on Apache threads, real and synthetic apart. State that the injected messages and headers are synthetic, that variant A copies the details on purpose, that Enron has no sending-path data, and that the base threads are real. Include the thread verifier's false-alarm rates on real test threads.
 
 # 16. Glossary
 
@@ -1611,6 +1827,13 @@ To be taught during the build: the thread builder and the thread-hijack benchmar
 | SPF / DKIM / DMARC | Checks on whether a sender may use a domain, whether the message is signed, and the combined verdict |
 | Reply-To / Return-Path / Received | Where replies go / where bounces go (envelope sender) / the servers the message passed through |
 | Message-ID / In-Reply-To / References | A message's unique ID / the ID it replies to / the chain of earlier IDs in the thread |
+| Thread | The messages of one conversation, in time order; rebuilt from Message-ID links (Apache) or from subject, time and participants (Enron) |
+| Flip point | The first message of a thread that breaks the pattern of the messages before it: the index N2 reports |
+| Request drift | A request or bank detail that appears in a message and in no earlier message of its thread (a set difference) |
+| Sending-path drift | The same sender writing from a server or mail program it never used earlier in the thread, or an earlier sender's name appearing at a look-alike domain |
+| Shingle | A run of five consecutive words; a quotation is compared with the earlier messages as a set of shingles |
+| Change-point detection | Finding the position where a sequence stops behaving as it did before |
+| Hijack benchmark | Real threads with an attacker's message injected in place of a real one, and real and synthetic negatives; labels: hijacked or not, and the position |
 | Claim | Something the email asserts about itself (identity, authority, relationship, request) |
 | Verifier | A function that checks one kind of claim against evidence |
 | Verdict ledger | The list of findings: claim, evidence, contradiction or not, and the reason |

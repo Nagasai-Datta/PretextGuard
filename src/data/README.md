@@ -1,6 +1,6 @@
 # src/data/
 
-Phase 1: turn six differently shaped downloads into one table of unique emails with a fixed train/validation/test split. Phase 5 adds annotation, labels and synthetic emails (last section); Phase 9 will add the thread-hijack benchmark.
+Phase 1: turn six differently shaped downloads into one table of unique emails with a fixed train/validation/test split. Phase 5 adds annotation, labels and synthetic emails (last section); Phase 9 adds the thread-hijack benchmark (last section).
 
 ## Scripts, in the order you run them
 
@@ -77,3 +77,17 @@ Run order: `batches`, then `annotate` for annotator_1 and annotator_2, `validate
 Decisions built into the code: the sample is a fixed allocation per source and category, not proportional, and no keyword hit picks any email; annotators see `body_redacted` only, cut at 2,000 characters; replies are kept raw and every save is logged with the model name; an invalid item is re-asked once, then dropped and counted; kappa is written by hand and cross-checked against scikit-learn.
 
 Security: email text is wrapped as data and its angle brackets are replaced; replies must be an exact JSON shape and quoted spans must appear in the email; a reply that is the same for every email is rejected as a likely hijack; `data/labelled/batches/` is never committed because it holds full email text.
+
+## Phase 9: the thread-hijack benchmark
+
+`hijack_benchmark.py` builds the benchmark that tests the thread verifier (N2). Real threads (raw Enron and the Apache lists, rebuilt by `src/thread/build.py`) are cut before one message and an attacker's message is put in its place. It needs `data/processed/threads.parquet`; the details, the five variants and the limits are in `data/threads/README.md`.
+
+```bash
+python -m src.data.hijack_benchmark build                   # plan the base threads, write the prompts (data/threads/prompts/, never committed)
+python -m src.data.hijack_benchmark auto annotator_1        # send the prompts to the free Gemini API (resumes where it stopped)
+python -m src.data.hijack_benchmark collect                 # check the replies, write re-ask prompts for failures, write injections.csv and cases.csv
+```
+
+| File | Job |
+|---|---|
+| `hijack_benchmark.py` | `build`, `auto`, `collect`; `candidate_message` builds the message that stands at the injection point in each of the five cases |

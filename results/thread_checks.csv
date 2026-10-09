@@ -4,13 +4,15 @@ rows_valid,"ledger rows that fail check_row (keys, severity fits contradiction, 
 structure,"threads whose positions are not 0, 1, 2 ...",0,0,PASS
 structure,threads with fewer than 3 or more than 50 messages,0,0,PASS
 leakage_guard,threads that straddle more than one split,0,0,PASS
-leakage_guard,splits scored in this run,train,train only (--train-only) or train and validation; never test,PASS
+leakage_guard,splits scored in this run,train+validation,train only (--train-only) or train and validation; never test,PASS
 leakage_guard,Apache messages the tactic classifier trained on (kept in train; benchmark threads for validation and test must avoid them),10,(a finding),info
 text,Apache messages whose new text differs from the Phase 2 body_clean (sample),0,0,PASS
 coverage,apache threads / messages,391 / 2309,>= 100 threads (a finding if not),PASS
 coverage,enron threads / messages,1200 / 5471,>= 100 threads (a finding if not),PASS
 false_alarms,train apache: share of messages with a past that get a medium or high contradiction,0.4%,<= 20% (a finding if not; these threads are real and unmodified),PASS
+false_alarms,validation apache: share of messages with a past that get a medium or high contradiction,1.1%,<= 20% (a finding if not; these threads are real and unmodified),PASS
 false_alarms,train enron: share of messages with a past that get a medium or high contradiction,3.6%,<= 20% (a finding if not; these threads are real and unmodified),PASS
+false_alarms,validation enron: share of messages with a past that get a medium or high contradiction,4.8%,<= 20% (a finding if not; these threads are real and unmodified),PASS
 coverage,contradiction rules that never fired on the train threads,5 of 21,"(a finding, not a failure)",info
 single_email,Apache replies with quoted history but no In-Reply-To or References (the single-email rule tv_single_no_reply_ids),0.2% of 1762,(a finding: the rule is low severity because many real replies lack the headers),info
 crafted_inputs,"slowest of the crafted threads (50 large messages, 100 IDs, floods of '>', 100,000 'Re:' ...)",0.32 s,< 2 s,PASS
@@ -18,5 +20,5 @@ run,thread rules version,0.2,,info
 run,tactic thresholds from,artifacts/tactic_model/thresholds.json,,info
 run,Enron threads kept / Apache threads kept,1200 / 391,,info
 run,--enron-files (0 means every file),0,0 in the final run,PASS
-run,validation threads scored in this run,no (--train-only or --count),yes in the final run of a frozen version,info
-run,seconds,21,,info
+run,validation threads scored in this run,yes,yes in the final run of a frozen version,PASS
+run,seconds,81,,info
