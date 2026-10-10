@@ -467,7 +467,9 @@ def chart_agreement(read, out, split):
     table = read.get("label_agreement")
     if table is None:
         return None
-    table = table[table["kappa"].notna()].sort_values("kappa")
+    table = table[table["kind"].isin(["tactic", "claim"]) & table["kappa"].notna()].sort_values("kappa")
+    if table.empty:
+        return None
     fig, ax = plt.subplots(figsize=(7.6, 1.0 + 0.27 * len(table)))
     colours = {"tactic": SERIES[0], "claim": SERIES[1]}
     ax.barh(range(len(table)), table["kappa"], height=0.62, color=[colours[k] for k in table["kind"]], edgecolor=SURFACE, linewidth=1.2)
@@ -475,7 +477,8 @@ def chart_agreement(read, out, split):
         ax.axvline(x, color=GRID, linewidth=0.8, zorder=0)
         ax.text(x, len(table) - 0.35, text, fontsize=6, color=MUTED, ha="center", va="bottom")
     ax.set_yticks(range(len(table)))
-    ax.set_yticklabels([l.replace("_", " ") for l in table["label"]], fontsize=8)
+    shared = set(table["label"][table["kind"] == "tactic"]) & set(table["label"][table["kind"] == "claim"])
+    ax.set_yticklabels([l.replace("_", " ") + (" (%s)" % k if l in shared else "") for l, k in zip(table["label"], table["kind"])], fontsize=8)
     ax.set_xlim(0, 1)
     ax.set_xlabel("Cohen's kappa between the two LLM annotators")
     grid_x(ax)

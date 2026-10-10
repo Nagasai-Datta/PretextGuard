@@ -621,8 +621,9 @@ def test_charts(world, check):
 
     results = Path(paths.RESULTS_DIR)
     pd.DataFrame({"source": ["apache_kafka_users", "kaggle_enron"], "full_headers": [True, False], "messages": [1055, 15420], "Message-ID": [100.0, 0.0], "Date": [100.0, 100.0], "Reply-To": [100.0, 0.0]}).to_csv(results / "header_coverage.csv", index=False)
-    pd.DataFrame({"kind": ["tactic", "tactic", "claim"], "label": ["authority", "urgency", "payment_request"], "items": [692] * 3, "positives_first": [218, 245, 20], "positives_second": [76, 178, 30],
-                  "both_positive": [73, 166, 10], "agree_pct": [78.6, 86.8, 90.0], "kappa": [0.399, 0.694, 0.287], "reading": ["fair", "substantial", "fair"], "span_overlap_pct": [None, None, 50.0]}).to_csv(results / "label_agreement.csv", index=False)
+    pd.DataFrame({"kind": ["tactic", "tactic", "claim", "mean_tactic", "mean_claim"], "label": ["authority", "urgency", "payment_request", "mean of 7 defined", "mean of 11 defined"], "items": [692] * 5,
+                  "positives_first": [218, 245, 20, None, None], "positives_second": [76, 178, 30, None, None], "both_positive": [73, 166, 10, None, None], "agree_pct": [78.6, 86.8, 90.0, None, None],
+                  "kappa": [0.399, 0.694, 0.287, 0.501, 0.458], "reading": ["fair", "substantial", "fair", "moderate", "moderate"], "span_overlap_pct": [None, None, 50.0, None, None]}).to_csv(results / "label_agreement.csv", index=False)
     drawn, skipped = quiet(charts.draw_all, "validation")
     expected = {"n1", "links", "n2", "n3", "arch", "tactics", "claims", "style", "cooccurrence", "budget", "paraphrase", "coverage", "agreement"}
     check("charts: all thirteen charts are drawn from the rehearsal tables of the earlier tests", set(drawn) == expected, "drawn %s, skipped %s" % (sorted(drawn), skipped))
