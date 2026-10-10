@@ -45,7 +45,7 @@ class World:
 
     def __init__(self):
         self.tmp = tempfile.TemporaryDirectory()
-        self.folder = Path(self.tmp.name)
+        self.folder = Path(self.tmp.name).resolve()       # resolved: on macOS /var is a link to /private/var, and paths.relative() resolves
         self.undo = []
         self.emails = []
 
@@ -149,6 +149,9 @@ class World:
         # result files of earlier phases that the experiments read
         sizes = pd.DataFrame([{"source": s, "category": c, "split": sp} for s, c, sp, _, _ in self.emails]).groupby(["source", "category", "split"]).size().unstack(fill_value=0).reset_index()
         sizes["total"] = sizes[list(SPLITS)].sum(axis=1)
+        totals = {"source": "total", "category": ""}
+        totals.update({column: int(sizes[column].sum()) for column in list(SPLITS) + ["total"]})
+        sizes = pd.concat([sizes, pd.DataFrame([totals])], ignore_index=True)           # the real file ends with a total row
         sizes.to_csv(results / "split_counts.csv", index=False)
         validation_rows = []
         for system in ("distilbert", "keyword_tuned", "keyword_default"):
@@ -229,6 +232,20 @@ def test_stats(world, check):
 
     ok, total = quiet(stats.self_test, verbose=False)
     check("stats.py: its own self-test (bootstrap, Wilson, AUC and matched cut against scikit-learn and textbook values)", ok, "%d checks" % total)
+
+
+@test
+def test_split_total(world, check):
+    from src.eval import common
+
+    table = pd.read_csv(paths.SPLIT_COUNTS_CSV)
+    check("common.split_total: the total row of results/split_counts.csv is left out, so each split is counted once (the real file has one)",
+          (table["source"] == "total").sum() == 1 and all(common.split_total(s) == len(world.ids(s)) for s in SPLITS) and common.split_total("nonsense") is None,
+          str({s: (common.split_total(s), len(world.ids(s))) for s in SPLITS}))
+    from src.eval import world as world_module
+
+    check("world.lookalike_score: numpy integers, floats, missing values and text all give a number between 0 and 1", world_module.lookalike_score(np.int64(80)) == 0.8 and world_module.lookalike_score(80.0) == 0.8
+          and world_module.lookalike_score(None) == 0.0 and world_module.lookalike_score(float("nan")) == 0.0 and world_module.lookalike_score("x") == 0.0)
 
 
 @test

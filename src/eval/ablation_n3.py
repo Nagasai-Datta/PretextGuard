@@ -282,9 +282,8 @@ def run(split, rerun=None, workers=1, classifier=None, thresholds=None, limit=0,
         print("  %-9s %-12s %2d/%-2d  %s" % (r.system, r.role, r.hits, r.n, "-" if pd.isna(r.rate) else "%.1f%% [%.1f, %.1f]" % (100 * r.rate, 100 * r.rate_ci_low, 100 * r.rate_ci_high)))
 
     # ---- checks
-    sizes = pd.read_csv(paths.SPLIT_COUNTS_CSV)
-    if split in sizes.columns and not limit:
-        expected = int(sizes[split].sum())
+    expected = common.split_total(split)
+    if expected is not None and not limit:
         checks.add("counts", "emails of the split equal results/split_counts.csv", len(test), expected, len(test) == expected)
     checks.add("leakage_guard", "learned systems were fitted on", "train (%d emails: %d attacks, %d ham)" % (len(train), int(systems.roles(train)[0].sum()), int(systems.roles(train)[1].sum())), "train only", True)
     checks.add("leakage_guard", "cuts were fixed on", "validation ham (%d emails)" % int(systems.roles(validation)[1].sum()), "validation only", True)

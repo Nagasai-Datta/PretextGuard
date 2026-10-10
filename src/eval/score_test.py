@@ -91,8 +91,7 @@ def run(split, rerun=None, workers=1, classifier=None, featurize=attach_features
     checks.add("counts", "every email of the split is in the distribution once", "%d / %d" % (allrow["emails"], len(world)), "equal",
                int(allrow["emails"]) == len(world) and int(allrow["low"] + allrow["suspicious"] + allrow["high"]) == len(world))
     checks.add("counts", "emails with a checked claim never exceed all emails", int(allrow["checked_emails"]), "<= %d" % len(world), int(allrow["checked_emails"]) <= len(world))
-    sizes = pd.read_csv(paths.SPLIT_COUNTS_CSV)
-    expected = int(sizes[split].sum()) if split in sizes.columns else None
+    expected = common.split_total(split)
     checks.add("leakage_guard", "emails scored equal the %s column of results/split_counts.csv" % split, len(world), expected, expected is None or limit > 0 or len(world) == expected)
     config_path = paths.RESULTS_DIR / "score_config.csv"
     if config_path.exists():

@@ -324,9 +324,9 @@ def run(split, rerun=None, limit=0, loader=None, models_override=None):
                 have = int(((table["is_attack"] == is_attack) & free).sum())
                 if len(want):
                     checks.add("counts", "naturally link-free %s in %s equal results/preprocess_checks.csv" % (label, split), have, int(want.iloc[0]), have == int(want.iloc[0]))
-    sizes = pd.read_csv(paths.SPLIT_COUNTS_CSV)
-    if split in sizes.columns and not limit:
-        checks.add("counts", "emails of the split equal results/split_counts.csv", len(table), int(sizes[split].sum()), len(table) == int(sizes[split].sum()))
+    expected_total = common.split_total(split)
+    if expected_total is not None and not limit:
+        checks.add("counts", "emails of the split equal results/split_counts.csv", len(table), expected_total, len(table) == expected_total)
     checks.add("fixed_threshold", "the cut of every model", THRESHOLD, "0.5 (fixed, never tuned)", THRESHOLD == 0.5)
     if paths.N1_DATA_PARQUET.exists():
         sample = pd.read_parquet(paths.N1_DATA_PARQUET, columns=["id", "split"])

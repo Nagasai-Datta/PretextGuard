@@ -71,8 +71,7 @@ def run(split, rerun=None, workers=1, classifier=None, featurize=attach_features
         {"split": split, "cache": "real thread messages", "items": messages, "detail": "%d threads" % len(threads)},
         {"split": split, "cache": "hijack candidates", "items": injected, "detail": "%d cases of the split (neg_real needs no injected text)" % cases},
     ])
-    expected = pd.read_csv(paths.SPLIT_COUNTS_CSV)
-    expected = int(expected[split].sum()) if split in expected.columns else None
+    expected = common.split_total(split)
     checks.add("emails", "emails of the split equal results/split_counts.csv", len(table), expected, expected is None or len(table) == expected)
     checks.add("probabilities", "one row of 7 probabilities per email, all between 0 and 1", "%d x %d" % probabilities.shape,
                "%d x 7" % len(table), probabilities.shape == (len(table), 7) and bool(probabilities.min() >= 0) and bool(probabilities.max() <= 1))

@@ -1,0 +1,12 @@
+claim_type,min_confidence,validation_f1_all_claims,validation_f1_strong_only,basis,pattern_version
+affiliation_internal,0.0,0.1667,0.087,higher validation F1 (a tie goes to every claim),0.4
+affiliation_external,0.0,0.7033,0.6506,higher validation F1 (a tie goes to every claim),0.4
+authority,0.0,0.6207,0.5,higher validation F1 (a tie goes to every claim),0.4
+reply_direction,0.0,,,counts only (fewer than 10 real positives in validation or test): every claim,0.4
+signature_contact,0.9,0.5053,0.5098,higher validation F1 (a tie goes to every claim),0.4
+prior_relationship,0.0,,,counts only (fewer than 10 real positives in validation or test): every claim,0.4
+payment_request,0.0,,,counts only (fewer than 10 real positives in validation or test): every claim,0.4
+payment_change,0.0,,,counts only (fewer than 10 real positives in validation or test): every claim,0.4
+credential_request,0.0,0.7826,0.6829,higher validation F1 (a tie goes to every claim),0.4
+gift_card,0.0,,,counts only (fewer than 10 real positives in validation or test): every claim,0.4
+data_request,0.0,,,counts only (fewer than 10 real positives in validation or test): every claim,0.4

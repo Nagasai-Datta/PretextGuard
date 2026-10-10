@@ -3,6 +3,8 @@
 The settings here are part of the freeze (src/eval/freeze.py records their values), so they are written down before the test split is read.
 """
 
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 
@@ -19,6 +21,19 @@ PARAPHRASE_TEMPERATURE = 0.7
 PARAPHRASE_SEED = 42
 ATTACK_CATEGORIES = ("phishing", "fraud")      # is_attack; spam is neither attack nor legitimate mail
 LABEL_NOTE = "labels are LLM labels from one model family"
+
+
+def split_total(split):
+    """The number of emails of a split according to results/split_counts.csv, or None when the file or the column is missing.
+
+    The file ends with a 'total' row (source 'total'); it is left out here, otherwise every email would be counted twice."""
+    path = paths.SPLIT_COUNTS_CSV
+    if not Path(path).exists():
+        return None
+    table = pd.read_csv(path)
+    if split not in table.columns:
+        return None
+    return int(table[table["source"] != "total"][split].sum())
 
 
 def is_flagged(band):

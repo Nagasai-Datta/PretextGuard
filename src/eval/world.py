@@ -55,6 +55,15 @@ def verdict_bucket(value):
     return "other"
 
 
+def lookalike_score(value):
+    """The organisation look-alike score (0 to 100) as a number between 0 and 1; 0 when it is missing. Accepts any numeric type a table gives (numpy integers included)."""
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return 0.0
+    return number / 100.0 if number == number else 0.0
+
+
 def text_vector(probabilities, claims):
     """Seven tactic probabilities, then the number of claims of each of the eleven types: all that the text alone shows."""
     counts = {c: 0 for c in CLAIM_TYPES}
@@ -78,8 +87,7 @@ def header_vector(raw_facts):
             1.0 if f["list_mail"] else 0.0, 1.0 if reply_other else 0.0, 1.0 if f["reply_domain"] else 0.0, 1.0 if f["envelope_mismatch"] else 0.0,
             1.0 if f["org_domain"] else 0.0, 1.0 if f["org_checkable"] else 0.0, 1.0 if f["from_matches_org"] is True else 0.0, 1.0 if f["from_matches_org"] is False else 0.0,
             1.0 if relation == "suffix" else 0.0, 1.0 if relation == "lookalike" else 0.0,
-            float(f["org_lookalike_score"]) / 100.0 if isinstance(f["org_lookalike_score"], (int, float)) and f["org_lookalike_score"] == f["org_lookalike_score"] else 0.0,
-            1.0 if f["from_domain"] else 0.0]
+            lookalike_score(f["org_lookalike_score"]), 1.0 if f["from_domain"] else 0.0]
     return out
 
 
