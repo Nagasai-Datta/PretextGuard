@@ -1,0 +1,55 @@
+{
+  "finished_utc": "2026-10-10 11:24:59",
+  "minutes": 21.1,
+  "base_model": "distilbert/distilbert-base-uncased",
+  "base_model_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+  "code_commit": "34642d34cfe0ecf0a3d83164baaa124e47a68405",
+  "data_sha256": "09167fc58eab4051abb0bd4d73962acb2f8651891cb23508858acdc6d8e6c9c5",
+  "versions": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.19.0",
+    "numpy": "2.1.3",
+    "pandas": "2.2.3"
+  },
+  "device": "Tesla T4",
+  "fp16": true,
+  "settings": {
+    "seeds": [
+      42,
+      43
+    ],
+    "epochs": 2,
+    "learning_rate": 3e-05,
+    "batch_size": 16,
+    "weight_decay": 0.01,
+    "warmup_share": 0.1,
+    "grad_clip": 1.0,
+    "pos_weight": 3.1067,
+    "pos_weight_cap": 10.0,
+    "max_tokens": 512,
+    "threshold": 0.5,
+    "selection": "validation attack-class F1 on the model's own view at threshold 0.5, ties to the lower validation loss"
+  },
+  "training_emails": 9856,
+  "training_attacks": 2400,
+  "validation_emails": 3006,
+  "chosen": {
+    "A": {
+      "view": "text_raw",
+      "seed": 43,
+      "epoch": 2,
+      "validation_attack_f1": 0.93355,
+      "validation_precision": 0.91379,
+      "validation_recall": 0.95417
+    },
+    "B": {
+      "view": "text_redacted",
+      "seed": 42,
+      "epoch": 2,
+      "validation_attack_f1": 0.92601,
+      "validation_precision": 0.90093,
+      "validation_recall": 0.95254
+    }
+  }
+}

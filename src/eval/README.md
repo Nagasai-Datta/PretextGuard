@@ -8,7 +8,7 @@ python -m src.eval.stats
 python -m src.eval.metrics
 ```
 
-The first runs every script on a tiny made-up project (no data, no model; about 30 seconds, 106 checks); the second checks the statistics helpers against scikit-learn and textbook values; the third is the Phase 6 metrics self-test (unchanged).
+The first runs every script on a tiny made-up project (no data, no model; about 30 seconds, 107 checks); the second checks the statistics helpers against scikit-learn and textbook values; the third is the Phase 6 metrics self-test (unchanged).
 
 ## The rules that make the test numbers honest
 

@@ -103,7 +103,7 @@ mv ~/Downloads/phase13_outputs/n1_val_probs.csv results/n1_val_probs.csv
 mv ~/Downloads/phase13_outputs/n1_run_info.json results/n1_run_info.json
 ```
 
-The weights stay out of Git (`artifacts/` is ignored); the three small files in `results/` are committed. `python -m src.eval.ablation_n1` later checks that the Mac's CPU reproduces the probabilities Colab recorded (the check `mac_reproduces_colab`), as in Phase 6. The files are part of the freeze record (`src/eval/freeze.py`), so run `python -m src.eval.freeze --write` only after they are in place.
+The weights stay out of Git (`artifacts/` is ignored); the three small files in `results/` are committed. `python -m src.eval.ablation_n1` later checks that the Mac's CPU reproduces the probabilities Colab recorded (the check `mac_reproduces_colab`), as in Phase 6, with one difference: the N1 models are scored on the GPU in half precision (fp16) and on the Mac in full precision, so the tolerance is 0.005 instead of 0.001 (the first real run showed 0.0012, which is rounding; a wrong model or text would differ by tenths) and a second check requires that no decision at the cut of 0.5 differs unless Colab's probability lies within the tolerance of the cut. The files are part of the freeze record (`src/eval/freeze.py`), so run `python -m src.eval.freeze --write` only after they are in place.
 
 ## Rules
 

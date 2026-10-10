@@ -50,10 +50,29 @@ LOGISTIC = {"C": 1.0, "solver": "liblinear", "class_weight": "balanced", "max_it
 CHUNK = 800
 PARITY_EMAILS = 200
 PARITY_TOLERANCE = 0.001
+PARITY_TOLERANCE_FP16 = 0.005
 VIEWS = (("raw", "raw", False), ("redacted", "redacted", False), ("linkfree_raw", "raw", True), ("linkfree_redacted", "redacted", True))
 FAMILIES = (("distilbert", "distilbert_A", "distilbert_B"), ("tfidf_sample", "tfidf_A_sample", "tfidf_B_sample"), ("tfidf_full", "tfidf_A_full", "tfidf_B_full"))
 MODELS = ("distilbert_A", "distilbert_B", "tfidf_A_sample", "tfidf_B_sample", "tfidf_A_full", "tfidf_B_full", "link_rule")
 EMAIL_COLUMNS = ["id", "source", "category", "split", "is_attack", "has_url", "body_clean", "body_redacted"]
+
+
+def parity_verdict(mine, theirs, fp16):
+    """Does the Mac's prediction reproduce the probabilities recorded on Colab? Returns (largest difference, tolerance, emails missing from Colab's file, unexplained decision flips at the cut, all flips).
+
+    The Phase 6 model was checked to 0.001 because Colab recorded its probabilities in full precision. The N1 models are trained and scored on the GPU in half precision (fp16, to halve the time) and the
+    Mac scores them in full precision, so the two sides differ by half-precision rounding: a logit is accurate to about two decimals and the sigmoid's slope is at most 0.25, so a difference up to 0.005
+    is rounding (the first real run showed 0.0012). A wrong model, a wrong text view or a wrong order of emails would differ by tenths, so the check keeps its power. A decision flip at the cut of 0.5
+    is explained only when Colab's probability lies within the tolerance of 0.5."""
+    tolerance = PARITY_TOLERANCE_FP16 if fp16 else PARITY_TOLERANCE
+    mine, theirs = np.asarray(mine, dtype=np.float64), np.asarray(theirs, dtype=np.float64)
+    missing = int(np.isnan(theirs).sum())
+    keep = ~np.isnan(theirs)
+    mine, theirs = mine[keep], theirs[keep]
+    worst = float(np.max(np.abs(mine - theirs))) if len(mine) else float("inf")
+    flips = (mine >= THRESHOLD) != (theirs >= THRESHOLD)
+    unexplained = int((flips & (np.abs(theirs - THRESHOLD) > tolerance)).sum())
+    return worst, tolerance, missing, unexplained, int(flips.sum())
 
 
 def load_emails(split, limit=0):
@@ -343,15 +362,20 @@ def run(split, rerun=None, limit=0, loader=None, models_override=None):
         colab = pd.read_csv(parity_path, dtype={"id": str})
         sample = pd.read_parquet(paths.N1_DATA_PARQUET)
         sample = sample[sample["split"] == "validation"].head(PARITY_EMAILS)
-        worst = 0.0
+        mine_all, theirs_all = [], []
         for key, folder, column in (("A", paths.N1_MODEL_A_DIR, "text_raw"), ("B", paths.N1_MODEL_B_DIR, "text_redacted")):
             from src.eval.n1_model import predict
 
             model, tokenizer = loader(folder)
-            mine = predict(model, tokenizer, sample[column].tolist())
-            theirs = colab[colab["model"] == key].set_index("id").reindex(sample["id"])["probability"].to_numpy()
-            worst = max(worst, float(np.nanmax(np.abs(mine - theirs))))
-        checks.add("mac_reproduces_colab", "largest probability difference on %d validation-sample emails, both models" % len(sample), "%.6f" % worst, "<= %.3f" % PARITY_TOLERANCE, worst <= PARITY_TOLERANCE)
+            mine_all.append(predict(model, tokenizer, sample[column].tolist()))
+            theirs_all.append(colab[colab["model"] == key].set_index("id").reindex(sample["id"])["probability"].to_numpy())
+        info_file = paths.RESULTS_DIR / "n1_run_info.json"
+        fp16 = bool(json.loads(info_file.read_text(encoding="utf-8")).get("fp16")) if info_file.exists() else False
+        worst, tolerance, missing, unexplained, flips = parity_verdict(np.concatenate(mine_all), np.concatenate(theirs_all), fp16)
+        how = "Colab scored in fp16, the Mac in full precision" if fp16 else "both in full precision"
+        checks.add("mac_reproduces_colab", "largest probability difference on %d validation-sample emails, both models (%s)" % (len(sample), how), "%.6f" % worst, "<= %.3f" % tolerance,
+                   worst <= tolerance and missing == 0)
+        checks.add("mac_reproduces_colab", "decisions at the cut of 0.5 that differ and are not within the tolerance of the cut (%d differ in all)" % flips, unexplained, "0", unexplained == 0)
     try:
         from sklearn.metrics import f1_score
         attack = table["is_attack"].to_numpy(dtype=bool)

@@ -534,7 +534,15 @@ def test_ablation_n1(world, check):
           and counts_view[(counts_view["view"] == "all") & (counts_view["source"] == "kaggle_enron")]["text_changed_by_redaction_pct"].iloc[0] == 0.0)
     parity = checks.frame()
     parity = parity[parity["check"] == "mac_reproduces_colab"]
-    check("ablation_n1: the Mac reproduces the probabilities Colab recorded (here: the same machine)", len(parity) == 1 and parity["status"].iloc[0] == "PASS", str(parity.to_dict("records")))
+    check("ablation_n1: the Mac reproduces the probabilities Colab recorded (here: the same machine, full precision)", len(parity) == 2 and (parity["status"] == "PASS").all(), str(parity.to_dict("records")))
+    mine = np.array([0.10, 0.50, 0.90, 0.30])
+    half = mine + np.array([0.0012, 0.0011, -0.0012, 0.001])
+    worst, tolerance, missing, unexplained, flips = ablation_n1.parity_verdict(mine, half, True)
+    check("ablation_n1: parity in half precision lets rounding through (0.0012, which fails at 0.001) but not a wrong model (0.05), a flip far from the cut or a missing email",
+          worst <= tolerance and unexplained == 0 and ablation_n1.parity_verdict(mine, half, False)[0] > ablation_n1.PARITY_TOLERANCE
+          and ablation_n1.parity_verdict(mine, mine + 0.05, True)[0] > tolerance and ablation_n1.parity_verdict(mine, np.array([0.10, 0.50, 0.30, 0.30]), True)[3] == 1
+          and ablation_n1.parity_verdict(mine, np.array([0.10, 0.4995, 0.90, np.nan]), True)[2] == 1 and ablation_n1.parity_verdict(mine, np.array([0.10, 0.4995, 0.90, 0.30]), True)[3:] == (0, 1),
+          str((worst, tolerance, missing, unexplained, flips)))
     check("ablation_n1: its own checks pass", checks.failed() == 0, str(checks.frame()[checks.frame()["status"] == "FAIL"].to_dict("records")))
     world.refreeze()
     quiet(ablation_n1.run, "test", None, 0)
