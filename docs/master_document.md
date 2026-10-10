@@ -14,9 +14,9 @@ Project Master Document
 
 **Faculty:** Dr. Arun Prasath G
 
-**Version:** 3.14, 10 October 2026
+**Version:** 3.15, 10 October 2026
 
-> **This is the single source of truth for the project.** Version 3.14 supersedes version 3.13 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
+> **This is the single source of truth for the project.** Version 3.15 supersedes version 3.14 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
 
 **Contents**
 
@@ -147,7 +147,7 @@ This document is written so that a person or an AI assistant can pick up Pretext
 </tr>
 <tr class="even">
 <td>Current status</td>
-<td>Phases 0 to 12 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 labelled 690 real emails for the seven tactics and eleven claim types with two LLM annotators and a tie-breaker (results/label_*.csv), wrote 222 synthetic attack-and-twin pairs for the rare tactics, and recorded the SemEval 23-to-7 mapping. Phase 6 fine-tuned DistilBERT on the seven tactics on Colab (real and synthetic training emails, three seeds, thresholds tuned on validation) and scored it against the keyword baseline on the validation emails, real and synthetic apart (results/tactic_*.csv, Section 8.14). Phase 7 built the claim extractor: spaCy name detection, 85 token patterns and organisation and signature rules turn an email into typed claims of the eleven types of Section 6.4; the patterns were written from the train split only, frozen at version 0.4 and scored once on the validation emails (results/claim_*.csv, Section 8.15). Phase 8 built the header verifier (N3) and the request verifier: 63 rules turn each claim and the header evidence of its email into a ledger row (contradiction, consistent or not checkable, with the evidence, the rule and a reason); the rules were frozen at version 0.3 before the validation emails were read once, 9134 of the 79590 train claims routed to a verifier could be checked, and the contradiction rates and checks are in results/verifier_*.csv (Section 8.16). Phase 9 built the thread verifier (N2): real threads rebuilt from raw Enron (subjects and participants) and the Apache lists (Message-ID, In-Reply-To, References); 44 rules measure tactic onset, request drift, sending-path drift and thread integrity of each message against its own thread and find the message where it flipped; a thread-hijack benchmark of five cases per base thread (real and synthetic negatives, account takeover, look-alike swap, forged thread) tests each signal in its own variant; the rules were frozen at version 0.2 before the validation threads were scored once (results/thread_*.csv and hijack_*.csv, Section 8.17). Phase 10 built the claim router, the verdict ledger, the 0-100 risk score and LIME highlights: analyze() turns a raw email or thread into the report of Section 6.3; score version 0.2 was calibrated against a false-alarm budget on the validation emails (the budget held in 5 of 6 groups; the one miss is a finding), the hijack benchmark and the attack corpora are reported and never fitted, and the LIME highlights passed a deletion test (results/score_*.csv and lime_checks.csv, Section 8.18). Phase 11 put analyze() behind a FastAPI service with five routes and the controls of Section 10 (the key in a header and compared in constant time, per-address rate limits, size caps counted as the bytes arrive, fixed error messages with a request id, a fixed-field audit log); 88 self-test checks passed with a stand-in classifier, the self-test noticed 37 of 37 controls broken on purpose, and a real session with the trained model passed 19 checks (results/api_checks.csv, api_mutations.csv and api_smoke.csv, Section 8.19). Phase 12 built the interface in React, Vite and Tailwind: an analyzer page that shows the score, the findings, the highlighted text, the tactics and how the score was built, and a dashboard of four charts and every result table, all drawn as text through a same-origin proxy that keeps the API key out of the browser and under a strict Content-Security-Policy; 96 static checks passed, the checks noticed 26 of 26 things broken on purpose, and the built app passed 93 checks in a real browser (results/frontend_checks.csv, frontend_mutations.csv and frontend_browser_checks.csv, Section 8.20). Phase 13 (all experiments and charts) is next.</td>
+<td>Phases 0 to 13 complete. Phase 1 built the staged table of 99,324 unique emails from nine sources (20,313 attacks), the header coverage table and a fixed 70/15/15 split. Phase 2 added clean and payload-free (N1) redacted bodies, with no detectable link or address left after redaction and 4,580 naturally link-free attacks. Phase 3 turned every email's headers into evidence for N3: authentication verdicts read only from trusted headers, freemail and lookalike checks, mailing-list and organisation-domain handling. Phase 4 built the keyword baseline: fixed word lists for the seven tactics and a scorer that reads body_redacted, checked by hit rates on the train split (results/keyword_*.csv). Phase 5 labelled 690 real emails for the seven tactics and eleven claim types with two LLM annotators and a tie-breaker (results/label_*.csv), wrote 222 synthetic attack-and-twin pairs for the rare tactics, and recorded the SemEval 23-to-7 mapping. Phase 6 fine-tuned DistilBERT on the seven tactics on Colab (real and synthetic training emails, three seeds, thresholds tuned on validation) and scored it against the keyword baseline on the validation emails, real and synthetic apart (results/tactic_*.csv, Section 8.14). Phase 7 built the claim extractor: spaCy name detection, 85 token patterns and organisation and signature rules turn an email into typed claims of the eleven types of Section 6.4; the patterns were written from the train split only, frozen at version 0.4 and scored once on the validation emails (results/claim_*.csv, Section 8.15). Phase 8 built the header verifier (N3) and the request verifier: 63 rules turn each claim and the header evidence of its email into a ledger row (contradiction, consistent or not checkable, with the evidence, the rule and a reason); the rules were frozen at version 0.3 before the validation emails were read once, 9134 of the 79590 train claims routed to a verifier could be checked, and the contradiction rates and checks are in results/verifier_*.csv (Section 8.16). Phase 9 built the thread verifier (N2): real threads rebuilt from raw Enron (subjects and participants) and the Apache lists (Message-ID, In-Reply-To, References); 44 rules measure tactic onset, request drift, sending-path drift and thread integrity of each message against its own thread and find the message where it flipped; a thread-hijack benchmark of five cases per base thread (real and synthetic negatives, account takeover, look-alike swap, forged thread) tests each signal in its own variant; the rules were frozen at version 0.2 before the validation threads were scored once (results/thread_*.csv and hijack_*.csv, Section 8.17). Phase 10 built the claim router, the verdict ledger, the 0-100 risk score and LIME highlights: analyze() turns a raw email or thread into the report of Section 6.3; score version 0.2 was calibrated against a false-alarm budget on the validation emails (the budget held in 5 of 6 groups; the one miss is a finding), the hijack benchmark and the attack corpora are reported and never fitted, and the LIME highlights passed a deletion test (results/score_*.csv and lime_checks.csv, Section 8.18). Phase 11 put analyze() behind a FastAPI service with five routes and the controls of Section 10 (the key in a header and compared in constant time, per-address rate limits, size caps counted as the bytes arrive, fixed error messages with a request id, a fixed-field audit log); 88 self-test checks passed with a stand-in classifier, the self-test noticed 37 of 37 controls broken on purpose, and a real session with the trained model passed 19 checks (results/api_checks.csv, api_mutations.csv and api_smoke.csv, Section 8.19). Phase 12 built the interface in React, Vite and Tailwind: an analyzer page that shows the score, the findings, the highlighted text, the tactics and how the score was built, and a dashboard of four charts and every result table, all drawn as text through a same-origin proxy that keeps the API key out of the browser and under a strict Content-Security-Policy; 96 static checks passed, the checks noticed 26 of 26 things broken on purpose, and the built app passed 93 checks in a real browser (results/frontend_checks.csv, frontend_mutations.csv and frontend_browser_checks.csv, Section 8.20). Phase 13 ran every experiment on the test split once, after a freeze record, with a dress rehearsal on validation first: the tactic classifier and the keyword baseline, the claim extractor, the risk score and its false-alarm budget, the N1 ablation (raw-trained against redaction-trained models on raw, redacted and link-free views), the N2 ablation on the test hijack cases, the N3 ablation (full system against text only, headers only and parallel fusion at the same false-alarm rate), the architecture ablation (routed against flat), the style-confound test and the adversarial paraphrase test, with 13 charts; every number is in Section 8.21 and in the files named in src/eval/README.md. Phase 14 (the report, the viva preparation and the Review deck) is next.</td>
 </tr>
 <tr class="odd">
 <td>Repository</td>
@@ -1648,6 +1648,182 @@ validation, enron threads:
 
 - **Security:** see Section 10 (output encoding, interface hardening).
 
+## 8.21 Phase 13 experiments on the test split
+
+- **Output:** src/eval (stats.py, freeze.py, common.py, world.py, systems.py, prepare_test.py, tactic_test.py, claim_extraction.py, score_test.py, n1_data.py, n1_train.py, n1_model.py, ablation_n1.py, ablation_n2.py, ablation_n3.py, ablation_arch.py, style_confound.py, paraphrase.py, charts.py, run_all.py, selftest.py, README.md), notebooks/phase13_n1_models.ipynb, 13 charts in docs/figures/results/ and the result files named in src/eval/README.md (about 40 CSV files; all but the 6,000-row n1_val_probs.csv are on the API's allow-list, so the dashboard shows them as tables). `python -m src.eval.selftest` runs every script on a made-up project (107 checks).
+- **Protocol (no leakage).** `python -m src.eval.freeze --write` recorded a SHA-256 for every frozen file (patterns, lexicon, verifier and thread rules, score and reliability file, preprocessing, the tactic model and its thresholds, the N1 weights, the claim operating points, the benchmark and label files), the version strings and the settings of the experiments, in results/eval_freeze.csv, and the record was committed before the first test run (digest 64e769a7b217cea6). Every test script recomputed it and refused to start on a difference, and wrote its start and finish to results/eval_test_log.csv: 10 finished test runs are logged, none repeated. Every script was first run on the validation split as a dress rehearsal (the default of every script; outputs in data/processed/rehearsal/, not committed), which is where bugs of the evaluation code were found and fixed (for example the agreement chart failed on the summary rows of label_agreement.csv); nothing frozen changed afterwards. One evaluation check was changed after it failed in a rehearsal, before any test number existed: the N1 models were trained and scored on the GPU in half precision (fp16), and the check that the Mac reproduces Colab's recorded probabilities, which used the Phase 6 tolerance of 0.001, read 0.001193; the tolerance for a half-precision run was set to 0.005 (a wrong model or text view would differ by tenths) and a second check was added that no decision at the cut of 0.5 differs unless Colab's probability lies within the tolerance of 0.5 (0 decisions at the cut differed on the 200 emails, 0 of them unexplained). It is a check of the evaluation, not a frozen component. The claim operating points were chosen on the validation scores of Phase 7 and written to a file before any test email was read; the keyword thresholds are the ones tuned on real validation in Phase 6; both N1 models and every comparator use fixed settings. Intervals are 95% percentile intervals from 1,000 bootstrap resamples (seed 42) that draw whole groups: the Phase 1 subject groups for emails, threads for the hijack benchmark and pairs for synthetic emails; differences between systems are paired. A cell with fewer than 10 positives (20 emails in the paraphrase test) is a count, not a rate. Real and synthetic results are apart.
+- **Tactic classifier and keyword baseline (test, labelled real emails).** Every F1 is agreement with LLM labels from one model family. Thresholds were fixed on validation in Phase 6; the validation columns are the Phase 6 scores (slightly optimistic: validation chose the epoch, the seed and the thresholds).
+
+| **tactic** | **positives** | **DistilBERT F1 [95%]** | **keyword baseline (tuned) F1 [95%]** | **DistilBERT, validation** | **keyword, validation** |
+|---|---|---|---|---|---|
+| authority | 25 | 0.526 [0.340, 0.667] | 0.167 [0.000, 0.333] | 0.593 | 0.316 |
+| urgency | 44 | 0.574 [0.452, 0.685] | 0.557 [0.420, 0.691] | 0.606 | 0.492 |
+| scarcity | 26 | 0.436 [0.250, 0.588] | 0.632 [0.421, 0.791] | 0.552 | 0.654 |
+| secrecy | 16 | 0.381 [0.117, 0.667] | 0.645 [0.424, 0.846] | 0.700 | 0.518 |
+| macro-F1 (four tactics) |  | 0.479 [0.370, 0.574] | 0.500 [0.408, 0.581] | 0.613 | 0.495 |
+
+    The paired difference in macro-F1, DistilBERT minus the tuned keyword baseline, is -0.021 [-0.144, +0.091]: not distinguishable from 0 (the interval includes 0). Counts only (fewer than 10 real positives in test): reciprocity 0 positives (tp 0, fp 1, fn 0); social_proof 0 positives (tp 0, fp 0, fn 0); liking 4 positives (tp 1, fp 2, fn 3). On the pooled synthetic emails (validation and test together, because test alone has fewer than 10 attacks for four tactics): authority 0.615 [0.470, 0.736]; urgency 0.449 [0.317, 0.577]; scarcity 0.381 [0.178, 0.558]; reciprocity 0.460 [0.314, 0.590]; social_proof 0.812 [0.698, 0.897]; liking 0.678 [0.536, 0.794]; secrecy 0.214 [0.000, 0.400]. Macro-F1 on the pooled synthetic set 0.415 [0.330, 0.502].
+
+- **Claim extractor (test, labelled real emails).** The frozen patterns (version in results/claim_operating_points.csv), each type at the operating point chosen on validation; scores are agreement with LLM labels from one model family, and the last column is how well annotator 2 agrees with annotator 1 on the same type.
+
+| **claim type** | **operating point** | **positives** | **tp / fp / fn** | **test F1 [95%]** | **validation F1** | **annotator 2 against 1** |
+|---|---|---|---|---|---|---|
+| affiliation_internal | every claim | 12 | 2 / 2 / 10 | 0.250 [0.000, 0.533] | 0.167 | 0.410 |
+| affiliation_external | every claim | 44 | 33 / 23 / 11 | 0.660 [0.549, 0.757] | 0.703 | 0.722 |
+| authority | every claim | 16 | 14 / 9 / 2 | 0.718 [0.526, 0.870] | 0.621 | 0.662 |
+| reply_direction | every claim | 11 | 5 / 0 / 6 | 0.625 | - | 0.726 |
+| credential_request | every claim | 15 | 10 / 6 / 5 | 0.645 [0.417, 0.815] | 0.783 | 0.730 |
+| signature_contact | strong only | 26 | 15 / 12 / 11 | 0.566 [0.383, 0.704] | 0.510 | 0.613 |
+
+    Macro-F1 over the five types 0.568 [0.470, 0.646]. Counts only: prior_relationship 1 positives (tp 0, fp 2, fn 1); payment_request 2 positives (tp 0, fp 10, fn 2); payment_change 1 positives (tp 0, fp 1, fn 1); gift_card 0 positives (tp 0, fp 0, fn 0); data_request 8 positives (tp 5, fp 8, fn 3).
+
+- **Risk score 0.2 on the test split.** Emails per band, with both denominators (all emails; emails with a checked claim). Attack and ordinary mail come from different corpora with different header evidence, so these are descriptions, not a precision or recall.
+
+| **category** | **emails** | **Suspicious or above** | **High risk** | **emails with a checked claim** | **Suspicious or above (checked)** | **High risk (checked)** |
+|---|---|---|---|---|---|---|
+| fraud | 486 | 22.8% | 6.8% | 227 | 48.9% | 14.5% |
+| ham | 6357 | 0.3% | 0.0% | 398 | 4.3% | 0.0% |
+| phishing | 2559 | 11.8% | 4.5% | 561 | 54.0% | 20.7% |
+| spam | 5501 | 0.2% | 0.0% | 116 | 9.5% | 1.7% |
+
+    The false-alarm budget (High risk for at most 1% and Suspicious or above for at most 5% of the checked legitimate emails of a source and of the real thread messages of a source, judged from 20 checked), measured here on the test split, which is the clean measurement (Phase 10 corrected its ham-only definition after the validation emails were read):
+
+| **kind** | **group** | **checked** | **Suspicious or above** | **High risk** | **validation Suspicious or above** | **budget verdict** |
+|---|---|---|---|---|---|---|
+| ham | apache_kafka_users | 17 | 11.76% | 0.00% | 0.00% | info (fewer than 20) |
+| ham | apache_tomcat_users | 17 | 0.00% | 0.00% | 0.00% | info (fewer than 20) |
+| ham | kaggle_ceas08 | 268 | 5.60% | 0.00% | 3.12% | OVER |
+| ham | spamassassin | 96 | 0.00% | 0.00% | 0.93% | PASS |
+| spam (not budgeted) | kaggle_ceas08 | 41 | 2.44% | 0.00% | 4.35% | info (spam: not budgeted) |
+| spam (not budgeted) | spamassassin | 75 | 13.33% | 2.67% | 9.38% | info (spam: not budgeted) |
+| real thread messages | apache_kafka_users | 95 | 0.00% | 0.00% | 1.18% | PASS |
+| real thread messages | apache_tomcat_users | 201 | 1.00% | 0.00% | 1.02% | PASS |
+| real thread messages | enron | 633 | 4.90% | 0.47% | 5.38% | PASS |
+
+    Groups judged: 5; within the budget: 4; over it: 1: email kaggle_ceas08 (Suspicious or above 5.6% is over 5% (the 95% interval still includes the budget)).
+
+- **N1: how much of a detector's accuracy is link-reading?** Attack (phishing, fraud) against not-attack (ham, spam) on the held-out test emails, in four views of the same emails: raw, redacted, and the naturally link-free subset in both forms. Model A is trained on the raw body and model B on the redacted body (DistilBERT, about 9,000 training emails, two seeds, threshold 0.5), with a TF-IDF plus logistic regression pair on the same sample and on all train emails, and a link-presence rule as a floor. Attack-class F1 [95% interval]; false-positive rates on ham and on spam at the same threshold. Corpus labels, not LLM labels.
+
+| **model** | **F1 raw** | **F1 redacted** | **F1 link-free, raw** | **F1 link-free, redacted** | **FPR ham (raw)** | **FPR spam (raw)** |
+|---|---|---|---|---|---|---|
+| DistilBERT A (raw) | 0.935 [0.927, 0.943] | 0.877 [0.864, 0.889] | 0.863 [0.840, 0.884] | 0.854 [0.830, 0.876] | 0.9% | 3.5% |
+| DistilBERT B (redacted) | 0.918 [0.908, 0.927] | 0.932 [0.923, 0.940] | 0.862 [0.839, 0.884] | 0.861 [0.837, 0.883] | 0.7% | 3.6% |
+| TF-IDF A, sample | 0.908 [0.897, 0.918] | 0.870 [0.857, 0.882] | 0.851 [0.826, 0.874] | 0.845 [0.819, 0.869] | 0.5% | 4.3% |
+| TF-IDF B, sample | 0.885 [0.873, 0.896] | 0.883 [0.871, 0.893] | 0.845 [0.820, 0.868] | 0.843 [0.817, 0.867] | 0.7% | 4.3% |
+| TF-IDF A, all train | 0.931 [0.921, 0.939] | 0.896 [0.885, 0.907] | 0.873 [0.850, 0.895] | 0.868 [0.845, 0.890] | 0.7% | 3.5% |
+| TF-IDF B, all train | 0.914 [0.903, 0.924] | 0.908 [0.897, 0.917] | 0.870 [0.847, 0.891] | 0.869 [0.845, 0.890] | 0.7% | 3.5% |
+| link-presence rule | 0.413 [0.385, 0.440] | - | 0.000 [0.000, 0.000] | - | 46.5% | 54.9% |
+
+    DistilBERT: attack-class F1 on the raw view minus F1 on the redacted view is +0.059 [+0.050, +0.069] for model A (trained on raw; a positive value means A scores lower once the links are redacted) and -0.014 [-0.019, -0.009] for model B (trained on redacted; a negative value means B scores higher on the redacted view); A's drop minus B's drop is +0.073 [+0.061, +0.086]: A loses more than B (the interval is above 0).
+
+    TF-IDF on the same sample: attack-class F1 on the raw view minus F1 on the redacted view is +0.038 [+0.031, +0.045] for model A (trained on raw; a positive value means A scores lower once the links are redacted) and +0.003 [-0.004, +0.008] for model B (trained on redacted; a negative value means B scores higher on the redacted view); A's drop minus B's drop is +0.035 [+0.025, +0.046]: A loses more than B (the interval is above 0).
+
+    TF-IDF on all train emails: attack-class F1 on the raw view minus F1 on the redacted view is +0.035 [+0.029, +0.041] for model A (trained on raw; a positive value means A scores lower once the links are redacted) and +0.006 [+0.001, +0.011] for model B (trained on redacted; a negative value means B scores higher on the redacted view); A's drop minus B's drop is +0.028 [+0.021, +0.037]: A loses more than B (the interval is above 0).
+
+    Recall on each attack source, DistilBERT:
+
+| **attack source** | **A, raw** | **A, link-free redacted** | **B, raw** | **B, link-free redacted** |
+|---|---|---|---|---|
+| kaggle_nigerian_fraud (fraud) | 99.4% (483 of 486) | 99.3% (282 of 284) | 98.8% (480 of 486) | 99.7% (283 of 284) |
+| nazario (phishing) | 94.1% (1354 of 1439) | 82.5% (193 of 234) | 90.9% (1308 of 1439) | 85.5% (200 of 234) |
+| phishing_pot (phishing) | 94.5% (1058 of 1120) | 78.6% (140 of 178) | 89.7% (1005 of 1120) | 84.8% (151 of 178) |
+
+- **N2: does the thread verifier catch what single-message checks miss?** The test hijack cases (base threads are real; the injected messages and headers are synthetic). Detection means a medium or high contradiction on the injected message; the score columns use Suspicious or above. Rates carry intervals over threads; a cell with fewer than 10 cases is a count.
+
+| **source** | **case** | **cases** | **thread verifier (N2)** | **Phase 8 verifiers alone** | **risk score with N2: Suspicious or above** | **risk score without N2** | **scan flips at the injected message** |
+|---|---|---|---|---|---|---|---|
+| apache | A takeover | 25 | 72.0% [52.0%, 88.0%] (18 of 25) | 20.0% [4.0%, 36.0%] (5 of 25) | 76.0% [59.9%, 92.0%] (19 of 25) | 20.0% [4.0%, 36.0%] (5 of 25) | 68.0% [48.0%, 84.0%] (17 of 25) |
+| apache | B look-alike swap | 17 | 100.0% [100.0%, 100.0%] (17 of 17) | 0.0% [0.0%, 0.0%] (0 of 17) | 100.0% [100.0%, 100.0%] (17 of 17) | 0.0% [0.0%, 0.0%] (0 of 17) | 100.0% [100.0%, 100.0%] (17 of 17) |
+| apache | C forged thread | 25 | 100.0% [100.0%, 100.0%] (25 of 25) | 0.0% [0.0%, 0.0%] (0 of 25) | 100.0% [100.0%, 100.0%] (25 of 25) | 0.0% [0.0%, 0.0%] (0 of 25) | 96.0% [88.0%, 100.0%] (24 of 25) |
+| apache | real next reply (false alarms) | 25 | 0.0% [0.0%, 0.0%] (0 of 25) | 0.0% [0.0%, 0.0%] (0 of 25) | 0.0% [0.0%, 0.0%] (0 of 25) | 0.0% [0.0%, 0.0%] (0 of 25) | - |
+| enron | A takeover | 51 | 94.1% [88.2%, 100.0%] (48 of 51) | 0.0% [0.0%, 0.0%] (0 of 51) | 94.1% [86.3%, 100.0%] (48 of 51) | 0.0% [0.0%, 0.0%] (0 of 51) | 78.4% [66.7%, 90.2%] (40 of 51) |
+| enron | C forged thread | 51 | 88.2% [78.4%, 96.1%] (45 of 51) | 0.0% [0.0%, 0.0%] (0 of 51) | 88.2% [78.4%, 96.1%] (45 of 51) | 0.0% [0.0%, 0.0%] (0 of 51) | 70.6% [56.9%, 82.4%] (36 of 51) |
+| enron | real next reply (false alarms) | 51 | 2.0% [0.0%, 5.9%] (1 of 51) | 0.0% [0.0%, 0.0%] (0 of 51) | 2.0% [0.0%, 5.9%] (1 of 51) | 0.0% [0.0%, 0.0%] (0 of 51) | - |
+
+    False alarms of the thread verifier on messages with a past of the real, unmodified test threads: apache_kafka_users 0.00% of 95 messages with a past (23 threads), interval over threads [0.00%, 0.00%]; apache_tomcat_users 0.50% of 201 messages with a past (43 threads), interval over threads [0.00%, 1.64%]; enron 4.44% of 698 messages with a past (188 threads), interval over threads [3.08%, 5.99%].
+
+- **N3: does conditioning each check on its claim beat the simpler uses of the same information?** The full system (the frozen claim-routed score) against text only, headers only and parallel fusion of the two (BEC-Guard style). The learned systems are logistic regressions fitted on the train split (attack against ham, spam left out) and each is held to the false-alarm rate the frozen score shows on validation ham (0.14% of the validation ham), with a floor of 0.5% so that the cut is not set by a handful of emails. The floor lets each learned system flag more validation ham than the frozen score does, so AUC, which uses no cut, is the fairer comparison. Pooled attacks against ham (the corpora differ, so read the per-source table beside it):
+
+| **system** | **F1 [95%]** | **recall** | **false-alarm rate (ham)** | **precision** | **AUC** |
+|---|---|---|---|---|---|
+| full (claim-routed score) | 0.238 [0.204, 0.277] | 13.6% [11.4%, 16.2%] | 0.3% [0.1%, 0.5%] | 0.961 [0.923, 0.989] | 0.812 [0.799, 0.825] |
+| text only | 0.639 [0.612, 0.666] | 47.4% [44.4%, 50.3%] | 0.5% [0.3%, 0.8%] | 0.979 [0.966, 0.988] | 0.949 [0.941, 0.954] |
+| headers only | 0.788 [0.767, 0.810] | 65.5% [62.5%, 68.6%] | 0.3% [0.2%, 0.5%] | 0.990 [0.985, 0.994] | 0.966 [0.960, 0.971] |
+| parallel fusion | 0.882 [0.869, 0.895] | 80.3% [78.3%, 82.2%] | 0.8% [0.5%, 1.1%] | 0.980 [0.972, 0.986] | 0.993 [0.991, 0.994] |
+
+    Detection rate of each attack source, false-alarm rate of each ordinary source and flag rate of each spam source:
+
+| **source (kind)** | **full (claim-routed score)** | **text only** | **headers only** | **parallel fusion** |
+|---|---|---|---|---|
+| apache_kafka_users (ham) | 1.3% | 0.0% | 0.0% | 0.0% |
+| apache_tomcat_users (ham) | 0.0% | 0.0% | 0.0% | 0.0% |
+| kaggle_ceas08 (spam) | 0.3% | 1.3% | 0.1% | 6.3% |
+| kaggle_enron (ham) | 0.0% | 4.5% | 0.0% | 0.0% |
+| kaggle_ling (ham) | 0.0% | 1.4% | 0.0% | 0.0% |
+| kaggle_nigerian_fraud (fraud) | 22.8% | 46.1% | 2.5% | 74.3% |
+| nazario (phishing) | 15.3% | 58.9% | 60.4% | 83.9% |
+| phishing_pot (phishing) | 7.4% | 33.2% | 99.5% | 78.3% |
+| spamassassin (ham) | 1.1% | 3.8% | 9.6% | 8.2% |
+
+    Full minus text only, pooled F1: -0.401 [-0.444, -0.350]: the other system is ahead (the interval is below 0).
+
+    Full minus text only, pooled recall: -33.8 points [-37.5, -29.5]: the other system is ahead (the interval is below 0).
+
+    Full minus headers only, pooled F1: -0.550 [-0.593, -0.502]: the other system is ahead (the interval is below 0).
+
+    Full minus headers only, pooled recall: -51.9 points [-55.8, -47.7]: the other system is ahead (the interval is below 0).
+
+    Full minus parallel fusion, pooled F1: -0.644 [-0.678, -0.605]: the other system is ahead (the interval is below 0).
+
+    Full minus parallel fusion, pooled recall: -66.7 points [-69.4, -63.7]: the other system is ahead (the interval is below 0).
+
+    Synthetic colleague-impersonation emails with CLEARLY SYNTHETIC header blocks (a free mailbox or a look-alike domain that passes its own authentication, against a twin from the organisation's own domain), reported apart; synthetic text from one language model, headers written by rule:
+
+| **system** | **attack detection** | **attacks** | **twin false alarm** | **twins** |
+|---|---|---|---|---|
+| full (claim-routed score) | 61.3% [45.2%, 77.4%] | 19 of 31 | 0.0% [0.0%, 0.0%] | 0 of 31 |
+| text only | 35.5% [19.4%, 51.6%] | 11 of 31 | 0.0% [0.0%, 0.0%] | 0 of 31 |
+| headers only | 100.0% [100.0%, 100.0%] | 31 of 31 | 100.0% [100.0%, 100.0%] | 31 of 31 |
+| parallel fusion | 54.8% [38.7%, 74.2%] | 17 of 31 | 12.9% [3.2%, 25.8%] | 4 of 31 |
+| flat classifier | 54.8% [38.7%, 71.0%] | 17 of 31 | 0.0% [0.0%, 0.0%] | 0 of 31 |
+
+- **Architecture: routed against flat.** The same signals wired two ways, the flat classifier held to the same false-alarm target (the 0.5% floor applies here too). The flat classifier gets which rules fired anywhere, the worst severity per verifier, the tactic probabilities and two counts, without the link between a claim and its evidence.
+
+| **system** | **F1 [95%]** | **recall** | **false-alarm rate (ham)** | **precision** | **AUC** |
+|---|---|---|---|---|---|
+| routed (claim-routed score) | 0.238 [0.204, 0.277] | 13.6% [11.4%, 16.2%] | 0.3% [0.1%, 0.5%] | 0.961 [0.923, 0.989] | 0.812 [0.799, 0.825] |
+| flat classifier | 0.658 [0.629, 0.687] | 49.7% [46.5%, 52.8%] | 0.5% [0.3%, 0.9%] | 0.977 [0.965, 0.987] | 0.949 [0.942, 0.955] |
+
+    Routed minus flat, pooled F1: -0.420 [-0.454, -0.387]: the flat classifier is ahead (the interval is below 0).
+
+    Routed minus flat, pooled recall: -36.1 points [-39.1, -33.3]: the flat classifier is ahead (the interval is below 0).
+
+    Where they disagree (emails):
+
+| **category** | **emails** | **both flag** | **only routed** | **only flat** | **neither** |
+|---|---|---|---|---|---|
+| fraud | 486 | 102 | 9 | 155 | 220 |
+| ham | 6357 | 6 | 11 | 29 | 6311 |
+| phishing | 2559 | 271 | 32 | 984 | 1272 |
+| spam | 5501 | 7 | 4 | 265 | 5225 |
+
+    Traceable reasons among the flagged emails (a property of the design, not a measured gain; the code checks that the promise holds): routed (full): 442 flagged, 442 with a claim and a rule behind them; flat: 1819 flagged, 0 with a claim and a rule behind them.
+
+- **Style-confound test (Section 8.5).** AUC of telling two collections apart: same-kind source pairs, words: median AUC 0.992, range 0.965 to 1.000 over 24 pairs; same-kind source pairs, tactic probabilities: median AUC 0.727, range 0.561 to 0.990 over 24 pairs; real against synthetic (attack emails), words: AUC 1.000 [1.000, 1.000]; real against synthetic (attack emails), tactic probabilities: AUC 0.956 [0.889, 1.000]; real against synthetic (benign emails), words: AUC 1.000 [1.000, 1.000]; real against synthetic (benign emails), tactic probabilities: AUC 0.945 [0.882, 0.986]. A high AUC on words is a threat to validity, not a defect: it is why the ablations report per source and no pooled number is read as detection alone.
+- **Adversarial paraphrase.** A language model (annotator 1's model, temperature 0.7) rewrote the redacted body of sampled test emails; the headers were not touched; the real analyze() ran on the email before and after. The ham group is a control for new false alarms. Meaning was spot-checked on six pairs only.
+
+| **group** | **valid rewrites of sampled** | **flagged before** | **flagged after** | **kept (flagged before and after)** | **new flags** | **urgency kept** | **secrecy kept** |
+|---|---|---|---|---|---|---|---|
+| ham (control) | 59 of 60 | 0.0% (0 of 59) | 1.7% (1 of 59) | 0 of 0 | 1.7% (1 of 59) | 0 of 0 | 0 of 0 |
+| kaggle_nigerian_fraud | 50 of 50 | 22.0% (11 of 50) | 24.0% (12 of 50) | 9 of 11 | 7.7% (3 of 39) | 74.2% (23 of 31) | 6 of 10 |
+| nazario | 49 of 50 | 20.4% (10 of 49) | 18.4% (9 of 49) | 6 of 10 | 7.7% (3 of 39) | 88.6% (31 of 35) | 0 of 0 |
+| phishing_pot | 45 of 50 | 6.7% (3 of 45) | 6.7% (3 of 45) | 3 of 3 | 0.0% (0 of 42) | 66.7% (18 of 27) | 0 of 0 |
+
+- **Reading of the results (Phase 13).** Stated plainly, because Phase 14 quotes it. (1) *Detection, pooled (N3 and architecture).* The claim-routed score does not detect more than the simpler systems in this data: its pooled F1 is 0.238 against 0.639 (text only), 0.788 (headers only), 0.882 (parallel fusion) and 0.658 (flat classifier), its recall is 13.6% against 80.3% for parallel fusion, and its AUC, which uses no cut, is the lowest of the five (0.812 against 0.949 to 0.993). The paired differences have intervals that exclude 0. Three things limit the comparison and none removes the gap: the comparators were fitted on attack labels and the frozen score uses none; a headers-only model can partly read which corpus an email came from; and the 0.5% floor lets each comparator flag more validation ham than the frozen score does. The report says that the claim-routed score is not the best pooled detector here. (2) *What the routed design gives.* Every email it flags has a claim, a rule and evidence behind it (442 of 442 flagged; the flat classifier's 1819 flags name no claim), which is a property of the design and not a measured gain. In the synthetic colleague-impersonation arm (synthetic headers, 31 pairs) it flagged 19 of 31 attacks and 0 of 31 of their twins, headers only flagged 31 of 31 twins and parallel fusion 4 of 31. (3) *Hijacked threads (N2).* The thread verifier detects 60 of 67 Apache hijack cases and 93 of 102 Enron ones, against 5 of 67 and 0 of 102 for the Phase 8 verifiers; it raised a false alarm on 0 of 25 real next replies on Apache and 1 of 51 on Enron. Variants B and C each change one thing (the sending path; the thread IDs and quotes), so they are close to checks that the rules do what they are defined to do; variant A, a takeover that changes only the content, is the test of the content signals (18 of 25 Apache cases and 48 of 51 Enron cases, against 5 of 25 and 0 of 51 for the Phase 8 verifiers). The cases are synthetic. (4) *Links (N1).* A model trained on raw bodies loses attack-class F1 when the links are redacted at test time and a model trained on redacted bodies does not (DistilBERT, raw minus redacted: A +0.059 [+0.050, +0.069], B -0.014 [-0.019, -0.009]); A's drop minus B's drop is above 0 in all three families, so part of the accuracy of a raw-trained detector is link-reading. Training on redacted bodies keeps most of the accuracy (DistilBERT B on redacted text 0.932 against A on raw text 0.935). On the naturally link-free emails the two DistilBERT models are not distinguishable, but that subset is a different mix of sources, so its F1 is not a before-and-after of the same emails. A link-presence rule alone gets F1 0.413 at a ham false-positive rate of 46.5%. (5) *Tactics.* On real test emails the DistilBERT tactic classifier is not distinguishable from the tuned keyword baseline in macro-F1 (the paired difference above includes 0); the point estimates favour DistilBERT for authority and the baseline for scarcity and secrecy, and the validation macro-F1 in the table was higher than the test one. (6) *Score budget.* The risk score stayed within the false-alarm budget in 4 of 5 judged groups; over it: email kaggle_ceas08 (Suspicious or above 5.6% is over 5% (the 95% interval still includes the budget)). (7) *Confounds.* The collections can be told apart by their words, and real and synthetic emails can be told apart by their words (the style-confound test above), so no contrast between collections is read as detection alone. (8) *Rewording (paraphrase).* Rewording the body kept 18 of the 24 flags the attack groups started with (the headers were untouched, so a header contradiction survives by construction) and added 6 new flags among 120 emails not flagged before; the ham control got 1 new flag among 59 emails.
+
+- **Charts.** docs/figures/results/ holds 13 PNG files drawn by src/eval/charts.py from the result tables only (fig_n1_ablation, fig_n1_links, fig_n2_hijack, fig_n3_detection, fig_arch, fig_tactics_test, fig_claims_test, fig_style_auc, fig_cooccurrence, fig_score_budget_test, fig_paraphrase, fig_header_coverage, fig_annotator_agreement); the dashboard shows the same files as tables.
+- **Known limits.** (1) Tactic and claim scores are agreement with LLM labels from one model family; the N1 labels are corpus labels. (2) No source holds both attacks and ordinary mail, so every pooled F1 mixes corpus and detection; the per-source tables, the matched false-alarm rate and the style-confound test are how this is handled, none removes it. (3) The learned comparators are fitted on attack labels and the frozen score uses none, and a headers-only model can partly learn which corpus an email came from: both favour the learned systems. (4) The hijack cases, the synthetic BEC header blocks and the paraphrases are synthetic or machine-written: they show that the rules do what they are defined to do, not how often real attackers behave that way. (5) One N1 training sample (about 9,000 emails) and two seeds per model; the intervals cover the test sample, not the training randomness. (6) The paraphrase test uses one language model and 50 emails per attack source; its meaning check was six pairs by hand. (7) The score numbers, rules, thresholds and patterns were frozen before the test split was read; where a result is unwelcome it is reported as it is and the component is not changed. (8) The 0.5% false-alarm floor lets each learned comparator flag more of the validation ham than the frozen score does (0.14%); AUC is the comparison that does not depend on that choice.
+
 # 9. Technology stack
 
 | **Layer** | **Choice** | **Why** |
@@ -1737,7 +1913,7 @@ Security Features is worth 15 marks and is treated as a first-class module.
 
 **Metrics in plain words:** precision is the share of flagged emails that really were attacks; recall is the share of real attacks that got flagged; F1 balances the two in one number; macro-F1 averages F1 equally over the seven tactics; the false-positive rate is how often legitimate emails get flagged, which matters because a tool that cries wolf gets switched off. **Ablation:** remove one component and measure again; the drop is what that component contributed. Each novelty claim has one.
 
-> **Rule:** every number in the report or slides must come from a script in src/eval, with its output saved in results/ in the repo. Fake or manipulated results cost 20 marks.
+> **Rule:** every number in the report or slides must come from a script in src/eval, with its output saved in results/ in the repo. Fake or manipulated results cost 20 marks. Phase 13 produced the rows of this table marked as test or ablation; each is in Section 8.21 with the script that wrote it.
 
 # 12. Build plan
 
@@ -1762,7 +1938,7 @@ For each phase, the assistant explains the background, then provides every file 
 | 10 | Claim router, verdict ledger, risk score, LIME highlights; score version 0.2 frozen after calibration on validation (false-alarm budget; the one miss is a finding) | src/router, src/explain | Done (9 October 2026) |
 | 11 | FastAPI backend with all security controls | src/api | Done (10 October 2026) |
 | 12 | React frontend: analyzer (single email and thread) and evaluation dashboard; frontend README | frontend | Done (10 October 2026) |
-| 13 | Evaluation: all experiments, claim-extraction accuracy, charts; outputs saved to results/ | src/eval, results | Not started |
+| 13 | Evaluation: all experiments, claim-extraction accuracy, charts; outputs saved to results/ | src/eval, results | Done (10 October 2026) |
 | 14 | Report, viva preparation, Review deck update | docs | Not started |
 
 ## 12.3 Folder structure
@@ -1839,7 +2015,7 @@ Planned file names; each phase may adjust them. The root and major-folder README
 | src/router, src/explain | router.py, ledger.py, score.py, reliability.json, pipeline.py, selftest.py, build.py, build_selftest.py, lime_explain.py, check.py | Routing; ledger rows and coverage; 0-100 score and bands; reliability factors (data); analyze() end to end; self-tests; calibration and results; LIME highlights; LIME faithfulness check | 10 (done) |
 | src/api | settings.py, schemas.py, security.py, results.py, main.py, selftest.py, mutation_check.py, smoke.py | Settings and fixed size caps; Pydantic request and response shapes; the layers (request id and headers, body guard), rate limits, key check and audit log; the results allow-list; the app, routes, error handlers and server options; the self-test, the mutation check and the real-server smoke test | 11 (done) |
 | frontend | package.json, package-lock.json, vite.config.js, index.html, README.md; src/main.jsx, App.jsx, api.js, index.css; src/pages/AnalyzerPage.jsx, DashboardPage.jsx; src/components/EmailInput, ErrorBanner, Results, RiskBadge, CoverageNote, FindingsTable, ThreadTimeline, HighlightedBody, TacticList, ScoreBreakdown, ClaimsTable, HeaderFindings, ResultTable and charts/ (parts, TacticF1Chart, BenchmarkChart, DistributionChart, BudgetChart); src/lib/segments.js, limits.js, format.js, useAnalysis.js, useResult.js, examples.js; scripts/check.mjs, mutation_check.mjs, browser_check.mjs, make_examples.py | Entry, layout and the API-not-ready banner; the proxy and the security headers; the only file that uses the network; the analyzer and dashboard pages; the form; one component per block of a result; four charts; offsets to pieces of text; the API's size limits; labels; the two-call flow; the generated examples; static checks, mutation check and browser check | 12 (done) |
-| src/eval | metrics.py, ablation_n1.py, ablation_n2.py, ablation_n3.py, ablation_arch.py, claim_extraction.py, style_confound.py, paraphrase.py, charts.py | Metrics (metrics.py, written in Phase 6); one script per ablation; supporting experiments; charts | 6, 13 |
+| src/eval | metrics.py, stats.py, freeze.py, common.py, world.py, systems.py, prepare_test.py, tactic_test.py, claim_extraction.py, score_test.py, n1_data.py, n1_train.py, n1_model.py, ablation_n1.py, ablation_n2.py, ablation_n3.py, ablation_arch.py, style_confound.py, paraphrase.py, charts.py, run_all.py, selftest.py, README.md | Metrics (Phase 6); bootstrap, Wilson, AUC and the matched false-alarm cut; the freeze record and the test-run guard; the per-email table and the systems of the ablations; the test caches; one script per experiment; the report charts; the runner and the self-test | 6, 13 (done) |
 
 # 13. Viva preparation
 
@@ -1919,7 +2095,7 @@ Planned file names; each phase may adjust them. The root and major-folder README
 
 - React for this project (components and state with useState, effects and cleanup, a custom hook for the two-call flow, lazy loading of the dashboard); the Vite dev and preview server as a same-origin proxy that adds the key, `loadEnv` and why only VITE_ variables reach the browser; why rendering untrusted text as a text node defeats XSS and why dangerouslySetInnerHTML does not; turning character offsets into highlighted pieces (code points against UTF-16 units, overlapping spans); fetch with AbortController, a timeout and one error type; reading the API's Retry-After; Tailwind v4 and CSS variables for light and dark; Recharts and why every chart gets a table view; what a Content-Security-Policy blocks line by line; exact pins, a lock file and npm audit; driving a page with a real browser and comparing what is drawn with what the API answered; mutation testing of the checks themselves (Phase 12).
 
-To be taught during the build: the ablations (remove one component and measure again), why the test split is used once, bootstrap intervals again, TF-IDF with logistic regression as a cheap second model, AUC for the style-confound test, paraphrase attacks, and drawing the charts of the report (Phase 13).
+Taught in Phase 13: the ablation (remove one component and measure again); why the test split is used once and what leaks if it is not (the freeze record, the dress rehearsal on validation, the test log); the bootstrap interval and why whole groups are drawn; a paired difference; TF-IDF with logistic regression against DistilBERT; the confusion matrix and the false-positive rate; holding systems to the same false-alarm rate; AUC for the style-confound test; the paraphrase attack; drawing the report charts with matplotlib against the dashboard's Recharts. To be taught during the build: the report and the viva (Phase 14).
 
 # 14. Decisions log
 
@@ -2101,12 +2277,20 @@ To be taught during the build: the ablations (remove one component and measure a
 | 10 Oct 2026 | The frontend result files frontend_checks, frontend_mutations and frontend_browser_checks are on the API's allow-list | The dashboard can show them; an unlisted file in results/ is not served |
 | 10 Oct 2026 | Phase 12 complete: 96 static checks, 26 of 26 broken things caught, 93 browser checks; results in results/frontend_checks.csv, frontend_mutations.csv and frontend_browser_checks.csv | Phase 13 can start |
 | 10 Oct 2026 | Version 3.14: Phase 12 folded into Sections 2, 6.2, 6.10, 8.20 (new), 9, 10, 11, 12, 13, 14, 15, 16 and 17 | End of Phase 12 |
+| 10 Oct 2026 | Every experiment script has a dress rehearsal on the validation split and one test run, after a freeze record (SHA-256 of every frozen file, versions, settings) is committed; the test run refuses to start if the record differs and logs every start and finish | The test split gives the one honest number only if no choice was made after seeing it; the rehearsal is where bugs of the evaluation code are found at no cost; a rerun needs a logged reason |
+| 10 Oct 2026 | N1 models are trained on a sample of about 9,000 emails (at most 800 per source and category), two seeds, two epochs, on Colab; the TF-IDF pair is fitted on the same sample and on all train emails | The free T4 would need about three hours for two models on all 69,542 train emails; the sample is the same for both models, and the TF-IDF pair shows what the sample costs |
+| 10 Oct 2026 | Learned comparators (text only, headers only, fusion, flat) are held to the false-alarm rate the frozen score shows on validation ham (floor 0.5%), fixed on validation and applied once to test; pooled F1 is reported beside per-source rates | No source holds both attacks and ordinary mail, so a pooled F1 mixes corpus and detection; the matched rate stops a system winning by flagging more mail |
+| 10 Oct 2026 | Bootstrap intervals draw whole groups (subject groups, threads, pairs), 1,000 resamples, seed 42, differences paired | Campaigns sit whole in one split, so drawing single emails would make the intervals too narrow |
+| 10 Oct 2026 | matplotlib 3.11.2 is added for the report charts; the dashboard's charts stay Recharts and read the same CSV files; the Phase 13 result files are on the API's allow-list | Report PNGs and an in-browser dashboard are different jobs; the allow-list is what lets the dashboard show a file |
+| 10 Oct 2026 | SemEval pretraining was not run (first item of the dropping order, Section 12.4) | It needs registration and its technique names were never checked against real data |
+| 10 Oct 2026 | Phase 13 complete; results in the files named in src/eval/README.md and Section 8.21 | Phase 14 can start |
+| 10 Oct 2026 | Version 3.15: Phase 13 folded into Sections 2, 8.21 (new), 11, 12, 13, 14, 15 and 16 | End of Phase 13 |
 
 # 15. Open items and next actions
 
-1.  **Start Phase 13** (all experiments and charts: the ablations, the test split once, the report charts) in a new chat with docs/PretextGuard_Context.md and this document.
+1.  **Start Phase 14** (the report, the viva preparation and the Review deck) in a new chat with docs/PretextGuard_Context.md and this document.
 
-2.  **Replace the project-file copy** with v3.14 (remove older copies) and keep docs/ in the repo current.
+2.  **Replace the project-file copy** with v3.15 (remove older copies) and keep docs/ in the repo current.
 
 3.  **Update the Review deck** when needed: novelty slide (N1, N2, N3 and the architecture contribution), the architecture diagram (Figure 2), the corrected running example (authentication passes for gmail.com), and the literature table (add Mithun et al. 2024, Ho et al. 2019, Valecha et al. 2022, ConvoSentinel, Aggarwal et al. 2014).
 
@@ -2153,6 +2337,12 @@ To be taught during the build: the ablations (remove one component and measure a
 24. **Phase 13 notes from Phase 12 (the interface and the dashboard):** the dashboard draws only files on the allow-list RESULT_FILES (src/api/results.py) and groups them by the part of the file name before the first underscore (GROUPS in frontend/src/pages/DashboardPage.jsx; an unknown prefix lands under Other), so every Phase 13 result file needs its name in both places (restart the API after adding a name: the files are read at start-up). The four charts read validation tables: TacticF1Chart filters `data === 'real_validation'` in tactic_validation_scores, DistributionChart and BudgetChart read validation rows of score_distribution and score_budget, BenchmarkChart reads score_benchmark_check; a test-split chart needs a new table (the test numbers are produced once) and its own component next to them in frontend/src/components/charts. Keep the rules of the existing charts: one colour per entity, a legend, a table view, what the chart cannot show printed under it, counts only below 10 positives, groups under 20 flagged. Charts for the report are made by src/eval/charts.py (matplotlib would be a new pinned library); the dashboard's Recharts charts are separate and read the same CSV files. frontend/src/lib/limits.js copies the API's size limits (change both together); frontend/src/lib/examples.js is generated from src/router/selftest.py (`PYTHONPATH=. python frontend/scripts/make_examples.py`). After any change to the interface run `npm run build`, `npm run check`, `npm run mutation-check` and `npm run browser-check` (wait a minute between two browser runs: the API allows 6 explanations a minute).
 
 25. **Phase 14 notes from Phase 12:** the report may quote results/frontend_checks.csv, frontend_mutations.csv and frontend_browser_checks.csv as they are. Say that the browser check compares what is drawn with what the API answered and does not assert scores, that the error states use made-up responses, that the mutations are hand-picked, that only a Chromium-based browser was driven and that no screen reader or accessibility audit was run. For the viva: be ready to explain `vite.config.js` (the proxy and why the key is not in the bundle), `src/api.js`, `src/lib/segments.js` (code points against UTF-16 units), `useAnalysis.js` (two calls and cancellation), why React text nodes defeat XSS, and the Content-Security-Policy line by line. Screenshots for the slides: run `npm run preview` and capture the David example (score, findings, highlights) and the takeover thread (the flip point).
+
+26. **Phase 14 notes from Phase 13 (what to quote and what to say):** every number of the report comes from a file named in Section 8.21 and src/eval/README.md; the report quotes the figures of docs/figures/results/ (13 PNG files). Say wherever an F1 on tactics or claims appears that the labels are LLM labels from one model family; say that the N1 labels are corpus labels; say that the learned comparators saw attack labels and the frozen score did not, and that a headers-only model can partly learn which corpus an email came from; say that the hijack cases, the synthetic BEC header blocks and the paraphrases are synthetic or machine-written; say that the intervals cover the test sample and not the training randomness (one N1 sample, two seeds). Report every unwelcome result as it is: where an interval includes 0 the difference is not distinguishable from noise, and the report must not call a system better. Report the freeze record and the test log as the proof that the test split was read once per script (results/eval_freeze.csv, eval_test_log.csv).
+
+27. **Phase 14 notes from Phase 13 (viva):** be ready to explain, line by line, `src/eval/stats.py` (the cluster bootstrap by multinomial counts, the paired difference, the AUC from its definition, the matched false-alarm cut), `src/eval/freeze.py` (what is frozen and why, the guard, the log), `src/eval/world.py` and `systems.py` (what text-only, headers-only, fusion and flat see), `ablation_n1.py` and `n1_train.py` (what differs between model A and model B: only the text they read), why the test split is used once, why a pooled F1 here mixes corpus and detection, what the style-confound AUC means, what the paraphrase test can and cannot show (headers are untouched by construction), and why the traceable-reason share is a property of the design and not a measured gain.
+
+28. **Phase 14 notes from Phase 13 (still open):** item 6 (re-verify the IC3 and DBIR statistics) belongs to the report; SemEval pretraining was not run; the interface still has CORS open for testing (item 23) and its dashboard draws only validation charts, the test-split charts being the PNG files of the report; Section 8.19's slow-client limit is open; the screenshots for the slides (item 25) are taken with `npm run preview`.
 
 # 16. Glossary
 
@@ -2278,6 +2468,13 @@ To be taught during the build: the ablations (remove one component and measure a
 | Code point | One Unicode character as Python counts it; JavaScript counts UTF-16 units, so an emoji is one code point but two units |
 | AbortController | A browser object that cancels a running fetch; a new analysis cancels the previous request with it |
 | Lock file (package-lock.json) | The exact version and checksum of every package npm installed, so every machine installs the same thing |
+| Freeze record | results/eval_freeze.csv: a SHA-256 for every frozen file plus the versions and settings, committed before the first test run; a test script refuses to start if anything differs |
+| Dress rehearsal | Running an experiment script on the validation split first (the default of every script), where a bug in the evaluation code costs nothing |
+| Bootstrap interval | The middle 95% of a score recomputed on 1,000 redrawn copies of the test set; here whole groups (campaigns, threads, pairs) are redrawn |
+| Paired difference | The difference of two systems scored on the same redrawn emails, so a small but steady gap can be measured |
+| Matched false-alarm rate | Every system gets the cut that flags at most the same share of validation ham as the frozen score, before detection is compared |
+| AUC | The chance that a random positive scores above a random negative; 0.5 is a coin flip, 1.0 is perfect separation |
+| Style-confound test | AUC of telling two collections of the same kind apart by their writing: a threat to validity of any attack-against-ordinary-mail result |
 
 # 17. References
 

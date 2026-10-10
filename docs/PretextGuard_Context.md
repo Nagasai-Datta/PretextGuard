@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: October 2026, written at the end of Phase 12, to go with master document v3.14.
+Version: October 2026, written at the end of Phase 13, to go with master document v3.15.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -199,13 +199,14 @@ propose them again as novelty. Stack choices are never novelty (faculty rule).
 | Phase 11 libraries | FastAPI 0.141.1 (Starlette 1.7.0), Pydantic 2.13.5, slowapi 0.1.10, uvicorn 0.53.0, limits 5.8.0, httpx 0.28.1 (FastAPI's TestClient only); pinned one release behind the newest, pip-audit found nothing; python-multipart is not needed (JSON only). The sandbox of Claude Code on the web has no venv: the API can be tested there with a scratch virtual environment outside the repository |
 | Phase 12 libraries | Node packages in `frontend/` (npm, not pip; `requirements.txt` is unchanged): react 19.3.0, react-dom 19.3.0, react-is 19.3.0, recharts 3.10.1, vite 6.4.4, @vitejs/plugin-react 4.7.0, tailwindcss 4.3.3, @tailwindcss/vite 4.3.3 and, for the browser check only, playwright-core 1.63.0; exact versions in `frontend/package.json`, the lock file is committed, `npm audit` was clean. Node v22.14.0 on the Mac. The browser check uses Google Chrome or Edge if installed (or `npx playwright-core install chromium`, or `CHROMIUM_PATH`) |
 | Node and npm | `node -v` must be 18 or newer (Vite 6); `brew install node` if it is missing. Run npm commands from `frontend/`, Python commands from the project root |
+| Phase 13 libraries | matplotlib 3.11.2 (pinned; the report charts); scikit-learn 1.9.1 (Phase 5) is also used by the ablations; no other new library. The N1 models train on Colab with the same pinned `transformers`; `requirements.txt` gained one line |
 | Secrets in `.env` (names only here) | `PRETEXTGUARD_API_KEY` (at least 24 characters, not the placeholder; `python -m src.api.settings --new-key` makes one) and the optional `PRETEXTGUARD_RATE_ANALYZE`, `_RATE_EXPLAIN`, `_RATE_GLOBAL`, `_EXPLAIN_SAMPLES`, `_WAIT_SECONDS`, `_ALLOWED_HOSTS`, `_ENABLE_DOCS`, `_HOST`, `_PORT` (Phase 11); `GEMINI_API_KEY`, `ANNOTATOR_1_MODEL`, `ANNOTATOR_2_MODEL`, `TIEBREAKER_MODEL` (Phase 5). `.env` is ignored; `.env.example` lists the names |
 | Data on disk | `data/raw/` about 3 GB after unpacking, read-only (`chmod a-w`); `data/processed/staged.parquet` about 245 MB; `data/processed/cleaned.parquet` (Phase 2); `data/processed/tactic_data.parquet` (Phase 6, train and validation text for Colab); `data/processed/claims_cache/` (Phase 8, the extracted claims per split, ignored by Git, Mac only); `data/processed/enron_index.parquet`, `threads.parquet` and `thread_features/` (Phase 9, the rebuilt threads and their cached tactic probabilities and claims, ignored by Git, Mac only); `data/processed/tactic_probs/` (Phase 10, the tactic probabilities of every train and validation email, ignored by Git, Mac only); `artifacts/tactic_model/` (Phase 6, about 270 MB, ignored by Git, exists only on the Mac) |
 | Rule | Always work from the project root, never from `src/` |
 
 ---
 
-## 4. Current state of the repository (end of Phase 12)
+## 4. Current state of the repository (end of Phase 13)
 
 ```
 pretextguard/
@@ -236,14 +237,20 @@ pretextguard/
                      score_rule_weights.csv  score_grid.csv  score_config.csv  score_distribution.csv  score_budget.csv  score_benchmark_check.csv  score_checks.csv  lime_checks.csv
                      api_checks.csv  api_mutations.csv  api_smoke.csv
                      frontend_checks.csv  frontend_mutations.csv  frontend_browser_checks.csv
-  notebooks/README.md  phase6_tactic_classifier.ipynb
+                     eval_freeze.csv  eval_test_log.csv  eval_cache_counts.csv  eval_cache_checks.csv  tactic_test_scores.csv  tactic_test_checks.csv  analysis_cooccurrence.csv  analysis_confusion_pairs.csv
+                     claim_operating_points.csv  claim_test_scores.csv  claim_test_checks.csv  score_test_distribution.csv  score_test_budget.csv  score_test_checks.csv
+                     n1_data_counts.csv  n1_training_log.csv  n1_run_info.json  n1_val_probs.csv  n1_scores.csv  n1_differences.csv  n1_view_counts.csv  n1_checks.csv
+                     n2_scores.csv  n2_score_benchmark.csv  n2_false_alarms.csv  n2_checks.csv  n3_systems.csv  n3_differences.csv  n3_cuts.csv  n3_synthetic_bec.csv  n3_checks.csv
+                     arch_systems.csv  arch_differences.csv  arch_agreement.csv  arch_reasons.csv  arch_checks.csv  style_auc.csv  style_checks.csv
+                     paraphrase_results.csv  paraphrase_bands.csv  paraphrase_checks.csv
+  notebooks/README.md  phase6_tactic_classifier.ipynb  phase13_n1_models.ipynb
   frontend/                  README.md  package.json  package-lock.json  vite.config.js  index.html  (node_modules/ and dist/ ignored)
     src/                     main.jsx  App.jsx  api.js  index.css  pages/ (AnalyzerPage, DashboardPage)  lib/ (segments, limits, format, useAnalysis, useResult, examples)
                              components/ (EmailInput, ErrorBanner, Results, RiskBadge, CoverageNote, FindingsTable, ThreadTimeline, HighlightedBody, TacticList,
                              ScoreBreakdown, ClaimsTable, HeaderFindings, ResultTable, charts/)
     scripts/                 check.mjs  mutation_check.mjs  browser_check.mjs  make_examples.py
-  docs/README.md  master_document.md (v3.14)  PretextGuard_Master_Document_v3.2.docx (snapshot)
-  docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)
+  docs/README.md  master_document.md (v3.15)  PretextGuard_Master_Document_v3.2.docx (snapshot)
+  docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)  docs/figures/results/ (13 PNGs drawn from results/ by src/eval/charts.py)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
                              coverage.py  split.py  label_schema.py  prompts.py  clipboard.py  llm_api.py
@@ -253,7 +260,8 @@ pretextguard/
   src/headers/               README.md  parser.py  domains.py  evidence.py  build.py
   src/baseline/              README.md  lexicon.py  keywords.py  build.py
   src/models/                README.md  dataset.py  train.py  predict.py  validate.py
-  src/eval/                  README.md  metrics.py
+  src/eval/                  README.md  metrics.py  stats.py  freeze.py  common.py  world.py  systems.py  prepare_test.py  tactic_test.py  claim_extraction.py  score_test.py
+                             n1_data.py  n1_train.py  n1_model.py  ablation_n1.py  ablation_n2.py  ablation_n3.py  ablation_arch.py  style_confound.py  paraphrase.py  charts.py  run_all.py  selftest.py
   src/claims/                README.md  schema.py  patterns.py  extractor.py  build.py
   src/verifiers/             README.md  rows.py  facts.py  brands.py  bank.py  header_verifier.py  request_verifier.py  verify.py  selftest.py  build.py
                              thread_verifier.py
@@ -542,6 +550,13 @@ Totals: 42,354 ham, 36,657 spam, 17,086 phishing, 3,227 fraud (20,313 attacks). 
 - **Where things live:** results above are committed; `frontend/node_modules/` and `frontend/dist/` are ignored by Git (`npm install` and `npm run build` recreate them). Claude Code on the web can build and check the interface and drive it with its preinstalled Chromium against a stand-in-classifier server (`create_app(settings, analyzer=Analyzer(classifier=StubClassifier()))` on port 8000), but the real numbers come from Nagasai's runs. Files are delivered as one tar.gz for the whole `frontend/` folder plus the few changed files outside it.
 - **Docs:** `update_docs_phase12.py` (a download, run from `~/Downloads` inside the venv; it reads `results/` and `frontend/package.json` and stops if a check failed, a mutation was not caught, `npm audit` did not run or the browser check was not run against `npm run preview`) made master document v3.14 and rewrote this file's Sections 4 to 6.
 
+**Phase 13 in brief** (master document Section 8.21, `src/eval/README.md`):
+- **Protocol:** every script has a dress rehearsal on validation (`--split validation`, the default) and one test run (`--split test`) after `results/eval_freeze.csv` (a SHA-256 for every frozen file, the versions, the settings; digest 64e769a7b217cea6) was committed; test scripts refuse to start on a difference and log every start and finish in `results/eval_test_log.csv`; a repeat needs `--rerun "reason"`. Intervals: 1,000 bootstrap resamples, seed 42, whole groups (Phase 1 subject groups, threads, pairs), differences paired; fewer than 10 positives is a count. `python -m src.eval.run_all --split validation|test` runs everything; `python -m src.eval.selftest` tests the scripts on a made-up project (107 checks). `requirements.txt` gained `matplotlib==3.11.2` (the report charts).
+- **Results (test split; read them in master document Section 8.21):** tactic macro-F1 over the four main tactics DistilBERT 0.479, tuned keyword baseline 0.500, paired difference -0.021 [-0.144, +0.091]; claim extractor macro-F1 over the five scoreable types 0.568 [0.470, 0.646]; risk-score budget: 5 groups judged, 1 over (email kaggle_ceas08); N1, A's drop minus B's drop in attack-class F1: distilbert +0.073 [+0.061, +0.086]; tfidf_sample +0.035 [+0.025, +0.046]; tfidf_full +0.028 [+0.021, +0.037]; N2: apache variant A: N2 18 of 25, Phase 8 5 of 25; enron variant A: N2 48 of 51, Phase 8 0 of 51; N3 pooled attacks against ham: full (claim-routed score) F1 0.238 recall 13.6% false-alarm rate 0.27%; text only F1 0.639 recall 47.4% false-alarm rate 0.49%; headers only F1 0.788 recall 65.5% false-alarm rate 0.31%; parallel fusion F1 0.882 recall 80.3% false-alarm rate 0.80%; architecture: routed F1 0.238 recall 13.6%; flat F1 0.658 recall 49.7%.
+- **Findings to carry forward:** read each sentence of Section 8.21 as written: where an interval includes 0 the difference is not distinguishable from noise and nothing may be called better; the learned comparators saw attack labels and the frozen score did not, and the corpora differ, so a tie is not a defeat and a win is not a margin to trust blindly; the traceable-reason share is a property of the design; the hijack cases, the synthetic BEC headers and the paraphrases are synthetic or machine-written; one N1 sample and two seeds.
+- **Where things live:** results in the files named in `src/eval/README.md` (about 40 CSV files, all on the API's allow-list); the 13 report charts in `docs/figures/results/`; the N1 weights in `artifacts/n1_model_a/` and `n1_model_b/` and the per-email tables in `data/processed/eval_features/` exist only on the Mac (ignored by Git); the paraphrase rewrites are in `data/processed/paraphrase/` (ignored).
+- **Docs:** `update_docs_phase13.py` (a download, run from `~/Downloads` inside the venv; it reads `results/` and stops if a check failed, a test script has no finished run, the scripts ran under different freeze digests or a table holds validation rows) made master document v3.15.
+
 Current `.gitignore`:
 ```
 # Python
@@ -617,32 +632,24 @@ Phase 11 added to `requirements.txt` (after the spaCy lines): fastapi==0.141.1, 
 
 ---
 
-## 5. Next task: Phase 13, all experiments and charts (plan not yet approved)
+## 5. Next task: Phase 14, the report, the viva preparation and the Review deck update (plan not yet approved)
 
-Full detail: master document Sections 4.1 to 4.5 (what each novelty claim must show), 11 (the experiments), 12.4, 12.6 (planned `src/eval` files) and Section 15 items 6, 10, 11, 12, 14, 16, 18, 20, 22 and 24. Start by proposing the plan and the background concepts, then wait for "go". Fold the phase into as few steps as you can (two at most), deliver every file as a download, verify his push by reading the repository, and end with the commit commands.
+Full detail: master document Section 12.2 (Phase 14), Section 13 (viva preparation), Section 8.21 (every Phase 13 result), Section 15 items 3, 6, 25, 26, 27 and 28. Start by proposing the plan, then wait for "go". Fold the phase into as few steps as you can (two at most), deliver every file as a download (documents are .docx or PDF, never HTML), and end with the commit commands.
 
-**Goal.** One script per experiment in `src/eval`, each reading frozen code and writing CSV files (and PNG charts for the report) to `results/`. This is the first phase that reads the **test split**: once per frozen component, with every threshold, rule version and score number fixed beforehand and never changed after the test numbers are seen. Every number in the report and the slides must come from these scripts (a fake or manipulated result costs 20 marks).
-
-**The experiments (Section 11)**
-- **N1 ablation (`ablation_n1.py`).** Binary attack against benign. Model A is trained on raw bodies, model B on redacted bodies, both DistilBERT (Colab again: a notebook that reads train and validation rows only) and a TF-IDF plus logistic regression pair as a cheap second check (scikit-learn is installed). Test both on three views of the same held-out set: raw, redacted and the naturally link-free subset (696 attacks and 5,880 benign emails in test, `results/preprocess_checks.csv`). Report attack-class F1 and false-positive rate; report whatever the numbers are.
-- **N2 ablation (`ablation_n2.py`).** The test cases of `data/threads/cases.csv` scored once with and without the thread verifier inside the full score; hijack-index (flip point) accuracy; content signals on Enron, all four signals on Apache; false alarms on real test threads; bootstrap intervals over threads. The test features need their own caches (`attach_features(messages, 'test')`).
-- **N3 ablation (`ablation_n3.py`).** Full system against text-only, headers-only and parallel score fusion (BEC-Guard style), per source; real affiliation positives apart from synthetic BEC, whose clearly synthetic header blocks are generated for this ablation only and reported apart (item 16).
-- **Architecture ablation (`ablation_arch.py`).** A flat classifier on `flat_features` (`src/router/ledger.py`) against the routed score: F1, false-positive rate and the share of findings with a traceable reason.
-- **Test scores once:** the tactic classifier and the keyword baseline with thresholds fixed on validation (item 12); the claim extractor (`claim_extraction.py`, item 14, operating point per type chosen on validation); the risk score per source with both denominators, the budget on the test split (the clean measurement, item 20) and the hijack benchmark test cases. Real and synthetic apart, counts only below 10 positives, a bootstrap interval for every F1, and 'labels from language models of one family' stated wherever an F1 appears.
-- **Supporting:** the style-confound test (source-classifier AUC), the adversarial paraphrase test (calls `analyze()` directly; includes the claim extractor), the co-occurrence and confusion analysis (analysis only, never novelty), the header-coverage and annotator-agreement charts from the existing CSV files; SemEval pretraining only if time allows.
-- **Charts and the dashboard.** `charts.py` draws the PNGs of the report (matplotlib would be a new pinned library: check it first); the interface dashboard stays Recharts and reads the same CSV files, so each new result file needs its name in `RESULT_FILES` (`src/api/results.py`) and its prefix in `GROUPS` (`frontend/src/pages/DashboardPage.jsx`), and a new chart a component in `frontend/src/components/charts` (item 24).
+**Goal.** The deliverables of the course: the project report (about the marks rubric of Section 2.1: novelty, implementation, results, security, documentation), the viva preparation (questions and answers for every file he must explain, the 20-mark rules of Section 1.1), and the Review deck update (novelty slide with N1, N2, N3 and the architecture contribution, the architecture diagram, the corrected running example, the literature table, the results charts and screenshots). Every number in them comes from `results/` through Section 8.21; every chart is a file of `docs/figures/results/`.
 
 **Notes the plan must handle**
-- **The test split is used once.** Build the missing test caches (claims, tactic probabilities, thread features) first and say so; if a script is rerun, the numbers must not change; if something is found wrong after seeing test numbers, report it as a finding and do not fix the frozen components.
-- **Honesty rules carried from earlier phases:** the validation scores are slightly optimistic (validation chose the epoch, seed, thresholds and rule versions); the Phase 10 ham-only definition was corrected after validation was read; attacks and ordinary mail come from different collections with different header evidence, so every contrast is reported per source; the hijack cases are synthetic; the claim and tactic labels are LLM labels from one family; no experiment may be described as better than it measured.
-- **What runs where.** The model weights, the data and the caches exist only on Nagasai's Mac, and DistilBERT training for the N1 models needs Colab; Claude Code on the web tests new code on hand-made samples and a stand-in classifier, never on real numbers.
-- **Testing.** No unit tests per phase: each script prints PASS/FAIL checks and saves them (`*_checks.csv`), cross-checked against scikit-learn where a metric is hand-written, and `src/api/selftest.py` still passes after the allow-list grows.
+- **Honest reporting.** Section 15 items 26 to 28: say where a result is unwelcome; no system is called better where an interval includes 0; the labels are LLM labels from one model family; the learned comparators saw attack labels and the frozen score did not; the corpora differ; the hijack cases, the synthetic BEC headers and the paraphrases are synthetic or machine-written; one N1 sample and two seeds.
+- **Viva.** He must explain every line of his own code (minus 20 marks if he cannot, minus 30 for copied code, minus 20 for fake results). Prepare file-by-file explanations in plain language with MERN comparisons for `src/eval/stats.py`, `freeze.py`, `world.py`, `systems.py`, the ablations, `src/router/score.py`, the verifiers, the thread signals, `src/api/security.py`, `frontend/vite.config.js` and `src/lib/segments.js`.
+- **Facts to re-verify with tools before the report (item 6):** the IC3 and DBIR statistics, library versions, any URL.
+- **Not done:** SemEval pretraining; CORS is still True in `src/api/main.py` (item 23); the dashboard's four charts show validation results (the test charts are the report PNGs).
+- **What runs where.** Everything the report needs already exists in the repository; no new experiment runs in Phase 14. Claude Code on the web can read the pushed `results/` and `docs/figures/results/` to check every quoted number against its file.
 
-**Decisions for the plan to recommend:** the order of the experiments and which ones to fold into one script; the file names and result prefixes; the bootstrap settings (resamples, seed, resampling unit: threads for N2, emails elsewhere); the operating points; whether matplotlib is added; what Colab does and what the Mac does; what each step prints and saves; the step plan.
+**Decisions for the plan to recommend:** the report's structure and length, which figures go in the report and which on the slides, the viva question list, whether to export a fresh .docx of the master document with pandoc, the order of the work, and what each step delivers.
 
-**Background to teach in Phase 13:** an ablation in plain words; why the test split is used once and what leaks if it is not; bootstrap intervals; TF-IDF and logistic regression against DistilBERT; the confusion matrix and the false-positive rate; AUC for the style-confound test; what a paraphrase attack is; drawing report charts with matplotlib against the dashboard's Recharts.
+**Background to teach in Phase 14:** how a results section is written (claim, number, interval, caveat), what a threat to validity is, how to answer a viva question that probes the weakest part of the project, and how to present limitations as strengths of honesty rather than defects.
 
-## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 12 are done)
+## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 13 are done)
 
 | Phase | Deliverable |
 |---|---|
@@ -652,7 +659,7 @@ Full detail: master document Sections 4.1 to 4.5 (what each novelty claim must s
 | 10 | Router, ledger, risk score, LIME (`src/router`, `src/explain`): done |
 | 11 | FastAPI backend with all security controls (`src/api`): done |
 | 12 | React frontend: analyzer and dashboard (`frontend/`): done |
-| 13 | All experiments and charts (`src/eval`, `results/`): next |
-| 14 | Report, viva preparation, Review deck update (`docs/`) |
+| 13 | All experiments and charts (`src/eval`, `results/`, `docs/figures/results/`): done |
+| 14 | Report, viva preparation, Review deck update (`docs/`): next |
 
-No paid APIs anywhere (annotation and synthetic data use free API tiers); no LLM at run time.
+No paid APIs anywhere (annotation, synthetic data and the paraphrase test use free API tiers); no LLM at run time.
