@@ -18,6 +18,11 @@ const GROUPS = [
   ['Header and request verifiers', ['verifier']],
   ['Thread verifier and hijack benchmark', ['thread', 'hijack']],
   ['Risk score', ['score']],
+  ['Evaluation protocol', ['eval']],
+  ['N1 ablation (links)', ['n1']],
+  ['N2 ablation (threads)', ['n2']],
+  ['N3 and architecture ablations', ['n3', 'arch']],
+  ['Supporting experiments', ['style', 'paraphrase', 'analysis']],
   ['Explanations', ['lime']],
   ['API and interface', ['api', 'frontend']],
 ]

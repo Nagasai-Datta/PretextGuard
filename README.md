@@ -293,6 +293,18 @@ npm run browser-check
 
 `npm run preview` and `npm run browser-check` each need their own terminal (the first keeps running); open <http://127.0.0.1:4173> to use the interface.
 
+Phase 13 (the experiments): `requirements.txt` adds matplotlib. The N1 models are trained on Colab (`notebooks/phase13_n1_models.ipynb`); everything else runs on the Mac. Every script has a dress rehearsal on the validation split (the default) and one test run after a freeze record is committed; the whole procedure, the rules and the file list are in `src/eval/README.md`.
+
+```bash
+python -m src.eval.selftest
+python -m src.eval.n1_data
+python -m src.eval.claim_extraction --choose
+python -m src.eval.run_all --split validation --limit 1500 --workers 4
+python -m src.eval.freeze --write
+python -m src.eval.run_all --split test --workers 4 --with-paraphrase
+python -m src.eval.charts --split test
+```
+
 ## Privacy
 
 Submitted email content is processed in memory only. There is no database, and email content is never logged or written to disk. The research datasets are used locally and never redistributed in this repository.

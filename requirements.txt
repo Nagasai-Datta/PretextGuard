@@ -38,3 +38,6 @@ uvicorn==0.53.0
 slowapi==0.1.10
 limits==5.8.0
 httpx==0.28.1
+
+# Phase 13: the report charts. matplotlib draws PNG files from the results tables (the dashboard's own charts stay Recharts). scikit-learn (Phase 5) is also used by the ablations.
+matplotlib==3.11.2

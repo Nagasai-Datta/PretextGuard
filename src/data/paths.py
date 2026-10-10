@@ -120,6 +120,19 @@ SCORE_BENCHMARK_CHECK_CSV = RESULTS_DIR / "score_benchmark_check.csv"
 SCORE_CHECKS_CSV = RESULTS_DIR / "score_checks.csv"
 LIME_CHECKS_CSV = RESULTS_DIR / "lime_checks.csv"
 
+# Files written by Phase 13 (src/eval): the experiments on the test split
+REHEARSAL_DIR = PROCESSED_DIR / "rehearsal"                            # outputs of a dress rehearsal on the validation split; never committed
+EVAL_FEATURES_DIR = PROCESSED_DIR / "eval_features"                    # per-email feature tables of the ablations, cached; never committed
+N1_DATA_PARQUET = PROCESSED_DIR / "n1_data.parquet"                    # the N1 training sample and validation sample (full text) for Colab; never committed
+N1_PROBS_DIR = PROCESSED_DIR / "n1_probs"                              # N1 DistilBERT probabilities on the evaluated split, cached; never committed
+N1_MODEL_A_DIR = PROJECT_ROOT / "artifacts" / "n1_model_a"             # N1 model A (trained on raw bodies); weights never committed
+N1_MODEL_B_DIR = PROJECT_ROOT / "artifacts" / "n1_model_b"             # N1 model B (trained on redacted bodies); weights never committed
+PARAPHRASE_DIR = PROCESSED_DIR / "paraphrase"                          # raw paraphrase replies (they rewrite real test emails); never committed
+EVAL_FREEZE_CSV = RESULTS_DIR / "eval_freeze.csv"                      # what was frozen before the first test number existed
+EVAL_TEST_LOG_CSV = RESULTS_DIR / "eval_test_log.csv"                  # every start and finish of a script that reads the test split
+CLAIM_OPERATING_POINTS_CSV = RESULTS_DIR / "claim_operating_points.csv"   # the all-claims or strong-only choice per claim type, made on validation
+FIGURES_DIR = PROJECT_ROOT / "docs" / "figures" / "results"            # the report charts drawn from results/ (committed)
+
 
 def relative(path):
     """Return path relative to the project root, for short printouts.

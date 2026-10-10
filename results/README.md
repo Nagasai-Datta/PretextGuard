@@ -65,15 +65,21 @@ The files here hold counts and scores only, never email text, so they are safe t
 | `frontend_checks.csv` | `npm run check` (in `frontend/`) | PASS/FAIL checks on the interface: its source (no HTML injection, links, storage or outside addresses), its package pins and `npm audit`, its built bundle (no API key, no outside host, no inline script) and the offset and size logic on hand-made cases; the node version and bundle size as info |
 | `frontend_mutations.csv` | `npm run mutation-check` (in `frontend/`) | For each of 26 things broken on purpose in a scratch copy of the interface: whether the static checks noticed (CAUGHT) and the first check that failed |
 | `frontend_browser_checks.csv` | `npm run browser-check` (in `frontend/`) | PASS/FAIL checks from the built app driven in a real browser against the running API: what is drawn against what the API answered, error states, size limits, the dashboard against the API's tables, phone width, dark mode, and no Content-Security-Policy violation, script error or alert box |
+| `eval_freeze.csv`, `eval_test_log.csv` | `python -m src.eval.freeze --write`, every test run | What was frozen before the first test number existed (a SHA-256 for every frozen file, the versions, the settings) and the start and finish of every script that read the test split |
+| `eval_cache_counts.csv`, `eval_cache_checks.csv` | `python -m src.eval.prepare_test` | Claims, tactic probabilities and thread features built for a split, and PASS/FAIL checks on them (no score is computed there) |
+| `tactic_test_scores.csv`, `tactic_test_checks.csv` | `python -m src.eval.tactic_test` | DistilBERT and the keyword baseline on the labelled real and synthetic test emails: precision, recall and F1 with 95% intervals, the validation F1 beside it, counts only below 10 positives |
+| `analysis_cooccurrence.csv`, `analysis_confusion_pairs.csv` | `python -m src.eval.tactic_test` | Which tactics occur together in the labels and the predictions, and which tactic is flagged by mistake when another is missed (analysis only) |
+| `claim_operating_points.csv`, `claim_test_scores.csv`, `claim_test_checks.csv` | `python -m src.eval.claim_extraction` | The all-claims or strong-only choice per claim type made on validation, and the frozen extractor's test scores at that point |
+| `score_test_distribution.csv`, `score_test_budget.csv`, `score_test_checks.csv` | `python -m src.eval.score_test` | The frozen risk score on the test split: emails per band with both denominators, and the false-alarm budget per source with the validation figure beside it |
+| `n1_data_counts.csv` | `python -m src.eval.n1_data` | Emails, attacks and link share in the N1 training sample and validation sample |
+| `n1_training_log.csv`, `n1_run_info.json`, `n1_val_probs.csv` | `n1_train.py` on Colab | Loss and validation attack-class F1 per model, seed and epoch; settings, versions, data checksum and the chosen seed and epoch; the chosen models' validation probabilities (the Mac checks its own against them) |
+| `n1_scores.csv`, `n1_differences.csv`, `n1_view_counts.csv`, `n1_checks.csv` | `python -m src.eval.ablation_n1` | N1: attack-class F1 and false-positive rates of the raw-trained and redaction-trained models on raw, redacted and link-free views, paired differences with intervals, what the views contain |
+| `n2_scores.csv`, `n2_score_benchmark.csv`, `n2_false_alarms.csv`, `n2_checks.csv` | `python -m src.eval.ablation_n2` | N2: detection of the test hijack cases with and without the thread verifier (verifier level and inside the score), flip-point accuracy, false alarms on real test threads |
+| `n3_systems.csv`, `n3_differences.csv`, `n3_cuts.csv`, `n3_synthetic_bec.csv`, `n3_checks.csv` | `python -m src.eval.ablation_n3` | N3: the full system against text only, headers only and parallel fusion at the same false-alarm rate, pooled and per source, paired differences, the cuts, and the synthetic BEC arm |
+| `arch_systems.csv`, `arch_differences.csv`, `arch_agreement.csv`, `arch_reasons.csv`, `arch_checks.csv` | `python -m src.eval.ablation_arch` | The claim-routed score against a flat classifier on the same signals: detection, paired differences, where they disagree, traceable reasons |
+| `style_auc.csv`, `style_checks.csv` | `python -m src.eval.style_confound` | AUC of telling two collections of the same kind apart by words and by tactic probabilities; real against synthetic emails |
+| `paraphrase_results.csv`, `paraphrase_bands.csv`, `paraphrase_checks.csv` | `python -m src.eval.paraphrase` | The adversarial paraphrase test: flags, tactics and claims before and after a language model rewords the body, with an ordinary-mail control |
 
 ## Still to come
 
-| Phase | Results |
-|---|---|
-| 4 (F1) | Keyword baseline precision, recall and F1 against the labels: Phase 13, after the Phase 5 labels |
-| 6 (test) | Tactic classifier and baseline on the test split: Phase 13, once, with the thresholds fixed on validation |
-| 7 (test) | Claim extractor on the test split: Phase 13, once, with the patterns frozen |
-| 8 (test) | Verifier contradiction rates on the test split and the N3 ablation: Phase 13, once, with the rules frozen |
-| 9 (test) | Thread verifier on the test threads and the N2 ablation with the risk score: Phase 13, once, with the rules frozen |
-| 10 (test) | The risk score, the router and `analyze()` on the test split and the architecture ablation: Phase 13, once, with score version 0.2 frozen |
-| 13 | N1, N2, N3 and architecture ablations; claim-extraction accuracy; paraphrase and style-confound tests; charts |
+Phase 14 (the report, the viva preparation and the Review deck) reads these files and adds none. The charts of the report are drawn from them into `docs/figures/results/` by `python -m src.eval.charts`.

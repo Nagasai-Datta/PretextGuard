@@ -1,10 +1,11 @@
 # notebooks/
 
-Google Colab notebooks for the one job the Mac cannot do quickly: training the DistilBERT tactic classifier (Phase 6). Optional SemEval pretraining would be a second notebook, only if time allows. Everything else runs as scripts in `src/`.
+Google Colab notebooks for the one job the Mac cannot do quickly: training DistilBERT models (the tactic classifier in Phase 6, the two N1 models in Phase 13). Optional SemEval pretraining would be another notebook, only if time allows. Everything else runs as scripts in `src/`.
 
 | Notebook | Phase | Job |
 |---|---|---|
 | `phase6_tactic_classifier.ipynb` | 6 | Clones the code, installs the pinned `transformers`, reads the data from Google Drive, runs `src/models/train.py` on the GPU, saves the results to Drive |
+| `phase13_n1_models.ipynb` | 13 | The same, for the two N1 models: runs `src/eval/n1_train.py`, which trains model A on the raw view and model B on the redacted view of the email bodies |
 
 ## Why Colab
 
@@ -79,6 +80,30 @@ The project's venv runs Python 3.12; Colab's own Python can differ (the Phase 6 
 | `ModuleNotFoundError: No module named 'src'` | Run cell 2 first: it moves into `/content/PretextGuard`, where `src/` is |
 | The session disconnects during cell 4 | Run all again; the run starts from scratch (a few minutes lost per finished seed) |
 | Hugging Face warns about a newly initialised classifier | Expected: the seven-output layer is new and is what we train. `train.py` stops by itself if anything else failed to load |
+
+## Phase 13: the two N1 models
+
+The N1 ablation (master document Section 4.2) needs two DistilBERT models that differ only in what they read: **model A** the raw body (links, addresses and file names as they were), **model B** the redacted body (`[URL]`, `[EMAIL]`, `[DOMAIN]`, `[FILE]`). The training code is `src/eval/n1_train.py`; the notebook `phase13_n1_models.ipynb` follows the same seven steps as Phase 6, with these differences:
+
+- **The data file** is `n1_data.parquet`, made on the Mac with `python -m src.eval.n1_data`: a training sample of at most 800 emails per source and category (about 9,000 emails) and a stratified validation sample of 3,000, with both views of every email. It holds train and validation rows only; the test split never goes to Colab. Upload it to the same Drive folder `pretextguard`.
+- **The run** trains each model with seeds 42 and 43 for two epochs (fp16 on the T4) and keeps, for each model, the seed and epoch with the best attack-class F1 on the validation sample at the fixed threshold 0.5. Expect about 40 minutes (an estimate; the time per epoch is printed).
+- **The output** is `phase13_outputs.zip` in the Drive folder: `n1_model_a/`, `n1_model_b/` (about 255 MB each), `n1_training_log.csv`, `n1_val_probs.csv` and `n1_run_info.json`.
+
+### Phase 13: back on the Mac
+
+```bash
+cd ~/Desktop/pretextguard
+source venv/bin/activate
+mkdir -p ~/Downloads/phase13_outputs
+unzip -o ~/Downloads/phase13_outputs.zip -d ~/Downloads/phase13_outputs
+mv ~/Downloads/phase13_outputs/n1_model_a artifacts/n1_model_a
+mv ~/Downloads/phase13_outputs/n1_model_b artifacts/n1_model_b
+mv ~/Downloads/phase13_outputs/n1_training_log.csv results/n1_training_log.csv
+mv ~/Downloads/phase13_outputs/n1_val_probs.csv results/n1_val_probs.csv
+mv ~/Downloads/phase13_outputs/n1_run_info.json results/n1_run_info.json
+```
+
+The weights stay out of Git (`artifacts/` is ignored); the three small files in `results/` are committed. `python -m src.eval.ablation_n1` later checks that the Mac's CPU reproduces the probabilities Colab recorded (the check `mac_reproduces_colab`), as in Phase 6. The files are part of the freeze record (`src/eval/freeze.py`), so run `python -m src.eval.freeze --write` only after they are in place.
 
 ## Rules
 
