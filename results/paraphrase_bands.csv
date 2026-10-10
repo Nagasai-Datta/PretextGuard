@@ -1,0 +1,19 @@
+split,group,band_before,band_after,emails
+test,ham (control),Low risk,Low risk,58
+test,ham (control),Low risk,Suspicious,1
+test,kaggle_nigerian_fraud,High risk,High risk,4
+test,kaggle_nigerian_fraud,High risk,Suspicious,4
+test,kaggle_nigerian_fraud,Low risk,Low risk,36
+test,kaggle_nigerian_fraud,Low risk,Suspicious,3
+test,kaggle_nigerian_fraud,Suspicious,Low risk,2
+test,kaggle_nigerian_fraud,Suspicious,Suspicious,1
+test,nazario,High risk,High risk,2
+test,nazario,High risk,Low risk,3
+test,nazario,High risk,Suspicious,3
+test,nazario,Low risk,Low risk,36
+test,nazario,Low risk,Suspicious,3
+test,nazario,Suspicious,Low risk,1
+test,nazario,Suspicious,Suspicious,1
+test,phishing_pot,Low risk,Low risk,42
+test,phishing_pot,Suspicious,High risk,1
+test,phishing_pot,Suspicious,Suspicious,2

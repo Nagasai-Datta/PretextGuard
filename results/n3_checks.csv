@@ -1,0 +1,17 @@
+check,item,value,expected,status
+counts,emails of the split equal results/split_counts.csv,14903,14903,PASS
+leakage_guard,learned systems were fitted on,"train (69542 emails: 14237 attacks, 29645 ham)",train only,PASS
+leakage_guard,cuts were fixed on,validation ham (6352 emails),validation only,PASS
+matched_false_alarm,text flags at most the target share of the validation ham,0.0049,<= 0.0050,PASS
+matched_false_alarm,headers flags at most the target share of the validation ham,0.0049,<= 0.0050,PASS
+matched_false_alarm,flat flags at most the target share of the validation ham,0.0049,<= 0.0050,PASS
+matched_false_alarm,fusion flags at most the target share of the validation ham,0.0049,<= 0.0050,PASS
+not_degenerate,full: share of all emails of the split flagged,2.97%,above 0% and below 100%,PASS
+not_degenerate,text: share of all emails of the split flagged,11.76%,above 0% and below 100%,PASS
+not_degenerate,headers: share of all emails of the split flagged,13.96%,above 0% and below 100%,PASS
+not_degenerate,fusion: share of all emails of the split flagged,19.31%,above 0% and below 100%,PASS
+not_degenerate,flat: share of all emails of the split flagged,12.21%,above 0% and below 100%,PASS
+metrics,hand-written pooled F1 equals scikit-learn for every system,3.8e-05,< 1e-3,PASS
+metrics,hand-written AUC equals scikit-learn for every system,3.0e-05,< 1e-3,PASS
+synthetic,synthetic BEC pairs scored,31,equal to the twins,PASS
+run,what favours the learned systems,attack labels in the fit; corpus identity visible in the headers,stated in the README and the report,info

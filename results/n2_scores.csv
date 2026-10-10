@@ -1,0 +1,87 @@
+split,source,variant,metric,n,hits,rate,ci_low,ci_high,note
+test,apache,neg_real,false_alarm_n2,25,0,0.0,0.0,0.0,
+test,apache,neg_real,false_alarm_phase8,25,0,0.0,0.0,0.0,
+test,apache,neg_real,false_alarm_either,25,0,0.0,0.0,0.0,
+test,apache,neg_real,false_alarm_scan,25,1,0.04,0.0,0.12,the scan flags some message of the thread
+test,apache,neg_synth,false_alarm_n2,25,0,0.0,0.0,0.0,
+test,apache,neg_synth,false_alarm_phase8,25,0,0.0,0.0,0.0,
+test,apache,neg_synth,false_alarm_either,25,0,0.0,0.0,0.0,
+test,apache,neg_synth,false_alarm_scan,25,1,0.04,0.0,0.12,the scan flags some message of the thread
+test,apache,A,detect_n2,25,18,0.72,0.52,0.88,
+test,apache,A,detect_phase8,25,5,0.2,0.04,0.36,
+test,apache,A,detect_either,25,19,0.76,0.56,0.92,
+test,apache,A,gain_n2_over_phase8,25,14,0.56,0.36,0.76,"found by N2, missed by the Phase 8 verifiers"
+test,apache,A,signal_onset,25,4,0.16,0.04,0.281,N2 contradiction of this signal
+test,apache,A,signal_request,25,18,0.72,0.52,0.88,N2 contradiction of this signal
+test,apache,A,signal_path,25,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,apache,A,signal_integrity,25,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,apache,A,flip_exact,25,17,0.68,0.48,0.84,the scan flips at the injected message
+test,apache,A,flip_early,25,1,0.04,0.0,0.12,the scan flips BEFORE the injected message (a false alarm on a real message)
+test,apache,B,detect_n2,17,17,1.0,1.0,1.0,
+test,apache,B,detect_phase8,17,0,0.0,0.0,0.0,
+test,apache,B,detect_either,17,17,1.0,1.0,1.0,
+test,apache,B,gain_n2_over_phase8,17,17,1.0,1.0,1.0,"found by N2, missed by the Phase 8 verifiers"
+test,apache,B,signal_onset,17,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,apache,B,signal_request,17,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,apache,B,signal_path,17,17,1.0,1.0,1.0,N2 contradiction of this signal
+test,apache,B,signal_integrity,17,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,apache,B,flip_exact,17,17,1.0,1.0,1.0,the scan flips at the injected message
+test,apache,B,flip_early,17,0,0.0,0.0,0.0,the scan flips BEFORE the injected message (a false alarm on a real message)
+test,apache,C,detect_n2,25,25,1.0,1.0,1.0,
+test,apache,C,detect_phase8,25,0,0.0,0.0,0.0,
+test,apache,C,detect_either,25,25,1.0,1.0,1.0,
+test,apache,C,gain_n2_over_phase8,25,25,1.0,1.0,1.0,"found by N2, missed by the Phase 8 verifiers"
+test,apache,C,signal_onset,25,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,apache,C,signal_request,25,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,apache,C,signal_path,25,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,apache,C,signal_integrity,25,25,1.0,1.0,1.0,N2 contradiction of this signal
+test,apache,C,flip_exact,25,24,0.96,0.88,1.0,the scan flips at the injected message
+test,apache,C,flip_early,25,1,0.04,0.0,0.12,the scan flips BEFORE the injected message (a false alarm on a real message)
+test,apache,attacks (A+B+C),detect_n2,67,60,0.896,0.824,0.956,
+test,apache,attacks (A+B+C),detect_phase8,67,5,0.075,0.016,0.134,
+test,apache,attacks (A+B+C),detect_either,67,61,0.91,0.846,0.97,
+test,apache,attacks (A+B+C),gain_n2_over_phase8,67,56,0.836,0.768,0.908,"found by N2, missed by the Phase 8 verifiers"
+test,apache,attacks (A+B+C),signal_onset,67,4,0.06,0.014,0.116,N2 contradiction of this signal
+test,apache,attacks (A+B+C),signal_request,67,18,0.269,0.2,0.339,N2 contradiction of this signal
+test,apache,attacks (A+B+C),signal_path,67,17,0.254,0.194,0.296,N2 contradiction of this signal
+test,apache,attacks (A+B+C),signal_integrity,67,25,0.373,0.352,0.403,N2 contradiction of this signal
+test,apache,attacks (A+B+C),flip_exact,67,58,0.866,0.779,0.941,the scan flips at the injected message
+test,apache,attacks (A+B+C),flip_early,67,2,0.03,0.0,0.095,the scan flips BEFORE the injected message (a false alarm on a real message)
+test,enron,neg_real,false_alarm_n2,51,1,0.02,0.0,0.059,
+test,enron,neg_real,false_alarm_phase8,51,0,0.0,0.0,0.0,
+test,enron,neg_real,false_alarm_either,51,1,0.02,0.0,0.059,
+test,enron,neg_real,false_alarm_scan,51,10,0.196,0.098,0.314,the scan flags some message of the thread
+test,enron,neg_synth,false_alarm_n2,51,0,0.0,0.0,0.0,
+test,enron,neg_synth,false_alarm_phase8,51,0,0.0,0.0,0.0,
+test,enron,neg_synth,false_alarm_either,51,0,0.0,0.0,0.0,
+test,enron,neg_synth,false_alarm_scan,51,9,0.176,0.078,0.275,the scan flags some message of the thread
+test,enron,A,detect_n2,51,48,0.941,0.882,1.0,
+test,enron,A,detect_phase8,51,0,0.0,0.0,0.0,
+test,enron,A,detect_either,51,48,0.941,0.882,1.0,
+test,enron,A,gain_n2_over_phase8,51,48,0.941,0.863,1.0,"found by N2, missed by the Phase 8 verifiers"
+test,enron,A,signal_onset,51,30,0.588,0.451,0.725,N2 contradiction of this signal
+test,enron,A,signal_request,51,34,0.667,0.529,0.784,N2 contradiction of this signal
+test,enron,A,signal_path,51,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,enron,A,signal_integrity,51,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,enron,A,flip_exact,51,40,0.784,0.667,0.902,the scan flips at the injected message
+test,enron,A,flip_early,51,9,0.176,0.078,0.275,the scan flips BEFORE the injected message (a false alarm on a real message)
+test,enron,C,detect_n2,51,45,0.882,0.784,0.961,
+test,enron,C,detect_phase8,51,0,0.0,0.0,0.0,
+test,enron,C,detect_either,51,45,0.882,0.784,0.961,
+test,enron,C,gain_n2_over_phase8,51,45,0.882,0.784,0.961,"found by N2, missed by the Phase 8 verifiers"
+test,enron,C,signal_onset,51,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,enron,C,signal_request,51,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,enron,C,signal_path,51,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,enron,C,signal_integrity,51,45,0.882,0.784,0.961,N2 contradiction of this signal
+test,enron,C,flip_exact,51,36,0.706,0.569,0.824,the scan flips at the injected message
+test,enron,C,flip_early,51,9,0.176,0.078,0.294,the scan flips BEFORE the injected message (a false alarm on a real message)
+test,enron,attacks (A+B+C),detect_n2,102,93,0.912,0.853,0.961,
+test,enron,attacks (A+B+C),detect_phase8,102,0,0.0,0.0,0.0,
+test,enron,attacks (A+B+C),detect_either,102,93,0.912,0.853,0.961,
+test,enron,attacks (A+B+C),gain_n2_over_phase8,102,93,0.912,0.853,0.961,"found by N2, missed by the Phase 8 verifiers"
+test,enron,attacks (A+B+C),signal_onset,102,30,0.294,0.225,0.363,N2 contradiction of this signal
+test,enron,attacks (A+B+C),signal_request,102,34,0.333,0.265,0.392,N2 contradiction of this signal
+test,enron,attacks (A+B+C),signal_path,102,0,0.0,0.0,0.0,N2 contradiction of this signal
+test,enron,attacks (A+B+C),signal_integrity,102,45,0.441,0.402,0.48,N2 contradiction of this signal
+test,enron,attacks (A+B+C),flip_exact,102,76,0.745,0.627,0.843,the scan flips at the injected message
+test,enron,attacks (A+B+C),flip_early,102,18,0.176,0.078,0.294,the scan flips BEFORE the injected message (a false alarm on a real message)

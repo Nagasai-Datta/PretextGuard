@@ -1,0 +1,55 @@
+split,scope,system,metric,value,value_ci_low,value_ci_high,n,hits,cut,note
+test,pooled attacks against ham,full,precision,0.9606,0.9229,0.9889,3045,,34.5,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,pooled attacks against ham,full,recall,0.136,0.1143,0.1617,3045,,34.5,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,pooled attacks against ham,full,f1,0.2382,0.2043,0.2769,3045,,34.5,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,pooled attacks against ham,full,false_alarm_rate,0.0027,0.0008,0.0052,6357,,34.5,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,"pooled, emails with a checked claim",full,precision,0.9606,0.9229,0.9889,788,,34.5,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,"pooled, emails with a checked claim",full,recall,0.5254,0.472,0.5879,788,,34.5,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,"pooled, emails with a checked claim",full,f1,0.6792,0.6328,0.7337,788,,34.5,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,"pooled, emails with a checked claim",full,false_alarm_rate,0.0427,0.0123,0.0836,398,,34.5,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,pooled attacks against ham,full,auc,0.8117,0.7987,0.8248,9402,,34.5,threshold-free: the chance a random attack scores above a random legitimate email
+test,source: apache_kafka_users (ham),full,false_alarm_rate,0.0127,0.0,0.034,158,2.0,34.5,
+test,"source, emails with a checked claim: apache_kafka_users (ham)",full,false_alarm_rate,0.1176,0.0,0.2632,17,2.0,34.5,
+test,source: apache_tomcat_users (ham),full,false_alarm_rate,0.0,0.0,0.0,324,0.0,34.5,
+test,"source, emails with a checked claim: apache_tomcat_users (ham)",full,false_alarm_rate,0.0,0.0,0.0,17,0.0,34.5,
+test,source: kaggle_ceas08 (spam),full,spam_flag_rate,0.0028,0.0007,0.0058,5714,16.0,34.5,
+test,"source, emails with a checked claim: kaggle_ceas08 (spam)",full,spam_flag_rate,0.0518,0.013,0.1043,309,16.0,34.5,
+test,source: kaggle_enron (ham),full,false_alarm_rate,0.0,0.0,0.0,4368,0.0,34.5,
+test,"source, emails with a checked claim: kaggle_enron (ham)",full,false_alarm_rate,,,,0,0.0,34.5,fewer than 10 items: count only
+test,source: kaggle_ling (ham),full,false_alarm_rate,0.0,0.0,0.0,428,0.0,34.5,
+test,"source, emails with a checked claim: kaggle_ling (ham)",full,false_alarm_rate,,,,0,0.0,34.5,fewer than 10 items: count only
+test,source: kaggle_nigerian_fraud (fraud),full,detection_rate,0.2284,0.1811,0.2742,486,111.0,34.5,
+test,"source, emails with a checked claim: kaggle_nigerian_fraud (fraud)",full,detection_rate,0.489,0.4149,0.5602,227,111.0,34.5,
+test,source: nazario (phishing),full,detection_rate,0.1529,0.1284,0.1795,1439,220.0,34.5,
+test,"source, emails with a checked claim: nazario (phishing)",full,detection_rate,0.5914,0.5239,0.6506,372,220.0,34.5,
+test,source: phishing_pot (phishing),full,detection_rate,0.0741,0.0357,0.1386,1120,83.0,34.5,
+test,"source, emails with a checked claim: phishing_pot (phishing)",full,detection_rate,0.4392,0.2547,0.6278,189,83.0,34.5,
+test,source: spamassassin (ham),full,false_alarm_rate,0.0115,0.0045,0.0204,866,10.0,34.5,
+test,"source, emails with a checked claim: spamassassin (ham)",full,false_alarm_rate,0.0585,0.0231,0.1006,171,10.0,34.5,
+test,pooled attacks against ham,flat,precision,0.9774,0.9646,0.9866,3045,,0.992292056284834,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,pooled attacks against ham,flat,recall,0.4966,0.465,0.5282,3045,,0.992292056284834,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,pooled attacks against ham,flat,f1,0.6585,0.6289,0.6867,3045,,0.992292056284834,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,pooled attacks against ham,flat,false_alarm_rate,0.0055,0.0032,0.0086,6357,,0.992292056284834,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,"pooled, emails with a checked claim",flat,precision,0.9883,0.9635,1.0,788,,0.992292056284834,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,"pooled, emails with a checked claim",flat,recall,0.75,0.7077,0.7934,788,,0.992292056284834,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,"pooled, emails with a checked claim",flat,f1,0.8528,0.8252,0.8813,788,,0.992292056284834,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,"pooled, emails with a checked claim",flat,false_alarm_rate,0.0176,0.0,0.0526,398,,0.992292056284834,"n counts the attacks (precision, recall, F1) or the ham emails (false-alarm rate)"
+test,pooled attacks against ham,flat,auc,0.9489,0.9418,0.9548,9402,,0.992292056284834,threshold-free: the chance a random attack scores above a random legitimate email
+test,source: apache_kafka_users (ham),flat,false_alarm_rate,0.0,0.0,0.0,158,0.0,0.992292056284834,
+test,"source, emails with a checked claim: apache_kafka_users (ham)",flat,false_alarm_rate,0.0,0.0,0.0,17,0.0,0.992292056284834,
+test,source: apache_tomcat_users (ham),flat,false_alarm_rate,0.0,0.0,0.0,324,0.0,0.992292056284834,
+test,"source, emails with a checked claim: apache_tomcat_users (ham)",flat,false_alarm_rate,0.0,0.0,0.0,17,0.0,0.992292056284834,
+test,source: kaggle_ceas08 (spam),flat,spam_flag_rate,0.0124,0.0056,0.0212,5714,71.0,0.992292056284834,
+test,"source, emails with a checked claim: kaggle_ceas08 (spam)",flat,spam_flag_rate,0.0227,0.0,0.0696,309,7.0,0.992292056284834,
+test,source: kaggle_enron (ham),flat,false_alarm_rate,0.043,0.0342,0.0522,4368,188.0,0.992292056284834,
+test,"source, emails with a checked claim: kaggle_enron (ham)",flat,false_alarm_rate,,,,0,0.0,0.992292056284834,fewer than 10 items: count only
+test,source: kaggle_ling (ham),flat,false_alarm_rate,0.014,0.0025,0.0272,428,6.0,0.992292056284834,
+test,"source, emails with a checked claim: kaggle_ling (ham)",flat,false_alarm_rate,,,,0,0.0,0.992292056284834,fewer than 10 items: count only
+test,source: kaggle_nigerian_fraud (fraud),flat,detection_rate,0.5288,0.4746,0.5821,486,257.0,0.992292056284834,
+test,"source, emails with a checked claim: kaggle_nigerian_fraud (fraud)",flat,detection_rate,0.7489,0.682,0.8119,227,170.0,0.992292056284834,
+test,source: nazario (phishing),flat,detection_rate,0.583,0.538,0.622,1439,839.0,0.992292056284834,
+test,"source, emails with a checked claim: nazario (phishing)",flat,detection_rate,0.7984,0.7444,0.8455,372,297.0,0.992292056284834,
+test,source: phishing_pot (phishing),flat,detection_rate,0.3714,0.3131,0.4337,1120,416.0,0.992292056284834,
+test,"source, emails with a checked claim: phishing_pot (phishing)",flat,detection_rate,0.6561,0.5094,0.7813,189,124.0,0.992292056284834,
+test,source: spamassassin (ham),flat,false_alarm_rate,0.0485,0.0334,0.0649,866,42.0,0.992292056284834,
+test,"source, emails with a checked claim: spamassassin (ham)",flat,false_alarm_rate,0.1111,0.0638,0.1656,171,19.0,0.992292056284834,

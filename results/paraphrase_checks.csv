@@ -1,0 +1,10 @@
+check,item,value,expected,status
+leakage_guard,split,test,test,PASS
+rewrites,emails sampled / valid rewrites,210 / 203,most are valid,info
+rewrites,share of the sample with a valid rewrite,97%,>= 80%,PASS
+rewrites,dropped: near-copy of the original,7,reported,info
+rewrites,emails the model did not answer even one at a time,0,reported,info
+run,model(s) that rewrote (as the provider names them),gemini-3.1-flash-lite,,info
+run,requests made in this run (0 means every rewrite came from the stored replies),48,,info
+run,temperature,0.7,,info
+run,meaning,spot-checked by reading six pairs; the script cannot judge it,state this in the report,info

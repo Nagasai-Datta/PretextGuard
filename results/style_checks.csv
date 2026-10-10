@@ -1,0 +1,6 @@
+check,item,value,expected,status
+leakage_guard,the fit used train emails only; the AUC was scored on the split,test,test,PASS
+counts,pairs scored,52,more than 0,PASS
+range,every AUC lies between 0 and 1 and every interval contains it,ok,ok,PASS
+summary,words: median AUC over same-kind source pairs,0.992,,info
+summary,tactic probabilities: median AUC over same-kind source pairs,0.727,,info

@@ -1,0 +1,143 @@
+split,group,measure,item,denominator,hits,rate,ci_low,ci_high,value,note
+test,ham (control),flag,flagged before (Suspicious or above),59,0.0,0.0,0.0,0.0611,,
+test,ham (control),flag,flagged after,59,1.0,0.0169,0.003,0.09,,
+test,ham (control),flag,"kept: flagged before and after, among those flagged before",0,0.0,,,,,the headers are unchanged; only the words differ; fewer than 20 emails: count only
+test,ham (control),flag,"new: flagged after only, among those not flagged before",59,1.0,0.0169,0.003,0.09,,
+test,ham (control),band,band changed,59,1.0,0.0169,0.003,0.09,,
+test,ham (control),tactic,authority kept among those that fired before,0,0.0,,,,,fewer than 20 emails: count only
+test,ham (control),tactic,authority appeared among those that did not fire before,59,0.0,0.0,0.0,0.0611,,
+test,ham (control),tactic,urgency kept among those that fired before,0,0.0,,,,,fewer than 20 emails: count only
+test,ham (control),tactic,urgency appeared among those that did not fire before,59,0.0,0.0,0.0,0.0611,,
+test,ham (control),tactic,scarcity kept among those that fired before,0,0.0,,,,,fewer than 20 emails: count only
+test,ham (control),tactic,scarcity appeared among those that did not fire before,59,0.0,0.0,0.0,0.0611,,
+test,ham (control),tactic,secrecy kept among those that fired before,0,0.0,,,,,fewer than 20 emails: count only
+test,ham (control),tactic,secrecy appeared among those that did not fire before,59,0.0,0.0,0.0,0.0611,,
+test,ham (control),claim,affiliation_external kept among those found before,7,6.0,,,,,fewer than 20 emails: count only
+test,ham (control),claim,affiliation_external appeared among those not found before,52,4.0,0.0769,0.0303,0.1817,,
+test,ham (control),claim,credential_request kept among those found before,1,0.0,,,,,fewer than 20 emails: count only
+test,ham (control),claim,credential_request appeared among those not found before,58,0.0,0.0,0.0,0.0621,,
+test,ham (control),claim,data_request kept among those found before,1,0.0,,,,,fewer than 20 emails: count only
+test,ham (control),claim,data_request appeared among those not found before,58,1.0,0.0172,0.003,0.0914,,
+test,ham (control),claim,prior_relationship kept among those found before,1,1.0,,,,,fewer than 20 emails: count only
+test,ham (control),claim,prior_relationship appeared among those not found before,58,1.0,0.0172,0.003,0.0914,,
+test,ham (control),claim,reply_direction kept among those found before,1,1.0,,,,,fewer than 20 emails: count only
+test,ham (control),claim,reply_direction appeared among those not found before,58,0.0,0.0,0.0,0.0621,,
+test,ham (control),claim,signature_contact kept among those found before,20,19.0,0.95,0.7639,0.9911,,
+test,ham (control),claim,signature_contact appeared among those not found before,39,4.0,0.1026,0.0406,0.2358,,
+test,ham (control),score,mean score before,59,,,,,0.0,
+test,ham (control),score,mean score after,59,,,,,0.593,
+test,ham (control),score,mean absolute score change,59,,,,,0.593,
+test,ham (control),score,mean contradictions before,59,,,,,0.0,
+test,ham (control),score,mean contradictions after,59,,,,,0.017,
+test,ham (control),emails,sampled / valid rewrites,60,59.0,,,,,
+test,kaggle_nigerian_fraud,flag,flagged before (Suspicious or above),50,11.0,0.22,0.1275,0.3524,,
+test,kaggle_nigerian_fraud,flag,flagged after,50,12.0,0.24,0.143,0.3741,,
+test,kaggle_nigerian_fraud,flag,"kept: flagged before and after, among those flagged before",11,9.0,,,,,the headers are unchanged; only the words differ; fewer than 20 emails: count only
+test,kaggle_nigerian_fraud,flag,"new: flagged after only, among those not flagged before",39,3.0,0.0769,0.0265,0.2032,,
+test,kaggle_nigerian_fraud,band,band changed,50,9.0,0.18,0.0977,0.308,,
+test,kaggle_nigerian_fraud,tactic,authority kept among those that fired before,25,17.0,0.68,0.4841,0.828,,
+test,kaggle_nigerian_fraud,tactic,authority appeared among those that did not fire before,25,3.0,0.12,0.0417,0.2996,,
+test,kaggle_nigerian_fraud,tactic,urgency kept among those that fired before,31,23.0,0.7419,0.5675,0.863,,
+test,kaggle_nigerian_fraud,tactic,urgency appeared among those that did not fire before,19,4.0,,,,,fewer than 20 emails: count only
+test,kaggle_nigerian_fraud,tactic,scarcity kept among those that fired before,12,2.0,,,,,fewer than 20 emails: count only
+test,kaggle_nigerian_fraud,tactic,scarcity appeared among those that did not fire before,38,0.0,0.0,0.0,0.0918,,
+test,kaggle_nigerian_fraud,tactic,secrecy kept among those that fired before,10,6.0,,,,,fewer than 20 emails: count only
+test,kaggle_nigerian_fraud,tactic,secrecy appeared among those that did not fire before,40,0.0,0.0,0.0,0.0876,,
+test,kaggle_nigerian_fraud,claim,affiliation_external kept among those found before,26,24.0,0.9231,0.7586,0.9786,,
+test,kaggle_nigerian_fraud,claim,affiliation_external appeared among those not found before,24,2.0,0.0833,0.0232,0.2585,,
+test,kaggle_nigerian_fraud,claim,affiliation_internal kept among those found before,1,1.0,,,,,fewer than 20 emails: count only
+test,kaggle_nigerian_fraud,claim,affiliation_internal appeared among those not found before,49,0.0,0.0,0.0,0.0727,,
+test,kaggle_nigerian_fraud,claim,authority kept among those found before,29,25.0,0.8621,0.6944,0.945,,
+test,kaggle_nigerian_fraud,claim,authority appeared among those not found before,21,3.0,0.1429,0.0498,0.3464,,
+test,kaggle_nigerian_fraud,claim,credential_request kept among those found before,1,1.0,,,,,fewer than 20 emails: count only
+test,kaggle_nigerian_fraud,claim,credential_request appeared among those not found before,49,0.0,0.0,0.0,0.0727,,
+test,kaggle_nigerian_fraud,claim,data_request kept among those found before,9,5.0,,,,,fewer than 20 emails: count only
+test,kaggle_nigerian_fraud,claim,data_request appeared among those not found before,41,5.0,0.122,0.0532,0.2554,,
+test,kaggle_nigerian_fraud,claim,payment_change kept among those found before,1,0.0,,,,,fewer than 20 emails: count only
+test,kaggle_nigerian_fraud,claim,payment_change appeared among those not found before,49,0.0,0.0,0.0,0.0727,,
+test,kaggle_nigerian_fraud,claim,payment_request kept among those found before,11,6.0,,,,,fewer than 20 emails: count only
+test,kaggle_nigerian_fraud,claim,payment_request appeared among those not found before,39,6.0,0.1538,0.0725,0.2973,,
+test,kaggle_nigerian_fraud,claim,prior_relationship kept among those found before,0,0.0,,,,,fewer than 20 emails: count only
+test,kaggle_nigerian_fraud,claim,prior_relationship appeared among those not found before,50,2.0,0.04,0.011,0.1346,,
+test,kaggle_nigerian_fraud,claim,reply_direction kept among those found before,12,10.0,,,,,fewer than 20 emails: count only
+test,kaggle_nigerian_fraud,claim,reply_direction appeared among those not found before,38,3.0,0.0789,0.0272,0.208,,
+test,kaggle_nigerian_fraud,claim,signature_contact kept among those found before,28,25.0,0.8929,0.728,0.9629,,
+test,kaggle_nigerian_fraud,claim,signature_contact appeared among those not found before,22,8.0,0.3636,0.1973,0.5705,,
+test,kaggle_nigerian_fraud,score,mean score before,50,,,,,22.4,
+test,kaggle_nigerian_fraud,score,mean score after,50,,,,,18.08,
+test,kaggle_nigerian_fraud,score,mean absolute score change,50,,,,,9.36,
+test,kaggle_nigerian_fraud,score,mean contradictions before,50,,,,,1.0,
+test,kaggle_nigerian_fraud,score,mean contradictions after,50,,,,,0.84,
+test,kaggle_nigerian_fraud,emails,sampled / valid rewrites,50,50.0,,,,,
+test,nazario,flag,flagged before (Suspicious or above),49,10.0,0.2041,0.1148,0.3364,,
+test,nazario,flag,flagged after,49,9.0,0.1837,0.0998,0.3136,,
+test,nazario,flag,"kept: flagged before and after, among those flagged before",10,6.0,,,,,the headers are unchanged; only the words differ; fewer than 20 emails: count only
+test,nazario,flag,"new: flagged after only, among those not flagged before",39,3.0,0.0769,0.0265,0.2032,,
+test,nazario,band,band changed,49,10.0,0.2041,0.1148,0.3364,,
+test,nazario,tactic,authority kept among those that fired before,19,13.0,,,,,fewer than 20 emails: count only
+test,nazario,tactic,authority appeared among those that did not fire before,30,2.0,0.0667,0.0185,0.2132,,
+test,nazario,tactic,urgency kept among those that fired before,35,31.0,0.8857,0.7405,0.9546,,
+test,nazario,tactic,urgency appeared among those that did not fire before,14,4.0,,,,,fewer than 20 emails: count only
+test,nazario,tactic,scarcity kept among those that fired before,23,16.0,0.6957,0.4913,0.844,,
+test,nazario,tactic,scarcity appeared among those that did not fire before,26,9.0,0.3462,0.1941,0.5378,,
+test,nazario,tactic,secrecy kept among those that fired before,0,0.0,,,,,fewer than 20 emails: count only
+test,nazario,tactic,secrecy appeared among those that did not fire before,49,0.0,0.0,0.0,0.0727,,
+test,nazario,claim,affiliation_external kept among those found before,30,30.0,1.0,0.8865,1.0,,
+test,nazario,claim,affiliation_external appeared among those not found before,19,3.0,,,,,fewer than 20 emails: count only
+test,nazario,claim,affiliation_internal kept among those found before,7,6.0,,,,,fewer than 20 emails: count only
+test,nazario,claim,affiliation_internal appeared among those not found before,42,0.0,0.0,0.0,0.0838,,
+test,nazario,claim,authority kept among those found before,2,2.0,,,,,fewer than 20 emails: count only
+test,nazario,claim,authority appeared among those not found before,47,0.0,0.0,0.0,0.0756,,
+test,nazario,claim,credential_request kept among those found before,26,17.0,0.6538,0.4622,0.8059,,
+test,nazario,claim,credential_request appeared among those not found before,23,6.0,0.2609,0.1255,0.4647,,
+test,nazario,claim,data_request kept among those found before,15,6.0,,,,,fewer than 20 emails: count only
+test,nazario,claim,data_request appeared among those not found before,34,5.0,0.1471,0.0645,0.3013,,
+test,nazario,claim,gift_card kept among those found before,1,1.0,,,,,fewer than 20 emails: count only
+test,nazario,claim,gift_card appeared among those not found before,48,0.0,0.0,0.0,0.0741,,
+test,nazario,claim,payment_change kept among those found before,4,2.0,,,,,fewer than 20 emails: count only
+test,nazario,claim,payment_change appeared among those not found before,45,0.0,0.0,0.0,0.0787,,
+test,nazario,claim,payment_request kept among those found before,3,2.0,,,,,fewer than 20 emails: count only
+test,nazario,claim,payment_request appeared among those not found before,46,0.0,0.0,0.0,0.0771,,
+test,nazario,claim,reply_direction kept among those found before,1,0.0,,,,,fewer than 20 emails: count only
+test,nazario,claim,reply_direction appeared among those not found before,48,0.0,0.0,0.0,0.0741,,
+test,nazario,claim,signature_contact kept among those found before,23,19.0,0.8261,0.6286,0.9302,,
+test,nazario,claim,signature_contact appeared among those not found before,26,5.0,0.1923,0.0851,0.3788,,
+test,nazario,score,mean score before,49,,,,,20.367,
+test,nazario,score,mean score after,49,,,,,15.959,
+test,nazario,score,mean absolute score change,49,,,,,11.918,
+test,nazario,score,mean contradictions before,49,,,,,0.857,
+test,nazario,score,mean contradictions after,49,,,,,0.408,
+test,nazario,emails,sampled / valid rewrites,50,49.0,,,,,
+test,phishing_pot,flag,flagged before (Suspicious or above),45,3.0,0.0667,0.0229,0.1786,,
+test,phishing_pot,flag,flagged after,45,3.0,0.0667,0.0229,0.1786,,
+test,phishing_pot,flag,"kept: flagged before and after, among those flagged before",3,3.0,,,,,the headers are unchanged; only the words differ; fewer than 20 emails: count only
+test,phishing_pot,flag,"new: flagged after only, among those not flagged before",42,0.0,0.0,0.0,0.0838,,
+test,phishing_pot,band,band changed,45,1.0,0.0222,0.0039,0.1157,,
+test,phishing_pot,tactic,authority kept among those that fired before,1,1.0,,,,,fewer than 20 emails: count only
+test,phishing_pot,tactic,authority appeared among those that did not fire before,44,1.0,0.0227,0.004,0.1181,,
+test,phishing_pot,tactic,urgency kept among those that fired before,27,18.0,0.6667,0.4782,0.8136,,
+test,phishing_pot,tactic,urgency appeared among those that did not fire before,18,2.0,,,,,fewer than 20 emails: count only
+test,phishing_pot,tactic,scarcity kept among those that fired before,14,12.0,,,,,fewer than 20 emails: count only
+test,phishing_pot,tactic,scarcity appeared among those that did not fire before,31,0.0,0.0,0.0,0.1103,,
+test,phishing_pot,tactic,secrecy kept among those that fired before,0,0.0,,,,,fewer than 20 emails: count only
+test,phishing_pot,tactic,secrecy appeared among those that did not fire before,45,0.0,0.0,0.0,0.0787,,
+test,phishing_pot,claim,affiliation_external kept among those found before,15,14.0,,,,,fewer than 20 emails: count only
+test,phishing_pot,claim,affiliation_external appeared among those not found before,30,0.0,0.0,0.0,0.1135,,
+test,phishing_pot,claim,affiliation_internal kept among those found before,1,1.0,,,,,fewer than 20 emails: count only
+test,phishing_pot,claim,affiliation_internal appeared among those not found before,44,0.0,0.0,0.0,0.0803,,
+test,phishing_pot,claim,credential_request kept among those found before,3,3.0,,,,,fewer than 20 emails: count only
+test,phishing_pot,claim,credential_request appeared among those not found before,42,1.0,0.0238,0.0042,0.1232,,
+test,phishing_pot,claim,data_request kept among those found before,0,0.0,,,,,fewer than 20 emails: count only
+test,phishing_pot,claim,data_request appeared among those not found before,45,1.0,0.0222,0.0039,0.1157,,
+test,phishing_pot,claim,payment_change kept among those found before,1,1.0,,,,,fewer than 20 emails: count only
+test,phishing_pot,claim,payment_change appeared among those not found before,44,0.0,0.0,0.0,0.0803,,
+test,phishing_pot,claim,payment_request kept among those found before,1,0.0,,,,,fewer than 20 emails: count only
+test,phishing_pot,claim,payment_request appeared among those not found before,44,0.0,0.0,0.0,0.0803,,
+test,phishing_pot,claim,signature_contact kept among those found before,13,13.0,,,,,fewer than 20 emails: count only
+test,phishing_pot,claim,signature_contact appeared among those not found before,32,1.0,0.0312,0.0055,0.1574,,
+test,phishing_pot,score,mean score before,45,,,,,6.778,
+test,phishing_pot,score,mean score after,45,,,,,6.556,
+test,phishing_pot,score,mean absolute score change,45,,,,,1.733,
+test,phishing_pot,score,mean contradictions before,45,,,,,0.089,
+test,phishing_pot,score,mean contradictions after,45,,,,,0.111,
+test,phishing_pot,emails,sampled / valid rewrites,50,45.0,,,,,

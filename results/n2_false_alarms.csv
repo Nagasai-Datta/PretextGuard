@@ -1,0 +1,7 @@
+split,source,threads,messages_with_a_past,flagged,rate,ci_low,ci_high,wilson_low,wilson_high,note,level,rule,signal,messages_flagged
+test,apache_kafka_users,23.0,95,0.0,0.0,0.0,0.0,0.0,0.0389,"every medium or high contradiction on a real, unmodified thread is a false alarm; the interval draws whole threads",summary,,,
+test,apache_tomcat_users,43.0,201,1.0,0.005,0.0,0.0164,0.0009,0.0276,"every medium or high contradiction on a real, unmodified thread is a false alarm; the interval draws whole threads",summary,,,
+test,enron,188.0,698,31.0,0.0444,0.0308,0.0599,0.0315,0.0624,"every medium or high contradiction on a real, unmodified thread is a false alarm; the interval draws whole threads",summary,,,
+test,apache_tomcat_users,,201,,0.005,,,,,,rule,tv_quote_mismatch,integrity,1.0
+test,enron,,698,,0.0415,,,,,,rule,tv_quote_mismatch,integrity,29.0
+test,enron,,698,,0.0029,,,,,,rule,tv_onset_many,onset,2.0

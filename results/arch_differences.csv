@@ -1,0 +1,7 @@
+split,scope,system_a,system_b,metric,difference,difference_ci_low,difference_ci_high
+test,pooled attacks against ham,full,flat,f1 (full minus other),-0.4203,-0.4541,-0.387
+test,pooled attacks against ham,full,flat,recall (full minus other),-0.3606,-0.3912,-0.3331
+test,pooled attacks against ham,full,flat,false_alarm_rate (full minus other),-0.0028,-0.0052,-0.0006
+test,"pooled, emails with a checked claim",full,flat,f1 (full minus other),-0.1736,-0.2143,-0.1353
+test,"pooled, emails with a checked claim",full,flat,recall (full minus other),-0.2246,-0.2725,-0.1782
+test,"pooled, emails with a checked claim",full,flat,false_alarm_rate (full minus other),0.0251,0.0052,0.0499

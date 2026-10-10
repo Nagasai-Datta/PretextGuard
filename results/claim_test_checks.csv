@@ -1,0 +1,21 @@
+check,item,value,expected,status
+labels,affiliation_internal positives among the real test emails equal results/label_counts.csv,12,12,PASS
+labels,affiliation_external positives among the real test emails equal results/label_counts.csv,44,44,PASS
+labels,authority positives among the real test emails equal results/label_counts.csv,16,16,PASS
+labels,reply_direction positives among the real test emails equal results/label_counts.csv,11,11,PASS
+labels,signature_contact positives among the real test emails equal results/label_counts.csv,26,26,PASS
+labels,prior_relationship positives among the real test emails equal results/label_counts.csv,1,1,PASS
+labels,payment_request positives among the real test emails equal results/label_counts.csv,2,2,PASS
+labels,payment_change positives among the real test emails equal results/label_counts.csv,1,1,PASS
+labels,credential_request positives among the real test emails equal results/label_counts.csv,15,15,PASS
+labels,gift_card positives among the real test emails equal results/label_counts.csv,0,0,PASS
+labels,data_request positives among the real test emails equal results/label_counts.csv,8,8,PASS
+leakage_guard,split of the labelled emails scored,test,test,PASS
+claims_valid,"claims whose text is not the slice of their span, or with a bad type, zone or confidence",0,0,PASS
+claims_capped,most claims in one email,9,<= 12,PASS
+claims_capped,most claims of one type in one email,3,<= 3,PASS
+operating_points,the file still equals the choice recomputed from the validation scores,equal,equal,PASS
+operating_points,pattern version of the choice equals the version scored,0.4 / 0.4,equal,PASS
+metrics,hand-written F1 equals scikit-learn for every scoreable type at its chosen point,4.9e-05,< 1e-3 (the table rounds to 4 decimals),PASS
+run,claim pattern version,0.4,,info
+run,strong-claim confidence,0.9,,info

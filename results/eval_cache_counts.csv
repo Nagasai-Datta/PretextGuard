@@ -1,0 +1,6 @@
+split,cache,items,detail
+test,emails,14903,14903 claims extracted in this run
+test,claims,17224,claims found in those emails
+test,tactic probabilities,14903,"emails, 7 probabilities each"
+test,real thread messages,1248,254 threads
+test,hijack candidates,245,321 cases of the split (neg_real needs no injected text)

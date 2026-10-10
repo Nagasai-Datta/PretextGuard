@@ -1,0 +1,9 @@
+check,item,value,expected,status
+matched_false_alarm,flat flags at most the target share of the validation ham,0.0049,<= 0.0050,PASS
+traceable,emails flagged by the routed score without a contradiction row behind them,0,0,PASS
+leakage_guard,flat classifier fitted on,train (69542 emails),train only,PASS
+leakage_guard,cut fixed on,validation ham,validation only,PASS
+not_degenerate,full: share of all emails of the split flagged,2.97%,above 0% and below 100%,PASS
+not_degenerate,flat: share of all emails of the split flagged,12.21%,above 0% and below 100%,PASS
+metrics,hand-written pooled F1 and AUC equal scikit-learn for both systems,3.7e-05,< 1e-3,PASS
+counts,the agreement table accounts for every email of the split,14903,14903,PASS

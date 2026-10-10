@@ -1,0 +1,45 @@
+split,source,variant,metric,n,hits,rate,ci_low,ci_high,note
+test,apache,neg_real,suspicious_or_high_full,25,0,0.0,0.0,0.0,negatives: these are false alarms
+test,apache,neg_real,high_full,25,0,0.0,0.0,0.0,negatives: these are false alarms
+test,apache,neg_real,suspicious_or_high_phase8,25,0,0.0,0.0,0.0,negatives: these are false alarms
+test,apache,neg_real,high_phase8,25,0,0.0,0.0,0.0,negatives: these are false alarms
+test,apache,neg_synth,suspicious_or_high_full,25,0,0.0,0.0,0.0,negatives: these are false alarms
+test,apache,neg_synth,high_full,25,0,0.0,0.0,0.0,negatives: these are false alarms
+test,apache,neg_synth,suspicious_or_high_phase8,25,0,0.0,0.0,0.0,negatives: these are false alarms
+test,apache,neg_synth,high_phase8,25,0,0.0,0.0,0.0,negatives: these are false alarms
+test,apache,A,suspicious_or_high_full,25,19,0.76,0.599,0.92,
+test,apache,A,high_full,25,7,0.28,0.12,0.48,
+test,apache,A,suspicious_or_high_phase8,25,5,0.2,0.04,0.36,
+test,apache,A,high_phase8,25,1,0.04,0.0,0.12,
+test,apache,B,suspicious_or_high_full,17,17,1.0,1.0,1.0,
+test,apache,B,high_full,17,0,0.0,0.0,0.0,
+test,apache,B,suspicious_or_high_phase8,17,0,0.0,0.0,0.0,
+test,apache,B,high_phase8,17,0,0.0,0.0,0.0,
+test,apache,C,suspicious_or_high_full,25,25,1.0,1.0,1.0,
+test,apache,C,high_full,25,0,0.0,0.0,0.0,
+test,apache,C,suspicious_or_high_phase8,25,0,0.0,0.0,0.0,
+test,apache,C,high_phase8,25,0,0.0,0.0,0.0,
+test,apache,attacks (A+B+C),suspicious_or_high_full,67,61,0.91,0.851,0.969,
+test,apache,attacks (A+B+C),high_full,67,7,0.104,0.045,0.176,
+test,apache,attacks (A+B+C),suspicious_or_high_phase8,67,5,0.075,0.016,0.138,
+test,apache,attacks (A+B+C),high_phase8,67,1,0.015,0.0,0.046,
+test,enron,neg_real,suspicious_or_high_full,51,1,0.02,0.0,0.059,negatives: these are false alarms
+test,enron,neg_real,high_full,51,0,0.0,0.0,0.0,negatives: these are false alarms
+test,enron,neg_real,suspicious_or_high_phase8,51,0,0.0,0.0,0.0,negatives: these are false alarms
+test,enron,neg_real,high_phase8,51,0,0.0,0.0,0.0,negatives: these are false alarms
+test,enron,neg_synth,suspicious_or_high_full,51,0,0.0,0.0,0.0,negatives: these are false alarms
+test,enron,neg_synth,high_full,51,0,0.0,0.0,0.0,negatives: these are false alarms
+test,enron,neg_synth,suspicious_or_high_phase8,51,0,0.0,0.0,0.0,negatives: these are false alarms
+test,enron,neg_synth,high_phase8,51,0,0.0,0.0,0.0,negatives: these are false alarms
+test,enron,A,suspicious_or_high_full,51,48,0.941,0.863,1.0,
+test,enron,A,high_full,51,24,0.471,0.333,0.608,
+test,enron,A,suspicious_or_high_phase8,51,0,0.0,0.0,0.0,
+test,enron,A,high_phase8,51,0,0.0,0.0,0.0,
+test,enron,C,suspicious_or_high_full,51,45,0.882,0.784,0.961,
+test,enron,C,high_full,51,1,0.02,0.0,0.059,
+test,enron,C,suspicious_or_high_phase8,51,0,0.0,0.0,0.0,
+test,enron,C,high_phase8,51,0,0.0,0.0,0.0,
+test,enron,attacks (A+B+C),suspicious_or_high_full,102,93,0.912,0.843,0.961,
+test,enron,attacks (A+B+C),high_full,102,25,0.245,0.176,0.324,
+test,enron,attacks (A+B+C),suspicious_or_high_phase8,102,0,0.0,0.0,0.0,
+test,enron,attacks (A+B+C),high_phase8,102,0,0.0,0.0,0.0,

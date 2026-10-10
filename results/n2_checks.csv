@@ -1,0 +1,17 @@
+check,item,value,expected,status
+selftest,thread self-test,all of 87,all pass,PASS
+rows_valid,thread-verifier rows that fail check_row,0,0,PASS
+counts,cases scored equal the cases of the split in data/threads/cases.csv,321,321,PASS
+leakage_guard,threads in more than one split,0,0,PASS
+leakage_guard,split scored,test,test,PASS
+labels,cases whose label does not fit their variant,0,0,PASS
+structure,"threads missing one of neg_real, neg_synth, A, C",0,0,PASS
+isolation,variant A cases where a integrity/path signal fires (the injection copies those details),0,0,PASS
+isolation,variant B cases where a integrity signal fires (the injection copies those details),0,0,PASS
+isolation,variant C cases where a path signal fires (the injection copies those details),0,0,PASS
+isolation,variant neg_synth cases where a integrity/path signal fires (the injection copies those details),0,0,PASS
+false_alarms,apache_kafka_users: real messages with a past flagged by the thread verifier,0.00%,reported (a finding if high),info
+false_alarms,apache_tomcat_users: real messages with a past flagged by the thread verifier,0.50%,reported (a finding if high),info
+false_alarms,enron: real messages with a past flagged by the thread verifier,4.44%,reported (a finding if high),info
+run,thread rules version / header and request rules version,0.2 / 0.3,,info
+run,thresholds of the four main tactics,"authority 0.55, urgency 0.45, scarcity 0.65, secrecy 0.90",,info

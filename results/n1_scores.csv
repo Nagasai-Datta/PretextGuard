@@ -1,0 +1,391 @@
+split,model,view,scope,metric,value,value_ci_low,value_ci_high,n,hits,note
+test,distilbert_A,raw,overall,precision,0.9205,0.9076,0.9328,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,raw,overall,recall,0.9507,0.9417,0.9596,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,raw,overall,f1,0.9354,0.9273,0.9433,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,raw,overall,false_positive_rate,0.0211,0.0177,0.0244,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,raw,overall,false_positive_rate_ham,0.0094,0.0066,0.0127,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,raw,overall,false_positive_rate_spam,0.0345,0.028,0.0412,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,raw,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,158,0.0,
+test,distilbert_A,raw,source: apache_tomcat_users (ham),false_positive_rate,0.0031,0.0,0.0108,324,1.0,
+test,distilbert_A,raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0109,0.0076,0.015,5714,62.0,
+test,distilbert_A,raw,source: kaggle_enron (ham),false_positive_rate,0.0373,0.0308,0.0442,4368,163.0,
+test,distilbert_A,raw,source: kaggle_ling (ham),false_positive_rate,0.0023,0.0,0.0074,428,1.0,
+test,distilbert_A,raw,source: kaggle_nigerian_fraud (fraud),recall,0.9938,0.985,1.0,486,483.0,
+test,distilbert_A,raw,source: nazario (phishing),recall,0.9409,0.9263,0.9551,1439,1354.0,
+test,distilbert_A,raw,source: phishing_pot (phishing),recall,0.9446,0.9284,0.96,1120,1058.0,
+test,distilbert_A,raw,source: spamassassin (ham),false_positive_rate,0.0266,0.0154,0.0383,866,23.0,
+test,distilbert_B,raw,overall,precision,0.9191,0.9051,0.9307,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,raw,overall,recall,0.9172,0.9043,0.9291,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,raw,overall,f1,0.9181,0.9084,0.9269,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,raw,overall,false_positive_rate,0.0207,0.0174,0.0242,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,raw,overall,false_positive_rate_ham,0.0071,0.0047,0.0102,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,raw,overall,false_positive_rate_spam,0.0365,0.0296,0.0435,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,raw,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,158,0.0,
+test,distilbert_B,raw,source: apache_tomcat_users (ham),false_positive_rate,0.0,0.0,0.0,324,0.0,
+test,distilbert_B,raw,source: kaggle_ceas08 (spam),false_positive_rate,0.01,0.0069,0.014,5714,57.0,
+test,distilbert_B,raw,source: kaggle_enron (ham),false_positive_rate,0.0396,0.0328,0.0463,4368,173.0,
+test,distilbert_B,raw,source: kaggle_ling (ham),false_positive_rate,0.0,0.0,0.0,428,0.0,
+test,distilbert_B,raw,source: kaggle_nigerian_fraud (fraud),recall,0.9877,0.9748,0.9979,486,480.0,
+test,distilbert_B,raw,source: nazario (phishing),recall,0.909,0.8919,0.9253,1439,1308.0,
+test,distilbert_B,raw,source: phishing_pot (phishing),recall,0.8973,0.873,0.9203,1120,1005.0,
+test,distilbert_B,raw,source: spamassassin (ham),false_positive_rate,0.0185,0.0089,0.0289,866,16.0,
+test,tfidf_A_sample,raw,overall,precision,0.9099,0.8958,0.9235,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,raw,overall,recall,0.9057,0.8918,0.9188,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,raw,overall,f1,0.9078,0.897,0.9181,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,raw,overall,false_positive_rate,0.023,0.0194,0.0267,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,raw,overall,false_positive_rate_ham,0.0055,0.0032,0.0083,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,raw,overall,false_positive_rate_spam,0.0433,0.0357,0.0514,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,raw,source: apache_kafka_users (ham),false_positive_rate,0.0063,0.0,0.0216,158,1.0,
+test,tfidf_A_sample,raw,source: apache_tomcat_users (ham),false_positive_rate,0.0062,0.0,0.0155,324,2.0,
+test,tfidf_A_sample,raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0081,0.0052,0.0116,5714,46.0,
+test,tfidf_A_sample,raw,source: kaggle_enron (ham),false_positive_rate,0.0467,0.0389,0.0548,4368,204.0,
+test,tfidf_A_sample,raw,source: kaggle_ling (ham),false_positive_rate,0.0047,0.0,0.0128,428,2.0,
+test,tfidf_A_sample,raw,source: kaggle_nigerian_fraud (fraud),recall,0.9959,0.9897,1.0,486,484.0,
+test,tfidf_A_sample,raw,source: nazario (phishing),recall,0.8951,0.8751,0.9123,1439,1288.0,
+test,tfidf_A_sample,raw,source: phishing_pot (phishing),recall,0.8804,0.8503,0.906,1120,986.0,
+test,tfidf_A_sample,raw,source: spamassassin (ham),false_positive_rate,0.0208,0.0106,0.0323,866,18.0,
+test,tfidf_B_sample,raw,overall,precision,0.9041,0.89,0.9184,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,raw,overall,recall,0.867,0.8511,0.8813,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,raw,overall,f1,0.8852,0.8728,0.8959,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,raw,overall,false_positive_rate,0.0236,0.0199,0.0272,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,raw,overall,false_positive_rate_ham,0.0068,0.0044,0.0096,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,raw,overall,false_positive_rate_spam,0.0431,0.0357,0.051,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,raw,source: apache_kafka_users (ham),false_positive_rate,0.0063,0.0,0.0216,158,1.0,
+test,tfidf_B_sample,raw,source: apache_tomcat_users (ham),false_positive_rate,0.0093,0.0,0.0213,324,3.0,
+test,tfidf_B_sample,raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0089,0.006,0.0127,5714,51.0,
+test,tfidf_B_sample,raw,source: kaggle_enron (ham),false_positive_rate,0.0472,0.0394,0.0549,4368,206.0,
+test,tfidf_B_sample,raw,source: kaggle_ling (ham),false_positive_rate,0.0093,0.0022,0.0201,428,4.0,
+test,tfidf_B_sample,raw,source: kaggle_nigerian_fraud (fraud),recall,0.9979,0.9931,1.0,486,485.0,
+test,tfidf_B_sample,raw,source: nazario (phishing),recall,0.8673,0.8458,0.8861,1439,1248.0,
+test,tfidf_B_sample,raw,source: phishing_pot (phishing),recall,0.8098,0.775,0.8402,1120,907.0,
+test,tfidf_B_sample,raw,source: spamassassin (ham),false_positive_rate,0.0173,0.0083,0.0279,866,15.0,
+test,tfidf_A_full,raw,overall,precision,0.9234,0.9106,0.9357,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,raw,overall,recall,0.9383,0.9269,0.9489,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,raw,overall,f1,0.9308,0.9212,0.9394,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,raw,overall,false_positive_rate,0.02,0.0166,0.0234,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,raw,overall,false_positive_rate_ham,0.0069,0.0044,0.0102,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,raw,overall,false_positive_rate_spam,0.0351,0.0287,0.0421,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,raw,source: apache_kafka_users (ham),false_positive_rate,0.019,0.0,0.0444,158,3.0,
+test,tfidf_A_full,raw,source: apache_tomcat_users (ham),false_positive_rate,0.0154,0.0027,0.0331,324,5.0,
+test,tfidf_A_full,raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0067,0.0039,0.0103,5714,38.0,
+test,tfidf_A_full,raw,source: kaggle_enron (ham),false_positive_rate,0.0387,0.0316,0.0456,4368,169.0,
+test,tfidf_A_full,raw,source: kaggle_ling (ham),false_positive_rate,0.0093,0.0022,0.0201,428,4.0,
+test,tfidf_A_full,raw,source: kaggle_nigerian_fraud (fraud),recall,0.9959,0.9897,1.0,486,484.0,
+test,tfidf_A_full,raw,source: nazario (phishing),recall,0.9347,0.9201,0.948,1439,1345.0,
+test,tfidf_A_full,raw,source: phishing_pot (phishing),recall,0.9179,0.8919,0.9404,1120,1028.0,
+test,tfidf_A_full,raw,source: spamassassin (ham),false_positive_rate,0.0208,0.0106,0.0316,866,18.0,
+test,tfidf_B_full,raw,overall,precision,0.9207,0.9075,0.9334,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,raw,overall,recall,0.9074,0.8936,0.9204,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,raw,overall,f1,0.914,0.9033,0.9237,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,raw,overall,false_positive_rate,0.0201,0.0167,0.0236,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,raw,overall,false_positive_rate_ham,0.0074,0.0047,0.0109,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,raw,overall,false_positive_rate_spam,0.0347,0.0283,0.0417,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,raw,source: apache_kafka_users (ham),false_positive_rate,0.0127,0.0,0.0329,158,2.0,
+test,tfidf_B_full,raw,source: apache_tomcat_users (ham),false_positive_rate,0.0154,0.0035,0.0288,324,5.0,
+test,tfidf_B_full,raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0081,0.005,0.0117,5714,46.0,
+test,tfidf_B_full,raw,source: kaggle_enron (ham),false_positive_rate,0.0385,0.0316,0.0456,4368,168.0,
+test,tfidf_B_full,raw,source: kaggle_ling (ham),false_positive_rate,0.0093,0.0022,0.0201,428,4.0,
+test,tfidf_B_full,raw,source: kaggle_nigerian_fraud (fraud),recall,0.9959,0.9897,1.0,486,484.0,
+test,tfidf_B_full,raw,source: nazario (phishing),recall,0.9048,0.8865,0.9211,1439,1302.0,
+test,tfidf_B_full,raw,source: phishing_pot (phishing),recall,0.8723,0.8425,0.8996,1120,977.0,
+test,tfidf_B_full,raw,source: spamassassin (ham),false_positive_rate,0.015,0.0066,0.0247,866,13.0,
+test,link_rule,raw,overall,precision,0.2821,0.2579,0.306,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,raw,overall,recall,0.7714,0.7488,0.7922,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,raw,overall,f1,0.4131,0.3851,0.4402,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,raw,overall,false_positive_rate,0.5041,0.4742,0.5311,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,raw,overall,false_positive_rate_ham,0.4648,0.4408,0.4904,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,raw,overall,false_positive_rate_spam,0.5495,0.4887,0.6012,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,raw,source: apache_kafka_users (ham),false_positive_rate,0.6329,0.5069,0.7551,158,100.0,
+test,link_rule,raw,source: apache_tomcat_users (ham),false_positive_rate,0.6111,0.5091,0.7059,324,198.0,
+test,link_rule,raw,source: kaggle_ceas08 (spam),false_positive_rate,0.675,0.6097,0.7328,5714,3857.0,
+test,link_rule,raw,source: kaggle_enron (ham),false_positive_rate,0.2017,0.1843,0.2192,4368,881.0,
+test,link_rule,raw,source: kaggle_ling (ham),false_positive_rate,0.3925,0.3402,0.4458,428,168.0,
+test,link_rule,raw,source: kaggle_nigerian_fraud (fraud),recall,0.4156,0.3563,0.4627,486,202.0,
+test,link_rule,raw,source: nazario (phishing),recall,0.8374,0.8149,0.8589,1439,1205.0,
+test,link_rule,raw,source: phishing_pot (phishing),recall,0.8411,0.8104,0.8703,1120,942.0,
+test,link_rule,raw,source: spamassassin (ham),false_positive_rate,0.8938,0.8503,0.9279,866,774.0,
+test,distilbert_A,redacted,overall,precision,0.9129,0.8978,0.9264,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,redacted,overall,recall,0.8433,0.8255,0.8609,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,redacted,overall,f1,0.8767,0.8642,0.889,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,redacted,overall,false_positive_rate,0.0207,0.0174,0.024,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,redacted,overall,false_positive_rate_ham,0.008,0.0054,0.0113,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,redacted,overall,false_positive_rate_spam,0.0353,0.0284,0.0421,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,redacted,source: apache_kafka_users (ham),false_positive_rate,0.0063,0.0,0.0216,158,1.0,
+test,distilbert_A,redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0031,0.0,0.0091,324,1.0,
+test,distilbert_A,redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.0089,0.0057,0.0131,5714,51.0,
+test,distilbert_A,redacted,source: kaggle_enron (ham),false_positive_rate,0.0385,0.032,0.0456,4368,168.0,
+test,distilbert_A,redacted,source: kaggle_ling (ham),false_positive_rate,0.0023,0.0,0.0074,428,1.0,
+test,distilbert_A,redacted,source: kaggle_nigerian_fraud (fraud),recall,0.9938,0.985,1.0,486,483.0,
+test,distilbert_A,redacted,source: nazario (phishing),recall,0.8596,0.8369,0.8793,1439,1237.0,
+test,distilbert_A,redacted,source: phishing_pot (phishing),recall,0.7571,0.7171,0.7948,1120,848.0,
+test,distilbert_A,redacted,source: spamassassin (ham),false_positive_rate,0.0266,0.015,0.0382,866,23.0,
+test,distilbert_B,redacted,overall,precision,0.9157,0.9021,0.9282,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,redacted,overall,recall,0.9491,0.9406,0.9578,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,redacted,overall,f1,0.9321,0.9232,0.9403,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,redacted,overall,false_positive_rate,0.0224,0.0188,0.026,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,redacted,overall,false_positive_rate_ham,0.0077,0.0052,0.0109,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,redacted,overall,false_positive_rate_spam,0.0394,0.0325,0.047,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,redacted,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,158,0.0,
+test,distilbert_B,redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0031,0.0,0.0091,324,1.0,
+test,distilbert_B,redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.0089,0.0059,0.0131,5714,51.0,
+test,distilbert_B,redacted,source: kaggle_enron (ham),false_positive_rate,0.0424,0.0349,0.0494,4368,185.0,
+test,distilbert_B,redacted,source: kaggle_ling (ham),false_positive_rate,0.0023,0.0,0.0074,428,1.0,
+test,distilbert_B,redacted,source: kaggle_nigerian_fraud (fraud),recall,0.9938,0.9842,1.0,486,483.0,
+test,distilbert_B,redacted,source: nazario (phishing),recall,0.9388,0.9238,0.953,1439,1351.0,
+test,distilbert_B,redacted,source: phishing_pot (phishing),recall,0.9429,0.9281,0.9566,1120,1056.0,
+test,distilbert_B,redacted,source: spamassassin (ham),false_positive_rate,0.0323,0.0199,0.0455,866,28.0,
+test,tfidf_A_sample,redacted,overall,precision,0.91,0.8959,0.9241,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,redacted,overall,recall,0.8338,0.8151,0.8515,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,redacted,overall,f1,0.8703,0.8565,0.8825,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,redacted,overall,false_positive_rate,0.0212,0.0178,0.0246,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,redacted,overall,false_positive_rate_ham,0.005,0.0027,0.0077,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,redacted,overall,false_positive_rate_spam,0.0398,0.0329,0.0475,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,redacted,source: apache_kafka_users (ham),false_positive_rate,0.0063,0.0,0.0216,158,1.0,
+test,tfidf_A_sample,redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0062,0.0,0.0155,324,2.0,
+test,tfidf_A_sample,redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.0067,0.0038,0.0101,5714,38.0,
+test,tfidf_A_sample,redacted,source: kaggle_enron (ham),false_positive_rate,0.044,0.0364,0.0514,4368,192.0,
+test,tfidf_A_sample,redacted,source: kaggle_ling (ham),false_positive_rate,0.007,0.0,0.0158,428,3.0,
+test,tfidf_A_sample,redacted,source: kaggle_nigerian_fraud (fraud),recall,0.9979,0.9931,1.0,486,485.0,
+test,tfidf_A_sample,redacted,source: nazario (phishing),recall,0.8436,0.8176,0.8648,1439,1214.0,
+test,tfidf_A_sample,redacted,source: phishing_pot (phishing),recall,0.75,0.7113,0.7869,1120,840.0,
+test,tfidf_A_sample,redacted,source: spamassassin (ham),false_positive_rate,0.0173,0.0083,0.0279,866,15.0,
+test,tfidf_B_sample,redacted,overall,precision,0.8704,0.8553,0.8851,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,redacted,overall,recall,0.8952,0.8801,0.9082,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,redacted,overall,f1,0.8826,0.8708,0.8933,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,redacted,overall,false_positive_rate,0.0342,0.0297,0.0387,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,redacted,overall,false_positive_rate_ham,0.0088,0.006,0.0121,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,redacted,overall,false_positive_rate_spam,0.0636,0.0541,0.0738,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,redacted,source: apache_kafka_users (ham),false_positive_rate,0.0063,0.0,0.0216,158,1.0,
+test,tfidf_B_sample,redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0093,0.0,0.0213,324,3.0,
+test,tfidf_B_sample,redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.027,0.0215,0.0334,5714,154.0,
+test,tfidf_B_sample,redacted,source: kaggle_enron (ham),false_positive_rate,0.0504,0.0424,0.0586,4368,220.0,
+test,tfidf_B_sample,redacted,source: kaggle_ling (ham),false_positive_rate,0.0093,0.0022,0.0201,428,4.0,
+test,tfidf_B_sample,redacted,source: kaggle_nigerian_fraud (fraud),recall,0.9979,0.9931,1.0,486,485.0,
+test,tfidf_B_sample,redacted,source: nazario (phishing),recall,0.8833,0.8637,0.9005,1439,1271.0,
+test,tfidf_B_sample,redacted,source: phishing_pot (phishing),recall,0.8661,0.8354,0.8933,1120,970.0,
+test,tfidf_B_sample,redacted,source: spamassassin (ham),false_positive_rate,0.0277,0.0152,0.0404,866,24.0,
+test,tfidf_A_full,redacted,overall,precision,0.9183,0.9049,0.931,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,redacted,overall,recall,0.8752,0.859,0.8894,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,redacted,overall,f1,0.8963,0.8848,0.9068,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,redacted,overall,false_positive_rate,0.02,0.0166,0.0234,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,redacted,overall,false_positive_rate_ham,0.008,0.0053,0.0117,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,redacted,overall,false_positive_rate_spam,0.0338,0.0273,0.0404,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,redacted,source: apache_kafka_users (ham),false_positive_rate,0.0063,0.0,0.0216,158,1.0,
+test,tfidf_A_full,redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0185,0.0039,0.0361,324,6.0,
+test,tfidf_A_full,redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.0068,0.0039,0.0105,5714,39.0,
+test,tfidf_A_full,redacted,source: kaggle_enron (ham),false_positive_rate,0.0389,0.0321,0.0459,4368,170.0,
+test,tfidf_A_full,redacted,source: kaggle_ling (ham),false_positive_rate,0.0093,0.0022,0.0201,428,4.0,
+test,tfidf_A_full,redacted,source: kaggle_nigerian_fraud (fraud),recall,0.9938,0.9864,1.0,486,483.0,
+test,tfidf_A_full,redacted,source: nazario (phishing),recall,0.8805,0.8598,0.8976,1439,1267.0,
+test,tfidf_A_full,redacted,source: phishing_pot (phishing),recall,0.817,0.7838,0.8496,1120,915.0,
+test,tfidf_A_full,redacted,source: spamassassin (ham),false_positive_rate,0.0196,0.01,0.0308,866,17.0,
+test,tfidf_B_full,redacted,overall,precision,0.8894,0.8747,0.9037,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,redacted,overall,recall,0.9268,0.9138,0.9379,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,redacted,overall,f1,0.9077,0.8975,0.9174,3045,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,redacted,overall,false_positive_rate,0.0296,0.0253,0.0336,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,redacted,overall,false_positive_rate_ham,0.0088,0.0061,0.0124,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,redacted,overall,false_positive_rate_spam,0.0536,0.0452,0.0628,11858,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,redacted,source: apache_kafka_users (ham),false_positive_rate,0.0127,0.0,0.0329,158,2.0,
+test,tfidf_B_full,redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0185,0.0061,0.032,324,6.0,
+test,tfidf_B_full,redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.0236,0.019,0.0294,5714,135.0,
+test,tfidf_B_full,redacted,source: kaggle_enron (ham),false_positive_rate,0.041,0.0339,0.0483,4368,179.0,
+test,tfidf_B_full,redacted,source: kaggle_ling (ham),false_positive_rate,0.0093,0.0022,0.0201,428,4.0,
+test,tfidf_B_full,redacted,source: kaggle_nigerian_fraud (fraud),recall,0.9979,0.9931,1.0,486,485.0,
+test,tfidf_B_full,redacted,source: nazario (phishing),recall,0.9194,0.9026,0.9338,1439,1323.0,
+test,tfidf_B_full,redacted,source: phishing_pot (phishing),recall,0.9054,0.8766,0.9292,1120,1014.0,
+test,tfidf_B_full,redacted,source: spamassassin (ham),false_positive_rate,0.0289,0.0166,0.0423,866,25.0,
+test,distilbert_A,linkfree_raw,overall,precision,0.8347,0.8036,0.8665,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_raw,overall,recall,0.8922,0.8642,0.9179,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_raw,overall,f1,0.8625,0.84,0.8841,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_raw,overall,false_positive_rate,0.0209,0.0163,0.026,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_raw,overall,false_positive_rate_ham,0.0044,0.002,0.007,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_raw,overall,false_positive_rate_spam,0.0436,0.0322,0.0576,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_raw,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,58,0.0,
+test,distilbert_A,linkfree_raw,source: apache_tomcat_users (ham),false_positive_rate,0.0,0.0,0.0,126,0.0,
+test,distilbert_A,linkfree_raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0118,0.0062,0.02,1857,22.0,
+test,distilbert_A,linkfree_raw,source: kaggle_enron (ham),false_positive_rate,0.0281,0.0221,0.0346,3487,98.0,
+test,distilbert_A,linkfree_raw,source: kaggle_ling (ham),false_positive_rate,0.0,0.0,0.0,260,0.0,
+test,distilbert_A,linkfree_raw,source: kaggle_nigerian_fraud (fraud),recall,0.993,0.983,1.0,284,282.0,
+test,distilbert_A,linkfree_raw,source: nazario (phishing),recall,0.8504,0.7897,0.9043,234,199.0,
+test,distilbert_A,linkfree_raw,source: phishing_pot (phishing),recall,0.7865,0.7187,0.8498,178,140.0,
+test,distilbert_A,linkfree_raw,source: spamassassin (ham),false_positive_rate,0.0326,0.0,0.0807,92,3.0,
+test,distilbert_B,linkfree_raw,overall,precision,0.8164,0.7835,0.8476,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_raw,overall,recall,0.9138,0.8876,0.9371,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_raw,overall,f1,0.8624,0.8391,0.8841,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_raw,overall,false_positive_rate,0.0243,0.0194,0.0297,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_raw,overall,false_positive_rate_ham,0.0047,0.0025,0.0077,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_raw,overall,false_positive_rate_spam,0.0513,0.0383,0.0662,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_raw,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,58,0.0,
+test,distilbert_B,linkfree_raw,source: apache_tomcat_users (ham),false_positive_rate,0.0,0.0,0.0,126,0.0,
+test,distilbert_B,linkfree_raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0135,0.0075,0.0222,1857,25.0,
+test,distilbert_B,linkfree_raw,source: kaggle_enron (ham),false_positive_rate,0.033,0.0261,0.0399,3487,115.0,
+test,distilbert_B,linkfree_raw,source: kaggle_ling (ham),false_positive_rate,0.0,0.0,0.0,260,0.0,
+test,distilbert_B,linkfree_raw,source: kaggle_nigerian_fraud (fraud),recall,0.993,0.983,1.0,284,282.0,
+test,distilbert_B,linkfree_raw,source: nazario (phishing),recall,0.8632,0.806,0.9157,234,202.0,
+test,distilbert_B,linkfree_raw,source: phishing_pot (phishing),recall,0.8539,0.8027,0.9061,178,152.0,
+test,distilbert_B,linkfree_raw,source: spamassassin (ham),false_positive_rate,0.0326,0.0,0.0807,92,3.0,
+test,tfidf_A_sample,linkfree_raw,overall,precision,0.8147,0.7819,0.8468,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_raw,overall,recall,0.8908,0.8603,0.9163,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_raw,overall,f1,0.8511,0.8261,0.8738,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_raw,overall,false_positive_rate,0.024,0.0192,0.0294,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_raw,overall,false_positive_rate_ham,0.0024,0.0006,0.0045,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_raw,overall,false_positive_rate_spam,0.0537,0.04,0.0704,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_raw,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,58,0.0,
+test,tfidf_A_sample,linkfree_raw,source: apache_tomcat_users (ham),false_positive_rate,0.0,0.0,0.0,126,0.0,
+test,tfidf_A_sample,linkfree_raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0092,0.0048,0.0154,1857,17.0,
+test,tfidf_A_sample,linkfree_raw,source: kaggle_enron (ham),false_positive_rate,0.0344,0.0274,0.0417,3487,120.0,
+test,tfidf_A_sample,linkfree_raw,source: kaggle_ling (ham),false_positive_rate,0.0077,0.0,0.0214,260,2.0,
+test,tfidf_A_sample,linkfree_raw,source: kaggle_nigerian_fraud (fraud),recall,0.9965,0.988,1.0,284,283.0,
+test,tfidf_A_sample,linkfree_raw,source: nazario (phishing),recall,0.8291,0.7642,0.8879,234,194.0,
+test,tfidf_A_sample,linkfree_raw,source: phishing_pot (phishing),recall,0.8034,0.7405,0.8613,178,143.0,
+test,tfidf_A_sample,linkfree_raw,source: spamassassin (ham),false_positive_rate,0.0217,0.0,0.0602,92,2.0,
+test,tfidf_B_sample,linkfree_raw,overall,precision,0.8015,0.7697,0.8344,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_raw,overall,recall,0.8937,0.8644,0.9182,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_raw,overall,f1,0.8451,0.8201,0.8683,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_raw,overall,false_positive_rate,0.0262,0.0212,0.0319,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_raw,overall,false_positive_rate_ham,0.0041,0.002,0.0067,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_raw,overall,false_positive_rate_spam,0.0565,0.0428,0.0737,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_raw,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,58,0.0,
+test,tfidf_B_sample,linkfree_raw,source: apache_tomcat_users (ham),false_positive_rate,0.0,0.0,0.0,126,0.0,
+test,tfidf_B_sample,linkfree_raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0113,0.0063,0.0182,1857,21.0,
+test,tfidf_B_sample,linkfree_raw,source: kaggle_enron (ham),false_positive_rate,0.0367,0.0295,0.0447,3487,128.0,
+test,tfidf_B_sample,linkfree_raw,source: kaggle_ling (ham),false_positive_rate,0.0115,0.0,0.0268,260,3.0,
+test,tfidf_B_sample,linkfree_raw,source: kaggle_nigerian_fraud (fraud),recall,0.9965,0.988,1.0,284,283.0,
+test,tfidf_B_sample,linkfree_raw,source: nazario (phishing),recall,0.8205,0.7546,0.8781,234,192.0,
+test,tfidf_B_sample,linkfree_raw,source: phishing_pot (phishing),recall,0.8258,0.7673,0.8814,178,147.0,
+test,tfidf_B_sample,linkfree_raw,source: spamassassin (ham),false_positive_rate,0.0217,0.0,0.0602,92,2.0,
+test,tfidf_A_full,linkfree_raw,overall,precision,0.832,0.8028,0.8631,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_raw,overall,recall,0.9181,0.8904,0.9403,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_raw,overall,f1,0.873,0.85,0.8949,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_raw,overall,false_positive_rate,0.0219,0.0172,0.0271,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_raw,overall,false_positive_rate_ham,0.0053,0.0025,0.0088,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_raw,overall,false_positive_rate_spam,0.0448,0.0327,0.0589,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_raw,source: apache_kafka_users (ham),false_positive_rate,0.0172,0.0,0.0625,58,1.0,
+test,tfidf_A_full,linkfree_raw,source: apache_tomcat_users (ham),false_positive_rate,0.0,0.0,0.0,126,0.0,
+test,tfidf_A_full,linkfree_raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0086,0.0039,0.0153,1857,16.0,
+test,tfidf_A_full,linkfree_raw,source: kaggle_enron (ham),false_positive_rate,0.0307,0.024,0.0377,3487,107.0,
+test,tfidf_A_full,linkfree_raw,source: kaggle_ling (ham),false_positive_rate,0.0115,0.0,0.0268,260,3.0,
+test,tfidf_A_full,linkfree_raw,source: kaggle_nigerian_fraud (fraud),recall,0.9965,0.988,1.0,284,283.0,
+test,tfidf_A_full,linkfree_raw,source: nazario (phishing),recall,0.8504,0.7853,0.9055,234,199.0,
+test,tfidf_A_full,linkfree_raw,source: phishing_pot (phishing),recall,0.882,0.8304,0.926,178,157.0,
+test,tfidf_A_full,linkfree_raw,source: spamassassin (ham),false_positive_rate,0.0217,0.0,0.0602,92,2.0,
+test,tfidf_B_full,linkfree_raw,overall,precision,0.8258,0.7953,0.8566,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_raw,overall,recall,0.9195,0.8928,0.9422,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_raw,overall,f1,0.8702,0.847,0.8913,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_raw,overall,false_positive_rate,0.023,0.0181,0.028,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_raw,overall,false_positive_rate_ham,0.0062,0.0032,0.0097,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_raw,overall,false_positive_rate_spam,0.046,0.0342,0.0604,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_raw,source: apache_kafka_users (ham),false_positive_rate,0.0172,0.0,0.0625,58,1.0,
+test,tfidf_B_full,linkfree_raw,source: apache_tomcat_users (ham),false_positive_rate,0.0079,0.0,0.0268,126,1.0,
+test,tfidf_B_full,linkfree_raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0108,0.0054,0.0185,1857,20.0,
+test,tfidf_B_full,linkfree_raw,source: kaggle_enron (ham),false_positive_rate,0.031,0.024,0.038,3487,108.0,
+test,tfidf_B_full,linkfree_raw,source: kaggle_ling (ham),false_positive_rate,0.0115,0.0,0.0268,260,3.0,
+test,tfidf_B_full,linkfree_raw,source: kaggle_nigerian_fraud (fraud),recall,0.9965,0.988,1.0,284,283.0,
+test,tfidf_B_full,linkfree_raw,source: nazario (phishing),recall,0.8504,0.7847,0.9056,234,199.0,
+test,tfidf_B_full,linkfree_raw,source: phishing_pot (phishing),recall,0.8876,0.838,0.931,178,158.0,
+test,tfidf_B_full,linkfree_raw,source: spamassassin (ham),false_positive_rate,0.0217,0.0,0.0602,92,2.0,
+test,link_rule,linkfree_raw,overall,precision,,,,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,linkfree_raw,overall,recall,0.0,0.0,0.0,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,linkfree_raw,overall,f1,0.0,0.0,0.0,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,linkfree_raw,overall,false_positive_rate,0.0,0.0,0.0,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,linkfree_raw,overall,false_positive_rate_ham,0.0,0.0,0.0,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,linkfree_raw,overall,false_positive_rate_spam,0.0,0.0,0.0,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,link_rule,linkfree_raw,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,58,0.0,
+test,link_rule,linkfree_raw,source: apache_tomcat_users (ham),false_positive_rate,0.0,0.0,0.0,126,0.0,
+test,link_rule,linkfree_raw,source: kaggle_ceas08 (spam),false_positive_rate,0.0,0.0,0.0,1857,0.0,
+test,link_rule,linkfree_raw,source: kaggle_enron (ham),false_positive_rate,0.0,0.0,0.0,3487,0.0,
+test,link_rule,linkfree_raw,source: kaggle_ling (ham),false_positive_rate,0.0,0.0,0.0,260,0.0,
+test,link_rule,linkfree_raw,source: kaggle_nigerian_fraud (fraud),recall,0.0,0.0,0.0,284,0.0,
+test,link_rule,linkfree_raw,source: nazario (phishing),recall,0.0,0.0,0.0,234,0.0,
+test,link_rule,linkfree_raw,source: phishing_pot (phishing),recall,0.0,0.0,0.0,178,0.0,
+test,link_rule,linkfree_raw,source: spamassassin (ham),false_positive_rate,0.0,0.0,0.0,92,0.0,
+test,distilbert_A,linkfree_redacted,overall,precision,0.8255,0.7934,0.8573,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_redacted,overall,recall,0.8836,0.8543,0.9111,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_redacted,overall,f1,0.8536,0.8298,0.8758,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_redacted,overall,false_positive_rate,0.0221,0.0174,0.0273,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_redacted,overall,false_positive_rate_ham,0.0047,0.0024,0.0075,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_redacted,overall,false_positive_rate_spam,0.046,0.0338,0.0608,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_A,linkfree_redacted,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,58,0.0,
+test,distilbert_A,linkfree_redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0,0.0,0.0,126,0.0,
+test,distilbert_A,linkfree_redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.0118,0.0062,0.02,1857,22.0,
+test,distilbert_A,linkfree_redacted,source: kaggle_enron (ham),false_positive_rate,0.0301,0.0239,0.0365,3487,105.0,
+test,distilbert_A,linkfree_redacted,source: kaggle_ling (ham),false_positive_rate,0.0,0.0,0.0,260,0.0,
+test,distilbert_A,linkfree_redacted,source: kaggle_nigerian_fraud (fraud),recall,0.993,0.983,1.0,284,282.0,
+test,distilbert_A,linkfree_redacted,source: nazario (phishing),recall,0.8248,0.7606,0.8821,234,193.0,
+test,distilbert_A,linkfree_redacted,source: phishing_pot (phishing),recall,0.7865,0.72,0.8503,178,140.0,
+test,distilbert_A,linkfree_redacted,source: spamassassin (ham),false_positive_rate,0.0326,0.0,0.0807,92,3.0,
+test,distilbert_B,linkfree_redacted,overall,precision,0.816,0.7827,0.848,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_redacted,overall,recall,0.9109,0.8845,0.9353,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_redacted,overall,f1,0.8608,0.837,0.8835,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_redacted,overall,false_positive_rate,0.0243,0.0196,0.0295,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_redacted,overall,false_positive_rate_ham,0.005,0.0026,0.008,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_redacted,overall,false_positive_rate_spam,0.0508,0.0381,0.0661,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,distilbert_B,linkfree_redacted,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,58,0.0,
+test,distilbert_B,linkfree_redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0,0.0,0.0,126,0.0,
+test,distilbert_B,linkfree_redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.014,0.0078,0.0231,1857,26.0,
+test,distilbert_B,linkfree_redacted,source: kaggle_enron (ham),false_positive_rate,0.0327,0.0258,0.0395,3487,114.0,
+test,distilbert_B,linkfree_redacted,source: kaggle_ling (ham),false_positive_rate,0.0,0.0,0.0,260,0.0,
+test,distilbert_B,linkfree_redacted,source: kaggle_nigerian_fraud (fraud),recall,0.9965,0.988,1.0,284,283.0,
+test,distilbert_B,linkfree_redacted,source: nazario (phishing),recall,0.8547,0.7929,0.9061,234,200.0,
+test,distilbert_B,linkfree_redacted,source: phishing_pot (phishing),recall,0.8483,0.7939,0.9012,178,151.0,
+test,distilbert_B,linkfree_redacted,source: spamassassin (ham),false_positive_rate,0.0326,0.0,0.0807,92,3.0,
+test,tfidf_A_sample,linkfree_redacted,overall,precision,0.81,0.7771,0.8421,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_redacted,overall,recall,0.8822,0.8518,0.9091,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_redacted,overall,f1,0.8446,0.8185,0.8688,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_redacted,overall,false_positive_rate,0.0245,0.0197,0.03,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_redacted,overall,false_positive_rate_ham,0.0029,0.0012,0.0052,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_redacted,overall,false_positive_rate_spam,0.0541,0.0405,0.0714,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_sample,linkfree_redacted,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,58,0.0,
+test,tfidf_A_sample,linkfree_redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0,0.0,0.0,126,0.0,
+test,tfidf_A_sample,linkfree_redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.0097,0.0053,0.0164,1857,18.0,
+test,tfidf_A_sample,linkfree_redacted,source: kaggle_enron (ham),false_positive_rate,0.0347,0.0275,0.0421,3487,121.0,
+test,tfidf_A_sample,linkfree_redacted,source: kaggle_ling (ham),false_positive_rate,0.0115,0.0,0.0268,260,3.0,
+test,tfidf_A_sample,linkfree_redacted,source: kaggle_nigerian_fraud (fraud),recall,0.9965,0.988,1.0,284,283.0,
+test,tfidf_A_sample,linkfree_redacted,source: nazario (phishing),recall,0.8034,0.7366,0.8645,234,188.0,
+test,tfidf_A_sample,linkfree_redacted,source: phishing_pot (phishing),recall,0.8034,0.7396,0.8625,178,143.0,
+test,tfidf_A_sample,linkfree_redacted,source: spamassassin (ham),false_positive_rate,0.0217,0.0,0.0602,92,2.0,
+test,tfidf_B_sample,linkfree_redacted,overall,precision,0.8,0.7669,0.8335,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_redacted,overall,recall,0.8908,0.8613,0.9156,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_redacted,overall,f1,0.843,0.8167,0.8667,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_redacted,overall,false_positive_rate,0.0264,0.0214,0.0321,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_redacted,overall,false_positive_rate_ham,0.0044,0.0022,0.0069,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_redacted,overall,false_positive_rate_spam,0.0565,0.0427,0.0737,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_sample,linkfree_redacted,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,58,0.0,
+test,tfidf_B_sample,linkfree_redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0,0.0,0.0,126,0.0,
+test,tfidf_B_sample,linkfree_redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.0113,0.0063,0.0182,1857,21.0,
+test,tfidf_B_sample,linkfree_redacted,source: kaggle_enron (ham),false_positive_rate,0.037,0.0294,0.0448,3487,129.0,
+test,tfidf_B_sample,linkfree_redacted,source: kaggle_ling (ham),false_positive_rate,0.0115,0.0,0.0268,260,3.0,
+test,tfidf_B_sample,linkfree_redacted,source: kaggle_nigerian_fraud (fraud),recall,0.9965,0.988,1.0,284,283.0,
+test,tfidf_B_sample,linkfree_redacted,source: nazario (phishing),recall,0.8077,0.7395,0.8659,234,189.0,
+test,tfidf_B_sample,linkfree_redacted,source: phishing_pot (phishing),recall,0.8315,0.7739,0.8865,178,148.0,
+test,tfidf_B_sample,linkfree_redacted,source: spamassassin (ham),false_positive_rate,0.0217,0.0,0.0602,92,2.0,
+test,tfidf_A_full,linkfree_redacted,overall,precision,0.8279,0.7975,0.8598,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_redacted,overall,recall,0.9124,0.8848,0.9361,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_redacted,overall,f1,0.8681,0.8448,0.8896,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_redacted,overall,false_positive_rate,0.0224,0.0177,0.0279,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_redacted,overall,false_positive_rate_ham,0.0062,0.0032,0.0096,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_redacted,overall,false_positive_rate_spam,0.0448,0.0327,0.0589,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_A_full,linkfree_redacted,source: apache_kafka_users (ham),false_positive_rate,0.0,0.0,0.0,58,0.0,
+test,tfidf_A_full,linkfree_redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0079,0.0,0.0278,126,1.0,
+test,tfidf_A_full,linkfree_redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.0086,0.0039,0.0153,1857,16.0,
+test,tfidf_A_full,linkfree_redacted,source: kaggle_enron (ham),false_positive_rate,0.0313,0.0244,0.0384,3487,109.0,
+test,tfidf_A_full,linkfree_redacted,source: kaggle_ling (ham),false_positive_rate,0.0115,0.0,0.0268,260,3.0,
+test,tfidf_A_full,linkfree_redacted,source: kaggle_nigerian_fraud (fraud),recall,0.9965,0.988,1.0,284,283.0,
+test,tfidf_A_full,linkfree_redacted,source: nazario (phishing),recall,0.8376,0.7703,0.8963,234,196.0,
+test,tfidf_A_full,linkfree_redacted,source: phishing_pot (phishing),recall,0.8764,0.8246,0.9212,178,156.0,
+test,tfidf_A_full,linkfree_redacted,source: spamassassin (ham),false_positive_rate,0.0326,0.0,0.0769,92,3.0,
+test,tfidf_B_full,linkfree_redacted,overall,precision,0.8245,0.7936,0.8556,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_redacted,overall,recall,0.9181,0.8905,0.9411,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_redacted,overall,f1,0.8688,0.8451,0.8901,696,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_redacted,overall,false_positive_rate,0.0231,0.0181,0.0282,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_redacted,overall,false_positive_rate_ham,0.0065,0.0034,0.0101,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_redacted,overall,false_positive_rate_spam,0.046,0.0342,0.0604,5880,,"n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"
+test,tfidf_B_full,linkfree_redacted,source: apache_kafka_users (ham),false_positive_rate,0.0172,0.0,0.0625,58,1.0,
+test,tfidf_B_full,linkfree_redacted,source: apache_tomcat_users (ham),false_positive_rate,0.0159,0.0,0.04,126,2.0,
+test,tfidf_B_full,linkfree_redacted,source: kaggle_ceas08 (spam),false_positive_rate,0.0102,0.005,0.0174,1857,19.0,
+test,tfidf_B_full,linkfree_redacted,source: kaggle_enron (ham),false_positive_rate,0.0313,0.0245,0.0382,3487,109.0,
+test,tfidf_B_full,linkfree_redacted,source: kaggle_ling (ham),false_positive_rate,0.0115,0.0,0.0268,260,3.0,
+test,tfidf_B_full,linkfree_redacted,source: kaggle_nigerian_fraud (fraud),recall,0.9965,0.988,1.0,284,283.0,
+test,tfidf_B_full,linkfree_redacted,source: nazario (phishing),recall,0.8462,0.7768,0.9032,234,198.0,
+test,tfidf_B_full,linkfree_redacted,source: phishing_pot (phishing),recall,0.8876,0.8393,0.9301,178,158.0,
+test,tfidf_B_full,linkfree_redacted,source: spamassassin (ham),false_positive_rate,0.0217,0.0,0.0602,92,2.0,

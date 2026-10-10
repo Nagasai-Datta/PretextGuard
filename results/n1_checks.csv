@@ -1,0 +1,19 @@
+check,item,value,expected,status
+counts,naturally link-free attacks in test equal results/preprocess_checks.csv,696,696,PASS
+counts,naturally link-free not-attack emails in test equal results/preprocess_checks.csv,5880,5880,PASS
+counts,emails of the split equal results/split_counts.csv,14903,14903,PASS
+fixed_threshold,the cut of every model,0.5,"0.5 (fixed, never tuned)",PASS
+leakage_guard,emails of the evaluated split that were in the models' training or validation sample,0,0,PASS
+leakage_guard,splits in the sample the models saw,"train,validation","train,validation",PASS
+data_matches_colab,sha256 of the upload table,09167fc58eab4051,09167fc58eab4051,PASS
+mac_reproduces_colab,"largest probability difference on 200 validation-sample emails, both models (Colab scored in fp16, the Mac in full precision)",0.001193,<= 0.005,PASS
+mac_reproduces_colab,decisions at the cut of 0.5 that differ and are not within the tolerance of the cut (0 differ in all),0,0,PASS
+metrics,hand-written attack-class F1 equals scikit-learn for every model and view,5.0e-05,< 1e-3,PASS
+not_degenerate,distilbert_A: share of raw-view emails flagged,21.1%,above 0% and below 100%,PASS
+not_degenerate,distilbert_B: share of raw-view emails flagged,20.4%,above 0% and below 100%,PASS
+not_degenerate,tfidf_A_sample: share of raw-view emails flagged,20.3%,above 0% and below 100%,PASS
+not_degenerate,tfidf_B_sample: share of raw-view emails flagged,19.6%,above 0% and below 100%,PASS
+not_degenerate,tfidf_A_full: share of raw-view emails flagged,20.8%,above 0% and below 100%,PASS
+not_degenerate,tfidf_B_full: share of raw-view emails flagged,20.1%,above 0% and below 100%,PASS
+not_degenerate,link_rule: share of raw-view emails flagged,55.9%,above 0% and below 100%,PASS
+run,labels,"corpus labels (attack corpora against the rest), not LLM labels",,info

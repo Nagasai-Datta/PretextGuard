@@ -1,0 +1,14 @@
+split,group_by,group,emails,both_flag,only_routed,only_flat,neither
+test,category,fraud,486,102,9,155,220
+test,category,ham,6357,6,11,29,6311
+test,category,phishing,2559,271,32,984,1272
+test,category,spam,5501,7,4,265,5225
+test,source,apache_kafka_users,158,0,2,0,156
+test,source,apache_tomcat_users,324,0,0,0,324
+test,source,kaggle_ceas08,5714,7,9,64,5634
+test,source,kaggle_enron,4368,0,0,188,4180
+test,source,kaggle_ling,428,0,0,6,422
+test,source,kaggle_nigerian_fraud,486,102,9,155,220
+test,source,nazario,1439,195,25,644,575
+test,source,phishing_pot,1120,76,7,340,697
+test,source,spamassassin,866,6,4,36,820

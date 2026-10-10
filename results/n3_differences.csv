@@ -1,0 +1,25 @@
+split,scope,system_a,system_b,metric,difference,difference_ci_low,difference_ci_high
+test,pooled attacks against ham,full,text,f1 (full minus other),-0.4007,-0.4435,-0.3504
+test,pooled attacks against ham,full,text,recall (full minus other),-0.3383,-0.3753,-0.2954
+test,pooled attacks against ham,full,text,false_alarm_rate (full minus other),-0.0022,-0.0044,0.0
+test,"pooled, emails with a checked claim",full,text,f1 (full minus other),-0.0634,-0.1359,0.0262
+test,"pooled, emails with a checked claim",full,text,recall (full minus other),-0.0698,-0.1577,0.0382
+test,"pooled, emails with a checked claim",full,text,false_alarm_rate (full minus other),0.0276,0.0082,0.0522
+test,pooled attacks against ham,full,headers,f1 (full minus other),-0.5503,-0.5926,-0.5018
+test,pooled attacks against ham,full,headers,recall (full minus other),-0.5192,-0.558,-0.4769
+test,pooled attacks against ham,full,headers,false_alarm_rate (full minus other),-0.0005,-0.003,0.0025
+test,"pooled, emails with a checked claim",full,headers,f1 (full minus other),-0.0568,-0.1192,0.0025
+test,"pooled, emails with a checked claim",full,headers,recall (full minus other),-0.0584,-0.134,0.013
+test,"pooled, emails with a checked claim",full,headers,false_alarm_rate (full minus other),0.0377,0.0055,0.0788
+test,pooled attacks against ham,full,fusion,f1 (full minus other),-0.6443,-0.6785,-0.605
+test,pooled attacks against ham,full,fusion,recall (full minus other),-0.667,-0.694,-0.6374
+test,pooled attacks against ham,full,fusion,false_alarm_rate (full minus other),-0.0053,-0.008,-0.0027
+test,"pooled, emails with a checked claim",full,fusion,f1 (full minus other),-0.2601,-0.3051,-0.2113
+test,"pooled, emails with a checked claim",full,fusion,recall (full minus other),-0.3782,-0.4276,-0.3222
+test,"pooled, emails with a checked claim",full,fusion,false_alarm_rate (full minus other),0.0025,-0.0247,0.0324
+test,pooled attacks against ham,full,flat,f1 (full minus other),-0.4203,-0.4541,-0.387
+test,pooled attacks against ham,full,flat,recall (full minus other),-0.3606,-0.3912,-0.3331
+test,pooled attacks against ham,full,flat,false_alarm_rate (full minus other),-0.0028,-0.0052,-0.0006
+test,"pooled, emails with a checked claim",full,flat,f1 (full minus other),-0.1736,-0.2143,-0.1353
+test,"pooled, emails with a checked claim",full,flat,recall (full minus other),-0.2246,-0.2725,-0.1782
+test,"pooled, emails with a checked claim",full,flat,false_alarm_rate (full minus other),0.0251,0.0052,0.0499

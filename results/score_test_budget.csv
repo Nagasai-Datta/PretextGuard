@@ -1,0 +1,10 @@
+split,kind,group,checked_n,high_n,high_pct,high_ci_low,high_ci_high,suspicious_or_high_n,suspicious_or_high_pct,suspicious_ci_low,suspicious_ci_high,budget,budget_note,top_rules,validation_checked_n,validation_suspicious_or_high_pct,validation_high_pct
+test,email,apache_kafka_users,17,0,0.0,0.0,18.43,2,11.76,3.29,34.34,info (fewer than 20),,rv_freemail:2,15,0.0,0.0
+test,email,apache_tomcat_users,17,0,0.0,0.0,18.43,0,0.0,0.0,18.43,info (fewer than 20),,,24,0.0,0.0
+test,email,kaggle_ceas08,268,0,0.0,0.0,1.41,15,5.6,3.42,9.03,OVER,Suspicious or above 5.6% is over 5% (the 95% interval still includes the budget),hv_ext_other_domain:11; rv_freemail:2; hv_auth_name_address:1; hv_sig_lookalike:1,256,3.12,0.0
+test,email,spamassassin,96,0,0.0,0.0,3.85,0,0.0,0.0,3.85,PASS,,,108,0.93,0.93
+test,email_spam,kaggle_ceas08,41,0,0.0,0.0,8.57,1,2.44,0.43,12.6,info (spam: not budgeted),,rv_freemail:1,23,4.35,0.0
+test,email_spam,spamassassin,75,2,2.67,0.73,9.21,10,13.33,7.41,22.83,info (spam: not budgeted),,rv_freemail:6; hv_auth_freemail:3; rv_reply_redirect:1,64,9.38,1.56
+test,thread,apache_kafka_users,95,0,0.0,0.0,3.89,0,0.0,0.0,3.89,PASS,,,85,1.18,0.0
+test,thread,apache_tomcat_users,201,0,0.0,0.0,1.88,2,1.0,0.27,3.55,PASS,,hv_auth_freemail:1; tv_quote_mismatch:1,294,1.02,0.0
+test,thread,enron,633,3,0.47,0.16,1.38,31,4.9,3.47,6.87,PASS,,tv_quote_mismatch:29; tv_onset_many:2,483,5.38,0.41

@@ -1,0 +1,9 @@
+split,emails,system,flagged,with_a_claim_and_rule,share_with_a_traceable_reason,strongest_feature_is_a_rule,names_the_claim_it_was_about,note
+test,attack,routed (full),414,414,1.0,,414,"every counted point comes from a ledger row: claim, evidence, rule, reason (a property of the design)"
+test,attack,flat,1512,0,0.0,0.1898,0,"the vector has no claim identity: its strongest feature can name a rule that fired somewhere, never the claim it was about (by construction)"
+test,ham,routed (full),17,17,1.0,,17,"every counted point comes from a ledger row: claim, evidence, rule, reason (a property of the design)"
+test,ham,flat,35,0,0.0,0.0286,0,"the vector has no claim identity: its strongest feature can name a rule that fired somewhere, never the claim it was about (by construction)"
+test,spam,routed (full),11,11,1.0,,11,"every counted point comes from a ledger row: claim, evidence, rule, reason (a property of the design)"
+test,spam,flat,272,0,0.0,0.0331,0,"the vector has no claim identity: its strongest feature can name a rule that fired somewhere, never the claim it was about (by construction)"
+test,all,routed (full),442,442,1.0,,442,"every counted point comes from a ledger row: claim, evidence, rule, reason (a property of the design)"
+test,all,flat,1819,0,0.0,0.1633,0,"the vector has no claim identity: its strongest feature can name a rule that fired somewhere, never the claim it was about (by construction)"

@@ -1,0 +1,6 @@
+check,item,value,expected,status
+emails,emails of the split equal results/split_counts.csv,14903,14903,PASS
+probabilities,"one row of 7 probabilities per email, all between 0 and 1",14903 x 7,14903 x 7,PASS
+claims,one claim list per email,14903,14903,PASS
+threads,every thread message belongs to the split,test,test,PASS
+run,tactic model run (the caches depend on it),2026-10-08 14:38:30,,info

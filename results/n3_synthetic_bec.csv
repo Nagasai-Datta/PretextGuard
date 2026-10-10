@@ -1,0 +1,16 @@
+split,system,role,metric,n,hits,rate,rate_ci_low,rate_ci_high,note
+test,full,attack,detection_rate,31,19.0,0.6129,0.4516,0.7742,synthetic text and synthetic headers written for this ablation; pairs are the bootstrap clusters
+test,full,benign twin,false_alarm_rate,31,0.0,0.0,0.0,0.0,synthetic text and synthetic headers written for this ablation; pairs are the bootstrap clusters
+test,full,attack minus twin,flag rate difference,31,,0.6129,0.4516,0.7742,detection rate minus false-alarm rate on the paired twins
+test,text,attack,detection_rate,31,11.0,0.3548,0.1935,0.5161,synthetic text and synthetic headers written for this ablation; pairs are the bootstrap clusters
+test,text,benign twin,false_alarm_rate,31,0.0,0.0,0.0,0.0,synthetic text and synthetic headers written for this ablation; pairs are the bootstrap clusters
+test,text,attack minus twin,flag rate difference,31,,0.3548,0.1935,0.5161,detection rate minus false-alarm rate on the paired twins
+test,headers,attack,detection_rate,31,31.0,1.0,1.0,1.0,synthetic text and synthetic headers written for this ablation; pairs are the bootstrap clusters
+test,headers,benign twin,false_alarm_rate,31,31.0,1.0,1.0,1.0,synthetic text and synthetic headers written for this ablation; pairs are the bootstrap clusters
+test,headers,attack minus twin,flag rate difference,31,,0.0,0.0,0.0,detection rate minus false-alarm rate on the paired twins
+test,fusion,attack,detection_rate,31,17.0,0.5484,0.3871,0.7419,synthetic text and synthetic headers written for this ablation; pairs are the bootstrap clusters
+test,fusion,benign twin,false_alarm_rate,31,4.0,0.129,0.0323,0.2581,synthetic text and synthetic headers written for this ablation; pairs are the bootstrap clusters
+test,fusion,attack minus twin,flag rate difference,31,,0.4194,0.1927,0.6452,detection rate minus false-alarm rate on the paired twins
+test,flat,attack,detection_rate,31,17.0,0.5484,0.3871,0.7105,synthetic text and synthetic headers written for this ablation; pairs are the bootstrap clusters
+test,flat,benign twin,false_alarm_rate,31,0.0,0.0,0.0,0.0,synthetic text and synthetic headers written for this ablation; pairs are the bootstrap clusters
+test,flat,attack minus twin,flag rate difference,31,,0.5484,0.3871,0.7105,detection rate minus false-alarm rate on the paired twins

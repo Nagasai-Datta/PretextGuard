@@ -1,0 +1,73 @@
+split,family,contrast,metric,difference,difference_ci_low,difference_ci_high
+test,distilbert,A: raw minus redacted,f1,0.0586,0.0498,0.0685
+test,distilbert,B: raw minus redacted,f1,-0.014,-0.0192,-0.009
+test,distilbert,A's drop minus B's drop,f1,0.0726,0.0612,0.0857
+test,distilbert,A minus B on raw,f1,0.0172,0.0113,0.0242
+test,distilbert,A minus B on redacted,f1,-0.0554,-0.065,-0.0465
+test,distilbert,A minus B on linkfree_redacted,f1,-0.0073,-0.0192,0.0036
+test,distilbert,A: linkfree_raw minus linkfree_redacted,f1,0.0089,0.0036,0.016
+test,distilbert,A: raw minus linkfree_raw,f1,0.0729,0.0545,0.0921
+test,distilbert,A: raw minus redacted,recall,0.1074,0.0927,0.1238
+test,distilbert,B: raw minus redacted,recall,-0.0319,-0.0404,-0.0233
+test,distilbert,A's drop minus B's drop,recall,0.1392,0.1193,0.1617
+test,distilbert,A minus B on raw,recall,0.0335,0.0232,0.0445
+test,distilbert,A minus B on redacted,recall,-0.1057,-0.1223,-0.0914
+test,distilbert,A minus B on linkfree_redacted,recall,-0.0273,-0.0438,-0.0134
+test,distilbert,A: linkfree_raw minus linkfree_redacted,recall,0.0086,0.0,0.0196
+test,distilbert,A: raw minus linkfree_raw,recall,0.0585,0.0362,0.0812
+test,distilbert,A: raw minus redacted,false_positive_rate,0.0004,-0.0007,0.0015
+test,distilbert,B: raw minus redacted,false_positive_rate,-0.0017,-0.0029,-0.0003
+test,distilbert,A's drop minus B's drop,false_positive_rate,0.0021,0.0004,0.0036
+test,distilbert,A minus B on raw,false_positive_rate,0.0003,-0.0014,0.0021
+test,distilbert,A minus B on redacted,false_positive_rate,-0.0018,-0.0036,0.0001
+test,distilbert,A minus B on linkfree_redacted,false_positive_rate,-0.0022,-0.0045,-0.0002
+test,distilbert,A: linkfree_raw minus linkfree_redacted,false_positive_rate,-0.0012,-0.0022,-0.0003
+test,distilbert,A: raw minus linkfree_raw,false_positive_rate,0.0002,-0.003,0.0031
+test,tfidf_sample,A: raw minus redacted,f1,0.0376,0.0311,0.0453
+test,tfidf_sample,B: raw minus redacted,f1,0.0025,-0.0036,0.0079
+test,tfidf_sample,A's drop minus B's drop,f1,0.035,0.0254,0.0457
+test,tfidf_sample,A minus B on raw,f1,0.0227,0.0176,0.028
+test,tfidf_sample,A minus B on redacted,f1,-0.0124,-0.0201,-0.0056
+test,tfidf_sample,A minus B on linkfree_redacted,f1,0.0016,-0.0058,0.009
+test,tfidf_sample,A: linkfree_raw minus linkfree_redacted,f1,0.0065,0.0017,0.0121
+test,tfidf_sample,A: raw minus linkfree_raw,f1,0.0568,0.0374,0.0779
+test,tfidf_sample,A: raw minus redacted,recall,0.0719,0.0611,0.0846
+test,tfidf_sample,B: raw minus redacted,recall,-0.0282,-0.0359,-0.0209
+test,tfidf_sample,A's drop minus B's drop,recall,0.1002,0.0847,0.1174
+test,tfidf_sample,A minus B on raw,recall,0.0388,0.0306,0.0472
+test,tfidf_sample,A minus B on redacted,recall,-0.0614,-0.0727,-0.0511
+test,tfidf_sample,A minus B on linkfree_redacted,recall,-0.0086,-0.0184,0.0015
+test,tfidf_sample,A: linkfree_raw minus linkfree_redacted,recall,0.0086,0.0014,0.0174
+test,tfidf_sample,A: raw minus linkfree_raw,recall,0.0149,-0.0108,0.0432
+test,tfidf_sample,A: raw minus redacted,false_positive_rate,0.0019,0.0008,0.003
+test,tfidf_sample,B: raw minus redacted,false_positive_rate,-0.0106,-0.0129,-0.0084
+test,tfidf_sample,A's drop minus B's drop,false_positive_rate,0.0125,0.0099,0.0152
+test,tfidf_sample,A minus B on raw,false_positive_rate,-0.0006,-0.0018,0.0006
+test,tfidf_sample,A minus B on redacted,false_positive_rate,-0.0131,-0.0155,-0.0107
+test,tfidf_sample,A minus B on linkfree_redacted,false_positive_rate,-0.0019,-0.0034,-0.0004
+test,tfidf_sample,A: linkfree_raw minus linkfree_redacted,false_positive_rate,-0.0005,-0.0014,0.0002
+test,tfidf_sample,A: raw minus linkfree_raw,false_positive_rate,-0.001,-0.0042,0.0023
+test,tfidf_full,A: raw minus redacted,f1,0.0345,0.0288,0.0412
+test,tfidf_full,B: raw minus redacted,f1,0.0063,0.0014,0.0107
+test,tfidf_full,A's drop minus B's drop,f1,0.0282,0.0205,0.0373
+test,tfidf_full,A minus B on raw,f1,0.0168,0.0124,0.0212
+test,tfidf_full,A minus B on redacted,f1,-0.0114,-0.0179,-0.0058
+test,tfidf_full,A minus B on linkfree_redacted,f1,-0.0007,-0.0057,0.0046
+test,tfidf_full,A: linkfree_raw minus linkfree_redacted,f1,0.0049,0.0012,0.0088
+test,tfidf_full,A: raw minus linkfree_raw,f1,0.0578,0.0394,0.0771
+test,tfidf_full,A: raw minus redacted,recall,0.0631,0.0529,0.0742
+test,tfidf_full,B: raw minus redacted,recall,-0.0194,-0.0261,-0.014
+test,tfidf_full,A's drop minus B's drop,recall,0.0824,0.0692,0.0967
+test,tfidf_full,A minus B on raw,recall,0.0309,0.0237,0.0383
+test,tfidf_full,A minus B on redacted,recall,-0.0516,-0.0608,-0.0431
+test,tfidf_full,A minus B on linkfree_redacted,recall,-0.0057,-0.0115,-0.0014
+test,tfidf_full,A: linkfree_raw minus linkfree_redacted,recall,0.0057,0.0,0.0123
+test,tfidf_full,A: raw minus linkfree_raw,recall,0.0202,-0.002,0.0443
+test,tfidf_full,A: raw minus redacted,false_positive_rate,0.0,-0.001,0.0011
+test,tfidf_full,B: raw minus redacted,false_positive_rate,-0.0095,-0.0114,-0.0076
+test,tfidf_full,A's drop minus B's drop,false_positive_rate,0.0095,0.0075,0.0118
+test,tfidf_full,A minus B on raw,false_positive_rate,-0.0001,-0.0012,0.001
+test,tfidf_full,A minus B on redacted,false_positive_rate,-0.0096,-0.0118,-0.0075
+test,tfidf_full,A minus B on linkfree_redacted,false_positive_rate,-0.0007,-0.002,0.0004
+test,tfidf_full,A: linkfree_raw minus linkfree_redacted,false_positive_rate,-0.0005,-0.0013,0.0002
+test,tfidf_full,A: raw minus linkfree_raw,false_positive_rate,-0.002,-0.0051,0.0009

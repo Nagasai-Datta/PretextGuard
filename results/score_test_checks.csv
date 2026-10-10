@@ -1,0 +1,9 @@
+check,item,value,expected,status
+counts,every email of the split is in the distribution once,14903 / 14903,equal,PASS
+counts,emails with a checked claim never exceed all emails,1302,<= 14903,PASS
+leakage_guard,emails scored equal the test column of results/split_counts.csv,14903,14903,PASS
+frozen_numbers,the score numbers equal results/score_config.csv,equal,equal,PASS
+frozen_numbers,score version,0.2,,info
+budget,"OVER (a finding, not a failure): email kaggle_ceas08",5.6; Suspicious or above 5.6% is over 5% (the 95% interval still includes the budget),within the budget,info
+budget,groups judged / within the budget / over,5 / 4 / 1,,info
+budget,spam is listed for information and never judged,2 groups,budget column says info,PASS
