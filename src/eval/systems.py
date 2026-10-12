@@ -3,7 +3,7 @@
     full      the frozen claim-routed risk score of Phase 10 (flagged at Suspicious or above, score 35 or more). It uses no attack label anywhere.
     text      text only: the seven tactic probabilities and how many claims of each type the extractor found. A logistic regression fitted on the train split.
     headers   headers only: authentication verdicts, free mailbox, look-alike of the organisation domain, Reply-To and so on, with no claim in sight. Fitted on train.
-    fusion    parallel score fusion in the style of BEC-Guard: the mean of the text score and the headers score. Two scores added; neither knows what the other is about.
+    fusion    parallel score fusion: the mean of the text score and the headers score. Two scores added; neither knows what the other is about.
     flat      the architecture ablation's classifier: every signal of the ledger as one flat vector (which rules fired anywhere, the worst severity per verifier, the tactic
               probabilities, two counts) without the link between a claim and the evidence against it. Fitted on train.
 

@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: October 2026, written at the end of Phase 13, to go with master document v3.15.2.
+Version: October 2026, written at the end of Phase 13, to go with master document v3.15.3.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -249,7 +249,7 @@ pretextguard/
                              components/ (EmailInput, ErrorBanner, Results, RiskBadge, CoverageNote, FindingsTable, ThreadTimeline, HighlightedBody, TacticList,
                              ScoreBreakdown, ClaimsTable, HeaderFindings, ResultTable, charts/)
     scripts/                 check.mjs  mutation_check.mjs  browser_check.mjs  make_examples.py
-  docs/README.md  master_document.md (v3.15.2)  PretextGuard_Master_Document.docx (Word copy of v3.15.2)  tools/build_docx.py
+  docs/README.md  master_document.md (v3.15.3)  PretextGuard_Master_Document.docx (Word copy of v3.15.3)  tools/build_docx.py  paper/ (template, source table, literature notes, drafting brief)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)  docs/figures/results/ (13 PNGs drawn from results/ by src/eval/charts.py)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
@@ -631,6 +631,8 @@ en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_
 Phase 11 added to `requirements.txt` (after the spaCy lines): fastapi==0.141.1, starlette==1.7.0, pydantic==2.13.5, uvicorn==0.53.0, slowapi==0.1.10, limits==5.8.0, httpx==0.28.1. `.env.example` gained the optional PRETEXTGUARD_* names; `pytest.ini` is unchanged from Phase 0.
 
 ---
+
+**Current work (from 12 Oct 2026):** an IEEE conference paper on the project, written in the claude.ai project "cybersec"; its files are in docs/paper/ (see docs/paper/README.md and master document Section 15 item 29), and docs/paper/PAPER_PROMPT.md is the brief for drafting it.
 
 ## 5. Next task: Phase 14, the report, the viva preparation and the Review deck update (plan not yet approved)
 

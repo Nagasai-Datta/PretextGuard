@@ -5,9 +5,10 @@ Project documents.
 | File | What it is |
 |---|---|
 | `master_document.md` | The living master document and single source of truth: problem, novelty, architecture, data plan, security, evaluation, build plan, decisions log. Updated at the end of every phase with a new version number |
-| `PretextGuard_Master_Document.docx` | The Word copy of the master document (version 3.15.2), for readers who prefer Word. `master_document.md` is the source and wins if the two differ; the Word copy is rebuilt at the end of a phase (below) |
+| `PretextGuard_Master_Document.docx` | The Word copy of the master document (version 3.15.3), for readers who prefer Word. `master_document.md` is the source and wins if the two differ; the Word copy is rebuilt at the end of a phase (below) |
 | `tools/build_docx.py` | Rebuilds the Word copy from `master_document.md` |
 | `PretextGuard_Context.md` | The handover file for a new AI chat: working agreement, environment, current state and the exact next task. Every new chat starts from this file and the master document |
+| `paper/` | The conference paper: the IEEE template, the verified source table, the literature notes and the drafting brief (see `paper/README.md`) |
 | `figures/` | The five figures used in the master document, the README and the report; `figures/results/` holds the 13 result charts drawn from `results/` by `python -m src.eval.charts` (Phase 13) |
 
 Figures:

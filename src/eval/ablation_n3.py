@@ -4,7 +4,7 @@ Run from the project root (after prepare_test for the split, and with the train 
     python -m src.eval.ablation_n3 --split validation --train-limit 20000     # a dress rehearsal (writes to data/processed/rehearsal/)
     python -m src.eval.ablation_n3 --split test                               # the one test run (needs results/eval_freeze.csv)
 
-Systems (src/eval/systems.py): full (the frozen claim-routed score), text only, headers only, parallel fusion of the two (BEC-Guard style) and, in the architecture ablation, a flat classifier.
+Systems (src/eval/systems.py): full (the frozen claim-routed score), text only, headers only, parallel fusion of the two (the mean of the two scores) and, in the architecture ablation, a flat classifier.
 All learned systems are fitted on the train split, and every learned system is held to the SAME false-alarm rate on validation ham as the frozen score (src/eval/stats.py matched_cut), so a
 system cannot win by flagging more mail. The cuts are fixed on validation and applied once to the test split.
 
