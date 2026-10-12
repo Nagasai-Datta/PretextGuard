@@ -1,10 +1,10 @@
 # PretextGuard: context for a new chat
 
-Version: October 2026, written at the end of Phase 13, to go with master document v3.15.
+Version: October 2026, written at the end of Phase 13, to go with master document v3.15.1.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
-`docs/master_document.md` (Markdown copy) or `docs/PretextGuard_Master_Document_v3.2.docx`.
+`docs/master_document.md` (Markdown, the source) or `docs/PretextGuard_Master_Document.docx` (Word copy).
 The chat has no memory of earlier conversations; these two files are everything it knows.
 
 ---
@@ -130,11 +130,10 @@ Markdown files. Large data downloads are done by Nagasai in the browser and move
 
 ### 1.4 Updating the master document
 
-`docs/master_document.md` is the living master from v3.2 on (the styled
-`PretextGuard_Master_Document_v3.2.docx` is a snapshot). Give edits as exact replacements applied by a
+`docs/master_document.md` is the living master from v3.2 on (the Word copy
+`PretextGuard_Master_Document.docx` is rebuilt from it at the end of a phase). Give edits as exact replacements applied by a
 small Python script delivered as a downloadable file (run it once from `~/Downloads`, then delete it), and make the script fail loudly if any old text is not
-found exactly once. A fresh .docx can be exported when Nagasai wants one:
-`pandoc docs/master_document.md --resource-path=docs -o docs/PretextGuard_Master_Document.docx` (needs `brew install pandoc`; `--resource-path=docs` lets pandoc find the figures).
+found exactly once. The Word copy is rebuilt with `python docs/tools/build_docx.py` (needs `brew install pandoc` and `python -m pip install python-docx`; a plain pandoc export drops the first table and is unstyled).
 
 ### 1.5 Your first reply in a new chat
 
@@ -250,7 +249,7 @@ pretextguard/
                              components/ (EmailInput, ErrorBanner, Results, RiskBadge, CoverageNote, FindingsTable, ThreadTimeline, HighlightedBody, TacticList,
                              ScoreBreakdown, ClaimsTable, HeaderFindings, ResultTable, charts/)
     scripts/                 check.mjs  mutation_check.mjs  browser_check.mjs  make_examples.py
-  docs/README.md  master_document.md (v3.15)  PretextGuard_Master_Document_v3.2.docx (snapshot)
+  docs/README.md  master_document.md (v3.15.1)  PretextGuard_Master_Document.docx (Word copy of v3.15.1)  tools/build_docx.py
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)  docs/figures/results/ (13 PNGs drawn from results/ by src/eval/charts.py)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
