@@ -22,7 +22,7 @@ Copy the printed text into `.env` as `PRETEXTGUARD_API_KEY=...`. Then:
 
 The weights (`artifacts/tactic_model/`) and `src/router/reliability.json` must be on the machine that runs the server.
 
-> **TEMPORARY: CORS is wide open for testing.** `CORS_ALLOW_ANY_ORIGIN = True` at the top of `main.py` (marked in capitals) lets a web page from any origin call the API from a browser, and `python -m src.api.main` prints a warning while it is on. **Set it to `False` before the API is ever deployed or reachable from another machine.** The key is still required on the three POST routes and the Host header check still applies; `/health` and `/results` are public data anyway. The self-test checks both settings and records the shipped one as an `info` row in `results/api_checks.csv`.
+> **CORS is open to any origin.** `CORS_ALLOW_ANY_ORIGIN = True` at the top of `main.py` lets a web page from any origin call the API from a browser (no credentials). The key is still required on the three POST routes and the Host header check still applies; `/health` and `/results` are public data anyway. The interface does not depend on it, because it calls the API through its own server. The self-test checks both settings and records the shipped one as an `info` row in `results/api_checks.csv`.
 
 ## The routes
 
@@ -72,9 +72,9 @@ Every error is JSON `{"detail": "<fixed sentence>", "code": "<code>", "request_i
 | Rate limiting | slowapi, per client address (the socket peer; `X-Forwarded-For` is never trusted): one limit for all routes together (120 a minute, counted before anything is read), a stricter one per route (30 a minute for analysis, 6 for `/explain`), moving window. The strict limits are counted before the key check, so wrong keys use up the allowance | `selftest` limits |
 | Size limits | 4,000,000 bytes per request, counted as the bytes arrive (Content-Length can lie or be missing); 300,000 bytes per email; 50 messages and 1,500,000 bytes per thread; at most 10 top-level fields; a nesting depth the JSON parser refuses; MIME nested over 20 levels is read as plain text with a coverage note | `selftest` validation and size |
 | Schemas | Pydantic, no unknown fields, no type conversion, a domain-shape check without a regular expression; one of `email` or `messages` for `/explain` | `selftest` validation |
-| Content type | A POST must be `application/json`. With no CORS and a content type that needs a preflight, a web page on another origin cannot make the browser send a request the API accepts | `selftest` validation, headers |
+| Content type | A POST must be `application/json`. A cross-site form post cannot send that content type, so it is refused; a script on another origin has to pass a preflight and still needs the key | `selftest` validation, headers |
 | Host header | Only `127.0.0.1` and `localhost` (settable): a defence against DNS rebinding | `selftest` headers |
-| No CORS (switch) | The design has no `Access-Control` header on any answer; the interface uses a same-origin proxy (Phase 12), so the key stays out of the browser. **While `CORS_ALLOW_ANY_ORIGIN = True` in `main.py` (testing only, marked TEMPORARY) every origin is allowed, preflights are answered, and `X-Request-ID` and `Retry-After` are readable by the page** | `selftest` headers (both settings) |
+| CORS (switch) | `CORS_ALLOW_ANY_ORIGIN = True` in `main.py`: every origin is allowed (no credentials), preflights are answered, and `X-Request-ID` and `Retry-After` are readable by the page; with the switch off, no answer carries an `Access-Control` header. The interface uses a same-origin proxy (Phase 12), so the key stays out of the browser either way | `selftest` headers (both settings) |
 | Response headers | `Cache-Control: no-store`, `X-Content-Type-Options: nosniff`, `Content-Security-Policy: default-src 'none'; frame-ancestors 'none'`, `X-Frame-Options: DENY`, `Referrer-Policy: no-referrer`, `Cross-Origin-Resource-Policy: same-origin`, and `X-Request-ID` on every answer including errors and 500s | `selftest` headers |
 | Docs off | `/docs`, `/redoc` and `/openapi.json` are 404 unless `PRETEXTGUARD_ENABLE_DOCS=1` | `selftest` headers |
 | Output safety | The report is checked by `check_report` (no `<`, `>` or backtick anywhere) and by the typed `Report` model; `/results` cells are made display-safe too | `selftest` xss |
@@ -129,7 +129,6 @@ One line per event on standard output, for example `{"time":"2026-10-09T12:00:00
 
 ## Known limits
 
-- **CORS is open at the moment.** See the TEMPORARY note at the top of this file. With it open, any page in your browser can send requests to the API, and the only barrier is the key; no cookies are used, so there is nothing for a page to ride on, but do not leave it on.
 - **Slow clients.** uvicorn has no timeout for a request whose headers never finish. Twenty such connections fill the 20 slots and everyone else gets 503 until they close (tested by hand). The server listens on the loopback address only; if it is ever exposed, put a reverse proxy with request timeouts in front of it.
 - **One process.** The rate limits and the lock live in memory, so they hold for one worker. A second worker would double both (and load the model twice); run one.
 - **The Vite proxy shares one client address.** Everything the interface sends comes from `127.0.0.1`, so all users of one proxy share one allowance. For a single-user demo that is intended.

@@ -92,7 +92,7 @@ One analysis request, step by step:
 | 7. Ledger and score | Contradictions add points; urgency and secrecy multiply them; 0-100 risk score | `src/router/` |
 | 8. Report | Score, highlighted phrases (LIME), findings table and plain-English reasons; the email is then discarded | `src/api/`, `src/explain/`, `frontend/` |
 
-For the David email the ledger says: claims to be internal Acme Finance, but authenticates only as gmail.com (high); Reply-To points to protonmail.com (medium); a payment request from an external freemail sender (high). Result: high risk, with the advice to call David on a number from the company directory.
+For the David email the ledger says: claims to be internal Acme Finance, but authenticates only as gmail.com (high); a payment request from outside the company, sent from a free mailbox, with replies routed to protonmail.com (high). Result: High risk, with the advice to confirm through a number from the company directory. The Reply-To is not a separate finding here: it is judged on its own only when the body says where to reply.
 
 ## 6. Build time and run time
 
@@ -153,10 +153,10 @@ No paid APIs and no LLM at run time.
 | Input validation | Size caps counted as the bytes arrive (4 MB a request, 300,000 bytes an email, 50 messages a thread), content type, Pydantic schemas that refuse unknown fields |
 | Safe parsing | Attachments are never opened or run; limits on MIME depth and thread length |
 | Output encoding | Email text, claims, reasons and highlights are drawn as text nodes: no `dangerouslySetInnerHTML`, no `innerHTML`, no markdown, no links, nothing stored in the browser; the built app is served with a strict Content-Security-Policy (own scripts only, connections to itself only); the API key is added by the interface server and is never in the bundle (`npm run check` searches for it) |
-| PII redaction | Addresses, phone and account numbers removed before any logging |
+| PII redaction | Links, email addresses, file names and domains are replaced by placeholders before any text reaches a model; bank details are masked in findings; the audit log holds no email content |
 | Rate limiting and API key | slowapi limits per client address (wrong keys count too); the key in a header, compared in constant time and checked before the body is read; the server refuses to start with a weak key |
 | Audit logging | One JSON line per event from a fixed list of fields: time, request ID, score, tactics, never content; a canary string sent everywhere must appear in no log line |
-| API hardening | Response headers (no-store, nosniff, CSP, no framing), no CORS, Host header check, docs off, fixed error messages with a request ID, loopback address, one analysis at a time |
+| API hardening | Response headers (no-store, nosniff, CSP, no framing), Host header check, docs off, fixed error messages with a request ID, loopback address, one analysis at a time; CORS is open to any origin and the key is still required |
 | Dependency hygiene | Pinned requirements; pip-audit clean |
 | Secrets | `.env` is never committed; `.env.example` lists the variable names only |
 | Safe data handling (build time) | Archives unpacked with path-traversal and size checks; file types checked by their first bytes; raw data read-only; rebuilt headers squashed onto one line (header injection) |

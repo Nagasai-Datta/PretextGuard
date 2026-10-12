@@ -1,6 +1,6 @@
 # data/synthetic/
 
-Phase 5: 240 synthetic pretexting emails with 240 matched benign twins (480 emails), written by a free-tier model (through its API, or a chat window) from fixed prompt templates. The code is `src/data/synthetic.py`.
+Phase 5: 240 planned pairs of a synthetic pretexting email and its matched benign twin, written by a free-tier model (through its API, or a chat window) from fixed prompt templates; 222 pairs (444 emails) passed the checks and are in `synthetic.csv`. The code is `src/data/synthetic.py`.
 
 ## Why it exists
 

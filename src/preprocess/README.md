@@ -56,7 +56,7 @@ The order is fixed: URLs before domains, so a link's domain is not caught on its
 - **ReDoS.** These functions will clean attacker-written email in the API, so every pattern is written to avoid catastrophic backtracking: bounded repeats, no look-ahead over long text. Testing found two real problems in the first draft: a list-footer pattern that ran for hours on 200,000 dashes, and line-break insertion that took 10 seconds on 20,000 nested `<div>` tags. Both were rewritten; across 31 crafted inputs of up to 200,000 characters the slowest now takes under two seconds.
 - **HTML as data.** HTML is parsed, never rendered; no script runs and nothing is fetched.
 - **Offline public suffix list.** `tldextract` is set up with `suffix_list_urls=()`, so it uses its built-in copy and never downloads anything.
-- **No real addresses or live links leave the machine.** `[EMAIL]` and `[URL]` also protect privacy: the Phase 5 annotation batches go to outside web chats and contain only redacted text.
+- **No real addresses or live links leave the machine.** `[EMAIL]` and `[URL]` also protect privacy: the Phase 5 annotation batches go to the free Gemini API and contain only redacted text.
 
 ## Known limits
 

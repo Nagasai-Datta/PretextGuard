@@ -69,7 +69,7 @@ Phase 5 turns the sampled emails into labels the models can learn from and be sc
 | `validate_labels.py` | Checks every reply against the schema, writes `reask_*` batches for invalid or missing items |
 | `agreement.py` | Cohen's kappa per tactic and claim type, and `tiebreak_*` batches for the tie-breaker round |
 | `labels.py` | Merges the answers into `data/labelled/labels.csv` and counts the positives |
-| `synthetic.py` | `build`, `next`, `save`, `collect`: 240 attack-and-twin pairs written by a web chat, checked and loaded |
+| `synthetic.py` | `build`, `next`, `save`, `collect`: 240 planned attack-and-twin pairs written through the free Gemini API (a chat window is the fallback), checked and loaded; 222 pairs were valid |
 | `semeval_map.py` | The 23-to-7 SemEval mapping and a check against the registered data |
 
 Run order: `batches`, then `annotate` for annotator_1 and annotator_2, `validate_labels`, `agreement`, `annotate` for tiebreaker, `labels`; `synthetic` runs on its own.
