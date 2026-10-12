@@ -174,7 +174,8 @@ pretextguard/
   artifacts/         trained model weights (not committed; README only)
   notebooks/         Colab training notebooks
   frontend/          React + Vite + Tailwind app (Phase 12)
-  docs/              master document, context file, figures, report and slides
+  demo/              made-up .eml files (bad, good and a hijacked thread) to load in the interface
+  docs/              master document, context file, figures (docs/figures/results/ holds the 13 report charts), report and slides
   tests/             test_environment.py: the setup check
   requirements.txt   exact library versions
   .env.example       names of the secrets the app needs
@@ -189,7 +190,7 @@ pretextguard/
 | 2 | Cleaning and payload-free redaction (N1) | Done |
 | 3 | Email parser and header evidence extractor | Done |
 | 4 | Keyword baseline | Done |
-| 5 | Tactic and claim labels (free web-chat annotators, Cohen's kappa), synthetic emails | Done |
+| 5 | Tactic and claim labels (two LLM annotators and a tie-breaker through Google's free API, Cohen's kappa), synthetic emails | Done |
 | 6 | DistilBERT tactic classifier on Colab | Done |
 | 7 | Claim extractor | Done |
 | 8 | Header verifier (N3) and request verifier | Done |
@@ -197,7 +198,7 @@ pretextguard/
 | 10 | Claim router, verdict ledger, risk score, LIME | Done |
 | 11 | FastAPI backend with all security controls | Done |
 | 12 | React frontend: analyzer and dashboard | Done |
-| 13 | All experiments and charts | Not started |
+| 13 | All experiments and charts (N1, N2, N3 and architecture ablations, test-split scores, 13 charts) | Done |
 | 14 | Report, viva preparation, slides | Not started |
 
 ## 13. Setup and how to run
@@ -242,7 +243,7 @@ python -m src.baseline.keywords   # keyword baseline self-test
 python -m src.baseline.build      # hit rates and sanity checks -> results/keyword_*.csv
 ```
 
-Phase 5 (labels) starts with `python -m src.data.batches` and continues as a copy-and-paste loop with two chat services; see `data/labelled/README.md` and `data/synthetic/README.md`.
+Phase 5 (labels) starts with `python -m src.data.batches` and continues with `python -m src.data.annotate check`, `auto` and `status`, which call the free Gemini API (a copy-and-paste chat loop exists only as a fallback); see `data/labelled/README.md` and `data/synthetic/README.md`.
 
 Phase 6 (tactic classifier): build the file for Colab, train on Colab with `notebooks/phase6_tactic_classifier.ipynb`, then validate on the Mac. The exact steps are in `notebooks/README.md`.
 
@@ -304,6 +305,20 @@ python -m src.eval.freeze --write
 python -m src.eval.run_all --split test --workers 4 --with-paraphrase
 python -m src.eval.charts --split test
 ```
+
+## Run the demo
+
+Two terminals, the API first (the key `PRETEXTGUARD_API_KEY` must be set in `.env`):
+
+```bash
+cd ~/Desktop/pretextguard && source venv/bin/activate && python -m src.api.main
+```
+
+```bash
+cd ~/Desktop/pretextguard/frontend && npm run build && npm run preview
+```
+
+Open <http://127.0.0.1:4173>. The `demo/` folder holds made-up emails to load with "Load a .eml file" (single emails) or "Add .eml files" (the thread); `demo/README.md` says what each one shows and which band to expect. `npm run build` is needed only after a change in `frontend/`.
 
 ## Privacy
 

@@ -244,6 +244,7 @@ pretextguard/
                      arch_systems.csv  arch_differences.csv  arch_agreement.csv  arch_reasons.csv  arch_checks.csv  style_auc.csv  style_checks.csv
                      paraphrase_results.csv  paraphrase_bands.csv  paraphrase_checks.csv
   notebooks/README.md  phase6_tactic_classifier.ipynb  phase13_n1_models.ipynb
+  demo/                      README.md  10 made-up .eml files (bad_01 to bad_06, good_01 to good_04)  thread_supplier_payment/ (4 calm messages and two fifth messages, one honest, one hijacked)
   frontend/                  README.md  package.json  package-lock.json  vite.config.js  index.html  (node_modules/ and dist/ ignored)
     src/                     main.jsx  App.jsx  api.js  index.css  pages/ (AnalyzerPage, DashboardPage)  lib/ (segments, limits, format, useAnalysis, useResult, examples)
                              components/ (EmailInput, ErrorBanner, Results, RiskBadge, CoverageNote, FindingsTable, ThreadTimeline, HighlightedBody, TacticList,

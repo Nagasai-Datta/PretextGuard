@@ -40,6 +40,13 @@ None of these files is committed or redistributed in this repository.
 | Rebuilt threads (one row per message, with the quoted history and header facts) and their cached tactic probabilities and claims | `data/processed/threads.parquet`, `data/processed/thread_features/` | No (full email text) | `src/thread/build.py`, `src/thread/features.py` | 9 |
 | The tactic classifier's probabilities for every train and validation email, so later runs do not repeat about an hour of CPU work | `data/processed/tactic_probs/` | No (derived from email text) | `src/router/build.py` | 10 |
 | The thread-hijack benchmark: plan, injected synthetic texts, raw API replies, manifest | `data/threads/` | Yes (synthetic text and ids only); the prompts are not | `src/data/hijack_benchmark.py` | 9 |
+| The N1 training sample (at most 800 emails per source and category) and a validation sample, both views of every email, for Colab; never any test row | `data/processed/n1_data.parquet` | No (full email text) | `src/eval/n1_data.py` | 13 |
+| The test split's claims, tactic probabilities and thread features, built once so no experiment repeats them (the same cache folders as above hold the test files) | `data/processed/claims_cache/`, `tactic_probs/`, `thread_features/` | No (derived from email text) | `src/eval/prepare_test.py` | 13 |
+| One table per split with the full system's score and what each simpler system sees, built once for the ablations | `data/processed/eval_features/` | No (derived from email text) | `src/eval/world.py` | 13 |
+| The N1 models' probabilities on the evaluated split | `data/processed/n1_probs/` | No | `src/eval/ablation_n1.py` | 13 |
+| Outputs of a dress rehearsal on the validation split (never the test split) | `data/processed/rehearsal/` | No | every `src/eval/` script | 13 |
+| The paraphrase test's rewritten test emails | `data/processed/paraphrase/` | No (rewrites of real test emails) | `src/eval/paraphrase.py` | 13 |
+| Made-up .eml files for trying the interface: six bad, four good and a supplier thread with a hijacked fifth message | `demo/` | Yes (all synthetic) | written by hand, checked with `analyze()` | 13 |
 
 `data/raw/` and `data/processed/` are listed in `.gitignore`: they are large, separately licensed and full of real email text. Anything in `data/processed/` can be rebuilt from `data/raw/` by rerunning the scripts.
 

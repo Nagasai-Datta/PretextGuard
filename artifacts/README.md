@@ -7,6 +7,8 @@ Trained model files: the only thing that crosses from build time to run time.
 | Path | Contents | Phase |
 |---|---|---|
 | `artifacts/tactic_model/` | The fine-tuned DistilBERT tactic classifier: `model.safetensors` (the weights, the learned numbers), `config.json` (names the seven outputs in order), the tokenizer files and `thresholds.json` (one cutoff per tactic) | 6 |
+| `artifacts/n1_model_a/` | The N1 model A: DistilBERT fine-tuned on **raw** email bodies for one question, attack or not (safetensors, config, tokenizer). Trained on Colab | 13 |
+| `artifacts/n1_model_b/` | The N1 model B: the same model fine-tuned on **redacted** bodies (links, addresses and file names replaced). Trained on Colab | 13 |
 
 Later phases may add small fitted files (for example score calibration) if they are too large or too derived to keep in `results/`; each will be listed here.
 
@@ -27,5 +29,6 @@ The weights are stored as `model.safetensors`, a format that holds only numbers.
 3. Run the Phase 6 training notebook on Google Colab (see `notebooks/README.md`).
 4. Download `phase6_outputs.zip` and move the model folder into `artifacts/tactic_model/` (the exact commands are in `notebooks/README.md`, section 4).
 5. `python -m src.models.validate` checks the model on the Mac.
+6. The two N1 models of Phase 13 are rebuilt the same way: `python -m src.eval.n1_data`, then `notebooks/phase13_n1_models.ipynb` on Colab, then the commands in `notebooks/README.md`, section "Phase 13: back on the Mac".
 
 Without step 4 this folder holds only this README.
