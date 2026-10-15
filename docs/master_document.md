@@ -14,9 +14,9 @@ Project Master Document
 
 **Faculty:** Dr. Arun Prasath G
 
-**Version:** 3.15.4, 15 October 2026
+**Version:** 3.15.5, 15 October 2026
 
-> **This is the single source of truth for the project.** Version 3.15.4 supersedes version 3.15.3 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
+> **This is the single source of truth for the project.** Version 3.15.5 supersedes version 3.15.4 and every earlier version, PretextGuard_Project_Plan_v2.md, the novelty and architecture slides in both Review-I decks, and every earlier plan discussed in chat. If anything else disagrees with this document, this document wins.
 
 **Contents**
 
@@ -2320,12 +2320,16 @@ Taught in Phase 13: the ablation (remove one component and measure again); why t
 | 15 Oct 2026 | The N1 training sample is stated as 9,856 emails (2,400 attacks), the figure in results/n1_run_info.json and n1_data_counts.csv, instead of about 9,000, in Section 8.21, src/eval, notebooks/README.md and docs/paper/PAPER_PROMPT.md | The exact count is in the result files |
 | 15 Oct 2026 | Version 3.15.4: Section 8.21 updated after the reruns (Protocol, the N3 per-source table, the style-confound line, the N1 sample), Sections 2, 14 and 15 | The per-source table had mixed ham and spam for four sources; the paper quotes none of the changed rows |
 | 15 Oct 2026 | First full draft of the conference paper (docs/paper/Paper_Draft.docx and .pdf): 5 pages in the IEEE A4 template, two author placeholders with the corresponding author marked, 28 references from the source table, every number checked against results/ | Nagasai's go-ahead on the plan, 13 Oct 2026; authors, venue and blind review are still open |
+| 15 Oct 2026 | The paper reports final results only. The logged reruns of 15 October 2026 stay in Section 8.21 and results/eval_test_log.csv, and the paper does not claim that each script read the test split once | Nagasai's decision. The reruns fixed reporting code, not a frozen component, and changed none of the paper's numbers |
+| 15 Oct 2026 | Paper draft 3: Table III (every system per source and category, after the rerun) and the per-source N1 recalls, per-tactic and per-claim-type scores, the same-kind style-confound median and the paraphrase details are added; 6 pages | The paper said results are also given per source, and there was space within 6 pages |
+| 15 Oct 2026 | Paper draft 4: a language pass over draft 3, with no em dash in the text and hyphens only in names and fixed terms (Reply-To, TF-IDF, SHA-256, payload-free, claim-routed and the like); no number, claim or reference changed | Nagasai asked for prose that reads as written by a person, with zero em dashes and very few hyphens |
+| 15 Oct 2026 | Version 3.15.5: Section 15 item 30 and Section 14 updated for paper drafts 3 and 4 | |
 
 # 15. Open items and next actions
 
 1.  **Start Phase 14** (the report, the viva preparation and the Review deck) in a new chat with docs/PretextGuard_Context.md and this document.
 
-2.  **Replace the project-file copy** with v3.15.4 (remove older copies) and keep docs/ in the repo current.
+2.  **Replace the project-file copy** with v3.15.5 (remove older copies) and keep docs/ in the repo current.
 
 3.  **Update the Review deck** when needed: novelty slide (N1, N2, N3 and the architecture contribution), the architecture diagram (Figure 2), the corrected running example (authentication passes for gmail.com), and the literature table (add Paul et al. 2024, Ho et al. 2019, Valecha et al. 2022, ConvoSentinel, ChatSpamDetector; the verified list is docs/paper/Source_Table.docx).
 
@@ -2381,7 +2385,7 @@ Taught in Phase 13: the ablation (remove one component and measure again); why t
 
 29. **The conference paper (from 12 Oct 2026):** an IEEE conference paper, 6 pages, A4, titled "Detection of Payload-Free Pretexting Emails Through Claim-Routed Verification Against Email Headers and Thread History" (the title is for the paper only). It is written in the claude.ai project "cybersec" and its files live in docs/paper/ (docs/paper/README.md): the IEEE template, the source table (every reference checked on a free page), the literature notes and PAPER_PROMPT.md, the brief a new chat follows to draft the paper. In the paper the system is called the claim-routed verification pipeline, and the repository is not named or linked anywhere in it.
 
-30. **The conference paper, draft 1 (15 Oct 2026):** docs/paper/Paper_Draft.docx and Paper_Draft.pdf, 5 of 6 pages, built in the IEEE A4 template with Fig. 1 (the pipeline, redrawn at column width), Table I (the Section 6.7 example) and Table II (pooled detection, the hijack cases, N1). Every number was checked against results/ after the reruns of 15 October 2026 (none of the paper's numbers changed). Open: the authors (two placeholder blocks, the first marked as corresponding author), the venue and whether review is double-blind; a page check in Word (the draft was rendered with a Times-metric font); the paper names and links no repository.
+30. **The conference paper, draft 4 (15 Oct 2026):** docs/paper/Paper_Draft.docx and Paper_Draft.pdf, 6 pages (the limit), built in the IEEE A4 template with Fig. 1 (the pipeline, redrawn at column width), Table I (the Section 6.7 example), Table II (pooled detection, the hijack cases, N1) and Table III (every system per source and category, from n3_systems.csv and arch_systems.csv). Every number was checked against results/ after the reruns of 15 October 2026. The paper reports final results only: the reruns are recorded in Section 8.21 and results/eval_test_log.csv, not in the paper, and the paper does not claim that each script read the test split once. Draft 4 is draft 3 after a language pass: no em dash in the text (the only two are the run-in heads Abstract and Keywords, which the IEEE template prescribes), hyphens only in names and fixed terms, typographic apostrophes; the 261 numbers, the claims and the references are unchanged. A text copy is in the claude.ai project (claude/Paper_Draft.md). Open: the authors (two placeholder blocks, the first marked as corresponding author), the venue and whether review is double-blind, Nagasai's read-through, and a page check in Word (the draft was rendered with a Times-metric font). The paper names and links no repository.
 
 # 16. Glossary
 
