@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: October 2026, written at the end of Phase 13, to go with master document v3.15.5.
+Version: October 2026, written when the project was closed, to go with master document v3.15.6.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -139,7 +139,7 @@ found exactly once. The Word copy is rebuilt with `python docs/tools/build_docx.
 
 1. Five lines confirming what the project is and where it stands.
 2. Any conflict or gap you notice between this file and the master document.
-3. The plan and background concepts for the next task (Section 5), then stop and wait for "go".
+3. What the person wants to do: the project is closed (Section 5), so answer questions from docs/Project_Explained.docx and the master document, and plan before changing anything.
 
 ---
 
@@ -249,7 +249,7 @@ pretextguard/
                              components/ (EmailInput, ErrorBanner, Results, RiskBadge, CoverageNote, FindingsTable, ThreadTimeline, HighlightedBody, TacticList,
                              ScoreBreakdown, ClaimsTable, HeaderFindings, ResultTable, charts/)
     scripts/                 check.mjs  mutation_check.mjs  browser_check.mjs  make_examples.py
-  docs/README.md  master_document.md (v3.15.5)  PretextGuard_Master_Document.docx (Word copy of v3.15.5)  tools/build_docx.py  paper/ (paper draft, template, source table, literature notes, drafting brief)
+  docs/README.md  master_document.md (v3.15.6)  PretextGuard_Master_Document.docx (Word copy of v3.15.6)  Project_Explained.docx and .pdf (the end-to-end explainer)  tools/build_docx.py  paper/ (paper draft, template, source table, literature notes, drafting brief)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)  docs/figures/results/ (13 PNGs drawn from results/ by src/eval/charts.py)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
@@ -632,24 +632,15 @@ Phase 11 added to `requirements.txt` (after the spaCy lines): fastapi==0.141.1, 
 
 ---
 
-**Current work (from 12 Oct 2026):** an IEEE conference paper on the project, written in the claude.ai project "cybersec"; its files are in docs/paper/ (see docs/paper/README.md and master document Section 15 items 29 and 30), and docs/paper/PAPER_PROMPT.md is the brief for drafting it. Draft 4 (15 Oct 2026) is docs/paper/Paper_Draft.docx and .pdf, 6 pages; it reports final results only. Still open for the paper: the authors, the venue and whether review is double-blind, Nagasai's read-through and a page check in Word.
+**Current work (from 12 Oct 2026):** an IEEE conference paper on the project, written in the claude.ai project "cybersec"; its files are in docs/paper/ (see docs/paper/README.md and master document Section 15 items 29 and 30), and docs/paper/PAPER_PROMPT.md is the brief for drafting it. Draft 4 (15 Oct 2026) is docs/paper/Paper_Draft.docx and .pdf, 6 pages; it reports final results only. The faculty evaluates the project from it and handles the authors, the venue and the submission.
 
-## 5. Next task: Phase 14, the report, the viva preparation and the Review deck update (plan not yet approved)
+## 5. Next task: none; the project is closed
 
-Full detail: master document Section 12.2 (Phase 14), Section 13 (viva preparation), Section 8.21 (every Phase 13 result), Section 15 items 3, 6, 25, 26, 27 and 28. Start by proposing the plan, then wait for "go". Fold the phase into as few steps as you can (two at most), deliver every file as a download (documents are .docx or PDF, never HTML), and end with the commit commands.
+The faculty evaluates the project from the conference paper (docs/paper/Paper_Draft.docx, master document Section 15 items 1 and 30), so Phase 14 (the report, the viva preparation and the Review deck) was cancelled on 15 October 2026 and no viva is held. Nothing is left to build.
 
-**Goal.** The deliverables of the course: the project report (about the marks rubric of Section 2.1: novelty, implementation, results, security, documentation), the viva preparation (questions and answers for every file he must explain, the 20-mark rules of Section 1.1), and the Review deck update (novelty slide with N1, N2, N3 and the architecture contribution, the architecture diagram, the corrected running example, the literature table, the results charts and screenshots). Every number in them comes from `results/` through Section 8.21; every chart is a file of `docs/figures/results/`.
+**If the new chat is about understanding or explaining the project,** start from docs/Project_Explained.docx (or .pdf): sixteen parts and a glossary that explain the project end to end for a reader who knows only basic machine learning and web development, with every number taken from results/ or the master document. Answer from it and from the master document; if they differ, the master document wins.
 
-**Notes the plan must handle**
-- **Honest reporting.** Section 15 items 26 to 28: say where a result is unwelcome; no system is called better where an interval includes 0; the labels are LLM labels from one model family; the learned comparators saw attack labels and the frozen score did not; the corpora differ; the hijack cases, the synthetic BEC headers and the paraphrases are synthetic or machine-written; one N1 sample and two seeds.
-- **Viva.** He must explain every line of his own code (minus 20 marks if he cannot, minus 30 for copied code, minus 20 for fake results). Prepare file-by-file explanations in plain language with MERN comparisons for `src/eval/stats.py`, `freeze.py`, `world.py`, `systems.py`, the ablations, `src/router/score.py`, the verifiers, the thread signals, `src/api/security.py`, `frontend/vite.config.js` and `src/lib/segments.js`.
-- **Facts checked:** the IC3 and DBIR statistics were verified in the primary reports on 12 Oct 2026 (master document Section 3.4, item 6); library versions and any URL are re-checked before they are quoted.
-- **Not done:** SemEval pretraining; the dashboard's four charts show validation results (the test charts are the report PNGs).
-- **What runs where.** Everything the report needs already exists in the repository; no new experiment runs in Phase 14. Claude Code on the web can read the pushed `results/` and `docs/figures/results/` to check every quoted number against its file.
-
-**Decisions for the plan to recommend:** the report's structure and length, which figures go in the report and which on the slides, the viva question list, whether to export a fresh .docx of the master document with pandoc, the order of the work, and what each step delivers.
-
-**Background to teach in Phase 14:** how a results section is written (claim, number, interval, caveat), what a threat to validity is, how to answer a viva question that probes the weakest part of the project, and how to present limitations as strengths of honesty rather than defects.
+**If the new chat is about changing anything,** the working agreement of Section 1.2 still applies: plan first, files to download plus exact commands, Nagasai runs Git, and the master document is updated with a new version number.
 
 ## 6. The rest of the build (details in the master document, Section 12; Phases 0 to 13 are done)
 
@@ -662,6 +653,6 @@ Full detail: master document Section 12.2 (Phase 14), Section 13 (viva preparati
 | 11 | FastAPI backend with all security controls (`src/api`): done |
 | 12 | React frontend: analyzer and dashboard (`frontend/`): done |
 | 13 | All experiments and charts (`src/eval`, `results/`, `docs/figures/results/`): done |
-| 14 | Report, viva preparation, Review deck update (`docs/`): next |
+| 14 | Report, viva preparation, Review deck update (`docs/`): cancelled; the faculty evaluates the project from the paper |
 
 No paid APIs anywhere (annotation, synthetic data and the paraphrase test use free API tiers); no LLM at run time.
