@@ -20,15 +20,15 @@ Reads  data/processed/cleaned.parquet            the emails of the split in both
        data/processed/n1_data.parquet            the sample the DistilBERT models trained on (the TF-IDF 'sample' fits use the same emails)
        artifacts/n1_model_a/, n1_model_b/        the two DistilBERT models (placed by hand after Colab)
        results/n1_run_info.json, n1_val_probs.csv  what Colab recorded; the Mac must reproduce its probabilities
-Writes results/n1_scores.csv            per model and view: attack-class precision, recall, F1, false-positive rate (all not-attack, ham, spam), and per source the recall (attack sources) or false-positive
-                                        rate (ham and spam sources); 95% intervals draw whole subject groups
+Writes results/n1_scores.csv            per model and view: attack-class precision, recall, F1, false-positive rate (all not-attack, ham, spam), and per source and category the recall (attacks) or
+                                        false-positive rate (ham, spam; a source that holds both has two rows); 95% intervals draw whole subject groups
        results/n1_differences.csv       paired differences: A raw minus redacted, B raw minus redacted, A's drop minus B's drop, A minus B per view; per model family
        results/n1_view_counts.csv       what the views contain: emails, share with a link and share changed by the redaction, per class and source
        results/n1_checks.csv            PASS/FAIL checks (counts equal Phase 2's, the Mac reproduces Colab's probabilities, scikit-learn cross-check, no test row in training)
 
 WHAT THIS CAN AND CANNOT SAY. Attacks and not-attack emails come from different corpora (phishing_pot, Nazario and Nigerian Fraud against Apache, CEAS, Enron, Ling and SpamAssassin), so a model can separate
 them by writing style or source without reading a link, and the style-confound test (style_confound.py) measures how separable the corpora are. If both models score about the same on every view, the finding is
-that link-reading is not what carries accuracy in these data, not that redaction is free in general. The labels here are corpus labels, not LLM labels. One training sample (about 9,000 emails), two seeds per
+that link-reading is not what carries accuracy in these data, not that redaction is free in general. The labels here are corpus labels, not LLM labels. One training sample (9,856 emails, 2,400 of them attacks), two seeds per
 model, one test set: the interval covers the test sample, not the training randomness. The naturally link-free attacks come mostly from Nigerian Fraud, Nazario and phishing_pot; the per-source rows show it.
 """
 
@@ -185,13 +185,16 @@ def build_tally(table, predictions, clusters):
     category = table["category"].to_numpy()
     ham, spam = category == "ham", category == "spam"
     source = table["source"].to_numpy()
-    sources = sorted(set(source))
+    # one group per source AND category: four sources hold ham and spam, and a source's ham and spam are reported apart (corrected 13 October 2026; until then the
+    # rows were per source and took the category of the source's first email)
+    sources = sorted(set(zip(source, category)))
+    in_group = [(source == s) & (category == c) for s, c in sources]
     linkfree = ~table["has_url"].to_numpy(dtype=bool)
     tally = Tally(clusters)
     for view, _, free in VIEWS:
         mask = linkfree if free else np.ones(len(table), dtype=bool)
-        for k, s in enumerate(sources):
-            tally.add("n%d_%s" % (k, view), (source == s) & mask)
+        for k in range(len(sources)):
+            tally.add("n%d_%s" % (k, view), in_group[k] & mask)
         for name, by_view in predictions.items():
             text_view = next(t for v, t, f in VIEWS if v == view)
             if text_view not in by_view:
@@ -206,8 +209,8 @@ def build_tally(table, predictions, clusters):
             tally.add("tnh_" + tag, ham & ~f & mask)
             tally.add("fps_" + tag, spam & f & mask)
             tally.add("tns_" + tag, spam & ~f & mask)
-            for k, s in enumerate(sources):
-                tally.add("s%d_%s" % (k, tag), (source == s) & f & mask)
+            for k in range(len(sources)):
+                tally.add("s%d_%s" % (k, tag), in_group[k] & f & mask)
     return tally, sources
 
 
@@ -220,7 +223,6 @@ def metric_functions(tag):
 
 
 def score_rows(table, tally, sources, predictions, split):
-    category_of = {s: table.loc[table["source"] == s, "category"].iloc[0] for s in sources}
     rows = []
     for view, text_view, _ in VIEWS:
         for name in MODELS:
@@ -234,12 +236,12 @@ def score_rows(table, tally, sources, predictions, split):
                 n = positives if metric in ("precision", "recall", "f1") else negatives
                 rows.append({"split": split, "model": name, "view": view, "scope": "overall", "metric": metric, **common.interval_cells("value", (point, low, high)), "n": n, "hits": None,
                              "note": "n counts the attacks (precision, recall, F1) or the not-attack emails (false-positive rates)"})
-            for k, s in enumerate(sources):
+            for k, (s, c) in enumerate(sources):
                 n = int(tally.point(lambda v: v["n%d_%s" % (k, view)]))
                 hits = int(tally.point(lambda v: v["s%d_%s" % (k, tag)]))
-                metric = "recall" if category_of[s] in common.ATTACK_CATEGORIES else "false_positive_rate"
+                metric = "recall" if c in common.ATTACK_CATEGORIES else "false_positive_rate"
                 interval = tally.interval(lambda v: ratio(v["s%d_%s" % (k, tag)], v["n%d_%s" % (k, view)])) if n >= common.MIN_POSITIVES else (None, None, None)
-                rows.append({"split": split, "model": name, "view": view, "scope": "source: %s (%s)" % (s, category_of[s]), "metric": metric, **common.interval_cells("value", interval), "n": n,
+                rows.append({"split": split, "model": name, "view": view, "scope": "source: %s (%s)" % (s, c), "metric": metric, **common.interval_cells("value", interval), "n": n,
                              "hits": hits, "note": "" if n >= common.MIN_POSITIVES else "fewer than %d emails: count only" % common.MIN_POSITIVES})
     return rows
 
@@ -394,6 +396,10 @@ def run(split, rerun=None, limit=0, loader=None, models_override=None):
     for name in MODELS:
         share = float(np.mean(predictions[name]["raw"]))
         checks.add("not_degenerate", "%s: share of raw-view emails flagged" % name, "%.1f%%" % (100 * share), "above 0% and below 100%", 0 < share < 1)
+    for view, _, free in VIEWS:
+        expected = int((~table["has_url"]).sum()) if free else len(table)
+        counted = sum(int(r["n"]) for r in rows if r["model"] == "distilbert_A" and r["view"] == view and r["scope"].startswith("source: ")) if "distilbert_A" in predictions else expected
+        checks.add("per_source", "emails counted by the per-source rows of the %s view (one row per source and category)" % view, counted, expected, counted == expected)
     checks.add("run", "labels", "corpus labels (attack corpora against the rest), not LLM labels", "", None)
     common.write_table(guard, "n1_checks", checks.frame())
     print()

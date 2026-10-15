@@ -11,8 +11,9 @@ system cannot win by flagging more mail. The cuts are fixed on validation and ap
 Reads  data/processed/eval_features/world_{train,validation,<split>}.parquet     the per-email answers of every system's inputs (src/eval/world.py)
        data/synthetic/synthetic.csv                                              the synthetic attack/twin pairs of the split, for the synthetic BEC arm (reported apart)
 Writes results/n3_systems.csv       per system and scope: precision, recall, F1, false-alarm rate and AUC pooled over attacks against ham (with 95% intervals over subject groups), and per source
-                                    the detection rate (attack sources), the false-alarm rate (ham sources) and the flag rate (spam sources); each also among the emails with a checked claim
-       results/n3_differences.csv   the full system minus each other system, paired: F1, recall, false-alarm rate, and per source
+                                    and category the detection rate (attack sources), the false-alarm rate (ham) and the flag rate (spam); each also among the emails with a checked claim.
+                                    Four sources hold ham and spam, so each of them has a ham row and a spam row (corrected 13 October 2026; see source_groups)
+       results/n3_differences.csv   the full system minus each other system, paired: F1, recall and false-alarm rate, pooled and among the emails with a checked claim
        results/n3_cuts.csv          each system's cut, the false-alarm rate it was held to, and what it flags on validation and on this split
        results/n3_synthetic_bec.csv synthetic colleague-impersonation emails with CLEARLY SYNTHETIC header blocks written for this ablation, and their benign twins from the organisation's own domain
        results/n3_checks.csv        PASS/FAIL checks
@@ -47,11 +48,17 @@ NAMES = ["Daniel Reed", "Sophie Turner", "Marcus Hale", "Priya Nair", "Tom Becke
 # The evaluation of a set of systems on one world table
 # ---------------------------------------------------------------------------------------------------------------------
 
+def source_groups(world):
+    """The (source, category) pairs of a world table, sorted. Four sources hold both ham and spam (CEAS-08, Kaggle Enron, Ling, SpamAssassin), so a per-source rate is computed per source AND
+    category: the false-alarm rate of a source's ham never includes its spam. (Until 13 October 2026 the rows were per source only and took the category of the source's first email.)"""
+    return sorted(set(zip(world["source"].to_numpy(), world["category"].to_numpy())))
+
+
 def build_tally(world, flag, clusters):
-    """A Tally with, for every system, the pooled outcomes (attack against ham), the same among emails with a checked claim, and per-source counts."""
+    """A Tally with, for every system, the pooled outcomes (attack against ham), the same among emails with a checked claim, and counts per source and category."""
     attack, ham, _ = systems.roles(world)
     checked = world["checked"].to_numpy(dtype=bool)
-    source = world["source"].to_numpy()
+    source, category = world["source"].to_numpy(), world["category"].to_numpy()
     tally = Tally(clusters)
     for name, f in flag.items():
         for scope, mask in (("", np.ones(len(world), dtype=bool)), ("c", checked)):
@@ -59,14 +66,21 @@ def build_tally(world, flag, clusters):
             tally.add("fp%s_%s" % (scope, name), ham & f & mask)
             tally.add("fn%s_%s" % (scope, name), attack & ~f & mask)
             tally.add("tn%s_%s" % (scope, name), ham & ~f & mask)
-    for k, s in enumerate(sorted(set(source))):
-        in_source = source == s
-        tally.add("n_%d" % k, in_source)
-        tally.add("nc_%d" % k, in_source & checked)
+    groups = source_groups(world)
+    for k, (s, c) in enumerate(groups):
+        in_group = (source == s) & (category == c)
+        tally.add("n_%d" % k, in_group)
+        tally.add("nc_%d" % k, in_group & checked)
         for name, f in flag.items():
-            tally.add("f_%s_%d" % (name, k), f & in_source)
-            tally.add("fc_%s_%d" % (name, k), f & in_source & checked)
-    return tally, sorted(set(source))
+            tally.add("f_%s_%d" % (name, k), f & in_group)
+            tally.add("fc_%s_%d" % (name, k), f & in_group & checked)
+    return tally, groups
+
+
+def group_rows_check(rows, split, emails):
+    """(emails counted by the per-source rows of the full system, all scope, the number they must equal): every email in exactly one source-and-category row."""
+    counted = sum(int(r["n"]) for r in rows if r["split"] == split and r["system"] == "full" and r["scope"].startswith("source: "))
+    return counted, emails
 
 
 def pooled_functions(name, scope):
@@ -81,7 +95,6 @@ def evaluate(world, scores, cuts, clusters, split, with_auc=True):
     flag = systems.flags(scores, cuts)
     tally, sources = build_tally(world, flag, clusters)
     attack, ham, spam = systems.roles(world)
-    category_of = {s: world.loc[world["source"] == s, "category"].iloc[0] for s in sources}
     kind_of = {"phishing": "detection_rate", "fraud": "detection_rate", "ham": "false_alarm_rate", "spam": "spam_flag_rate"}
     rows = []
     for name in [n for n in systems.ORDER if n in flag]:
@@ -98,7 +111,7 @@ def evaluate(world, scores, cuts, clusters, split, with_auc=True):
             point, low, high = auc_interval(scores[name][keep], attack[keep], np.asarray(clusters)[keep])
             rows.append({"split": split, "scope": "pooled attacks against ham", "system": name, "metric": "auc", **common.interval_cells("value", (point, low, high)), "n": int(keep.sum()),
                          "hits": None, "cut": cuts[name], "note": "threshold-free: the chance a random attack scores above a random legitimate email"})
-        for k, s in enumerate(sources):
+        for k, (s, c) in enumerate(sources):
             for scope, label in (("", "source"), ("c", "source, emails with a checked claim")):
                 prefix = "f" if scope == "" else "fc"
                 denominator = "n_%d" % k if scope == "" else "nc_%d" % k
@@ -108,7 +121,7 @@ def evaluate(world, scores, cuts, clusters, split, with_auc=True):
                     point, low, high = tally.interval(lambda v: ratio(v["%s_%s_%d" % (prefix, name, k)], v[denominator]))
                 else:
                     point = low = high = None
-                rows.append({"split": split, "scope": "%s: %s (%s)" % (label, s, category_of[s]), "system": name, "metric": kind_of[category_of[s]],
+                rows.append({"split": split, "scope": "%s: %s (%s)" % (label, s, c), "system": name, "metric": kind_of[c],
                              **common.interval_cells("value", (point, low, high)), "n": n, "hits": hits, "cut": cuts[name],
                              "note": "" if n >= common.MIN_POSITIVES else "fewer than %d items: count only" % common.MIN_POSITIVES})
     return rows, tally, sources, flag
@@ -307,6 +320,8 @@ def run(split, rerun=None, workers=1, classifier=None, thresholds=None, limit=0,
         checks.add("metrics", "hand-written AUC equals scikit-learn for every system", "%.1e" % worst_auc, "< 1e-3", worst_auc < 1e-3)
     except ImportError:
         checks.add("metrics", "scikit-learn cross-check", "scikit-learn is not installed", "", None)
+    counted, emails = group_rows_check(rows, split, len(test))
+    checks.add("per_source", "emails counted by the per-source rows (one row per source and category, so a source's ham and spam are apart)", counted, emails, counted == emails)
     checks.add("synthetic", "synthetic BEC pairs scored", int((bec_world["category"] == "bec_attack").sum()), "equal to the twins", int((bec_world["category"] == "bec_attack").sum()) == int((bec_world["category"] == "bec_benign").sum()))
     checks.add("run", "what favours the learned systems", "attack labels in the fit; corpus identity visible in the headers", "stated in the README and the report", None)
     common.write_table(guard, "n3_checks", checks.frame())

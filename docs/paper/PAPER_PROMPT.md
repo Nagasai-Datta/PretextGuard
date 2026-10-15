@@ -35,7 +35,7 @@ Master document sections to read closely: 3 (problem and threat model; 3.3 has t
 
 1. **Never fabricate.** No invented results, citations, statistics, sample sizes, user studies or comparisons.
 2. **Never overstate.** Section 8.21 ("Reading of the results", "Known limits") and Section 15 items 26 to 28 are binding. Where an interval includes 0, no system is called better. The claim-routed score is not the best pooled detector, and the paper says so in the abstract, the results and the conclusion.
-3. **State the sample wherever an evaluation number appears**, for example: 140 labelled test emails with LLM labels from one model family; 25 Apache and 51 Enron synthetic takeover cases on real threads; 31 synthetic colleague-impersonation pairs; one N1 training sample of about 9,000 emails and two seeds; corpus labels for N1.
+3. **State the sample wherever an evaluation number appears**, for example: 140 labelled test emails with LLM labels from one model family; 25 Apache and 51 Enron synthetic takeover cases on real threads; 31 synthetic colleague-impersonation pairs; one N1 training sample of 9,856 emails (2,400 attacks) and two seeds; corpus labels for N1.
 4. **Numbers exactly as the files give them**, intervals included, for example F1 0.238 [0.204, 0.277]. Money in US dollars as the primary report gives it ($3,046,598,558 in BEC losses, IC3 2025).
 5. **Cite only what the source table and the notes support.** IEEE style as the template asks: numbered in square brackets in order of first citation; all authors up to six, then et al.; titles in sentence case. The bracketed IDs of the notes (for example [A6]) are replaced by these numbers.
 6. **Keep it at the level of the idea.** Libraries and frameworks appear in one short implementation paragraph at most. No web interface, API or deployment details beyond one sentence.
@@ -47,7 +47,7 @@ Master document sections to read closely: 3 (problem and threat model; 3.3 has t
 Claims the evidence supports:
 
 - **The design.** Typed claims extracted from the body are routed to the header rules or the thread rules that can test them, and each finding is a ledger row naming the claim, the rule and the evidence. Every email the routed score flags has a claim, a rule and evidence behind it (442 of 442; the flat classifier's 1,819 flags name none). This is a property of the design, not a measured gain.
-- **N1, the payload-free protocol.** Part of a raw-trained detector's accuracy is link-reading: A's drop minus B's drop is above 0 in all three model families (DistilBERT +0.073 [+0.061, +0.086]; corpus labels; one training sample of about 9,000 emails, two seeds). Training on redacted text keeps most of the accuracy.
+- **N1, the payload-free protocol.** Part of a raw-trained detector's accuracy is link-reading: A's drop minus B's drop is above 0 in all three model families (DistilBERT +0.073 [+0.061, +0.086]; corpus labels; one training sample of 9,856 emails, two seeds). Training on redacted text keeps most of the accuracy.
 - **N2, thread consistency.** On takeover cases that change only the content, the thread verifier detects 18 of 25 Apache and 48 of 51 Enron cases, against 5 of 25 and 0 of 51 for the single-message verifiers; the cases are synthetic messages injected into real threads.
 - **The evaluation discipline.** Frozen components and a test log before the test split was read, a bootstrap over groups, a matched false-alarm cut, per-source tables and a style-confound test.
 

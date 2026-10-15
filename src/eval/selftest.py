@@ -566,6 +566,38 @@ def test_style_confound(world, check):
     check("style_confound: every AUC lies in [0, 1] and its own checks pass", checks.failed() == 0 and bool(((table["auc"] >= 0) & (table["auc"] <= 1)).all()), str(checks.frame()[checks.frame()["status"] == "FAIL"].to_dict("records")))
 
 
+@test
+def test_mixed_sources(world, check):
+    """Four real sources hold ham and spam. The per-source rows of N3, the architecture ablation and N1 must keep a source's ham and spam apart (added 13 October 2026, when the test
+    run had shown rows that took the category of a source's first email). Hand-made tables, no files."""
+    from src.eval import ablation_n1, ablation_n3
+
+    groups = [("nazario", "phishing", 12), ("spamassassin", "ham", 12), ("spamassassin", "spam", 11), ("kaggle_ceas08", "ham", 10), ("kaggle_ceas08", "spam", 13)]
+    table = pd.DataFrame([{"id": "m%s_%s_%d" % (s, c, i), "source": s, "category": c} for s, c, n in groups for i in range(n)])
+    table["checked"] = np.arange(len(table)) % 2 == 0
+    table["is_attack"] = table["category"] == "phishing"
+    table["has_url"] = np.arange(len(table)) % 3 == 0
+    clusters = table["id"].to_numpy()
+    ham = ((table["source"] == "spamassassin") & (table["category"] == "ham")).to_numpy()
+    flag = {"full": ham & (np.arange(len(table)) % 4 == 0) | (table["category"] == "spam").to_numpy()}   # flags 3 of the 12 spamassassin ham and every spam
+    rows, _, groups_seen, _ = ablation_n3.evaluate(table, {"full": flag["full"].astype(float)}, {"full": 0.5}, clusters, "test", with_auc=False)
+    per_source = {r["scope"]: r for r in rows if r["scope"].startswith("source: ")}
+    sa_ham, sa_spam = per_source.get("source: spamassassin (ham)"), per_source.get("source: spamassassin (spam)")
+    check("ablation_n3: a source with ham and spam gets one row each, and the ham row counts the ham only",
+          sa_ham is not None and sa_spam is not None and sa_ham["n"] == 12 and sa_ham["metric"] == "false_alarm_rate" and abs(sa_ham["value"] - 0.25) < 1e-4
+          and sa_spam["n"] == 11 and sa_spam["metric"] == "spam_flag_rate", str({k: (v["n"], v["metric"], v["value"]) for k, v in per_source.items()}))
+    counted, emails = ablation_n3.group_rows_check(rows, "test", len(table))
+    check("ablation_n3: the per-source rows count every email exactly once", counted == emails == len(table), "%d vs %d" % (counted, emails))
+    predictions = {name: {"raw": flag["full"], "redacted": flag["full"]} for name in ablation_n1.MODELS if name != "link_rule"}
+    predictions["link_rule"] = {"raw": table["has_url"].to_numpy(dtype=bool)}
+    tally, n1_groups = ablation_n1.build_tally(table, predictions, clusters)
+    n1_rows = [r for r in ablation_n1.score_rows(table, tally, n1_groups, predictions, "test") if r["model"] == "distilbert_A" and r["view"] == "raw" and r["scope"].startswith("source: ")]
+    ceas_ham = [r for r in n1_rows if r["scope"] == "source: kaggle_ceas08 (ham)"]
+    check("ablation_n1: per-source rows are per source and category and count every email once",
+          len(n1_rows) == len(groups) and sum(int(r["n"]) for r in n1_rows) == len(table) and len(ceas_ham) == 1 and ceas_ham[0]["n"] == 10 and ceas_ham[0]["hits"] == 0,
+          str([(r["scope"], r["n"], r["hits"]) for r in n1_rows]))
+
+
 class FakeModel:
     """A stand-in for the language model of the paraphrase test: it swaps some words (so the stand-in tactic classifier loses urgency and secrecy) and fails the first call of every run once."""
 

@@ -9,7 +9,7 @@ of the SAME kind apart (two sources of ham, two of phishing) from their words al
 The AUC says how well: 0.5 is a coin flip, 1.0 is perfect separation. The same test is run on the 7 tactic probabilities of the tactic classifier (does the model's own output carry corpus identity?) and
 on real against synthetic emails (Section 8.5's worry: LLM-written attacks against human-written ordinary mail).
 
-Reads  data/processed/cleaned.parquet            the redacted bodies of the train emails (fit) and of the split (test); at most 3,000 train emails per source, by SHA-256 order
+Reads  data/processed/cleaned.parquet            the redacted bodies of the train emails (fit) and of the split (test); at most 3,000 train emails per source and kind, by SHA-256 order
        data/processed/tactic_probs/               the cached tactic probabilities of those emails (src/router/build.py get_probs)
        data/labelled/labels.csv, data/synthetic/synthetic.csv    for the real-against-synthetic task
 Writes results/style_auc.csv      one row per pair of sources of the same kind and per feature set: AUC with a 95% interval over subject groups
@@ -17,6 +17,10 @@ Writes results/style_auc.csv      one row per pair of sources of the same kind a
 
 Two feature sets: 'words' (TF-IDF of word pairs and single words of the redacted body, logistic regression) and 'tactic probabilities' (the seven numbers of the Phase 6 classifier, logistic regression).
 A pair is fitted on the train emails of the two sources and scored on the split's emails of the two sources. 'Same kind' means the same category: ham against ham, spam against spam, attack against attack.
+Only the emails of that kind are read: four sources hold both ham and spam (CEAS-08, Kaggle Enron, Ling, SpamAssassin), so a ham pair reads their ham and a spam pair their spam.
+
+CORRECTION (13 October 2026). The first test run (10 October 2026) filtered the emails by source only, so the ham pairs of the four mixed sources also read their spam, and the six spam pairs repeated six
+ham pairs exactly. load_rows now filters by category as well, the check 'kind_filter' fails if a pair reads an email of another kind, and the test run was repeated with --rerun (results/eval_test_log.csv).
 
 WHAT THIS CAN AND CANNOT SAY. A high AUC on words is expected (collections from different years and senders differ) and is a threat to validity, not a defect: it is why the ablations report per source and why
 no pooled number is read as detection alone. A LOW AUC on the tactic probabilities would say the tactic model's output does not carry corpus identity; a high one would say it does. The test says nothing about
@@ -46,9 +50,11 @@ def order_key(email_id):
     return hashlib.sha256(("%d|style|%s" % (SEED, email_id)).encode("utf-8")).hexdigest()
 
 
-def load_rows(split, sources, cap=0):
-    """id, source, category and redacted body of the emails of these sources in one split; cap keeps the first `cap` per source in SHA-256 order."""
-    table = pd.read_parquet(paths.CLEANED_PARQUET, columns=["id", "source", "category", "split", "body_redacted"], filters=[("split", "==", split), ("source", "in", list(sources))])
+def load_rows(split, sources, categories, cap=0):
+    """id, source, category and redacted body of the emails of these sources AND these categories in one split; cap keeps the first `cap` per source in SHA-256 order.
+    The category filter matters: four sources hold both ham and spam, and a pair of the same kind must read only that kind."""
+    table = pd.read_parquet(paths.CLEANED_PARQUET, columns=["id", "source", "category", "split", "body_redacted"],
+                            filters=[("split", "==", split), ("source", "in", list(sources)), ("category", "in", list(categories))])
     table["id"] = table["id"].astype(str)
     if cap:
         table = table.assign(_key=table["id"].map(order_key)).sort_values("_key").groupby("source", group_keys=False).head(cap).drop(columns="_key")
@@ -102,15 +108,19 @@ def probability_features():
 
 
 def source_rows(split):
-    """Rows of style_auc.csv for every pair of sources of the same kind."""
+    """(rows of style_auc.csv for every pair of sources of the same kind, the emails read that are NOT of the pair's kind: one line per kind and split, empty when the filter held)."""
     all_sources = pd.read_parquet(paths.CLEANED_PARQUET, columns=["source", "category"]).drop_duplicates()
-    rows = []
+    rows, wrong_kind = [], []
     for kind, categories in KINDS.items():
         sources = sorted(all_sources[all_sources["category"].isin(categories)]["source"].unique())
         if len(sources) < 2:
             continue
-        train = load_rows("train", sources, TRAIN_PER_SOURCE)
-        test = load_rows(split, sources)
+        train = load_rows("train", sources, categories, TRAIN_PER_SOURCE)
+        test = load_rows(split, sources, categories)
+        for name, part in (("train", train), (split, test)):
+            other = int((~part["category"].isin(categories)).sum())
+            if other:
+                wrong_kind.append("%s pairs, %s emails: %d of another kind" % (kind, name, other))
         p_train, p_test = tactic_probabilities(train, "train"), tactic_probabilities(test, split)
         clusters = common.clusters_for(test["id"], split)
         for i, a in enumerate(sources):
@@ -128,7 +138,7 @@ def source_rows(split):
                     rows.append({"split": split, "task": "same-kind sources (%s)" % kind, "features": name, "group_a": a, "group_b": b, "n_train_a": int(ta.sum()), "n_train_b": int(tb.sum()),
                                  "n_test_a": int(sa.sum()), "n_test_b": int(sb.sum()), **common.interval_cells("auc", (point, low, high)),
                                  "note": "0.5 = cannot tell the two collections apart, 1.0 = perfectly separable"})
-    return rows
+    return rows, wrong_kind
 
 
 def real_against_synthetic_rows(split, classifier):
@@ -163,7 +173,8 @@ def run(split, rerun=None, classifier=None):
     if classifier is None:
         from src.models.predict import TacticClassifier
         classifier = TacticClassifier()
-    rows = source_rows(split) + real_against_synthetic_rows(split, classifier)
+    same_kind, wrong_kind = source_rows(split)
+    rows = same_kind + real_against_synthetic_rows(split, classifier)
     table = pd.DataFrame(rows)
     common.write_table(guard, "style_auc", table)
 
@@ -180,6 +191,11 @@ def run(split, rerun=None, classifier=None):
     # ---- checks
     checks.add("leakage_guard", "the fit used train emails only; the AUC was scored on the split", split, split, True)
     checks.add("counts", "pairs scored", len(table), "more than 0", len(table) > 0)
+    checks.add("kind_filter", "emails of another kind read by a same-kind pair (ham pairs read ham only, spam pairs spam only, attack pairs attacks only)",
+               "; ".join(wrong_kind) or "0", "0", not wrong_kind)
+    same = table[table["task"].str.startswith("same-kind")] if len(table) else table
+    repeated = int(same.duplicated(["features", "group_a", "group_b", "n_test_a", "n_test_b"]).sum()) if len(same) else 0
+    checks.add("kind_filter", "same-kind rows that repeat another kind's pair with the same emails", repeated, "0", repeated == 0)
     checks.add("range", "every AUC lies between 0 and 1 and every interval contains it", "ok", "ok",
                bool(((table["auc"] >= 0) & (table["auc"] <= 1)).all() and ((table["auc_ci_low"] <= table["auc"] + 1e-12) & (table["auc"] <= table["auc_ci_high"] + 1e-12)).all()))
     for features in ("words", "tactic probabilities"):

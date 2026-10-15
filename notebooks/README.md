@@ -85,7 +85,7 @@ The project's venv runs Python 3.12; Colab's own Python can differ (the Phase 6 
 
 The N1 ablation (master document Section 4.2) needs two DistilBERT models that differ only in what they read: **model A** the raw body (links, addresses and file names as they were), **model B** the redacted body (`[URL]`, `[EMAIL]`, `[DOMAIN]`, `[FILE]`). The training code is `src/eval/n1_train.py`; the notebook `phase13_n1_models.ipynb` follows the same seven steps as Phase 6, with these differences:
 
-- **The data file** is `n1_data.parquet`, made on the Mac with `python -m src.eval.n1_data`: a training sample of at most 800 emails per source and category (about 9,000 emails) and a stratified validation sample of 3,000, with both views of every email. It holds train and validation rows only; the test split never goes to Colab. Upload it to the same Drive folder `pretextguard`.
+- **The data file** is `n1_data.parquet`, made on the Mac with `python -m src.eval.n1_data`: a training sample of at most 800 emails per source and category (9,856 emails, 2,400 of them attacks) and a stratified validation sample of 3,006, with both views of every email. It holds train and validation rows only; the test split never goes to Colab. Upload it to the same Drive folder `pretextguard`.
 - **The run** trains each model with seeds 42 and 43 for two epochs (fp16 on the T4) and keeps, for each model, the seed and epoch with the best attack-class F1 on the validation sample at the fixed threshold 0.5. Expect about 40 minutes (an estimate; the time per epoch is printed).
 - **The output** is `phase13_outputs.zip` in the Drive folder: `n1_model_a/`, `n1_model_b/` (about 255 MB each), `n1_training_log.csv`, `n1_val_probs.csv` and `n1_run_info.json`.
 

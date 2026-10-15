@@ -64,6 +64,7 @@ In order: `--choose` fixes the claim operating points on the validation scores o
 | `charts.py` | The report PNGs, drawn from the results tables only (matplotlib) |
 | `run_all.py` | Runs the scripts in order for a split and prints one summary |
 | `selftest.py` | Every script on a tiny made-up project |
+| `rerun_check.py` | Compares the results of a logged rerun with the files it replaced: every row the fixed bug did not touch must be identical (writes nothing) |
 
 ## What each script writes (prefix groups the dashboard)
 
@@ -90,8 +91,18 @@ A new result file also needs its name in `RESULT_FILES` (`src/api/results.py`) b
 - **Corpora.** No source holds both attacks and ordinary mail, so a pooled F1 mixes corpus and detection. Per-source rates, the matched false-alarm rate and the style-confound test are how this is handled; none of them removes it.
 - **What favours which system.** The learned comparators are fitted on attack labels; the frozen score uses none. A headers-only model can partly learn which corpus an email came from. Both favour the learned systems.
 - **Synthetic parts.** The hijack cases, the synthetic BEC header blocks and the paraphrases are synthetic or machine-written; they test that the rules do what they are defined to do, not how often real attackers behave that way.
-- **One of each.** One N1 training sample (about 9,000 emails) and two seeds per model; intervals cover the test sample, not the training randomness.
+- **Per source means per source and category.** Four sources hold both ham and spam (CEAS-08, Kaggle Enron, Ling, SpamAssassin), so the per-source rows of N1, N3 and the architecture ablation have one row for a source's ham and one for its spam, and the style-confound pairs read only emails of their own kind. The first test run (10 October 2026) did not keep them apart; see "Reruns" below.
+- **One of each.** One N1 training sample (9,856 emails, 2,400 of them attacks; `results/n1_run_info.json`) and two seeds per model; intervals cover the test sample, not the training randomness.
 - **The paraphrase test** reads six pairs by hand for meaning; the script cannot judge it.
+
+## Reruns
+
+Each test run is logged in `results/eval_test_log.csv`; a second run of a script needs `--rerun "reason"`, and only for a bug in the evaluation script, never for a better number.
+
+| Date | Scripts | Bug | What changed in the results |
+|---|---|---|---|
+| 13 Oct 2026 | `style_confound.py` | The same-kind pairs filtered emails by source only: the ham pairs of the four sources that hold ham and spam also read their spam, and the six spam pairs repeated six ham pairs | The same-kind rows of `style_auc.csv`; the real-against-synthetic rows are unchanged |
+| 13 Oct 2026 | `ablation_n3.py`, `ablation_arch.py`, `ablation_n1.py` | Each per-source row took the category of the source's first email, so for the four mixed sources one row covered ham and spam under one label | The per-source rows of `n3_systems.csv`, `arch_systems.csv` and `n1_scores.csv` (now one per source and category); every pooled and overall row is unchanged, which `rerun_check.py` verifies |
 
 ## Security and privacy
 

@@ -8,8 +8,8 @@ Writes data/processed/n1_data.parquet     the training SAMPLE (at most 800 email
                                           emails, with both views of every email (never committed: it holds full email text)
        results/n1_data_counts.csv         emails, attacks and share with a link per split, source and category (counts only)
 
-WHY A SAMPLE. The free Colab GPU would need about three hours to train two models on all 69,542 train emails for two epochs, and a free session can end earlier. A sample of about 9,000 emails (the same
-for both models) trains each model in a few minutes per epoch. The TF-IDF models are fitted twice, on this same sample and on the whole train split, so the effect of the sample can be seen. The
+WHY A SAMPLE. The free Colab GPU would need about three hours to train two models on all 69,542 train emails for two epochs, and a free session can end earlier. A sample of 9,856 emails (2,400 attacks; the
+same for both models; results/n1_data_counts.csv and n1_run_info.json) trains each model in a few minutes per epoch. The TF-IDF models are fitted twice, on this same sample and on the whole train split, so the effect of the sample can be seen. The
 sample takes the same number from each source and category, so a huge source (CEAS has 26,000 train emails) cannot drown the small ones.
 
 THE TASK. Attack against not-attack, as in Phase 2's link-free counts: attack = phishing and fraud (is_attack), not-attack = ham and spam. The false-positive rate is reported for ham and for spam apart,

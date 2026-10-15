@@ -10,7 +10,7 @@ elsewhere" from "the sender mentions the CFO and, separately, the Reply-To diffe
 rate on validation ham as the frozen score (src/eval/systems.py).
 
 Reads  data/processed/eval_features/world_{train,validation,<split>}.parquet     (src/eval/world.py)
-Writes results/arch_systems.csv     routed (full) and flat: pooled precision, recall, F1, false-alarm rate, AUC with 95% intervals over subject groups; per-source rates; each also among the emails
+Writes results/arch_systems.csv     routed (full) and flat: pooled precision, recall, F1, false-alarm rate, AUC with 95% intervals over subject groups; rates per source and category (a source's ham and spam apart); each also among the emails
                                     with a checked claim
        results/arch_differences.csv routed minus flat, paired
        results/arch_agreement.csv   per category and source: how many emails both flag, only the routed score flags, only the flat classifier flags, neither
@@ -147,6 +147,8 @@ def run(split, rerun=None, workers=1, classifier=None, thresholds=None, limit=0,
     both = agreement[agreement["group_by"] == "category"]
     checks.add("counts", "the agreement table accounts for every email of the split", int(both["emails"].sum()), len(test),
                int(both["emails"].sum()) == len(test) and bool((both["both_flag"] + both["only_routed"] + both["only_flat"] + both["neither"] == both["emails"]).all()))
+    counted, emails = ablation_n3.group_rows_check(rows, split, len(test))
+    checks.add("per_source", "emails counted by the per-source rows (one row per source and category, so a source's ham and spam are apart)", counted, emails, counted == emails)
     common.write_table(guard, "arch_checks", checks.frame())
     print()
     checks.print()
