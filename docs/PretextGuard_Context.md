@@ -1,6 +1,6 @@
 # PretextGuard: context for a new chat
 
-Version: October 2026, written at the end of Phase 13, to go with master document v3.15.3.
+Version: October 2026, written at the end of Phase 13, to go with master document v3.15.4.
 
 **How to use this file.** Paste this whole file (or attach it) as the first message of any new chat:
 claude.ai, Claude Code on the web, or another assistant. Also give the chat the master document,
@@ -249,7 +249,7 @@ pretextguard/
                              components/ (EmailInput, ErrorBanner, Results, RiskBadge, CoverageNote, FindingsTable, ThreadTimeline, HighlightedBody, TacticList,
                              ScoreBreakdown, ClaimsTable, HeaderFindings, ResultTable, charts/)
     scripts/                 check.mjs  mutation_check.mjs  browser_check.mjs  make_examples.py
-  docs/README.md  master_document.md (v3.15.3)  PretextGuard_Master_Document.docx (Word copy of v3.15.3)  tools/build_docx.py  paper/ (template, source table, literature notes, drafting brief)
+  docs/README.md  master_document.md (v3.15.4)  PretextGuard_Master_Document.docx (Word copy of v3.15.4)  tools/build_docx.py  paper/ (template, source table, literature notes, drafting brief)
   docs/PretextGuard_Context.md (this file)  docs/figures/ (5 PNGs)  docs/figures/results/ (13 PNGs drawn from results/ by src/eval/charts.py)
   src/README.md
   src/data/                  README.md  paths.py  unpack.py  fetch_apache.py  loaders.py  stage.py
