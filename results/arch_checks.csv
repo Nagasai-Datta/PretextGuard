@@ -7,3 +7,4 @@ not_degenerate,full: share of all emails of the split flagged,2.97%,above 0% and
 not_degenerate,flat: share of all emails of the split flagged,12.21%,above 0% and below 100%,PASS
 metrics,hand-written pooled F1 and AUC equal scikit-learn for both systems,3.7e-05,< 1e-3,PASS
 counts,the agreement table accounts for every email of the split,14903,14903,PASS
+per_source,"emails counted by the per-source rows (one row per source and category, so a source's ham and spam are apart)",14903,14903,PASS

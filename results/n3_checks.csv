@@ -13,5 +13,6 @@ not_degenerate,fusion: share of all emails of the split flagged,19.31%,above 0% 
 not_degenerate,flat: share of all emails of the split flagged,12.21%,above 0% and below 100%,PASS
 metrics,hand-written pooled F1 equals scikit-learn for every system,3.8e-05,< 1e-3,PASS
 metrics,hand-written AUC equals scikit-learn for every system,3.0e-05,< 1e-3,PASS
+per_source,"emails counted by the per-source rows (one row per source and category, so a source's ham and spam are apart)",14903,14903,PASS
 synthetic,synthetic BEC pairs scored,31,equal to the twins,PASS
 run,what favours the learned systems,attack labels in the fit; corpus identity visible in the headers,stated in the README and the report,info

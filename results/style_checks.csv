@@ -1,6 +1,8 @@
 check,item,value,expected,status
 leakage_guard,the fit used train emails only; the AUC was scored on the split,test,test,PASS
 counts,pairs scored,52,more than 0,PASS
+kind_filter,"emails of another kind read by a same-kind pair (ham pairs read ham only, spam pairs spam only, attack pairs attacks only)",0,0,PASS
+kind_filter,same-kind rows that repeat another kind's pair with the same emails,0,0,PASS
 range,every AUC lies between 0 and 1 and every interval contains it,ok,ok,PASS
-summary,words: median AUC over same-kind source pairs,0.992,,info
-summary,tactic probabilities: median AUC over same-kind source pairs,0.727,,info
+summary,words: median AUC over same-kind source pairs,0.996,,info
+summary,tactic probabilities: median AUC over same-kind source pairs,0.693,,info

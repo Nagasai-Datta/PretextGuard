@@ -16,4 +16,8 @@ not_degenerate,tfidf_B_sample: share of raw-view emails flagged,19.6%,above 0% a
 not_degenerate,tfidf_A_full: share of raw-view emails flagged,20.8%,above 0% and below 100%,PASS
 not_degenerate,tfidf_B_full: share of raw-view emails flagged,20.1%,above 0% and below 100%,PASS
 not_degenerate,link_rule: share of raw-view emails flagged,55.9%,above 0% and below 100%,PASS
+per_source,emails counted by the per-source rows of the raw view (one row per source and category),14903,14903,PASS
+per_source,emails counted by the per-source rows of the redacted view (one row per source and category),14903,14903,PASS
+per_source,emails counted by the per-source rows of the linkfree_raw view (one row per source and category),6576,6576,PASS
+per_source,emails counted by the per-source rows of the linkfree_redacted view (one row per source and category),6576,6576,PASS
 run,labels,"corpus labels (attack corpora against the rest), not LLM labels",,info

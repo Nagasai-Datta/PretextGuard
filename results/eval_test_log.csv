@@ -19,3 +19,11 @@ time_utc,script,split,event,freeze_digest,reason
 2026-10-10 13:01:39,style_confound,test,finished,64e769a7b217cea6,
 2026-10-10 13:01:42,paraphrase,test,started,64e769a7b217cea6,
 2026-10-10 13:08:19,paraphrase,test,finished,64e769a7b217cea6,
+2026-10-15 09:56:33,style_confound,test,started,64e769a7b217cea6,same-kind pairs read emails of another kind (no category filter)
+2026-10-15 09:57:56,style_confound,test,finished,64e769a7b217cea6,same-kind pairs read emails of another kind (no category filter)
+2026-10-15 09:57:59,ablation_n3,test,started,64e769a7b217cea6,per-source rows took the category of a source's first email; now per source and category
+2026-10-15 09:58:05,ablation_n3,test,finished,64e769a7b217cea6,per-source rows took the category of a source's first email; now per source and category
+2026-10-15 09:58:08,ablation_arch,test,started,64e769a7b217cea6,per-source rows took the category of a source's first email; now per source and category
+2026-10-15 09:58:10,ablation_arch,test,finished,64e769a7b217cea6,per-source rows took the category of a source's first email; now per source and category
+2026-10-15 09:58:15,ablation_n1,test,started,64e769a7b217cea6,per-source rows took the category of a source's first email; now per source and category
+2026-10-15 09:59:16,ablation_n1,test,finished,64e769a7b217cea6,per-source rows took the category of a source's first email; now per source and category
